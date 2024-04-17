@@ -1,0 +1,1846 @@
+{
+    "adition_advertising_query_string": "stype:vod,scat:film-serie,scatid:2703833,spro:ad-vorstadtweiber-staffel-2,sproid:13895877,episodeid:14204417,duration:2792317,advertisingtags:",
+    "advertising_mapping": {
+        "live": {
+            "web": {
+                "sb": 4420063,
+                "tbar": 4420064,
+                "pre": 4420065,
+                "post": 4420066
+            },
+            "mob": {
+                "par": 4420067,
+                "pre": 4420221,
+                "post": 4420069
+            },
+            "app": {
+                "par": 4420070,
+                "pre": 4420071,
+                "post": 4420072
+            },
+            "smart": {
+                "pre": 4420073,
+                "post": 4420074
+            }
+        },
+        "vod": {
+            "web": {
+                "sb": 4420438,
+                "tbar": 4420439,
+                "pre": 4420440,
+                "post": 4420441
+            },
+            "mob": {
+                "par": 4420442,
+                "pre": 4420443,
+                "post": 4420444
+            },
+            "app": {
+                "par": 4420445,
+                "pre": 4420446,
+                "post": 4420447
+            },
+            "smart": {
+                "pre": 4420448,
+                "post": 4420449
+            }
+        }
+    },
+    "advertising_query_string": "stype=vod&scat=film-serie&scatid=2703833&spro=ad-vorstadtweiber-staffel-2&sproid=13895877&episodeid=14204417&duration=2792317&advertisingtags=",
+    "age_classification": "",
+    "audio_description_service_available": false,
+    "countdown": "97 Tage",
+    "date": "2023-12-06T23:07:52+01:00",
+    "delete_date": "2024-06-13T00:49:52+02:00",
+    "vod_ressort": null,
+    "description": "Chaos wegen der Entf\u00fchrung von Waltrauds Baby. Die betrunkene Sylvia sagt, sie habe Simon vor der T\u00fcre gesehen. Waltraud ist sofort klar, dass nur Simon der Entf\u00fchrer sein kann. Den trifft sie zuhause, wo er gerade packt, um abzuhauen. Er beteuert, das Baby nicht entf\u00fchrt zu haben. W\u00e4hrenddessen rast Vanessa mit ihrem Wagen durch die Stadt, verheult, \u00fcberdreht, ein Baby am R\u00fccksitz. Daheim angekommen, tauscht sie die Babys und rast wieder davon. Vanessa konfrontiert Dr. Heldt mit der Tatsache, dass er der Vater ihres Kindes ist und die Babys bei der Geburt vertauscht hat, um somit den Vaterschaftstest zu f\u00e4lschen. Benachrichtigt von der Auffindung des Babys fahren alle Richtung Klinik. Vor ihren Augen wird die v\u00f6llig betrunkene Sylvia von Vanessa angefahren und schwer verletzt.\r\n\r\nBildquelle: ORF\/MR Film\/Petro Domenigg",
+    "drm_token": null,
+    "duration_seconds": 2792,
+    "encrypted_id": "M2RTbGZlazAzbnNMS2RqNEpzZDE0MjA0NDE3",
+    "exact_duration": 2792317,
+    "field_descriptor": "",
+    "flimmit_link_text": "",
+    "flimmit_link": "",
+    "gapless_sources_austria": {
+        "hls": [],
+        "dash": []
+    },
+    "genre_id": 2703833,
+    "genre_title": "Film & Serie",
+    "right": "austria",
+    "growing": true,
+    "growing_type": "chronology",
+    "has_active_youth_protection": false,
+    "focus": false,
+    "show_countdown": true,
+    "has_subtitle": true,
+    "has_thumbnail": true,
+    "has_youth_protection": false,
+    "headline": "AD | Vorstadtweiber: Folge 18",
+    "hide_in_new_section": false,
+    "hide_in_schedule_section": false,
+    "hide_latest_episodes": false,
+    "id": 14204417,
+    "is_archive": false,
+    "is_drm_protected": false,
+    "is_gapless_austria": false,
+    "is_gapless": true,
+    "gmf_merged_content": false,
+    "is_oegs": false,
+    "two_channel_audio": false,
+    "uhd": false,
+    "killdate_extern": "2024-06-06T00:49:52+02:00",
+    "killdate": "2024-06-06T00:49:52+02:00",
+    "livedate": "2023-12-30T10:00:00+01:00",
+    "livedate_extern": "2023-12-30T10:00:00+01:00",
+    "orf_label": null,
+    "disable_display_ads_orf_platforms": false,
+    "disable_instream_ads_orf_platforms": false,
+    "production_country_is_europe": false,
+    "production_country": null,
+    "production_year": null,
+    "profile_title": "AD | Vorstadtweiber Staffel 2",
+    "website": "",
+    "recommendation_episode": null,
+    "related_audiodescription_episode_image_url": null,
+    "related_audiodescription_episode_title": null,
+    "related_oegs_episode_image_url": null,
+    "related_oegs_episode_title": null,
+    "release_date": "2023-12-07T00:52:02+01:00",
+    "secondary_genres": [],
+    "segments_complete": true,
+    "episodes_reference": "",
+    "share_body": "https:\/\/tvthek.orf.at\/profile\/AD-Vorstadtweiber-Staffel-2\/13895877\/AD-Vorstadtweiber-Folge-18\/14204417",
+    "share_subject": "AD | Vorstadtweiber: Folge 18 vom 06.12.2023 um 23:07 Uhr",
+    "show_display_ads": true,
+    "show_instream_ads": true,
+    "sources": {
+        "hls": [
+            {
+                "is_uhd": false,
+                "quality_key": "QXA",
+                "quality_description": "Adaptiv",
+                "src": "https:\/\/apasfiis.sf.apa.at\/ipad\/cms-austria\/2023-12-06_2307_sd_01_AD---Vorstadtwe_____14204417__o__8792736916__s15524266_6__ORF1ADHD_23092909P_23560117P_QXA.mp4\/playlist.m3u8",
+                "is_adaptive_stream": true,
+                "is_drm_protected": false
+            },
+            {
+                "is_uhd": false,
+                "quality_key": "QXB",
+                "quality_description": "Adaptiv",
+                "src": "https:\/\/apasfiis.sf.apa.at\/ipad\/cms-austria\/2023-12-06_2307_sd_01_AD---Vorstadtwe_____14204417__o__8792736916__s15524266_6__ORF1ADHD_23092909P_23560117P_QXB.mp4\/playlist.m3u8",
+                "is_adaptive_stream": true,
+                "is_drm_protected": false
+            }
+        ],
+        "dash": [
+            {
+                "is_uhd": false,
+                "quality_key": "QXA",
+                "quality_description": "Adaptiv",
+                "src": "https:\/\/apasfiis.sf.apa.at\/dash\/cms-austria\/2023-12-06_2307_sd_01_AD---Vorstadtwe_____14204417__o__8792736916__s15524266_6__ORF1ADHD_23092909P_23560117P_QXA.mp4\/manifest.mpd",
+                "is_adaptive_stream": true,
+                "is_drm_protected": false
+            },
+            {
+                "is_uhd": false,
+                "quality_key": "QXB",
+                "quality_description": "Adaptiv",
+                "src": "https:\/\/apasfiis.sf.apa.at\/dash\/cms-austria\/2023-12-06_2307_sd_01_AD---Vorstadtwe_____14204417__o__8792736916__s15524266_6__ORF1ADHD_23092909P_23560117P_QXB.mp4\/manifest.mpd",
+                "is_adaptive_stream": true,
+                "is_drm_protected": false
+            }
+        ]
+    },
+    "sub_headline": "Staffel 2",
+    "teaser_text": "Chaos wegen der Entf\u00fchrung von Waltrauds Baby. Die betrunkene Sylvia sagt, sie habe Simon vor der T\u00fcre gesehen. Waltraud ist sofort klar, dass nur Simon der Entf\u00fchrer sein kann. Den trifft sie zuhause, wo er gerade packt, um abzuhauen. Er beteuert, das Baby nicht entf\u00fchrt zu haben. W\u00e4hrenddessen rast Vanessa mit ihrem Wagen durch die Stadt, verheult, \u00fcberdreht, ein Baby am R\u00fccksitz. Daheim angekommen, tauscht sie die Babys und rast wieder davon. Vanessa konfrontiert Dr. Heldt mit der Tatsache, dass er der Vater ihres Kindes ist und die Babys bei der Geburt vertauscht hat, um somit den Vaterschaftstest zu f\u00e4lschen. Benachrichtigt von der Auffindung des Babys fahren alle Richtung Klinik. Vor ihren Augen wird die v\u00f6llig betrunkene Sylvia von Vanessa angefahren und schwer verletzt.\r\n\r\nBildquelle: ORF\/MR Film\/Petro Domenigg",
+    "teaser_title": null,
+    "text": null,
+    "thumbnail_activated": true,
+    "thumbnail_distributed": false,
+    "thumbnail_folder": null,
+    "thumbnail_sources": {
+        "hls": [
+            {
+                "quality_key": "Q6A",
+                "src": "https:\/\/apasfiis.sf.apa.at\/ipad\/cms-preview-clips\/2023-12-06_2307_sd_01_AD---Vorstadtwe_____14204417__o__8792736916__s15524266_6__ORF1ADHD_23092909P_23560117P_clip_Q6A.mp4\/playlist.m3u8"
+            },
+            {
+                "quality_key": "Q8C",
+                "src": "https:\/\/apasfiis.sf.apa.at\/ipad\/cms-preview-clips\/2023-12-06_2307_sd_01_AD---Vorstadtwe_____14204417__o__8792736916__s15524266_6__ORF1ADHD_23092909P_23560117P_clip_Q8C.mp4\/playlist.m3u8"
+            }
+        ],
+        "dash": [
+            {
+                "quality_key": "Q6A",
+                "src": "https:\/\/apasfiis.sf.apa.at\/dash\/cms-preview-clips\/2023-12-06_2307_sd_01_AD---Vorstadtwe_____14204417__o__8792736916__s15524266_6__ORF1ADHD_23092909P_23560117P_clip_Q6A.mp4\/manifest.mpd"
+            },
+            {
+                "quality_key": "Q8C",
+                "src": "https:\/\/apasfiis.sf.apa.at\/dash\/cms-preview-clips\/2023-12-06_2307_sd_01_AD---Vorstadtwe_____14204417__o__8792736916__s15524266_6__ORF1ADHD_23092909P_23560117P_clip_Q8C.mp4\/manifest.mpd"
+            }
+        ]
+    },
+    "sprite_sources": [],
+    "title": "AD | Vorstadtweiber: Folge 18",
+    "type": "default",
+    "updated_at": "2024-02-21T16:29:11+01:00",
+    "video_type": "episode",
+    "youth_protection_type": "limited-20-06",
+    "_links": {
+        "self": {
+            "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/episode\/14204417"
+        },
+        "channel": {
+            "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/channel\/4391789"
+        },
+        "profile": {
+            "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/13895877"
+        },
+        "segments": {
+            "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/episode\/14204417\/segments"
+        },
+        "tags": {
+            "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/episode\/14204417\/tags"
+        },
+        "advertising_tags": {
+            "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/episode\/14204417\/advertising\/tags"
+        },
+        "links": {
+            "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/episode\/14204417\/links"
+        },
+        "image": {
+            "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16333208"
+        },
+        "image16x9_with_logo": {
+            "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16333208"
+        },
+        "image2x3_with_logo": {
+            "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16514906"
+        },
+        "image2x3": {
+            "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16596204"
+        },
+        "subtitle": {
+            "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/subtitle\/875659"
+        },
+        "related_episodes": {
+            "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/episode\/14204417\/related"
+        },
+        "parent": {
+            "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/episode\/14204206"
+        }
+    },
+    "_embedded": {
+        "channel": {
+            "bitmovin_stream_id": null,
+            "channel_restart_url_hbbtv": null,
+            "id": 4391789,
+            "is_drm_protected": true,
+            "is_main_channel": false,
+            "name": "ORF 1 (AD)",
+            "reel": "orf1ad",
+            "updated_at": "2023-02-28T10:37:40+01:00",
+            "_links": {
+                "self": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/channel\/4391789"
+                },
+                "parent": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/channel\/1180"
+                },
+                "children": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/channel\/4391789\/children"
+                },
+                "color_logo": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/14982592"
+                },
+                "black_and_white_logo": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/14982593"
+                }
+            },
+            "_embedded": {
+                "parent": {
+                    "bitmovin_stream_id": "f9a36691-7bd7-4c36-9009-a0b9d7009b29",
+                    "channel_restart_url_hbbtv": "https:\/\/playerapi-restarttv.ors.at\/livestreams\/f9a36691-7bd7-4c36-9009-a0b9d7009b29\/sections\/?state=active&X-Api-Key=66ae5065a94f40f9b00f7de4a9f96ead",
+                    "id": 1180,
+                    "is_drm_protected": true,
+                    "is_main_channel": true,
+                    "name": "ORF 1",
+                    "reel": "orf1",
+                    "updated_at": "2024-02-28T16:06:34+01:00",
+                    "_links": {
+                        "self": {
+                            "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/channel\/1180"
+                        },
+                        "children": {
+                            "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/channel\/1180\/children"
+                        },
+                        "color_logo": {
+                            "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/13457917"
+                        },
+                        "black_and_white_logo": {
+                            "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/13457918"
+                        },
+                        "audio_description_channel": {
+                            "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/channel\/4391789"
+                        }
+                    },
+                    "_embedded": {
+                        "parent": null,
+                        "color_logo": {
+                            "public_urls": {
+                                "tiny": {
+                                    "url": "https:\/\/api-tvthek.orf.at\/assets\/channels\/0135\/58\/thumb_13457917_channels_tiny.png"
+                                },
+                                "list": {
+                                    "url": "https:\/\/api-tvthek.orf.at\/assets\/channels\/0135\/58\/thumb_13457917_channels_list.png"
+                                },
+                                "schedule": {
+                                    "url": "https:\/\/api-tvthek.orf.at\/assets\/channels\/0135\/58\/thumb_13457917_channels_schedule.png"
+                                },
+                                "reference": {
+                                    "url": "https:\/\/api-tvthek.orf.at\/assets\/channels\/0135\/58\/e88267e73205e46affb97e99d34f715f74bd1f1b.png"
+                                }
+                            },
+                            "dynamic_color": "#691f11"
+                        },
+                        "black_and_white_logo": {
+                            "public_urls": {
+                                "tiny": {
+                                    "url": "https:\/\/api-tvthek.orf.at\/assets\/channels\/0135\/58\/thumb_13457918_channels_tiny.png"
+                                },
+                                "list": {
+                                    "url": "https:\/\/api-tvthek.orf.at\/assets\/channels\/0135\/58\/thumb_13457918_channels_list.png"
+                                },
+                                "schedule": {
+                                    "url": "https:\/\/api-tvthek.orf.at\/assets\/channels\/0135\/58\/thumb_13457918_channels_schedule.png"
+                                },
+                                "reference": {
+                                    "url": "https:\/\/api-tvthek.orf.at\/assets\/channels\/0135\/58\/b1b2c5b46edc8fdb3781957de434fbeeed4e8e44.png"
+                                }
+                            },
+                            "dynamic_color": "#691f11"
+                        }
+                    }
+                },
+                "color_logo": {
+                    "public_urls": {
+                        "tiny": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/channels\/0150\/83\/thumb_14982592_channels_tiny.png"
+                        },
+                        "list": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/channels\/0150\/83\/thumb_14982592_channels_list.png"
+                        },
+                        "schedule": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/channels\/0150\/83\/thumb_14982592_channels_schedule.png"
+                        },
+                        "reference": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/channels\/0150\/83\/a2d44048d90090e45d9aed112d32c3b749f03459.png"
+                        }
+                    },
+                    "dynamic_color": "#691f11"
+                },
+                "black_and_white_logo": {
+                    "public_urls": {
+                        "tiny": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/channels\/0150\/83\/thumb_14982593_channels_tiny.png"
+                        },
+                        "list": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/channels\/0150\/83\/thumb_14982593_channels_list.png"
+                        },
+                        "schedule": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/channels\/0150\/83\/thumb_14982593_channels_schedule.png"
+                        },
+                        "reference": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/channels\/0150\/83\/bbb6a6216b6ab326ecbe04df31c6f118a4755a4e.png"
+                        }
+                    },
+                    "dynamic_color": "#691f11"
+                }
+            }
+        },
+        "profile": {
+            "audio_description": true,
+            "break_text": null,
+            "break_title": null,
+            "dataset_name": "",
+            "description": "Gelangweilte Society-Damen in Wiens Nobelbezirken",
+            "has_active_youth_protection": false,
+            "has_youth_protection": false,
+            "headline": "AD | Vorstadtweiber Staffel 2",
+            "hide_in_letter_group": false,
+            "id": 13895877,
+            "letter_group": "V",
+            "livestream_sub_headline": null,
+            "oegs": false,
+            "oewa_base_path": "Redcont\/KulturUndFreizeit\/FilmUndKino",
+            "profile_website": null,
+            "secondary_genres": [],
+            "sub_headline": null,
+            "title": "AD | Vorstadtweiber Staffel 2",
+            "type": "temporary",
+            "updated_at": "2023-12-22T17:37:41+01:00",
+            "youth_protection_type": "limited-20-06",
+            "_links": {
+                "self": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/13895877"
+                },
+                "image": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16514905"
+                },
+                "image16x9_with_logo": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16514905"
+                },
+                "image2x3_with_logo": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16514906"
+                },
+                "image2x3": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16596204"
+                },
+                "genre": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/genre\/2703833"
+                },
+                "links": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/13895877\/links"
+                },
+                "episodes": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/13895877\/episodes"
+                },
+                "related_profiles": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/13895877\/related"
+                },
+                "latest_episode": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/13895877\/episode\/latest"
+                },
+                "tags": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/13895877\/tags"
+                },
+                "advertising_tags": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/13895877\/advertising\/tags"
+                }
+            },
+            "_embedded": {
+                "image": {
+                    "public_urls": {
+                        "highlight_teaser": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0166\/15\/thumb_16514905_profiles_highlight_teaser.jpeg"
+                        },
+                        "player": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0166\/15\/thumb_16514905_profiles_player.jpeg"
+                        },
+                        "list": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0166\/15\/thumb_16514905_profiles_list.jpeg"
+                        },
+                        "small": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0166\/15\/thumb_16514905_profiles_small.jpeg"
+                        },
+                        "reference": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0166\/15\/4eb7a2dec31295e14032be3547b804a8558ff5e2.jpeg"
+                        }
+                    },
+                    "dynamic_color": "#691f11"
+                },
+                "image16x9_with_logo": {
+                    "public_urls": {
+                        "highlight_teaser": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0166\/15\/thumb_16514905_profiles_highlight_teaser.jpeg"
+                        },
+                        "player": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0166\/15\/thumb_16514905_profiles_player.jpeg"
+                        },
+                        "list": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0166\/15\/thumb_16514905_profiles_list.jpeg"
+                        },
+                        "small": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0166\/15\/thumb_16514905_profiles_small.jpeg"
+                        },
+                        "reference": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0166\/15\/4eb7a2dec31295e14032be3547b804a8558ff5e2.jpeg"
+                        }
+                    },
+                    "dynamic_color": "#691f11"
+                },
+                "image2x3_with_logo": {
+                    "public_urls": {
+                        "highlight_teaser": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/profile_2x3-with-logo\/0166\/15\/thumb_16514906_profile_2x3-with-logo_highlight_teaser.jpeg"
+                        },
+                        "player": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/profile_2x3-with-logo\/0166\/15\/thumb_16514906_profile_2x3-with-logo_player.jpeg"
+                        },
+                        "list": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/profile_2x3-with-logo\/0166\/15\/thumb_16514906_profile_2x3-with-logo_list.jpeg"
+                        },
+                        "small": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/profile_2x3-with-logo\/0166\/15\/thumb_16514906_profile_2x3-with-logo_small.jpeg"
+                        },
+                        "reference": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/profile_2x3-with-logo\/0166\/15\/6c66631bc03fa8d36556efd1995cc90a6309a323.jpeg"
+                        }
+                    },
+                    "dynamic_color": "#691f11"
+                },
+                "image2x3": {
+                    "public_urls": {
+                        "highlight_teaser": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_highlight_teaser.jpeg"
+                        },
+                        "player": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_player.jpeg"
+                        },
+                        "legacy": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_legacy.jpeg"
+                        },
+                        "list": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_list.jpeg"
+                        },
+                        "small": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_small.jpeg"
+                        },
+                        "reference": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/56745f92b28e3a6f176e66acf9e9d0aea5e0c611.jpeg"
+                        }
+                    },
+                    "dynamic_color": "#691f11"
+                },
+                "theme": null,
+                "genre": {
+                    "id": 2703833,
+                    "advertising_mapping": {
+                        "live": {
+                            "web": {
+                                "sb": 4420063,
+                                "tbar": 4420064,
+                                "pre": 4420065,
+                                "post": 4420066
+                            },
+                            "mob": {
+                                "par": 4420067,
+                                "pre": 4420221,
+                                "post": 4420069
+                            },
+                            "app": {
+                                "par": 4420070,
+                                "pre": 4420071,
+                                "post": 4420072
+                            },
+                            "smart": {
+                                "pre": 4420073,
+                                "post": 4420074
+                            }
+                        },
+                        "vod": {
+                            "web": {
+                                "sb": 4420438,
+                                "tbar": 4420439,
+                                "pre": 4420440,
+                                "post": 4420441
+                            },
+                            "mob": {
+                                "par": 4420442,
+                                "pre": 4420443,
+                                "post": 4420444
+                            },
+                            "app": {
+                                "par": 4420445,
+                                "pre": 4420446,
+                                "post": 4420447
+                            },
+                            "smart": {
+                                "pre": 4420448,
+                                "post": 4420449
+                            }
+                        }
+                    },
+                    "sorting": 10,
+                    "title": "Film & Serie",
+                    "updated_at": "2023-12-31T16:38:57+01:00",
+                    "_links": {
+                        "self": {
+                            "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/genre\/2703833"
+                        },
+                        "image": {
+                            "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16596302"
+                        },
+                        "profiles": {
+                            "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/genre\/2703833\/profiles"
+                        },
+                        "episodes": {
+                            "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/genre\/2703833\/episodes"
+                        },
+                        "latest_episode": {
+                            "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/genre\/2703833\/episode\/latest"
+                        },
+                        "tags": {
+                            "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/genre\/2703833\/tags"
+                        },
+                        "advertising_tags": {
+                            "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/genre\/2703833\/advertising\/tags"
+                        }
+                    },
+                    "_embedded": {
+                        "image": {
+                            "public_urls": {
+                                "highlight_teaser": {
+                                    "url": "https:\/\/api-tvthek.orf.at\/assets\/genres\/0166\/97\/thumb_16596302_genres_highlight_teaser.jpeg"
+                                },
+                                "player": {
+                                    "url": "https:\/\/api-tvthek.orf.at\/assets\/genres\/0166\/97\/thumb_16596302_genres_player.jpeg"
+                                },
+                                "list": {
+                                    "url": "https:\/\/api-tvthek.orf.at\/assets\/genres\/0166\/97\/thumb_16596302_genres_list.jpeg"
+                                },
+                                "small": {
+                                    "url": "https:\/\/api-tvthek.orf.at\/assets\/genres\/0166\/97\/thumb_16596302_genres_small.jpeg"
+                                },
+                                "reference": {
+                                    "url": "https:\/\/api-tvthek.orf.at\/assets\/genres\/0166\/97\/a6885e2f8ea6f778dcac9af57dfea24006218d76.jpeg"
+                                }
+                            },
+                            "dynamic_color": "#691f11"
+                        },
+                        "tags": [],
+                        "advertising_tags": []
+                    }
+                },
+                "links": [],
+                "tags": [],
+                "advertising_tags": [],
+                "audio_description_profile": null,
+                "oegs_profile": null
+            }
+        },
+        "segments": [
+            {
+                "adition_advertising_query_string": "stype:vod,scat:film-serie,scatid:2703833,spro:ad-vorstadtweiber-staffel-2,sproid:13895877,episodeid:14204417,duration:2792317,advertisingtags:",
+                "advertising_mapping": {
+                    "live": {
+                        "web": {
+                            "sb": 4420063,
+                            "tbar": 4420064,
+                            "pre": 4420065,
+                            "post": 4420066
+                        },
+                        "mob": {
+                            "par": 4420067,
+                            "pre": 4420221,
+                            "post": 4420069
+                        },
+                        "app": {
+                            "par": 4420070,
+                            "pre": 4420071,
+                            "post": 4420072
+                        },
+                        "smart": {
+                            "pre": 4420073,
+                            "post": 4420074
+                        }
+                    },
+                    "vod": {
+                        "web": {
+                            "sb": 4420438,
+                            "tbar": 4420439,
+                            "pre": 4420440,
+                            "post": 4420441
+                        },
+                        "mob": {
+                            "par": 4420442,
+                            "pre": 4420443,
+                            "post": 4420444
+                        },
+                        "app": {
+                            "par": 4420445,
+                            "pre": 4420446,
+                            "post": 4420447
+                        },
+                        "smart": {
+                            "pre": 4420448,
+                            "post": 4420449
+                        }
+                    }
+                },
+                "advertising_query_string": "stype=vod&scat=film-serie&scatid=2703833&spro=ad-vorstadtweiber-staffel-2&sproid=13895877&episodeid=14204417&duration=2792317&advertisingtags=",
+                "blackfades": [],
+                "episode_date": "2023-12-06T23:07:52+01:00",
+                "date_as_string": "Mi, 6.12.2023",
+                "vod_ressort": null,
+                "description": "Chaos wegen der Entf\u00fchrung von Waltrauds Baby. Die betrunkene Sylvia sagt, sie habe Simon vor der T\u00fcre gesehen. Waltraud ist sofort klar, dass nur Simon der Entf\u00fchrer sein kann. Den trifft sie zuhause, wo er gerade packt, um abzuhauen. Er beteuert, das Baby nicht entf\u00fchrt zu haben. W\u00e4hrenddessen rast Vanessa mit ihrem Wagen durch die Stadt, verheult, \u00fcberdreht, ein Baby am R\u00fccksitz. Daheim angekommen, tauscht sie die Babys und rast wieder davon. Vanessa konfrontiert Dr. Heldt mit der Tatsache, dass er der Vater ihres Kindes ist und die Babys bei der Geburt vertauscht hat, um somit den Vaterschaftstest zu f\u00e4lschen. Benachrichtigt von der Auffindung des Babys fahren alle Richtung Klinik. Vor ihren Augen wird die v\u00f6llig betrunkene Sylvia von Vanessa angefahren und schwer verletzt.\r\n\r\nBildquelle: ORF\/MR Film\/Petro Domenigg",
+                "drm_token": null,
+                "duration_as_string": "46:32 Min.",
+                "duration_seconds": 2792,
+                "enabled": true,
+                "encrypted_id": "ODc4M2hqZDcyOTNrbWQxNTUyNDI2Ng==",
+                "episode_id": 14204417,
+                "exact_duration": 2792317,
+                "genre_id": 2703833,
+                "genre_title": "Film & Serie",
+                "right": "austria",
+                "focus": false,
+                "show_countdown": true,
+                "has_thumbnail": true,
+                "headline": "AD | Vorstadtweiber: Folge 18",
+                "id": 15524266,
+                "is_archive": false,
+                "is_drm_protected": false,
+                "jump_mark": false,
+                "jump_marks": [],
+                "killdate_extern": "2024-06-06T00:49:52+02:00",
+                "killdate": "2024-06-06T00:49:52+02:00",
+                "livedate": "2023-12-30T10:00:00+01:00",
+                "livedate_extern": "2023-12-30T10:00:00+01:00",
+                "SSA": {
+                    "cliptype": "Sendung",
+                    "videoid": 15524266,
+                    "videopartid": "1_1",
+                    "videocategory": "Film-Serie",
+                    "videotitle": "AD-Vorstadtweiber-Folge-18",
+                    "videoduration": 2792,
+                    "episodeduration": 2792,
+                    "episodeid": 14204417,
+                    "airdate": "2023-12-30T10:00:00+01:00",
+                    "clipreleasetime": "2023-12-07T00:52:02+01:00",
+                    "programname": "AD-Vorstadtweiber-Staffel-2",
+                    "channel": "orf1ad"
+                },
+                "disable_display_ads_orf_platforms": false,
+                "disable_instream_ads_orf_platforms": false,
+                "position": 0,
+                "episodes_reference": "",
+                "share_body": "https:\/\/tvthek.orf.at\/profile\/AD-Vorstadtweiber-Staffel-2\/13895877\/AD-Vorstadtweiber-Folge-18\/14204417\/AD-Vorstadtweiber-Folge-18\/15524266",
+                "share_subject": "AD | Vorstadtweiber: Folge 18 - AD | Vorstadtweiber: Folge 18 vom 06.12.2023 um 23:07 Uhr",
+                "show_display_ads": true,
+                "show_instream_ads": true,
+                "sources": {
+                    "hls": [
+                        {
+                            "is_uhd": false,
+                            "quality_key": "QXA",
+                            "quality_description": "Adaptiv",
+                            "src": "https:\/\/apasfiis.sf.apa.at\/ipad\/cms-austria\/2023-12-06_2307_sd_01_AD---Vorstadtwe_____14204417__o__8792736916__s15524266_6__ORF1ADHD_23092909P_23560117P_QXA.mp4\/playlist.m3u8",
+                            "is_adaptive_stream": true,
+                            "is_drm_protected": false
+                        },
+                        {
+                            "is_uhd": false,
+                            "quality_key": "QXB",
+                            "quality_description": "Adaptiv",
+                            "src": "https:\/\/apasfiis.sf.apa.at\/ipad\/cms-austria\/2023-12-06_2307_sd_01_AD---Vorstadtwe_____14204417__o__8792736916__s15524266_6__ORF1ADHD_23092909P_23560117P_QXB.mp4\/playlist.m3u8",
+                            "is_adaptive_stream": true,
+                            "is_drm_protected": false
+                        }
+                    ],
+                    "dash": [
+                        {
+                            "is_uhd": false,
+                            "quality_key": "QXA",
+                            "quality_description": "Adaptiv",
+                            "src": "https:\/\/apasfiis.sf.apa.at\/dash\/cms-austria\/2023-12-06_2307_sd_01_AD---Vorstadtwe_____14204417__o__8792736916__s15524266_6__ORF1ADHD_23092909P_23560117P_QXA.mp4\/manifest.mpd",
+                            "is_adaptive_stream": true,
+                            "is_drm_protected": false
+                        },
+                        {
+                            "is_uhd": false,
+                            "quality_key": "QXB",
+                            "quality_description": "Adaptiv",
+                            "src": "https:\/\/apasfiis.sf.apa.at\/dash\/cms-austria\/2023-12-06_2307_sd_01_AD---Vorstadtwe_____14204417__o__8792736916__s15524266_6__ORF1ADHD_23092909P_23560117P_QXB.mp4\/manifest.mpd",
+                            "is_adaptive_stream": true,
+                            "is_drm_protected": false
+                        }
+                    ]
+                },
+                "state": "distributed",
+                "sub_headline": "Staffel 2",
+                "teaser_text": null,
+                "teaser_title": null,
+                "thumbnail_activated": true,
+                "thumbnail_distributed": true,
+                "thumbnail_folder": "cms-preview-clips",
+                "thumbnail_sources": {
+                    "hls": [
+                        {
+                            "quality_key": "Q6A",
+                            "src": "https:\/\/apasfiis.sf.apa.at\/ipad\/cms-preview-clips\/2023-12-06_2307_sd_01_AD---Vorstadtwe_____14204417__o__8792736916__s15524266_6__ORF1ADHD_23092909P_23560117P_clip_Q6A.mp4\/playlist.m3u8"
+                        },
+                        {
+                            "quality_key": "Q8C",
+                            "src": "https:\/\/apasfiis.sf.apa.at\/ipad\/cms-preview-clips\/2023-12-06_2307_sd_01_AD---Vorstadtwe_____14204417__o__8792736916__s15524266_6__ORF1ADHD_23092909P_23560117P_clip_Q8C.mp4\/playlist.m3u8"
+                        }
+                    ],
+                    "dash": [
+                        {
+                            "quality_key": "Q6A",
+                            "src": "https:\/\/apasfiis.sf.apa.at\/dash\/cms-preview-clips\/2023-12-06_2307_sd_01_AD---Vorstadtwe_____14204417__o__8792736916__s15524266_6__ORF1ADHD_23092909P_23560117P_clip_Q6A.mp4\/manifest.mpd"
+                        },
+                        {
+                            "quality_key": "Q8C",
+                            "src": "https:\/\/apasfiis.sf.apa.at\/dash\/cms-preview-clips\/2023-12-06_2307_sd_01_AD---Vorstadtwe_____14204417__o__8792736916__s15524266_6__ORF1ADHD_23092909P_23560117P_clip_Q8C.mp4\/manifest.mpd"
+                        }
+                    ]
+                },
+                "sprite_sources": [],
+                "title": "AD | Vorstadtweiber: Folge 18",
+                "updated_at": "2023-12-07T16:16:36+01:00",
+                "videobumper": {
+                    "prevideobumper": {
+                        "active": true,
+                        "sources": {
+                            "hls": [
+                                {
+                                    "is_uhd": false,
+                                    "quality_key": "Q0A",
+                                    "quality_description": "Sehr niedrig",
+                                    "src": "https:\/\/apasfiis.sf.apa.at\/ipad\/cms-bumper-clips\/ORF-Original-Bu__0__o__1151614037__s19__b19_Q0A.3gp\/playlist.m3u8",
+                                    "is_adaptive_stream": false,
+                                    "is_drm_protected": false
+                                },
+                                {
+                                    "is_uhd": false,
+                                    "quality_key": "Q1A",
+                                    "quality_description": "Niedrig",
+                                    "src": "https:\/\/apasfiis.sf.apa.at\/ipad\/cms-bumper-clips\/ORF-Original-Bu__0__o__1151614037__s19__b19_Q1A.3gp\/playlist.m3u8",
+                                    "is_adaptive_stream": false,
+                                    "is_drm_protected": false
+                                },
+                                {
+                                    "is_uhd": false,
+                                    "quality_key": "Q4A",
+                                    "quality_description": "Mittel",
+                                    "src": "https:\/\/apasfiis.sf.apa.at\/ipad\/cms-bumper-clips\/ORF-Original-Bu__0__o__1151614037__s19__b19_Q4A.mp4\/playlist.m3u8",
+                                    "is_adaptive_stream": false,
+                                    "is_drm_protected": false
+                                },
+                                {
+                                    "is_uhd": false,
+                                    "quality_key": "Q6A",
+                                    "quality_description": "Hoch",
+                                    "src": "https:\/\/apasfiis.sf.apa.at\/ipad\/cms-bumper-clips\/ORF-Original-Bu__0__o__1151614037__s19__b19_Q6A.mp4\/playlist.m3u8",
+                                    "is_adaptive_stream": false,
+                                    "is_drm_protected": false
+                                },
+                                {
+                                    "is_uhd": false,
+                                    "quality_key": "Q8C",
+                                    "quality_description": "Sehr hoch",
+                                    "src": "https:\/\/apasfiis.sf.apa.at\/ipad\/cms-bumper-clips\/ORF-Original-Bu__0__o__1151614037__s19__b19_Q8C.mp4\/playlist.m3u8",
+                                    "is_adaptive_stream": false,
+                                    "is_drm_protected": false
+                                },
+                                {
+                                    "is_uhd": false,
+                                    "quality_key": "QXA",
+                                    "quality_description": "Adaptiv",
+                                    "src": "https:\/\/apasfiis.sf.apa.at\/ipad\/cms-bumper-clips\/ORF-Original-Bu__0__o__1151614037__s19__b19_QXA.mp4\/playlist.m3u8",
+                                    "is_adaptive_stream": true,
+                                    "is_drm_protected": false
+                                },
+                                {
+                                    "is_uhd": false,
+                                    "quality_key": "QXB",
+                                    "quality_description": "Adaptiv",
+                                    "src": "https:\/\/apasfiis.sf.apa.at\/ipad\/cms-bumper-clips\/ORF-Original-Bu__0__o__1151614037__s19__b19_QXB.mp4\/playlist.m3u8",
+                                    "is_adaptive_stream": true,
+                                    "is_drm_protected": false
+                                }
+                            ],
+                            "dash": [
+                                {
+                                    "is_uhd": false,
+                                    "quality_key": "Q0A",
+                                    "quality_description": "Sehr niedrig",
+                                    "src": "https:\/\/apasfiis.sf.apa.at\/dash\/cms-bumper-clips\/ORF-Original-Bu__0__o__1151614037__s19__b19_Q0A.3gp\/manifest.mpd",
+                                    "is_adaptive_stream": false,
+                                    "is_drm_protected": false
+                                },
+                                {
+                                    "is_uhd": false,
+                                    "quality_key": "Q1A",
+                                    "quality_description": "Niedrig",
+                                    "src": "https:\/\/apasfiis.sf.apa.at\/dash\/cms-bumper-clips\/ORF-Original-Bu__0__o__1151614037__s19__b19_Q1A.3gp\/manifest.mpd",
+                                    "is_adaptive_stream": false,
+                                    "is_drm_protected": false
+                                },
+                                {
+                                    "is_uhd": false,
+                                    "quality_key": "Q4A",
+                                    "quality_description": "Mittel",
+                                    "src": "https:\/\/apasfiis.sf.apa.at\/dash\/cms-bumper-clips\/ORF-Original-Bu__0__o__1151614037__s19__b19_Q4A.mp4\/manifest.mpd",
+                                    "is_adaptive_stream": false,
+                                    "is_drm_protected": false
+                                },
+                                {
+                                    "is_uhd": false,
+                                    "quality_key": "Q6A",
+                                    "quality_description": "Hoch",
+                                    "src": "https:\/\/apasfiis.sf.apa.at\/dash\/cms-bumper-clips\/ORF-Original-Bu__0__o__1151614037__s19__b19_Q6A.mp4\/manifest.mpd",
+                                    "is_adaptive_stream": false,
+                                    "is_drm_protected": false
+                                },
+                                {
+                                    "is_uhd": false,
+                                    "quality_key": "Q8C",
+                                    "quality_description": "Sehr hoch",
+                                    "src": "https:\/\/apasfiis.sf.apa.at\/dash\/cms-bumper-clips\/ORF-Original-Bu__0__o__1151614037__s19__b19_Q8C.mp4\/manifest.mpd",
+                                    "is_adaptive_stream": false,
+                                    "is_drm_protected": false
+                                },
+                                {
+                                    "is_uhd": false,
+                                    "quality_key": "QXA",
+                                    "quality_description": "Adaptiv",
+                                    "src": "https:\/\/apasfiis.sf.apa.at\/dash\/cms-bumper-clips\/ORF-Original-Bu__0__o__1151614037__s19__b19_QXA.mp4\/manifest.mpd",
+                                    "is_adaptive_stream": true,
+                                    "is_drm_protected": false
+                                },
+                                {
+                                    "is_uhd": false,
+                                    "quality_key": "QXB",
+                                    "quality_description": "Adaptiv",
+                                    "src": "https:\/\/apasfiis.sf.apa.at\/dash\/cms-bumper-clips\/ORF-Original-Bu__0__o__1151614037__s19__b19_QXB.mp4\/manifest.mpd",
+                                    "is_adaptive_stream": true,
+                                    "is_drm_protected": false
+                                }
+                            ],
+                            "progressive_download": [
+                                {
+                                    "quality_key": "Q0A",
+                                    "quality_description": "Sehr niedrig",
+                                    "src": "https:\/\/apasfpd.sf.apa.at\/cms-bumper-clips\/online\/0a96044c57fa9ab7838007cc0e7e0a90\/1709506800\/ORF-Original-Bu__0__o__1151614037__s19__b19_Q0A.3gp",
+                                    "isUHD": false
+                                },
+                                {
+                                    "quality_key": "Q1A",
+                                    "quality_description": "Niedrig",
+                                    "src": "https:\/\/apasfpd.sf.apa.at\/cms-bumper-clips\/online\/5267e9abc1b2fcb3ba5fecdbb8645369\/1709506800\/ORF-Original-Bu__0__o__1151614037__s19__b19_Q1A.3gp",
+                                    "isUHD": false
+                                },
+                                {
+                                    "quality_key": "Q4A",
+                                    "quality_description": "Mittel",
+                                    "src": "https:\/\/apasfpd.sf.apa.at\/cms-bumper-clips\/online\/340b44d8cefcb075bc8f1d2461f46a7e\/1709506800\/ORF-Original-Bu__0__o__1151614037__s19__b19_Q4A.mp4",
+                                    "isUHD": false
+                                },
+                                {
+                                    "quality_key": "Q6A",
+                                    "quality_description": "Hoch",
+                                    "src": "https:\/\/apasfpd.sf.apa.at\/cms-bumper-clips\/online\/dee8bb7ed850256b5e8612deb98e294f\/1709506800\/ORF-Original-Bu__0__o__1151614037__s19__b19_Q6A.mp4",
+                                    "isUHD": false
+                                },
+                                {
+                                    "quality_key": "Q8C",
+                                    "quality_description": "Sehr hoch",
+                                    "src": "https:\/\/apasfpd.sf.apa.at\/cms-bumper-clips\/online\/121cfa79dcec60cc7395b2af32585146\/1709506800\/ORF-Original-Bu__0__o__1151614037__s19__b19_Q8C.mp4",
+                                    "isUHD": false
+                                }
+                            ]
+                        }
+                    },
+                    "postvideobumper": {
+                        "active": false,
+                        "sources": {
+                            "hls": [],
+                            "progressive_download": []
+                        }
+                    }
+                },
+                "video_file_name": "2023-12-06_2307_sd_01_AD---Vorstadtwe_____14204417__o__8792736916__s15524266_6__ORF1ADHD_23092909P_23560117P",
+                "video_stream_url": null,
+                "video_type": "segment",
+                "voez": false,
+                "voez_ads_allowed": false,
+                "_links": {
+                    "self": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/segment\/15524266"
+                    },
+                    "episode": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/episode\/14204417"
+                    },
+                    "image": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16333208"
+                    },
+                    "image16x9_with_logo": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16333208"
+                    },
+                    "image2x3_with_logo": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16514906"
+                    },
+                    "image2x3": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16596204"
+                    },
+                    "links": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/segment\/15524266\/links"
+                    },
+                    "subtitle": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/subtitle\/875660"
+                    },
+                    "playlist": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/segment\/15524266\/playlist"
+                    },
+                    "tags": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/segment\/15524266\/tags"
+                    },
+                    "profile": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/13895877"
+                    }
+                },
+                "_embedded": {
+                    "image": {
+                        "public_urls": {
+                            "highlight_teaser": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0164\/34\/thumb_16333208_segments_highlight_teaser.jpeg"
+                            },
+                            "player": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0164\/34\/thumb_16333208_segments_player.jpeg"
+                            },
+                            "list": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0164\/34\/thumb_16333208_segments_list.jpeg"
+                            },
+                            "small": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0164\/34\/thumb_16333208_segments_small.jpeg"
+                            },
+                            "reference": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0164\/34\/07ee99b4e358cfdf4d0d09cdef7f039597c8349f.jpeg"
+                            }
+                        },
+                        "dynamic_color": "#691f11"
+                    },
+                    "image16x9_with_logo": {
+                        "public_urls": {
+                            "highlight_teaser": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0164\/34\/thumb_16333208_segments_highlight_teaser.jpeg"
+                            },
+                            "player": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0164\/34\/thumb_16333208_segments_player.jpeg"
+                            },
+                            "list": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0164\/34\/thumb_16333208_segments_list.jpeg"
+                            },
+                            "small": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0164\/34\/thumb_16333208_segments_small.jpeg"
+                            },
+                            "reference": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0164\/34\/07ee99b4e358cfdf4d0d09cdef7f039597c8349f.jpeg"
+                            }
+                        },
+                        "dynamic_color": "#691f11"
+                    },
+                    "image2x3_with_logo": {
+                        "public_urls": {
+                            "highlight_teaser": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/profile_2x3-with-logo\/0166\/15\/thumb_16514906_profile_2x3-with-logo_highlight_teaser.jpeg"
+                            },
+                            "player": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/profile_2x3-with-logo\/0166\/15\/thumb_16514906_profile_2x3-with-logo_player.jpeg"
+                            },
+                            "list": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/profile_2x3-with-logo\/0166\/15\/thumb_16514906_profile_2x3-with-logo_list.jpeg"
+                            },
+                            "small": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/profile_2x3-with-logo\/0166\/15\/thumb_16514906_profile_2x3-with-logo_small.jpeg"
+                            },
+                            "reference": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/profile_2x3-with-logo\/0166\/15\/6c66631bc03fa8d36556efd1995cc90a6309a323.jpeg"
+                            }
+                        },
+                        "dynamic_color": "#691f11"
+                    },
+                    "image2x3": {
+                        "public_urls": {
+                            "highlight_teaser": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_highlight_teaser.jpeg"
+                            },
+                            "player": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_player.jpeg"
+                            },
+                            "legacy": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_legacy.jpeg"
+                            },
+                            "list": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_list.jpeg"
+                            },
+                            "small": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_small.jpeg"
+                            },
+                            "reference": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/56745f92b28e3a6f176e66acf9e9d0aea5e0c611.jpeg"
+                            }
+                        },
+                        "dynamic_color": "#691f11"
+                    },
+                    "links": [],
+                    "subtitle": {
+                        "id": 875660,
+                        "parsed_at": null,
+                        "sami_url": "https:\/\/api-tvthek.orf.at\/assets\/subtitles\/0164\/35\/eea943028084af400e8a4dfaed668383e5d23f50.smi",
+                        "srt_url": "https:\/\/api-tvthek.orf.at\/assets\/subtitles\/0164\/35\/2a59c6d14e87400c6be26753256e9d7b7a92a2ff.srt",
+                        "stl_url": null,
+                        "ttml_url": "https:\/\/api-tvthek.orf.at\/assets\/subtitles\/0164\/35\/02ae21239edab60c2e7c1fff59160eeeaf41edd3.ttml",
+                        "updated_at": "2023-12-07T16:16:36+01:00",
+                        "vtt_url": "https:\/\/api-tvthek.orf.at\/assets\/subtitles\/0164\/35\/4b008a95f2f7e40c703ae161b97ee5a7d62f816f.vtt",
+                        "xml_url": "https:\/\/api-tvthek.orf.at\/assets\/subtitles\/0164\/35\/adfd5f53c622ece7ca6be95554186fb6b3936c20.xml",
+                        "_links": {
+                            "self": {
+                                "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/subtitle\/875660"
+                            },
+                            "xml_file": {
+                                "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16334635"
+                            },
+                            "srt_file": {
+                                "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16334636"
+                            },
+                            "vtt_file": {
+                                "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16334637"
+                            },
+                            "sami_file": {
+                                "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16334639"
+                            },
+                            "ttml_file": {
+                                "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16334638"
+                            }
+                        },
+                        "_embedded": {
+                            "xml_file": {
+                                "public_urls": {
+                                    "reference": {
+                                        "url": "https:\/\/api-tvthek.orf.at\/assets\/subtitles\/0164\/35\/adfd5f53c622ece7ca6be95554186fb6b3936c20.xml"
+                                    }
+                                }
+                            },
+                            "stl_file": null,
+                            "srt_file": {
+                                "public_urls": {
+                                    "reference": {
+                                        "url": "https:\/\/api-tvthek.orf.at\/assets\/subtitles\/0164\/35\/2a59c6d14e87400c6be26753256e9d7b7a92a2ff.srt"
+                                    }
+                                }
+                            },
+                            "vtt_file": {
+                                "public_urls": {
+                                    "reference": {
+                                        "url": "https:\/\/api-tvthek.orf.at\/assets\/subtitles\/0164\/35\/4b008a95f2f7e40c703ae161b97ee5a7d62f816f.vtt"
+                                    }
+                                }
+                            },
+                            "sami_file": {
+                                "public_urls": {
+                                    "reference": {
+                                        "url": "https:\/\/api-tvthek.orf.at\/assets\/subtitles\/0164\/35\/eea943028084af400e8a4dfaed668383e5d23f50.smi"
+                                    }
+                                }
+                            },
+                            "ttml_file": {
+                                "public_urls": {
+                                    "reference": {
+                                        "url": "https:\/\/api-tvthek.orf.at\/assets\/subtitles\/0164\/35\/02ae21239edab60c2e7c1fff59160eeeaf41edd3.ttml"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "playlist": {
+                        "id": 15524266,
+                        "episode_id": 14204417,
+                        "title_prefix": "AD | Vorstadtweiber: Folge 18",
+                        "title_separator": "|",
+                        "title": "AD | Vorstadtweiber: Folge 18",
+                        "description": "Chaos wegen der Entf\u00fchrung von Waltrauds Baby. Die betrunkene Sylvia sagt, sie habe Simon vor der T\u00fcre gesehen. Waltraud ist sofort klar, dass nur Simon der Entf\u00fchrer sein kann. Den trifft sie zuhause, wo er gerade packt, um abzuhauen. Er beteuert, das Baby nicht entf\u00fchrt zu haben. W\u00e4hrenddessen rast Vanessa mit ihrem Wagen durch die Stadt, verheult, \u00fcberdreht, ein Baby am R\u00fccksitz. Daheim angekommen, tauscht sie die Babys und rast wieder davon. Vanessa konfrontiert Dr. Heldt mit der Tatsache, dass er der Vater ihres Kindes ist und die Babys bei der Geburt vertauscht hat, um somit den Vaterschaftstest zu f\u00e4lschen. Benachrichtigt von der Auffindung des Babys fahren alle Richtung Klinik. Vor ihren Augen wird die v\u00f6llig betrunkene Sylvia von Vanessa angefahren und schwer verletzt.\r\n\r\nBildquelle: ORF\/MR Film\/Petro Domenigg",
+                        "duration": 2792317,
+                        "preview_image_url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0164\/34\/thumb_16333208_segments_player.jpeg",
+                        "sources": [
+                            {
+                                "quality": "Q1A",
+                                "quality_string": "Niedrig",
+                                "src": "rtmp:\/\/apasfw.apa.at\/cms-austria\/mp4:2023-12-06_2307_sd_01_AD---Vorstadtwe_____14204417__o__8792736916__s15524266_6__ORF1ADHD_23092909P_23560117P_Q1A.3gp",
+                                "type": "video\/mp4",
+                                "delivery": "streaming",
+                                "protocol": "rtmp"
+                            },
+                            {
+                                "quality": "Q4A",
+                                "quality_string": "Mittel",
+                                "src": "rtmp:\/\/apasfw.apa.at\/cms-austria\/mp4:2023-12-06_2307_sd_01_AD---Vorstadtwe_____14204417__o__8792736916__s15524266_6__ORF1ADHD_23092909P_23560117P_Q4A.mp4",
+                                "type": "video\/mp4",
+                                "delivery": "streaming",
+                                "protocol": "rtmp"
+                            },
+                            {
+                                "quality": "Q6A",
+                                "quality_string": "Hoch",
+                                "src": "rtmp:\/\/apasfw.apa.at\/cms-austria\/mp4:2023-12-06_2307_sd_01_AD---Vorstadtwe_____14204417__o__8792736916__s15524266_6__ORF1ADHD_23092909P_23560117P_Q6A.mp4",
+                                "type": "video\/mp4",
+                                "delivery": "streaming",
+                                "protocol": "rtmp"
+                            },
+                            {
+                                "quality": "Q8C",
+                                "quality_string": "Sehr hoch",
+                                "src": "rtmp:\/\/apasfw.apa.at\/cms-austria\/mp4:2023-12-06_2307_sd_01_AD---Vorstadtwe_____14204417__o__8792736916__s15524266_6__ORF1ADHD_23092909P_23560117P_Q8C.mp4",
+                                "type": "video\/mp4",
+                                "delivery": "streaming",
+                                "protocol": "rtmp"
+                            },
+                            {
+                                "quality": "Q1A",
+                                "quality_string": "Niedrig",
+                                "src": "rtsp:\/\/apasfw.apa.at:1935\/cms-austria\/mp4:2023-12-06_2307_sd_01_AD---Vorstadtwe_____14204417__o__8792736916__s15524266_6__ORF1ADHD_23092909P_23560117P_Q1A.3gp",
+                                "type": "video\/mp4",
+                                "delivery": "streaming",
+                                "protocol": "rtsp"
+                            },
+                            {
+                                "quality": "SMIL",
+                                "quality_string": "Hoch",
+                                "src": "rtsp:\/\/apasfw.apa.at:1935\/cms-austria\/mp4:2023-12-06_2307_sd_01_AD---Vorstadtwe_____14204417__o__8792736916__s15524266_6__ORF1ADHD_23092909P_23560117P_Q6A.mp4",
+                                "type": "video\/mp4",
+                                "delivery": "streaming",
+                                "protocol": "rtsp"
+                            },
+                            {
+                                "quality": "Q4A",
+                                "quality_string": "Mittel",
+                                "src": "rtsp:\/\/apasfw.apa.at:1935\/cms-austria\/mp4:2023-12-06_2307_sd_01_AD---Vorstadtwe_____14204417__o__8792736916__s15524266_6__ORF1ADHD_23092909P_23560117P_Q4A.mp4",
+                                "type": "video\/mp4",
+                                "delivery": "streaming",
+                                "protocol": "rtsp"
+                            },
+                            {
+                                "quality": "Q8C",
+                                "quality_string": "Sehr hoch",
+                                "src": "rtsp:\/\/apasfw.apa.at:1935\/cms-austria\/mp4:2023-12-06_2307_sd_01_AD---Vorstadtwe_____14204417__o__8792736916__s15524266_6__ORF1ADHD_23092909P_23560117P_Q8C.mp4",
+                                "type": "video\/mp4",
+                                "delivery": "streaming",
+                                "protocol": "rtsp"
+                            },
+                            {
+                                "src": "https:\/\/apasfiis.sf.apa.at\/ipad\/cms-austria\/2023-12-06_2307_sd_01_AD---Vorstadtwe_____14204417__o__8792736916__s15524266_6__ORF1ADHD_23092909P_23560117P_Q0A.3gp\/playlist.m3u8",
+                                "is_uhd": false,
+                                "quality": "Q0A",
+                                "quality_string": "Sehr niedrig",
+                                "delivery": "hls",
+                                "type": "video\/mp4",
+                                "protocol": "http"
+                            },
+                            {
+                                "src": "https:\/\/apasfiis.sf.apa.at\/ipad\/cms-austria\/2023-12-06_2307_sd_01_AD---Vorstadtwe_____14204417__o__8792736916__s15524266_6__ORF1ADHD_23092909P_23560117P_Q1A.3gp\/playlist.m3u8",
+                                "is_uhd": false,
+                                "quality": "Q1A",
+                                "quality_string": "Niedrig",
+                                "delivery": "hls",
+                                "type": "video\/mp4",
+                                "protocol": "http"
+                            },
+                            {
+                                "src": "https:\/\/apasfiis.sf.apa.at\/ipad\/cms-austria\/2023-12-06_2307_sd_01_AD---Vorstadtwe_____14204417__o__8792736916__s15524266_6__ORF1ADHD_23092909P_23560117P_Q4A.mp4\/playlist.m3u8",
+                                "is_uhd": false,
+                                "quality": "Q4A",
+                                "quality_string": "Mittel",
+                                "delivery": "hls",
+                                "type": "video\/mp4",
+                                "protocol": "http"
+                            },
+                            {
+                                "src": "https:\/\/apasfiis.sf.apa.at\/ipad\/cms-austria\/2023-12-06_2307_sd_01_AD---Vorstadtwe_____14204417__o__8792736916__s15524266_6__ORF1ADHD_23092909P_23560117P_Q6A.mp4\/playlist.m3u8",
+                                "is_uhd": false,
+                                "quality": "Q6A",
+                                "quality_string": "Hoch",
+                                "delivery": "hls",
+                                "type": "video\/mp4",
+                                "protocol": "http"
+                            },
+                            {
+                                "src": "https:\/\/apasfiis.sf.apa.at\/ipad\/cms-austria\/2023-12-06_2307_sd_01_AD---Vorstadtwe_____14204417__o__8792736916__s15524266_6__ORF1ADHD_23092909P_23560117P_Q8C.mp4\/playlist.m3u8",
+                                "is_uhd": false,
+                                "quality": "Q8C",
+                                "quality_string": "Sehr hoch",
+                                "delivery": "hls",
+                                "type": "video\/mp4",
+                                "protocol": "http"
+                            },
+                            {
+                                "src": "https:\/\/apasfiis.sf.apa.at\/ipad\/cms-austria\/2023-12-06_2307_sd_01_AD---Vorstadtwe_____14204417__o__8792736916__s15524266_6__ORF1ADHD_23092909P_23560117P_QXA.mp4\/playlist.m3u8",
+                                "is_uhd": false,
+                                "quality": "QXA",
+                                "quality_string": "Adaptiv",
+                                "delivery": "hls",
+                                "type": "video\/mp4",
+                                "protocol": "http"
+                            },
+                            {
+                                "src": "https:\/\/apasfiis.sf.apa.at\/ipad\/cms-austria\/2023-12-06_2307_sd_01_AD---Vorstadtwe_____14204417__o__8792736916__s15524266_6__ORF1ADHD_23092909P_23560117P_QXB.mp4\/playlist.m3u8",
+                                "is_uhd": false,
+                                "quality": "QXB",
+                                "quality_string": "Adaptiv",
+                                "delivery": "hls",
+                                "type": "video\/mp4",
+                                "protocol": "http"
+                            },
+                            {
+                                "quality": "Q1A",
+                                "quality_string": "Niedrig",
+                                "src": "https:\/\/apasfpd.sf.apa.at\/cms-austria\/online\/b509cad6417654a583267f05fd0d962e\/1709506800\/2023-12-06_2307_sd_01_AD---Vorstadtwe_____14204417__o__8792736916__s15524266_6__ORF1ADHD_23092909P_23560117P_Q1A.3gp",
+                                "type": "video\/mp4",
+                                "delivery": "progressive",
+                                "protocol": "http"
+                            },
+                            {
+                                "quality": "Q4A",
+                                "quality_string": "Mittel",
+                                "src": "https:\/\/apasfpd.sf.apa.at\/cms-austria\/online\/885f35db78a99ed342eb42c9b5b1c90d\/1709506800\/2023-12-06_2307_sd_01_AD---Vorstadtwe_____14204417__o__8792736916__s15524266_6__ORF1ADHD_23092909P_23560117P_Q4A.mp4",
+                                "type": "video\/mp4",
+                                "delivery": "progressive",
+                                "protocol": "http"
+                            },
+                            {
+                                "quality": "Q6A",
+                                "quality_string": "Hoch",
+                                "src": "https:\/\/apasfpd.sf.apa.at\/cms-austria\/online\/1b79d3127521717694966f0814c40496\/1709506800\/2023-12-06_2307_sd_01_AD---Vorstadtwe_____14204417__o__8792736916__s15524266_6__ORF1ADHD_23092909P_23560117P_Q6A.mp4",
+                                "type": "video\/mp4",
+                                "delivery": "progressive",
+                                "protocol": "http"
+                            },
+                            {
+                                "quality": "Q8C",
+                                "quality_string": "Sehr hoch",
+                                "src": "https:\/\/apasfpd.sf.apa.at\/cms-austria\/online\/65619f1f198eea7ec01745a780569756\/1709506800\/2023-12-06_2307_sd_01_AD---Vorstadtwe_____14204417__o__8792736916__s15524266_6__ORF1ADHD_23092909P_23560117P_Q8C.mp4",
+                                "type": "video\/mp4",
+                                "delivery": "progressive",
+                                "protocol": "http"
+                            }
+                        ],
+                        "position": 0,
+                        "last_segment": true,
+                        "subtitles": [
+                            {
+                                "src": "https:\/\/api-tvthek.orf.at\/assets\/subtitles\/0164\/35\/adfd5f53c622ece7ca6be95554186fb6b3936c20.xml",
+                                "type": "xml",
+                                "lang": "de-AT"
+                            },
+                            {
+                                "src": "https:\/\/api-tvthek.orf.at\/assets\/subtitles\/0164\/35\/2a59c6d14e87400c6be26753256e9d7b7a92a2ff.srt",
+                                "type": "srt",
+                                "lang": "de-AT"
+                            },
+                            {
+                                "src": "https:\/\/api-tvthek.orf.at\/assets\/subtitles\/0164\/35\/4b008a95f2f7e40c703ae161b97ee5a7d62f816f.vtt",
+                                "type": "vtt",
+                                "lang": "de-AT"
+                            },
+                            {
+                                "src": "https:\/\/api-tvthek.orf.at\/assets\/subtitles\/0164\/35\/eea943028084af400e8a4dfaed668383e5d23f50.smi",
+                                "type": "sami",
+                                "lang": "de-AT"
+                            },
+                            {
+                                "src": "https:\/\/api-tvthek.orf.at\/assets\/subtitles\/0164\/35\/02ae21239edab60c2e7c1fff59160eeeaf41edd3.ttml",
+                                "type": "ttml",
+                                "lang": "de-AT"
+                            }
+                        ],
+                        "right": "austria",
+                        "is_enabled": true,
+                        "has_active_youthprotection": false,
+                        "pre_bumper": {
+                            "active": true,
+                            "sources": [
+                                {
+                                    "quality": "Q1A",
+                                    "quality_string": "Niedrig",
+                                    "src": "http:\/\/apasfiis.sf.apa.at\/ipad\/cms-bumper-clips\/ORF-Original-Bu__0__o__1151614037__s19__b19_Q1A.3gp\/playlist.m3u8",
+                                    "type": "application\/x-mpegURL",
+                                    "delivery": "hls",
+                                    "protocol": "http"
+                                },
+                                {
+                                    "quality": "Q4A",
+                                    "quality_string": "Mittel",
+                                    "src": "http:\/\/apasfiis.sf.apa.at\/ipad\/cms-bumper-clips\/ORF-Original-Bu__0__o__1151614037__s19__b19_Q4A.mp4\/playlist.m3u8",
+                                    "type": "application\/x-mpegURL",
+                                    "delivery": "hls",
+                                    "protocol": "http"
+                                },
+                                {
+                                    "quality": "Q6A",
+                                    "quality_string": "Hoch",
+                                    "src": "http:\/\/apasfiis.sf.apa.at\/ipad\/cms-bumper-clips\/ORF-Original-Bu__0__o__1151614037__s19__b19_Q6A.mp4\/playlist.m3u8",
+                                    "type": "application\/x-mpegURL",
+                                    "delivery": "hls",
+                                    "protocol": "http"
+                                },
+                                {
+                                    "quality": "Q8C",
+                                    "quality_string": "Sehr hoch",
+                                    "src": "http:\/\/apasfiis.sf.apa.at\/ipad\/cms-bumper-clips\/ORF-Original-Bu__0__o__1151614037__s19__b19_Q8C.mp4\/playlist.m3u8",
+                                    "type": "application\/x-mpegURL",
+                                    "delivery": "hls",
+                                    "protocol": "http"
+                                },
+                                {
+                                    "quality": "QXA",
+                                    "quality_string": "Adaptiv",
+                                    "src": "http:\/\/apasfiis.sf.apa.at\/ipad\/cms-bumper-clips\/ORF-Original-Bu__0__o__1151614037__s19__b19_QXA.mp4\/playlist.m3u8",
+                                    "type": "application\/x-mpegURL",
+                                    "delivery": "hls",
+                                    "protocol": "http"
+                                },
+                                {
+                                    "quality": "QXB",
+                                    "quality_string": "Adaptiv",
+                                    "src": "http:\/\/apasfiis.sf.apa.at\/ipad\/cms-bumper-clips\/ORF-Original-Bu__0__o__1151614037__s19__b19_QXB.mp4\/playlist.m3u8",
+                                    "type": "application\/x-mpegURL",
+                                    "delivery": "hls",
+                                    "protocol": "http"
+                                },
+                                {
+                                    "quality": "Q1A",
+                                    "quality_string": "Niedrig",
+                                    "src": "https:\/\/apasfpd.sf.apa.at\/cms-bumper-clips\/online\/5267e9abc1b2fcb3ba5fecdbb8645369\/1709506800\/ORF-Original-Bu__0__o__1151614037__s19__b19_Q1A.3gp",
+                                    "type": "video\/mp4",
+                                    "delivery": "progressive",
+                                    "protocol": "http"
+                                },
+                                {
+                                    "quality": "Q4A",
+                                    "quality_string": "Mittel",
+                                    "src": "https:\/\/apasfpd.sf.apa.at\/cms-bumper-clips\/online\/340b44d8cefcb075bc8f1d2461f46a7e\/1709506800\/ORF-Original-Bu__0__o__1151614037__s19__b19_Q4A.mp4",
+                                    "type": "video\/mp4",
+                                    "delivery": "progressive",
+                                    "protocol": "http"
+                                },
+                                {
+                                    "quality": "Q6A",
+                                    "quality_string": "Hoch",
+                                    "src": "https:\/\/apasfpd.sf.apa.at\/cms-bumper-clips\/online\/dee8bb7ed850256b5e8612deb98e294f\/1709506800\/ORF-Original-Bu__0__o__1151614037__s19__b19_Q6A.mp4",
+                                    "type": "video\/mp4",
+                                    "delivery": "progressive",
+                                    "protocol": "http"
+                                },
+                                {
+                                    "quality": "Q8C",
+                                    "quality_string": "Sehr hoch",
+                                    "src": "https:\/\/apasfpd.sf.apa.at\/cms-bumper-clips\/online\/121cfa79dcec60cc7395b2af32585146\/1709506800\/ORF-Original-Bu__0__o__1151614037__s19__b19_Q8C.mp4",
+                                    "type": "video\/mp4",
+                                    "delivery": "progressive",
+                                    "protocol": "http"
+                                }
+                            ]
+                        },
+                        "post_bumper": {
+                            "active": false,
+                            "sources": []
+                        },
+                        "hash": "d284cf224085fac7a0e034a0fd271aff"
+                    },
+                    "tags": [],
+                    "profile": {
+                        "audio_description": true,
+                        "break_text": null,
+                        "break_title": null,
+                        "dataset_name": "",
+                        "description": "Gelangweilte Society-Damen in Wiens Nobelbezirken",
+                        "has_active_youth_protection": false,
+                        "has_youth_protection": false,
+                        "headline": "AD | Vorstadtweiber Staffel 2",
+                        "hide_in_letter_group": false,
+                        "id": 13895877,
+                        "letter_group": "V",
+                        "livestream_sub_headline": null,
+                        "oegs": false,
+                        "oewa_base_path": "Redcont\/KulturUndFreizeit\/FilmUndKino",
+                        "profile_website": null,
+                        "secondary_genres": [],
+                        "sub_headline": null,
+                        "title": "AD | Vorstadtweiber Staffel 2",
+                        "type": "temporary",
+                        "updated_at": "2023-12-22T17:37:41+01:00",
+                        "youth_protection_type": "limited-20-06",
+                        "_links": {
+                            "self": {
+                                "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/13895877"
+                            },
+                            "image": {
+                                "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16514905"
+                            },
+                            "image16x9_with_logo": {
+                                "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16514905"
+                            },
+                            "image2x3_with_logo": {
+                                "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16514906"
+                            },
+                            "image2x3": {
+                                "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16596204"
+                            },
+                            "genre": {
+                                "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/genre\/2703833"
+                            },
+                            "links": {
+                                "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/13895877\/links"
+                            },
+                            "episodes": {
+                                "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/13895877\/episodes"
+                            },
+                            "related_profiles": {
+                                "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/13895877\/related"
+                            },
+                            "latest_episode": {
+                                "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/13895877\/episode\/latest"
+                            },
+                            "tags": {
+                                "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/13895877\/tags"
+                            },
+                            "advertising_tags": {
+                                "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/13895877\/advertising\/tags"
+                            }
+                        },
+                        "_embedded": {
+                            "image": {
+                                "public_urls": {
+                                    "highlight_teaser": {
+                                        "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0166\/15\/thumb_16514905_profiles_highlight_teaser.jpeg"
+                                    },
+                                    "player": {
+                                        "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0166\/15\/thumb_16514905_profiles_player.jpeg"
+                                    },
+                                    "list": {
+                                        "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0166\/15\/thumb_16514905_profiles_list.jpeg"
+                                    },
+                                    "small": {
+                                        "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0166\/15\/thumb_16514905_profiles_small.jpeg"
+                                    },
+                                    "reference": {
+                                        "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0166\/15\/4eb7a2dec31295e14032be3547b804a8558ff5e2.jpeg"
+                                    }
+                                },
+                                "dynamic_color": "#691f11"
+                            },
+                            "image16x9_with_logo": {
+                                "public_urls": {
+                                    "highlight_teaser": {
+                                        "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0166\/15\/thumb_16514905_profiles_highlight_teaser.jpeg"
+                                    },
+                                    "player": {
+                                        "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0166\/15\/thumb_16514905_profiles_player.jpeg"
+                                    },
+                                    "list": {
+                                        "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0166\/15\/thumb_16514905_profiles_list.jpeg"
+                                    },
+                                    "small": {
+                                        "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0166\/15\/thumb_16514905_profiles_small.jpeg"
+                                    },
+                                    "reference": {
+                                        "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0166\/15\/4eb7a2dec31295e14032be3547b804a8558ff5e2.jpeg"
+                                    }
+                                },
+                                "dynamic_color": "#691f11"
+                            },
+                            "image2x3_with_logo": {
+                                "public_urls": {
+                                    "highlight_teaser": {
+                                        "url": "https:\/\/api-tvthek.orf.at\/assets\/profile_2x3-with-logo\/0166\/15\/thumb_16514906_profile_2x3-with-logo_highlight_teaser.jpeg"
+                                    },
+                                    "player": {
+                                        "url": "https:\/\/api-tvthek.orf.at\/assets\/profile_2x3-with-logo\/0166\/15\/thumb_16514906_profile_2x3-with-logo_player.jpeg"
+                                    },
+                                    "list": {
+                                        "url": "https:\/\/api-tvthek.orf.at\/assets\/profile_2x3-with-logo\/0166\/15\/thumb_16514906_profile_2x3-with-logo_list.jpeg"
+                                    },
+                                    "small": {
+                                        "url": "https:\/\/api-tvthek.orf.at\/assets\/profile_2x3-with-logo\/0166\/15\/thumb_16514906_profile_2x3-with-logo_small.jpeg"
+                                    },
+                                    "reference": {
+                                        "url": "https:\/\/api-tvthek.orf.at\/assets\/profile_2x3-with-logo\/0166\/15\/6c66631bc03fa8d36556efd1995cc90a6309a323.jpeg"
+                                    }
+                                },
+                                "dynamic_color": "#691f11"
+                            },
+                            "image2x3": {
+                                "public_urls": {
+                                    "highlight_teaser": {
+                                        "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_highlight_teaser.jpeg"
+                                    },
+                                    "player": {
+                                        "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_player.jpeg"
+                                    },
+                                    "legacy": {
+                                        "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_legacy.jpeg"
+                                    },
+                                    "list": {
+                                        "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_list.jpeg"
+                                    },
+                                    "small": {
+                                        "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_small.jpeg"
+                                    },
+                                    "reference": {
+                                        "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/56745f92b28e3a6f176e66acf9e9d0aea5e0c611.jpeg"
+                                    }
+                                },
+                                "dynamic_color": "#691f11"
+                            },
+                            "theme": null,
+                            "genre": {
+                                "id": 2703833,
+                                "advertising_mapping": {
+                                    "live": {
+                                        "web": {
+                                            "sb": 4420063,
+                                            "tbar": 4420064,
+                                            "pre": 4420065,
+                                            "post": 4420066
+                                        },
+                                        "mob": {
+                                            "par": 4420067,
+                                            "pre": 4420221,
+                                            "post": 4420069
+                                        },
+                                        "app": {
+                                            "par": 4420070,
+                                            "pre": 4420071,
+                                            "post": 4420072
+                                        },
+                                        "smart": {
+                                            "pre": 4420073,
+                                            "post": 4420074
+                                        }
+                                    },
+                                    "vod": {
+                                        "web": {
+                                            "sb": 4420438,
+                                            "tbar": 4420439,
+                                            "pre": 4420440,
+                                            "post": 4420441
+                                        },
+                                        "mob": {
+                                            "par": 4420442,
+                                            "pre": 4420443,
+                                            "post": 4420444
+                                        },
+                                        "app": {
+                                            "par": 4420445,
+                                            "pre": 4420446,
+                                            "post": 4420447
+                                        },
+                                        "smart": {
+                                            "pre": 4420448,
+                                            "post": 4420449
+                                        }
+                                    }
+                                },
+                                "sorting": 10,
+                                "title": "Film & Serie",
+                                "updated_at": "2023-12-31T16:38:57+01:00",
+                                "_links": {
+                                    "self": {
+                                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/genre\/2703833"
+                                    },
+                                    "image": {
+                                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16596302"
+                                    },
+                                    "profiles": {
+                                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/genre\/2703833\/profiles"
+                                    },
+                                    "episodes": {
+                                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/genre\/2703833\/episodes"
+                                    },
+                                    "latest_episode": {
+                                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/genre\/2703833\/episode\/latest"
+                                    },
+                                    "tags": {
+                                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/genre\/2703833\/tags"
+                                    },
+                                    "advertising_tags": {
+                                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/genre\/2703833\/advertising\/tags"
+                                    }
+                                },
+                                "_embedded": {
+                                    "image": {
+                                        "public_urls": {
+                                            "highlight_teaser": {
+                                                "url": "https:\/\/api-tvthek.orf.at\/assets\/genres\/0166\/97\/thumb_16596302_genres_highlight_teaser.jpeg"
+                                            },
+                                            "player": {
+                                                "url": "https:\/\/api-tvthek.orf.at\/assets\/genres\/0166\/97\/thumb_16596302_genres_player.jpeg"
+                                            },
+                                            "list": {
+                                                "url": "https:\/\/api-tvthek.orf.at\/assets\/genres\/0166\/97\/thumb_16596302_genres_list.jpeg"
+                                            },
+                                            "small": {
+                                                "url": "https:\/\/api-tvthek.orf.at\/assets\/genres\/0166\/97\/thumb_16596302_genres_small.jpeg"
+                                            },
+                                            "reference": {
+                                                "url": "https:\/\/api-tvthek.orf.at\/assets\/genres\/0166\/97\/a6885e2f8ea6f778dcac9af57dfea24006218d76.jpeg"
+                                            }
+                                        },
+                                        "dynamic_color": "#691f11"
+                                    },
+                                    "tags": [],
+                                    "advertising_tags": []
+                                }
+                            },
+                            "links": [],
+                            "tags": [],
+                            "advertising_tags": [],
+                            "audio_description_profile": null,
+                            "oegs_profile": null
+                        }
+                    }
+                }
+            }
+        ],
+        "tags": [],
+        "advertising_tags": [],
+        "links": [],
+        "audio_description_episode": null,
+        "oegs_episode": null,
+        "image": {
+            "public_urls": {
+                "highlight_teaser": {
+                    "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0164\/34\/thumb_16333208_segments_highlight_teaser.jpeg"
+                },
+                "player": {
+                    "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0164\/34\/thumb_16333208_segments_player.jpeg"
+                },
+                "list": {
+                    "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0164\/34\/thumb_16333208_segments_list.jpeg"
+                },
+                "small": {
+                    "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0164\/34\/thumb_16333208_segments_small.jpeg"
+                },
+                "reference": {
+                    "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0164\/34\/07ee99b4e358cfdf4d0d09cdef7f039597c8349f.jpeg"
+                }
+            },
+            "dynamic_color": "#691f11"
+        },
+        "image16x9_with_logo": {
+            "public_urls": {
+                "highlight_teaser": {
+                    "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0164\/34\/thumb_16333208_segments_highlight_teaser.jpeg"
+                },
+                "player": {
+                    "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0164\/34\/thumb_16333208_segments_player.jpeg"
+                },
+                "list": {
+                    "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0164\/34\/thumb_16333208_segments_list.jpeg"
+                },
+                "small": {
+                    "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0164\/34\/thumb_16333208_segments_small.jpeg"
+                },
+                "reference": {
+                    "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0164\/34\/07ee99b4e358cfdf4d0d09cdef7f039597c8349f.jpeg"
+                }
+            },
+            "dynamic_color": "#691f11"
+        },
+        "image2x3_with_logo": {
+            "public_urls": {
+                "highlight_teaser": {
+                    "url": "https:\/\/api-tvthek.orf.at\/assets\/profile_2x3-with-logo\/0166\/15\/thumb_16514906_profile_2x3-with-logo_highlight_teaser.jpeg"
+                },
+                "player": {
+                    "url": "https:\/\/api-tvthek.orf.at\/assets\/profile_2x3-with-logo\/0166\/15\/thumb_16514906_profile_2x3-with-logo_player.jpeg"
+                },
+                "list": {
+                    "url": "https:\/\/api-tvthek.orf.at\/assets\/profile_2x3-with-logo\/0166\/15\/thumb_16514906_profile_2x3-with-logo_list.jpeg"
+                },
+                "small": {
+                    "url": "https:\/\/api-tvthek.orf.at\/assets\/profile_2x3-with-logo\/0166\/15\/thumb_16514906_profile_2x3-with-logo_small.jpeg"
+                },
+                "reference": {
+                    "url": "https:\/\/api-tvthek.orf.at\/assets\/profile_2x3-with-logo\/0166\/15\/6c66631bc03fa8d36556efd1995cc90a6309a323.jpeg"
+                }
+            },
+            "dynamic_color": "#691f11"
+        },
+        "image2x3": {
+            "public_urls": {
+                "highlight_teaser": {
+                    "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_highlight_teaser.jpeg"
+                },
+                "player": {
+                    "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_player.jpeg"
+                },
+                "legacy": {
+                    "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_legacy.jpeg"
+                },
+                "list": {
+                    "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_list.jpeg"
+                },
+                "small": {
+                    "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_small.jpeg"
+                },
+                "reference": {
+                    "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/56745f92b28e3a6f176e66acf9e9d0aea5e0c611.jpeg"
+                }
+            },
+            "dynamic_color": "#691f11"
+        },
+        "subtitle": {
+            "id": 875659,
+            "parsed_at": null,
+            "sami_url": "https:\/\/api-tvthek.orf.at\/assets\/subtitles\/0164\/35\/6146c97d9eb3437f89e05640188093453ad3e1af.smi",
+            "srt_url": "https:\/\/api-tvthek.orf.at\/assets\/subtitles\/0164\/35\/3c283187a44f9759f83a6731220549dc485d332d.srt",
+            "stl_url": null,
+            "ttml_url": "https:\/\/api-tvthek.orf.at\/assets\/subtitles\/0164\/35\/cae06428d2dd0a03f6c0a81dbd7695f0b096187d.ttml",
+            "updated_at": "2023-12-07T16:16:36+01:00",
+            "vtt_url": "https:\/\/api-tvthek.orf.at\/assets\/subtitles\/0164\/35\/d7726579282af4a4eb7f13bcd0716b0ddd769e78.vtt",
+            "xml_url": "https:\/\/api-tvthek.orf.at\/assets\/subtitles\/0164\/35\/275b919125cabcf1bbb0a3f1b38ec0c460367ae6.xml",
+            "_links": {
+                "self": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/subtitle\/875659"
+                },
+                "xml_file": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16334630"
+                },
+                "srt_file": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16334631"
+                },
+                "vtt_file": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16334632"
+                },
+                "sami_file": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16334634"
+                },
+                "ttml_file": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16334633"
+                }
+            },
+            "_embedded": {
+                "xml_file": {
+                    "public_urls": {
+                        "reference": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/subtitles\/0164\/35\/275b919125cabcf1bbb0a3f1b38ec0c460367ae6.xml"
+                        }
+                    }
+                },
+                "stl_file": null,
+                "srt_file": {
+                    "public_urls": {
+                        "reference": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/subtitles\/0164\/35\/3c283187a44f9759f83a6731220549dc485d332d.srt"
+                        }
+                    }
+                },
+                "vtt_file": {
+                    "public_urls": {
+                        "reference": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/subtitles\/0164\/35\/d7726579282af4a4eb7f13bcd0716b0ddd769e78.vtt"
+                        }
+                    }
+                },
+                "sami_file": {
+                    "public_urls": {
+                        "reference": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/subtitles\/0164\/35\/6146c97d9eb3437f89e05640188093453ad3e1af.smi"
+                        }
+                    }
+                },
+                "ttml_file": {
+                    "public_urls": {
+                        "reference": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/subtitles\/0164\/35\/cae06428d2dd0a03f6c0a81dbd7695f0b096187d.ttml"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "accompanying_videos": []
+}

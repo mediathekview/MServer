@@ -269,7 +269,7 @@ public class ZdfFilmDetailDeserializer implements JsonDeserializer<Optional<ZdfF
     final JsonElement titleElement = aRootNode.get(JSON_ELEMENT_TITLE);
     if (titleElement != null) {
       final JsonElement subTitleElement = aRootNode.get(JSON_ELEMENT_SUBTITLE);
-      if (subTitleElement != null) {
+      if (subTitleElement != null && !subTitleElement.getAsString().isBlank()) {
         return Optional.of(
             titleElement.getAsString().trim() + " - " + subTitleElement.getAsString());
       } else {

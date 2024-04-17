@@ -1,6 +1,7 @@
 package de.mediathekview.mserver.base.webaccess;
 
 import okhttp3.ConnectionPool;
+import okhttp3.Headers;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -11,7 +12,12 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.parser.Parser;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+
 import java.io.IOException;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.concurrent.TimeUnit;
 
 import static jakarta.ws.rs.core.HttpHeaders.CONTENT_LENGTH;
@@ -41,11 +47,32 @@ public class JsoupConnection {
    * @throws IOException If no connection to the url could be opened.
    */
   public String requestBodyAsString(final String url) throws IOException {
+    return requestBodyAsString(url, null);
+    
+  }
+  /**
+   * Request an url and receive the body as String. Add headers as a string map.
+   * @param url
+   * @param headerMap
+   * @return
+   * @throws IOException
+   */
+  public String requestBodyAsString(final String url, final Map<String, String> headerMap) throws IOException {
     int retry = 0;
     int httpResponseCode;
     final String responseString = "";
     do {
-      final Request request = new Request.Builder().url(url).build();
+      okhttp3.Headers.Builder headerBuilder = new Headers.Builder();
+      if (headerMap != null) {
+        for (Entry<String, String> headerValue : headerMap.entrySet()) {
+          headerBuilder.add(headerValue.getKey(), headerValue.getValue());
+        }
+      }
+      Request request = new Request.Builder()
+              .url(url)
+              .headers(headerBuilder.build())
+              .build();
+          
       try (final Response response = client.newCall(request).execute()) {
         httpResponseCode = response.code();
         if (response.body() == null || httpResponseCode == 404 || httpResponseCode == 410) {
@@ -60,6 +87,17 @@ public class JsoupConnection {
       LOG.debug("Retry #{} due to {} for {}", retry, httpResponseCode, url);
     } while (retry < 3);
     return responseString;
+  }
+
+  /**
+   * Request an url and receive the body as HTML JSOUP Document
+   *
+   * @param url The url to request.
+   * @return request body as HTML JSOUP Document
+   * @throws IOException If no connection to the url could be opened.
+   */
+  public JsonElement requestBodyAsJsonElement(final String url, final Map<String, String> headerMap) throws IOException {
+    return new Gson().fromJson(requestBodyAsString(url, headerMap), JsonElement.class);
   }
 
   /**

@@ -1,0 +1,1410 @@
+{
+    "adition_advertising_query_string": "stype:vod,scat:,scatid:,spro:archiv,sproid:7648449,episodeid:14046198,duration:210370,advertisingtags:",
+    "advertising_mapping": {
+        "live": {
+            "web": {
+                "sb": 4423852,
+                "tbar": 4423851,
+                "pre": 4423862,
+                "post": 4423861
+            },
+            "mob": {
+                "par": 4423850,
+                "pre": 4423858,
+                "post": 4423857
+            },
+            "app": {
+                "par": 4423849,
+                "pre": 4423856,
+                "post": 4423855
+            },
+            "smart": {
+                "pre": 4423860,
+                "post": 4423859,
+                "lane": 4423853,
+                "bar": 4423854
+            }
+        },
+        "vod": {
+            "web": {
+                "sb": 4423852,
+                "tbar": 4423851,
+                "pre": 4423862,
+                "post": 4423861
+            },
+            "mob": {
+                "par": 4423850,
+                "pre": 4423858,
+                "post": 4423857
+            },
+            "app": {
+                "par": 4423849,
+                "pre": 4423856,
+                "post": 4423855
+            },
+            "smart": {
+                "pre": 4423860,
+                "post": 4423859,
+                "lane": 4423853,
+                "bar": 4423854
+            }
+        }
+    },
+    "advertising_query_string": "stype=vod&scat=&scatid=&spro=archiv&sproid=7648449&episodeid=14046198&duration=210370&advertisingtags=",
+    "age_classification": null,
+    "audio_description_service_available": false,
+    "countdown": "",
+    "date": "2020-03-25T13:10:00+01:00",
+    "delete_date": null,
+    "vod_ressort": null,
+    "description": "Der ORF hat w\u00e4hrend der Coronakrise 2020 eine besondere Vorsichtsma\u00dfnahme getroffen, um den Betrieb sicherzustellen. Einige Mitarbeiter und Moderatoren des Senders sind vor\u00fcbergehend in das ORF-Zentrum am K\u00fcniglberg gezogen. Dort wird in \"Sperrzonen\" gearbeitet und der Sendebetrieb aufrecht erhalten. \r\n\r\nSendung: Mittag in \u00d6sterreich\r\nGestaltung: Stefan Schlager",
+    "drm_token": null,
+    "duration_seconds": 210,
+    "encrypted_id": "M2RTbGZlazAzbnNMS2RqNEpzZDE0MDQ2MTk4",
+    "exact_duration": 210370,
+    "field_descriptor": null,
+    "flimmit_link_text": "",
+    "flimmit_link": "",
+    "gapless_sources_austria": {
+        "hls": [],
+        "dash": []
+    },
+    "genre_id": null,
+    "genre_title": "",
+    "right": "worldwide",
+    "growing": false,
+    "growing_type": "chronology",
+    "has_active_youth_protection": false,
+    "focus": false,
+    "show_countdown": false,
+    "has_subtitle": true,
+    "has_thumbnail": true,
+    "has_youth_protection": false,
+    "headline": "ORF-Mitarbeiter in Quarant\u00e4ne",
+    "hide_in_new_section": true,
+    "hide_in_schedule_section": true,
+    "hide_latest_episodes": false,
+    "id": 14046198,
+    "is_archive": true,
+    "is_drm_protected": false,
+    "is_gapless_austria": false,
+    "is_gapless": true,
+    "gmf_merged_content": false,
+    "is_oegs": false,
+    "two_channel_audio": false,
+    "uhd": false,
+    "killdate_extern": null,
+    "killdate": null,
+    "livedate": "2020-03-25T13:10:00+01:00",
+    "livedate_extern": "2020-03-25T13:10:00+01:00",
+    "orf_label": null,
+    "disable_display_ads_orf_platforms": false,
+    "disable_instream_ads_orf_platforms": false,
+    "production_country_is_europe": false,
+    "production_country": null,
+    "production_year": null,
+    "profile_title": "Archiv",
+    "website": "",
+    "recommendation_episode": null,
+    "related_audiodescription_episode_image_url": null,
+    "related_audiodescription_episode_title": null,
+    "related_oegs_episode_image_url": null,
+    "related_oegs_episode_title": null,
+    "release_date": "2020-03-26T14:40:02+01:00",
+    "secondary_genres": [],
+    "segments_complete": true,
+    "episodes_reference": "",
+    "share_body": "https:\/\/tvthek.orf.at\/profile\/Archiv\/7648449\/ORF-Mitarbeiter-in-Quarantaene\/14046198",
+    "share_subject": "ORF-Mitarbeiter in Quarant\u00e4ne vom 25.03.2020",
+    "show_display_ads": false,
+    "show_instream_ads": false,
+    "sources": {
+        "hls": [
+            {
+                "is_uhd": false,
+                "quality_key": "QXA",
+                "quality_description": "Adaptiv",
+                "src": "https:\/\/apasfiis.sf.apa.at\/ipad\/cms-worldwide\/2020-03-26_1310_sd_02_ORF-Mitarbeiter_____14046198__o__8302694905__s14668903_3__ORF3HD_13420114P_13453123P_QXA.mp4\/playlist.m3u8",
+                "is_adaptive_stream": true,
+                "is_drm_protected": false
+            },
+            {
+                "is_uhd": false,
+                "quality_key": "QXB",
+                "quality_description": "Adaptiv",
+                "src": "https:\/\/apasfiis.sf.apa.at\/ipad\/cms-worldwide\/2020-03-26_1310_sd_02_ORF-Mitarbeiter_____14046198__o__8302694905__s14668903_3__ORF3HD_13420114P_13453123P_QXB.mp4\/playlist.m3u8",
+                "is_adaptive_stream": true,
+                "is_drm_protected": false
+            }
+        ],
+        "dash": [
+            {
+                "is_uhd": false,
+                "quality_key": "QXA",
+                "quality_description": "Adaptiv",
+                "src": "https:\/\/apasfiis.sf.apa.at\/dash\/cms-worldwide\/2020-03-26_1310_sd_02_ORF-Mitarbeiter_____14046198__o__8302694905__s14668903_3__ORF3HD_13420114P_13453123P_QXA.mp4\/manifest.mpd",
+                "is_adaptive_stream": true,
+                "is_drm_protected": false
+            },
+            {
+                "is_uhd": false,
+                "quality_key": "QXB",
+                "quality_description": "Adaptiv",
+                "src": "https:\/\/apasfiis.sf.apa.at\/dash\/cms-worldwide\/2020-03-26_1310_sd_02_ORF-Mitarbeiter_____14046198__o__8302694905__s14668903_3__ORF3HD_13420114P_13453123P_QXB.mp4\/manifest.mpd",
+                "is_adaptive_stream": true,
+                "is_drm_protected": false
+            }
+        ]
+    },
+    "sub_headline": "Best of \"ZIB 2\"-Interviews",
+    "teaser_text": "Der ORF hat w\u00e4hrend der Coronakrise 2020 eine besondere Vorsichtsma\u00dfnahme getroffen, um den Betrieb sicherzustellen. Einige Mitarbeiter und Moderatoren des Senders sind vor\u00fcbergehend in das ORF-Zentrum am K\u00fcniglberg gezogen. Dort wird in \"Sperrzonen\" gearbeitet und der Sendebetrieb aufrecht erhalten. \r\n\r\nSendung: Mittag in \u00d6sterreich\r\nGestaltung: Stefan Schlager",
+    "teaser_title": null,
+    "text": null,
+    "thumbnail_activated": true,
+    "thumbnail_distributed": false,
+    "thumbnail_folder": null,
+    "thumbnail_sources": {
+        "hls": [
+            {
+                "quality_key": "Q6A",
+                "src": "https:\/\/apasfiis.sf.apa.at\/ipad\/cms-preview-clips\/2020-03-26_1310_sd_02_ORF-Mitarbeiter_____14046198__o__8302694905__s14668903_3__ORF3HD_13420114P_13453123P_clip_Q6A.mp4\/playlist.m3u8"
+            },
+            {
+                "quality_key": "Q8C",
+                "src": "https:\/\/apasfiis.sf.apa.at\/ipad\/cms-preview-clips\/2020-03-26_1310_sd_02_ORF-Mitarbeiter_____14046198__o__8302694905__s14668903_3__ORF3HD_13420114P_13453123P_clip_Q8C.mp4\/playlist.m3u8"
+            }
+        ],
+        "dash": [
+            {
+                "quality_key": "Q6A",
+                "src": "https:\/\/apasfiis.sf.apa.at\/dash\/cms-preview-clips\/2020-03-26_1310_sd_02_ORF-Mitarbeiter_____14046198__o__8302694905__s14668903_3__ORF3HD_13420114P_13453123P_clip_Q6A.mp4\/manifest.mpd"
+            },
+            {
+                "quality_key": "Q8C",
+                "src": "https:\/\/apasfiis.sf.apa.at\/dash\/cms-preview-clips\/2020-03-26_1310_sd_02_ORF-Mitarbeiter_____14046198__o__8302694905__s14668903_3__ORF3HD_13420114P_13453123P_clip_Q8C.mp4\/manifest.mpd"
+            }
+        ]
+    },
+    "sprite_sources": [],
+    "title": "ORF-Mitarbeiter in Quarant\u00e4ne",
+    "type": "default",
+    "updated_at": "2023-01-25T13:39:16+01:00",
+    "video_type": "episode",
+    "youth_protection_type": "limited-20-06",
+    "_links": {
+        "self": {
+            "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/episode\/14046198"
+        },
+        "channel": {
+            "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/channel\/1181"
+        },
+        "profile": {
+            "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/7648449"
+        },
+        "segments": {
+            "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/episode\/14046198\/segments"
+        },
+        "tags": {
+            "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/episode\/14046198\/tags"
+        },
+        "advertising_tags": {
+            "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/episode\/14046198\/advertising\/tags"
+        },
+        "links": {
+            "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/episode\/14046198\/links"
+        },
+        "image": {
+            "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/10112593"
+        },
+        "image16x9_with_logo": {
+            "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/10112593"
+        },
+        "image2x3_with_logo": {
+            "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16596204"
+        },
+        "image2x3": {
+            "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16596204"
+        },
+        "subtitle": {
+            "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/subtitle\/777383"
+        },
+        "related_episodes": {
+            "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/episode\/14046198\/related"
+        }
+    },
+    "_embedded": {
+        "channel": {
+            "bitmovin_stream_id": "839fb502-606d-4666-a36c-19f3f2dd8e83",
+            "channel_restart_url_hbbtv": "https:\/\/playerapi-restarttv.ors.at\/livestreams\/839fb502-606d-4666-a36c-19f3f2dd8e83\/sections\/?state=active&X-Api-Key=66ae5065a94f40f9b00f7de4a9f96ead",
+            "id": 1181,
+            "is_drm_protected": true,
+            "is_main_channel": true,
+            "name": "ORF 2",
+            "reel": "orf2",
+            "updated_at": "2024-02-28T16:06:40+01:00",
+            "_links": {
+                "self": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/channel\/1181"
+                },
+                "children": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/channel\/1181\/children"
+                },
+                "color_logo": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/13"
+                },
+                "black_and_white_logo": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/14"
+                },
+                "audio_description_channel": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/channel\/8089684"
+                },
+                "oegs_channel": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/channel\/1897433"
+                }
+            },
+            "_embedded": {
+                "parent": null,
+                "color_logo": {
+                    "public_urls": {
+                        "tiny": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/channels\/0001\/01\/thumb_13_channels_tiny.png"
+                        },
+                        "list": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/channels\/0001\/01\/thumb_13_channels_list.png"
+                        },
+                        "schedule": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/channels\/0001\/01\/thumb_13_channels_schedule.png"
+                        },
+                        "reference": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/channels\/0001\/01\/56f8ed59c8ef61c7e9cc65b2436f3617831b9f6b.png"
+                        }
+                    },
+                    "dynamic_color": "#691f11"
+                },
+                "black_and_white_logo": {
+                    "public_urls": {
+                        "tiny": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/channels\/0001\/01\/thumb_14_channels_tiny.png"
+                        },
+                        "list": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/channels\/0001\/01\/thumb_14_channels_list.png"
+                        },
+                        "schedule": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/channels\/0001\/01\/thumb_14_channels_schedule.png"
+                        },
+                        "reference": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/channels\/0001\/01\/4b36e87c78e2e5108058d55ea67622d807cf4edd.png"
+                        }
+                    },
+                    "dynamic_color": "#691f11"
+                }
+            }
+        },
+        "profile": {
+            "audio_description": false,
+            "break_text": null,
+            "break_title": null,
+            "dataset_name": "archive",
+            "description": null,
+            "has_active_youth_protection": false,
+            "has_youth_protection": false,
+            "headline": "Archiv",
+            "hide_in_letter_group": false,
+            "id": 7648449,
+            "letter_group": "A",
+            "livestream_sub_headline": null,
+            "oegs": false,
+            "oewa_base_path": "Redcont\/Nachrichten\/Nachrichtenueberblick",
+            "profile_website": null,
+            "secondary_genres": [],
+            "sub_headline": null,
+            "title": "Archiv",
+            "type": "temporary",
+            "updated_at": "2019-02-28T11:32:43+01:00",
+            "youth_protection_type": "limited-20-06",
+            "_links": {
+                "self": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/7648449"
+                },
+                "image": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16596301"
+                },
+                "image16x9_with_logo": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16596301"
+                },
+                "image2x3_with_logo": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16596204"
+                },
+                "image2x3": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16596204"
+                },
+                "theme": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/theme\/7845704"
+                },
+                "links": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/7648449\/links"
+                },
+                "episodes": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/7648449\/episodes"
+                },
+                "related_profiles": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/7648449\/related"
+                },
+                "latest_episode": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/7648449\/episode\/latest"
+                },
+                "tags": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/7648449\/tags"
+                },
+                "advertising_tags": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/7648449\/advertising\/tags"
+                }
+            },
+            "_embedded": {
+                "image": {
+                    "public_urls": {
+                        "highlight_teaser": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0166\/97\/thumb_16596301_profiles_highlight_teaser.jpeg"
+                        },
+                        "player": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0166\/97\/thumb_16596301_profiles_player.jpeg"
+                        },
+                        "list": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0166\/97\/thumb_16596301_profiles_list.jpeg"
+                        },
+                        "small": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0166\/97\/thumb_16596301_profiles_small.jpeg"
+                        },
+                        "reference": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0166\/97\/ae4592a5d457efa42101c1b7170e39be2f2afcad.jpeg"
+                        }
+                    },
+                    "dynamic_color": "#691f11"
+                },
+                "image16x9_with_logo": {
+                    "public_urls": {
+                        "highlight_teaser": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0166\/97\/thumb_16596301_profiles_highlight_teaser.jpeg"
+                        },
+                        "player": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0166\/97\/thumb_16596301_profiles_player.jpeg"
+                        },
+                        "list": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0166\/97\/thumb_16596301_profiles_list.jpeg"
+                        },
+                        "small": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0166\/97\/thumb_16596301_profiles_small.jpeg"
+                        },
+                        "reference": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0166\/97\/ae4592a5d457efa42101c1b7170e39be2f2afcad.jpeg"
+                        }
+                    },
+                    "dynamic_color": "#691f11"
+                },
+                "image2x3_with_logo": {
+                    "public_urls": {
+                        "highlight_teaser": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_highlight_teaser.jpeg"
+                        },
+                        "player": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_player.jpeg"
+                        },
+                        "legacy": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_legacy.jpeg"
+                        },
+                        "list": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_list.jpeg"
+                        },
+                        "small": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_small.jpeg"
+                        },
+                        "reference": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/56745f92b28e3a6f176e66acf9e9d0aea5e0c611.jpeg"
+                        }
+                    },
+                    "dynamic_color": "#691f11"
+                },
+                "image2x3": {
+                    "public_urls": {
+                        "highlight_teaser": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_highlight_teaser.jpeg"
+                        },
+                        "player": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_player.jpeg"
+                        },
+                        "legacy": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_legacy.jpeg"
+                        },
+                        "list": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_list.jpeg"
+                        },
+                        "small": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_small.jpeg"
+                        },
+                        "reference": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/56745f92b28e3a6f176e66acf9e9d0aea5e0c611.jpeg"
+                        }
+                    },
+                    "dynamic_color": "#691f11"
+                },
+                "theme": {
+                    "color": "#e3e3e3",
+                    "id": 7845704,
+                    "name": "Archiv",
+                    "updated_at": "2016-10-11T00:05:51+02:00",
+                    "_links": {
+                        "self": {
+                            "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/theme\/7845704"
+                        }
+                    },
+                    "_embedded": {
+                        "header_image": null,
+                        "header_background_image": null,
+                        "background_image": null
+                    }
+                },
+                "genre": null,
+                "links": [],
+                "tags": [],
+                "advertising_tags": [],
+                "audio_description_profile": null,
+                "oegs_profile": null
+            }
+        },
+        "segments": [
+            {
+                "adition_advertising_query_string": "stype:vod,scat:,scatid:,spro:archiv,sproid:7648449,episodeid:14046198,duration:210370,advertisingtags:",
+                "advertising_mapping": {
+                    "live": {
+                        "web": {
+                            "sb": 4423852,
+                            "tbar": 4423851,
+                            "pre": 4423862,
+                            "post": 4423861
+                        },
+                        "mob": {
+                            "par": 4423850,
+                            "pre": 4423858,
+                            "post": 4423857
+                        },
+                        "app": {
+                            "par": 4423849,
+                            "pre": 4423856,
+                            "post": 4423855
+                        },
+                        "smart": {
+                            "pre": 4423860,
+                            "post": 4423859,
+                            "lane": 4423853,
+                            "bar": 4423854
+                        }
+                    },
+                    "vod": {
+                        "web": {
+                            "sb": 4423852,
+                            "tbar": 4423851,
+                            "pre": 4423862,
+                            "post": 4423861
+                        },
+                        "mob": {
+                            "par": 4423850,
+                            "pre": 4423858,
+                            "post": 4423857
+                        },
+                        "app": {
+                            "par": 4423849,
+                            "pre": 4423856,
+                            "post": 4423855
+                        },
+                        "smart": {
+                            "pre": 4423860,
+                            "post": 4423859,
+                            "lane": 4423853,
+                            "bar": 4423854
+                        }
+                    }
+                },
+                "advertising_query_string": "stype=vod&scat=&scatid=&spro=archiv&sproid=7648449&episodeid=14046198&duration=210370&advertisingtags=",
+                "blackfades": [],
+                "episode_date": "2020-03-25T13:10:00+01:00",
+                "date_as_string": "Mi, 25.3.2020",
+                "vod_ressort": null,
+                "description": "Der ORF hat w\u00e4hrend der Coronakrise 2020 eine besondere Vorsichtsma\u00dfnahme getroffen, um den Betrieb sicherzustellen. Einige Mitarbeiter und Moderatoren des Senders sind vor\u00fcbergehend in das ORF-Zentrum am K\u00fcniglberg gezogen. Dort wird in \"Sperrzonen\" gearbeitet und der Sendebetrieb aufrecht erhalten. \r\n\r\nSendung: Mittag in \u00d6sterreich\r\nGestaltung: Stefan Schlager",
+                "drm_token": null,
+                "duration_as_string": "03:30 Min.",
+                "duration_seconds": 210,
+                "enabled": true,
+                "encrypted_id": "ODc4M2hqZDcyOTNrbWQxNDY2ODkwMw==",
+                "episode_id": 14046198,
+                "exact_duration": 210370,
+                "genre_id": null,
+                "genre_title": "",
+                "right": "worldwide",
+                "focus": false,
+                "show_countdown": false,
+                "has_thumbnail": true,
+                "headline": "ORF-Mitarbeiter in Quarant\u00e4ne",
+                "id": 14668903,
+                "is_archive": true,
+                "is_drm_protected": false,
+                "jump_mark": false,
+                "jump_marks": [],
+                "killdate_extern": null,
+                "killdate": null,
+                "livedate": "2020-03-25T13:10:00+01:00",
+                "livedate_extern": "2020-03-25T13:10:00+01:00",
+                "SSA": {
+                    "cliptype": "Sendung",
+                    "videoid": 14668903,
+                    "videopartid": "1_1",
+                    "videocategory": "",
+                    "videotitle": "ORF-Mitarbeiter-in-Quarantaene",
+                    "videoduration": 210,
+                    "episodeduration": 210,
+                    "episodeid": 14046198,
+                    "airdate": "2020-03-25T13:10:00+01:00",
+                    "clipreleasetime": "2020-03-26T14:40:02+01:00",
+                    "programname": "Archiv",
+                    "channel": "orf2"
+                },
+                "disable_display_ads_orf_platforms": false,
+                "disable_instream_ads_orf_platforms": false,
+                "position": 0,
+                "episodes_reference": "",
+                "share_body": "https:\/\/tvthek.orf.at\/profile\/Archiv\/7648449\/ORF-Mitarbeiter-in-Quarantaene\/14046198\/ORF-Mitarbeiter-in-Quarantaene\/14668903",
+                "share_subject": "ORF-Mitarbeiter in Quarant\u00e4ne - ORF-Mitarbeiter in Quarant\u00e4ne vom 25.03.2020",
+                "show_display_ads": false,
+                "show_instream_ads": false,
+                "sources": {
+                    "hls": [
+                        {
+                            "is_uhd": false,
+                            "quality_key": "QXA",
+                            "quality_description": "Adaptiv",
+                            "src": "https:\/\/apasfiis.sf.apa.at\/ipad\/cms-worldwide\/2020-03-26_1310_sd_02_ORF-Mitarbeiter_____14046198__o__8302694905__s14668903_3__ORF3HD_13420114P_13453123P_QXA.mp4\/playlist.m3u8",
+                            "is_adaptive_stream": true,
+                            "is_drm_protected": false
+                        },
+                        {
+                            "is_uhd": false,
+                            "quality_key": "QXB",
+                            "quality_description": "Adaptiv",
+                            "src": "https:\/\/apasfiis.sf.apa.at\/ipad\/cms-worldwide\/2020-03-26_1310_sd_02_ORF-Mitarbeiter_____14046198__o__8302694905__s14668903_3__ORF3HD_13420114P_13453123P_QXB.mp4\/playlist.m3u8",
+                            "is_adaptive_stream": true,
+                            "is_drm_protected": false
+                        }
+                    ],
+                    "dash": [
+                        {
+                            "is_uhd": false,
+                            "quality_key": "QXA",
+                            "quality_description": "Adaptiv",
+                            "src": "https:\/\/apasfiis.sf.apa.at\/dash\/cms-worldwide\/2020-03-26_1310_sd_02_ORF-Mitarbeiter_____14046198__o__8302694905__s14668903_3__ORF3HD_13420114P_13453123P_QXA.mp4\/manifest.mpd",
+                            "is_adaptive_stream": true,
+                            "is_drm_protected": false
+                        },
+                        {
+                            "is_uhd": false,
+                            "quality_key": "QXB",
+                            "quality_description": "Adaptiv",
+                            "src": "https:\/\/apasfiis.sf.apa.at\/dash\/cms-worldwide\/2020-03-26_1310_sd_02_ORF-Mitarbeiter_____14046198__o__8302694905__s14668903_3__ORF3HD_13420114P_13453123P_QXB.mp4\/manifest.mpd",
+                            "is_adaptive_stream": true,
+                            "is_drm_protected": false
+                        }
+                    ]
+                },
+                "state": "distributed",
+                "sub_headline": "Archiv",
+                "teaser_text": "Der ORF hat w\u00e4hrend der Coronakrise 2020 eine besondere Vorsichtsma\u00dfnahme getroffen, um den Betrieb sicherzustellen. Einige Mitarbeiter und Moderatoren des Senders sind vor\u00fcbergehend in das ORF-Zentrum am K\u00fcniglberg gezogen. Dort wird in \"Sperrzonen\" gearbeitet und der Sendebetrieb aufrecht erhalten. \r\n\r\nSendung: Mittag in \u00d6sterreich\r\nGestaltung: Stefan Schlager",
+                "teaser_title": null,
+                "thumbnail_activated": true,
+                "thumbnail_distributed": true,
+                "thumbnail_folder": "cms-preview-clips",
+                "thumbnail_sources": {
+                    "hls": [
+                        {
+                            "quality_key": "Q6A",
+                            "src": "https:\/\/apasfiis.sf.apa.at\/ipad\/cms-preview-clips\/2020-03-26_1310_sd_02_ORF-Mitarbeiter_____14046198__o__8302694905__s14668903_3__ORF3HD_13420114P_13453123P_clip_Q6A.mp4\/playlist.m3u8"
+                        },
+                        {
+                            "quality_key": "Q8C",
+                            "src": "https:\/\/apasfiis.sf.apa.at\/ipad\/cms-preview-clips\/2020-03-26_1310_sd_02_ORF-Mitarbeiter_____14046198__o__8302694905__s14668903_3__ORF3HD_13420114P_13453123P_clip_Q8C.mp4\/playlist.m3u8"
+                        }
+                    ],
+                    "dash": [
+                        {
+                            "quality_key": "Q6A",
+                            "src": "https:\/\/apasfiis.sf.apa.at\/dash\/cms-preview-clips\/2020-03-26_1310_sd_02_ORF-Mitarbeiter_____14046198__o__8302694905__s14668903_3__ORF3HD_13420114P_13453123P_clip_Q6A.mp4\/manifest.mpd"
+                        },
+                        {
+                            "quality_key": "Q8C",
+                            "src": "https:\/\/apasfiis.sf.apa.at\/dash\/cms-preview-clips\/2020-03-26_1310_sd_02_ORF-Mitarbeiter_____14046198__o__8302694905__s14668903_3__ORF3HD_13420114P_13453123P_clip_Q8C.mp4\/manifest.mpd"
+                        }
+                    ]
+                },
+                "sprite_sources": [],
+                "title": "ORF-Mitarbeiter in Quarant\u00e4ne",
+                "updated_at": "2023-01-25T13:39:27+01:00",
+                "videobumper": {
+                    "prevideobumper": {
+                        "active": false,
+                        "sources": {
+                            "hls": [],
+                            "progressive_download": []
+                        }
+                    },
+                    "postvideobumper": {
+                        "active": false,
+                        "sources": {
+                            "hls": [],
+                            "progressive_download": []
+                        }
+                    }
+                },
+                "video_file_name": "2020-03-26_1310_sd_02_ORF-Mitarbeiter_____14046198__o__8302694905__s14668903_3__ORF3HD_13420114P_13453123P",
+                "video_stream_url": null,
+                "video_type": "segment",
+                "voez": false,
+                "voez_ads_allowed": false,
+                "_links": {
+                    "self": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/segment\/14668903"
+                    },
+                    "episode": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/episode\/14046198"
+                    },
+                    "image": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/10112593"
+                    },
+                    "image16x9_with_logo": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/10112593"
+                    },
+                    "image2x3_with_logo": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16596204"
+                    },
+                    "image2x3": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16596204"
+                    },
+                    "links": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/segment\/14668903\/links"
+                    },
+                    "subtitle": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/subtitle\/777384"
+                    },
+                    "playlist": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/segment\/14668903\/playlist"
+                    },
+                    "tags": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/segment\/14668903\/tags"
+                    },
+                    "profile": {
+                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/7648449"
+                    }
+                },
+                "_embedded": {
+                    "image": {
+                        "public_urls": {
+                            "highlight_teaser": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0102\/13\/thumb_10112593_segments_highlight_teaser.jpeg"
+                            },
+                            "player": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0102\/13\/thumb_10112593_segments_player.jpeg"
+                            },
+                            "list": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0102\/13\/thumb_10112593_segments_list.jpeg"
+                            },
+                            "small": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0102\/13\/thumb_10112593_segments_small.jpeg"
+                            },
+                            "reference": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0102\/13\/ee77b810f02ea1a48940043cfd20f90b128112e3.jpeg"
+                            }
+                        },
+                        "dynamic_color": "#691f11"
+                    },
+                    "image16x9_with_logo": {
+                        "public_urls": {
+                            "highlight_teaser": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0102\/13\/thumb_10112593_segments_highlight_teaser.jpeg"
+                            },
+                            "player": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0102\/13\/thumb_10112593_segments_player.jpeg"
+                            },
+                            "list": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0102\/13\/thumb_10112593_segments_list.jpeg"
+                            },
+                            "small": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0102\/13\/thumb_10112593_segments_small.jpeg"
+                            },
+                            "reference": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0102\/13\/ee77b810f02ea1a48940043cfd20f90b128112e3.jpeg"
+                            }
+                        },
+                        "dynamic_color": "#691f11"
+                    },
+                    "image2x3_with_logo": {
+                        "public_urls": {
+                            "highlight_teaser": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_highlight_teaser.jpeg"
+                            },
+                            "player": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_player.jpeg"
+                            },
+                            "legacy": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_legacy.jpeg"
+                            },
+                            "list": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_list.jpeg"
+                            },
+                            "small": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_small.jpeg"
+                            },
+                            "reference": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/56745f92b28e3a6f176e66acf9e9d0aea5e0c611.jpeg"
+                            }
+                        },
+                        "dynamic_color": "#691f11"
+                    },
+                    "image2x3": {
+                        "public_urls": {
+                            "highlight_teaser": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_highlight_teaser.jpeg"
+                            },
+                            "player": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_player.jpeg"
+                            },
+                            "legacy": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_legacy.jpeg"
+                            },
+                            "list": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_list.jpeg"
+                            },
+                            "small": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_small.jpeg"
+                            },
+                            "reference": {
+                                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/56745f92b28e3a6f176e66acf9e9d0aea5e0c611.jpeg"
+                            }
+                        },
+                        "dynamic_color": "#691f11"
+                    },
+                    "links": [],
+                    "subtitle": {
+                        "id": 777384,
+                        "parsed_at": null,
+                        "sami_url": "https:\/\/api-tvthek.orf.at\/assets\/subtitles\/0149\/07\/3029d4cf7a2f525121479ed8f28aef22659688fa.smi",
+                        "srt_url": "https:\/\/api-tvthek.orf.at\/assets\/subtitles\/0149\/07\/0591a5076837b039de5d325204dfe877ce58a036.srt",
+                        "stl_url": null,
+                        "ttml_url": "https:\/\/api-tvthek.orf.at\/assets\/subtitles\/0149\/07\/7a38c0710e820b61a96f8069b82bc7862a5dc157.ttml",
+                        "updated_at": "2023-01-25T13:39:27+01:00",
+                        "vtt_url": "https:\/\/api-tvthek.orf.at\/assets\/subtitles\/0149\/07\/531716fc5b205118e09e4b37c51ec856677fda04.vtt",
+                        "xml_url": "https:\/\/api-tvthek.orf.at\/assets\/subtitles\/0149\/07\/48fc0f933353d1b97efa355aca8f21afd04b8de9.xml",
+                        "_links": {
+                            "self": {
+                                "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/subtitle\/777384"
+                            },
+                            "xml_file": {
+                                "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/14806206"
+                            },
+                            "srt_file": {
+                                "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/14806207"
+                            },
+                            "vtt_file": {
+                                "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/14806208"
+                            },
+                            "sami_file": {
+                                "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/14806210"
+                            },
+                            "ttml_file": {
+                                "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/14806209"
+                            }
+                        },
+                        "_embedded": {
+                            "xml_file": {
+                                "public_urls": {
+                                    "reference": {
+                                        "url": "https:\/\/api-tvthek.orf.at\/assets\/subtitles\/0149\/07\/48fc0f933353d1b97efa355aca8f21afd04b8de9.xml"
+                                    }
+                                }
+                            },
+                            "stl_file": null,
+                            "srt_file": {
+                                "public_urls": {
+                                    "reference": {
+                                        "url": "https:\/\/api-tvthek.orf.at\/assets\/subtitles\/0149\/07\/0591a5076837b039de5d325204dfe877ce58a036.srt"
+                                    }
+                                }
+                            },
+                            "vtt_file": {
+                                "public_urls": {
+                                    "reference": {
+                                        "url": "https:\/\/api-tvthek.orf.at\/assets\/subtitles\/0149\/07\/531716fc5b205118e09e4b37c51ec856677fda04.vtt"
+                                    }
+                                }
+                            },
+                            "sami_file": {
+                                "public_urls": {
+                                    "reference": {
+                                        "url": "https:\/\/api-tvthek.orf.at\/assets\/subtitles\/0149\/07\/3029d4cf7a2f525121479ed8f28aef22659688fa.smi"
+                                    }
+                                }
+                            },
+                            "ttml_file": {
+                                "public_urls": {
+                                    "reference": {
+                                        "url": "https:\/\/api-tvthek.orf.at\/assets\/subtitles\/0149\/07\/7a38c0710e820b61a96f8069b82bc7862a5dc157.ttml"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "playlist": {
+                        "id": 14668903,
+                        "episode_id": 14046198,
+                        "title_prefix": "ORF-Mitarbeiter in Quarant\u00e4ne",
+                        "title_separator": "|",
+                        "title": "ORF-Mitarbeiter in Quarant\u00e4ne",
+                        "description": "Der ORF hat w\u00e4hrend der Coronakrise 2020 eine besondere Vorsichtsma\u00dfnahme getroffen, um den Betrieb sicherzustellen. Einige Mitarbeiter und Moderatoren des Senders sind vor\u00fcbergehend in das ORF-Zentrum am K\u00fcniglberg gezogen. Dort wird in \"Sperrzonen\" gearbeitet und der Sendebetrieb aufrecht erhalten. \r\n\r\nSendung: Mittag in \u00d6sterreich\r\nGestaltung: Stefan Schlager",
+                        "duration": 210370,
+                        "preview_image_url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0102\/13\/thumb_10112593_segments_player.jpeg",
+                        "sources": [
+                            {
+                                "quality": "Q1A",
+                                "quality_string": "Niedrig",
+                                "src": "rtmp:\/\/apasfw.apa.at\/cms-worldwide\/mp4:2020-03-26_1310_sd_02_ORF-Mitarbeiter_____14046198__o__8302694905__s14668903_3__ORF3HD_13420114P_13453123P_Q1A.3gp",
+                                "type": "video\/mp4",
+                                "delivery": "streaming",
+                                "protocol": "rtmp"
+                            },
+                            {
+                                "quality": "Q4A",
+                                "quality_string": "Mittel",
+                                "src": "rtmp:\/\/apasfw.apa.at\/cms-worldwide\/mp4:2020-03-26_1310_sd_02_ORF-Mitarbeiter_____14046198__o__8302694905__s14668903_3__ORF3HD_13420114P_13453123P_Q4A.mp4",
+                                "type": "video\/mp4",
+                                "delivery": "streaming",
+                                "protocol": "rtmp"
+                            },
+                            {
+                                "quality": "Q6A",
+                                "quality_string": "Hoch",
+                                "src": "rtmp:\/\/apasfw.apa.at\/cms-worldwide\/mp4:2020-03-26_1310_sd_02_ORF-Mitarbeiter_____14046198__o__8302694905__s14668903_3__ORF3HD_13420114P_13453123P_Q6A.mp4",
+                                "type": "video\/mp4",
+                                "delivery": "streaming",
+                                "protocol": "rtmp"
+                            },
+                            {
+                                "quality": "Q8C",
+                                "quality_string": "Sehr hoch",
+                                "src": "rtmp:\/\/apasfw.apa.at\/cms-worldwide\/mp4:2020-03-26_1310_sd_02_ORF-Mitarbeiter_____14046198__o__8302694905__s14668903_3__ORF3HD_13420114P_13453123P_Q8C.mp4",
+                                "type": "video\/mp4",
+                                "delivery": "streaming",
+                                "protocol": "rtmp"
+                            },
+                            {
+                                "quality": "Q1A",
+                                "quality_string": "Niedrig",
+                                "src": "rtsp:\/\/apasfw.apa.at:1935\/cms-worldwide\/mp4:2020-03-26_1310_sd_02_ORF-Mitarbeiter_____14046198__o__8302694905__s14668903_3__ORF3HD_13420114P_13453123P_Q1A.3gp",
+                                "type": "video\/mp4",
+                                "delivery": "streaming",
+                                "protocol": "rtsp"
+                            },
+                            {
+                                "quality": "SMIL",
+                                "quality_string": "Hoch",
+                                "src": "rtsp:\/\/apasfw.apa.at:1935\/cms-worldwide\/mp4:2020-03-26_1310_sd_02_ORF-Mitarbeiter_____14046198__o__8302694905__s14668903_3__ORF3HD_13420114P_13453123P_Q6A.mp4",
+                                "type": "video\/mp4",
+                                "delivery": "streaming",
+                                "protocol": "rtsp"
+                            },
+                            {
+                                "quality": "Q4A",
+                                "quality_string": "Mittel",
+                                "src": "rtsp:\/\/apasfw.apa.at:1935\/cms-worldwide\/mp4:2020-03-26_1310_sd_02_ORF-Mitarbeiter_____14046198__o__8302694905__s14668903_3__ORF3HD_13420114P_13453123P_Q4A.mp4",
+                                "type": "video\/mp4",
+                                "delivery": "streaming",
+                                "protocol": "rtsp"
+                            },
+                            {
+                                "quality": "Q8C",
+                                "quality_string": "Sehr hoch",
+                                "src": "rtsp:\/\/apasfw.apa.at:1935\/cms-worldwide\/mp4:2020-03-26_1310_sd_02_ORF-Mitarbeiter_____14046198__o__8302694905__s14668903_3__ORF3HD_13420114P_13453123P_Q8C.mp4",
+                                "type": "video\/mp4",
+                                "delivery": "streaming",
+                                "protocol": "rtsp"
+                            },
+                            {
+                                "src": "https:\/\/apasfiis.sf.apa.at\/ipad\/cms-worldwide\/2020-03-26_1310_sd_02_ORF-Mitarbeiter_____14046198__o__8302694905__s14668903_3__ORF3HD_13420114P_13453123P_Q0A.3gp\/playlist.m3u8",
+                                "is_uhd": false,
+                                "quality": "Q0A",
+                                "quality_string": "Sehr niedrig",
+                                "delivery": "hls",
+                                "type": "video\/mp4",
+                                "protocol": "http"
+                            },
+                            {
+                                "src": "https:\/\/apasfiis.sf.apa.at\/ipad\/cms-worldwide\/2020-03-26_1310_sd_02_ORF-Mitarbeiter_____14046198__o__8302694905__s14668903_3__ORF3HD_13420114P_13453123P_Q1A.3gp\/playlist.m3u8",
+                                "is_uhd": false,
+                                "quality": "Q1A",
+                                "quality_string": "Niedrig",
+                                "delivery": "hls",
+                                "type": "video\/mp4",
+                                "protocol": "http"
+                            },
+                            {
+                                "src": "https:\/\/apasfiis.sf.apa.at\/ipad\/cms-worldwide\/2020-03-26_1310_sd_02_ORF-Mitarbeiter_____14046198__o__8302694905__s14668903_3__ORF3HD_13420114P_13453123P_Q4A.mp4\/playlist.m3u8",
+                                "is_uhd": false,
+                                "quality": "Q4A",
+                                "quality_string": "Mittel",
+                                "delivery": "hls",
+                                "type": "video\/mp4",
+                                "protocol": "http"
+                            },
+                            {
+                                "src": "https:\/\/apasfiis.sf.apa.at\/ipad\/cms-worldwide\/2020-03-26_1310_sd_02_ORF-Mitarbeiter_____14046198__o__8302694905__s14668903_3__ORF3HD_13420114P_13453123P_Q6A.mp4\/playlist.m3u8",
+                                "is_uhd": false,
+                                "quality": "Q6A",
+                                "quality_string": "Hoch",
+                                "delivery": "hls",
+                                "type": "video\/mp4",
+                                "protocol": "http"
+                            },
+                            {
+                                "src": "https:\/\/apasfiis.sf.apa.at\/ipad\/cms-worldwide\/2020-03-26_1310_sd_02_ORF-Mitarbeiter_____14046198__o__8302694905__s14668903_3__ORF3HD_13420114P_13453123P_Q8C.mp4\/playlist.m3u8",
+                                "is_uhd": false,
+                                "quality": "Q8C",
+                                "quality_string": "Sehr hoch",
+                                "delivery": "hls",
+                                "type": "video\/mp4",
+                                "protocol": "http"
+                            },
+                            {
+                                "src": "https:\/\/apasfiis.sf.apa.at\/ipad\/cms-worldwide\/2020-03-26_1310_sd_02_ORF-Mitarbeiter_____14046198__o__8302694905__s14668903_3__ORF3HD_13420114P_13453123P_QXA.mp4\/playlist.m3u8",
+                                "is_uhd": false,
+                                "quality": "QXA",
+                                "quality_string": "Adaptiv",
+                                "delivery": "hls",
+                                "type": "video\/mp4",
+                                "protocol": "http"
+                            },
+                            {
+                                "src": "https:\/\/apasfiis.sf.apa.at\/ipad\/cms-worldwide\/2020-03-26_1310_sd_02_ORF-Mitarbeiter_____14046198__o__8302694905__s14668903_3__ORF3HD_13420114P_13453123P_QXB.mp4\/playlist.m3u8",
+                                "is_uhd": false,
+                                "quality": "QXB",
+                                "quality_string": "Adaptiv",
+                                "delivery": "hls",
+                                "type": "video\/mp4",
+                                "protocol": "http"
+                            },
+                            {
+                                "quality": "Q1A",
+                                "quality_string": "Niedrig",
+                                "src": "https:\/\/apasfpd.sf.apa.at\/cms-worldwide\/online\/52750afd9650eb5e83e661e101e3ecbb\/1709506800\/2020-03-26_1310_sd_02_ORF-Mitarbeiter_____14046198__o__8302694905__s14668903_3__ORF3HD_13420114P_13453123P_Q1A.3gp",
+                                "type": "video\/mp4",
+                                "delivery": "progressive",
+                                "protocol": "http"
+                            },
+                            {
+                                "quality": "Q4A",
+                                "quality_string": "Mittel",
+                                "src": "https:\/\/apasfpd.sf.apa.at\/cms-worldwide\/online\/88d3becaf9eeb50271b4197142a9fc98\/1709506800\/2020-03-26_1310_sd_02_ORF-Mitarbeiter_____14046198__o__8302694905__s14668903_3__ORF3HD_13420114P_13453123P_Q4A.mp4",
+                                "type": "video\/mp4",
+                                "delivery": "progressive",
+                                "protocol": "http"
+                            },
+                            {
+                                "quality": "Q6A",
+                                "quality_string": "Hoch",
+                                "src": "https:\/\/apasfpd.sf.apa.at\/cms-worldwide\/online\/74e2ac3a7cf46a4b30085080bfa9bb95\/1709506800\/2020-03-26_1310_sd_02_ORF-Mitarbeiter_____14046198__o__8302694905__s14668903_3__ORF3HD_13420114P_13453123P_Q6A.mp4",
+                                "type": "video\/mp4",
+                                "delivery": "progressive",
+                                "protocol": "http"
+                            },
+                            {
+                                "quality": "Q8C",
+                                "quality_string": "Sehr hoch",
+                                "src": "https:\/\/apasfpd.sf.apa.at\/cms-worldwide\/online\/eb3d28eafeee899ac14248fbcf5fcf91\/1709506800\/2020-03-26_1310_sd_02_ORF-Mitarbeiter_____14046198__o__8302694905__s14668903_3__ORF3HD_13420114P_13453123P_Q8C.mp4",
+                                "type": "video\/mp4",
+                                "delivery": "progressive",
+                                "protocol": "http"
+                            }
+                        ],
+                        "position": 0,
+                        "last_segment": true,
+                        "subtitles": [
+                            {
+                                "src": "https:\/\/api-tvthek.orf.at\/assets\/subtitles\/0149\/07\/48fc0f933353d1b97efa355aca8f21afd04b8de9.xml",
+                                "type": "xml",
+                                "lang": "de-AT"
+                            },
+                            {
+                                "src": "https:\/\/api-tvthek.orf.at\/assets\/subtitles\/0149\/07\/0591a5076837b039de5d325204dfe877ce58a036.srt",
+                                "type": "srt",
+                                "lang": "de-AT"
+                            },
+                            {
+                                "src": "https:\/\/api-tvthek.orf.at\/assets\/subtitles\/0149\/07\/531716fc5b205118e09e4b37c51ec856677fda04.vtt",
+                                "type": "vtt",
+                                "lang": "de-AT"
+                            },
+                            {
+                                "src": "https:\/\/api-tvthek.orf.at\/assets\/subtitles\/0149\/07\/3029d4cf7a2f525121479ed8f28aef22659688fa.smi",
+                                "type": "sami",
+                                "lang": "de-AT"
+                            },
+                            {
+                                "src": "https:\/\/api-tvthek.orf.at\/assets\/subtitles\/0149\/07\/7a38c0710e820b61a96f8069b82bc7862a5dc157.ttml",
+                                "type": "ttml",
+                                "lang": "de-AT"
+                            }
+                        ],
+                        "right": "worldwide",
+                        "is_enabled": true,
+                        "has_active_youthprotection": false,
+                        "pre_bumper": {
+                            "active": false,
+                            "sources": []
+                        },
+                        "post_bumper": {
+                            "active": false,
+                            "sources": []
+                        },
+                        "hash": "41677ccffa7cb15f0200ed1d615b8919"
+                    },
+                    "tags": [],
+                    "profile": {
+                        "audio_description": false,
+                        "break_text": null,
+                        "break_title": null,
+                        "dataset_name": "archive",
+                        "description": null,
+                        "has_active_youth_protection": false,
+                        "has_youth_protection": false,
+                        "headline": "Archiv",
+                        "hide_in_letter_group": false,
+                        "id": 7648449,
+                        "letter_group": "A",
+                        "livestream_sub_headline": null,
+                        "oegs": false,
+                        "oewa_base_path": "Redcont\/Nachrichten\/Nachrichtenueberblick",
+                        "profile_website": null,
+                        "secondary_genres": [],
+                        "sub_headline": null,
+                        "title": "Archiv",
+                        "type": "temporary",
+                        "updated_at": "2019-02-28T11:32:43+01:00",
+                        "youth_protection_type": "limited-20-06",
+                        "_links": {
+                            "self": {
+                                "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/7648449"
+                            },
+                            "image": {
+                                "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16596301"
+                            },
+                            "image16x9_with_logo": {
+                                "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16596301"
+                            },
+                            "image2x3_with_logo": {
+                                "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16596204"
+                            },
+                            "image2x3": {
+                                "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16596204"
+                            },
+                            "theme": {
+                                "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/theme\/7845704"
+                            },
+                            "links": {
+                                "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/7648449\/links"
+                            },
+                            "episodes": {
+                                "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/7648449\/episodes"
+                            },
+                            "related_profiles": {
+                                "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/7648449\/related"
+                            },
+                            "latest_episode": {
+                                "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/7648449\/episode\/latest"
+                            },
+                            "tags": {
+                                "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/7648449\/tags"
+                            },
+                            "advertising_tags": {
+                                "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/7648449\/advertising\/tags"
+                            }
+                        },
+                        "_embedded": {
+                            "image": {
+                                "public_urls": {
+                                    "highlight_teaser": {
+                                        "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0166\/97\/thumb_16596301_profiles_highlight_teaser.jpeg"
+                                    },
+                                    "player": {
+                                        "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0166\/97\/thumb_16596301_profiles_player.jpeg"
+                                    },
+                                    "list": {
+                                        "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0166\/97\/thumb_16596301_profiles_list.jpeg"
+                                    },
+                                    "small": {
+                                        "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0166\/97\/thumb_16596301_profiles_small.jpeg"
+                                    },
+                                    "reference": {
+                                        "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0166\/97\/ae4592a5d457efa42101c1b7170e39be2f2afcad.jpeg"
+                                    }
+                                },
+                                "dynamic_color": "#691f11"
+                            },
+                            "image16x9_with_logo": {
+                                "public_urls": {
+                                    "highlight_teaser": {
+                                        "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0166\/97\/thumb_16596301_profiles_highlight_teaser.jpeg"
+                                    },
+                                    "player": {
+                                        "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0166\/97\/thumb_16596301_profiles_player.jpeg"
+                                    },
+                                    "list": {
+                                        "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0166\/97\/thumb_16596301_profiles_list.jpeg"
+                                    },
+                                    "small": {
+                                        "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0166\/97\/thumb_16596301_profiles_small.jpeg"
+                                    },
+                                    "reference": {
+                                        "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0166\/97\/ae4592a5d457efa42101c1b7170e39be2f2afcad.jpeg"
+                                    }
+                                },
+                                "dynamic_color": "#691f11"
+                            },
+                            "image2x3_with_logo": {
+                                "public_urls": {
+                                    "highlight_teaser": {
+                                        "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_highlight_teaser.jpeg"
+                                    },
+                                    "player": {
+                                        "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_player.jpeg"
+                                    },
+                                    "legacy": {
+                                        "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_legacy.jpeg"
+                                    },
+                                    "list": {
+                                        "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_list.jpeg"
+                                    },
+                                    "small": {
+                                        "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_small.jpeg"
+                                    },
+                                    "reference": {
+                                        "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/56745f92b28e3a6f176e66acf9e9d0aea5e0c611.jpeg"
+                                    }
+                                },
+                                "dynamic_color": "#691f11"
+                            },
+                            "image2x3": {
+                                "public_urls": {
+                                    "highlight_teaser": {
+                                        "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_highlight_teaser.jpeg"
+                                    },
+                                    "player": {
+                                        "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_player.jpeg"
+                                    },
+                                    "legacy": {
+                                        "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_legacy.jpeg"
+                                    },
+                                    "list": {
+                                        "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_list.jpeg"
+                                    },
+                                    "small": {
+                                        "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_small.jpeg"
+                                    },
+                                    "reference": {
+                                        "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/56745f92b28e3a6f176e66acf9e9d0aea5e0c611.jpeg"
+                                    }
+                                },
+                                "dynamic_color": "#691f11"
+                            },
+                            "theme": {
+                                "color": "#e3e3e3",
+                                "id": 7845704,
+                                "name": "Archiv",
+                                "updated_at": "2016-10-11T00:05:51+02:00",
+                                "_links": {
+                                    "self": {
+                                        "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/theme\/7845704"
+                                    }
+                                },
+                                "_embedded": {
+                                    "header_image": null,
+                                    "header_background_image": null,
+                                    "background_image": null
+                                }
+                            },
+                            "genre": null,
+                            "links": [],
+                            "tags": [],
+                            "advertising_tags": [],
+                            "audio_description_profile": null,
+                            "oegs_profile": null
+                        }
+                    }
+                }
+            }
+        ],
+        "tags": [],
+        "advertising_tags": [],
+        "links": [],
+        "audio_description_episode": null,
+        "oegs_episode": null,
+        "image": {
+            "public_urls": {
+                "highlight_teaser": {
+                    "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0102\/13\/thumb_10112593_segments_highlight_teaser.jpeg"
+                },
+                "player": {
+                    "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0102\/13\/thumb_10112593_segments_player.jpeg"
+                },
+                "list": {
+                    "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0102\/13\/thumb_10112593_segments_list.jpeg"
+                },
+                "small": {
+                    "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0102\/13\/thumb_10112593_segments_small.jpeg"
+                },
+                "reference": {
+                    "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0102\/13\/ee77b810f02ea1a48940043cfd20f90b128112e3.jpeg"
+                }
+            },
+            "dynamic_color": "#691f11"
+        },
+        "image16x9_with_logo": {
+            "public_urls": {
+                "highlight_teaser": {
+                    "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0102\/13\/thumb_10112593_segments_highlight_teaser.jpeg"
+                },
+                "player": {
+                    "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0102\/13\/thumb_10112593_segments_player.jpeg"
+                },
+                "list": {
+                    "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0102\/13\/thumb_10112593_segments_list.jpeg"
+                },
+                "small": {
+                    "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0102\/13\/thumb_10112593_segments_small.jpeg"
+                },
+                "reference": {
+                    "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0102\/13\/ee77b810f02ea1a48940043cfd20f90b128112e3.jpeg"
+                }
+            },
+            "dynamic_color": "#691f11"
+        },
+        "image2x3_with_logo": {
+            "public_urls": {
+                "highlight_teaser": {
+                    "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_highlight_teaser.jpeg"
+                },
+                "player": {
+                    "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_player.jpeg"
+                },
+                "legacy": {
+                    "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_legacy.jpeg"
+                },
+                "list": {
+                    "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_list.jpeg"
+                },
+                "small": {
+                    "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_small.jpeg"
+                },
+                "reference": {
+                    "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/56745f92b28e3a6f176e66acf9e9d0aea5e0c611.jpeg"
+                }
+            },
+            "dynamic_color": "#691f11"
+        },
+        "image2x3": {
+            "public_urls": {
+                "highlight_teaser": {
+                    "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_highlight_teaser.jpeg"
+                },
+                "player": {
+                    "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_player.jpeg"
+                },
+                "legacy": {
+                    "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_legacy.jpeg"
+                },
+                "list": {
+                    "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_list.jpeg"
+                },
+                "small": {
+                    "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_small.jpeg"
+                },
+                "reference": {
+                    "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/56745f92b28e3a6f176e66acf9e9d0aea5e0c611.jpeg"
+                }
+            },
+            "dynamic_color": "#691f11"
+        },
+        "subtitle": {
+            "id": 777383,
+            "parsed_at": null,
+            "sami_url": "https:\/\/api-tvthek.orf.at\/assets\/subtitles\/0149\/07\/169001a65997f4d747fff2e4390a1f48789f388e.smi",
+            "srt_url": "https:\/\/api-tvthek.orf.at\/assets\/subtitles\/0149\/07\/1fc835e5ea31f903e9e5aa136085d4835bb8f81f.srt",
+            "stl_url": null,
+            "ttml_url": "https:\/\/api-tvthek.orf.at\/assets\/subtitles\/0149\/07\/fcaa2c529b8a6524f2fe58820e734dba44aab0ba.ttml",
+            "updated_at": "2023-01-25T13:39:27+01:00",
+            "vtt_url": "https:\/\/api-tvthek.orf.at\/assets\/subtitles\/0149\/07\/dacc52722cffd5bc466a231c66aeb2c01033a24d.vtt",
+            "xml_url": "https:\/\/api-tvthek.orf.at\/assets\/subtitles\/0149\/07\/f198c7d0c39a12039bd3a7f20a371acc0b7e8168.xml",
+            "_links": {
+                "self": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/subtitle\/777383"
+                },
+                "xml_file": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/14806201"
+                },
+                "srt_file": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/14806202"
+                },
+                "vtt_file": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/14806203"
+                },
+                "sami_file": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/14806205"
+                },
+                "ttml_file": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/14806204"
+                }
+            },
+            "_embedded": {
+                "xml_file": {
+                    "public_urls": {
+                        "reference": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/subtitles\/0149\/07\/f198c7d0c39a12039bd3a7f20a371acc0b7e8168.xml"
+                        }
+                    }
+                },
+                "stl_file": null,
+                "srt_file": {
+                    "public_urls": {
+                        "reference": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/subtitles\/0149\/07\/1fc835e5ea31f903e9e5aa136085d4835bb8f81f.srt"
+                        }
+                    }
+                },
+                "vtt_file": {
+                    "public_urls": {
+                        "reference": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/subtitles\/0149\/07\/dacc52722cffd5bc466a231c66aeb2c01033a24d.vtt"
+                        }
+                    }
+                },
+                "sami_file": {
+                    "public_urls": {
+                        "reference": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/subtitles\/0149\/07\/169001a65997f4d747fff2e4390a1f48789f388e.smi"
+                        }
+                    }
+                },
+                "ttml_file": {
+                    "public_urls": {
+                        "reference": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/subtitles\/0149\/07\/fcaa2c529b8a6524f2fe58820e734dba44aab0ba.ttml"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "accompanying_videos": []
+}

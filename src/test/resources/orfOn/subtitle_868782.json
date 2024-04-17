@@ -1,0 +1,31 @@
+{
+    "id": 868782,
+    "parsed_at": null,
+    "sami_url": "https:\/\/api-tvthek.orf.at\/assets\/subtitles\/0162\/100\/6cd8a1899f5b56f919a6d809fe001ce3acaf4ce8.smi",
+    "srt_url": "https:\/\/api-tvthek.orf.at\/assets\/subtitles\/0162\/100\/79738b7eb874c151cde04ec6367a444bd5999db1.srt",
+    "stl_url": null,
+    "ttml_url": "https:\/\/api-tvthek.orf.at\/assets\/subtitles\/0162\/100\/a1ab1313ca03ba35c75d39e08c59840bc97aba76.ttml",
+    "updated_at": "2023-11-21T01:11:42+01:00",
+    "vtt_url": "https:\/\/api-tvthek.orf.at\/assets\/subtitles\/0162\/100\/4b1c81a007271ee90224a9555494148e3116a00e.vtt",
+    "xml_url": "https:\/\/api-tvthek.orf.at\/assets\/subtitles\/0162\/100\/a0467e2fdfb637c00fe6a450f003cedcf70128fa.xml",
+    "_links": {
+        "self": {
+            "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/subtitle\/868782"
+        },
+        "xml_file": {
+            "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16199129"
+        },
+        "srt_file": {
+            "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16199130"
+        },
+        "vtt_file": {
+            "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16199131"
+        },
+        "sami_file": {
+            "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16199133"
+        },
+        "ttml_file": {
+            "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16199132"
+        }
+    }
+}

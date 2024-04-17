@@ -173,7 +173,9 @@ public class ZdfFilmDetailTask extends ZdfTaskBase<Film, CrawlerUrlDTO> {
             getOptimizedUrls(downloadDto.getDownloadUrls(language));
         urls.forEach(filmWithLanguage::addUrl);
 
-        taskResults.add(filmWithLanguage);
+        if (!taskResults.add(filmWithLanguage)) {
+          LOG.error("Rejected duplicate {}", filmWithLanguage);
+        }
         previousMainFilm = filmWithLanguage;
         previousLanguage = language;
       }

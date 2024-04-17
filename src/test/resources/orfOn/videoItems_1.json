@@ -1,0 +1,1582 @@
+{
+    "page": "1",
+    "limit": "20",
+    "page_count": 1,
+    "total": 9,
+    "next": null,
+    "_items": [
+        {
+            "order": 0,
+            "age_classification": "",
+            "audio_description_service_available": false,
+            "date": "2020-10-26T09:06:00+01:00",
+            "delete_date": null,
+            "vod_ressort": null,
+            "description": "Oberstleutnant Jasmine Krutzler berichtet von ihren Erfahrungen im Auslandseinsatz. Sie war unter anderem in Bosnien, im Kosovo, in Afghanistan und auf den Golanh\u00f6hen stationiert und schildert ihre Sicht der Dinge \u00fcber die Rolle, die das Heer im Ausland erbringt. \r\n\r\nSendung: Der Nationalfeiertag - Kranzniederlegung, Angelobung, Ministerrat\r\nGestaltung: Stefan Ruzowitzky\r\nInterview mit: Jasmine Krutzler",
+            "duration_seconds": 228,
+            "field_descriptor": "",
+            "genre_id": null,
+            "genre_title": "",
+            "right": "worldwide",
+            "growing": true,
+            "has_active_youth_protection": false,
+            "focus": false,
+            "show_countdown": false,
+            "has_subtitle": false,
+            "has_youth_protection": false,
+            "headline": "60 Jahre Auslandseins\u00e4tze des Bundesheeres",
+            "id": 14070240,
+            "is_archive": true,
+            "is_oegs": false,
+            "two_channel_audio": false,
+            "uhd": false,
+            "main_channel_id": 1181,
+            "sub_headline": null,
+            "orf_label": null,
+            "time_section": "vormittag",
+            "production_country": null,
+            "production_year": null,
+            "related_audiodescription_episode_image_url": null,
+            "related_audiodescription_episode_title": null,
+            "related_oegs_episode_image_url": null,
+            "related_oegs_episode_title": null,
+            "segments_complete": true,
+            "episodes_reference": "",
+            "teaser_text": "Oberstleutnant Jasmine Krutzler berichtet von ihren Erfahrungen im Auslandseinsatz. Sie war unter anderem in Bosnien, im Kosovo, in Afghanistan und auf den Golanh\u00f6hen stationiert und schildert ihre Sicht der Dinge \u00fcber die Rolle, die das Heer im Ausland erbringt. \r\n\r\nSendung: Der Nationalfeiertag - Kranzniederlegung, Angelobung, Ministerrat\r\nGestaltung: Stefan Ruzowitzky\r\nInterview mit: Jasmine Krutzler",
+            "thumbnail_sources": {
+                "hls": [
+                    {
+                        "quality_key": "Q6A",
+                        "src": "https:\/\/apasfiis.sf.apa.at\/ipad\/cms-preview-clips\/2020-10-26_0906_in_02_60-Jahre-Auslan_____14070240__o__1297789589__s14788281_clip_Q6A.mp4\/playlist.m3u8"
+                    },
+                    {
+                        "quality_key": "Q8C",
+                        "src": "https:\/\/apasfiis.sf.apa.at\/ipad\/cms-preview-clips\/2020-10-26_0906_in_02_60-Jahre-Auslan_____14070240__o__1297789589__s14788281_clip_Q8C.mp4\/playlist.m3u8"
+                    }
+                ],
+                "hds": [
+                    {
+                        "quality_key": "Q6A",
+                        "src": "https:\/\/apasfiis.sf.apa.at\/f4m\/cms-preview-clips\/2020-10-26_0906_in_02_60-Jahre-Auslan_____14070240__o__1297789589__s14788281_clip_Q6A.mp4\/manifest.f4m"
+                    },
+                    {
+                        "quality_key": "Q8C",
+                        "src": "https:\/\/apasfiis.sf.apa.at\/f4m\/cms-preview-clips\/2020-10-26_0906_in_02_60-Jahre-Auslan_____14070240__o__1297789589__s14788281_clip_Q8C.mp4\/manifest.f4m"
+                    }
+                ],
+                "smooth": [
+                    {
+                        "quality_key": "Q6A",
+                        "src": "https:\/\/apasfiis.sf.apa.at\/smooth\/cms-preview-clips\/2020-10-26_0906_in_02_60-Jahre-Auslan_____14070240__o__1297789589__s14788281_clip_Q6A.mp4\/Manifest"
+                    },
+                    {
+                        "quality_key": "Q8C",
+                        "src": "https:\/\/apasfiis.sf.apa.at\/smooth\/cms-preview-clips\/2020-10-26_0906_in_02_60-Jahre-Auslan_____14070240__o__1297789589__s14788281_clip_Q8C.mp4\/Manifest"
+                    }
+                ],
+                "dash": [
+                    {
+                        "quality_key": "Q6A",
+                        "src": "https:\/\/apasfiis.sf.apa.at\/dash\/cms-preview-clips\/2020-10-26_0906_in_02_60-Jahre-Auslan_____14070240__o__1297789589__s14788281_clip_Q6A.mp4\/manifest.mpd"
+                    },
+                    {
+                        "quality_key": "Q8C",
+                        "src": "https:\/\/apasfiis.sf.apa.at\/dash\/cms-preview-clips\/2020-10-26_0906_in_02_60-Jahre-Auslan_____14070240__o__1297789589__s14788281_clip_Q8C.mp4\/manifest.mpd"
+                    }
+                ]
+            },
+            "title": "60 Jahre Auslandseins\u00e4tze des Bundesheeres",
+            "video_type": "episode",
+            "youth_protection_type": "limited-20-06",
+            "_links": {
+                "self": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/episode\/14070240"
+                },
+                "image": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/11105301"
+                },
+                "image16x9_with_logo": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/11105301"
+                },
+                "image2x3_with_logo": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16596204"
+                },
+                "image2x3": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16596204"
+                }
+            },
+            "_embedded": {
+                "image": {
+                    "public_urls": {
+                        "highlight_teaser": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0112\/06\/thumb_11105301_segments_highlight_teaser.jpeg"
+                        },
+                        "player": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0112\/06\/thumb_11105301_segments_player.jpeg"
+                        },
+                        "list": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0112\/06\/thumb_11105301_segments_list.jpeg"
+                        },
+                        "small": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0112\/06\/thumb_11105301_segments_small.jpeg"
+                        },
+                        "reference": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0112\/06\/51f3053576805e1ea44176e46c21e265b57f4c86.jpeg"
+                        }
+                    },
+                    "dynamic_color": "#691f11"
+                },
+                "image16x9_with_logo": {
+                    "public_urls": {
+                        "highlight_teaser": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0112\/06\/thumb_11105301_segments_highlight_teaser.jpeg"
+                        },
+                        "player": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0112\/06\/thumb_11105301_segments_player.jpeg"
+                        },
+                        "list": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0112\/06\/thumb_11105301_segments_list.jpeg"
+                        },
+                        "small": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0112\/06\/thumb_11105301_segments_small.jpeg"
+                        },
+                        "reference": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0112\/06\/51f3053576805e1ea44176e46c21e265b57f4c86.jpeg"
+                        }
+                    },
+                    "dynamic_color": "#691f11"
+                },
+                "image2x3_with_logo": {
+                    "public_urls": {
+                        "highlight_teaser": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_highlight_teaser.jpeg"
+                        },
+                        "player": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_player.jpeg"
+                        },
+                        "legacy": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_legacy.jpeg"
+                        },
+                        "list": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_list.jpeg"
+                        },
+                        "small": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_small.jpeg"
+                        },
+                        "reference": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/56745f92b28e3a6f176e66acf9e9d0aea5e0c611.jpeg"
+                        }
+                    },
+                    "dynamic_color": "#691f11"
+                },
+                "image2x3": {
+                    "public_urls": {
+                        "highlight_teaser": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_highlight_teaser.jpeg"
+                        },
+                        "player": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_player.jpeg"
+                        },
+                        "legacy": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_legacy.jpeg"
+                        },
+                        "list": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_list.jpeg"
+                        },
+                        "small": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_small.jpeg"
+                        },
+                        "reference": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/56745f92b28e3a6f176e66acf9e9d0aea5e0c611.jpeg"
+                        }
+                    },
+                    "dynamic_color": "#691f11"
+                }
+            }
+        },
+        {
+            "order": 1,
+            "age_classification": "",
+            "audio_description_service_available": false,
+            "date": "2018-10-27T19:25:00+02:00",
+            "delete_date": null,
+            "vod_ressort": null,
+            "description": "Im Dezember 1960 kam es zum ersten Einsatz von Soldaten au\u00dferhalb \u00d6sterreichs. Seither hat sich das Heer an vielen weiteren Missionen beteiligt. Regisseur Walter Seledec begab sich auf die Spuren der \u00f6sterreichischen Eins\u00e4tze und begann seine Erkundung in der Zeit der Monarchie, als sich bereits die k. u. k-Truppen an internationalen Eins\u00e4tzen beteiligten.\r\n\r\nSendung: zeit.geschichte\r\nGestaltung: Walter Seledec",
+            "duration_seconds": 2911,
+            "field_descriptor": "",
+            "genre_id": null,
+            "genre_title": "",
+            "right": "worldwide",
+            "growing": true,
+            "has_active_youth_protection": false,
+            "focus": false,
+            "show_countdown": false,
+            "has_subtitle": false,
+            "has_youth_protection": false,
+            "headline": "\u00d6sterreichs Soldaten weltweit im Einsatz",
+            "id": 14003539,
+            "is_archive": true,
+            "is_oegs": false,
+            "two_channel_audio": false,
+            "uhd": false,
+            "main_channel_id": 3026625,
+            "sub_headline": null,
+            "orf_label": null,
+            "time_section": "vorabend",
+            "production_country": null,
+            "production_year": null,
+            "related_audiodescription_episode_image_url": null,
+            "related_audiodescription_episode_title": null,
+            "related_oegs_episode_image_url": null,
+            "related_oegs_episode_title": null,
+            "segments_complete": true,
+            "episodes_reference": "",
+            "teaser_text": "Im Dezember 1960 kam es zum ersten Einsatz von Soldaten au\u00dferhalb \u00d6sterreichs. Seither hat sich das Heer an vielen weiteren Missionen beteiligt. Regisseur Walter Seledec begab sich auf die Spuren der \u00f6sterreichischen Eins\u00e4tze und begann seine Erkundung in der Zeit der Monarchie, als sich bereits die k. u. k-Truppen an internationalen Eins\u00e4tzen beteiligten.\r\n\r\nSendung: zeit.geschichte\r\nGestaltung: Walter Seledec",
+            "thumbnail_sources": {
+                "hls": [
+                    {
+                        "quality_key": "Q6A",
+                        "src": "https:\/\/apasfiis.sf.apa.at\/ipad\/cms-preview-clips\/2018-10-27_1925_in_06_Oesterreichs-So_____14003539__o__2019240494__s14441053_clip_Q6A.mp4\/playlist.m3u8"
+                    }
+                ],
+                "hds": [
+                    {
+                        "quality_key": "Q6A",
+                        "src": "https:\/\/apasfiis.sf.apa.at\/f4m\/cms-preview-clips\/2018-10-27_1925_in_06_Oesterreichs-So_____14003539__o__2019240494__s14441053_clip_Q6A.mp4\/manifest.f4m"
+                    }
+                ],
+                "smooth": [
+                    {
+                        "quality_key": "Q6A",
+                        "src": "https:\/\/apasfiis.sf.apa.at\/smooth\/cms-preview-clips\/2018-10-27_1925_in_06_Oesterreichs-So_____14003539__o__2019240494__s14441053_clip_Q6A.mp4\/Manifest"
+                    }
+                ],
+                "dash": [
+                    {
+                        "quality_key": "Q6A",
+                        "src": "https:\/\/apasfiis.sf.apa.at\/dash\/cms-preview-clips\/2018-10-27_1925_in_06_Oesterreichs-So_____14003539__o__2019240494__s14441053_clip_Q6A.mp4\/manifest.mpd"
+                    }
+                ]
+            },
+            "title": "\u00d6sterreichs Soldaten weltweit im Einsatz",
+            "video_type": "episode",
+            "youth_protection_type": "limited-20-06",
+            "_links": {
+                "self": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/episode\/14003539"
+                },
+                "image": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/7180616"
+                },
+                "image16x9_with_logo": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/7180616"
+                },
+                "image2x3_with_logo": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16596204"
+                },
+                "image2x3": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16596204"
+                }
+            },
+            "_embedded": {
+                "image": {
+                    "public_urls": {
+                        "highlight_teaser": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0072\/81\/thumb_7180616_segments_highlight_teaser.jpeg"
+                        },
+                        "player": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0072\/81\/thumb_7180616_segments_player.jpeg"
+                        },
+                        "list": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0072\/81\/thumb_7180616_segments_list.jpeg"
+                        },
+                        "small": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0072\/81\/thumb_7180616_segments_small.jpeg"
+                        },
+                        "reference": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0072\/81\/9bd8e3ad62d3455c484dcc282e6fa19341d89aa9.jpeg"
+                        }
+                    },
+                    "dynamic_color": "#691f11"
+                },
+                "image16x9_with_logo": {
+                    "public_urls": {
+                        "highlight_teaser": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0072\/81\/thumb_7180616_segments_highlight_teaser.jpeg"
+                        },
+                        "player": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0072\/81\/thumb_7180616_segments_player.jpeg"
+                        },
+                        "list": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0072\/81\/thumb_7180616_segments_list.jpeg"
+                        },
+                        "small": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0072\/81\/thumb_7180616_segments_small.jpeg"
+                        },
+                        "reference": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0072\/81\/9bd8e3ad62d3455c484dcc282e6fa19341d89aa9.jpeg"
+                        }
+                    },
+                    "dynamic_color": "#691f11"
+                },
+                "image2x3_with_logo": {
+                    "public_urls": {
+                        "highlight_teaser": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_highlight_teaser.jpeg"
+                        },
+                        "player": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_player.jpeg"
+                        },
+                        "legacy": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_legacy.jpeg"
+                        },
+                        "list": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_list.jpeg"
+                        },
+                        "small": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_small.jpeg"
+                        },
+                        "reference": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/56745f92b28e3a6f176e66acf9e9d0aea5e0c611.jpeg"
+                        }
+                    },
+                    "dynamic_color": "#691f11"
+                },
+                "image2x3": {
+                    "public_urls": {
+                        "highlight_teaser": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_highlight_teaser.jpeg"
+                        },
+                        "player": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_player.jpeg"
+                        },
+                        "legacy": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_legacy.jpeg"
+                        },
+                        "list": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_list.jpeg"
+                        },
+                        "small": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_small.jpeg"
+                        },
+                        "reference": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/56745f92b28e3a6f176e66acf9e9d0aea5e0c611.jpeg"
+                        }
+                    },
+                    "dynamic_color": "#691f11"
+                }
+            }
+        },
+        {
+            "order": 2,
+            "age_classification": "",
+            "audio_description_service_available": false,
+            "date": "2010-06-16T20:15:00+02:00",
+            "delete_date": null,
+            "vod_ressort": null,
+            "description": "Im Jahre 1960 entschloss sich die \u00f6sterreichische Bundesregierung erstmals seit Bestehen des Heeres in der Zweiten Republik, rot-wei\u00df-rote Soldaten zu Hilfeleistungen ins Ausland zu entsenden. Dieser erste Einsatz von Soldaten au\u00dferhalb \u00d6sterreichs begann im Dezember 1960. \u00d6sterreich unterst\u00fctzte damit eine Operation der UNO zur Beendigung der kriegs\u00e4hnlichen Zust\u00e4nde im ehemaligen Belgisch-Kongo. Seit diesem ersten Einsatz 1960 bis 2010 beteiligte sich das Bundesheer an insgesamt 75 Missionen. Diese zahlreichen und h\u00f6chst unterschiedlichen Eins\u00e4tze des Bundesheeres im Ausland hatten auch dazu gef\u00fchrt, dass das Ansehen \u00d6sterreichs in Europa und der Welt eine bedeutende Steigerung und Anerkennung erfuhr. Eine Doku aus dem Jahr 2010.\r\n\r\nSendung: Vom Kongo bis in den Tschad \r\nGestaltung: Walter Seledec",
+            "duration_seconds": 2696,
+            "field_descriptor": "",
+            "genre_id": null,
+            "genre_title": "",
+            "right": "worldwide",
+            "growing": true,
+            "has_active_youth_protection": false,
+            "focus": false,
+            "show_countdown": false,
+            "has_subtitle": false,
+            "has_youth_protection": false,
+            "headline": "50 Jahre Auslandseins\u00e4tze",
+            "id": 5074881,
+            "is_archive": true,
+            "is_oegs": false,
+            "two_channel_audio": false,
+            "uhd": false,
+            "main_channel_id": 1181,
+            "sub_headline": null,
+            "orf_label": null,
+            "time_section": "hauptabend",
+            "production_country": null,
+            "production_year": null,
+            "related_audiodescription_episode_image_url": null,
+            "related_audiodescription_episode_title": null,
+            "related_oegs_episode_image_url": null,
+            "related_oegs_episode_title": null,
+            "segments_complete": true,
+            "episodes_reference": "",
+            "teaser_text": "Im Jahre 1960 entschloss sich die \u00f6sterreichische Bundesregierung erstmals seit Bestehen des Heeres in der Zweiten Republik, rot-wei\u00df-rote Soldaten zu Hilfeleistungen ins Ausland zu entsenden. Dieser erste Einsatz von Soldaten au\u00dferhalb \u00d6sterreichs begann im Dezember 1960. \u00d6sterreich unterst\u00fctzte damit eine Operation der UNO zur Beendigung der kriegs\u00e4hnlichen Zust\u00e4nde im ehemaligen Belgisch-Kongo. Seit diesem ersten Einsatz 1960 bis 2010 beteiligte sich das Bundesheer an insgesamt 75 Missionen. Diese zahlreichen und h\u00f6chst unterschiedlichen Eins\u00e4tze des Bundesheeres im Ausland hatten auch dazu gef\u00fchrt, dass das Ansehen \u00d6sterreichs in Europa und der Welt eine bedeutende Steigerung und Anerkennung erfuhr. Eine Doku aus dem Jahr 2010.\r\n\r\nSendung: Vom Kongo bis in den Tschad \r\nGestaltung: Walter Seledec",
+            "thumbnail_sources": {
+                "hls": [
+                    {
+                        "quality_key": "Q6A",
+                        "src": "https:\/\/apasfiis.sf.apa.at\/ipad\/cms-preview-clips\/2010-06-16_2015_in_02_50-Jahre-Auslan_____5074881__o__7725732865__s14377840_clip_Q6A.mp4\/playlist.m3u8"
+                    }
+                ],
+                "hds": [
+                    {
+                        "quality_key": "Q6A",
+                        "src": "https:\/\/apasfiis.sf.apa.at\/f4m\/cms-preview-clips\/2010-06-16_2015_in_02_50-Jahre-Auslan_____5074881__o__7725732865__s14377840_clip_Q6A.mp4\/manifest.f4m"
+                    }
+                ],
+                "smooth": [
+                    {
+                        "quality_key": "Q6A",
+                        "src": "https:\/\/apasfiis.sf.apa.at\/smooth\/cms-preview-clips\/2010-06-16_2015_in_02_50-Jahre-Auslan_____5074881__o__7725732865__s14377840_clip_Q6A.mp4\/Manifest"
+                    }
+                ],
+                "dash": [
+                    {
+                        "quality_key": "Q6A",
+                        "src": "https:\/\/apasfiis.sf.apa.at\/dash\/cms-preview-clips\/2010-06-16_2015_in_02_50-Jahre-Auslan_____5074881__o__7725732865__s14377840_clip_Q6A.mp4\/manifest.mpd"
+                    }
+                ]
+            },
+            "title": "50 Jahre Auslandseins\u00e4tze",
+            "video_type": "episode",
+            "youth_protection_type": "limited-20-06",
+            "_links": {
+                "self": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/episode\/5074881"
+                },
+                "image": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/5074458"
+                },
+                "image16x9_with_logo": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/5074458"
+                },
+                "image2x3_with_logo": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16596204"
+                },
+                "image2x3": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16596204"
+                }
+            },
+            "_embedded": {
+                "image": {
+                    "public_urls": {
+                        "highlight_teaser": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0051\/75\/thumb_5074458_segments_highlight_teaser.jpeg"
+                        },
+                        "player": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0051\/75\/thumb_5074458_segments_player.jpeg"
+                        },
+                        "list": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0051\/75\/thumb_5074458_segments_list.jpeg"
+                        },
+                        "small": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0051\/75\/thumb_5074458_segments_small.jpeg"
+                        },
+                        "reference": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0051\/75\/affa8246223808475bc253a937beb7d6a98e5e2c.jpeg"
+                        }
+                    },
+                    "dynamic_color": "#691f11"
+                },
+                "image16x9_with_logo": {
+                    "public_urls": {
+                        "highlight_teaser": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0051\/75\/thumb_5074458_segments_highlight_teaser.jpeg"
+                        },
+                        "player": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0051\/75\/thumb_5074458_segments_player.jpeg"
+                        },
+                        "list": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0051\/75\/thumb_5074458_segments_list.jpeg"
+                        },
+                        "small": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0051\/75\/thumb_5074458_segments_small.jpeg"
+                        },
+                        "reference": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0051\/75\/affa8246223808475bc253a937beb7d6a98e5e2c.jpeg"
+                        }
+                    },
+                    "dynamic_color": "#691f11"
+                },
+                "image2x3_with_logo": {
+                    "public_urls": {
+                        "highlight_teaser": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_highlight_teaser.jpeg"
+                        },
+                        "player": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_player.jpeg"
+                        },
+                        "legacy": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_legacy.jpeg"
+                        },
+                        "list": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_list.jpeg"
+                        },
+                        "small": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_small.jpeg"
+                        },
+                        "reference": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/56745f92b28e3a6f176e66acf9e9d0aea5e0c611.jpeg"
+                        }
+                    },
+                    "dynamic_color": "#691f11"
+                },
+                "image2x3": {
+                    "public_urls": {
+                        "highlight_teaser": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_highlight_teaser.jpeg"
+                        },
+                        "player": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_player.jpeg"
+                        },
+                        "legacy": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_legacy.jpeg"
+                        },
+                        "list": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_list.jpeg"
+                        },
+                        "small": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_small.jpeg"
+                        },
+                        "reference": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/56745f92b28e3a6f176e66acf9e9d0aea5e0c611.jpeg"
+                        }
+                    },
+                    "dynamic_color": "#691f11"
+                }
+            }
+        },
+        {
+            "order": 3,
+            "age_classification": "",
+            "audio_description_service_available": false,
+            "date": "2003-07-06T19:00:00+02:00",
+            "delete_date": null,
+            "vod_ressort": null,
+            "description": "Die Sendung aus dem Jahr 2003 beleuchtete die Arbeit von Soldaten des \u00f6sterreichischen Bundesheeres beim Assistenzeinsatz an der burgenl\u00e4ndischen Grenze, der EU-Au\u00dfengrenze zur Slowakei und Ungarn. Die Soldaten wurden bei ihren n\u00e4chtlichen Eins\u00e4tzen begleitet und Einsatzmethoden wurden erl\u00e4utert. Dar\u00fcber hinaus besch\u00e4ftigte sich die Sendung mit den diversen psychischen Belastungen der Soldaten, die sich aus dem Assistenzeinsatz ergaben.\r\n\r\nSendung: \u00d6sterreich-Bild \r\nGestaltung: Walter Reiss\r\nInterview mit: Johann Luif (Milit\u00e4rkommandant Burgenland), Maria Stutzenberger (Hausfrau), Emanuel Weiss (Assistenzsoldat Bundesheer), Wolfgang Kautzki (Hauptmann Bundesheer), Wolfgang Sandner (Wachtmeister Bundesheer), Werner Omischl (Major Bundesgendarmerie), Philip Haller (Grenzsoldat Bundesheer), Marion Haller (Ehefrau), G\u00fcnther Voitic (Oberleutnant Bundesheer ), Erich Hitz (Milit\u00e4rdekan), Erhard Aminger (Sicherheitsdirektor Burgenland), Peter Pilz (Major Bundesheer), Fabian Mmagu (Pfarrer Gro\u00dfpetersdorf).",
+            "duration_seconds": 1412,
+            "field_descriptor": "",
+            "genre_id": null,
+            "genre_title": "",
+            "right": "worldwide",
+            "growing": true,
+            "has_active_youth_protection": false,
+            "focus": false,
+            "show_countdown": false,
+            "has_subtitle": false,
+            "has_youth_protection": false,
+            "headline": "Einsatzort Grenze",
+            "id": 5068699,
+            "is_archive": true,
+            "is_oegs": false,
+            "two_channel_audio": false,
+            "uhd": false,
+            "main_channel_id": 1181,
+            "sub_headline": null,
+            "orf_label": null,
+            "time_section": "vorabend",
+            "production_country": null,
+            "production_year": null,
+            "related_audiodescription_episode_image_url": null,
+            "related_audiodescription_episode_title": null,
+            "related_oegs_episode_image_url": null,
+            "related_oegs_episode_title": null,
+            "segments_complete": true,
+            "episodes_reference": "",
+            "teaser_text": "Die Sendung aus dem Jahr 2003 beleuchtete die Arbeit von Soldaten des \u00f6sterreichischen Bundesheeres beim Assistenzeinsatz an der burgenl\u00e4ndischen Grenze, der EU-Au\u00dfengrenze zur Slowakei und Ungarn. Die Soldaten wurden bei ihren n\u00e4chtlichen Eins\u00e4tzen begleitet und Einsatzmethoden wurden erl\u00e4utert. Dar\u00fcber hinaus besch\u00e4ftigte sich die Sendung mit den diversen psychischen Belastungen der Soldaten, die sich aus dem Assistenzeinsatz ergaben.\r\n\r\nSendung: \u00d6sterreich-Bild \r\nGestaltung: Walter Reiss\r\nInterview mit: Johann Luif (Milit\u00e4rkommandant Burgenland), Maria Stutzenberger (Hausfrau), Emanuel Weiss (Assistenzsoldat Bundesheer), Wolfgang Kautzki (Hauptmann Bundesheer), Wolfgang Sandner (Wachtmeister Bundesheer), Werner Omischl (Major Bundesgendarmerie), Philip Haller (Grenzsoldat Bundesheer), Marion Haller (Ehefrau), G\u00fcnther Voitic (Oberleutnant Bundesheer ), Erich Hitz (Milit\u00e4rdekan), Erhard Aminger (Sicherheitsdirektor Burgenland), Peter Pilz (Major Bundesheer), Fabian Mmagu (Pfarrer Gro\u00dfpetersdorf).",
+            "thumbnail_sources": {
+                "hls": [
+                    {
+                        "quality_key": "Q6A",
+                        "src": "https:\/\/apasfiis.sf.apa.at\/ipad\/cms-preview-clips\/2003-07-06_1900_in_00_Einsatzort-Gren_____5068699__o__6929605855__s14377895_clip_Q6A.mp4\/playlist.m3u8"
+                    }
+                ],
+                "hds": [
+                    {
+                        "quality_key": "Q6A",
+                        "src": "https:\/\/apasfiis.sf.apa.at\/f4m\/cms-preview-clips\/2003-07-06_1900_in_00_Einsatzort-Gren_____5068699__o__6929605855__s14377895_clip_Q6A.mp4\/manifest.f4m"
+                    }
+                ],
+                "smooth": [
+                    {
+                        "quality_key": "Q6A",
+                        "src": "https:\/\/apasfiis.sf.apa.at\/smooth\/cms-preview-clips\/2003-07-06_1900_in_00_Einsatzort-Gren_____5068699__o__6929605855__s14377895_clip_Q6A.mp4\/Manifest"
+                    }
+                ],
+                "dash": [
+                    {
+                        "quality_key": "Q6A",
+                        "src": "https:\/\/apasfiis.sf.apa.at\/dash\/cms-preview-clips\/2003-07-06_1900_in_00_Einsatzort-Gren_____5068699__o__6929605855__s14377895_clip_Q6A.mp4\/manifest.mpd"
+                    }
+                ]
+            },
+            "title": "Einsatzort Grenze",
+            "video_type": "episode",
+            "youth_protection_type": "limited-20-06",
+            "_links": {
+                "self": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/episode\/5068699"
+                },
+                "image": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/5075463"
+                },
+                "image16x9_with_logo": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/5075463"
+                },
+                "image2x3_with_logo": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16596204"
+                },
+                "image2x3": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16596204"
+                }
+            },
+            "_embedded": {
+                "image": {
+                    "public_urls": {
+                        "highlight_teaser": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0051\/76\/thumb_5075463_segments_highlight_teaser.jpeg"
+                        },
+                        "player": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0051\/76\/thumb_5075463_segments_player.jpeg"
+                        },
+                        "list": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0051\/76\/thumb_5075463_segments_list.jpeg"
+                        },
+                        "small": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0051\/76\/thumb_5075463_segments_small.jpeg"
+                        },
+                        "reference": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0051\/76\/285174b87b2524afc3cb82cd28d47f947406381c.jpeg"
+                        }
+                    },
+                    "dynamic_color": "#691f11"
+                },
+                "image16x9_with_logo": {
+                    "public_urls": {
+                        "highlight_teaser": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0051\/76\/thumb_5075463_segments_highlight_teaser.jpeg"
+                        },
+                        "player": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0051\/76\/thumb_5075463_segments_player.jpeg"
+                        },
+                        "list": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0051\/76\/thumb_5075463_segments_list.jpeg"
+                        },
+                        "small": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0051\/76\/thumb_5075463_segments_small.jpeg"
+                        },
+                        "reference": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0051\/76\/285174b87b2524afc3cb82cd28d47f947406381c.jpeg"
+                        }
+                    },
+                    "dynamic_color": "#691f11"
+                },
+                "image2x3_with_logo": {
+                    "public_urls": {
+                        "highlight_teaser": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_highlight_teaser.jpeg"
+                        },
+                        "player": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_player.jpeg"
+                        },
+                        "legacy": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_legacy.jpeg"
+                        },
+                        "list": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_list.jpeg"
+                        },
+                        "small": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_small.jpeg"
+                        },
+                        "reference": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/56745f92b28e3a6f176e66acf9e9d0aea5e0c611.jpeg"
+                        }
+                    },
+                    "dynamic_color": "#691f11"
+                },
+                "image2x3": {
+                    "public_urls": {
+                        "highlight_teaser": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_highlight_teaser.jpeg"
+                        },
+                        "player": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_player.jpeg"
+                        },
+                        "legacy": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_legacy.jpeg"
+                        },
+                        "list": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_list.jpeg"
+                        },
+                        "small": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_small.jpeg"
+                        },
+                        "reference": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/56745f92b28e3a6f176e66acf9e9d0aea5e0c611.jpeg"
+                        }
+                    },
+                    "dynamic_color": "#691f11"
+                }
+            }
+        },
+        {
+            "order": 4,
+            "age_classification": "",
+            "audio_description_service_available": false,
+            "date": "2014-01-06T19:30:00+01:00",
+            "delete_date": null,
+            "vod_ressort": null,
+            "description": "Nachdem im Sommer 380 Soldaten eilig vom Golan abgezogen worden sind, erf\u00fcllte \u00d6sterreich 2014 sein Kontingent an Auslandssoldaten nicht mehr, das im rot-schwarzen Regierungsprogramm vorgesehen war. Der damalige Verteidigungsminister Gerald Klug (SP\u00d6) wollte eine m\u00f6gliche Aufstockung pr\u00fcfen.\r\n\r\nSendung: ZiB 1\r\nGestaltung: Matthias Westhoff\r\nInterview mit: Gerald Klug (damals Verteidigungsminister, SP\u00d6)",
+            "duration_seconds": 68,
+            "field_descriptor": "",
+            "genre_id": null,
+            "genre_title": "",
+            "right": "worldwide",
+            "growing": true,
+            "has_active_youth_protection": false,
+            "focus": false,
+            "show_countdown": false,
+            "has_subtitle": false,
+            "has_youth_protection": false,
+            "headline": "Mehr Soldaten im Ausland",
+            "id": 13984128,
+            "is_archive": true,
+            "is_oegs": false,
+            "two_channel_audio": false,
+            "uhd": false,
+            "main_channel_id": 1181,
+            "sub_headline": null,
+            "orf_label": null,
+            "time_section": "vorabend",
+            "production_country": null,
+            "production_year": null,
+            "related_audiodescription_episode_image_url": null,
+            "related_audiodescription_episode_title": null,
+            "related_oegs_episode_image_url": null,
+            "related_oegs_episode_title": null,
+            "segments_complete": true,
+            "episodes_reference": "",
+            "teaser_text": "Nachdem im Sommer 380 Soldaten eilig vom Golan abgezogen worden sind, erf\u00fcllte \u00d6sterreich 2014 sein Kontingent an Auslandssoldaten nicht mehr, das im rot-schwarzen Regierungsprogramm vorgesehen war. Der damalige Verteidigungsminister Gerald Klug (SP\u00d6) wollte eine m\u00f6gliche Aufstockung pr\u00fcfen.\r\n\r\nSendung: ZiB 1\r\nGestaltung: Matthias Westhoff\r\nInterview mit: Gerald Klug (damals Verteidigungsminister, SP\u00d6)",
+            "thumbnail_sources": {
+                "hls": [
+                    {
+                        "quality_key": "Q6A",
+                        "src": "https:\/\/apasfiis.sf.apa.at\/ipad\/cms-preview-clips\/2014-01-06_1930_in_02_Mehr-Soldaten-i_____13984128__o__2017418235__s14339664_clip_Q6A.mp4\/playlist.m3u8"
+                    }
+                ],
+                "hds": [
+                    {
+                        "quality_key": "Q6A",
+                        "src": "https:\/\/apasfiis.sf.apa.at\/f4m\/cms-preview-clips\/2014-01-06_1930_in_02_Mehr-Soldaten-i_____13984128__o__2017418235__s14339664_clip_Q6A.mp4\/manifest.f4m"
+                    }
+                ],
+                "smooth": [
+                    {
+                        "quality_key": "Q6A",
+                        "src": "https:\/\/apasfiis.sf.apa.at\/smooth\/cms-preview-clips\/2014-01-06_1930_in_02_Mehr-Soldaten-i_____13984128__o__2017418235__s14339664_clip_Q6A.mp4\/Manifest"
+                    }
+                ],
+                "dash": [
+                    {
+                        "quality_key": "Q6A",
+                        "src": "https:\/\/apasfiis.sf.apa.at\/dash\/cms-preview-clips\/2014-01-06_1930_in_02_Mehr-Soldaten-i_____13984128__o__2017418235__s14339664_clip_Q6A.mp4\/manifest.mpd"
+                    }
+                ]
+            },
+            "title": "Mehr Soldaten im Ausland",
+            "video_type": "episode",
+            "youth_protection_type": "limited-20-06",
+            "_links": {
+                "self": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/episode\/13984128"
+                },
+                "image": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/4099152"
+                },
+                "image16x9_with_logo": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/4099152"
+                },
+                "image2x3_with_logo": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16596204"
+                },
+                "image2x3": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16596204"
+                }
+            },
+            "_embedded": {
+                "image": {
+                    "public_urls": {
+                        "highlight_teaser": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0041\/100\/thumb_4099152_segments_highlight_teaser.jpeg"
+                        },
+                        "player": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0041\/100\/thumb_4099152_segments_player.jpeg"
+                        },
+                        "list": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0041\/100\/thumb_4099152_segments_list.jpeg"
+                        },
+                        "small": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0041\/100\/thumb_4099152_segments_small.jpeg"
+                        },
+                        "reference": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0041\/100\/34777240054e55fc3dede93ad2a14912ddb086d0.jpeg"
+                        }
+                    },
+                    "dynamic_color": "#691f11"
+                },
+                "image16x9_with_logo": {
+                    "public_urls": {
+                        "highlight_teaser": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0041\/100\/thumb_4099152_segments_highlight_teaser.jpeg"
+                        },
+                        "player": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0041\/100\/thumb_4099152_segments_player.jpeg"
+                        },
+                        "list": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0041\/100\/thumb_4099152_segments_list.jpeg"
+                        },
+                        "small": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0041\/100\/thumb_4099152_segments_small.jpeg"
+                        },
+                        "reference": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0041\/100\/34777240054e55fc3dede93ad2a14912ddb086d0.jpeg"
+                        }
+                    },
+                    "dynamic_color": "#691f11"
+                },
+                "image2x3_with_logo": {
+                    "public_urls": {
+                        "highlight_teaser": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_highlight_teaser.jpeg"
+                        },
+                        "player": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_player.jpeg"
+                        },
+                        "legacy": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_legacy.jpeg"
+                        },
+                        "list": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_list.jpeg"
+                        },
+                        "small": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_small.jpeg"
+                        },
+                        "reference": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/56745f92b28e3a6f176e66acf9e9d0aea5e0c611.jpeg"
+                        }
+                    },
+                    "dynamic_color": "#691f11"
+                },
+                "image2x3": {
+                    "public_urls": {
+                        "highlight_teaser": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_highlight_teaser.jpeg"
+                        },
+                        "player": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_player.jpeg"
+                        },
+                        "legacy": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_legacy.jpeg"
+                        },
+                        "list": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_list.jpeg"
+                        },
+                        "small": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_small.jpeg"
+                        },
+                        "reference": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/56745f92b28e3a6f176e66acf9e9d0aea5e0c611.jpeg"
+                        }
+                    },
+                    "dynamic_color": "#691f11"
+                }
+            }
+        },
+        {
+            "order": 5,
+            "age_classification": "",
+            "audio_description_service_available": false,
+            "date": "2016-07-20T19:30:00+02:00",
+            "delete_date": null,
+            "vod_ressort": null,
+            "description": "Im Juli 2016 wurde der erste R\u00fcckf\u00fchrungsflug mit der \"Hercules C 130\" des Bundesheeres geflogen. Elf m\u00e4nnliche Personen wurden nach Bulgarien gebracht. Die Abschiebung mit dem Milit\u00e4rflugzeug galt als umstritten.\r\n\r\nGestaltung: Kathrin Pollak\r\nInterview mit: Michael Bauer (damals Sprecher des Verteidigungsministeriums)",
+            "duration_seconds": 59,
+            "field_descriptor": "",
+            "genre_id": null,
+            "genre_title": "",
+            "right": "worldwide",
+            "growing": true,
+            "has_active_youth_protection": false,
+            "focus": false,
+            "show_countdown": false,
+            "has_subtitle": false,
+            "has_youth_protection": false,
+            "headline": "Erste Dublin-Abschiebung",
+            "id": 13984230,
+            "is_archive": true,
+            "is_oegs": false,
+            "two_channel_audio": false,
+            "uhd": false,
+            "main_channel_id": 1181,
+            "sub_headline": null,
+            "orf_label": null,
+            "time_section": "vorabend",
+            "production_country": null,
+            "production_year": null,
+            "related_audiodescription_episode_image_url": null,
+            "related_audiodescription_episode_title": null,
+            "related_oegs_episode_image_url": null,
+            "related_oegs_episode_title": null,
+            "segments_complete": true,
+            "episodes_reference": "",
+            "teaser_text": "Im Juli 2016 wurde der erste R\u00fcckf\u00fchrungsflug mit der \"Hercules C 130\" des Bundesheeres geflogen. Elf m\u00e4nnliche Personen wurden nach Bulgarien gebracht. Die Abschiebung mit dem Milit\u00e4rflugzeug galt als umstritten.\r\n\r\nGestaltung: Kathrin Pollak\r\nInterview mit: Michael Bauer (damals Sprecher des Verteidigungsministeriums)",
+            "thumbnail_sources": {
+                "hls": [
+                    {
+                        "quality_key": "Q6A",
+                        "src": "https:\/\/apasfiis.sf.apa.at\/ipad\/cms-preview-clips\/2016-07-20_1930_in_02_Erste-Dublin-Ab_____13984230__o__8656508415__s14339702_clip_Q6A.mp4\/playlist.m3u8"
+                    }
+                ],
+                "hds": [
+                    {
+                        "quality_key": "Q6A",
+                        "src": "https:\/\/apasfiis.sf.apa.at\/f4m\/cms-preview-clips\/2016-07-20_1930_in_02_Erste-Dublin-Ab_____13984230__o__8656508415__s14339702_clip_Q6A.mp4\/manifest.f4m"
+                    }
+                ],
+                "smooth": [
+                    {
+                        "quality_key": "Q6A",
+                        "src": "https:\/\/apasfiis.sf.apa.at\/smooth\/cms-preview-clips\/2016-07-20_1930_in_02_Erste-Dublin-Ab_____13984230__o__8656508415__s14339702_clip_Q6A.mp4\/Manifest"
+                    }
+                ],
+                "dash": [
+                    {
+                        "quality_key": "Q6A",
+                        "src": "https:\/\/apasfiis.sf.apa.at\/dash\/cms-preview-clips\/2016-07-20_1930_in_02_Erste-Dublin-Ab_____13984230__o__8656508415__s14339702_clip_Q6A.mp4\/manifest.mpd"
+                    }
+                ]
+            },
+            "title": "Erste Dublin-Abschiebung",
+            "video_type": "episode",
+            "youth_protection_type": "limited-20-06",
+            "_links": {
+                "self": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/episode\/13984230"
+                },
+                "image": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/4100163"
+                },
+                "image16x9_with_logo": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/4100163"
+                },
+                "image2x3_with_logo": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16596204"
+                },
+                "image2x3": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16596204"
+                }
+            },
+            "_embedded": {
+                "image": {
+                    "public_urls": {
+                        "highlight_teaser": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0042\/01\/thumb_4100163_segments_highlight_teaser.jpeg"
+                        },
+                        "player": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0042\/01\/thumb_4100163_segments_player.jpeg"
+                        },
+                        "list": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0042\/01\/thumb_4100163_segments_list.jpeg"
+                        },
+                        "small": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0042\/01\/thumb_4100163_segments_small.jpeg"
+                        },
+                        "reference": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0042\/01\/7aee2a7b756594b94ca240fa5535de793ca1c4ac.jpeg"
+                        }
+                    },
+                    "dynamic_color": "#691f11"
+                },
+                "image16x9_with_logo": {
+                    "public_urls": {
+                        "highlight_teaser": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0042\/01\/thumb_4100163_segments_highlight_teaser.jpeg"
+                        },
+                        "player": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0042\/01\/thumb_4100163_segments_player.jpeg"
+                        },
+                        "list": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0042\/01\/thumb_4100163_segments_list.jpeg"
+                        },
+                        "small": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0042\/01\/thumb_4100163_segments_small.jpeg"
+                        },
+                        "reference": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0042\/01\/7aee2a7b756594b94ca240fa5535de793ca1c4ac.jpeg"
+                        }
+                    },
+                    "dynamic_color": "#691f11"
+                },
+                "image2x3_with_logo": {
+                    "public_urls": {
+                        "highlight_teaser": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_highlight_teaser.jpeg"
+                        },
+                        "player": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_player.jpeg"
+                        },
+                        "legacy": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_legacy.jpeg"
+                        },
+                        "list": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_list.jpeg"
+                        },
+                        "small": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_small.jpeg"
+                        },
+                        "reference": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/56745f92b28e3a6f176e66acf9e9d0aea5e0c611.jpeg"
+                        }
+                    },
+                    "dynamic_color": "#691f11"
+                },
+                "image2x3": {
+                    "public_urls": {
+                        "highlight_teaser": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_highlight_teaser.jpeg"
+                        },
+                        "player": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_player.jpeg"
+                        },
+                        "legacy": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_legacy.jpeg"
+                        },
+                        "list": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_list.jpeg"
+                        },
+                        "small": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_small.jpeg"
+                        },
+                        "reference": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/56745f92b28e3a6f176e66acf9e9d0aea5e0c611.jpeg"
+                        }
+                    },
+                    "dynamic_color": "#691f11"
+                }
+            }
+        },
+        {
+            "order": 6,
+            "age_classification": "",
+            "audio_description_service_available": false,
+            "date": "2014-11-14T19:00:00+01:00",
+            "delete_date": null,
+            "vod_ressort": null,
+            "description": "Im Jahr 2014 wurde viel \u00fcber die Unterbringung von Fl\u00fcchtlingen und M\u00f6glichkeiten, das Erstaufnahmezentrum Traiskirchen entlasten zu k\u00f6nnen, diskutiert. In Klosterneuburg wurde die Magdeburgkaserne vor\u00fcbergehend zum Fl\u00fcchtlingsquartier. Mehr als 100 Menschen kamen dort unter.\r\n\r\nSendung: Nieder\u00f6sterreich heute\r\nGestaltung: Thomas Birgfellner, Gernot Rohrhofer\r\nInterview mit: Stefan Schmuckenschlager (damals B\u00fcrgermeister von Klosterneuburg, \u00d6VP),  Walter Kastanek (aus Klosterneuburg), Margriet Vankooij (aus Klosterneuburg)",
+            "duration_seconds": 101,
+            "field_descriptor": "",
+            "genre_id": null,
+            "genre_title": "",
+            "right": "worldwide",
+            "growing": true,
+            "has_active_youth_protection": false,
+            "focus": false,
+            "show_countdown": false,
+            "has_subtitle": false,
+            "has_youth_protection": false,
+            "headline": "Magdeburgkaserne als Fl\u00fcchtlingsquartier",
+            "id": 13984127,
+            "is_archive": true,
+            "is_oegs": false,
+            "two_channel_audio": false,
+            "uhd": false,
+            "main_channel_id": 1181,
+            "sub_headline": null,
+            "orf_label": null,
+            "time_section": "vorabend",
+            "production_country": null,
+            "production_year": null,
+            "related_audiodescription_episode_image_url": null,
+            "related_audiodescription_episode_title": null,
+            "related_oegs_episode_image_url": null,
+            "related_oegs_episode_title": null,
+            "segments_complete": true,
+            "episodes_reference": "",
+            "teaser_text": "Im Jahr 2014 wurde viel \u00fcber die Unterbringung von Fl\u00fcchtlingen und M\u00f6glichkeiten, das Erstaufnahmezentrum Traiskirchen entlasten zu k\u00f6nnen, diskutiert. In Klosterneuburg wurde die Magdeburgkaserne vor\u00fcbergehend zum Fl\u00fcchtlingsquartier. Mehr als 100 Menschen kamen dort unter.\r\n\r\nSendung: Nieder\u00f6sterreich heute\r\nGestaltung: Thomas Birgfellner, Gernot Rohrhofer\r\nInterview mit: Stefan Schmuckenschlager (damals B\u00fcrgermeister von Klosterneuburg, \u00d6VP),  Walter Kastanek (aus Klosterneuburg), Margriet Vankooij (aus Klosterneuburg)",
+            "thumbnail_sources": {
+                "hls": [
+                    {
+                        "quality_key": "Q6A",
+                        "src": "https:\/\/apasfiis.sf.apa.at\/ipad\/cms-preview-clips\/2014-11-14_1900_in_02_Magdeburgkasern_____13984127__o__9204542725__s14339663_clip_Q6A.mp4\/playlist.m3u8"
+                    }
+                ],
+                "hds": [
+                    {
+                        "quality_key": "Q6A",
+                        "src": "https:\/\/apasfiis.sf.apa.at\/f4m\/cms-preview-clips\/2014-11-14_1900_in_02_Magdeburgkasern_____13984127__o__9204542725__s14339663_clip_Q6A.mp4\/manifest.f4m"
+                    }
+                ],
+                "smooth": [
+                    {
+                        "quality_key": "Q6A",
+                        "src": "https:\/\/apasfiis.sf.apa.at\/smooth\/cms-preview-clips\/2014-11-14_1900_in_02_Magdeburgkasern_____13984127__o__9204542725__s14339663_clip_Q6A.mp4\/Manifest"
+                    }
+                ],
+                "dash": [
+                    {
+                        "quality_key": "Q6A",
+                        "src": "https:\/\/apasfiis.sf.apa.at\/dash\/cms-preview-clips\/2014-11-14_1900_in_02_Magdeburgkasern_____13984127__o__9204542725__s14339663_clip_Q6A.mp4\/manifest.mpd"
+                    }
+                ]
+            },
+            "title": "Magdeburgkaserne als Fl\u00fcchtlingsquartier",
+            "video_type": "episode",
+            "youth_protection_type": "limited-20-06",
+            "_links": {
+                "self": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/episode\/13984127"
+                },
+                "image": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/4099150"
+                },
+                "image16x9_with_logo": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/4099150"
+                },
+                "image2x3_with_logo": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16596204"
+                },
+                "image2x3": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16596204"
+                }
+            },
+            "_embedded": {
+                "image": {
+                    "public_urls": {
+                        "highlight_teaser": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0041\/100\/thumb_4099150_segments_highlight_teaser.jpeg"
+                        },
+                        "player": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0041\/100\/thumb_4099150_segments_player.jpeg"
+                        },
+                        "list": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0041\/100\/thumb_4099150_segments_list.jpeg"
+                        },
+                        "small": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0041\/100\/thumb_4099150_segments_small.jpeg"
+                        },
+                        "reference": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0041\/100\/2e24679b50054b8c9a1a41fbe47cdbe479b37c91.jpeg"
+                        }
+                    },
+                    "dynamic_color": "#691f11"
+                },
+                "image16x9_with_logo": {
+                    "public_urls": {
+                        "highlight_teaser": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0041\/100\/thumb_4099150_segments_highlight_teaser.jpeg"
+                        },
+                        "player": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0041\/100\/thumb_4099150_segments_player.jpeg"
+                        },
+                        "list": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0041\/100\/thumb_4099150_segments_list.jpeg"
+                        },
+                        "small": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0041\/100\/thumb_4099150_segments_small.jpeg"
+                        },
+                        "reference": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0041\/100\/2e24679b50054b8c9a1a41fbe47cdbe479b37c91.jpeg"
+                        }
+                    },
+                    "dynamic_color": "#691f11"
+                },
+                "image2x3_with_logo": {
+                    "public_urls": {
+                        "highlight_teaser": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_highlight_teaser.jpeg"
+                        },
+                        "player": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_player.jpeg"
+                        },
+                        "legacy": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_legacy.jpeg"
+                        },
+                        "list": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_list.jpeg"
+                        },
+                        "small": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_small.jpeg"
+                        },
+                        "reference": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/56745f92b28e3a6f176e66acf9e9d0aea5e0c611.jpeg"
+                        }
+                    },
+                    "dynamic_color": "#691f11"
+                },
+                "image2x3": {
+                    "public_urls": {
+                        "highlight_teaser": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_highlight_teaser.jpeg"
+                        },
+                        "player": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_player.jpeg"
+                        },
+                        "legacy": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_legacy.jpeg"
+                        },
+                        "list": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_list.jpeg"
+                        },
+                        "small": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_small.jpeg"
+                        },
+                        "reference": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/56745f92b28e3a6f176e66acf9e9d0aea5e0c611.jpeg"
+                        }
+                    },
+                    "dynamic_color": "#691f11"
+                }
+            }
+        },
+        {
+            "order": 7,
+            "age_classification": "",
+            "audio_description_service_available": false,
+            "date": "2015-12-21T19:30:00+01:00",
+            "delete_date": null,
+            "vod_ressort": null,
+            "description": "2015 war das Bundesheer bereit, seinen Assistenzeinsatz in der Fl\u00fcchtlingskrise fortzuf\u00fchren. \"Ohne das Bundesheer w\u00e4ren die Herausforderungen der letzten Wochen und Monate nicht zu stemmen gewesen\", so die Bilanz des damaligen Verteidigungsministers Gerald Klug (SP\u00d6) nach den ersten 100 Tagen Einsatz. Der Minister forderte zudem mehr Mitsprache bei der inneren Sicherheit.\r\n\r\nSendung: ZiB 1\r\nGestaltung: Andreas Mayer-Bohusch",
+            "duration_seconds": 68,
+            "field_descriptor": "",
+            "genre_id": null,
+            "genre_title": "",
+            "right": "worldwide",
+            "growing": true,
+            "has_active_youth_protection": false,
+            "focus": false,
+            "show_countdown": false,
+            "has_subtitle": false,
+            "has_youth_protection": false,
+            "headline": "Bilanz nach 100 Tagen Assistenzeinsatz",
+            "id": 13984132,
+            "is_archive": true,
+            "is_oegs": false,
+            "two_channel_audio": false,
+            "uhd": false,
+            "main_channel_id": 1181,
+            "sub_headline": null,
+            "orf_label": null,
+            "time_section": "vorabend",
+            "production_country": null,
+            "production_year": null,
+            "related_audiodescription_episode_image_url": null,
+            "related_audiodescription_episode_title": null,
+            "related_oegs_episode_image_url": null,
+            "related_oegs_episode_title": null,
+            "segments_complete": true,
+            "episodes_reference": "",
+            "teaser_text": "2015 war das Bundesheer bereit, seinen Assistenzeinsatz in der Fl\u00fcchtlingskrise fortzuf\u00fchren. \"Ohne das Bundesheer w\u00e4ren die Herausforderungen der letzten Wochen und Monate nicht zu stemmen gewesen\", so die Bilanz des damaligen Verteidigungsministers Gerald Klug (SP\u00d6) nach den ersten 100 Tagen Einsatz. Der Minister forderte zudem mehr Mitsprache bei der inneren Sicherheit.\r\n\r\nSendung: ZiB 1\r\nGestaltung: Andreas Mayer-Bohusch",
+            "thumbnail_sources": {
+                "hls": [
+                    {
+                        "quality_key": "Q6A",
+                        "src": "https:\/\/apasfiis.sf.apa.at\/ipad\/cms-preview-clips\/2015-12-21_1930_in_02_Forderung-nach-_____13984132__o__1299626289__s14352633_clip_Q6A.mp4\/playlist.m3u8"
+                    }
+                ],
+                "hds": [
+                    {
+                        "quality_key": "Q6A",
+                        "src": "https:\/\/apasfiis.sf.apa.at\/f4m\/cms-preview-clips\/2015-12-21_1930_in_02_Forderung-nach-_____13984132__o__1299626289__s14352633_clip_Q6A.mp4\/manifest.f4m"
+                    }
+                ],
+                "smooth": [
+                    {
+                        "quality_key": "Q6A",
+                        "src": "https:\/\/apasfiis.sf.apa.at\/smooth\/cms-preview-clips\/2015-12-21_1930_in_02_Forderung-nach-_____13984132__o__1299626289__s14352633_clip_Q6A.mp4\/Manifest"
+                    }
+                ],
+                "dash": [
+                    {
+                        "quality_key": "Q6A",
+                        "src": "https:\/\/apasfiis.sf.apa.at\/dash\/cms-preview-clips\/2015-12-21_1930_in_02_Forderung-nach-_____13984132__o__1299626289__s14352633_clip_Q6A.mp4\/manifest.mpd"
+                    }
+                ]
+            },
+            "title": "Bilanz nach 100 Tagen Assistenzeinsatz",
+            "video_type": "episode",
+            "youth_protection_type": "limited-20-06",
+            "_links": {
+                "self": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/episode\/13984132"
+                },
+                "image": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/4382022"
+                },
+                "image16x9_with_logo": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/4382022"
+                },
+                "image2x3_with_logo": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16596204"
+                },
+                "image2x3": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16596204"
+                }
+            },
+            "_embedded": {
+                "image": {
+                    "public_urls": {
+                        "highlight_teaser": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0044\/83\/thumb_4382022_segments_highlight_teaser.jpeg"
+                        },
+                        "player": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0044\/83\/thumb_4382022_segments_player.jpeg"
+                        },
+                        "list": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0044\/83\/thumb_4382022_segments_list.jpeg"
+                        },
+                        "small": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0044\/83\/thumb_4382022_segments_small.jpeg"
+                        },
+                        "reference": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0044\/83\/3761ac042044ea0b193f0f2aba6968c39be6c67f.jpeg"
+                        }
+                    },
+                    "dynamic_color": "#691f11"
+                },
+                "image16x9_with_logo": {
+                    "public_urls": {
+                        "highlight_teaser": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0044\/83\/thumb_4382022_segments_highlight_teaser.jpeg"
+                        },
+                        "player": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0044\/83\/thumb_4382022_segments_player.jpeg"
+                        },
+                        "list": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0044\/83\/thumb_4382022_segments_list.jpeg"
+                        },
+                        "small": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0044\/83\/thumb_4382022_segments_small.jpeg"
+                        },
+                        "reference": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0044\/83\/3761ac042044ea0b193f0f2aba6968c39be6c67f.jpeg"
+                        }
+                    },
+                    "dynamic_color": "#691f11"
+                },
+                "image2x3_with_logo": {
+                    "public_urls": {
+                        "highlight_teaser": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_highlight_teaser.jpeg"
+                        },
+                        "player": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_player.jpeg"
+                        },
+                        "legacy": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_legacy.jpeg"
+                        },
+                        "list": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_list.jpeg"
+                        },
+                        "small": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_small.jpeg"
+                        },
+                        "reference": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/56745f92b28e3a6f176e66acf9e9d0aea5e0c611.jpeg"
+                        }
+                    },
+                    "dynamic_color": "#691f11"
+                },
+                "image2x3": {
+                    "public_urls": {
+                        "highlight_teaser": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_highlight_teaser.jpeg"
+                        },
+                        "player": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_player.jpeg"
+                        },
+                        "legacy": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_legacy.jpeg"
+                        },
+                        "list": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_list.jpeg"
+                        },
+                        "small": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_small.jpeg"
+                        },
+                        "reference": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/56745f92b28e3a6f176e66acf9e9d0aea5e0c611.jpeg"
+                        }
+                    },
+                    "dynamic_color": "#691f11"
+                }
+            }
+        },
+        {
+            "order": 8,
+            "age_classification": "",
+            "audio_description_service_available": false,
+            "date": "2015-12-22T23:40:00+01:00",
+            "delete_date": null,
+            "vod_ressort": null,
+            "description": "Die damalige Innenministerin Johanna Mikl-Leitner (\u00d6VP) wollte 2015 vom \"Durchgriffsrecht\" Gebrauch machen und acht Kasernen zu Fl\u00fcchtlingsunterk\u00fcnften umfunktionieren. Dieser Plan sorgte bei den betroffenen Gemeinden und den Landeshauptleuten f\u00fcr Unmut.\r\n\r\nSendung: ZiB 24\r\nGestaltung: Claudia Zohner\r\nInterview mit: Peter Kaiser (damals Landeshauptmann von K\u00e4rnten, SP\u00d6), Peter Hacker (damals Fl\u00fcchtlingskoordinator in Wien), Johanna Mikl-Leitner (damals Innenministerin, \u00d6VP)",
+            "duration_seconds": 122,
+            "field_descriptor": "",
+            "genre_id": null,
+            "genre_title": "",
+            "right": "worldwide",
+            "growing": true,
+            "has_active_youth_protection": false,
+            "focus": false,
+            "show_countdown": false,
+            "has_subtitle": false,
+            "has_youth_protection": false,
+            "headline": "\"Durchgriffsrecht\": Kasernen als Asylquartiere",
+            "id": 13984130,
+            "is_archive": true,
+            "is_oegs": false,
+            "two_channel_audio": false,
+            "uhd": false,
+            "main_channel_id": 1181,
+            "sub_headline": null,
+            "orf_label": null,
+            "time_section": "nacht",
+            "production_country": null,
+            "production_year": null,
+            "related_audiodescription_episode_image_url": null,
+            "related_audiodescription_episode_title": null,
+            "related_oegs_episode_image_url": null,
+            "related_oegs_episode_title": null,
+            "segments_complete": true,
+            "episodes_reference": "",
+            "teaser_text": "Die damalige Innenministerin Johanna Mikl-Leitner (\u00d6VP) wollte 2015 vom \"Durchgriffsrecht\" Gebrauch machen und acht Kasernen zu Fl\u00fcchtlingsunterk\u00fcnften umfunktionieren. Dieser Plan sorgte bei den betroffenen Gemeinden und den Landeshauptleuten f\u00fcr Unmut.\r\n\r\nSendung: ZiB 24\r\nGestaltung: Claudia Zohner\r\nInterview mit: Peter Kaiser (damals Landeshauptmann von K\u00e4rnten, SP\u00d6), Peter Hacker (damals Fl\u00fcchtlingskoordinator in Wien), Johanna Mikl-Leitner (damals Innenministerin, \u00d6VP)",
+            "thumbnail_sources": {
+                "hls": [
+                    {
+                        "quality_key": "Q6A",
+                        "src": "https:\/\/apasfiis.sf.apa.at\/ipad\/cms-preview-clips\/2015-12-22_2340_in_02_-Durchgriffsrec_____13984130__o__1092505185__s14352632_clip_Q6A.mp4\/playlist.m3u8"
+                    }
+                ],
+                "hds": [
+                    {
+                        "quality_key": "Q6A",
+                        "src": "https:\/\/apasfiis.sf.apa.at\/f4m\/cms-preview-clips\/2015-12-22_2340_in_02_-Durchgriffsrec_____13984130__o__1092505185__s14352632_clip_Q6A.mp4\/manifest.f4m"
+                    }
+                ],
+                "smooth": [
+                    {
+                        "quality_key": "Q6A",
+                        "src": "https:\/\/apasfiis.sf.apa.at\/smooth\/cms-preview-clips\/2015-12-22_2340_in_02_-Durchgriffsrec_____13984130__o__1092505185__s14352632_clip_Q6A.mp4\/Manifest"
+                    }
+                ],
+                "dash": [
+                    {
+                        "quality_key": "Q6A",
+                        "src": "https:\/\/apasfiis.sf.apa.at\/dash\/cms-preview-clips\/2015-12-22_2340_in_02_-Durchgriffsrec_____13984130__o__1092505185__s14352632_clip_Q6A.mp4\/manifest.mpd"
+                    }
+                ]
+            },
+            "title": "\"Durchgriffsrecht\": Kasernen als Asylquartiere",
+            "video_type": "episode",
+            "youth_protection_type": "limited-20-06",
+            "_links": {
+                "self": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/episode\/13984130"
+                },
+                "image": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/4381861"
+                },
+                "image16x9_with_logo": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/4381861"
+                },
+                "image2x3_with_logo": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16596204"
+                },
+                "image2x3": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16596204"
+                }
+            },
+            "_embedded": {
+                "image": {
+                    "public_urls": {
+                        "highlight_teaser": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0044\/82\/thumb_4381861_segments_highlight_teaser.jpeg"
+                        },
+                        "player": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0044\/82\/thumb_4381861_segments_player.jpeg"
+                        },
+                        "list": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0044\/82\/thumb_4381861_segments_list.jpeg"
+                        },
+                        "small": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0044\/82\/thumb_4381861_segments_small.jpeg"
+                        },
+                        "reference": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0044\/82\/e573644a800c28d56e2a57faef88c8fe3ab2a2fe.jpeg"
+                        }
+                    },
+                    "dynamic_color": "#691f11"
+                },
+                "image16x9_with_logo": {
+                    "public_urls": {
+                        "highlight_teaser": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0044\/82\/thumb_4381861_segments_highlight_teaser.jpeg"
+                        },
+                        "player": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0044\/82\/thumb_4381861_segments_player.jpeg"
+                        },
+                        "list": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0044\/82\/thumb_4381861_segments_list.jpeg"
+                        },
+                        "small": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0044\/82\/thumb_4381861_segments_small.jpeg"
+                        },
+                        "reference": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0044\/82\/e573644a800c28d56e2a57faef88c8fe3ab2a2fe.jpeg"
+                        }
+                    },
+                    "dynamic_color": "#691f11"
+                },
+                "image2x3_with_logo": {
+                    "public_urls": {
+                        "highlight_teaser": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_highlight_teaser.jpeg"
+                        },
+                        "player": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_player.jpeg"
+                        },
+                        "legacy": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_legacy.jpeg"
+                        },
+                        "list": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_list.jpeg"
+                        },
+                        "small": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_small.jpeg"
+                        },
+                        "reference": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/56745f92b28e3a6f176e66acf9e9d0aea5e0c611.jpeg"
+                        }
+                    },
+                    "dynamic_color": "#691f11"
+                },
+                "image2x3": {
+                    "public_urls": {
+                        "highlight_teaser": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_highlight_teaser.jpeg"
+                        },
+                        "player": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_player.jpeg"
+                        },
+                        "legacy": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_legacy.jpeg"
+                        },
+                        "list": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_list.jpeg"
+                        },
+                        "small": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/thumb_16596204_default_2x3_small.jpeg"
+                        },
+                        "reference": {
+                            "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0166\/97\/56745f92b28e3a6f176e66acf9e9d0aea5e0c611.jpeg"
+                        }
+                    },
+                    "dynamic_color": "#691f11"
+                }
+            }
+        }
+    ]
+}

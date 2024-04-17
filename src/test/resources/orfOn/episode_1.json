@@ -1,0 +1,1939 @@
+{
+  "adition_advertising_query_string": "stype:vod,scat:orf-kids,scatid:2703801,spro:servus-kasperl,sproid:3272601,episodeid:14207792,duration:1316942,advertisingtags:",
+  "advertising_mapping": {
+    "live": {
+      "web": {
+        "sb": 4423852,
+        "tbar": 4423851,
+        "pre": 4423862,
+        "post": 4423861
+      },
+      "mob": {
+        "par": 4423850,
+        "pre": 4423858,
+        "post": 4423857
+      },
+      "app": {
+        "par": 4423849,
+        "pre": 4423856,
+        "post": 4423855
+      },
+      "smart": {
+        "pre": 4423860,
+        "post": 4423859,
+        "lane": 4423853,
+        "bar": 4423854
+      }
+    },
+    "vod": {
+      "web": {
+        "sb": 4423852,
+        "tbar": 4423851,
+        "pre": 4423862,
+        "post": 4423861
+      },
+      "mob": {
+        "par": 4423850,
+        "pre": 4423858,
+        "post": 4423857
+      },
+      "app": {
+        "par": 4423849,
+        "pre": 4423856,
+        "post": 4423855
+      },
+      "smart": {
+        "pre": 4423860,
+        "post": 4423859,
+        "lane": 4423853,
+        "bar": 4423854
+      }
+    }
+  },
+  "advertising_query_string": "stype=vod&scat=orf-kids&scatid=2703801&spro=servus-kasperl&sproid=3272601&episodeid=14207792&duration=1316942&advertisingtags=",
+  "age_classification": "",
+  "audio_description_service_available": false,
+  "countdown": "6 Tage",
+  "date": "2024-01-04T07:07:38+01:00",
+  "delete_date": "2024-02-10 07:07:38",
+  "vod_ressort": null,
+  "description": "Kasperl und Strolchi besuchen den Zirkusdirektor des Zirkus Kindleroni. Dieser ist verzweifelt, weil sein Stallbursche krank ist und er die ganze Arbeit alleine kaum schaffen kann. Doch da kommt Hilfe durch Maximilian, der Arbeit sucht. Sofort darf Maximilian die Stelle als Stallbursche antreten. Eine seiner Aufgaben ist es auch auf Koko, den Papagei des Direktors, aufzupassen. Dieser ist in Gefahr, weil ein R\u00e4uber vor hat ihn zu stehlen.\r\nBildquelle: ORF",
+  "drm_token": null,
+  "duration_seconds": 1316,
+  "encrypted_id": "M2RTbGZlazAzbnNMS2RqNEpzZDE0MjA3Nzky",
+  "exact_duration": 1316942,
+  "field_descriptor": "",
+  "flimmit_link_text": "",
+  "flimmit_link": "",
+  "gapless_sources_austria": {
+    "hls": [],
+    "hds": [],
+    "smooth": [],
+    "dash": []
+  },
+  "genre_id": 2703801,
+  "genre_title": "ORF Kids",
+  "right": "worldwide",
+  "growing": true,
+  "growing_type": "chronology",
+  "has_active_youth_protection": false,
+  "focus": false,
+  "show_countdown": true,
+  "has_subtitle": true,
+  "has_thumbnail": true,
+  "has_youth_protection": false,
+  "headline": "Kasperl & Strolchi: Koko und Maximilian",
+  "hide_in_new_section": false,
+  "hide_in_schedule_section": false,
+  "hide_latest_episodes": false,
+  "id": 14207792,
+  "is_archive": false,
+  "is_drm_protected": false,
+  "is_gapless_austria": false,
+  "is_gapless": true,
+  "gmf_merged_content": false,
+  "is_oegs": false,
+  "two_channel_audio": false,
+  "uhd": false,
+  "killdate_extern": "2024-01-11T07:07:38+01:00",
+  "killdate": "2024-01-11T07:07:38+01:00",
+  "livedate": "2024-01-04T07:07:38+01:00",
+  "livedate_extern": "2024-01-04T07:07:38+01:00",
+  "orf_label": null,
+  "disable_display_ads_orf_platforms": false,
+  "disable_instream_ads_orf_platforms": false,
+  "production_country_is_europe": true,
+  "production_country": "\u00d6sterreich",
+  "production_year": null,
+  "profile_title": "Servus Kasperl",
+  "website": "",
+  "recommendation_episode": null,
+  "related_audiodescription_episode_image_url": null,
+  "related_audiodescription_episode_title": null,
+  "related_oegs_episode_image_url": null,
+  "related_oegs_episode_title": null,
+  "release_date": "2024-01-04T07:50:01+01:00",
+  "secondary_genres": [],
+  "segments_complete": true,
+  "episodes_reference": "",
+  "share_body": "https:\/\/tvthek.orf.at\/profile\/Servus-Kasperl\/3272601\/Servus-Kasperl-Kasperl-Strolchi-Koko-und-Maximilian\/14207792",
+  "share_subject": "Servus Kasperl: Kasperl und Strolchi: Koko und Maximilian vom 04.01.2024 um 07:07 Uhr",
+  "show_display_ads": false,
+  "show_instream_ads": false,
+  "sources": {
+    "hls": [
+      {
+        "is_uhd": false,
+        "quality_key": "QXA",
+        "quality_description": "Adaptiv",
+        "src": "https:\/\/apasfiis.sf.apa.at\/ipad\/cms-worldwide\/2024-01-04_0707_tl_01_Servus-Kasperl-_____14207792__o__6332192865__s15543049_9__ORF1HD_07081012P_07300711P_QXA.mp4\/playlist.m3u8",
+        "is_adaptive_stream": true,
+        "is_drm_protected": false
+      },
+      {
+        "is_uhd": false,
+        "quality_key": "QXB",
+        "quality_description": "Adaptiv",
+        "src": "https:\/\/apasfiis.sf.apa.at\/ipad\/cms-worldwide\/2024-01-04_0707_tl_01_Servus-Kasperl-_____14207792__o__6332192865__s15543049_9__ORF1HD_07081012P_07300711P_QXB.mp4\/playlist.m3u8",
+        "is_adaptive_stream": true,
+        "is_drm_protected": false
+      }
+    ],
+    "hds": [
+      {
+        "is_uhd": false,
+        "quality_key": "QXA",
+        "quality_description": "Adaptiv",
+        "src": "https:\/\/apasfiis.sf.apa.at\/f4m\/cms-worldwide\/2024-01-04_0707_tl_01_Servus-Kasperl-_____14207792__o__6332192865__s15543049_9__ORF1HD_07081012P_07300711P_QXA.mp4\/manifest.f4m",
+        "is_adaptive_stream": true,
+        "is_drm_protected": false
+      },
+      {
+        "is_uhd": false,
+        "quality_key": "QXB",
+        "quality_description": "Adaptiv",
+        "src": "https:\/\/apasfiis.sf.apa.at\/f4m\/cms-worldwide\/2024-01-04_0707_tl_01_Servus-Kasperl-_____14207792__o__6332192865__s15543049_9__ORF1HD_07081012P_07300711P_QXB.mp4\/manifest.f4m",
+        "is_adaptive_stream": true,
+        "is_drm_protected": false
+      }
+    ],
+    "smooth": [
+      {
+        "is_uhd": false,
+        "quality_key": "QXA",
+        "quality_description": "Adaptiv",
+        "src": "https:\/\/apasfiis.sf.apa.at\/smooth\/cms-worldwide\/2024-01-04_0707_tl_01_Servus-Kasperl-_____14207792__o__6332192865__s15543049_9__ORF1HD_07081012P_07300711P_QXA.mp4\/manifest",
+        "is_adaptive_stream": true,
+        "is_drm_protected": false
+      },
+      {
+        "is_uhd": false,
+        "quality_key": "QXB",
+        "quality_description": "Adaptiv",
+        "src": "https:\/\/apasfiis.sf.apa.at\/smooth\/cms-worldwide\/2024-01-04_0707_tl_01_Servus-Kasperl-_____14207792__o__6332192865__s15543049_9__ORF1HD_07081012P_07300711P_QXB.mp4\/manifest",
+        "is_adaptive_stream": true,
+        "is_drm_protected": false
+      }
+    ],
+    "dash": [
+      {
+        "is_uhd": false,
+        "quality_key": "QXA",
+        "quality_description": "Adaptiv",
+        "src": "https:\/\/apasfiis.sf.apa.at\/dash\/cms-worldwide\/2024-01-04_0707_tl_01_Servus-Kasperl-_____14207792__o__6332192865__s15543049_9__ORF1HD_07081012P_07300711P_QXA.mp4\/manifest.mpd",
+        "is_adaptive_stream": true,
+        "is_drm_protected": false
+      },
+      {
+        "is_uhd": false,
+        "quality_key": "QXB",
+        "quality_description": "Adaptiv",
+        "src": "https:\/\/apasfiis.sf.apa.at\/dash\/cms-worldwide\/2024-01-04_0707_tl_01_Servus-Kasperl-_____14207792__o__6332192865__s15543049_9__ORF1HD_07081012P_07300711P_QXB.mp4\/manifest.mpd",
+        "is_adaptive_stream": true,
+        "is_drm_protected": false
+      }
+    ]
+  },
+  "sub_headline": "ORF Kids | Servus Kasperl",
+  "teaser_text": "Kasperl und Strolchi besuchen den Zirkusdirektor des Zirkus Kindleroni. Dieser ist verzweifelt, weil sein Stallbursche krank ist und er die ganze Arbeit alleine kaum schaffen kann. Doch da kommt Hilfe durch Maximilian, der Arbeit sucht. Sofort darf Maximilian die Stelle als Stallbursche antreten. Eine seiner Aufgaben ist es auch auf Koko, den Papagei des Direktors, aufzupassen. Dieser ist in Gefahr, weil ein R\u00e4uber vor hat ihn zu stehlen.",
+  "teaser_title": "Kasperl & Strolchi: Koko und Maximilian",
+  "text": null,
+  "thumbnail_activated": true,
+  "thumbnail_distributed": false,
+  "thumbnail_folder": null,
+  "thumbnail_sources": {
+    "hls": [
+      {
+        "quality_key": "Q6A",
+        "src": "https:\/\/apasfiis.sf.apa.at\/ipad\/cms-preview-clips\/2024-01-04_0707_tl_01_Servus-Kasperl-_____14207792__o__6332192865__s15543049_9__ORF1HD_07081012P_07300711P_clip_Q6A.mp4\/playlist.m3u8"
+      },
+      {
+        "quality_key": "Q8C",
+        "src": "https:\/\/apasfiis.sf.apa.at\/ipad\/cms-preview-clips\/2024-01-04_0707_tl_01_Servus-Kasperl-_____14207792__o__6332192865__s15543049_9__ORF1HD_07081012P_07300711P_clip_Q8C.mp4\/playlist.m3u8"
+      }
+    ],
+    "hds": [
+      {
+        "quality_key": "Q6A",
+        "src": "https:\/\/apasfiis.sf.apa.at\/f4m\/cms-preview-clips\/2024-01-04_0707_tl_01_Servus-Kasperl-_____14207792__o__6332192865__s15543049_9__ORF1HD_07081012P_07300711P_clip_Q6A.mp4\/manifest.f4m"
+      },
+      {
+        "quality_key": "Q8C",
+        "src": "https:\/\/apasfiis.sf.apa.at\/f4m\/cms-preview-clips\/2024-01-04_0707_tl_01_Servus-Kasperl-_____14207792__o__6332192865__s15543049_9__ORF1HD_07081012P_07300711P_clip_Q8C.mp4\/manifest.f4m"
+      }
+    ],
+    "smooth": [
+      {
+        "quality_key": "Q6A",
+        "src": "https:\/\/apasfiis.sf.apa.at\/smooth\/cms-preview-clips\/2024-01-04_0707_tl_01_Servus-Kasperl-_____14207792__o__6332192865__s15543049_9__ORF1HD_07081012P_07300711P_clip_Q6A.mp4\/Manifest"
+      },
+      {
+        "quality_key": "Q8C",
+        "src": "https:\/\/apasfiis.sf.apa.at\/smooth\/cms-preview-clips\/2024-01-04_0707_tl_01_Servus-Kasperl-_____14207792__o__6332192865__s15543049_9__ORF1HD_07081012P_07300711P_clip_Q8C.mp4\/Manifest"
+      }
+    ],
+    "dash": [
+      {
+        "quality_key": "Q6A",
+        "src": "https:\/\/apasfiis.sf.apa.at\/dash\/cms-preview-clips\/2024-01-04_0707_tl_01_Servus-Kasperl-_____14207792__o__6332192865__s15543049_9__ORF1HD_07081012P_07300711P_clip_Q6A.mp4\/manifest.mpd"
+      },
+      {
+        "quality_key": "Q8C",
+        "src": "https:\/\/apasfiis.sf.apa.at\/dash\/cms-preview-clips\/2024-01-04_0707_tl_01_Servus-Kasperl-_____14207792__o__6332192865__s15543049_9__ORF1HD_07081012P_07300711P_clip_Q8C.mp4\/manifest.mpd"
+      }
+    ]
+  },
+  "sprite_sources": [],
+  "title": "Servus Kasperl: Kasperl & Strolchi: Koko und Maximilian",
+  "type": "default",
+  "updated_at": "2024-01-04T07:50:01+01:00",
+  "video_type": "episode",
+  "youth_protection_type": "limited-20-06",
+  "_links": {
+    "self": {
+      "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/episode\/14207792"
+    },
+    "channel": {
+      "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/channel\/1180"
+    },
+    "profile": {
+      "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/3272601"
+    },
+    "segments": {
+      "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/episode\/14207792\/segments"
+    },
+    "tags": {
+      "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/episode\/14207792\/tags"
+    },
+    "advertising_tags": {
+      "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/episode\/14207792\/advertising\/tags"
+    },
+    "links": {
+      "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/episode\/14207792\/links"
+    },
+    "image": {
+      "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16589238"
+    },
+    "image16x9_with_logo": {
+      "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16589238"
+    },
+    "image2x3_with_logo": {
+      "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16490554"
+    },
+    "image2x3": {
+      "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16490554"
+    },
+    "subtitle": {
+      "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/subtitle\/885340"
+    },
+    "related_episodes": {
+      "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/episode\/14207792\/related"
+    },
+    "dds_item": {
+      "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/dds\/ddsitem\/371619"
+    }
+  },
+  "_embedded": {
+    "channel": {
+      "bitmovin_stream_id": "f9a36691-7bd7-4c36-9009-a0b9d7009b29",
+      "channel_restart_url_hbbtv": "https:\/\/playerapi-restarttv.ors.at\/livestreams\/f9a36691-7bd7-4c36-9009-a0b9d7009b29\/sections\/?state=active&X-Api-Key=66ae5065a94f40f9b00f7de4a9f96ead",
+      "id": 1180,
+      "is_drm_protected": true,
+      "is_main_channel": true,
+      "name": "ORF 1",
+      "reel": "orf1",
+      "updated_at": "2023-01-19T10:03:53+01:00",
+      "_links": {
+        "self": {
+          "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/channel\/1180"
+        },
+        "children": {
+          "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/channel\/1180\/children"
+        },
+        "color_logo": {
+          "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/13457917"
+        },
+        "black_and_white_logo": {
+          "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/13457918"
+        },
+        "audio_description_channel": {
+          "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/channel\/4391789"
+        }
+      },
+      "_embedded": {
+        "parent": null,
+        "color_logo": {
+          "public_urls": {
+            "tiny": {
+              "url": "https:\/\/api-tvthek.orf.at\/assets\/channels\/0135\/58\/thumb_13457917_channels_tiny.png"
+            },
+            "list": {
+              "url": "https:\/\/api-tvthek.orf.at\/assets\/channels\/0135\/58\/thumb_13457917_channels_list.png"
+            },
+            "schedule": {
+              "url": "https:\/\/api-tvthek.orf.at\/assets\/channels\/0135\/58\/thumb_13457917_channels_schedule.png"
+            },
+            "reference": {
+              "url": "https:\/\/api-tvthek.orf.at\/assets\/channels\/0135\/58\/e88267e73205e46affb97e99d34f715f74bd1f1b.png"
+            }
+          },
+          "dynamic_color": "#691f11"
+        },
+        "black_and_white_logo": {
+          "public_urls": {
+            "tiny": {
+              "url": "https:\/\/api-tvthek.orf.at\/assets\/channels\/0135\/58\/thumb_13457918_channels_tiny.png"
+            },
+            "list": {
+              "url": "https:\/\/api-tvthek.orf.at\/assets\/channels\/0135\/58\/thumb_13457918_channels_list.png"
+            },
+            "schedule": {
+              "url": "https:\/\/api-tvthek.orf.at\/assets\/channels\/0135\/58\/thumb_13457918_channels_schedule.png"
+            },
+            "reference": {
+              "url": "https:\/\/api-tvthek.orf.at\/assets\/channels\/0135\/58\/b1b2c5b46edc8fdb3781957de434fbeeed4e8e44.png"
+            }
+          },
+          "dynamic_color": "#691f11"
+        }
+      }
+    },
+    "profile": {
+      "audio_description": false,
+      "break_text": null,
+      "break_title": null,
+      "dataset_name": "",
+      "description": "Das traditionsreiche Kindertheater",
+      "has_active_youth_protection": false,
+      "has_youth_protection": false,
+      "headline": "Servus Kasperl",
+      "hide_in_letter_group": false,
+      "id": 3272601,
+      "letter_group": "S",
+      "livestream_sub_headline": null,
+      "oegs": false,
+      "oewa_base_path": "Redcont\/KulturUndFreizeit\/Sonstiges",
+      "profile_website": null,
+      "secondary_genres": [],
+      "sub_headline": null,
+      "title": "Servus Kasperl",
+      "type": "temporary",
+      "updated_at": "2024-01-03T13:27:29+01:00",
+      "youth_protection_type": "limited-20-06",
+      "_links": {
+        "self": {
+          "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/3272601"
+        },
+        "image": {
+          "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16140655"
+        },
+        "image16x9_with_logo": {
+          "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16140655"
+        },
+        "image2x3_with_logo": {
+          "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16490554"
+        },
+        "image2x3": {
+          "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16490554"
+        },
+        "theme": {
+          "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/theme\/2642235"
+        },
+        "genre": {
+          "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/genre\/2703801"
+        },
+        "links": {
+          "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/3272601\/links"
+        },
+        "episodes": {
+          "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/3272601\/episodes"
+        },
+        "related_profiles": {
+          "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/3272601\/related"
+        },
+        "latest_episode": {
+          "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/3272601\/episode\/latest"
+        },
+        "tags": {
+          "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/3272601\/tags"
+        },
+        "advertising_tags": {
+          "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/3272601\/advertising\/tags"
+        }
+      },
+      "_embedded": {
+        "image": {
+          "public_urls": {
+            "highlight_teaser": {
+              "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0162\/41\/thumb_16140655_profiles_highlight_teaser.jpeg"
+            },
+            "player": {
+              "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0162\/41\/thumb_16140655_profiles_player.jpeg"
+            },
+            "list": {
+              "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0162\/41\/thumb_16140655_profiles_list.jpeg"
+            },
+            "small": {
+              "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0162\/41\/thumb_16140655_profiles_small.jpeg"
+            },
+            "reference": {
+              "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0162\/41\/fb34fe9620e39fb9fdd8a8cbb1b679b7edcaf1df.jpeg"
+            }
+          },
+          "dynamic_color": "#691f11"
+        },
+        "image16x9_with_logo": {
+          "public_urls": {
+            "highlight_teaser": {
+              "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0162\/41\/thumb_16140655_profiles_highlight_teaser.jpeg"
+            },
+            "player": {
+              "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0162\/41\/thumb_16140655_profiles_player.jpeg"
+            },
+            "list": {
+              "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0162\/41\/thumb_16140655_profiles_list.jpeg"
+            },
+            "small": {
+              "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0162\/41\/thumb_16140655_profiles_small.jpeg"
+            },
+            "reference": {
+              "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0162\/41\/fb34fe9620e39fb9fdd8a8cbb1b679b7edcaf1df.jpeg"
+            }
+          },
+          "dynamic_color": "#691f11"
+        },
+        "image2x3_with_logo": {
+          "public_urls": {
+            "highlight_teaser": {
+              "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0165\/91\/thumb_16490554_default_2x3_highlight_teaser.png"
+            },
+            "player": {
+              "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0165\/91\/thumb_16490554_default_2x3_player.png"
+            },
+            "legacy": {
+              "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0165\/91\/thumb_16490554_default_2x3_legacy.png"
+            },
+            "list": {
+              "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0165\/91\/thumb_16490554_default_2x3_list.png"
+            },
+            "small": {
+              "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0165\/91\/thumb_16490554_default_2x3_small.png"
+            },
+            "reference": {
+              "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0165\/91\/ca7c17fa95e0d33cdc783597f48e8687d7741e32.png"
+            }
+          },
+          "dynamic_color": "#691f11"
+        },
+        "image2x3": {
+          "public_urls": {
+            "highlight_teaser": {
+              "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0165\/91\/thumb_16490554_default_2x3_highlight_teaser.png"
+            },
+            "player": {
+              "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0165\/91\/thumb_16490554_default_2x3_player.png"
+            },
+            "legacy": {
+              "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0165\/91\/thumb_16490554_default_2x3_legacy.png"
+            },
+            "list": {
+              "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0165\/91\/thumb_16490554_default_2x3_list.png"
+            },
+            "small": {
+              "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0165\/91\/thumb_16490554_default_2x3_small.png"
+            },
+            "reference": {
+              "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0165\/91\/ca7c17fa95e0d33cdc783597f48e8687d7741e32.png"
+            }
+          },
+          "dynamic_color": "#691f11"
+        },
+        "theme": {
+          "color": "#008336",
+          "id": 2642235,
+          "name": "Servus Kasperl",
+          "updated_at": "2016-10-11T00:02:22+02:00",
+          "_links": {
+            "self": {
+              "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/theme\/2642235"
+            },
+            "header_image": {
+              "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/328"
+            },
+            "header_background_image": {
+              "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/327"
+            },
+            "background_image": {
+              "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/326"
+            }
+          },
+          "_embedded": {
+            "header_image": {
+              "public_urls": {
+                "header_image": {
+                  "url": "https:\/\/api-tvthek.orf.at\/assets\/themes\/0001\/01\/thumb_328_themes_header_image.png"
+                },
+                "header_background_image": {
+                  "url": "https:\/\/api-tvthek.orf.at\/assets\/themes\/0001\/01\/thumb_328_themes_header_background_image.png"
+                },
+                "background_image": {
+                  "url": "https:\/\/api-tvthek.orf.at\/assets\/themes\/0001\/01\/thumb_328_themes_background_image.png"
+                },
+                "reference": {
+                  "url": "https:\/\/api-tvthek.orf.at\/assets\/themes\/0001\/01\/7300613f6a45bd2a42ec92c6f19263834909f0bd.png"
+                }
+              },
+              "dynamic_color": "#691f11"
+            },
+            "header_background_image": {
+              "public_urls": {
+                "header_image": {
+                  "url": "https:\/\/api-tvthek.orf.at\/assets\/themes\/0001\/01\/thumb_327_themes_header_image.png"
+                },
+                "header_background_image": {
+                  "url": "https:\/\/api-tvthek.orf.at\/assets\/themes\/0001\/01\/thumb_327_themes_header_background_image.png"
+                },
+                "background_image": {
+                  "url": "https:\/\/api-tvthek.orf.at\/assets\/themes\/0001\/01\/thumb_327_themes_background_image.png"
+                },
+                "reference": {
+                  "url": "https:\/\/api-tvthek.orf.at\/assets\/themes\/0001\/01\/026c3576b4eba36a4a5f7f2e3be52120d16e0d60.png"
+                }
+              },
+              "dynamic_color": "#691f11"
+            },
+            "background_image": {
+              "public_urls": {
+                "header_image": {
+                  "url": "https:\/\/api-tvthek.orf.at\/assets\/themes\/0001\/01\/thumb_326_themes_header_image.png"
+                },
+                "header_background_image": {
+                  "url": "https:\/\/api-tvthek.orf.at\/assets\/themes\/0001\/01\/thumb_326_themes_header_background_image.png"
+                },
+                "background_image": {
+                  "url": "https:\/\/api-tvthek.orf.at\/assets\/themes\/0001\/01\/thumb_326_themes_background_image.png"
+                },
+                "reference": {
+                  "url": "https:\/\/api-tvthek.orf.at\/assets\/themes\/0001\/01\/14d8c4d3d3401275ae0b9db57d07168418bfce41.png"
+                }
+              },
+              "dynamic_color": "#691f11"
+            }
+          }
+        },
+        "genre": {
+          "id": 2703801,
+          "advertising_mapping": {
+            "live": {
+              "web": {
+                "sb": 4423852,
+                "tbar": 4423851,
+                "pre": 4423862,
+                "post": 4423861
+              },
+              "mob": {
+                "par": 4423850,
+                "pre": 4423858,
+                "post": 4423857
+              },
+              "app": {
+                "par": 4423849,
+                "pre": 4423856,
+                "post": 4423855
+              },
+              "smart": {
+                "pre": 4423860,
+                "post": 4423859,
+                "lane": 4423853,
+                "bar": 4423854
+              }
+            },
+            "vod": {
+              "web": {
+                "sb": 4423852,
+                "tbar": 4423851,
+                "pre": 4423862,
+                "post": 4423861
+              },
+              "mob": {
+                "par": 4423850,
+                "pre": 4423858,
+                "post": 4423857
+              },
+              "app": {
+                "par": 4423849,
+                "pre": 4423856,
+                "post": 4423855
+              },
+              "smart": {
+                "pre": 4423860,
+                "post": 4423859,
+                "lane": 4423853,
+                "bar": 4423854
+              }
+            }
+          },
+          "sorting": 9,
+          "title": "ORF Kids",
+          "updated_at": "2023-12-31T16:38:40+01:00",
+          "_links": {
+            "self": {
+              "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/genre\/2703801"
+            },
+            "image": {
+              "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16490557"
+            },
+            "profiles": {
+              "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/genre\/2703801\/profiles"
+            },
+            "episodes": {
+              "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/genre\/2703801\/episodes"
+            },
+            "latest_episode": {
+              "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/genre\/2703801\/episode\/latest"
+            },
+            "tags": {
+              "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/genre\/2703801\/tags"
+            },
+            "advertising_tags": {
+              "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/genre\/2703801\/advertising\/tags"
+            }
+          },
+          "_embedded": {
+            "image": {
+              "public_urls": {
+                "highlight_teaser": {
+                  "url": "https:\/\/api-tvthek.orf.at\/assets\/genres\/0165\/91\/thumb_16490557_genres_highlight_teaser.png"
+                },
+                "player": {
+                  "url": "https:\/\/api-tvthek.orf.at\/assets\/genres\/0165\/91\/thumb_16490557_genres_player.png"
+                },
+                "list": {
+                  "url": "https:\/\/api-tvthek.orf.at\/assets\/genres\/0165\/91\/thumb_16490557_genres_list.png"
+                },
+                "small": {
+                  "url": "https:\/\/api-tvthek.orf.at\/assets\/genres\/0165\/91\/thumb_16490557_genres_small.png"
+                },
+                "reference": {
+                  "url": "https:\/\/api-tvthek.orf.at\/assets\/genres\/0165\/91\/7ecf6c975d2b35a6879823ff7875e8b506d02c79.png"
+                }
+              },
+              "dynamic_color": "#691f11"
+            },
+            "tags": [],
+            "advertising_tags": []
+          }
+        },
+        "links": [
+          {
+            "id": 2642275,
+            "title": "Servus Kasperl",
+            "updated_at": "2011-07-15T22:25:18+02:00",
+            "url": "http:\/\/okidoki.orf.at\/?story=57",
+            "_links": {
+              "self": {
+                "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/link\/2642275"
+              }
+            }
+          }
+        ],
+        "tags": [],
+        "advertising_tags": [],
+        "audio_description_profile": null,
+        "oegs_profile": null
+      }
+    },
+    "segments": [
+      {
+        "adition_advertising_query_string": "stype:vod,scat:orf-kids,scatid:2703801,spro:servus-kasperl,sproid:3272601,episodeid:14207792,duration:1316942,advertisingtags:",
+        "advertising_mapping": {
+          "live": {
+            "web": {
+              "sb": 4423852,
+              "tbar": 4423851,
+              "pre": 4423862,
+              "post": 4423861
+            },
+            "mob": {
+              "par": 4423850,
+              "pre": 4423858,
+              "post": 4423857
+            },
+            "app": {
+              "par": 4423849,
+              "pre": 4423856,
+              "post": 4423855
+            },
+            "smart": {
+              "pre": 4423860,
+              "post": 4423859,
+              "lane": 4423853,
+              "bar": 4423854
+            }
+          },
+          "vod": {
+            "web": {
+              "sb": 4423852,
+              "tbar": 4423851,
+              "pre": 4423862,
+              "post": 4423861
+            },
+            "mob": {
+              "par": 4423850,
+              "pre": 4423858,
+              "post": 4423857
+            },
+            "app": {
+              "par": 4423849,
+              "pre": 4423856,
+              "post": 4423855
+            },
+            "smart": {
+              "pre": 4423860,
+              "post": 4423859,
+              "lane": 4423853,
+              "bar": 4423854
+            }
+          }
+        },
+        "advertising_query_string": "stype=vod&scat=orf-kids&scatid=2703801&spro=servus-kasperl&sproid=3272601&episodeid=14207792&duration=1316942&advertisingtags=",
+        "blackfades": [],
+        "episode_date": "2024-01-04T07:07:38+01:00",
+        "date_as_string": "Do, 4.1.2024",
+        "vod_ressort": null,
+        "description": "Kasperl und Strolchi besuchen den Zirkusdirektor des Zirkus Kindleroni. Dieser ist verzweifelt, weil sein Stallbursche krank ist und er die ganze Arbeit alleine kaum schaffen kann. Doch da kommt Hilfe durch Maximilian, der Arbeit sucht. Sofort darf Maximilian die Stelle als Stallbursche antreten. Eine seiner Aufgaben ist es auch auf Koko, den Papagei des Direktors, aufzupassen. Dieser ist in Gefahr, weil ein R\u00e4uber vor hat ihn zu stehlen.\r\nBildquelle: ORF",
+        "drm_token": null,
+        "duration_as_string": "21:56 Min.",
+        "duration_seconds": 1316,
+        "enabled": true,
+        "encrypted_id": "ODc4M2hqZDcyOTNrbWQxNTU0MzA0OQ==",
+        "episode_id": 14207792,
+        "exact_duration": 1316942,
+        "genre_id": 2703801,
+        "genre_title": "ORF Kids",
+        "right": "worldwide",
+        "focus": false,
+        "show_countdown": true,
+        "has_thumbnail": true,
+        "headline": "Kasperl & Strolchi: Koko und Maximilian",
+        "id": 15543049,
+        "is_archive": false,
+        "is_drm_protected": false,
+        "jump_mark": false,
+        "jump_marks": [],
+        "killdate_extern": "2024-01-11T07:07:38+01:00",
+        "killdate": "2024-01-11T07:07:38+01:00",
+        "livedate": "2100-01-01T00:00:00+01:00",
+        "livedate_extern": "2100-01-01T00:00:00+01:00",
+        "SSA": {
+          "cliptype": "Sendung",
+          "videoid": 15543049,
+          "videopartid": "1_1",
+          "videocategory": "ORF-Kids",
+          "videotitle": "Servus-Kasperl-Kasperl-Strolchi-Koko-und-Maximilian",
+          "videoduration": 1316,
+          "episodeduration": 1316,
+          "episodeid": 14207792,
+          "airdate": "2024-01-04T07:07:38+01:00",
+          "clipreleasetime": "2024-01-04T07:50:01+01:00",
+          "programname": "Servus-Kasperl",
+          "channel": "orf1"
+        },
+        "disable_display_ads_orf_platforms": false,
+        "disable_instream_ads_orf_platforms": false,
+        "position": 0,
+        "episodes_reference": "",
+        "share_body": "https:\/\/tvthek.orf.at\/profile\/Servus-Kasperl\/3272601\/Servus-Kasperl-Kasperl-Strolchi-Koko-und-Maximilian\/14207792\/Servus-Kasperl-Kasperl-Strolchi-Koko-und-Maximilian\/15543049",
+        "share_subject": "Servus Kasperl: Kasperl und Strolchi: Koko und Maximilian - Servus Kasperl: Kasperl und Strolchi: Koko und Maximilian vom 04.01.2024 um 07:07 Uhr",
+        "show_display_ads": false,
+        "show_instream_ads": false,
+        "sources": {
+          "hls": [
+            {
+              "is_uhd": false,
+              "quality_key": "QXA",
+              "quality_description": "Adaptiv",
+              "src": "https:\/\/apasfiis.sf.apa.at\/ipad\/cms-worldwide\/2024-01-04_0707_tl_01_Servus-Kasperl-_____14207792__o__6332192865__s15543049_9__ORF1HD_07081012P_07300711P_QXA.mp4\/playlist.m3u8",
+              "is_adaptive_stream": true,
+              "is_drm_protected": false
+            },
+            {
+              "is_uhd": false,
+              "quality_key": "QXB",
+              "quality_description": "Adaptiv",
+              "src": "https:\/\/apasfiis.sf.apa.at\/ipad\/cms-worldwide\/2024-01-04_0707_tl_01_Servus-Kasperl-_____14207792__o__6332192865__s15543049_9__ORF1HD_07081012P_07300711P_QXB.mp4\/playlist.m3u8",
+              "is_adaptive_stream": true,
+              "is_drm_protected": false
+            }
+          ],
+          "hds": [
+            {
+              "is_uhd": false,
+              "quality_key": "QXA",
+              "quality_description": "Adaptiv",
+              "src": "https:\/\/apasfiis.sf.apa.at\/f4m\/cms-worldwide\/2024-01-04_0707_tl_01_Servus-Kasperl-_____14207792__o__6332192865__s15543049_9__ORF1HD_07081012P_07300711P_QXA.mp4\/manifest.f4m",
+              "is_adaptive_stream": true,
+              "is_drm_protected": false
+            },
+            {
+              "is_uhd": false,
+              "quality_key": "QXB",
+              "quality_description": "Adaptiv",
+              "src": "https:\/\/apasfiis.sf.apa.at\/f4m\/cms-worldwide\/2024-01-04_0707_tl_01_Servus-Kasperl-_____14207792__o__6332192865__s15543049_9__ORF1HD_07081012P_07300711P_QXB.mp4\/manifest.f4m",
+              "is_adaptive_stream": true,
+              "is_drm_protected": false
+            }
+          ],
+          "smooth": [
+            {
+              "is_uhd": false,
+              "quality_key": "QXA",
+              "quality_description": "Adaptiv",
+              "src": "https:\/\/apasfiis.sf.apa.at\/smooth\/cms-worldwide\/2024-01-04_0707_tl_01_Servus-Kasperl-_____14207792__o__6332192865__s15543049_9__ORF1HD_07081012P_07300711P_QXA.mp4\/manifest",
+              "is_adaptive_stream": true,
+              "is_drm_protected": false
+            },
+            {
+              "is_uhd": false,
+              "quality_key": "QXB",
+              "quality_description": "Adaptiv",
+              "src": "https:\/\/apasfiis.sf.apa.at\/smooth\/cms-worldwide\/2024-01-04_0707_tl_01_Servus-Kasperl-_____14207792__o__6332192865__s15543049_9__ORF1HD_07081012P_07300711P_QXB.mp4\/manifest",
+              "is_adaptive_stream": true,
+              "is_drm_protected": false
+            }
+          ],
+          "dash": [
+            {
+              "is_uhd": false,
+              "quality_key": "QXA",
+              "quality_description": "Adaptiv",
+              "src": "https:\/\/apasfiis.sf.apa.at\/dash\/cms-worldwide\/2024-01-04_0707_tl_01_Servus-Kasperl-_____14207792__o__6332192865__s15543049_9__ORF1HD_07081012P_07300711P_QXA.mp4\/manifest.mpd",
+              "is_adaptive_stream": true,
+              "is_drm_protected": false
+            },
+            {
+              "is_uhd": false,
+              "quality_key": "QXB",
+              "quality_description": "Adaptiv",
+              "src": "https:\/\/apasfiis.sf.apa.at\/dash\/cms-worldwide\/2024-01-04_0707_tl_01_Servus-Kasperl-_____14207792__o__6332192865__s15543049_9__ORF1HD_07081012P_07300711P_QXB.mp4\/manifest.mpd",
+              "is_adaptive_stream": true,
+              "is_drm_protected": false
+            }
+          ]
+        },
+        "state": "distributed",
+        "sub_headline": "ORF Kids | Servus Kasperl",
+        "teaser_text": null,
+        "teaser_title": "Kasperl & Strolchi: Koko und Maximilian",
+        "thumbnail_activated": true,
+        "thumbnail_distributed": true,
+        "thumbnail_folder": "cms-preview-clips",
+        "thumbnail_sources": {
+          "hls": [
+            {
+              "quality_key": "Q6A",
+              "src": "https:\/\/apasfiis.sf.apa.at\/ipad\/cms-preview-clips\/2024-01-04_0707_tl_01_Servus-Kasperl-_____14207792__o__6332192865__s15543049_9__ORF1HD_07081012P_07300711P_clip_Q6A.mp4\/playlist.m3u8"
+            },
+            {
+              "quality_key": "Q8C",
+              "src": "https:\/\/apasfiis.sf.apa.at\/ipad\/cms-preview-clips\/2024-01-04_0707_tl_01_Servus-Kasperl-_____14207792__o__6332192865__s15543049_9__ORF1HD_07081012P_07300711P_clip_Q8C.mp4\/playlist.m3u8"
+            }
+          ],
+          "hds": [
+            {
+              "quality_key": "Q6A",
+              "src": "https:\/\/apasfiis.sf.apa.at\/f4m\/cms-preview-clips\/2024-01-04_0707_tl_01_Servus-Kasperl-_____14207792__o__6332192865__s15543049_9__ORF1HD_07081012P_07300711P_clip_Q6A.mp4\/manifest.f4m"
+            },
+            {
+              "quality_key": "Q8C",
+              "src": "https:\/\/apasfiis.sf.apa.at\/f4m\/cms-preview-clips\/2024-01-04_0707_tl_01_Servus-Kasperl-_____14207792__o__6332192865__s15543049_9__ORF1HD_07081012P_07300711P_clip_Q8C.mp4\/manifest.f4m"
+            }
+          ],
+          "smooth": [
+            {
+              "quality_key": "Q6A",
+              "src": "https:\/\/apasfiis.sf.apa.at\/smooth\/cms-preview-clips\/2024-01-04_0707_tl_01_Servus-Kasperl-_____14207792__o__6332192865__s15543049_9__ORF1HD_07081012P_07300711P_clip_Q6A.mp4\/Manifest"
+            },
+            {
+              "quality_key": "Q8C",
+              "src": "https:\/\/apasfiis.sf.apa.at\/smooth\/cms-preview-clips\/2024-01-04_0707_tl_01_Servus-Kasperl-_____14207792__o__6332192865__s15543049_9__ORF1HD_07081012P_07300711P_clip_Q8C.mp4\/Manifest"
+            }
+          ],
+          "dash": [
+            {
+              "quality_key": "Q6A",
+              "src": "https:\/\/apasfiis.sf.apa.at\/dash\/cms-preview-clips\/2024-01-04_0707_tl_01_Servus-Kasperl-_____14207792__o__6332192865__s15543049_9__ORF1HD_07081012P_07300711P_clip_Q6A.mp4\/manifest.mpd"
+            },
+            {
+              "quality_key": "Q8C",
+              "src": "https:\/\/apasfiis.sf.apa.at\/dash\/cms-preview-clips\/2024-01-04_0707_tl_01_Servus-Kasperl-_____14207792__o__6332192865__s15543049_9__ORF1HD_07081012P_07300711P_clip_Q8C.mp4\/manifest.mpd"
+            }
+          ]
+        },
+        "sprite_sources": [],
+        "title": "Servus Kasperl: Kasperl & Strolchi: Koko und Maximilian",
+        "updated_at": "2024-01-04T07:51:06+01:00",
+        "videobumper": {
+          "prevideobumper": {
+            "active": false,
+            "sources": {
+              "hls": [],
+              "hds": [],
+              "smooth": [],
+              "progressive_download": []
+            }
+          },
+          "postvideobumper": {
+            "active": false,
+            "sources": {
+              "hls": [],
+              "hds": [],
+              "smooth": [],
+              "progressive_download": []
+            }
+          }
+        },
+        "video_file_name": "2024-01-04_0707_tl_01_Servus-Kasperl-_____14207792__o__6332192865__s15543049_9__ORF1HD_07081012P_07300711P",
+        "video_stream_url": null,
+        "video_type": "segment",
+        "voez": false,
+        "voez_ads_allowed": false,
+        "_links": {
+          "self": {
+            "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/segment\/15543049"
+          },
+          "episode": {
+            "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/episode\/14207792"
+          },
+          "image": {
+            "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16589238"
+          },
+          "image16x9_with_logo": {
+            "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16589238"
+          },
+          "image2x3_with_logo": {
+            "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16490554"
+          },
+          "image2x3": {
+            "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16490554"
+          },
+          "links": {
+            "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/segment\/15543049\/links"
+          },
+          "subtitle": {
+            "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/subtitle\/885341"
+          },
+          "playlist": {
+            "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/segment\/15543049\/playlist"
+          },
+          "tags": {
+            "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/segment\/15543049\/tags"
+          },
+          "profile": {
+            "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/3272601"
+          }
+        },
+        "_embedded": {
+          "image": {
+            "public_urls": {
+              "highlight_teaser": {
+                "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0166\/90\/thumb_16589238_segments_highlight_teaser.jpeg"
+              },
+              "player": {
+                "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0166\/90\/thumb_16589238_segments_player.jpeg"
+              },
+              "list": {
+                "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0166\/90\/thumb_16589238_segments_list.jpeg"
+              },
+              "small": {
+                "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0166\/90\/thumb_16589238_segments_small.jpeg"
+              },
+              "reference": {
+                "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0166\/90\/371e062b4bbb6be53052de187b928fb3b2c5266f.jpeg"
+              }
+            },
+            "dynamic_color": "#691f11"
+          },
+          "image16x9_with_logo": {
+            "public_urls": {
+              "highlight_teaser": {
+                "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0166\/90\/thumb_16589238_segments_highlight_teaser.jpeg"
+              },
+              "player": {
+                "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0166\/90\/thumb_16589238_segments_player.jpeg"
+              },
+              "list": {
+                "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0166\/90\/thumb_16589238_segments_list.jpeg"
+              },
+              "small": {
+                "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0166\/90\/thumb_16589238_segments_small.jpeg"
+              },
+              "reference": {
+                "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0166\/90\/371e062b4bbb6be53052de187b928fb3b2c5266f.jpeg"
+              }
+            },
+            "dynamic_color": "#691f11"
+          },
+          "image2x3_with_logo": {
+            "public_urls": {
+              "highlight_teaser": {
+                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0165\/91\/thumb_16490554_default_2x3_highlight_teaser.png"
+              },
+              "player": {
+                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0165\/91\/thumb_16490554_default_2x3_player.png"
+              },
+              "legacy": {
+                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0165\/91\/thumb_16490554_default_2x3_legacy.png"
+              },
+              "list": {
+                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0165\/91\/thumb_16490554_default_2x3_list.png"
+              },
+              "small": {
+                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0165\/91\/thumb_16490554_default_2x3_small.png"
+              },
+              "reference": {
+                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0165\/91\/ca7c17fa95e0d33cdc783597f48e8687d7741e32.png"
+              }
+            },
+            "dynamic_color": "#691f11"
+          },
+          "image2x3": {
+            "public_urls": {
+              "highlight_teaser": {
+                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0165\/91\/thumb_16490554_default_2x3_highlight_teaser.png"
+              },
+              "player": {
+                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0165\/91\/thumb_16490554_default_2x3_player.png"
+              },
+              "legacy": {
+                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0165\/91\/thumb_16490554_default_2x3_legacy.png"
+              },
+              "list": {
+                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0165\/91\/thumb_16490554_default_2x3_list.png"
+              },
+              "small": {
+                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0165\/91\/thumb_16490554_default_2x3_small.png"
+              },
+              "reference": {
+                "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0165\/91\/ca7c17fa95e0d33cdc783597f48e8687d7741e32.png"
+              }
+            },
+            "dynamic_color": "#691f11"
+          },
+          "links": [],
+          "subtitle": {
+            "id": 885341,
+            "parsed_at": null,
+            "sami_url": "https:\/\/api-tvthek.orf.at\/assets\/subtitles\/0166\/92\/502a7c55913fa39aa1d8d217df7cb32b84f7fd9a.smi",
+            "srt_url": "https:\/\/api-tvthek.orf.at\/assets\/subtitles\/0166\/92\/ad1613d1f4baae942b8ef9ad46edded8aeca458c.srt",
+            "stl_url": null,
+            "ttml_url": "https:\/\/api-tvthek.orf.at\/assets\/subtitles\/0166\/92\/6f5d82040aaf01ee17849c81195275e97b230b1b.ttml",
+            "updated_at": "2024-01-04T07:41:37+01:00",
+            "vtt_url": "https:\/\/api-tvthek.orf.at\/assets\/subtitles\/0166\/92\/37d233cccebd85cbc869efd8b5de3ccdc9b7dc30.vtt",
+            "xml_url": "https:\/\/api-tvthek.orf.at\/assets\/subtitles\/0166\/92\/c7e63426107d57014633b8350bd3ca98f31c9c0a.xml",
+            "_links": {
+              "self": {
+                "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/subtitle\/885341"
+              },
+              "xml_file": {
+                "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16591451"
+              },
+              "srt_file": {
+                "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16591452"
+              },
+              "vtt_file": {
+                "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16591453"
+              },
+              "sami_file": {
+                "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16591455"
+              },
+              "ttml_file": {
+                "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16591454"
+              }
+            },
+            "_embedded": {
+              "xml_file": {
+                "public_urls": {
+                  "reference": {
+                    "url": "https:\/\/api-tvthek.orf.at\/assets\/subtitles\/0166\/92\/c7e63426107d57014633b8350bd3ca98f31c9c0a.xml"
+                  }
+                }
+              },
+              "stl_file": null,
+              "srt_file": {
+                "public_urls": {
+                  "reference": {
+                    "url": "https:\/\/api-tvthek.orf.at\/assets\/subtitles\/0166\/92\/ad1613d1f4baae942b8ef9ad46edded8aeca458c.srt"
+                  }
+                }
+              },
+              "vtt_file": {
+                "public_urls": {
+                  "reference": {
+                    "url": "https:\/\/api-tvthek.orf.at\/assets\/subtitles\/0166\/92\/37d233cccebd85cbc869efd8b5de3ccdc9b7dc30.vtt"
+                  }
+                }
+              },
+              "sami_file": {
+                "public_urls": {
+                  "reference": {
+                    "url": "https:\/\/api-tvthek.orf.at\/assets\/subtitles\/0166\/92\/502a7c55913fa39aa1d8d217df7cb32b84f7fd9a.smi"
+                  }
+                }
+              },
+              "ttml_file": {
+                "public_urls": {
+                  "reference": {
+                    "url": "https:\/\/api-tvthek.orf.at\/assets\/subtitles\/0166\/92\/6f5d82040aaf01ee17849c81195275e97b230b1b.ttml"
+                  }
+                }
+              }
+            }
+          },
+          "playlist": {
+            "id": 15543049,
+            "episode_id": 14207792,
+            "title_prefix": "Servus Kasperl: Kasperl & Strolchi: Koko und Maximilian",
+            "title_separator": "|",
+            "title": "Servus Kasperl: Kasperl & Strolchi: Koko und Maximilian",
+            "description": "Kasperl und Strolchi besuchen den Zirkusdirektor des Zirkus Kindleroni. Dieser ist verzweifelt, weil sein Stallbursche krank ist und er die ganze Arbeit alleine kaum schaffen kann. Doch da kommt Hilfe durch Maximilian, der Arbeit sucht. Sofort darf Maximilian die Stelle als Stallbursche antreten. Eine seiner Aufgaben ist es auch auf Koko, den Papagei des Direktors, aufzupassen. Dieser ist in Gefahr, weil ein R\u00e4uber vor hat ihn zu stehlen.\r\nBildquelle: ORF",
+            "duration": 1316942,
+            "preview_image_url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0166\/90\/thumb_16589238_segments_player.jpeg",
+            "sources": [
+              {
+                "quality": "Q1A",
+                "quality_string": "Niedrig",
+                "src": "rtmp:\/\/apasfw.apa.at\/cms-worldwide\/mp4:2024-01-04_0707_tl_01_Servus-Kasperl-_____14207792__o__6332192865__s15543049_9__ORF1HD_07081012P_07300711P_Q1A.3gp",
+                "type": "video\/mp4",
+                "delivery": "streaming",
+                "protocol": "rtmp"
+              },
+              {
+                "quality": "Q4A",
+                "quality_string": "Mittel",
+                "src": "rtmp:\/\/apasfw.apa.at\/cms-worldwide\/mp4:2024-01-04_0707_tl_01_Servus-Kasperl-_____14207792__o__6332192865__s15543049_9__ORF1HD_07081012P_07300711P_Q4A.mp4",
+                "type": "video\/mp4",
+                "delivery": "streaming",
+                "protocol": "rtmp"
+              },
+              {
+                "quality": "Q6A",
+                "quality_string": "Hoch",
+                "src": "rtmp:\/\/apasfw.apa.at\/cms-worldwide\/mp4:2024-01-04_0707_tl_01_Servus-Kasperl-_____14207792__o__6332192865__s15543049_9__ORF1HD_07081012P_07300711P_Q6A.mp4",
+                "type": "video\/mp4",
+                "delivery": "streaming",
+                "protocol": "rtmp"
+              },
+              {
+                "quality": "Q8C",
+                "quality_string": "Sehr hoch",
+                "src": "rtmp:\/\/apasfw.apa.at\/cms-worldwide\/mp4:2024-01-04_0707_tl_01_Servus-Kasperl-_____14207792__o__6332192865__s15543049_9__ORF1HD_07081012P_07300711P_Q8C.mp4",
+                "type": "video\/mp4",
+                "delivery": "streaming",
+                "protocol": "rtmp"
+              },
+              {
+                "quality": "Q1A",
+                "quality_string": "Niedrig",
+                "src": "rtsp:\/\/apasfw.apa.at:1935\/cms-worldwide\/mp4:2024-01-04_0707_tl_01_Servus-Kasperl-_____14207792__o__6332192865__s15543049_9__ORF1HD_07081012P_07300711P_Q1A.3gp",
+                "type": "video\/mp4",
+                "delivery": "streaming",
+                "protocol": "rtsp"
+              },
+              {
+                "quality": "SMIL",
+                "quality_string": "Hoch",
+                "src": "rtsp:\/\/apasfw.apa.at:1935\/cms-worldwide\/mp4:2024-01-04_0707_tl_01_Servus-Kasperl-_____14207792__o__6332192865__s15543049_9__ORF1HD_07081012P_07300711P_Q6A.mp4",
+                "type": "video\/mp4",
+                "delivery": "streaming",
+                "protocol": "rtsp"
+              },
+              {
+                "quality": "Q4A",
+                "quality_string": "Mittel",
+                "src": "rtsp:\/\/apasfw.apa.at:1935\/cms-worldwide\/mp4:2024-01-04_0707_tl_01_Servus-Kasperl-_____14207792__o__6332192865__s15543049_9__ORF1HD_07081012P_07300711P_Q4A.mp4",
+                "type": "video\/mp4",
+                "delivery": "streaming",
+                "protocol": "rtsp"
+              },
+              {
+                "quality": "Q8C",
+                "quality_string": "Sehr hoch",
+                "src": "rtsp:\/\/apasfw.apa.at:1935\/cms-worldwide\/mp4:2024-01-04_0707_tl_01_Servus-Kasperl-_____14207792__o__6332192865__s15543049_9__ORF1HD_07081012P_07300711P_Q8C.mp4",
+                "type": "video\/mp4",
+                "delivery": "streaming",
+                "protocol": "rtsp"
+              },
+              {
+                "src": "https:\/\/apasfiis.sf.apa.at\/ipad\/cms-worldwide\/2024-01-04_0707_tl_01_Servus-Kasperl-_____14207792__o__6332192865__s15543049_9__ORF1HD_07081012P_07300711P_Q0A.3gp\/playlist.m3u8",
+                "is_uhd": false,
+                "quality": "Q0A",
+                "quality_string": "Sehr niedrig",
+                "delivery": "hls",
+                "type": "video\/mp4",
+                "protocol": "http"
+              },
+              {
+                "src": "https:\/\/apasfiis.sf.apa.at\/ipad\/cms-worldwide\/2024-01-04_0707_tl_01_Servus-Kasperl-_____14207792__o__6332192865__s15543049_9__ORF1HD_07081012P_07300711P_Q1A.3gp\/playlist.m3u8",
+                "is_uhd": false,
+                "quality": "Q1A",
+                "quality_string": "Niedrig",
+                "delivery": "hls",
+                "type": "video\/mp4",
+                "protocol": "http"
+              },
+              {
+                "src": "https:\/\/apasfiis.sf.apa.at\/ipad\/cms-worldwide\/2024-01-04_0707_tl_01_Servus-Kasperl-_____14207792__o__6332192865__s15543049_9__ORF1HD_07081012P_07300711P_Q4A.mp4\/playlist.m3u8",
+                "is_uhd": false,
+                "quality": "Q4A",
+                "quality_string": "Mittel",
+                "delivery": "hls",
+                "type": "video\/mp4",
+                "protocol": "http"
+              },
+              {
+                "src": "https:\/\/apasfiis.sf.apa.at\/ipad\/cms-worldwide\/2024-01-04_0707_tl_01_Servus-Kasperl-_____14207792__o__6332192865__s15543049_9__ORF1HD_07081012P_07300711P_Q6A.mp4\/playlist.m3u8",
+                "is_uhd": false,
+                "quality": "Q6A",
+                "quality_string": "Hoch",
+                "delivery": "hls",
+                "type": "video\/mp4",
+                "protocol": "http"
+              },
+              {
+                "src": "https:\/\/apasfiis.sf.apa.at\/ipad\/cms-worldwide\/2024-01-04_0707_tl_01_Servus-Kasperl-_____14207792__o__6332192865__s15543049_9__ORF1HD_07081012P_07300711P_Q8C.mp4\/playlist.m3u8",
+                "is_uhd": false,
+                "quality": "Q8C",
+                "quality_string": "Sehr hoch",
+                "delivery": "hls",
+                "type": "video\/mp4",
+                "protocol": "http"
+              },
+              {
+                "src": "https:\/\/apasfiis.sf.apa.at\/ipad\/cms-worldwide\/2024-01-04_0707_tl_01_Servus-Kasperl-_____14207792__o__6332192865__s15543049_9__ORF1HD_07081012P_07300711P_QXA.mp4\/playlist.m3u8",
+                "is_uhd": false,
+                "quality": "QXA",
+                "quality_string": "Adaptiv",
+                "delivery": "hls",
+                "type": "video\/mp4",
+                "protocol": "http"
+              },
+              {
+                "src": "https:\/\/apasfiis.sf.apa.at\/ipad\/cms-worldwide\/2024-01-04_0707_tl_01_Servus-Kasperl-_____14207792__o__6332192865__s15543049_9__ORF1HD_07081012P_07300711P_QXB.mp4\/playlist.m3u8",
+                "is_uhd": false,
+                "quality": "QXB",
+                "quality_string": "Adaptiv",
+                "delivery": "hls",
+                "type": "video\/mp4",
+                "protocol": "http"
+              },
+              {
+                "src": "https:\/\/apasfiis.sf.apa.at\/f4m\/cms-worldwide\/2024-01-04_0707_tl_01_Servus-Kasperl-_____14207792__o__6332192865__s15543049_9__ORF1HD_07081012P_07300711P_Q0A.3gp\/manifest.f4m",
+                "is_uhd": false,
+                "quality": "Q0A",
+                "quality_string": "Sehr niedrig",
+                "delivery": "hds",
+                "type": "video\/mp4",
+                "protocol": "http"
+              },
+              {
+                "src": "https:\/\/apasfiis.sf.apa.at\/f4m\/cms-worldwide\/2024-01-04_0707_tl_01_Servus-Kasperl-_____14207792__o__6332192865__s15543049_9__ORF1HD_07081012P_07300711P_Q1A.3gp\/manifest.f4m",
+                "is_uhd": false,
+                "quality": "Q1A",
+                "quality_string": "Niedrig",
+                "delivery": "hds",
+                "type": "video\/mp4",
+                "protocol": "http"
+              },
+              {
+                "src": "https:\/\/apasfiis.sf.apa.at\/f4m\/cms-worldwide\/2024-01-04_0707_tl_01_Servus-Kasperl-_____14207792__o__6332192865__s15543049_9__ORF1HD_07081012P_07300711P_Q4A.mp4\/manifest.f4m",
+                "is_uhd": false,
+                "quality": "Q4A",
+                "quality_string": "Mittel",
+                "delivery": "hds",
+                "type": "video\/mp4",
+                "protocol": "http"
+              },
+              {
+                "src": "https:\/\/apasfiis.sf.apa.at\/f4m\/cms-worldwide\/2024-01-04_0707_tl_01_Servus-Kasperl-_____14207792__o__6332192865__s15543049_9__ORF1HD_07081012P_07300711P_Q6A.mp4\/manifest.f4m",
+                "is_uhd": false,
+                "quality": "Q6A",
+                "quality_string": "Hoch",
+                "delivery": "hds",
+                "type": "video\/mp4",
+                "protocol": "http"
+              },
+              {
+                "src": "https:\/\/apasfiis.sf.apa.at\/f4m\/cms-worldwide\/2024-01-04_0707_tl_01_Servus-Kasperl-_____14207792__o__6332192865__s15543049_9__ORF1HD_07081012P_07300711P_Q8C.mp4\/manifest.f4m",
+                "is_uhd": false,
+                "quality": "Q8C",
+                "quality_string": "Sehr hoch",
+                "delivery": "hds",
+                "type": "video\/mp4",
+                "protocol": "http"
+              },
+              {
+                "src": "https:\/\/apasfiis.sf.apa.at\/f4m\/cms-worldwide\/2024-01-04_0707_tl_01_Servus-Kasperl-_____14207792__o__6332192865__s15543049_9__ORF1HD_07081012P_07300711P_QXA.mp4\/manifest.f4m",
+                "is_uhd": false,
+                "quality": "QXA",
+                "quality_string": "Adaptiv",
+                "delivery": "hds",
+                "type": "video\/mp4",
+                "protocol": "http"
+              },
+              {
+                "src": "https:\/\/apasfiis.sf.apa.at\/f4m\/cms-worldwide\/2024-01-04_0707_tl_01_Servus-Kasperl-_____14207792__o__6332192865__s15543049_9__ORF1HD_07081012P_07300711P_QXB.mp4\/manifest.f4m",
+                "is_uhd": false,
+                "quality": "QXB",
+                "quality_string": "Adaptiv",
+                "delivery": "hds",
+                "type": "video\/mp4",
+                "protocol": "http"
+              },
+              {
+                "quality": "Q1A",
+                "quality_string": "Niedrig",
+                "src": "https:\/\/apasfpd.sf.apa.at\/cms-worldwide\/online\/715eb7811ba0a9afd2edbf2d6133505d\/1704668400\/2024-01-04_0707_tl_01_Servus-Kasperl-_____14207792__o__6332192865__s15543049_9__ORF1HD_07081012P_07300711P_Q1A.3gp",
+                "type": "video\/mp4",
+                "delivery": "progressive",
+                "protocol": "http"
+              },
+              {
+                "quality": "Q4A",
+                "quality_string": "Mittel",
+                "src": "https:\/\/apasfpd.sf.apa.at\/cms-worldwide\/online\/80ad261e727cbe57cc60734a29e642fd\/1704668400\/2024-01-04_0707_tl_01_Servus-Kasperl-_____14207792__o__6332192865__s15543049_9__ORF1HD_07081012P_07300711P_Q4A.mp4",
+                "type": "video\/mp4",
+                "delivery": "progressive",
+                "protocol": "http"
+              },
+              {
+                "quality": "Q6A",
+                "quality_string": "Hoch",
+                "src": "https:\/\/apasfpd.sf.apa.at\/cms-worldwide\/online\/96c036c4039bd5c3bfafe6dca27371b9\/1704668400\/2024-01-04_0707_tl_01_Servus-Kasperl-_____14207792__o__6332192865__s15543049_9__ORF1HD_07081012P_07300711P_Q6A.mp4",
+                "type": "video\/mp4",
+                "delivery": "progressive",
+                "protocol": "http"
+              },
+              {
+                "quality": "Q8C",
+                "quality_string": "Sehr hoch",
+                "src": "https:\/\/apasfpd.sf.apa.at\/cms-worldwide\/online\/44d7d2fff38ebce373da313f3dc71164\/1704668400\/2024-01-04_0707_tl_01_Servus-Kasperl-_____14207792__o__6332192865__s15543049_9__ORF1HD_07081012P_07300711P_Q8C.mp4",
+                "type": "video\/mp4",
+                "delivery": "progressive",
+                "protocol": "http"
+              }
+            ],
+            "position": 0,
+            "last_segment": true,
+            "subtitles": [
+              {
+                "src": "https:\/\/api-tvthek.orf.at\/assets\/subtitles\/0166\/92\/c7e63426107d57014633b8350bd3ca98f31c9c0a.xml",
+                "type": "xml",
+                "lang": "de-AT"
+              },
+              {
+                "src": "https:\/\/api-tvthek.orf.at\/assets\/subtitles\/0166\/92\/ad1613d1f4baae942b8ef9ad46edded8aeca458c.srt",
+                "type": "srt",
+                "lang": "de-AT"
+              },
+              {
+                "src": "https:\/\/api-tvthek.orf.at\/assets\/subtitles\/0166\/92\/37d233cccebd85cbc869efd8b5de3ccdc9b7dc30.vtt",
+                "type": "vtt",
+                "lang": "de-AT"
+              },
+              {
+                "src": "https:\/\/api-tvthek.orf.at\/assets\/subtitles\/0166\/92\/502a7c55913fa39aa1d8d217df7cb32b84f7fd9a.smi",
+                "type": "sami",
+                "lang": "de-AT"
+              },
+              {
+                "src": "https:\/\/api-tvthek.orf.at\/assets\/subtitles\/0166\/92\/6f5d82040aaf01ee17849c81195275e97b230b1b.ttml",
+                "type": "ttml",
+                "lang": "de-AT"
+              }
+            ],
+            "right": "worldwide",
+            "is_enabled": true,
+            "has_active_youthprotection": false,
+            "pre_bumper": {
+              "active": false,
+              "sources": []
+            },
+            "post_bumper": {
+              "active": false,
+              "sources": []
+            },
+            "hash": "58a77f94f470d1e358c2b30c8a576dfb"
+          },
+          "tags": [],
+          "profile": {
+            "audio_description": false,
+            "break_text": null,
+            "break_title": null,
+            "dataset_name": "",
+            "description": "Das traditionsreiche Kindertheater",
+            "has_active_youth_protection": false,
+            "has_youth_protection": false,
+            "headline": "Servus Kasperl",
+            "hide_in_letter_group": false,
+            "id": 3272601,
+            "letter_group": "S",
+            "livestream_sub_headline": null,
+            "oegs": false,
+            "oewa_base_path": "Redcont\/KulturUndFreizeit\/Sonstiges",
+            "profile_website": null,
+            "secondary_genres": [],
+            "sub_headline": null,
+            "title": "Servus Kasperl",
+            "type": "temporary",
+            "updated_at": "2024-01-03T13:27:29+01:00",
+            "youth_protection_type": "limited-20-06",
+            "_links": {
+              "self": {
+                "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/3272601"
+              },
+              "image": {
+                "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16140655"
+              },
+              "image16x9_with_logo": {
+                "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16140655"
+              },
+              "image2x3_with_logo": {
+                "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16490554"
+              },
+              "image2x3": {
+                "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16490554"
+              },
+              "theme": {
+                "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/theme\/2642235"
+              },
+              "genre": {
+                "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/genre\/2703801"
+              },
+              "links": {
+                "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/3272601\/links"
+              },
+              "episodes": {
+                "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/3272601\/episodes"
+              },
+              "related_profiles": {
+                "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/3272601\/related"
+              },
+              "latest_episode": {
+                "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/3272601\/episode\/latest"
+              },
+              "tags": {
+                "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/3272601\/tags"
+              },
+              "advertising_tags": {
+                "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/profile\/3272601\/advertising\/tags"
+              }
+            },
+            "_embedded": {
+              "image": {
+                "public_urls": {
+                  "highlight_teaser": {
+                    "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0162\/41\/thumb_16140655_profiles_highlight_teaser.jpeg"
+                  },
+                  "player": {
+                    "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0162\/41\/thumb_16140655_profiles_player.jpeg"
+                  },
+                  "list": {
+                    "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0162\/41\/thumb_16140655_profiles_list.jpeg"
+                  },
+                  "small": {
+                    "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0162\/41\/thumb_16140655_profiles_small.jpeg"
+                  },
+                  "reference": {
+                    "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0162\/41\/fb34fe9620e39fb9fdd8a8cbb1b679b7edcaf1df.jpeg"
+                  }
+                },
+                "dynamic_color": "#691f11"
+              },
+              "image16x9_with_logo": {
+                "public_urls": {
+                  "highlight_teaser": {
+                    "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0162\/41\/thumb_16140655_profiles_highlight_teaser.jpeg"
+                  },
+                  "player": {
+                    "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0162\/41\/thumb_16140655_profiles_player.jpeg"
+                  },
+                  "list": {
+                    "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0162\/41\/thumb_16140655_profiles_list.jpeg"
+                  },
+                  "small": {
+                    "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0162\/41\/thumb_16140655_profiles_small.jpeg"
+                  },
+                  "reference": {
+                    "url": "https:\/\/api-tvthek.orf.at\/assets\/profiles\/0162\/41\/fb34fe9620e39fb9fdd8a8cbb1b679b7edcaf1df.jpeg"
+                  }
+                },
+                "dynamic_color": "#691f11"
+              },
+              "image2x3_with_logo": {
+                "public_urls": {
+                  "highlight_teaser": {
+                    "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0165\/91\/thumb_16490554_default_2x3_highlight_teaser.png"
+                  },
+                  "player": {
+                    "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0165\/91\/thumb_16490554_default_2x3_player.png"
+                  },
+                  "legacy": {
+                    "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0165\/91\/thumb_16490554_default_2x3_legacy.png"
+                  },
+                  "list": {
+                    "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0165\/91\/thumb_16490554_default_2x3_list.png"
+                  },
+                  "small": {
+                    "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0165\/91\/thumb_16490554_default_2x3_small.png"
+                  },
+                  "reference": {
+                    "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0165\/91\/ca7c17fa95e0d33cdc783597f48e8687d7741e32.png"
+                  }
+                },
+                "dynamic_color": "#691f11"
+              },
+              "image2x3": {
+                "public_urls": {
+                  "highlight_teaser": {
+                    "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0165\/91\/thumb_16490554_default_2x3_highlight_teaser.png"
+                  },
+                  "player": {
+                    "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0165\/91\/thumb_16490554_default_2x3_player.png"
+                  },
+                  "legacy": {
+                    "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0165\/91\/thumb_16490554_default_2x3_legacy.png"
+                  },
+                  "list": {
+                    "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0165\/91\/thumb_16490554_default_2x3_list.png"
+                  },
+                  "small": {
+                    "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0165\/91\/thumb_16490554_default_2x3_small.png"
+                  },
+                  "reference": {
+                    "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0165\/91\/ca7c17fa95e0d33cdc783597f48e8687d7741e32.png"
+                  }
+                },
+                "dynamic_color": "#691f11"
+              },
+              "theme": {
+                "color": "#008336",
+                "id": 2642235,
+                "name": "Servus Kasperl",
+                "updated_at": "2016-10-11T00:02:22+02:00",
+                "_links": {
+                  "self": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/theme\/2642235"
+                  },
+                  "header_image": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/328"
+                  },
+                  "header_background_image": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/327"
+                  },
+                  "background_image": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/326"
+                  }
+                },
+                "_embedded": {
+                  "header_image": {
+                    "public_urls": {
+                      "header_image": {
+                        "url": "https:\/\/api-tvthek.orf.at\/assets\/themes\/0001\/01\/thumb_328_themes_header_image.png"
+                      },
+                      "header_background_image": {
+                        "url": "https:\/\/api-tvthek.orf.at\/assets\/themes\/0001\/01\/thumb_328_themes_header_background_image.png"
+                      },
+                      "background_image": {
+                        "url": "https:\/\/api-tvthek.orf.at\/assets\/themes\/0001\/01\/thumb_328_themes_background_image.png"
+                      },
+                      "reference": {
+                        "url": "https:\/\/api-tvthek.orf.at\/assets\/themes\/0001\/01\/7300613f6a45bd2a42ec92c6f19263834909f0bd.png"
+                      }
+                    },
+                    "dynamic_color": "#691f11"
+                  },
+                  "header_background_image": {
+                    "public_urls": {
+                      "header_image": {
+                        "url": "https:\/\/api-tvthek.orf.at\/assets\/themes\/0001\/01\/thumb_327_themes_header_image.png"
+                      },
+                      "header_background_image": {
+                        "url": "https:\/\/api-tvthek.orf.at\/assets\/themes\/0001\/01\/thumb_327_themes_header_background_image.png"
+                      },
+                      "background_image": {
+                        "url": "https:\/\/api-tvthek.orf.at\/assets\/themes\/0001\/01\/thumb_327_themes_background_image.png"
+                      },
+                      "reference": {
+                        "url": "https:\/\/api-tvthek.orf.at\/assets\/themes\/0001\/01\/026c3576b4eba36a4a5f7f2e3be52120d16e0d60.png"
+                      }
+                    },
+                    "dynamic_color": "#691f11"
+                  },
+                  "background_image": {
+                    "public_urls": {
+                      "header_image": {
+                        "url": "https:\/\/api-tvthek.orf.at\/assets\/themes\/0001\/01\/thumb_326_themes_header_image.png"
+                      },
+                      "header_background_image": {
+                        "url": "https:\/\/api-tvthek.orf.at\/assets\/themes\/0001\/01\/thumb_326_themes_header_background_image.png"
+                      },
+                      "background_image": {
+                        "url": "https:\/\/api-tvthek.orf.at\/assets\/themes\/0001\/01\/thumb_326_themes_background_image.png"
+                      },
+                      "reference": {
+                        "url": "https:\/\/api-tvthek.orf.at\/assets\/themes\/0001\/01\/14d8c4d3d3401275ae0b9db57d07168418bfce41.png"
+                      }
+                    },
+                    "dynamic_color": "#691f11"
+                  }
+                }
+              },
+              "genre": {
+                "id": 2703801,
+                "advertising_mapping": {
+                  "live": {
+                    "web": {
+                      "sb": 4423852,
+                      "tbar": 4423851,
+                      "pre": 4423862,
+                      "post": 4423861
+                    },
+                    "mob": {
+                      "par": 4423850,
+                      "pre": 4423858,
+                      "post": 4423857
+                    },
+                    "app": {
+                      "par": 4423849,
+                      "pre": 4423856,
+                      "post": 4423855
+                    },
+                    "smart": {
+                      "pre": 4423860,
+                      "post": 4423859,
+                      "lane": 4423853,
+                      "bar": 4423854
+                    }
+                  },
+                  "vod": {
+                    "web": {
+                      "sb": 4423852,
+                      "tbar": 4423851,
+                      "pre": 4423862,
+                      "post": 4423861
+                    },
+                    "mob": {
+                      "par": 4423850,
+                      "pre": 4423858,
+                      "post": 4423857
+                    },
+                    "app": {
+                      "par": 4423849,
+                      "pre": 4423856,
+                      "post": 4423855
+                    },
+                    "smart": {
+                      "pre": 4423860,
+                      "post": 4423859,
+                      "lane": 4423853,
+                      "bar": 4423854
+                    }
+                  }
+                },
+                "sorting": 9,
+                "title": "ORF Kids",
+                "updated_at": "2023-12-31T16:38:40+01:00",
+                "_links": {
+                  "self": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/genre\/2703801"
+                  },
+                  "image": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16490557"
+                  },
+                  "profiles": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/genre\/2703801\/profiles"
+                  },
+                  "episodes": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/genre\/2703801\/episodes"
+                  },
+                  "latest_episode": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/genre\/2703801\/episode\/latest"
+                  },
+                  "tags": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/genre\/2703801\/tags"
+                  },
+                  "advertising_tags": {
+                    "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/genre\/2703801\/advertising\/tags"
+                  }
+                },
+                "_embedded": {
+                  "image": {
+                    "public_urls": {
+                      "highlight_teaser": {
+                        "url": "https:\/\/api-tvthek.orf.at\/assets\/genres\/0165\/91\/thumb_16490557_genres_highlight_teaser.png"
+                      },
+                      "player": {
+                        "url": "https:\/\/api-tvthek.orf.at\/assets\/genres\/0165\/91\/thumb_16490557_genres_player.png"
+                      },
+                      "list": {
+                        "url": "https:\/\/api-tvthek.orf.at\/assets\/genres\/0165\/91\/thumb_16490557_genres_list.png"
+                      },
+                      "small": {
+                        "url": "https:\/\/api-tvthek.orf.at\/assets\/genres\/0165\/91\/thumb_16490557_genres_small.png"
+                      },
+                      "reference": {
+                        "url": "https:\/\/api-tvthek.orf.at\/assets\/genres\/0165\/91\/7ecf6c975d2b35a6879823ff7875e8b506d02c79.png"
+                      }
+                    },
+                    "dynamic_color": "#691f11"
+                  },
+                  "tags": [],
+                  "advertising_tags": []
+                }
+              },
+              "links": [
+                {
+                  "id": 2642275,
+                  "title": "Servus Kasperl",
+                  "updated_at": "2011-07-15T22:25:18+02:00",
+                  "url": "http:\/\/okidoki.orf.at\/?story=57",
+                  "_links": {
+                    "self": {
+                      "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/link\/2642275"
+                    }
+                  }
+                }
+              ],
+              "tags": [],
+              "advertising_tags": [],
+              "audio_description_profile": null,
+              "oegs_profile": null
+            }
+          }
+        }
+      }
+    ],
+    "tags": [],
+    "advertising_tags": [],
+    "links": [],
+    "audio_description_episode": null,
+    "oegs_episode": null,
+    "image": {
+      "public_urls": {
+        "highlight_teaser": {
+          "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0166\/90\/thumb_16589238_segments_highlight_teaser.jpeg"
+        },
+        "player": {
+          "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0166\/90\/thumb_16589238_segments_player.jpeg"
+        },
+        "list": {
+          "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0166\/90\/thumb_16589238_segments_list.jpeg"
+        },
+        "small": {
+          "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0166\/90\/thumb_16589238_segments_small.jpeg"
+        },
+        "reference": {
+          "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0166\/90\/371e062b4bbb6be53052de187b928fb3b2c5266f.jpeg"
+        }
+      },
+      "dynamic_color": "#691f11"
+    },
+    "image16x9_with_logo": {
+      "public_urls": {
+        "highlight_teaser": {
+          "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0166\/90\/thumb_16589238_segments_highlight_teaser.jpeg"
+        },
+        "player": {
+          "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0166\/90\/thumb_16589238_segments_player.jpeg"
+        },
+        "list": {
+          "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0166\/90\/thumb_16589238_segments_list.jpeg"
+        },
+        "small": {
+          "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0166\/90\/thumb_16589238_segments_small.jpeg"
+        },
+        "reference": {
+          "url": "https:\/\/api-tvthek.orf.at\/assets\/segments\/0166\/90\/371e062b4bbb6be53052de187b928fb3b2c5266f.jpeg"
+        }
+      },
+      "dynamic_color": "#691f11"
+    },
+    "image2x3_with_logo": {
+      "public_urls": {
+        "highlight_teaser": {
+          "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0165\/91\/thumb_16490554_default_2x3_highlight_teaser.png"
+        },
+        "player": {
+          "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0165\/91\/thumb_16490554_default_2x3_player.png"
+        },
+        "legacy": {
+          "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0165\/91\/thumb_16490554_default_2x3_legacy.png"
+        },
+        "list": {
+          "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0165\/91\/thumb_16490554_default_2x3_list.png"
+        },
+        "small": {
+          "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0165\/91\/thumb_16490554_default_2x3_small.png"
+        },
+        "reference": {
+          "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0165\/91\/ca7c17fa95e0d33cdc783597f48e8687d7741e32.png"
+        }
+      },
+      "dynamic_color": "#691f11"
+    },
+    "image2x3": {
+      "public_urls": {
+        "highlight_teaser": {
+          "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0165\/91\/thumb_16490554_default_2x3_highlight_teaser.png"
+        },
+        "player": {
+          "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0165\/91\/thumb_16490554_default_2x3_player.png"
+        },
+        "legacy": {
+          "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0165\/91\/thumb_16490554_default_2x3_legacy.png"
+        },
+        "list": {
+          "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0165\/91\/thumb_16490554_default_2x3_list.png"
+        },
+        "small": {
+          "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0165\/91\/thumb_16490554_default_2x3_small.png"
+        },
+        "reference": {
+          "url": "https:\/\/api-tvthek.orf.at\/assets\/default_2x3\/0165\/91\/ca7c17fa95e0d33cdc783597f48e8687d7741e32.png"
+        }
+      },
+      "dynamic_color": "#691f11"
+    },
+    "subtitle": {
+      "id": 885340,
+      "parsed_at": null,
+      "sami_url": "https:\/\/api-tvthek.orf.at\/assets\/subtitles\/0166\/92\/8547597f31429d87a5418918ae471b44fcf9ab55.smi",
+      "srt_url": "https:\/\/api-tvthek.orf.at\/assets\/subtitles\/0166\/92\/09477f02c5e0392ecd2f717461ed136237d70050.srt",
+      "stl_url": null,
+      "ttml_url": "https:\/\/api-tvthek.orf.at\/assets\/subtitles\/0166\/92\/07aead27b4c0b09b36750db54b8ce15ff9b8499c.ttml",
+      "updated_at": "2024-01-04T07:41:37+01:00",
+      "vtt_url": "https:\/\/api-tvthek.orf.at\/assets\/subtitles\/0166\/92\/4dd6932d7cf6ceaad90a536c3e03981267e32941.vtt",
+      "xml_url": "https:\/\/api-tvthek.orf.at\/assets\/subtitles\/0166\/92\/808e2453d38fd8a5e4fab4794cc034ee89fcfd9c.xml",
+      "_links": {
+        "self": {
+          "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/subtitle\/885340"
+        },
+        "xml_file": {
+          "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16591446"
+        },
+        "srt_file": {
+          "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16591447"
+        },
+        "vtt_file": {
+          "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16591448"
+        },
+        "sami_file": {
+          "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16591450"
+        },
+        "ttml_file": {
+          "href": "https:\/\/api-tvthek.orf.at\/api\/v4.3\/media\/16591449"
+        }
+      },
+      "_embedded": {
+        "xml_file": {
+          "public_urls": {
+            "reference": {
+              "url": "https:\/\/api-tvthek.orf.at\/assets\/subtitles\/0166\/92\/808e2453d38fd8a5e4fab4794cc034ee89fcfd9c.xml"
+            }
+          }
+        },
+        "stl_file": null,
+        "srt_file": {
+          "public_urls": {
+            "reference": {
+              "url": "https:\/\/api-tvthek.orf.at\/assets\/subtitles\/0166\/92\/09477f02c5e0392ecd2f717461ed136237d70050.srt"
+            }
+          }
+        },
+        "vtt_file": {
+          "public_urls": {
+            "reference": {
+              "url": "https:\/\/api-tvthek.orf.at\/assets\/subtitles\/0166\/92\/4dd6932d7cf6ceaad90a536c3e03981267e32941.vtt"
+            }
+          }
+        },
+        "sami_file": {
+          "public_urls": {
+            "reference": {
+              "url": "https:\/\/api-tvthek.orf.at\/assets\/subtitles\/0166\/92\/8547597f31429d87a5418918ae471b44fcf9ab55.smi"
+            }
+          }
+        },
+        "ttml_file": {
+          "public_urls": {
+            "reference": {
+              "url": "https:\/\/api-tvthek.orf.at\/assets\/subtitles\/0166\/92\/07aead27b4c0b09b36750db54b8ce15ff9b8499c.ttml"
+            }
+          }
+        }
+      }
+    }
+  },
+  "accompanying_videos": []
+}
