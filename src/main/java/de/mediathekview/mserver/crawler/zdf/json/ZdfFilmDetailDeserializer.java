@@ -65,8 +65,6 @@ public class ZdfFilmDetailDeserializer implements JsonDeserializer<Optional<ZdfF
   private final String apiUrlBase;
   private final Sender sender;
   
-  private long starttime =0 ;
-
   public ZdfFilmDetailDeserializer(final String apiUrlBase, final Sender sender) {
     this.apiUrlBase = apiUrlBase;
     this.sender = sender;
@@ -277,13 +275,16 @@ public class ZdfFilmDetailDeserializer implements JsonDeserializer<Optional<ZdfF
       final Optional<String> season = JsonUtils.getElementValueAsString(aTarget, SEASONNUMBER);
       final Optional<String> episode = JsonUtils.getElementValueAsString(aTarget, EPISODENUMBER);
       final Optional<String> seasonEpisodeTitle = formatEpisodeTitle(season, episode);
-      final Optional<String> title = cleanupTitle((resultingTitle.get() + " " + seasonEpisodeTitle.orElse("")).trim());
-      return title;
+      return cleanupTitle((resultingTitle.get() + " " + seasonEpisodeTitle.orElse("")).trim());
     }
     return Optional.empty();
   }
   
   private Optional<String> cleanupTitle(String title) {
+    if (!title.replaceAll("\\(CC.*\\) - .* Creative Commons.*", "").equalsIgnoreCase(title)) {
+      System.out.println("FOUND !!! ");
+    }
+    
     return Optional.of(title.replaceAll("\\(CC.*\\) - .* Creative Commons.*", ""));
   }
   
