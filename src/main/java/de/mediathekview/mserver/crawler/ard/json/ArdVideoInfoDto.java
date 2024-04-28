@@ -1,11 +1,11 @@
 package de.mediathekview.mserver.crawler.ard.json;
 
 import de.mediathekview.mlib.daten.Resolution;
-import org.apache.commons.lang3.StringUtils;
 
 import java.util.EnumMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
 /**
  * Video information from {@literal
@@ -14,7 +14,8 @@ import java.util.Optional;
 public class ArdVideoInfoDto {
 
   private final Map<Resolution, String> videoUrls;
-  private String subtitleUrl;
+  
+  private Optional<Set<String>> subtitleUrl;
 
   public ArdVideoInfoDto() {
     videoUrls = new EnumMap<>(Resolution.class);
@@ -31,20 +32,16 @@ public class ArdVideoInfoDto {
     return videoUrls.get(getDefaultQuality());
   }
 
-  public String getSubtitleUrl() {
+  public Optional<Set<String>> getSubtitleUrl() {
     return subtitleUrl;
   }
 
-  public void setSubtitleUrl(final String subtitleUrl) {
+  public void setSubtitleUrl(final Optional<Set<String>> subtitleUrl) {
     this.subtitleUrl = subtitleUrl;
   }
 
-  public Optional<String> getSubtitleUrlOptional() {
-    if (StringUtils.isNotBlank(subtitleUrl)) {
-      return Optional.of(subtitleUrl);
-    }
-
-    return Optional.empty();
+  public Optional<Set<String>> getSubtitleUrlOptional() {
+    return subtitleUrl;
   }
 
   public Map<Resolution, String> getVideoUrls() {

@@ -52,8 +52,7 @@ abstract class ArdTeasersDeserializer {
   }
 
   private ArdFilmInfoDto createFilmInfo(final String id, final int numberOfClips) {
-    final String url = ArdConstants.ITEM_URL + id;
-
+    final String url = String.format(ArdConstants.ITEM_URL, id);
     return new ArdFilmInfoDto(id, url, numberOfClips);
   }
 }

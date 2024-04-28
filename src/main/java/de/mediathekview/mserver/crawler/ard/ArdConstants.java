@@ -5,7 +5,7 @@ public class ArdConstants {
   public static final String API_URL = "https://api.ardmediathek.de";
   public static final String BASE_URL = "https://api.ardmediathek.de/public-gateway";
 
-  public static final String ITEM_URL = API_URL + "/page-gateway/pages/ard/item/";
+  public static final String ITEM_URL = API_URL + "/page-gateway/pages/ard/item/%s?embedded=true&mcV6=true";
 
   public static final String TOPICS_URL = API_URL + "/page-gateway/pages/%s/editorial/experiment-a-z?embedded=false";
   public static final String TOPICS_COMPILATION_URL = API_URL + "/page-gateway/widgets/%s/editorials/%s?pageNumber=0&pageSize=%s";
