@@ -38,7 +38,7 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
   private static final String ELEMENT_SHOW = "show";
   private static final String ELEMENT_TEASERS = "teasers";
   private static final String ELEMENT_WIDGETS = "widgets";
-  private static final String ELEMENT_SUBTITLES = "subtitles";
+  private static final String[] ELEMENT_SUBTITLES = {"mediaCollection","embedded","subtitles"};
   private static final String ELEMENT_SOURCES = "sources";
   private static final String ELEMENT_STREAMS = "streams";
   private static final String ELEMENT_MEDIA = "media";
@@ -167,7 +167,7 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
     final Optional<ArdVideoInfoDto> videoInfoStandard = parseVideoUrls(itemObject, "standard", "video/mp4");
     final Optional<ArdVideoInfoDto> videoInfoAdaptive = parseVideoUrls(itemObject, "standard", "application/vnd.apple.mpegurl");
     final Optional<ArdVideoInfoDto> videoInfoAD = parseVideoUrls(itemObject, "standard", "audio-description");
-    final Optional<ArdVideoInfoDto> videoInfoDGS = parseVideoUrls(itemObject, "standard", "sign-language");
+    //final Optional<ArdVideoInfoDto> videoInfoDGS = parseVideoUrls(itemObject, "standard", "sign-language");
     // FUNK provides adaptive only
     Optional<ArdVideoInfoDto> videoInfo = videoInfoStandard;
     if (videoInfoStandard.isEmpty() && videoInfoAD.isEmpty()) {
@@ -179,7 +179,7 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
         && title.isPresent()
         && videoInfo.isPresent()
         && videoInfo.get().getVideoUrls().size() > 0) {
-      videoInfo.get().setSubtitleUrl(prepareSubtitleUrl(jsonElement));
+      videoInfo.get().setSubtitleUrl(prepareSubtitleUrl(itemObject));
       // add film to ARD
       final ArdFilmDto filmDto =
           new ArdFilmDto(
@@ -193,11 +193,15 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
                   videoInfo.get()));
       films.add(filmDto);
       //
+      if (widgets.size() > 1) {
+        parseRelatedFilms(filmDto, widgets.get(1).getAsJsonObject());
+      }
+      //
       if (topic.isPresent()
           && title.isPresent()
           && videoInfoAD.isPresent()
           && videoInfoAD.get().getVideoUrls().size() > 0) {
-        videoInfoAD.get().setSubtitleUrl(prepareSubtitleUrl(jsonElement));
+        videoInfoAD.get().setSubtitleUrl(prepareSubtitleUrl(itemObject));
         // add film to ARD
         final ArdFilmDto filmDtoAD =
             new ArdFilmDto(
@@ -210,10 +214,6 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
                     duration.orElse(null),
                     videoInfo.get()));
         films.add(filmDtoAD);
-        //
-        if (widgets.size() > 1) {
-          parseRelatedFilms(filmDto, widgets.get(1).getAsJsonObject());
-        }
       }
     } else {
       LOG.debug("No title, topic or video found for {} {} {} ", title, topic, sender);
