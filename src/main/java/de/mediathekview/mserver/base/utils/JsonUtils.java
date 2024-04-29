@@ -83,7 +83,15 @@ public final class JsonUtils {
     }
     return Optional.empty();
   }
-  
+
+  public static Optional<Integer> getElementValueAsInteger(final JsonElement aJsonElement, final String... aElementIds) {
+    Optional<JsonElement> rs = JsonUtils.getElement(aJsonElement, aElementIds);
+    if (rs.isPresent()) {
+      return Optional.of(rs.get().getAsInt());
+    }
+    return Optional.empty();
+  }
+
   public static Optional<JsonElement> getElement(final JsonElement aJsonElement, final String... aElementIds) {
     Optional<JsonElement> rs = Optional.empty();
     if (aElementIds == null || aElementIds.length == 0 || aJsonElement == null || !aJsonElement.isJsonObject()) {
