@@ -281,10 +281,6 @@ public class ZdfFilmDetailDeserializer implements JsonDeserializer<Optional<ZdfF
   }
   
   private Optional<String> cleanupTitle(String title) {
-    if (!title.replaceAll("\\(CC.*\\) - .* Creative Commons.*", "").equalsIgnoreCase(title)) {
-      System.out.println("FOUND !!! ");
-    }
-    
     return Optional.of(title.replaceAll("\\(CC.*\\) - .* Creative Commons.*", ""));
   }
   
