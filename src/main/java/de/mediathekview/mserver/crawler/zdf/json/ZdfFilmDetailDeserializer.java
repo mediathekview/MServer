@@ -288,7 +288,7 @@ public class ZdfFilmDetailDeserializer implements JsonDeserializer<Optional<ZdfF
     if (title.isEmpty()) {
       return Optional.empty();
     }
-    if (sub.isPresent()) {
+    if (sub.isPresent() && !sub.get().trim().isEmpty()) {
       return Optional.of(title.get().trim() + " - " + sub.get().trim());
     } else {
       return Optional.of(title.get().trim());
