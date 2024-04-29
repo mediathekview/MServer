@@ -272,8 +272,8 @@ public class ZdfFilmDetailDeserializer implements JsonDeserializer<Optional<ZdfF
       resultingTitle = formatTitle(targetTitle, targetSubtitle);
     }
     if (resultingTitle.isPresent()) {
-      final Optional<String> season = JsonUtils.getElementValueAsString(aTarget, SEASONNUMBER);
-      final Optional<String> episode = JsonUtils.getElementValueAsString(aTarget, EPISODENUMBER);
+      final Optional<Integer> season = JsonUtils.getElementValueAsInteger(aTarget, SEASONNUMBER);
+      final Optional<Integer> episode = JsonUtils.getElementValueAsInteger(aTarget, EPISODENUMBER);
       final Optional<String> seasonEpisodeTitle = formatEpisodeTitle(season, episode);
       return cleanupTitle((resultingTitle.get() + " " + seasonEpisodeTitle.orElse("")).trim());
     }
@@ -295,16 +295,16 @@ public class ZdfFilmDetailDeserializer implements JsonDeserializer<Optional<ZdfF
     }
   }
   
-  private Optional<String> formatEpisodeTitle(Optional<String> season, Optional<String> episode) {
+  private Optional<String> formatEpisodeTitle(Optional<Integer> season, Optional<Integer> episode) {
     if (season.isEmpty() && episode.isEmpty()) {
       return Optional.empty();
     }
     String result = "";
     if (season.isPresent()) {
-      result += "S"+season.get();
+      result += String.format("S%02d", season.get());
     }
     if (episode.isPresent()) {
-      result += "E"+episode.get();
+      result += String.format("E%02d", episode.get());
     }
     return Optional.of("("+result+")");
   }

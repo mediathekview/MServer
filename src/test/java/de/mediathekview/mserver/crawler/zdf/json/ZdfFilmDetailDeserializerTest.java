@@ -162,7 +162,7 @@ public class ZdfFilmDetailDeserializerTest {
             "/zdf/zdf_film_details_with_episodes.json",
             Sender.ZDF,
             "The Rookie",
-            "Der Prozess (S5E1)",
+            "Der Prozess (S05E01)",
             LocalDateTime.of(2024, 4, 11, 20, 15, 0),
             Duration.ofMinutes(41).plusSeconds(6),
             "Officer John Nolan sieht sich wieder mit der Serienmörderin Rosalind Dyer konfrontiert. Vor Beginn der Gerichtsverhandlung gelingt ihr die Flucht und sie muss erneut gefasst werden.",
