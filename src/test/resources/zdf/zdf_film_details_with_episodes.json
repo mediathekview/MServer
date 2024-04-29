@@ -1,0 +1,1348 @@
+{
+    "modulesAboveCopytext": true,
+    "externalId": "SCMS_12c914e2-2d79-4205-b35c-d27b4ca326fb",
+    "id": "der-prozess-110",
+    "contentType": "episode",
+    "publicationDate": "2024-04-29T15:11:40.791+02:00",
+    "modificationDate": "2024-04-29T15:11:40.791+02:00",
+    "title": "Der Prozess",
+    "editorialDate": "2024-05-10T17:15:00.000+02:00",
+    "leadParagraph": "Officer John Nolan sieht sich wieder mit der Serienmörderin Rosalind Dyer konfrontiert. Vor Beginn der Gerichtsverhandlung gelingt ihr die Flucht und sie muss erneut gefasst werden.",
+    "teaserImageRef": {
+        "imageTitle": "The Rookie - Der Prozess",
+        "altText": "\"The Rookie - Der Prozess\": Lucy (Melissa O'Neil) und Tim alias Jake (Eric Winter) stehen im Gang eines Privatjets und schauen sich tief in die Augen.",
+        "source": "Raymond Liu",
+        "profile": "http://zdf.de/rels/image",
+        "self": "/content/documents/zdf/serien/the-rookie/bilder/fotobase-the-rookie-268.json",
+        "canonical": "/content/documents/fotobase-the-rookie-268.json",
+        "layouts": {
+            "1152x1296": "https://epg-image.zdf.de/fotobase-webdelivery/images/41d1919e-6a2f-4062-ba70-fb1684bb7464?layout=1152x1296",
+            "1280x720": "https://epg-image.zdf.de/fotobase-webdelivery/images/41d1919e-6a2f-4062-ba70-fb1684bb7464?layout=1280x720",
+            "1920x1080": "https://epg-image.zdf.de/fotobase-webdelivery/images/41d1919e-6a2f-4062-ba70-fb1684bb7464?layout=1920x1080",
+            "2400x1350": "https://epg-image.zdf.de/fotobase-webdelivery/images/41d1919e-6a2f-4062-ba70-fb1684bb7464?layout=2400x1350",
+            "240x270": "https://epg-image.zdf.de/fotobase-webdelivery/images/41d1919e-6a2f-4062-ba70-fb1684bb7464?layout=240x270",
+            "276x155": "https://epg-image.zdf.de/fotobase-webdelivery/images/41d1919e-6a2f-4062-ba70-fb1684bb7464?layout=276x155",
+            "384x216": "https://epg-image.zdf.de/fotobase-webdelivery/images/41d1919e-6a2f-4062-ba70-fb1684bb7464?layout=384x216",
+            "640x720": "https://epg-image.zdf.de/fotobase-webdelivery/images/41d1919e-6a2f-4062-ba70-fb1684bb7464?layout=640x720",
+            "768x432": "https://epg-image.zdf.de/fotobase-webdelivery/images/41d1919e-6a2f-4062-ba70-fb1684bb7464?layout=768x432"
+        }
+    },
+    "commentAllowed": false,
+    "enableReload": false,
+    "embeddingPossible": true,
+    "commentClosed": true,
+    "endDate": "2024-09-07T17:15:00.000+02:00",
+    "hasVideo": true,
+    "currentVideoType": "episode",
+    "profile": "http://zdf.de/rels/content/page-video",
+    "self": "/content/documents/zdf/serien/the-rookie/der-prozess-110.json",
+    "canonical": "/content/documents/der-prozess-110.json",
+    "structureNodePath": "/zdf/serien/the-rookie",
+    "http://zdf.de/rels/category": {
+        "profile": "http://zdf.de/rels/content/structureNodeDocument-breadcrumb",
+        "self": "/content/structure/zdf/serien?profile=breadcrumb",
+        "canonical": "/content/structure/zdf/serien",
+        "title": "Serien",
+        "http://zdf.de/rels/target": {
+            "id": "serien-100",
+            "externalId": "SCMS_78c1023d-d06b-4aa4-81ac-50e7e5ea93bc",
+            "title": "Serien",
+            "hasVideo": true,
+            "contentType": "category",
+            "profile": "http://zdf.de/rels/content/page-index-navigation",
+            "self": "/content/documents/zdf/serien?profile=navigation",
+            "canonical": "/content/documents/serien-100.json",
+            "structureNodePath": "/zdf/serien",
+            "stage": [
+                {
+                    "profile": "http://zdf.de/rels/content/group-header-s-navigation",
+                    "teaser": [
+                        {
+                            "http://zdf.de/rels/target": {
+                                "title": "Rubrikenteaser: Rubrik Serien (2022)",
+                                "altText": "Serien",
+                                "caption": "Serien",
+                                "source": "ZDF",
+                                "profile": "http://zdf.de/rels/image",
+                                "self": "/content/documents/zdf/bilder/rubriken-serien-100.json",
+                                "canonical": "/content/documents/rubriken-serien-100.json",
+                                "layouts": {
+                                    "1140x120": "https://www.zdf.de/assets/rubriken-serien-100~1140x120?cb=1658231909988",
+                                    "1140x240": "https://www.zdf.de/assets/rubriken-serien-100~1140x240?cb=1658231909988",
+                                    "1152x1296": "https://www.zdf.de/assets/rubriken-serien-100~1152x1296?cb=1658231909988",
+                                    "1200x480": "https://www.zdf.de/assets/rubriken-serien-100~1200x480?cb=1658231909988",
+                                    "1280x720": "https://www.zdf.de/assets/rubriken-serien-100~1280x720?cb=1658231909988",
+                                    "1280xauto": "https://www.zdf.de/assets/rubriken-serien-100~1280xauto?cb=1658231909988",
+                                    "1300x650": "https://www.zdf.de/assets/rubriken-serien-100~1300x650?cb=1658231909988",
+                                    "1500x300": "https://www.zdf.de/assets/rubriken-serien-100~1500x300?cb=1658231909988",
+                                    "1500x600": "https://www.zdf.de/assets/rubriken-serien-100~1500x600?cb=1658231909988",
+                                    "1500x800": "https://www.zdf.de/assets/rubriken-serien-100~1500x800?cb=1658231909988",
+                                    "1800x720": "https://www.zdf.de/assets/rubriken-serien-100~1800x720?cb=1658231909988",
+                                    "1900x200": "https://www.zdf.de/assets/rubriken-serien-100~1900x200?cb=1658231909988",
+                                    "1900x400": "https://www.zdf.de/assets/rubriken-serien-100~1900x400?cb=1658231909988",
+                                    "1900x570": "https://www.zdf.de/assets/rubriken-serien-100~1900x570?cb=1658231909988",
+                                    "1920x1080": "https://www.zdf.de/assets/rubriken-serien-100~1920x1080?cb=1658231909988",
+                                    "225x400": "https://www.zdf.de/assets/rubriken-serien-100~225x400?cb=1658231909988",
+                                    "2400x1350": "https://www.zdf.de/assets/rubriken-serien-100~2400x1350?cb=1658231909988",
+                                    "240x270": "https://www.zdf.de/assets/rubriken-serien-100~240x270?cb=1658231909988",
+                                    "276x155": "https://www.zdf.de/assets/rubriken-serien-100~276x155?cb=1658231909988",
+                                    "276x311": "https://www.zdf.de/assets/rubriken-serien-100~276x311?cb=1658231909988",
+                                    "2850x300": "https://www.zdf.de/assets/rubriken-serien-100~2850x300?cb=1658231909988",
+                                    "314x314": "https://www.zdf.de/assets/rubriken-serien-100~314x314?cb=1658231909988",
+                                    "380x170": "https://www.zdf.de/assets/rubriken-serien-100~380x170?cb=1658231909988",
+                                    "384x216": "https://www.zdf.de/assets/rubriken-serien-100~384x216?cb=1658231909988",
+                                    "384xauto": "https://www.zdf.de/assets/rubriken-serien-100~384xauto?cb=1658231909988",
+                                    "405x720": "https://www.zdf.de/assets/rubriken-serien-100~405x720?cb=1658231909988",
+                                    "640x720": "https://www.zdf.de/assets/rubriken-serien-100~640x720?cb=1658231909988",
+                                    "760x340": "https://www.zdf.de/assets/rubriken-serien-100~760x340?cb=1658231909988",
+                                    "768x432": "https://www.zdf.de/assets/rubriken-serien-100~768x432?cb=1658231909988",
+                                    "768xauto": "https://www.zdf.de/assets/rubriken-serien-100~768xauto?cb=1658231909988",
+                                    "840x140": "https://www.zdf.de/assets/rubriken-serien-100~840x140?cb=1658231909988",
+                                    "840x280": "https://www.zdf.de/assets/rubriken-serien-100~840x280?cb=1658231909988",
+                                    "840x360": "https://www.zdf.de/assets/rubriken-serien-100~840x360?cb=1658231909988",
+                                    "860x344": "https://www.zdf.de/assets/rubriken-serien-100~860x344?cb=1658231909988",
+                                    "936x520": "https://www.zdf.de/assets/rubriken-serien-100~936x520?cb=1658231909988",
+                                    "original": "https://www.zdf.de/assets/rubriken-serien-100~original?cb=1658231909988"
+                                }
+                            },
+                            "profile": "http://zdf.de/rels/content-reference/teaser-header-s"
+                        }
+                    ]
+                }
+            ]
+        }
+    },
+    "http://zdf.de/rels/uri": "https://www.zdf.de/uri/12c914e2-2d79-4205-b35c-d27b4ca326fb",
+    "http://zdf.de/rels/sharing-url": "https://www.zdf.de/serien/the-rookie/der-prozess-110.html",
+    "http://zdf.de/rels/brand": {
+        "profile": "http://zdf.de/rels/content/structureNodeDocument-breadcrumb",
+        "self": "/content/structure/zdf/serien/the-rookie?profile=breadcrumb",
+        "canonical": "/content/structure/zdf/serien/the-rookie",
+        "title": "The Rookie",
+        "http://zdf.de/rels/target": {
+            "id": "the-rookie-100",
+            "externalId": "SCMS_59d564e5-825e-4093-95e4-cfd4e9647fdf",
+            "title": "The Rookie",
+            "hasVideo": true,
+            "contentType": "brand",
+            "profile": "http://zdf.de/rels/content/page-index-navigation",
+            "self": "/content/documents/zdf/serien/the-rookie?profile=navigation",
+            "canonical": "/content/documents/the-rookie-100.json",
+            "structureNodePath": "/zdf/serien/the-rookie",
+            "stage": [
+                {
+                    "profile": "http://zdf.de/rels/content/group-header-m-navigation",
+                    "teaser": [
+                        {
+                            "http://zdf.de/rels/target": {
+                                "title": "L2020, Bühne M, Plakatteaser - The Rookie - Staffel 5",
+                                "altText": "The Rookie",
+                                "source": "ZDF",
+                                "profile": "http://zdf.de/rels/image",
+                                "self": "/content/documents/zdf/serien/the-rookie/sb-material/sb-the-rookie-buehnen-100.json",
+                                "canonical": "/content/documents/sb-the-rookie-buehnen-100.json",
+                                "layouts": {
+                                    "1140x120": "https://www.zdf.de/assets/sb-the-rookie-buehnen-100~1140x120?cb=1712648748329",
+                                    "1140x240": "https://www.zdf.de/assets/sb-the-rookie-buehnen-100~1140x240?cb=1712648748329",
+                                    "1152x1296": "https://www.zdf.de/assets/sb-the-rookie-buehnen-100~1152x1296?cb=1712648748329",
+                                    "1200x480": "https://www.zdf.de/assets/sb-the-rookie-buehnen-100~1200x480?cb=1712648748329",
+                                    "1280x720": "https://www.zdf.de/assets/sb-the-rookie-buehnen-100~1280x720?cb=1712648748329",
+                                    "1280xauto": "https://www.zdf.de/assets/sb-the-rookie-buehnen-100~1280xauto?cb=1712648748329",
+                                    "1300x650": "https://www.zdf.de/assets/sb-the-rookie-buehnen-100~1300x650?cb=1712648748329",
+                                    "1500x300": "https://www.zdf.de/assets/sb-the-rookie-buehnen-100~1500x300?cb=1712648748329",
+                                    "1500x600": "https://www.zdf.de/assets/sb-the-rookie-buehnen-100~1500x600?cb=1712648748329",
+                                    "1500x800": "https://www.zdf.de/assets/sb-the-rookie-buehnen-100~1500x800?cb=1712648748329",
+                                    "1800x720": "https://www.zdf.de/assets/sb-the-rookie-buehnen-100~1800x720?cb=1712648748329",
+                                    "1900x200": "https://www.zdf.de/assets/sb-the-rookie-buehnen-100~1900x200?cb=1712648748329",
+                                    "1900x400": "https://www.zdf.de/assets/sb-the-rookie-buehnen-100~1900x400?cb=1712648748329",
+                                    "1900x570": "https://www.zdf.de/assets/sb-the-rookie-buehnen-100~1900x570?cb=1712648748329",
+                                    "1920x1080": "https://www.zdf.de/assets/sb-the-rookie-buehnen-100~1920x1080?cb=1712648748329",
+                                    "225x400": "https://www.zdf.de/assets/sb-the-rookie-buehnen-100~225x400?cb=1712648748329",
+                                    "2400x1350": "https://www.zdf.de/assets/sb-the-rookie-buehnen-100~2400x1350?cb=1712648748329",
+                                    "240x270": "https://www.zdf.de/assets/sb-the-rookie-buehnen-100~240x270?cb=1712648748329",
+                                    "2600x1300": "https://www.zdf.de/assets/sb-the-rookie-buehnen-100~2600x1300?cb=1712648748329",
+                                    "276x155": "https://www.zdf.de/assets/sb-the-rookie-buehnen-100~276x155?cb=1712648748329",
+                                    "276x311": "https://www.zdf.de/assets/sb-the-rookie-buehnen-100~276x311?cb=1712648748329",
+                                    "2850x300": "https://www.zdf.de/assets/sb-the-rookie-buehnen-100~2850x300?cb=1712648748329",
+                                    "2850x600": "https://www.zdf.de/assets/sb-the-rookie-buehnen-100~2850x600?cb=1712648748329",
+                                    "314x314": "https://www.zdf.de/assets/sb-the-rookie-buehnen-100~314x314?cb=1712648748329",
+                                    "380x170": "https://www.zdf.de/assets/sb-the-rookie-buehnen-100~380x170?cb=1712648748329",
+                                    "3840x2160": "https://www.zdf.de/assets/sb-the-rookie-buehnen-100~3840x2160?cb=1712648748329",
+                                    "384x216": "https://www.zdf.de/assets/sb-the-rookie-buehnen-100~384x216?cb=1712648748329",
+                                    "384xauto": "https://www.zdf.de/assets/sb-the-rookie-buehnen-100~384xauto?cb=1712648748329",
+                                    "405x720": "https://www.zdf.de/assets/sb-the-rookie-buehnen-100~405x720?cb=1712648748329",
+                                    "640x720": "https://www.zdf.de/assets/sb-the-rookie-buehnen-100~640x720?cb=1712648748329",
+                                    "760x340": "https://www.zdf.de/assets/sb-the-rookie-buehnen-100~760x340?cb=1712648748329",
+                                    "768x432": "https://www.zdf.de/assets/sb-the-rookie-buehnen-100~768x432?cb=1712648748329",
+                                    "768xauto": "https://www.zdf.de/assets/sb-the-rookie-buehnen-100~768xauto?cb=1712648748329",
+                                    "840x140": "https://www.zdf.de/assets/sb-the-rookie-buehnen-100~840x140?cb=1712648748329",
+                                    "840x280": "https://www.zdf.de/assets/sb-the-rookie-buehnen-100~840x280?cb=1712648748329",
+                                    "840x360": "https://www.zdf.de/assets/sb-the-rookie-buehnen-100~840x360?cb=1712648748329",
+                                    "860x344": "https://www.zdf.de/assets/sb-the-rookie-buehnen-100~860x344?cb=1712648748329",
+                                    "936x520": "https://www.zdf.de/assets/sb-the-rookie-buehnen-100~936x520?cb=1712648748329",
+                                    "original": "https://www.zdf.de/assets/sb-the-rookie-buehnen-100~original?cb=1712648748329"
+                                }
+                            },
+                            "headerTitle": "Dramedy-Serie",
+                            "headerDecorationText": "Alle verfügbaren Folgen",
+                            "displayBrandLogo": true,
+                            "profile": "http://zdf.de/rels/content-reference/teaser-header-m"
+                        }
+                    ]
+                }
+            ]
+        }
+    },
+    "http://zdf.de/rels/content/conf-section": {
+        "homeTvService": {
+            "tvServiceTitle": "ZDFneo",
+            "tvServiceId": "ZDFneo",
+            "tvServiceLogoRef": {
+                "profile": "http://zdf.de/rels/image",
+                "self": "/content/documents/zdf/bilder/2400-zdfneo-100.json?profile=tv-service",
+                "canonical": "/content/documents/2400-zdfneo-100.json",
+                "altText": "Senderlogo ZDF neo",
+                "title": "Senderlogo ZDFneo",
+                "copyrightNotice": "ZDFneo",
+                "source": "ZDFneo",
+                "layouts": {
+                    "1140x120": "https://www.zdf.de/assets/2400-zdfneo-100~1140x120?cb=1685544669210",
+                    "1140x240": "https://www.zdf.de/assets/2400-zdfneo-100~1140x240?cb=1685544669210",
+                    "1152x1296": "https://www.zdf.de/assets/2400-zdfneo-100~1152x1296?cb=1685544669210",
+                    "1200x480": "https://www.zdf.de/assets/2400-zdfneo-100~1200x480?cb=1685544669210",
+                    "1280x720": "https://www.zdf.de/assets/2400-zdfneo-100~1280x720?cb=1685544669210",
+                    "1280xauto": "https://www.zdf.de/assets/2400-zdfneo-100~1280xauto?cb=1685544669210",
+                    "1300x650": "https://www.zdf.de/assets/2400-zdfneo-100~1300x650?cb=1685544669210",
+                    "1500x300": "https://www.zdf.de/assets/2400-zdfneo-100~1500x300?cb=1685544669210",
+                    "1500x600": "https://www.zdf.de/assets/2400-zdfneo-100~1500x600?cb=1685544669210",
+                    "1500x800": "https://www.zdf.de/assets/2400-zdfneo-100~1500x800?cb=1685544669210",
+                    "1800x720": "https://www.zdf.de/assets/2400-zdfneo-100~1800x720?cb=1685544669210",
+                    "1900x200": "https://www.zdf.de/assets/2400-zdfneo-100~1900x200?cb=1685544669210",
+                    "1900x400": "https://www.zdf.de/assets/2400-zdfneo-100~1900x400?cb=1685544669210",
+                    "1900x570": "https://www.zdf.de/assets/2400-zdfneo-100~1900x570?cb=1685544669210",
+                    "1920x1080": "https://www.zdf.de/assets/2400-zdfneo-100~1920x1080?cb=1685544669210",
+                    "225x400": "https://www.zdf.de/assets/2400-zdfneo-100~225x400?cb=1685544669210",
+                    "2400x1350": "https://www.zdf.de/assets/2400-zdfneo-100~2400x1350?cb=1685544669210",
+                    "240x270": "https://www.zdf.de/assets/2400-zdfneo-100~240x270?cb=1685544669210",
+                    "276x155": "https://www.zdf.de/assets/2400-zdfneo-100~276x155?cb=1685544669210",
+                    "276x311": "https://www.zdf.de/assets/2400-zdfneo-100~276x311?cb=1685544669210",
+                    "314x314": "https://www.zdf.de/assets/2400-zdfneo-100~314x314?cb=1685544669210",
+                    "380x170": "https://www.zdf.de/assets/2400-zdfneo-100~380x170?cb=1685544669210",
+                    "384x216": "https://www.zdf.de/assets/2400-zdfneo-100~384x216?cb=1685544669210",
+                    "384xauto": "https://www.zdf.de/assets/2400-zdfneo-100~384xauto?cb=1685544669210",
+                    "405x720": "https://www.zdf.de/assets/2400-zdfneo-100~405x720?cb=1685544669210",
+                    "640x720": "https://www.zdf.de/assets/2400-zdfneo-100~640x720?cb=1685544669210",
+                    "760x340": "https://www.zdf.de/assets/2400-zdfneo-100~760x340?cb=1685544669210",
+                    "768x432": "https://www.zdf.de/assets/2400-zdfneo-100~768x432?cb=1685544669210",
+                    "768xauto": "https://www.zdf.de/assets/2400-zdfneo-100~768xauto?cb=1685544669210",
+                    "840x140": "https://www.zdf.de/assets/2400-zdfneo-100~840x140?cb=1685544669210",
+                    "840x280": "https://www.zdf.de/assets/2400-zdfneo-100~840x280?cb=1685544669210",
+                    "840x360": "https://www.zdf.de/assets/2400-zdfneo-100~840x360?cb=1685544669210",
+                    "860x344": "https://www.zdf.de/assets/2400-zdfneo-100~860x344?cb=1685544669210",
+                    "936x520": "https://www.zdf.de/assets/2400-zdfneo-100~936x520?cb=1685544669210",
+                    "original": "https://www.zdf.de/assets/2400-zdfneo-100~original?cb=1685544669210"
+                }
+            },
+            "profile": "http://zdf.de/rels/content/conf-tv-service",
+            "self": "/content/documents/zdf/sender/zdfneo/zdfneo-106.json",
+            "canonical": "/content/documents/zdfneo-106.json"
+        },
+        "brandLogoWhiteRef": {
+            "title": "The Rookie - Logo linksbündig",
+            "altText": "The Rookie",
+            "source": "ZDF",
+            "profile": "http://zdf.de/rels/image",
+            "self": "/content/documents/zdf/serien/the-rookie/sb-material/the-rookie-logo-links-100.json",
+            "canonical": "/content/documents/the-rookie-logo-links-100.json",
+            "layouts": {
+                "240x270": "https://www.zdf.de/assets/the-rookie-logo-links-100~240x270?cb=1712648694406",
+                "276x155": "https://www.zdf.de/assets/the-rookie-logo-links-100~276x155?cb=1712648694406",
+                "276x311": "https://www.zdf.de/assets/the-rookie-logo-links-100~276x311?cb=1712648694406",
+                "314x314": "https://www.zdf.de/assets/the-rookie-logo-links-100~314x314?cb=1712648694406",
+                "380x170": "https://www.zdf.de/assets/the-rookie-logo-links-100~380x170?cb=1712648694406",
+                "384x216": "https://www.zdf.de/assets/the-rookie-logo-links-100~384x216?cb=1712648694406",
+                "384xauto": "https://www.zdf.de/assets/the-rookie-logo-links-100~384xauto?cb=1712648694406",
+                "760x340": "https://www.zdf.de/assets/the-rookie-logo-links-100~760x340?cb=1712648694406",
+                "original": "https://www.zdf.de/assets/the-rookie-logo-links-100~original?cb=1712648694406"
+            }
+        },
+        "objectId": "65cbe65b-4b52-4bee-a4c6-edae7ade074f",
+        "profile": "http://zdf.de/rels/content/conf-section",
+        "self": "/content/documents/zdf/serien/the-rookie/the-rookie-102.json",
+        "canonical": "/content/documents/the-rookie-102.json",
+        "brandTextColor": "light",
+        "defaultImageVideoModule": {
+            "title": "Sendungsteaser - The Rookie",
+            "altText": "The Rookie",
+            "source": "ZDF",
+            "profile": "http://zdf.de/rels/image",
+            "self": "/content/documents/zdf/serien/the-rookie/sb-material/sendungsteaser-the-rookie-100.json",
+            "canonical": "/content/documents/sendungsteaser-the-rookie-100.json",
+            "layouts": {
+                "1140x120": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~1140x120?cb=1712648454653",
+                "1140x240": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~1140x240?cb=1712648454653",
+                "1152x1296": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~1152x1296?cb=1712648454653",
+                "1200x480": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~1200x480?cb=1712648454653",
+                "1280x720": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~1280x720?cb=1712648454653",
+                "1280xauto": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~1280xauto?cb=1712648454653",
+                "1300x650": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~1300x650?cb=1712648454653",
+                "1500x300": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~1500x300?cb=1712648454653",
+                "1500x600": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~1500x600?cb=1712648454653",
+                "1500x800": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~1500x800?cb=1712648454653",
+                "1800x720": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~1800x720?cb=1712648454653",
+                "1900x200": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~1900x200?cb=1712648454653",
+                "1900x400": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~1900x400?cb=1712648454653",
+                "1900x570": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~1900x570?cb=1712648454653",
+                "1920x1080": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~1920x1080?cb=1712648454653",
+                "225x400": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~225x400?cb=1712648454653",
+                "2400x1350": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~2400x1350?cb=1712648454653",
+                "240x270": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~240x270?cb=1712648454653",
+                "276x155": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~276x155?cb=1712648454653",
+                "276x311": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~276x311?cb=1712648454653",
+                "314x314": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~314x314?cb=1712648454653",
+                "380x170": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~380x170?cb=1712648454653",
+                "384x216": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~384x216?cb=1712648454653",
+                "384xauto": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~384xauto?cb=1712648454653",
+                "405x720": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~405x720?cb=1712648454653",
+                "640x720": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~640x720?cb=1712648454653",
+                "760x340": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~760x340?cb=1712648454653",
+                "768x432": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~768x432?cb=1712648454653",
+                "768xauto": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~768xauto?cb=1712648454653",
+                "840x140": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~840x140?cb=1712648454653",
+                "840x280": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~840x280?cb=1712648454653",
+                "840x360": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~840x360?cb=1712648454653",
+                "860x344": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~860x344?cb=1712648454653",
+                "936x520": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~936x520?cb=1712648454653",
+                "original": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~original?cb=1712648454653"
+            }
+        },
+        "displayLogoInDefaultStage": false,
+        "areaNavTextColor": "light"
+    },
+    "tvService": "ZDFneo",
+    "http://zdf.de/rels/docstats": {
+        "profile": "http://zdf.de/rels/index/fallbackContent",
+        "self": "/disabledSSI",
+        "viewCount": 0,
+        "ratingCount": 0,
+        "http:/zdf.de/rels/target": "/content/documents"
+    },
+    "http://zdf.de/rels/user-feedback/comments-uri": "/user-feedback/comments?object=12c914e2-2d79-4205-b35c-d27b4ca326fb",
+    "tracking": {
+        "szmng": {
+            "st": "zdf",
+            "cp": "Serien/The_Rookie",
+            "sv": "ke",
+            "co": "episode/Der_Prozess/12c914e2-2d79-4205-b35c-d27b4ca326fb"
+        },
+        "zdf": {
+            "config-v2": {
+                "playerTrackingRateInSeconds": 60
+            },
+            "templates-v2": {
+                "view": "//tracksrv.zdf.de/event?eventType=view&trackingId={trackingId}&appId={appId}{&searchResultsCount,abGroup,abName,searchParams,userAge,userGender,loggedIn,subprofile,channelId}&assetId=SCMS_12c914e2-2d79-4205-b35c-d27b4ca326fb&pagePath=https%3A%2F%2Fwww.zdf.de%2Fserien%2Fthe-rookie%2Fder-prozess-110.html&pageTitle=Der_Prozess",
+                "click": "//tracksrv.zdf.de/event?eventType=click&trackingId={trackingId}&appId={appId}&clickedClusterPosition={clickedClusterPosition}&clickedTeaserPosition={clickedTeaserPosition}{&searchParams,abGroup,abName,recoEngine,element,recoId,userAge,userGender,loggedIn,subprofile,channelId,targetChannelId,nodeId,configuration}&assetId={assetId}&targetAssetId={targetAssetId}&pagePath=https%3A%2F%2Fwww.zdf.de%2Fserien%2Fthe-rookie%2Fder-prozess-110.html",
+                "pause": "//tracksrv.zdf.de/event?eventType=pause&trackingId={trackingId}&appId={appId}&currentPosition={currentPosition}&duration={duration}{&abGroup,abName,playbackProgress,videoAssetId,userAge,userGender,loggedIn,subprofile,channelId}&assetId=SCMS_12c914e2-2d79-4205-b35c-d27b4ca326fb&pagePath=https%3A%2F%2Fwww.zdf.de%2Fserien%2Fthe-rookie%2Fder-prozess-110.html",
+                "play": "//tracksrv.zdf.de/event?eventType=play&trackingId={trackingId}&appId={appId}&currentPosition={currentPosition}&duration={duration}{&abGroup,abName,playbackProgress,videoAssetId,userAge,userGender,loggedIn,subprofile,channelId}&assetId=SCMS_12c914e2-2d79-4205-b35c-d27b4ca326fb&pagePath=https%3A%2F%2Fwww.zdf.de%2Fserien%2Fthe-rookie%2Fder-prozess-110.html"
+            }
+        },
+        "atInternet": {
+            "page": {
+                "level1": "zdf",
+                "level2": "10",
+                "chapter1": "/The_Rookie",
+                "chapter2": "episode",
+                "chapter3": "12c914e2-2d79-4205-b35c-d27b4ca326fb",
+                "name": "Der_Prozess",
+                "customObject": {
+                    "domain": "zdf",
+                    "level1": "zdf",
+                    "level2": "Serien",
+                    "chapter1": "/The_Rookie",
+                    "broadcast": "ZDFneo",
+                    "id": "der-prozess-110",
+                    "inhaltsTyp": "episode",
+                    "chapter4": ""
+                }
+            },
+            "richMedia": {
+                "mediaType": "video",
+                "mediaLevel2": "10",
+                "mediaLabel": "The_Rookie::Der_Prozess",
+                "mediaTheme1": "Serien",
+                "mediaTheme2": "The_Rookie",
+                "mediaTheme3": "episode",
+                "refreshDuration": {
+                    "0": 5,
+                    "1": 30,
+                    "5": 60
+                },
+                "duration": "2466",
+                "broadcastMode": "clip"
+            },
+            "event": {
+                "level1": "zdf",
+                "level2": "10",
+                "chapter1": "/The_Rookie",
+                "customObject": {
+                    "domain": "zdf",
+                    "level1": "zdf",
+                    "level2": "Serien",
+                    "chapter1": "/The_Rookie",
+                    "broadcast": "ZDFneo",
+                    "id": "der-prozess-110",
+                    "inhaltsTyp": "episode"
+                }
+            },
+            "customVars": {
+                "site": {
+                    "id": "der-prozess-110",
+                    "chapter2": "episode",
+                    "chapter3": "12c914e2-2d79-4205-b35c-d27b4ca326fb"
+                }
+            }
+        },
+        "nielsen": {
+            "content": {
+                "type": "content",
+                "assetid": "240411_2015_sendung_roo",
+                "program": "The Rookie",
+                "title": "The Rookie|Der Prozess|240411_2015_sendung_roo",
+                "length": "2466",
+                "nol_c2": "p2,N",
+                "nol_c5": "p5,ZDFmediathek",
+                "nol_c7": "p7,240411_2015_sendung_roo",
+                "nol_c8": "p8,2466",
+                "nol_c9": "p9,Der Prozess",
+                "nol_c10": "p10,ZDFneo",
+                "nol_c12": "p12,Content",
+                "nol_c14": "p14,2024-05-10T17:15:00",
+                "nol_c15": "p15,66666666",
+                "nol_c16": "p16,The Rookie",
+                "nol_c18": "p18,N",
+                "nol_c19": "p19,ZDF|11.04.2024 21:00|07.07.2024 23:59|none|de|true|Serien"
+            },
+            "addContent": {
+                "nol_c10": "p10,ZDFneo",
+                "nol_c14": "p14,2024-04-11T20:15:00",
+                "nol_c15": "p15,74d6ada2-7944-4076-ac83-15f31b006097",
+                "nol_c19": "p19,ZDF|11.04.2024 21:00|07.07.2024 23:59|none|de|true|Serien"
+            }
+        }
+    },
+    "fskBlocked": false,
+    "autoRecommendationTeaserList": false,
+    "autoRecommendationTeaserListTitle": "Auch interessant",
+    "hideEpisodeInformation": false,
+    "seasonNumberPrefix": "St.",
+    "brandInformation": {
+        "logo": {
+            "title": "Sendungsteaser - The Rookie",
+            "altText": "The Rookie",
+            "source": "ZDF",
+            "profile": "http://zdf.de/rels/image",
+            "self": "/content/documents/zdf/serien/the-rookie/sb-material/sendungsteaser-the-rookie-100.json",
+            "canonical": "/content/documents/sendungsteaser-the-rookie-100.json",
+            "layouts": {
+                "1140x120": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~1140x120?cb=1712648454653",
+                "1140x240": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~1140x240?cb=1712648454653",
+                "1152x1296": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~1152x1296?cb=1712648454653",
+                "1200x480": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~1200x480?cb=1712648454653",
+                "1280x720": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~1280x720?cb=1712648454653",
+                "1280xauto": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~1280xauto?cb=1712648454653",
+                "1300x650": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~1300x650?cb=1712648454653",
+                "1500x300": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~1500x300?cb=1712648454653",
+                "1500x600": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~1500x600?cb=1712648454653",
+                "1500x800": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~1500x800?cb=1712648454653",
+                "1800x720": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~1800x720?cb=1712648454653",
+                "1900x200": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~1900x200?cb=1712648454653",
+                "1900x400": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~1900x400?cb=1712648454653",
+                "1900x570": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~1900x570?cb=1712648454653",
+                "1920x1080": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~1920x1080?cb=1712648454653",
+                "225x400": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~225x400?cb=1712648454653",
+                "2400x1350": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~2400x1350?cb=1712648454653",
+                "240x270": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~240x270?cb=1712648454653",
+                "276x155": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~276x155?cb=1712648454653",
+                "276x311": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~276x311?cb=1712648454653",
+                "314x314": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~314x314?cb=1712648454653",
+                "380x170": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~380x170?cb=1712648454653",
+                "384x216": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~384x216?cb=1712648454653",
+                "384xauto": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~384xauto?cb=1712648454653",
+                "405x720": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~405x720?cb=1712648454653",
+                "640x720": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~640x720?cb=1712648454653",
+                "760x340": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~760x340?cb=1712648454653",
+                "768x432": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~768x432?cb=1712648454653",
+                "768xauto": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~768xauto?cb=1712648454653",
+                "840x140": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~840x140?cb=1712648454653",
+                "840x280": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~840x280?cb=1712648454653",
+                "840x360": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~840x360?cb=1712648454653",
+                "860x344": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~860x344?cb=1712648454653",
+                "936x520": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~936x520?cb=1712648454653",
+                "original": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~original?cb=1712648454653"
+            }
+        },
+        "title": "Mehr von The Rookie",
+        "htmlAnchor": {
+            "profile": "http://zdf.de/rels/teaser-target-web",
+            "href": "/serien/the-rookie",
+            "title": "The Rookie"
+        },
+        "id": "the-rookie-100",
+        "tracking": {
+            "zdf": {
+                "config-v2": {
+                    "playerTrackingRateInSeconds": 60
+                },
+                "templates-v2": {
+                    "click": "//tracksrv.zdf.de/event?eventType=click&trackingId={trackingId}&appId={appId}&clickedClusterPosition={clickedClusterPosition}&clickedTeaserPosition={clickedTeaserPosition}{&searchParams,abGroup,abName,recoEngine,element,recoId,userAge,userGender,loggedIn,subprofile,channelId,targetChannelId,nodeId,configuration}&assetId={assetId}&targetAssetId={targetAssetId}&pagePath=https%3A%2F%2Fwww.zdf.de%2Fserien%2Fthe-rookie%2Fthe-rookie-100.html"
+                }
+            },
+            "atInternet": {
+                "page": {
+                    "level1": "zdf",
+                    "level2": "10",
+                    "chapter1": "/The_Rookie",
+                    "chapter2": "brand",
+                    "chapter3": "59d564e5-825e-4093-95e4-cfd4e9647fdf",
+                    "name": "The_Rookie",
+                    "customObject": {
+                        "domain": "zdf",
+                        "level1": "zdf",
+                        "level2": "Serien",
+                        "chapter1": "/The_Rookie",
+                        "broadcast": "ZDFneo",
+                        "id": "the-rookie-100",
+                        "inhaltsTyp": "brand",
+                        "chapter4": ""
+                    }
+                },
+                "event": {
+                    "level1": "zdf",
+                    "level2": "10",
+                    "chapter1": "/The_Rookie",
+                    "customObject": {
+                        "domain": "zdf",
+                        "level1": "zdf",
+                        "level2": "Serien",
+                        "chapter1": "/The_Rookie",
+                        "broadcast": "ZDFneo",
+                        "id": "the-rookie-100",
+                        "inhaltsTyp": "brand"
+                    }
+                },
+                "customVars": {
+                    "site": {
+                        "id": "the-rookie-100",
+                        "chapter2": "brand",
+                        "chapter3": "59d564e5-825e-4093-95e4-cfd4e9647fdf"
+                    }
+                }
+            }
+        }
+    },
+    "dotty": {
+        "profile": "http://zdf.de/rels/content/dotty",
+        "id": "der-prozess-110",
+        "externalId": "SCMS_12c914e2-2d79-4205-b35c-d27b4ca326fb",
+        "url": "https://www.zdf.de/serien/the-rookie/der-prozess-110.html",
+        "title": "Teilen und Merken",
+        "shareTitle": "Der Prozess",
+        "endDate": "2024-09-07T17:15:00+02:00",
+        "emailShare": {
+            "profile": "http://zdf.de/rels/dottyEmailShare",
+            "mailto": "mailto:?subject=ZDFmediathek%3A%20Der%20Prozess&amp;body=https%3A%2F%2Fwww.zdf.de%2Fserien%2Fthe-rookie%2Fder-prozess-110.html%3Fat_medium%3DSocial%2BMedia%26at_campaign%3DMail%26at_specific%3DZDFmediathek",
+            "title": "Empfehlen"
+        },
+        "bookmark": {
+            "bookmarkAddedTitle": "Zur Merkliste hinzugefügt",
+            "profile": "http://zdf.de/rels/dottyBookmark",
+            "bookmarkRemovedTitle": "Merken beendet",
+            "addBookmarkTitle": "Merken",
+            "removeBookmarkTitle": "nicht mehr merken"
+        },
+        "sharing": {
+            "name": "Teilen",
+            "items": [
+                {
+                    "profile": "http://zdf.de/rels/dottyShareItem",
+                    "hint": "Teilen auf Facebook",
+                    "type": "facebook",
+                    "url": "http://www.facebook.com/share.php?u=https%3A%2F%2Fwww.zdf.de%2Fserien%2Fthe-rookie%2Fder-prozess-110.html%3Fat_medium%3DSocial%2BMedia%26at_campaign%3DFacebook%26at_specific%3DZDFmediathek"
+                },
+                {
+                    "profile": "http://zdf.de/rels/dottyShareItem",
+                    "hint": "Teilen auf Twitter",
+                    "type": "twitter",
+                    "url": "https://twitter.com/share?text=Der+Prozess&url=https%3A%2F%2Fwww.zdf.de%2Fserien%2Fthe-rookie%2Fder-prozess-110.html%3Fat_medium%3DSocial%2BMedia%26at_campaign%3DTwitter%26at_specific%3DZDFmediathek"
+                },
+                {
+                    "profile": "http://zdf.de/rels/dottyShareItem",
+                    "hint": null,
+                    "type": "pinterest",
+                    "url": "https://pinterest.com/pin/create/button?url=https%3A%2F%2Fwww.zdf.de%2Fserien%2Fthe-rookie%2Fder-prozess-110.html%3Fat_medium%3DSocial%2BMedia%26at_campaign%3DPinterest%26at_specific%3DZDFmediathek"
+                },
+                {
+                    "profile": "http://zdf.de/rels/dottyShareItem",
+                    "hint": null,
+                    "type": "whatsapp",
+                    "url": "whatsapp://send?text=Der+Prozess%0Ahttps%3A%2F%2Fwww.zdf.de%2Fserien%2Fthe-rookie%2Fder-prozess-110.html%3Fat_medium%3DSocial%2BMedia%26at_campaign%3DWhatsApp%26at_specific%3DZDFmediathek"
+                }
+            ]
+        }
+    },
+    "module": [
+        {
+            "profile": "http://zdf.de/rels/content/group-recommendation-cluster-list",
+            "http://zdf.de/rels/recommendation-reference-2": {
+                "profile": "http://zdf.de/rels/object-reference",
+                "reference-type": "virtual",
+                "uri": "/reco/clusters?appId={appId}&abGroup={abGroup}&clusterLimit=2&configuration=video-page-clusterlist&profile=default&limit=26&pageId=SCMS_12c914e2-2d79-4205-b35c-d27b4ca326fb"
+            },
+            "nodeId": "reco_12c914e2-2d79-4205-b35c-d27b4ca326fb"
+        }
+    ],
+    "programmeItem": [
+        {
+            "http://zdf.de/rels/target": {
+                "actorDetails": {
+                    "actorDetail": [
+                        {
+                            "role": "John Nolan",
+                            "name": "Nathan Fillion"
+                        },
+                        {
+                            "role": "Angela Lopez",
+                            "name": "Alyssa Diaz"
+                        },
+                        {
+                            "role": "Sergeant Wade Grey",
+                            "name": "Richard T. Jones"
+                        },
+                        {
+                            "role": "Lucy Chen",
+                            "name": "Melissa O'Neil"
+                        },
+                        {
+                            "role": "Tim Bradford",
+                            "name": "Eric Winter"
+                        },
+                        {
+                            "role": "Nyla Harper",
+                            "name": "Mekia Cox"
+                        },
+                        {
+                            "role": "Wesley Evers",
+                            "name": "Shawn Ashmore"
+                        },
+                        {
+                            "role": "Bailey Nune",
+                            "name": "Jenna Dewan"
+                        },
+                        {
+                            "role": "Aaron Thorsen",
+                            "name": "Tru Valentino"
+                        },
+                        {
+                            "role": "und andere",
+                            "name": ""
+                        }
+                    ]
+                },
+                "category": "Serien",
+                "country": "USA ",
+                "crewDetails": {
+                    "crewDetail": [
+                        {
+                            "function": "regie",
+                            "name": "Tori Garrett"
+                        },
+                        {
+                            "function": "autor",
+                            "name": "Alexi Hawley"
+                        },
+                        {
+                            "function": "musik",
+                            "name": "Jordan Gagne"
+                        }
+                    ]
+                },
+                "edition": "",
+                "genre": null,
+                "guest": [],
+                "language": "de",
+                "originalTitle": null,
+                "originalTvStation": "",
+                "subtitle": "Der Prozess",
+                "text": "Officer John Nolan sieht sich wieder mit der Serienmörderin Rosalind Dyer konfrontiert. Vor Beginn der Gerichtsverhandlung gelingt ihr die Flucht und sie muss erneut gefasst werden.<br/><br/>Währenddessen arbeiten die Beamten Bradford und Chen undercover mit Detective Lopez und dem Las Vegas Police Department zusammen, um die Anführer eines großen kriminellen Unternehmens zu verhaften.",
+                "title": "The Rookie",
+                "year": "2022",
+                "updateTimestamp": "2024-04-29T15:09:42+02:00",
+                "contentId": "POS_56a08f53-e234-4452-946f-dec5587beef8",
+                "profile": "http://zdf.de/rels/cmdm/programme-item",
+                "self": "/cmdm/epg/programme-items/POS_56a08f53-e234-4452-946f-dec5587beef8",
+                "textVariant": 1,
+                "textShort": "Officer John Nolan sieht sich wieder mit der Serienmörderin Rosalind Dyer konfrontiert. Vor Beginn der Gerichtsverhandlung gelingt ihr die Flucht und sie muss erneut gefasst werden.",
+                "textShortCont": "Währenddessen arbeiten die Beamten Bradford und Chen undercover mit Detective Lopez und dem Las Vegas Police Department zusammen, um die Anführer eines großen kriminellen Unternehmens zu verhaften.",
+                "textCont": null,
+                "textAccomp": null,
+                "textLocation": null,
+                "textPresentation": null,
+                "textReporter": null,
+                "textExpert": null,
+                "textFree": null,
+                "textOrder": null,
+                "fsk": "",
+                "brandIds": [
+                    "65cbe65b-4b52-4bee-a4c6-edae7ade074f"
+                ],
+                "brandNames": [
+                    "The Rookie"
+                ],
+                "hinttext": null,
+                "images": {
+                    "image": [
+                        {
+                            "id": "41d1919e-6a2f-4062-ba70-fb1684bb7464",
+                            "format": null,
+                            "altText": "\"The Rookie - Der Prozess\": Lucy (Melissa O'Neil) und Tim alias Jake (Eric Winter) stehen im Gang eines Privatjets und schauen sich tief in die Augen.",
+                            "source": "Raymond Liu"
+                        }
+                    ]
+                },
+                "interactiv": false,
+                "subheadline": null,
+                "primaryBrandId": "65cbe65b-4b52-4bee-a4c6-edae7ade074f",
+                "primaryBrand": "The Rookie",
+                "partnersender3sat": null,
+                "searchable": true,
+                "tvTipp": false,
+                "tvTippDetail": null,
+                "videoOnDemand": false,
+                "http://zdf.de/rels/image": {
+                    "altText": "\"The Rookie - Der Prozess\": Lucy (Melissa O'Neil) und Tim alias Jake (Eric Winter) stehen im Gang eines Privatjets und schauen sich tief in die Augen.",
+                    "profile": "http://zdf.de/rels/image",
+                    "source": "Raymond Liu",
+                    "layouts": {
+                        "2400x1350": "https://epg-image.zdf.de/fotobase-webdelivery/images/41d1919e-6a2f-4062-ba70-fb1684bb7464?layout=2400x1350",
+                        "640x720": "https://epg-image.zdf.de/fotobase-webdelivery/images/41d1919e-6a2f-4062-ba70-fb1684bb7464?layout=640x720",
+                        "1920x1080": "https://epg-image.zdf.de/fotobase-webdelivery/images/41d1919e-6a2f-4062-ba70-fb1684bb7464?layout=1920x1080",
+                        "276x155": "https://epg-image.zdf.de/fotobase-webdelivery/images/41d1919e-6a2f-4062-ba70-fb1684bb7464?layout=276x155",
+                        "1152x1296": "https://epg-image.zdf.de/fotobase-webdelivery/images/41d1919e-6a2f-4062-ba70-fb1684bb7464?layout=1152x1296",
+                        "1280x720": "https://epg-image.zdf.de/fotobase-webdelivery/images/41d1919e-6a2f-4062-ba70-fb1684bb7464?layout=1280x720",
+                        "768x432": "https://epg-image.zdf.de/fotobase-webdelivery/images/41d1919e-6a2f-4062-ba70-fb1684bb7464?layout=768x432",
+                        "240x270": "https://epg-image.zdf.de/fotobase-webdelivery/images/41d1919e-6a2f-4062-ba70-fb1684bb7464?layout=240x270",
+                        "384x216": "https://epg-image.zdf.de/fotobase-webdelivery/images/41d1919e-6a2f-4062-ba70-fb1684bb7464?layout=384x216"
+                    }
+                },
+                "http://zdf.de/rels/content/video-page": "/content/epg-pages/POS_56a08f53-e234-4452-946f-dec5587beef8",
+                "http://zdf.de/rels/cmdm/broadcasts": [
+                    {
+                        "playoutId": "F1043028",
+                        "fsk": "",
+                        "jugendeignung": "12",
+                        "airtimeBegin": "2024-04-11T20:15:00+02:00",
+                        "airtimeEnd": "2024-04-11T20:55:00+02:00",
+                        "airtimeDate": "2024-04-11+02:00",
+                        "effectiveAirtimeBegin": "2024-04-11T20:15:00+02:00",
+                        "effectiveAirtimeEnd": "2024-04-11T20:55:00+02:00",
+                        "audioComments": false,
+                        "blackwhite": false,
+                        "tvService": "ZDFneo",
+                        "tvServiceId": "2",
+                        "caption": false,
+                        "dolbyDigital51": true,
+                        "dolbySurround": false,
+                        "dualChannel": false,
+                        "originalVoice": true,
+                        "duration": 2400,
+                        "partDuration": 2400,
+                        "foreignLangWithCaption": false,
+                        "hd": true,
+                        "posId": "56a08f53-e234-4452-946f-dec5587beef8",
+                        "partId": 1,
+                        "live": false,
+                        "livestream": false,
+                        "modified": "2024-04-29T15:09:38+02:00",
+                        "mono": false,
+                        "newAirtime": false,
+                        "newProgramData": false,
+                        "pharosId": "74d6ada2-7944-4076-ac83-15f31b006097",
+                        "signLanguage": false,
+                        "stereo": true,
+                        "visibleFrom": "2024-03-21T20:15:00+01:00",
+                        "visibleTo": "2025-04-11T20:15:00+02:00",
+                        "vpsBegin": null,
+                        "widescreen16_9": false,
+                        "withChat": false,
+                        "http://zdf.de/rels/cmdm/broadcasts-parts": null,
+                        "profile": "http://zdf.de/rels/cmdm/broadcast-repeat",
+                        "self": "/cmdm/epg/broadcasts/56a08f53-e234-4452-946f-dec5587beef8?profile=repeat",
+                        "http://zdf.de/rels/tvservice": {
+                            "tvServiceTitle": "ZDFneo",
+                            "tvServiceId": "ZDFneo",
+                            "tvServiceLogoRef": {
+                                "profile": "http://zdf.de/rels/image",
+                                "self": "/content/documents/zdf/bilder/2400-zdfneo-100.json?profile=tv-service",
+                                "canonical": "/content/documents/2400-zdfneo-100.json",
+                                "altText": "Senderlogo ZDF neo",
+                                "title": "Senderlogo ZDFneo",
+                                "copyrightNotice": "ZDFneo",
+                                "source": "ZDFneo",
+                                "layouts": {
+                                    "1140x120": "https://www.zdf.de/assets/2400-zdfneo-100~1140x120?cb=1685544669210",
+                                    "1140x240": "https://www.zdf.de/assets/2400-zdfneo-100~1140x240?cb=1685544669210",
+                                    "1152x1296": "https://www.zdf.de/assets/2400-zdfneo-100~1152x1296?cb=1685544669210",
+                                    "1200x480": "https://www.zdf.de/assets/2400-zdfneo-100~1200x480?cb=1685544669210",
+                                    "1280x720": "https://www.zdf.de/assets/2400-zdfneo-100~1280x720?cb=1685544669210",
+                                    "1280xauto": "https://www.zdf.de/assets/2400-zdfneo-100~1280xauto?cb=1685544669210",
+                                    "1300x650": "https://www.zdf.de/assets/2400-zdfneo-100~1300x650?cb=1685544669210",
+                                    "1500x300": "https://www.zdf.de/assets/2400-zdfneo-100~1500x300?cb=1685544669210",
+                                    "1500x600": "https://www.zdf.de/assets/2400-zdfneo-100~1500x600?cb=1685544669210",
+                                    "1500x800": "https://www.zdf.de/assets/2400-zdfneo-100~1500x800?cb=1685544669210",
+                                    "1800x720": "https://www.zdf.de/assets/2400-zdfneo-100~1800x720?cb=1685544669210",
+                                    "1900x200": "https://www.zdf.de/assets/2400-zdfneo-100~1900x200?cb=1685544669210",
+                                    "1900x400": "https://www.zdf.de/assets/2400-zdfneo-100~1900x400?cb=1685544669210",
+                                    "1900x570": "https://www.zdf.de/assets/2400-zdfneo-100~1900x570?cb=1685544669210",
+                                    "1920x1080": "https://www.zdf.de/assets/2400-zdfneo-100~1920x1080?cb=1685544669210",
+                                    "225x400": "https://www.zdf.de/assets/2400-zdfneo-100~225x400?cb=1685544669210",
+                                    "2400x1350": "https://www.zdf.de/assets/2400-zdfneo-100~2400x1350?cb=1685544669210",
+                                    "240x270": "https://www.zdf.de/assets/2400-zdfneo-100~240x270?cb=1685544669210",
+                                    "276x155": "https://www.zdf.de/assets/2400-zdfneo-100~276x155?cb=1685544669210",
+                                    "276x311": "https://www.zdf.de/assets/2400-zdfneo-100~276x311?cb=1685544669210",
+                                    "314x314": "https://www.zdf.de/assets/2400-zdfneo-100~314x314?cb=1685544669210",
+                                    "380x170": "https://www.zdf.de/assets/2400-zdfneo-100~380x170?cb=1685544669210",
+                                    "384x216": "https://www.zdf.de/assets/2400-zdfneo-100~384x216?cb=1685544669210",
+                                    "384xauto": "https://www.zdf.de/assets/2400-zdfneo-100~384xauto?cb=1685544669210",
+                                    "405x720": "https://www.zdf.de/assets/2400-zdfneo-100~405x720?cb=1685544669210",
+                                    "640x720": "https://www.zdf.de/assets/2400-zdfneo-100~640x720?cb=1685544669210",
+                                    "760x340": "https://www.zdf.de/assets/2400-zdfneo-100~760x340?cb=1685544669210",
+                                    "768x432": "https://www.zdf.de/assets/2400-zdfneo-100~768x432?cb=1685544669210",
+                                    "768xauto": "https://www.zdf.de/assets/2400-zdfneo-100~768xauto?cb=1685544669210",
+                                    "840x140": "https://www.zdf.de/assets/2400-zdfneo-100~840x140?cb=1685544669210",
+                                    "840x280": "https://www.zdf.de/assets/2400-zdfneo-100~840x280?cb=1685544669210",
+                                    "840x360": "https://www.zdf.de/assets/2400-zdfneo-100~840x360?cb=1685544669210",
+                                    "860x344": "https://www.zdf.de/assets/2400-zdfneo-100~860x344?cb=1685544669210",
+                                    "936x520": "https://www.zdf.de/assets/2400-zdfneo-100~936x520?cb=1685544669210",
+                                    "original": "https://www.zdf.de/assets/2400-zdfneo-100~original?cb=1685544669210"
+                                }
+                            },
+                            "profile": "http://zdf.de/rels/content/conf-tv-service",
+                            "self": "/content/documents/zdf/sender/zdfneo/zdfneo-106.json",
+                            "canonical": "/content/documents/zdfneo-106.json"
+                        },
+                        "onlineFrom": "2024-04-11T21:00:00+02:00",
+                        "onlineTo": "2024-05-11T23:59:00+02:00",
+                        "geolocationVOD": "D",
+                        "geolocationLivestream": "D",
+                        "youtubeRight": false,
+                        "onlineFirst": false,
+                        "onlineOnly": false,
+                        "onlineWh": false,
+                        "onlineRetro": false,
+                        "dueDate": null,
+                        "keinOnline": false,
+                        "onlineBegleitend": true
+                    },
+                    {
+                        "playoutId": "F1043028",
+                        "fsk": "",
+                        "jugendeignung": "12",
+                        "airtimeBegin": "2024-05-10T17:15:00+02:00",
+                        "airtimeEnd": "2024-05-10T17:55:00+02:00",
+                        "airtimeDate": "2024-05-10+02:00",
+                        "effectiveAirtimeBegin": "2024-05-10T17:15:00+02:00",
+                        "effectiveAirtimeEnd": "2024-05-10T17:55:00+02:00",
+                        "audioComments": false,
+                        "blackwhite": false,
+                        "tvService": "ZDFneo",
+                        "tvServiceId": "2",
+                        "caption": false,
+                        "dolbyDigital51": true,
+                        "dolbySurround": false,
+                        "dualChannel": false,
+                        "originalVoice": true,
+                        "duration": 2400,
+                        "partDuration": 2400,
+                        "foreignLangWithCaption": false,
+                        "hd": true,
+                        "posId": "1a838fbf-eb3e-4ac4-be77-3a6cd789628b",
+                        "partId": 1,
+                        "live": false,
+                        "livestream": false,
+                        "modified": "2024-04-29T15:09:38+02:00",
+                        "mono": false,
+                        "newAirtime": false,
+                        "newProgramData": false,
+                        "pharosId": "9ed9abc2-a6b6-445f-baac-16eaf55abd5c",
+                        "signLanguage": false,
+                        "stereo": true,
+                        "visibleFrom": "2024-04-19T17:15:00+02:00",
+                        "visibleTo": "2025-05-10T17:15:00+02:00",
+                        "vpsBegin": null,
+                        "widescreen16_9": false,
+                        "withChat": false,
+                        "http://zdf.de/rels/cmdm/broadcasts-parts": null,
+                        "profile": "http://zdf.de/rels/cmdm/broadcast-repeat",
+                        "self": "/cmdm/epg/broadcasts/1a838fbf-eb3e-4ac4-be77-3a6cd789628b?profile=repeat",
+                        "http://zdf.de/rels/tvservice": {
+                            "tvServiceTitle": "ZDFneo",
+                            "tvServiceId": "ZDFneo",
+                            "tvServiceLogoRef": {
+                                "profile": "http://zdf.de/rels/image",
+                                "self": "/content/documents/zdf/bilder/2400-zdfneo-100.json?profile=tv-service",
+                                "canonical": "/content/documents/2400-zdfneo-100.json",
+                                "altText": "Senderlogo ZDF neo",
+                                "title": "Senderlogo ZDFneo",
+                                "copyrightNotice": "ZDFneo",
+                                "source": "ZDFneo",
+                                "layouts": {
+                                    "1140x120": "https://www.zdf.de/assets/2400-zdfneo-100~1140x120?cb=1685544669210",
+                                    "1140x240": "https://www.zdf.de/assets/2400-zdfneo-100~1140x240?cb=1685544669210",
+                                    "1152x1296": "https://www.zdf.de/assets/2400-zdfneo-100~1152x1296?cb=1685544669210",
+                                    "1200x480": "https://www.zdf.de/assets/2400-zdfneo-100~1200x480?cb=1685544669210",
+                                    "1280x720": "https://www.zdf.de/assets/2400-zdfneo-100~1280x720?cb=1685544669210",
+                                    "1280xauto": "https://www.zdf.de/assets/2400-zdfneo-100~1280xauto?cb=1685544669210",
+                                    "1300x650": "https://www.zdf.de/assets/2400-zdfneo-100~1300x650?cb=1685544669210",
+                                    "1500x300": "https://www.zdf.de/assets/2400-zdfneo-100~1500x300?cb=1685544669210",
+                                    "1500x600": "https://www.zdf.de/assets/2400-zdfneo-100~1500x600?cb=1685544669210",
+                                    "1500x800": "https://www.zdf.de/assets/2400-zdfneo-100~1500x800?cb=1685544669210",
+                                    "1800x720": "https://www.zdf.de/assets/2400-zdfneo-100~1800x720?cb=1685544669210",
+                                    "1900x200": "https://www.zdf.de/assets/2400-zdfneo-100~1900x200?cb=1685544669210",
+                                    "1900x400": "https://www.zdf.de/assets/2400-zdfneo-100~1900x400?cb=1685544669210",
+                                    "1900x570": "https://www.zdf.de/assets/2400-zdfneo-100~1900x570?cb=1685544669210",
+                                    "1920x1080": "https://www.zdf.de/assets/2400-zdfneo-100~1920x1080?cb=1685544669210",
+                                    "225x400": "https://www.zdf.de/assets/2400-zdfneo-100~225x400?cb=1685544669210",
+                                    "2400x1350": "https://www.zdf.de/assets/2400-zdfneo-100~2400x1350?cb=1685544669210",
+                                    "240x270": "https://www.zdf.de/assets/2400-zdfneo-100~240x270?cb=1685544669210",
+                                    "276x155": "https://www.zdf.de/assets/2400-zdfneo-100~276x155?cb=1685544669210",
+                                    "276x311": "https://www.zdf.de/assets/2400-zdfneo-100~276x311?cb=1685544669210",
+                                    "314x314": "https://www.zdf.de/assets/2400-zdfneo-100~314x314?cb=1685544669210",
+                                    "380x170": "https://www.zdf.de/assets/2400-zdfneo-100~380x170?cb=1685544669210",
+                                    "384x216": "https://www.zdf.de/assets/2400-zdfneo-100~384x216?cb=1685544669210",
+                                    "384xauto": "https://www.zdf.de/assets/2400-zdfneo-100~384xauto?cb=1685544669210",
+                                    "405x720": "https://www.zdf.de/assets/2400-zdfneo-100~405x720?cb=1685544669210",
+                                    "640x720": "https://www.zdf.de/assets/2400-zdfneo-100~640x720?cb=1685544669210",
+                                    "760x340": "https://www.zdf.de/assets/2400-zdfneo-100~760x340?cb=1685544669210",
+                                    "768x432": "https://www.zdf.de/assets/2400-zdfneo-100~768x432?cb=1685544669210",
+                                    "768xauto": "https://www.zdf.de/assets/2400-zdfneo-100~768xauto?cb=1685544669210",
+                                    "840x140": "https://www.zdf.de/assets/2400-zdfneo-100~840x140?cb=1685544669210",
+                                    "840x280": "https://www.zdf.de/assets/2400-zdfneo-100~840x280?cb=1685544669210",
+                                    "840x360": "https://www.zdf.de/assets/2400-zdfneo-100~840x360?cb=1685544669210",
+                                    "860x344": "https://www.zdf.de/assets/2400-zdfneo-100~860x344?cb=1685544669210",
+                                    "936x520": "https://www.zdf.de/assets/2400-zdfneo-100~936x520?cb=1685544669210",
+                                    "original": "https://www.zdf.de/assets/2400-zdfneo-100~original?cb=1685544669210"
+                                }
+                            },
+                            "profile": "http://zdf.de/rels/content/conf-tv-service",
+                            "self": "/content/documents/zdf/sender/zdfneo/zdfneo-106.json",
+                            "canonical": "/content/documents/zdfneo-106.json"
+                        },
+                        "onlineFrom": "2024-05-10T17:55:00+02:00",
+                        "onlineTo": "2024-06-09T23:59:00+02:00",
+                        "geolocationVOD": "D",
+                        "geolocationLivestream": "D",
+                        "youtubeRight": false,
+                        "onlineFirst": false,
+                        "onlineOnly": false,
+                        "onlineWh": false,
+                        "onlineRetro": false,
+                        "dueDate": null,
+                        "keinOnline": false,
+                        "onlineBegleitend": true
+                    },
+                    {
+                        "playoutId": "F1043028",
+                        "fsk": "",
+                        "jugendeignung": "12",
+                        "airtimeBegin": "2024-06-07T17:15:00+02:00",
+                        "airtimeEnd": "2024-06-07T17:55:00+02:00",
+                        "airtimeDate": "2024-06-07+02:00",
+                        "effectiveAirtimeBegin": "2024-06-07T17:15:00+02:00",
+                        "effectiveAirtimeEnd": "2024-06-07T17:55:00+02:00",
+                        "audioComments": false,
+                        "blackwhite": false,
+                        "tvService": "ZDFneo",
+                        "tvServiceId": "2",
+                        "caption": false,
+                        "dolbyDigital51": true,
+                        "dolbySurround": false,
+                        "dualChannel": false,
+                        "originalVoice": true,
+                        "duration": 2400,
+                        "partDuration": 2400,
+                        "foreignLangWithCaption": false,
+                        "hd": true,
+                        "posId": "4b4fddf7-a058-4f83-9d41-e9ff1c93af7b",
+                        "partId": 1,
+                        "live": false,
+                        "livestream": false,
+                        "modified": "2024-04-24T08:14:28+02:00",
+                        "mono": false,
+                        "newAirtime": false,
+                        "newProgramData": false,
+                        "pharosId": "5a3ba6b1-eb3f-4e8f-8733-1722e36134c4",
+                        "signLanguage": false,
+                        "stereo": true,
+                        "visibleFrom": "2024-05-17T17:15:00+02:00",
+                        "visibleTo": "2025-06-07T17:15:00+02:00",
+                        "vpsBegin": null,
+                        "widescreen16_9": false,
+                        "withChat": false,
+                        "http://zdf.de/rels/cmdm/broadcasts-parts": null,
+                        "profile": "http://zdf.de/rels/cmdm/broadcast-repeat",
+                        "self": "/cmdm/epg/broadcasts/4b4fddf7-a058-4f83-9d41-e9ff1c93af7b?profile=repeat",
+                        "http://zdf.de/rels/tvservice": {
+                            "tvServiceTitle": "ZDFneo",
+                            "tvServiceId": "ZDFneo",
+                            "tvServiceLogoRef": {
+                                "profile": "http://zdf.de/rels/image",
+                                "self": "/content/documents/zdf/bilder/2400-zdfneo-100.json?profile=tv-service",
+                                "canonical": "/content/documents/2400-zdfneo-100.json",
+                                "altText": "Senderlogo ZDF neo",
+                                "title": "Senderlogo ZDFneo",
+                                "copyrightNotice": "ZDFneo",
+                                "source": "ZDFneo",
+                                "layouts": {
+                                    "1140x120": "https://www.zdf.de/assets/2400-zdfneo-100~1140x120?cb=1685544669210",
+                                    "1140x240": "https://www.zdf.de/assets/2400-zdfneo-100~1140x240?cb=1685544669210",
+                                    "1152x1296": "https://www.zdf.de/assets/2400-zdfneo-100~1152x1296?cb=1685544669210",
+                                    "1200x480": "https://www.zdf.de/assets/2400-zdfneo-100~1200x480?cb=1685544669210",
+                                    "1280x720": "https://www.zdf.de/assets/2400-zdfneo-100~1280x720?cb=1685544669210",
+                                    "1280xauto": "https://www.zdf.de/assets/2400-zdfneo-100~1280xauto?cb=1685544669210",
+                                    "1300x650": "https://www.zdf.de/assets/2400-zdfneo-100~1300x650?cb=1685544669210",
+                                    "1500x300": "https://www.zdf.de/assets/2400-zdfneo-100~1500x300?cb=1685544669210",
+                                    "1500x600": "https://www.zdf.de/assets/2400-zdfneo-100~1500x600?cb=1685544669210",
+                                    "1500x800": "https://www.zdf.de/assets/2400-zdfneo-100~1500x800?cb=1685544669210",
+                                    "1800x720": "https://www.zdf.de/assets/2400-zdfneo-100~1800x720?cb=1685544669210",
+                                    "1900x200": "https://www.zdf.de/assets/2400-zdfneo-100~1900x200?cb=1685544669210",
+                                    "1900x400": "https://www.zdf.de/assets/2400-zdfneo-100~1900x400?cb=1685544669210",
+                                    "1900x570": "https://www.zdf.de/assets/2400-zdfneo-100~1900x570?cb=1685544669210",
+                                    "1920x1080": "https://www.zdf.de/assets/2400-zdfneo-100~1920x1080?cb=1685544669210",
+                                    "225x400": "https://www.zdf.de/assets/2400-zdfneo-100~225x400?cb=1685544669210",
+                                    "2400x1350": "https://www.zdf.de/assets/2400-zdfneo-100~2400x1350?cb=1685544669210",
+                                    "240x270": "https://www.zdf.de/assets/2400-zdfneo-100~240x270?cb=1685544669210",
+                                    "276x155": "https://www.zdf.de/assets/2400-zdfneo-100~276x155?cb=1685544669210",
+                                    "276x311": "https://www.zdf.de/assets/2400-zdfneo-100~276x311?cb=1685544669210",
+                                    "314x314": "https://www.zdf.de/assets/2400-zdfneo-100~314x314?cb=1685544669210",
+                                    "380x170": "https://www.zdf.de/assets/2400-zdfneo-100~380x170?cb=1685544669210",
+                                    "384x216": "https://www.zdf.de/assets/2400-zdfneo-100~384x216?cb=1685544669210",
+                                    "384xauto": "https://www.zdf.de/assets/2400-zdfneo-100~384xauto?cb=1685544669210",
+                                    "405x720": "https://www.zdf.de/assets/2400-zdfneo-100~405x720?cb=1685544669210",
+                                    "640x720": "https://www.zdf.de/assets/2400-zdfneo-100~640x720?cb=1685544669210",
+                                    "760x340": "https://www.zdf.de/assets/2400-zdfneo-100~760x340?cb=1685544669210",
+                                    "768x432": "https://www.zdf.de/assets/2400-zdfneo-100~768x432?cb=1685544669210",
+                                    "768xauto": "https://www.zdf.de/assets/2400-zdfneo-100~768xauto?cb=1685544669210",
+                                    "840x140": "https://www.zdf.de/assets/2400-zdfneo-100~840x140?cb=1685544669210",
+                                    "840x280": "https://www.zdf.de/assets/2400-zdfneo-100~840x280?cb=1685544669210",
+                                    "840x360": "https://www.zdf.de/assets/2400-zdfneo-100~840x360?cb=1685544669210",
+                                    "860x344": "https://www.zdf.de/assets/2400-zdfneo-100~860x344?cb=1685544669210",
+                                    "936x520": "https://www.zdf.de/assets/2400-zdfneo-100~936x520?cb=1685544669210",
+                                    "original": "https://www.zdf.de/assets/2400-zdfneo-100~original?cb=1685544669210"
+                                }
+                            },
+                            "profile": "http://zdf.de/rels/content/conf-tv-service",
+                            "self": "/content/documents/zdf/sender/zdfneo/zdfneo-106.json",
+                            "canonical": "/content/documents/zdfneo-106.json"
+                        },
+                        "onlineFrom": "2024-06-07T10:00:00+02:00",
+                        "onlineTo": "2024-07-07T23:59:00+02:00",
+                        "geolocationVOD": "D",
+                        "geolocationLivestream": "D",
+                        "youtubeRight": false,
+                        "onlineFirst": false,
+                        "onlineOnly": false,
+                        "onlineWh": false,
+                        "onlineRetro": false,
+                        "dueDate": null,
+                        "keinOnline": false,
+                        "onlineBegleitend": true
+                    }
+                ],
+                "episodeTitle": "",
+                "episodeNumber": 1,
+                "episodePartNumber": "",
+                "episodeImdbId": null,
+                "episodeDuration": 0,
+                "seriesTotalEpisodeNumber": null,
+                "originalAirDate": "2024-04-11T20:15:00+02:00",
+                "http://zdf.de/rels/cmdm/brand": {
+                    "brandUuid": "65cbe65b-4b52-4bee-a4c6-edae7ade074f",
+                    "brandPrimaryBrandId": "65cbe65b-4b52-4bee-a4c6-edae7ade074f",
+                    "brandName": "The Rookie",
+                    "brandDescription": null,
+                    "brandImdbId": null,
+                    "isAllowModifyOfSeriesAndSeason": true,
+                    "profile": "http://zdf.de/rels/cmdm/brand-shallow",
+                    "self": "/cmdm/brands/65cbe65b-4b52-4bee-a4c6-edae7ade074f?profile=shallow"
+                },
+                "http://zdf.de/rels/cmdm/series": {
+                    "seriesUuid": "bc8f35c6-e48a-4b15-ba44-533a41bc85cd",
+                    "seriesTitle": "The Rookie",
+                    "seriesImdbId": null,
+                    "seriesIndexPageId": "the-rookie-100",
+                    "seriesDescription": null,
+                    "http://zdf.de/rels/content/series-index-page": {
+                        "profile": "http://zdf.de/rels/content/page-index-catalogue-item",
+                        "self": "/content/documents/zdf/serien/the-rookie?profile=catalogue-item",
+                        "canonical": "/content/documents/the-rookie-100.json",
+                        "externalId": "SCMS_59d564e5-825e-4093-95e4-cfd4e9647fdf",
+                        "id": "the-rookie-100",
+                        "title": "The Rookie",
+                        "teasertext": "Ein Mittvierziger wagt den Neustart bei der Polizei von Los Angeles.",
+                        "teaserImageRef": {
+                            "title": "Sendungsteaser - The Rookie",
+                            "altText": "The Rookie",
+                            "source": "ZDF",
+                            "profile": "http://zdf.de/rels/image",
+                            "self": "/content/documents/zdf/serien/the-rookie/sb-material/sendungsteaser-the-rookie-100.json",
+                            "canonical": "/content/documents/sendungsteaser-the-rookie-100.json",
+                            "layouts": {
+                                "1140x120": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~1140x120?cb=1712648454653",
+                                "1140x240": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~1140x240?cb=1712648454653",
+                                "1152x1296": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~1152x1296?cb=1712648454653",
+                                "1200x480": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~1200x480?cb=1712648454653",
+                                "1280x720": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~1280x720?cb=1712648454653",
+                                "1280xauto": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~1280xauto?cb=1712648454653",
+                                "1300x650": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~1300x650?cb=1712648454653",
+                                "1500x300": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~1500x300?cb=1712648454653",
+                                "1500x600": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~1500x600?cb=1712648454653",
+                                "1500x800": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~1500x800?cb=1712648454653",
+                                "1800x720": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~1800x720?cb=1712648454653",
+                                "1900x200": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~1900x200?cb=1712648454653",
+                                "1900x400": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~1900x400?cb=1712648454653",
+                                "1900x570": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~1900x570?cb=1712648454653",
+                                "1920x1080": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~1920x1080?cb=1712648454653",
+                                "225x400": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~225x400?cb=1712648454653",
+                                "2400x1350": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~2400x1350?cb=1712648454653",
+                                "240x270": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~240x270?cb=1712648454653",
+                                "276x155": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~276x155?cb=1712648454653",
+                                "276x311": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~276x311?cb=1712648454653",
+                                "314x314": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~314x314?cb=1712648454653",
+                                "380x170": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~380x170?cb=1712648454653",
+                                "384x216": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~384x216?cb=1712648454653",
+                                "384xauto": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~384xauto?cb=1712648454653",
+                                "405x720": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~405x720?cb=1712648454653",
+                                "640x720": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~640x720?cb=1712648454653",
+                                "760x340": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~760x340?cb=1712648454653",
+                                "768x432": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~768x432?cb=1712648454653",
+                                "768xauto": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~768xauto?cb=1712648454653",
+                                "840x140": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~840x140?cb=1712648454653",
+                                "840x280": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~840x280?cb=1712648454653",
+                                "840x360": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~840x360?cb=1712648454653",
+                                "860x344": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~860x344?cb=1712648454653",
+                                "936x520": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~936x520?cb=1712648454653",
+                                "original": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~original?cb=1712648454653"
+                            }
+                        },
+                        "editorialDate": "2024-04-29T16:47:39.039+02:00",
+                        "publicationDate": "2024-04-29T16:47:39.063+02:00",
+                        "modificationDate": "2024-04-29T16:47:39.063+02:00"
+                    },
+                    "http://zdf.de/rels/cmdm/brand": {
+                        "brandUuid": "65cbe65b-4b52-4bee-a4c6-edae7ade074f",
+                        "brandPrimaryBrandId": "65cbe65b-4b52-4bee-a4c6-edae7ade074f",
+                        "brandName": "The Rookie",
+                        "brandDescription": null,
+                        "brandImdbId": null,
+                        "isAllowModifyOfSeriesAndSeason": true,
+                        "profile": "http://zdf.de/rels/cmdm/brand-shallow",
+                        "self": "/cmdm/brands/65cbe65b-4b52-4bee-a4c6-edae7ade074f?profile=shallow"
+                    },
+                    "profile": "http://zdf.de/rels/cmdm/series-shallow",
+                    "self": "/cmdm/series/bc8f35c6-e48a-4b15-ba44-533a41bc85cd?profile=shallow",
+                    "lastModifier": ""
+                },
+                "http://zdf.de/rels/cmdm/season": {
+                    "seasonUuid": "92a40c07-3bd0-4a0c-a977-9ce960bb7343",
+                    "seasonNumber": 5,
+                    "seasonTitle": "Staffel 5",
+                    "seasonDescription": null,
+                    "seasonImdbId": null,
+                    "seasonEpisodesTotal": 22,
+                    "seasonPremiereYear": 2024,
+                    "seasonFinaleYear": 2024,
+                    "http://zdf.de/rels/cmdm/series": {
+                        "seriesUuid": "bc8f35c6-e48a-4b15-ba44-533a41bc85cd",
+                        "seriesTitle": "The Rookie",
+                        "seriesImdbId": null,
+                        "seriesIndexPageId": "the-rookie-100",
+                        "seriesDescription": null,
+                        "http://zdf.de/rels/content/series-index-page": {
+                            "profile": "http://zdf.de/rels/content/page-index-catalogue-item",
+                            "self": "/content/documents/zdf/serien/the-rookie?profile=catalogue-item",
+                            "canonical": "/content/documents/the-rookie-100.json",
+                            "externalId": "SCMS_59d564e5-825e-4093-95e4-cfd4e9647fdf",
+                            "id": "the-rookie-100",
+                            "title": "The Rookie",
+                            "teasertext": "Ein Mittvierziger wagt den Neustart bei der Polizei von Los Angeles.",
+                            "teaserImageRef": {
+                                "title": "Sendungsteaser - The Rookie",
+                                "altText": "The Rookie",
+                                "source": "ZDF",
+                                "profile": "http://zdf.de/rels/image",
+                                "self": "/content/documents/zdf/serien/the-rookie/sb-material/sendungsteaser-the-rookie-100.json",
+                                "canonical": "/content/documents/sendungsteaser-the-rookie-100.json",
+                                "layouts": {
+                                    "1140x120": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~1140x120?cb=1712648454653",
+                                    "1140x240": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~1140x240?cb=1712648454653",
+                                    "1152x1296": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~1152x1296?cb=1712648454653",
+                                    "1200x480": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~1200x480?cb=1712648454653",
+                                    "1280x720": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~1280x720?cb=1712648454653",
+                                    "1280xauto": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~1280xauto?cb=1712648454653",
+                                    "1300x650": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~1300x650?cb=1712648454653",
+                                    "1500x300": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~1500x300?cb=1712648454653",
+                                    "1500x600": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~1500x600?cb=1712648454653",
+                                    "1500x800": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~1500x800?cb=1712648454653",
+                                    "1800x720": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~1800x720?cb=1712648454653",
+                                    "1900x200": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~1900x200?cb=1712648454653",
+                                    "1900x400": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~1900x400?cb=1712648454653",
+                                    "1900x570": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~1900x570?cb=1712648454653",
+                                    "1920x1080": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~1920x1080?cb=1712648454653",
+                                    "225x400": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~225x400?cb=1712648454653",
+                                    "2400x1350": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~2400x1350?cb=1712648454653",
+                                    "240x270": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~240x270?cb=1712648454653",
+                                    "276x155": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~276x155?cb=1712648454653",
+                                    "276x311": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~276x311?cb=1712648454653",
+                                    "314x314": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~314x314?cb=1712648454653",
+                                    "380x170": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~380x170?cb=1712648454653",
+                                    "384x216": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~384x216?cb=1712648454653",
+                                    "384xauto": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~384xauto?cb=1712648454653",
+                                    "405x720": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~405x720?cb=1712648454653",
+                                    "640x720": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~640x720?cb=1712648454653",
+                                    "760x340": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~760x340?cb=1712648454653",
+                                    "768x432": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~768x432?cb=1712648454653",
+                                    "768xauto": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~768xauto?cb=1712648454653",
+                                    "840x140": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~840x140?cb=1712648454653",
+                                    "840x280": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~840x280?cb=1712648454653",
+                                    "840x360": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~840x360?cb=1712648454653",
+                                    "860x344": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~860x344?cb=1712648454653",
+                                    "936x520": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~936x520?cb=1712648454653",
+                                    "original": "https://www.zdf.de/assets/sendungsteaser-the-rookie-100~original?cb=1712648454653"
+                                }
+                            },
+                            "editorialDate": "2024-04-29T16:47:39.039+02:00",
+                            "publicationDate": "2024-04-29T16:47:39.063+02:00",
+                            "modificationDate": "2024-04-29T16:47:39.063+02:00"
+                        },
+                        "http://zdf.de/rels/cmdm/brand": {
+                            "brandUuid": "65cbe65b-4b52-4bee-a4c6-edae7ade074f",
+                            "brandPrimaryBrandId": "65cbe65b-4b52-4bee-a4c6-edae7ade074f",
+                            "brandName": "The Rookie",
+                            "brandDescription": null,
+                            "brandImdbId": null,
+                            "isAllowModifyOfSeriesAndSeason": true,
+                            "profile": "http://zdf.de/rels/cmdm/brand-shallow",
+                            "self": "/cmdm/brands/65cbe65b-4b52-4bee-a4c6-edae7ade074f?profile=shallow"
+                        },
+                        "profile": "http://zdf.de/rels/cmdm/series-shallow",
+                        "self": "/cmdm/series/bc8f35c6-e48a-4b15-ba44-533a41bc85cd?profile=shallow",
+                        "lastModifier": ""
+                    },
+                    "profile": "http://zdf.de/rels/cmdm/season-shallow",
+                    "self": "/cmdm/seasons/92a40c07-3bd0-4a0c-a977-9ce960bb7343?profile=shallow",
+                    "lastModifier": "PosImport"
+                },
+                "lastModifier": "PosImport",
+                "streamInfo": {
+                    "F1043028": [
+                        {
+                            "basename": "240411_2015_sendung_roo",
+                            "streamUri": "/streams/mtmd/mediathek/240411_2015_sendung_roo",
+                            "status": "visible"
+                        }
+                    ]
+                }
+            },
+            "profile": "http://zdf.de/rels/content-reference/programme-item"
+        }
+    ],
+    "editorial-tag": [
+        {
+            "editorialTagLabel": "Comedy",
+            "editorialTagType": "zdf-attribute",
+            "profile": "http://zdf.de/rels/content/editorial-tag"
+        },
+        {
+            "editorialTagLabel": "Action",
+            "editorialTagType": "zdf-attribute",
+            "profile": "http://zdf.de/rels/content/editorial-tag"
+        },
+        {
+            "editorialTagLabel": "Drama",
+            "editorialTagType": "zdf-attribute",
+            "profile": "http://zdf.de/rels/content/editorial-tag"
+        },
+        {
+            "editorialTagLabel": "Lustig",
+            "editorialTagType": "zdf-mood",
+            "profile": "http://zdf.de/rels/content/editorial-tag"
+        },
+        {
+            "editorialTagLabel": "Spannend",
+            "editorialTagType": "zdf-mood",
+            "profile": "http://zdf.de/rels/content/editorial-tag"
+        },
+        {
+            "editorialTagLabel": "Richard T. Jones",
+            "editorialTagType": "PERSON",
+            "profile": "http://zdf.de/rels/content/editorial-tag"
+        },
+        {
+            "editorialTagLabel": "Alyssa Diaz",
+            "editorialTagType": "PERSON",
+            "profile": "http://zdf.de/rels/content/editorial-tag"
+        },
+        {
+            "editorialTagLabel": "Nathan Fillion",
+            "editorialTagType": "PERSON",
+            "profile": "http://zdf.de/rels/content/editorial-tag"
+        },
+        {
+            "editorialTagLabel": "Los Angeles",
+            "editorialTagType": "PLACE",
+            "profile": "http://zdf.de/rels/content/editorial-tag"
+        },
+        {
+            "editorialTagLabel": "Polizei",
+            "editorialTagType": "undefined",
+            "profile": "http://zdf.de/rels/content/editorial-tag"
+        },
+        {
+            "editorialTagLabel": "Serienmörder",
+            "editorialTagType": "undefined",
+            "profile": "http://zdf.de/rels/content/editorial-tag"
+        }
+    ],
+    "mainVideoContent": {
+        "http://zdf.de/rels/target": {
+            "title": "Der Prozess",
+            "contentType": "episode",
+            "extId": "240411_2015_sendung_roo",
+            "attrs": [
+                ""
+            ],
+            "domain": "mediathek",
+            "duration": 2466,
+            "geoLocation": "de",
+            "fsk": "none",
+            "visible": true,
+            "visibleFrom": "2024-04-11T21:00:00.000+02:00",
+            "visibleTo": "2024-07-07T23:59:00.000+02:00",
+            "isOnlineOnly": false,
+            "isOnlineVersion": false,
+            "aspectRatio": "16:9",
+            "profile": "http://zdf.de/rels/content/content-video-vod-teaser",
+            "self": "/content/documents/zdf/serien/the-rookie/videos/vod-der-prozess-106.json?profile=teaser",
+            "canonical": "/content/documents/vod-der-prozess-106.json",
+            "http://zdf.de/rels/streams/ptmd-template": "/tmd/2/{playerId}/vod/ptmd/mediathek/240411_2015_sendung_roo/2",
+            "streams": {
+                "default": {
+                    "label": "Normal",
+                    "extId": "240411_2015_sendung_roo",
+                    "http://zdf.de/rels/streams/ptmd-template": "/tmd/2/{playerId}/vod/ptmd/mediathek/240411_2015_sendung_roo/2"
+                }
+            }
+        },
+        "profile": "http://zdf.de/rels/content-reference/video-content"
+    }
+}
