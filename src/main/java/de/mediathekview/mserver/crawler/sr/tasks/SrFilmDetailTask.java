@@ -154,7 +154,7 @@ public class SrFilmDetailTask extends AbstractDocumentTask<Film, SrTopicUrlDTO> 
         if (videoInfo.getSubtitleUrl().isPresent()) {
           for (String url : videoInfo.getSubtitleUrl().get()) {
             try {
-              film.addSubtitle(new URL(url));
+              film.addSubtitle(new URL(addMissingProtocol(url)));
             } catch (Exception e) {
               LOG.error("invalid subtitle url {} {}", url, e);
             }
