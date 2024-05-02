@@ -56,6 +56,7 @@ public class M3U8Dto {
         case "288x216":
         case "320x180":
         case "180x320":
+        case "320x176":
         case "320x240":
         case "360x270":
         case "384x288":
