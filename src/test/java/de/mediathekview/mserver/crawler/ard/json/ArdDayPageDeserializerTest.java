@@ -22,35 +22,35 @@ public class ArdDayPageDeserializerTest {
         new ArdFilmInfoDto[] {
           new ArdFilmInfoDto(
               "Y3JpZDovL2hyLW9ubGluZS8xMDE5Nzc",
-              ArdConstants.ITEM_URL + "Y3JpZDovL2hyLW9ubGluZS8xMDE5Nzc",
+              String.format(ArdConstants.ITEM_URL, "Y3JpZDovL2hyLW9ubGluZS8xMDE5Nzc"),
               1),
           new ArdFilmInfoDto(
               "Y3JpZDovL2hyLW9ubGluZS8xMDE5Nzg",
-              ArdConstants.ITEM_URL + "Y3JpZDovL2hyLW9ubGluZS8xMDE5Nzg",
+              String.format(ArdConstants.ITEM_URL, "Y3JpZDovL2hyLW9ubGluZS8xMDE5Nzg"),
               1),
           new ArdFilmInfoDto(
               "Y3JpZDovL2hyLW9ubGluZS8xMDE5ODI",
-              ArdConstants.ITEM_URL + "Y3JpZDovL2hyLW9ubGluZS8xMDE5ODI",
+              String.format(ArdConstants.ITEM_URL, "Y3JpZDovL2hyLW9ubGluZS8xMDE5ODI"),
               1),
           new ArdFilmInfoDto(
               "Y3JpZDovL2hyLW9ubGluZS8xMDE4MjA",
-              ArdConstants.ITEM_URL + "Y3JpZDovL2hyLW9ubGluZS8xMDE4MjA",
+              String.format(ArdConstants.ITEM_URL, "Y3JpZDovL2hyLW9ubGluZS8xMDE4MjA"),
               1),
           new ArdFilmInfoDto(
               "Y3JpZDovL2hyLW9ubGluZS8xMDEyMDM",
-              ArdConstants.ITEM_URL + "Y3JpZDovL2hyLW9ubGluZS8xMDEyMDM",
+              String.format(ArdConstants.ITEM_URL, "Y3JpZDovL2hyLW9ubGluZS8xMDEyMDM"),
               1),
           new ArdFilmInfoDto(
               "Y3JpZDovL2hyLW9ubGluZS8xMDE5OTI",
-              ArdConstants.ITEM_URL + "Y3JpZDovL2hyLW9ubGluZS8xMDE5OTI",
+              String.format(ArdConstants.ITEM_URL, "Y3JpZDovL2hyLW9ubGluZS8xMDE5OTI"),
               7),
           new ArdFilmInfoDto(
               "Y3JpZDovL2hyLW9ubGluZS8xMDE5NzI",
-              ArdConstants.ITEM_URL + "Y3JpZDovL2hyLW9ubGluZS8xMDE5NzI",
+              String.format(ArdConstants.ITEM_URL, "Y3JpZDovL2hyLW9ubGluZS8xMDE5NzI"),
               1),
           new ArdFilmInfoDto(
               "Y3JpZDovL2hyLW9ubGluZS8xMDE5NzE",
-              ArdConstants.ITEM_URL + "Y3JpZDovL2hyLW9ubGluZS8xMDE5NzE",
+              String.format(ArdConstants.ITEM_URL, "Y3JpZDovL2hyLW9ubGluZS8xMDE5NzE"),
               1)
         };
 
