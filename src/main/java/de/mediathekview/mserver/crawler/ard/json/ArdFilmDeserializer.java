@@ -164,22 +164,13 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
     final Optional<LocalDateTime> date = parseDate(itemObject);
     final Optional<Duration> duration = parseDuration(itemObject);
     final Sender sender = determinePartner(itemObject);
-    final Optional<ArdVideoInfoDto> videoInfoStandard = parseVideoUrls(itemObject, "standard", "video/mp4");
-    final Optional<ArdVideoInfoDto> videoInfoAdaptive = parseVideoUrls(itemObject, "standard", "application/vnd.apple.mpegurl");
-    final Optional<ArdVideoInfoDto> videoInfoAD = parseVideoUrls(itemObject, "standard", "audio-description");
-    //final Optional<ArdVideoInfoDto> videoInfoDGS = parseVideoUrls(itemObject, "standard", "sign-language");
-    // FUNK provides adaptive only
-    Optional<ArdVideoInfoDto> videoInfo = videoInfoStandard;
-    if (videoInfoStandard.isEmpty() && videoInfoAD.isEmpty()) {
-      videoInfo = fallbackToM3U(videoInfoAdaptive);
+    final Optional<ArdVideoInfoDto> videoInfo = parseVideos(itemObject, title);
+
+    if (title.isEmpty() || topic.isEmpty() || videoInfo.isEmpty()) {
+      return films;
     }
-    
-    
-    if (topic.isPresent()
-        && title.isPresent()
-        && videoInfo.isPresent()
-        && videoInfo.get().getVideoUrls().size() > 0) {
-      videoInfo.get().setSubtitleUrl(prepareSubtitleUrl(itemObject));
+    // normal
+    if (videoInfo.isPresent()) {
       // add film to ARD
       final ArdFilmDto filmDto =
           new ArdFilmDto(
@@ -191,47 +182,26 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
                   date.orElse(null),
                   duration.orElse(null),
                   videoInfo.get()));
-      films.add(filmDto);
-      //
       if (widgets.size() > 1) {
         parseRelatedFilms(filmDto, widgets.get(1).getAsJsonObject());
       }
-      //
-      if (topic.isPresent()
-          && title.isPresent()
-          && videoInfoAD.isPresent()
-          && videoInfoAD.get().getVideoUrls().size() > 0) {
-        videoInfoAD.get().setSubtitleUrl(prepareSubtitleUrl(itemObject));
-        // add film to ARD
-        final ArdFilmDto filmDtoAD =
-            new ArdFilmDto(
-                createFilm(
-                    sender,
-                    topic.get(),
-                    title.get(),
-                    description.orElse(null),
-                    date.orElse(null),
-                    duration.orElse(null),
-                    videoInfo.get()));
-        films.add(filmDtoAD);
-      }
-    } else {
-      LOG.debug("No title, topic or video found for {} {} {} ", title, topic, sender);
+      films.add(filmDto);
     }
-
+    
     return films;
   }
   
-  private Optional<ArdVideoInfoDto> fallbackToM3U(Optional<ArdVideoInfoDto> m3u) {
+  private Optional<Map<Resolution, String>> fallbackToM3U(Optional<ArdVideoInfoDto> m3u) {
     // FUNK provides adaptive only
-    if (m3u.isPresent() && m3u.get().containsResolution(Resolution.NORMAL)) {
+    if (m3u.isPresent() && !m3u.get().getVideoUrls().isEmpty()) {
+      String m3uUrl = m3u.get().getVideoUrls().values().toArray(new String[1])[0];
       Map<Resolution, URL> resolutionUrlMapFromM3U;
       try {
-        resolutionUrlMapFromM3U = videoDeserializer.loadM3U8(new URL(m3u.get().getVideoUrls().get(Resolution.NORMAL)));
+        resolutionUrlMapFromM3U = videoDeserializer.loadM3U8(new URL(m3uUrl));
         if (resolutionUrlMapFromM3U.size() > 0) {
-          ArdVideoInfoDto newVideoInfo = new ArdVideoInfoDto();
-          resolutionUrlMapFromM3U.forEach((key, value) -> newVideoInfo.put(key, value.toString()));
-          return Optional.of(newVideoInfo);
+          Map<Resolution, String> newUrls = new EnumMap<>(Resolution.class);
+          resolutionUrlMapFromM3U.forEach((key, value) -> newUrls.put(key, value.toString()));
+          return Optional.of(newUrls);
         }
       } catch (MalformedURLException e) {
         // TODO Auto-generated catch block
@@ -318,8 +288,9 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
 
     Optional.ofNullable(description).ifPresent(film::setBeschreibung);
 
-    film.setGeoLocations(
-        GeoLocationGuesser.getGeoLocations(Sender.ARD, videoInfo.getDefaultVideoUrl()));
+    
+    film.setGeoLocations(GeoLocationGuesser.getGeoLocations(Sender.ARD, videoInfo.getDefaultVideoUrl()));
+    
     if (videoInfo.getSubtitleUrl().isPresent()) {
       for (String subtitleUrl : videoInfo.getSubtitleUrl().get()) {
         try {
@@ -336,6 +307,8 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
       }
     }
     addUrls(film, videoInfo.getVideoUrls());
+    addADUrls(film, videoInfo.getVideoUrlsAD());
+    addDGSUrls(film, videoInfo.getVideoUrlsDGS());
 
     return film;
   }
@@ -350,34 +323,96 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
       }
     }
   }
+  
+  private void addADUrls(final Film film, final Map<Resolution, String> videoUrls) {
+    for (final Map.Entry<Resolution, String> qualitiesEntry : videoUrls.entrySet()) {
+      final String url = qualitiesEntry.getValue();
+      try {
+        film.addAudioDescription(qualitiesEntry.getKey(), new FilmUrl(url, crawler.determineFileSizeInKB(url)));
+      } catch (final MalformedURLException ex) {
+        LOG.error("InvalidUrl AD: {}", url, ex);
+      }
+    }
+  }
+  
+  private void addDGSUrls(final Film film, final Map<Resolution, String> videoUrls) {
+    for (final Map.Entry<Resolution, String> qualitiesEntry : videoUrls.entrySet()) {
+      final String url = qualitiesEntry.getValue();
+      try {
+        film.addSignLanguage(qualitiesEntry.getKey(), new FilmUrl(url, crawler.determineFileSizeInKB(url)));
+      } catch (final MalformedURLException ex) {
+        LOG.error("InvalidUrl AD: {}", url, ex);
+      }
+    }
+  }
+  
+  private Optional<ArdVideoInfoDto> parseVideos(final JsonObject playerPageObject, Optional<String> title) {
+    ArdVideoInfoDto allVideoUrls = new ArdVideoInfoDto();
+    //
+    final Optional<Map<Resolution, String>> videoInfoStandard = parseVideoUrls(playerPageObject, "main", "standard", "video/mp4");
+    final Optional<Map<Resolution, String>> videoInfoAdaptive = parseVideoUrls(playerPageObject, "main", "standard", "application/vnd.apple.mpegurl");
+    final Optional<Map<Resolution, String>> videoInfoAD = parseVideoUrls(playerPageObject, "main", "audio-description", "video/mp4");
+    final Optional<Map<Resolution, String>> videoInfoDGS = parseVideoUrls(playerPageObject, "sign-language", "standard", "video/mp4");
+    final Optional<Set<String>> subtitles = prepareSubtitleUrl(playerPageObject);
+    //
+    if (subtitles.isPresent()) {
+      allVideoUrls.setSubtitleUrl(subtitles);
+    }
+    if (videoInfoAD.isPresent()) {
+      allVideoUrls.putAllAD(videoInfoAD.get());
+    }
+    if (videoInfoDGS.isPresent()) {
+      allVideoUrls.putAllDGS(videoInfoDGS.get());
+    }
+    if (videoInfoStandard.isPresent()) {
+      allVideoUrls.putAll(videoInfoStandard.get());
+    } else if (videoInfoAdaptive.isPresent()) {
+      ArdVideoInfoDto fallbackM3UUrl = new ArdVideoInfoDto();
+      fallbackM3UUrl.putAll(videoInfoAdaptive.get());
+      Optional<Map<Resolution, String>> fallback = fallbackToM3U(Optional.of(fallbackM3UUrl));
+      if (fallback.isPresent()) {
+        allVideoUrls.putAll(fallback.get());
+      }
+    }
+    if (allVideoUrls.getVideoUrls().isEmpty() && allVideoUrls.getVideoUrlsAD().isEmpty() && allVideoUrls.getVideoUrlsDGS().isEmpty() ) {
+      return Optional.empty();
+    }    
+    return Optional.of(allVideoUrls);
+  }
 
-  private Optional<ArdVideoInfoDto> parseVideoUrls(final JsonObject playerPageObject, String videoType, String mimeType) {
+  private Optional<Map<Resolution, String>> parseVideoUrls(final JsonObject playerPageObject, String streamType, String aduioType, String mimeType) {
     final Optional<JsonObject> mediaCollectionObject = getMediaCollectionObject(playerPageObject);
     if (mediaCollectionObject.isEmpty())
       return Optional.empty();
     final Optional<JsonElement> streams = JsonUtils.getElement(mediaCollectionObject.get(), ELEMENT_STREAMS);
     if (streams.isEmpty() || !streams.get().isJsonArray() || (streams.get().getAsJsonArray().size() == 0))
       return Optional.empty();
-    final Optional<JsonElement> media = JsonUtils.getElement(streams.get().getAsJsonArray().get(0), ELEMENT_MEDIA);
-    if (media.isEmpty() || !media.get().isJsonArray() || (media.get().getAsJsonArray().size() == 0))
-      return Optional.empty();
-    ArdVideoInfoDto videoInfo = new ArdVideoInfoDto();
-    for (JsonElement video : media.get().getAsJsonArray()) {
-      Optional<String> mime = JsonUtils.getElementValueAsString(video, ATTRIBUTE_MIME);
-      if (mime.isPresent() && mime.get().equalsIgnoreCase(mimeType)) {
-        Optional<JsonElement> audios = JsonUtils.getElement(video, ELEMENT_AUDIO);
-        if (audios.isPresent() && audios.get().isJsonArray() && audios.get().getAsJsonArray().size() > 0) {
-          Optional<String> kind = JsonUtils.getElementValueAsString(audios.get().getAsJsonArray().get(0), ATTRIBUTE_KIND);
-          Optional<String> res_h = JsonUtils.getElementValueAsString(video, ATTRIBUTE_RESOLUTION_H);
-          Optional<String> url = JsonUtils.getElementValueAsString(video, ATTRIBUTE_URL);
-          if (url.isPresent() && res_h.isPresent() && kind.isPresent() && kind.get().equalsIgnoreCase(videoType)) {
-            Resolution resolution = Resolution.getResolutionFromWidth(Integer.parseInt(res_h.get()));
-            videoInfo.put(resolution, url.get());
+    //
+    Map<Resolution, String> videoInfo = new EnumMap<>(Resolution.class);
+    for (JsonElement streamsCategory : streams.get().getAsJsonArray()) {
+      final Optional<String> streamKind = JsonUtils.getElementValueAsString(streamsCategory, ATTRIBUTE_KIND);
+      final Optional<JsonElement> media = JsonUtils.getElement(streamsCategory, ELEMENT_MEDIA);
+      if (media.isEmpty() || !media.get().isJsonArray() || (media.get().getAsJsonArray().size() == 0))
+        return Optional.empty();
+      if (streamKind.orElse("").equalsIgnoreCase(streamType)) {
+        for (JsonElement video : media.get().getAsJsonArray()) {
+          Optional<String> mime = JsonUtils.getElementValueAsString(video, ATTRIBUTE_MIME);
+          if (mime.isPresent() && mime.get().equalsIgnoreCase(mimeType)) {
+            Optional<JsonElement> audios = JsonUtils.getElement(video, ELEMENT_AUDIO);
+            if (audios.isPresent() && audios.get().isJsonArray() && audios.get().getAsJsonArray().size() > 0) {
+              Optional<String> kind = JsonUtils.getElementValueAsString(audios.get().getAsJsonArray().get(0), ATTRIBUTE_KIND);
+              Optional<String> res_h = JsonUtils.getElementValueAsString(video, ATTRIBUTE_RESOLUTION_H);
+              Optional<String> url = JsonUtils.getElementValueAsString(video, ATTRIBUTE_URL);
+              if (url.isPresent() && res_h.isPresent() && kind.isPresent() && kind.get().equalsIgnoreCase(aduioType)) {
+                Resolution resolution = Resolution.getResolutionFromWidth(Integer.parseInt(res_h.get()));
+                videoInfo.put(resolution, url.get());
+              }
+            }
           }
         }
       }
     }
-    if (videoInfo.getVideoUrls().size() > 0) {
+    if (videoInfo.size() > 0) {
       return Optional.of(videoInfo);
     } else {
       return Optional.empty();

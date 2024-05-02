@@ -1,0 +1,541 @@
+{
+  "coreAssetType": "EPISODE",
+  "fskRating": "NONE",
+  "id": "player_ondemand-page-ard",
+  "isChildContent": false,
+  "personalized": false,
+  "links": {
+    "self": {
+      "id": "player_ondemand-page-ard",
+      "urlId": "player_ondemand-page-ard",
+      "title": "tagesschau 11:10 Uhr, 01.05.2024",
+      "href": "https://api.ardmediathek.de/page-gateway/pages/ard/item/Y3JpZDovL3RhZ2Vzc2NoYXUuZGUvYTJhZTNhNGYtNmE1NS00ZmQ1LTlkOWUtZDEwMTJjOTNiYTBjX2dhbnplU2VuZHVuZw?embedded=true&mcV6=true",
+      "type": "application/vnd.ard.page+json",
+      "partner": "ard"
+    }
+  },
+  "title": "tagesschau 11:10 Uhr, 01.05.2024",
+  "tracking": {
+    "aggregationLevelId": 38,
+    "atiCustomVars": {
+      "clipTitle": "tagesschau 11:10 Uhr, 01.05.2024",
+      "mediaType": "video",
+      "lra": "Das Erste",
+      "channel": "Das Erste",
+      "show": "tagesschau",
+      "contentTypes": "UT",
+      "mediaDistributionType": 1,
+      "contentId": 13364999,
+      "metadataId": "crid://tagesschau.de/a2ae3a4f-6a55-4fd5-9d9e-d1012c93ba0c_ganzeSendung",
+      "clipLength": 306
+    },
+    "chapter2": "Player",
+    "chapter3": "tagesschau",
+    "environmentId": 511893,
+    "pageTitle": "Mediathek/Player/tagesschau/tagesschau 11:10 Uhr, 01.05.2024/13364999/20240501_0910",
+    "szmType": "CP"
+  },
+  "trackingPiano": {
+    "page_chapter1": "Player",
+    "page_content_id": "urn:ard:publication:056362c04b1adc91",
+    "page_content_title": "tagesschau 11:10 Uhr, 01.05.2024",
+    "page_id": "player_ondemand-page-ard",
+    "page_institution": "Das Erste",
+    "page_institution_id": "urn:ard:institution:59ccb6ea77d75af5",
+    "page_publisher": "Das Erste",
+    "page_publisher_id": "urn:ard:publisher:a42e4291cd9eaf0b",
+    "page_show": "tagesschau",
+    "page_show_id": "urn:ard:show:5b43cccc3d987b41",
+    "page_title": "tagesschau 11:10 Uhr, 01.05.2024",
+    "site": "634408"
+  },
+  "widgets": [
+    {
+      "availableTo": "2024-05-08T09:23:08.362Z",
+      "binaryFeatures": [
+        "UT"
+      ],
+      "blockedByFsk": false,
+      "broadcastedOn": "2024-05-01T09:10:00Z",
+      "embeddable": true,
+      "geoblocked": false,
+      "id": "Y3JpZDovL3RhZ2Vzc2NoYXUuZGUvYTJhZTNhNGYtNmE1NS00ZmQ1LTlkOWUtZDEwMTJjOTNiYTBjX2dhbnplU2VuZHVuZw",
+      "image": {
+        "alt": "Sendungsbild",
+        "producerName": "ARD-aktuell",
+        "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:bbd68d148bf21f20?w={width}&ch=cd3e7e52a4a157d5",
+        "title": "Sendungsbild"
+      },
+      "isChildContent": false,
+      "maturityContentRating": "NONE",
+      "mediaCollection": {
+        "embedded": {
+          "isGeoBlocked": false,
+          "meta": {
+            "availableToDateTime": "2024-05-08T09:23:08.362Z",
+            "broadcastedOnDateTime": "2024-05-01T09:10:00Z",
+            "clipSourceName": "Das Erste",
+            "durationSeconds": 306,
+            "images": [
+              {
+                "alt": "Sendungsbild",
+                "aspectRatio": "16x9",
+                "imageSourceName": "ARD-aktuell",
+                "kind": "preview",
+                "title": "Sendungsbild",
+                "url": "https://api.ardmediathek.de/image-service/images/urn:ard:image:bbd68d148bf21f20?w=960&ch=cd3e7e52a4a157d5"
+              }
+            ],
+            "publicationService": {
+              "id": "ard",
+              "name": "Das Erste",
+              "partner": "daserste"
+            },
+            "seriesTitle": "tagesschau",
+            "synopsis": "Bundesweit Kundgebungen zum Tag der Arbeit für bessere Arbeitsbedingungen, Bereits erste Demonstrationen in Berlin und Hamburg, Polizei in Georgiens Hauptstadt Tiflis geht massiv gegen pro-europäische Demonstranten vor, US-Einsatzkräfte räumen mit Großaufgebot besetztes Gebäude der Columbia Universität in New York, US-Bestsellerautor Paul Auster stirbt im Alter von 77 Jahren, Walpurgisnacht im Harz, Das Wetter",
+            "title": "tagesschau 11:10 Uhr, 01.05.2024"
+          },
+          "pluginData": {
+            "recommendation@all": {
+              "isAutoplay": true,
+              "timerSeconds": 10,
+              "url": "https://api.ardmediathek.de/page-gateway/compilations/ard/recommendations?contextItemId=Y3JpZDovL3RhZ2Vzc2NoYXUuZGUvYTJhZTNhNGYtNmE1NS00ZmQ1LTlkOWUtZDEwMTJjOTNiYTBjX2dhbnplU2VuZHVuZw"
+            },
+            "trackingAgf@all": {
+              "appId": "PA02DC09C-B8D3-4098-87D2-2C023682D6D5",
+              "clipData": {
+                "assetid": "13364999",
+                "length": "306",
+                "nol_c0": "p0,0",
+                "nol_c10": "p10,Das Erste",
+                "nol_c12": "p12,Content",
+                "nol_c15": "p15,X005417917",
+                "nol_c16": "p16,ARD_Information",
+                "nol_c18": "p18,N",
+                "nol_c19": "p19,Das Erste",
+                "nol_c2": "p2,N",
+                "nol_c5": "p5,ARD Mediathek",
+                "nol_c7": "p7,crid://tagesschau.de/a2ae3a4f-6a55-4fd5-9d9e-d1012c93ba0c_ganzeSendung",
+                "nol_c8": "p8,306",
+                "nol_c9": "p9,tagesschau_tagesschau 11:10 Uhr, 01.05.2024_01.05.2024 09:10",
+                "program": "tagesschau",
+                "title": "Das Erste_tagesschau_tagesschau 11:10 Uhr, 01.05.2024_01.05.2024 09:10",
+                "type": "content"
+              },
+              "tracker": "AGF"
+            },
+            "trackingAti@all": {
+              "config": {
+                "site": 511893
+              },
+              "isEnabled": true,
+              "richMedia": {
+                "broadcastMode": "clip",
+                "duration": "306",
+                "mediaLabel": "tagesschau 11:10 Uhr, 01.05.2024__13364999__UT",
+                "mediaLevel2": "{richMediaLevelTwo}",
+                "mediaTheme1": "Das Erste",
+                "mediaTheme2": "Das Erste",
+                "mediaTheme3": "tagesschau",
+                "mediaType": "video",
+                "playerId": "urn:ard:publication:056362c04b1adc91",
+                "refreshDuration": {
+                  "0": 5,
+                  "1": 12,
+                  "12": 15,
+                  "18": 30
+                }
+              },
+              "tracker": "ATI"
+            },
+            "trackingPiano@all": {
+              "avContent": {
+                "av_broadcasting_type": "OnDemand",
+                "av_content": "tagesschau 11:10 Uhr, 01.05.2024",
+                "av_content_duration": 306000,
+                "av_content_id": "urn:ard:publication:056362c04b1adc91",
+                "av_content_type": "video",
+                "av_institution": "Das Erste",
+                "av_institution_id": "urn:ard:institution:59ccb6ea77d75af5",
+                "av_publisher": "Das Erste",
+                "av_publisher_id": "urn:ard:publisher:a42e4291cd9eaf0b",
+                "av_show": "tagesschau",
+                "av_show_id": "urn:ard:show:5b43cccc3d987b41"
+              },
+              "config": {
+                "events": [
+                  "av.error",
+                  "av.speed",
+                  "av.quality",
+                  "av.jumpmark",
+                  "av.share",
+                  "av.playermode",
+                  "av.subtitle",
+                  "av.language",
+                  "av.audiodescription",
+                  "av.signlanguage",
+                  "av.volume.mute",
+                  "av.recommendation"
+                ],
+                "site": 634408
+              },
+              "isEnabled": true
+            }
+          },
+          "streams": [
+            {
+              "kind": "main",
+              "kindName": "Normal",
+              "media": [
+                {
+                  "aspectRatio": "16:9",
+                  "audios": [
+                    {
+                      "kind": "standard",
+                      "languageCode": "deu"
+                    }
+                  ],
+                  "forcedLabel": "SD 480p",
+                  "hasEmbeddedSubtitles": false,
+                  "isAdaptiveQualitySelectable": false,
+                  "isHighDynamicRange": false,
+                  "maxHResolutionPx": 960,
+                  "maxVResolutionPx": 540,
+                  "mimeType": "video/mp4",
+                  "subtitles": [],
+                  "url": "https://media.tagesschau.de/video/2024/0501/TV-20240501-1117-3700.webl.h264.mp4",
+                  "videoCodec": "H.264"
+                },
+                {
+                  "aspectRatio": "16:9",
+                  "audios": [
+                    {
+                      "kind": "standard",
+                      "languageCode": "deu"
+                    }
+                  ],
+                  "forcedLabel": "SD",
+                  "hasEmbeddedSubtitles": false,
+                  "isAdaptiveQualitySelectable": false,
+                  "isHighDynamicRange": false,
+                  "maxHResolutionPx": 640,
+                  "maxVResolutionPx": 360,
+                  "mimeType": "video/mp4",
+                  "subtitles": [],
+                  "url": "https://media.tagesschau.de/video/2024/0501/TV-20240501-1117-3700.webm.h264.mp4",
+                  "videoCodec": "H.264"
+                },
+                {
+                  "aspectRatio": "16:9",
+                  "audios": [
+                    {
+                      "kind": "standard",
+                      "languageCode": "deu"
+                    }
+                  ],
+                  "forcedLabel": "Full HD",
+                  "hasEmbeddedSubtitles": false,
+                  "isAdaptiveQualitySelectable": false,
+                  "isHighDynamicRange": false,
+                  "maxHResolutionPx": 1920,
+                  "maxVResolutionPx": 1080,
+                  "mimeType": "video/mp4",
+                  "subtitles": [],
+                  "url": "https://media.tagesschau.de/video/2024/0501/TV-20240501-1117-3700.webxxl.h264.mp4",
+                  "videoCodec": "H.264"
+                },
+                {
+                  "aspectRatio": "16:9",
+                  "audios": [
+                    {
+                      "kind": "standard",
+                      "languageCode": "deu"
+                    }
+                  ],
+                  "forcedLabel": "Auto",
+                  "hasEmbeddedSubtitles": false,
+                  "isAdaptiveQualitySelectable": false,
+                  "isHighDynamicRange": false,
+                  "maxHResolutionPx": 1920,
+                  "maxVResolutionPx": 1080,
+                  "mimeType": "application/vnd.apple.mpegurl",
+                  "subtitles": [],
+                  "url": "https://adaptive.tagesschau.de/i/video/2024/0501/TV-20240501-1117-3700,.webm.h264.mp4,.webxxl.h264.mp4,.webxl.h264.mp4,.webl.h264.mp4,.webs.h264.mp4,.csmil/master.m3u8",
+                  "videoCodec": "H.264"
+                },
+                {
+                  "aspectRatio": "16:9",
+                  "audios": [
+                    {
+                      "kind": "standard",
+                      "languageCode": "deu"
+                    }
+                  ],
+                  "forcedLabel": "HD Ready",
+                  "hasEmbeddedSubtitles": false,
+                  "isAdaptiveQualitySelectable": false,
+                  "isHighDynamicRange": false,
+                  "maxHResolutionPx": 1280,
+                  "maxVResolutionPx": 720,
+                  "mimeType": "video/mp4",
+                  "subtitles": [],
+                  "url": "https://media.tagesschau.de/video/2024/0501/TV-20240501-1117-3700.webxl.h264.mp4",
+                  "videoCodec": "H.264"
+                }
+              ],
+              "videoLanguageCode": ""
+            }
+          ],
+          "subtitles": [
+            {
+              "kind": "normal",
+              "languageCode": "deu",
+              "sources": [
+                {
+                  "kind": "ebutt",
+                  "url": "https://api.ardmediathek.de/player-service/subtitle/ebutt/urn:ard:subtitle:c09c9cee3bf53db8"
+                },
+                {
+                  "kind": "webvtt",
+                  "url": "https://api.ardmediathek.de/player-service/subtitle/webvtt/urn:ard:subtitle:c09c9cee3bf53db8.vtt"
+                }
+              ]
+            }
+          ]
+        },
+        "href": "https://api.ardmediathek.de/page-gateway/mediacollectionv6/Y3JpZDovL3RhZ2Vzc2NoYXUuZGUvYTJhZTNhNGYtNmE1NS00ZmQ1LTlkOWUtZDEwMTJjOTNiYTBjX2dhbnplU2VuZHVuZw?isTv=false"
+      },
+      "pagination": null,
+      "personalized": false,
+      "playerConfig": null,
+      "publicationService": {
+        "name": "Das Erste",
+        "logo": {
+          "title": "Logo Das Erste",
+          "alt": "Logo Das Erste",
+          "producerName": "Logo Das Erste",
+          "src": "https://api.ardmediathek.de/image-service/image-collections/urn:ard:image-collection:2213972a8d101de1/16x9?w={width}",
+          "aspectRatio": "16x9"
+        },
+        "publisherType": "TV",
+        "partner": "das_erste",
+        "id": "b3JnYW5pemF0aW9uX0RhcyBFcnN0ZQ",
+        "coreId": "urn:ard:publisher:a42e4291cd9eaf0b"
+      },
+      "links": {
+        "self": {
+          "id": "player_on_demand_widget_ard",
+          "urlId": "player_on_demand_widget_ard",
+          "title": "tagesschau 11:10 Uhr, 01.05.2024",
+          "href": "https://api.ardmediathek.de/page-gateway/widgets/ard/editorials/player_on_demand_widget_ard/item/Y3JpZDovL3RhZ2Vzc2NoYXUuZGUvYTJhZTNhNGYtNmE1NS00ZmQ1LTlkOWUtZDEwMTJjOTNiYTBjX2dhbnplU2VuZHVuZw?pageNumber=0&pageSize=100&embedded=true&mcV6=true",
+          "type": "application/vnd.ard.widget+json",
+          "partner": "ard"
+        }
+      },
+      "show": {
+        "id": "Y3JpZDovL2Rhc2Vyc3RlLmRlL3RhZ2Vzc2NoYXU",
+        "title": "tagesschau",
+        "image": {
+          "alt": "Sendungsbild der tagesschau",
+          "producerName": "ARD-aktuell",
+          "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:c94583f063e6f8c0?w={width}&ch=4c0812e9bf3625ec",
+          "title": "Sendungsbild der tagesschau"
+        },
+        "availableSeasons": null,
+        "binaryFeatures": [
+          "UT"
+        ],
+        "coreAssetType": "INFINITE_SERIES"
+      },
+      "synopsis": "Bundesweit Kundgebungen zum Tag der Arbeit für bessere Arbeitsbedingungen, Bereits erste Demonstrationen in Berlin und Hamburg, Polizei in Georgiens Hauptstadt Tiflis geht massiv gegen pro-europäische Demonstranten vor, US-Einsatzkräfte räumen mit Großaufgebot besetztes Gebäude der Columbia Universität in New York, US-Bestsellerautor Paul Auster stirbt im Alter von 77 Jahren, Walpurgisnacht im Harz, Das Wetter",
+      "title": "tagesschau 11:10 Uhr, 01.05.2024",
+      "trackingPiano": {
+        "teaser_recommended": false,
+        "widget_id": "player_on_demand_widget_ard",
+        "widget_title": "tagesschau 11:10 Uhr, 01.05.2024",
+        "widget_typ": "player_ondemand"
+      },
+      "type": "player_ondemand"
+    },
+    {
+      "aZContent": false,
+      "compilationType": "itemsOfShow",
+      "id": "Y3JpZDovL2Rhc2Vyc3RlLmRlL3RhZ2Vzc2NoYXU",
+      "isChildContent": false,
+      "pagination": {
+        "pageNumber": 0,
+        "pageSize": 24,
+        "totalElements": 3872
+      },
+      "personalized": false,
+      "links": {
+        "self": {
+          "id": "Y3JpZDovL2Rhc2Vyc3RlLmRlL3RhZ2Vzc2NoYXU",
+          "urlId": "Y3JpZDovL2Rhc2Vyc3RlLmRlL3RhZ2Vzc2NoYXU",
+          "title": "tagesschau",
+          "href": "https://api.ardmediathek.de/page-gateway/widgets/ard/asset/Y3JpZDovL2Rhc2Vyc3RlLmRlL3RhZ2Vzc2NoYXU?excludedAssetIds=Y3JpZDovL3RhZ2Vzc2NoYXUuZGUvYTJhZTNhNGYtNmE1NS00ZmQ1LTlkOWUtZDEwMTJjOTNiYTBjX2dhbnplU2VuZHVuZw&pageNumber=0&pageSize=24&embedded=true&seasoned=false&seasonNumber=&withAudiodescription=false&withOriginalWithSubtitle=false&withOriginalversion=false&single=false",
+          "type": "application/vnd.ard.widget+json",
+          "partner": "ard"
+        }
+      },
+      "size": "m",
+      "swipeable": true,
+      "teasers": [
+        {
+          "availableTo": null,
+          "binaryFeatures": [
+            "UT"
+          ],
+          "broadcastedOn": "2024-05-01T18:00:00Z",
+          "coreAssetType": "EPISODE",
+          "duration": 954,
+          "id": "Y3JpZDovL3RhZ2Vzc2NoYXUuZGUvNTBjOTc0OGUtMTIwYi00MjllLWI2ODEtZTkyMTY5ODEyNGI0X2dhbnplU2VuZHVuZw",
+          "images": {
+            "aspect16x9": {
+              "alt": "Sendungsbild",
+              "producerName": "ARD-aktuell",
+              "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:6ce58d3a4a18673c?w={width}&ch=9cff9f17e67f6fa5",
+              "title": "Sendungsbild"
+            },
+            "aspect16x7": {
+              "alt": "Sendungsbild",
+              "producerName": "ARD-aktuell",
+              "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:ff55a704af948fe8?w={width}&ch=50da2deaaf8d1564",
+              "title": "Sendungsbild"
+            },
+            "aspect1x1": {
+              "alt": "Sendungsbild",
+              "producerName": "ARD-aktuell",
+              "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:f4843e5441d099aa?w={width}&ch=7531657e1b605e1d",
+              "title": "Sendungsbild"
+            }
+          },
+          "isChildContent": false,
+          "longTitle": "tagesschau 20:00 Uhr, 01.05.2024",
+          "maturityContentRating": "NONE",
+          "mediumTitle": "tagesschau 20:00 Uhr, 01.05.2024",
+          "personalized": false,
+          "playtime": null,
+          "publicationService": {
+            "name": "Das Erste",
+            "logo": {
+              "title": "Logo Das Erste",
+              "alt": "Logo Das Erste",
+              "producerName": "Logo Das Erste",
+              "src": "https://api.ardmediathek.de/image-service/image-collections/urn:ard:image-collection:2213972a8d101de1/16x9?w={width}",
+              "aspectRatio": "16x9"
+            },
+            "publisherType": "TV",
+            "partner": "das_erste",
+            "id": "b3JnYW5pemF0aW9uX0RhcyBFcnN0ZQ",
+            "coreId": "urn:ard:publisher:a42e4291cd9eaf0b"
+          },
+          "links": {
+            "self": {
+              "id": "Y3JpZDovL3RhZ2Vzc2NoYXUuZGUvNTBjOTc0OGUtMTIwYi00MjllLWI2ODEtZTkyMTY5ODEyNGI0X2dhbnplU2VuZHVuZw",
+              "urlId": "Y3JpZDovL3RhZ2Vzc2NoYXUuZGUvNTBjOTc0OGUtMTIwYi00MjllLWI2ODEtZTkyMTY5ODEyNGI0X2dhbnplU2VuZHVuZw",
+              "title": "tagesschau 20:00 Uhr, 01.05.2024",
+              "href": "https://api.ardmediathek.de/page-gateway/teasers/ard/items/Y3JpZDovL3RhZ2Vzc2NoYXUuZGUvNTBjOTc0OGUtMTIwYi00MjllLWI2ODEtZTkyMTY5ODEyNGI0X2dhbnplU2VuZHVuZw",
+              "type": "application/vnd.ard.teaser+json",
+              "partner": "ard"
+            },
+            "target": {
+              "id": "Y3JpZDovL3RhZ2Vzc2NoYXUuZGUvNTBjOTc0OGUtMTIwYi00MjllLWI2ODEtZTkyMTY5ODEyNGI0X2dhbnplU2VuZHVuZw",
+              "urlId": "Y3JpZDovL3RhZ2Vzc2NoYXUuZGUvNTBjOTc0OGUtMTIwYi00MjllLWI2ODEtZTkyMTY5ODEyNGI0X2dhbnplU2VuZHVuZw",
+              "title": "tagesschau 20:00 Uhr, 01.05.2024",
+              "href": "https://api.ardmediathek.de/page-gateway/pages/ard/item/Y3JpZDovL3RhZ2Vzc2NoYXUuZGUvNTBjOTc0OGUtMTIwYi00MjllLWI2ODEtZTkyMTY5ODEyNGI0X2dhbnplU2VuZHVuZw?devicetype=pc&embedded=true",
+              "type": "application/vnd.ard.page+json",
+              "partner": "ard"
+            }
+          },
+          "shortTitle": "tagesschau 20:00 Uhr, 01.05.2024",
+          "show": {
+            "id": "crid://daserste.de/tagesschau",
+            "coremediaId": 4326,
+            "title": "tagesschau",
+            "publisher": {
+              "name": "Das Erste",
+              "logo": {
+                "title": "Logo Das Erste",
+                "alt": "Logo Das Erste",
+                "producerName": "Logo Das Erste",
+                "src": "https://api.ardmediathek.de/image-service/image-collections/urn:ard:image-collection:2213972a8d101de1/16x9?w={width}",
+                "aspectRatio": "16x9"
+              },
+              "publisherType": "TV",
+              "partner": "das_erste",
+              "id": "b3JnYW5pemF0aW9uX0RhcyBFcnN0ZQ",
+              "coreId": "urn:ard:publisher:a42e4291cd9eaf0b"
+            },
+            "self": null,
+            "images": {
+              "16x9": {
+                "title": "Sendungsbild der tagesschau",
+                "alt": "Sendungsbild der tagesschau",
+                "producerName": "ARD-aktuell",
+                "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:c94583f063e6f8c0?w={width}&ch=4c0812e9bf3625ec",
+                "aspectRatio": "16x9"
+              },
+              "16x7": {
+                "title": "Sendungsbild der tagesschau",
+                "alt": "Sendungsbild der tagesschau",
+                "producerName": "ARD-aktuell",
+                "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:5af5a9ce866a1014?w={width}&ch=67ac5c3dcb886ec7",
+                "aspectRatio": "16x7"
+              },
+              "1x1": {
+                "title": "Sendungsbild der tagesschau",
+                "alt": "Sendungsbild der tagesschau",
+                "producerName": "ARD-aktuell",
+                "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:1657a7fbdcd56601?w={width}&ch=7ca5079826fae563",
+                "aspectRatio": "1x1"
+              }
+            },
+            "shortSynopsis": "Die Tagesschau ist die älteste und meistgesehene Nachrichtensendung im deutschen Fernsehen. Bis heute der Inbegriff für aktuelle Nachrichten. Seriös und auf den Punkt.",
+            "synopsis": "Die Tagesschau ist die älteste und meistgesehene Nachrichtensendung im deutschen Fernsehen. Bis heute der Inbegriff für aktuelle Nachrichten. Seriös und auf den Punkt.",
+            "longSynopsis": "Die Tagesschau ist die älteste und meistgesehene Nachrichtensendung im deutschen Fernsehen. Bis heute der Inbegriff für aktuelle Nachrichten. Seriös und auf den Punkt.",
+            "modificationDate": null,
+            "assetSource": null,
+            "categories": null,
+            "categoryIds": null,
+            "coreAssetType": "INFINITE_SERIES",
+            "coreId": "urn:ard:show:5b43cccc3d987b41",
+            "groupingType": "SHOW",
+            "homepage": {
+              "id": null,
+              "title": "tagesschau",
+              "href": "https://www.tagesschau.de",
+              "type": null
+            },
+            "hasSeasons": false,
+            "availableSeasons": null,
+            "binaryFeatures": [
+              "UT"
+            ],
+            "isChildContent": false
+          },
+          "subtitled": true,
+          "titleVisible": true,
+          "trackingPiano": {
+            "teaser_content_type": "ondemand",
+            "teaser_id": "Y3JpZDovL3RhZ2Vzc2NoYXUuZGUvNTBjOTc0OGUtMTIwYi00MjllLWI2ODEtZTkyMTY5ODEyNGI0X2dhbnplU2VuZHVuZw",
+            "teaser_institution": "ARD",
+            "teaser_institution_id": "urn:ard:institution:453603d77920d274",
+            "teaser_title": "tagesschau 20:00 Uhr, 01.05.2024"
+          },
+          "type": "ondemand"
+        }
+      ],
+      "title": "tagesschau",
+      "titleVisible": true,
+      "trackingPiano": {
+        "teaser_recommended": false,
+        "widget_id": "Y3JpZDovL2Rhc2Vyc3RlLmRlL3RhZ2Vzc2NoYXU",
+        "widget_title": "tagesschau",
+        "widget_typ": "gridlist"
+      },
+      "type": "gridlist",
+      "userVisibility": "ALWAYS"
+    }
+  ]
+}

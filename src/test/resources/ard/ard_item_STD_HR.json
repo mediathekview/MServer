@@ -1,0 +1,377 @@
+{
+  "coreAssetType": "EPISODE",
+  "fskRating": "NONE",
+  "id": "player_ondemand-page-ard",
+  "isChildContent": false,
+  "personalized": false,
+  "links": {
+    "self": {
+      "id": "player_ondemand-page-ard",
+      "urlId": "player_ondemand-page-ard",
+      "title": "hallo hessen – Teil 1 vom 30.04.2024",
+      "href": "https://api.ardmediathek.de/page-gateway/pages/ard/item/ZWJlMTQxOWYtNTliMi00N2RlLWE0MzAtNzRiZGU0ZmIyNWRm?embedded=true&mcV6=true",
+      "type": "application/vnd.ard.page+json",
+      "partner": "ard"
+    }
+  },
+  "title": "hallo hessen – Teil 1 vom 30.04.2024",
+  "tracking": {
+    "aggregationLevelId": 38,
+    "atiCustomVars": {
+      "clipTitle": "hallo hessen – Teil 1 vom 30.04.2024",
+      "mediaType": "video",
+      "lra": "HR",
+      "channel": "hr-fernsehen",
+      "show": "hallo hessen",
+      "contentTypes": "",
+      "mediaDistributionType": 1,
+      "contentId": 13363781,
+      "metadataId": "ebe1419f-59b2-47de-a430-74bde4fb25df",
+      "clipLength": 2760
+    },
+    "chapter2": "Player",
+    "chapter3": "hallo hessen",
+    "environmentId": 511893,
+    "pageTitle": "Mediathek/Player/hallo hessen/hallo hessen – Teil 1 vom 30.04.2024/13363781/20240430_1400",
+    "szmType": "CP"
+  },
+  "trackingPiano": {
+    "page_chapter1": "Player",
+    "page_content_id": "urn:ard:publication:847ed8d7e13fa5cb",
+    "page_content_title": "hallo hessen – Teil 1 vom 30.04.2024",
+    "page_id": "player_ondemand-page-ard",
+    "page_institution": "HR",
+    "page_institution_id": "urn:ard:institution:d750cf5d65a50bca",
+    "page_publisher": "hr-fernsehen",
+    "page_publisher_id": "urn:ard:publisher:fa9a2b898c8df74c",
+    "page_show": "hallo hessen",
+    "page_show_id": "urn:ard:show:4f666cf8cbe1e0c5",
+    "page_title": "hallo hessen – Teil 1 vom 30.04.2024",
+    "site": "634408"
+  },
+  "widgets": [
+    {
+      "availableTo": "2026-04-30T15:48:03.493Z",
+      "binaryFeatures": [],
+      "blockedByFsk": false,
+      "broadcastedOn": "2024-04-30T14:00:00Z",
+      "embeddable": true,
+      "geoblocked": false,
+      "id": "ZWJlMTQxOWYtNTliMi00N2RlLWE0MzAtNzRiZGU0ZmIyNWRm",
+      "image": {
+        "alt": "hallo hessen Moderator Jens Kölker mit den Themen vom 30.04.2024: Wandern auf dem Rheinsteg, Start in die Grillsaison, Erdbeeren aus Hessen",
+        "producerName": "hr",
+        "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:afd6aff4051b922d?w={width}&ch=92aaa8bc924b79db",
+        "title": "hallo hessen, 30.04.2024"
+      },
+      "isChildContent": false,
+      "maturityContentRating": "NONE",
+      "mediaCollection": {
+        "embedded": {
+          "isGeoBlocked": false,
+          "meta": {
+            "availableToDateTime": "2026-04-30T15:48:03.493Z",
+            "broadcastedOnDateTime": "2024-04-30T14:00:00Z",
+            "clipSourceName": "HR",
+            "durationSeconds": 2760,
+            "images": [
+              {
+                "alt": "hallo hessen Moderator Jens Kölker mit den Themen vom 30.04.2024: Wandern auf dem Rheinsteg, Start in die Grillsaison, Erdbeeren aus Hessen",
+                "aspectRatio": "16x9",
+                "imageSourceName": "hr",
+                "kind": "preview",
+                "title": "hallo hessen, 30.04.2024",
+                "url": "https://api.ardmediathek.de/image-service/images/urn:ard:image:afd6aff4051b922d?w=960&ch=92aaa8bc924b79db"
+              }
+            ],
+            "publicationService": {
+              "id": "ard",
+              "name": "hr-fernsehen",
+              "partner": "hr"
+            },
+            "seriesTitle": "hallo hessen",
+            "synopsis": "Der Mai steht vor der Tür und wir haben für Sie die perfekten Wandertipps. Los geht es heute mit dem herrlichen Rheingau. Außerdem wollen wir passend dazu auch die Grillsaison eröffnen. Und ein hessischer Erdbeerbauer verrät uns alles Wissenswerte um die roten Superfrüchtchen.",
+            "title": "hallo hessen – Teil 1 vom 30.04.2024"
+          },
+          "pluginData": {
+            "recommendation@all": {
+              "isAutoplay": true,
+              "timerSeconds": 10,
+              "url": "https://api.ardmediathek.de/page-gateway/compilations/ard/recommendations?contextItemId=ZWJlMTQxOWYtNTliMi00N2RlLWE0MzAtNzRiZGU0ZmIyNWRm"
+            },
+            "trackingAgf@all": {
+              "appId": "PA02DC09C-B8D3-4098-87D2-2C023682D6D5",
+              "clipData": {
+                "assetid": "13363781",
+                "length": "2760",
+                "nol_c0": "p0,0",
+                "nol_c10": "p10,hr-fernsehen",
+                "nol_c12": "p12,Content",
+                "nol_c15": "p15,A7A4E43294AD41EBBB7EA28A549804FF",
+                "nol_c16": "p16,hr-fernsehen_Information|Magazin",
+                "nol_c18": "p18,N",
+                "nol_c19": "p19,HR",
+                "nol_c2": "p2,N",
+                "nol_c5": "p5,ARD Mediathek",
+                "nol_c7": "p7,SVID-BC6574CF-5A5A-4D00-B8D3-44D241F14519",
+                "nol_c8": "p8,2760",
+                "nol_c9": "p9,hallo hessen_hallo hessen – Teil 1 vom 30.04.2024_30.04.2024 14:00",
+                "program": "hallo hessen",
+                "title": "hr-fernsehen_hallo hessen_hallo hessen – Teil 1 vom 30.04.2024_30.04.2024 14:00",
+                "type": "content"
+              },
+              "tracker": "AGF"
+            },
+            "trackingAti@all": {
+              "config": {
+                "site": 511893
+              },
+              "isEnabled": true,
+              "richMedia": {
+                "broadcastMode": "clip",
+                "duration": "2760",
+                "mediaLabel": "hallo hessen – Teil 1 vom 30.04.2024__13363781__",
+                "mediaLevel2": "{richMediaLevelTwo}",
+                "mediaTheme1": "Hessischer Rundfunk",
+                "mediaTheme2": "hr-fernsehen",
+                "mediaTheme3": "hallo hessen",
+                "mediaType": "video",
+                "playerId": "urn:ard:publication:847ed8d7e13fa5cb",
+                "refreshDuration": {
+                  "0": 5,
+                  "1": 12,
+                  "12": 15,
+                  "18": 30
+                }
+              },
+              "tracker": "ATI"
+            },
+            "trackingPiano@all": {
+              "avContent": {
+                "av_broadcasting_type": "OnDemand",
+                "av_content": "hallo hessen – Teil 1 vom 30.04.2024",
+                "av_content_duration": 2760000,
+                "av_content_id": "urn:ard:publication:847ed8d7e13fa5cb",
+                "av_content_type": "video",
+                "av_institution": "HR",
+                "av_institution_id": "urn:ard:institution:d750cf5d65a50bca",
+                "av_publisher": "hr-fernsehen",
+                "av_publisher_id": "urn:ard:publisher:fa9a2b898c8df74c",
+                "av_show": "hallo hessen",
+                "av_show_id": "urn:ard:show:4f666cf8cbe1e0c5"
+              },
+              "config": {
+                "events": [
+                  "av.error",
+                  "av.speed",
+                  "av.quality",
+                  "av.jumpmark",
+                  "av.share",
+                  "av.playermode",
+                  "av.subtitle",
+                  "av.language",
+                  "av.audiodescription",
+                  "av.signlanguage",
+                  "av.volume.mute",
+                  "av.recommendation"
+                ],
+                "site": 634408
+              },
+              "isEnabled": true
+            }
+          },
+          "streams": [
+            {
+              "kind": "main",
+              "kindName": "Normal",
+              "media": [
+                {
+                  "aspectRatio": "16:9",
+                  "audios": [
+                    {
+                      "kind": "standard",
+                      "languageCode": "deu"
+                    }
+                  ],
+                  "forcedLabel": "HD Ready",
+                  "hasEmbeddedSubtitles": false,
+                  "isAdaptiveQualitySelectable": false,
+                  "isHighDynamicRange": false,
+                  "maxHResolutionPx": 1280,
+                  "maxVResolutionPx": 720,
+                  "mimeType": "video/mp4",
+                  "subtitles": [],
+                  "url": "https://hrardmediathek-a.akamaihd.net/odinson/hallo-hessen/SVID-BC6574CF-5A5A-4D00-B8D3-44D241F14519/ebe1419f-59b2-47de-a430-74bde4fb25df/L489595_sendeton_1280x720-50p-3200kbit.mp4",
+                  "videoCodec": "H.264"
+                },
+                {
+                  "aspectRatio": "16:9",
+                  "audios": [
+                    {
+                      "kind": "standard",
+                      "languageCode": "deu"
+                    }
+                  ],
+                  "forcedLabel": "SD",
+                  "hasEmbeddedSubtitles": false,
+                  "isAdaptiveQualitySelectable": false,
+                  "isHighDynamicRange": false,
+                  "maxHResolutionPx": 640,
+                  "maxVResolutionPx": 360,
+                  "mimeType": "video/mp4",
+                  "subtitles": [],
+                  "url": "https://hrardmediathek-a.akamaihd.net/odinson/hallo-hessen/SVID-BC6574CF-5A5A-4D00-B8D3-44D241F14519/ebe1419f-59b2-47de-a430-74bde4fb25df/L489595_sendeton_640x360-50p-1200kbit.mp4",
+                  "videoCodec": "H.264"
+                },
+                {
+                  "aspectRatio": "16:9",
+                  "audios": [
+                    {
+                      "kind": "standard",
+                      "languageCode": "deu"
+                    }
+                  ],
+                  "forcedLabel": "Auto",
+                  "hasEmbeddedSubtitles": false,
+                  "isAdaptiveQualitySelectable": false,
+                  "isHighDynamicRange": false,
+                  "maxHResolutionPx": 1920,
+                  "maxVResolutionPx": 1080,
+                  "mimeType": "application/vnd.apple.mpegurl",
+                  "subtitles": [],
+                  "url": "https://hrardmediathek-vh.akamaihd.net/i/odinson/hallo-hessen/SVID-BC6574CF-5A5A-4D00-B8D3-44D241F14519/ebe1419f-59b2-47de-a430-74bde4fb25df/L489595_sendeton_,640x360-50p-1200,1920x1080-50p-5000,1280x720-50p-3200,960x540-50p-1600,kbit.mp4/master.m3u8",
+                  "videoCodec": "H.264"
+                },
+                {
+                  "aspectRatio": "16:9",
+                  "audios": [
+                    {
+                      "kind": "standard",
+                      "languageCode": "deu"
+                    }
+                  ],
+                  "forcedLabel": "Full HD",
+                  "hasEmbeddedSubtitles": false,
+                  "isAdaptiveQualitySelectable": false,
+                  "isHighDynamicRange": false,
+                  "maxHResolutionPx": 1920,
+                  "maxVResolutionPx": 1080,
+                  "mimeType": "video/mp4",
+                  "subtitles": [],
+                  "url": "https://hrardmediathek-a.akamaihd.net/odinson/hallo-hessen/SVID-BC6574CF-5A5A-4D00-B8D3-44D241F14519/ebe1419f-59b2-47de-a430-74bde4fb25df/L489595_sendeton_1920x1080-50p-5000kbit.mp4",
+                  "videoCodec": "H.264"
+                },
+                {
+                  "aspectRatio": "16:9",
+                  "audios": [
+                    {
+                      "kind": "standard",
+                      "languageCode": "deu"
+                    }
+                  ],
+                  "forcedLabel": "SD 480p",
+                  "hasEmbeddedSubtitles": false,
+                  "isAdaptiveQualitySelectable": false,
+                  "isHighDynamicRange": false,
+                  "maxHResolutionPx": 960,
+                  "maxVResolutionPx": 540,
+                  "mimeType": "video/mp4",
+                  "subtitles": [],
+                  "url": "https://hrardmediathek-a.akamaihd.net/odinson/hallo-hessen/SVID-BC6574CF-5A5A-4D00-B8D3-44D241F14519/ebe1419f-59b2-47de-a430-74bde4fb25df/L489595_sendeton_960x540-50p-1600kbit.mp4",
+                  "videoCodec": "H.264"
+                }
+              ],
+              "videoLanguageCode": ""
+            }
+          ],
+          "subtitles": []
+        },
+        "href": "https://api.ardmediathek.de/page-gateway/mediacollectionv6/ZWJlMTQxOWYtNTliMi00N2RlLWE0MzAtNzRiZGU0ZmIyNWRm?isTv=false"
+      },
+      "pagination": null,
+      "personalized": false,
+      "playerConfig": null,
+      "publicationService": {
+        "name": "hr-fernsehen",
+        "logo": {
+          "title": "Logo hr-fernsehen",
+          "alt": "Logo hr-fernsehen",
+          "producerName": "Logo hr-fernsehen",
+          "src": "https://api.ardmediathek.de/image-service/image-collections/urn:ard:image-collection:2213972a8d101de1/16x9?w={width}",
+          "aspectRatio": "16x9"
+        },
+        "publisherType": "TV",
+        "partner": "hr",
+        "id": "b3JnYW5pemF0aW9uX0hS",
+        "coreId": "urn:ard:publisher:fa9a2b898c8df74c"
+      },
+      "links": {
+        "self": {
+          "id": "player_on_demand_widget_ard",
+          "urlId": "player_on_demand_widget_ard",
+          "title": "hallo hessen – Teil 1 vom 30.04.2024",
+          "href": "https://api.ardmediathek.de/page-gateway/widgets/ard/editorials/player_on_demand_widget_ard/item/ZWJlMTQxOWYtNTliMi00N2RlLWE0MzAtNzRiZGU0ZmIyNWRm?pageNumber=0&pageSize=100&embedded=true&mcV6=true",
+          "type": "application/vnd.ard.widget+json",
+          "partner": "ard"
+        }
+      },
+      "show": {
+        "id": "Y3JpZDovL2hyLW9ubGluZS8zODIxMDI1MQ",
+        "title": "hallo hessen",
+        "image": {
+          "alt": "Hallo Hessen",
+          "producerName": "hr",
+          "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:2da8a9389da90c00?w={width}&ch=9827a276888c2551",
+          "title": "hallo-hessen_buehne_16-9"
+        },
+        "availableSeasons": null,
+        "binaryFeatures": [],
+        "coreAssetType": "INFINITE_SERIES"
+      },
+      "synopsis": "Der Mai steht vor der Tür und wir haben für Sie die perfekten Wandertipps. Los geht es heute mit dem herrlichen Rheingau. Außerdem wollen wir passend dazu auch die Grillsaison eröffnen. Und ein hessischer Erdbeerbauer verrät uns alles Wissenswerte um die roten Superfrüchtchen.",
+      "title": "hallo hessen – Teil 1 vom 30.04.2024",
+      "trackingPiano": {
+        "teaser_recommended": false,
+        "widget_id": "player_on_demand_widget_ard",
+        "widget_title": "hallo hessen – Teil 1 vom 30.04.2024",
+        "widget_typ": "player_ondemand"
+      },
+      "type": "player_ondemand"
+    },
+    {
+      "aZContent": false,
+      "compilationType": "itemsOfShow",
+      "id": "Y3JpZDovL2hyLW9ubGluZS8zODIxMDI1MQ",
+      "isChildContent": false,
+      "pagination": {
+        "pageNumber": 0,
+        "pageSize": 24,
+        "totalElements": 733
+      },
+      "personalized": false,
+      "links": {
+        "self": {
+          "id": "Y3JpZDovL2hyLW9ubGluZS8zODIxMDI1MQ",
+          "urlId": "Y3JpZDovL2hyLW9ubGluZS8zODIxMDI1MQ",
+          "title": "hallo hessen",
+          "href": "https://api.ardmediathek.de/page-gateway/widgets/ard/asset/Y3JpZDovL2hyLW9ubGluZS8zODIxMDI1MQ?excludedAssetIds=ZWJlMTQxOWYtNTliMi00N2RlLWE0MzAtNzRiZGU0ZmIyNWRm&pageNumber=0&pageSize=24&embedded=true&seasoned=false&seasonNumber=&withAudiodescription=false&withOriginalWithSubtitle=false&withOriginalversion=false&single=false",
+          "type": "application/vnd.ard.widget+json",
+          "partner": "ard"
+        }
+      },
+      "size": "m",
+      "swipeable": true,
+      "teasers": [],
+      "title": "hallo hessen",
+      "titleVisible": true,
+      "trackingPiano": {
+        "teaser_recommended": false,
+        "widget_id": "Y3JpZDovL2hyLW9ubGluZS8zODIxMDI1MQ",
+        "widget_title": "hallo hessen",
+        "widget_typ": "gridlist"
+      },
+      "type": "gridlist",
+      "userVisibility": "ALWAYS"
+    }
+  ]
+}

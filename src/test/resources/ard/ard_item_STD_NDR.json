@@ -1,0 +1,398 @@
+{
+  "coreAssetType": "EPISODE",
+  "fskRating": "NONE",
+  "id": "player_ondemand-page-ard",
+  "isChildContent": false,
+  "personalized": false,
+  "links": {
+    "self": {
+      "id": "player_ondemand-page-ard",
+      "urlId": "player_ondemand-page-ard",
+      "title": "NDR Info 14:00 | 30.04.2024",
+      "href": "https://api.ardmediathek.de/page-gateway/pages/ard/item/Y3JpZDovL25kci5kZS9wcm9wbGFuXzE5NjM0OTcxMF9nYW56ZVNlbmR1bmc?embedded=true&mcV6=true",
+      "type": "application/vnd.ard.page+json",
+      "partner": "ard"
+    }
+  },
+  "title": "NDR Info 14:00 | 30.04.2024",
+  "tracking": {
+    "aggregationLevelId": 38,
+    "atiCustomVars": {
+      "clipTitle": "NDR Info 14:00 | 30.04.2024",
+      "mediaType": "video",
+      "lra": "NDR",
+      "channel": "NDR",
+      "show": "NDR Info",
+      "contentTypes": "UT",
+      "mediaDistributionType": 1,
+      "contentId": 13363035,
+      "metadataId": "crid://ndr.de/proplan_196349710_ganzeSendung",
+      "clipLength": 619
+    },
+    "chapter2": "Player",
+    "chapter3": "NDR Info",
+    "environmentId": 511893,
+    "pageTitle": "Mediathek/Player/NDR Info/NDR Info 14:00 | 30.04.2024/13363035/20240430_1200",
+    "szmType": "CP"
+  },
+  "trackingPiano": {
+    "page_chapter1": "Player",
+    "page_content_id": "urn:ard:publication:669d9a286a211a00",
+    "page_content_title": "NDR Info 14:00 | 30.04.2024",
+    "page_id": "player_ondemand-page-ard",
+    "page_institution": "NDR",
+    "page_institution_id": "urn:ard:institution:ea3329bc2aae0d7d",
+    "page_publisher": "NDR",
+    "page_publisher_id": "urn:ard:publisher:59786080a6371d6a",
+    "page_show": "NDR Info",
+    "page_show_id": "urn:ard:show:acd87abfba49e283",
+    "page_title": "NDR Info 14:00 | 30.04.2024",
+    "site": "634408"
+  },
+  "widgets": [
+    {
+      "availableTo": "2026-04-30T12:00:00Z",
+      "binaryFeatures": [
+        "UT"
+      ],
+      "blockedByFsk": false,
+      "broadcastedOn": "2024-04-30T12:00:00Z",
+      "embeddable": false,
+      "geoblocked": false,
+      "id": "Y3JpZDovL25kci5kZS9wcm9wbGFuXzE5NjM0OTcxMF9nYW56ZVNlbmR1bmc",
+      "image": {
+        "alt": "Bibiana Barth.",
+        "producerName": "Screenshot",
+        "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:e559feabb978c663?w={width}&ch=3b5bee994192b6ff",
+        "title": "NDR Info 14:00 | 30.04.2024"
+      },
+      "isChildContent": false,
+      "maturityContentRating": "NONE",
+      "mediaCollection": {
+        "embedded": {
+          "isGeoBlocked": false,
+          "meta": {
+            "availableToDateTime": "2026-04-30T12:00:00Z",
+            "broadcastedOnDateTime": "2024-04-30T12:00:00Z",
+            "clipSourceName": "NDR",
+            "durationSeconds": 619,
+            "images": [
+              {
+                "alt": "Bibiana Barth.",
+                "aspectRatio": "16x9",
+                "imageSourceName": "Screenshot",
+                "kind": "preview",
+                "title": "NDR Info 14:00 | 30.04.2024",
+                "url": "https://api.ardmediathek.de/image-service/images/urn:ard:image:e559feabb978c663?w=960&ch=3b5bee994192b6ff"
+              }
+            ],
+            "publicationService": {
+              "id": "ard",
+              "name": "NDR",
+              "partner": "ndr"
+            },
+            "seriesTitle": "NDR Info",
+            "synopsis": "Die Nachrichten für den Norden: Suche nach Arian eingestellt / Viele Pflege-Ausbildungsplätze in Schleswig-Holstein unbesetzt",
+            "title": "NDR Info 14:00 | 30.04.2024"
+          },
+          "pluginData": {
+            "recommendation@all": {
+              "isAutoplay": true,
+              "timerSeconds": 10,
+              "url": "https://api.ardmediathek.de/page-gateway/compilations/ard/recommendations?contextItemId=Y3JpZDovL25kci5kZS9wcm9wbGFuXzE5NjM0OTcxMF9nYW56ZVNlbmR1bmc"
+            },
+            "trackingAgf@all": {
+              "appId": "PA02DC09C-B8D3-4098-87D2-2C023682D6D5",
+              "clipData": {
+                "assetid": "13363035",
+                "length": "619",
+                "nol_c0": "p0,0",
+                "nol_c10": "p10,NDR",
+                "nol_c12": "p12,Content",
+                "nol_c15": "p15,196349710_14900769",
+                "nol_c16": "p16,ARD_Information",
+                "nol_c18": "p18,N",
+                "nol_c19": "p19,NDR",
+                "nol_c2": "p2,N",
+                "nol_c5": "p5,ARD Mediathek",
+                "nol_c7": "p7,crid://ndr.de/proplan_196349710_ganzeSendung",
+                "nol_c8": "p8,619",
+                "nol_c9": "p9,NDR Info_NDR Info 14:00 | 30.04.2024_30.04.2024 12:00",
+                "program": "NDR Info",
+                "title": "NDR_NDR Info_NDR Info 14:00 | 30.04.2024_30.04.2024 12:00",
+                "type": "content"
+              },
+              "tracker": "AGF"
+            },
+            "trackingAti@all": {
+              "config": {
+                "site": 511893
+              },
+              "isEnabled": true,
+              "richMedia": {
+                "broadcastMode": "clip",
+                "duration": "619",
+                "mediaLabel": "NDR Info 14:00 | 30.04.2024__13363035__UT",
+                "mediaLevel2": "{richMediaLevelTwo}",
+                "mediaTheme1": "Norddeutscher Rundfunk",
+                "mediaTheme2": "NDR",
+                "mediaTheme3": "NDR Info",
+                "mediaType": "video",
+                "playerId": "urn:ard:publication:669d9a286a211a00",
+                "refreshDuration": {
+                  "0": 5,
+                  "1": 12,
+                  "12": 15,
+                  "18": 30
+                }
+              },
+              "tracker": "ATI"
+            },
+            "trackingPiano@all": {
+              "avContent": {
+                "av_broadcasting_type": "OnDemand",
+                "av_content": "NDR Info 14:00 | 30.04.2024",
+                "av_content_duration": 619000,
+                "av_content_id": "urn:ard:publication:669d9a286a211a00",
+                "av_content_type": "video",
+                "av_institution": "NDR",
+                "av_institution_id": "urn:ard:institution:ea3329bc2aae0d7d",
+                "av_publisher": "NDR",
+                "av_publisher_id": "urn:ard:publisher:59786080a6371d6a",
+                "av_show": "NDR Info",
+                "av_show_id": "urn:ard:show:acd87abfba49e283"
+              },
+              "config": {
+                "events": [
+                  "av.error",
+                  "av.speed",
+                  "av.quality",
+                  "av.jumpmark",
+                  "av.share",
+                  "av.playermode",
+                  "av.subtitle",
+                  "av.language",
+                  "av.audiodescription",
+                  "av.signlanguage",
+                  "av.volume.mute",
+                  "av.recommendation"
+                ],
+                "site": 634408
+              },
+              "isEnabled": true
+            }
+          },
+          "streams": [
+            {
+              "kind": "main",
+              "kindName": "Normal",
+              "media": [
+                {
+                  "aspectRatio": "16:9",
+                  "audios": [
+                    {
+                      "kind": "standard",
+                      "languageCode": "deu"
+                    }
+                  ],
+                  "forcedLabel": "Auto",
+                  "hasEmbeddedSubtitles": false,
+                  "isAdaptiveQualitySelectable": false,
+                  "isHighDynamicRange": false,
+                  "maxHResolutionPx": 1920,
+                  "maxVResolutionPx": 1080,
+                  "mimeType": "application/vnd.apple.mpegurl",
+                  "subtitles": [],
+                  "url": "https://adaptive.ndr.de/i/ndr/2024/0430/TV-20240430-1400-3611.,hq,1080,hd,ln,mn,.mp4.csmil/master.m3u8",
+                  "videoCodec": "H.264"
+                },
+                {
+                  "aspectRatio": "16:9",
+                  "audios": [
+                    {
+                      "kind": "standard",
+                      "languageCode": "deu"
+                    }
+                  ],
+                  "forcedLabel": "HD Ready",
+                  "hasEmbeddedSubtitles": false,
+                  "isAdaptiveQualitySelectable": false,
+                  "isHighDynamicRange": false,
+                  "maxHResolutionPx": 1280,
+                  "maxVResolutionPx": 720,
+                  "mimeType": "video/mp4",
+                  "subtitles": [],
+                  "url": "https://mediandr-a.akamaihd.net/progressive/2024/0430/TV-20240430-1400-3611.hd.mp4",
+                  "videoCodec": "H.264"
+                },
+                {
+                  "aspectRatio": "16:9",
+                  "audios": [
+                    {
+                      "kind": "standard",
+                      "languageCode": "deu"
+                    }
+                  ],
+                  "forcedLabel": "SD 480p",
+                  "hasEmbeddedSubtitles": false,
+                  "isAdaptiveQualitySelectable": false,
+                  "isHighDynamicRange": false,
+                  "maxHResolutionPx": 960,
+                  "maxVResolutionPx": 540,
+                  "mimeType": "video/mp4",
+                  "subtitles": [],
+                  "url": "https://mediandr-a.akamaihd.net/progressive/2024/0430/TV-20240430-1400-3611.hq.mp4",
+                  "videoCodec": "H.264"
+                },
+                {
+                  "aspectRatio": "16:9",
+                  "audios": [
+                    {
+                      "kind": "standard",
+                      "languageCode": "deu"
+                    }
+                  ],
+                  "forcedLabel": "Full HD",
+                  "hasEmbeddedSubtitles": false,
+                  "isAdaptiveQualitySelectable": false,
+                  "isHighDynamicRange": false,
+                  "maxHResolutionPx": 1920,
+                  "maxVResolutionPx": 1080,
+                  "mimeType": "video/mp4",
+                  "subtitles": [],
+                  "url": "https://mediandr-a.akamaihd.net/progressive/2024/0430/TV-20240430-1400-3611.1080.mp4",
+                  "videoCodec": "H.264"
+                },
+                {
+                  "aspectRatio": "16:9",
+                  "audios": [
+                    {
+                      "kind": "standard",
+                      "languageCode": "deu"
+                    }
+                  ],
+                  "forcedLabel": "SD",
+                  "hasEmbeddedSubtitles": false,
+                  "isAdaptiveQualitySelectable": false,
+                  "isHighDynamicRange": false,
+                  "maxHResolutionPx": 640,
+                  "maxVResolutionPx": 360,
+                  "mimeType": "video/mp4",
+                  "subtitles": [],
+                  "url": "https://mediandr-a.akamaihd.net/progressive/2024/0430/TV-20240430-1400-3611.ln.mp4",
+                  "videoCodec": "H.264"
+                }
+              ],
+              "videoLanguageCode": ""
+            }
+          ],
+          "subtitles": [
+            {
+              "kind": "normal",
+              "languageCode": "deu",
+              "sources": [
+                {
+                  "kind": "ebutt",
+                  "url": "https://api.ardmediathek.de/player-service/subtitle/ebutt/urn:ard:subtitle:ea9ad6b71df1b8ed"
+                },
+                {
+                  "kind": "webvtt",
+                  "url": "https://api.ardmediathek.de/player-service/subtitle/webvtt/urn:ard:subtitle:ea9ad6b71df1b8ed.vtt"
+                }
+              ]
+            }
+          ]
+        },
+        "href": "https://api.ardmediathek.de/page-gateway/mediacollectionv6/Y3JpZDovL25kci5kZS9wcm9wbGFuXzE5NjM0OTcxMF9nYW56ZVNlbmR1bmc?isTv=false"
+      },
+      "pagination": null,
+      "personalized": false,
+      "playerConfig": null,
+      "publicationService": {
+        "name": "NDR",
+        "logo": {
+          "title": "Logo NDR",
+          "alt": "Logo NDR",
+          "producerName": "Logo NDR",
+          "src": "https://api.ardmediathek.de/image-service/image-collections/urn:ard:image-collection:2213972a8d101de1/16x9?w={width}",
+          "aspectRatio": "16x9"
+        },
+        "publisherType": "TV",
+        "partner": "ndr",
+        "id": "b3JnYW5pemF0aW9uX05EUg",
+        "coreId": "urn:ard:publisher:59786080a6371d6a"
+      },
+      "links": {
+        "self": {
+          "id": "player_on_demand_widget_ard",
+          "urlId": "player_on_demand_widget_ard",
+          "title": "NDR Info 14:00 | 30.04.2024",
+          "href": "https://api.ardmediathek.de/page-gateway/widgets/ard/editorials/player_on_demand_widget_ard/item/Y3JpZDovL25kci5kZS9wcm9wbGFuXzE5NjM0OTcxMF9nYW56ZVNlbmR1bmc?pageNumber=0&pageSize=100&embedded=true&mcV6=true",
+          "type": "application/vnd.ard.widget+json",
+          "partner": "ard"
+        }
+      },
+      "show": {
+        "id": "Y3JpZDovL25kci5kZS80NTIz",
+        "title": "NDR Info",
+        "image": {
+          "alt": "NDR Info",
+          "producerName": "NDR",
+          "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:c5ade5e39dcef4fc?w={width}&ch=f5bd9e239161cda9",
+          "title": "NDR Info"
+        },
+        "availableSeasons": null,
+        "binaryFeatures": [
+          "UT",
+          "DGS",
+          "AD"
+        ],
+        "coreAssetType": "INFINITE_SERIES"
+      },
+      "synopsis": "Die Nachrichten für den Norden: Suche nach Arian eingestellt / Viele Pflege-Ausbildungsplätze in Schleswig-Holstein unbesetzt",
+      "title": "NDR Info 14:00 | 30.04.2024",
+      "trackingPiano": {
+        "teaser_recommended": false,
+        "widget_id": "player_on_demand_widget_ard",
+        "widget_title": "NDR Info 14:00 | 30.04.2024",
+        "widget_typ": "player_ondemand"
+      },
+      "type": "player_ondemand"
+    },
+    {
+      "aZContent": false,
+      "compilationType": "itemsOfShow",
+      "id": "Y3JpZDovL25kci5kZS80NTIz",
+      "isChildContent": false,
+      "pagination": {
+        "pageNumber": 0,
+        "pageSize": 24,
+        "totalElements": 7274
+      },
+      "personalized": false,
+      "links": {
+        "self": {
+          "id": "Y3JpZDovL25kci5kZS80NTIz",
+          "urlId": "Y3JpZDovL25kci5kZS80NTIz",
+          "title": "NDR Info",
+          "href": "https://api.ardmediathek.de/page-gateway/widgets/ard/asset/Y3JpZDovL25kci5kZS80NTIz?excludedAssetIds=Y3JpZDovL25kci5kZS9wcm9wbGFuXzE5NjM0OTcxMF9nYW56ZVNlbmR1bmc&pageNumber=0&pageSize=24&embedded=true&seasoned=false&seasonNumber=&withAudiodescription=false&withOriginalWithSubtitle=false&withOriginalversion=false&single=false",
+          "type": "application/vnd.ard.widget+json",
+          "partner": "ard"
+        }
+      },
+      "size": "m",
+      "swipeable": true,
+      "teasers": [],
+      "title": "NDR Info",
+      "titleVisible": true,
+      "trackingPiano": {
+        "teaser_recommended": false,
+        "widget_id": "Y3JpZDovL25kci5kZS80NTIz",
+        "widget_title": "NDR Info",
+        "widget_typ": "gridlist"
+      },
+      "type": "gridlist",
+      "userVisibility": "ALWAYS"
+    }
+  ]
+}

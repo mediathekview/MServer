@@ -1,0 +1,508 @@
+{
+  "coreAssetType": "SECTION",
+  "fskRating": "NONE",
+  "id": "player_ondemand-page-ard",
+  "isChildContent": false,
+  "personalized": false,
+  "links": {
+    "self": {
+      "id": "player_ondemand-page-ard",
+      "urlId": "player_ondemand-page-ard",
+      "title": "Van-Urlaub für 1 Euro: Wie geht das?",
+      "href": "https://api.ardmediathek.de/page-gateway/pages/ard/item/Y3JpZDovL2JyLmRlL3ZpZGVvLzE5NzEyZjU2LTY4NGYtNGJiYS05NWFhLWFlNWE2MzMxZDY3Yg?embedded=true&mcV6=true",
+      "type": "application/vnd.ard.page+json",
+      "partner": "ard"
+    }
+  },
+  "title": "Van-Urlaub für 1 Euro: Wie geht das?",
+  "tracking": {
+    "aggregationLevelId": 38,
+    "atiCustomVars": {
+      "clipTitle": "Van-Urlaub für 1 Euro: Wie geht das.",
+      "mediaType": "video",
+      "lra": "BR",
+      "channel": "BR.de",
+      "show": "PULS Reportage",
+      "contentTypes": "",
+      "mediaDistributionType": 1,
+      "contentId": 13365267,
+      "metadataId": "crid://br.de/video/19712f56-684f-4bba-95aa-ae5a6331d67b",
+      "clipLength": 1247
+    },
+    "chapter2": "Player",
+    "chapter3": "PULS Reportage",
+    "environmentId": 511893,
+    "pageTitle": "Mediathek/Player/PULS Reportage/Van-Urlaub für 1 Euro: Wie geht das./13365267/20240501_1300",
+    "szmType": "CP"
+  },
+  "trackingPiano": {
+    "page_chapter1": "Player",
+    "page_content_id": "urn:ard:publication:a7bc130881fcf351",
+    "page_content_title": "Van-Urlaub für 1 Euro: Wie geht das?",
+    "page_id": "player_ondemand-page-ard",
+    "page_institution": "BR",
+    "page_institution_id": "urn:ard:institution:95a02eb6cc4f3d59",
+    "page_publisher": "BR.de",
+    "page_publisher_id": "urn:ard:publisher:98144fe10248e510",
+    "page_show": "PULS Reportage",
+    "page_show_id": "urn:ard:show:2d0602cd86c69825",
+    "page_title": "Van-Urlaub für 1 Euro: Wie geht das?",
+    "site": "634408"
+  },
+  "widgets": [
+    {
+      "availableTo": null,
+      "binaryFeatures": [],
+      "blockedByFsk": false,
+      "broadcastedOn": "2024-05-01T13:00:00Z",
+      "embeddable": false,
+      "geoblocked": false,
+      "id": "Y3JpZDovL2JyLmRlL3ZpZGVvLzE5NzEyZjU2LTY4NGYtNGJiYS05NWFhLWFlNWE2MzMxZDY3Yg",
+      "image": {
+        "alt": "Leah Nlemibe | Bild: BR",
+        "producerName": "BR",
+        "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:6fb44d066ad5c033?w={width}&ch=287b98dffb1766db",
+        "title": "Van-Urlaub für 1 Euro: Wie geht das?"
+      },
+      "isChildContent": false,
+      "maturityContentRating": "NONE",
+      "mediaCollection": {
+        "embedded": {
+          "isGeoBlocked": false,
+          "meta": {
+            "broadcastedOnDateTime": "2024-05-01T13:30:38.121Z",
+            "clipSourceName": "© Bayerischer Rundfunk",
+            "durationSeconds": 1247,
+            "images": [
+              {
+                "alt": "Leah Nlemibe | Bild: BR",
+                "aspectRatio": "16x9",
+                "imageSourceName": "BR",
+                "kind": "preview",
+                "title": "Van-Urlaub für 1 Euro: Wie geht das?",
+                "url": "https://api.ardmediathek.de/image-service/images/urn:ard:image:7d26c02018c00f2a?w=960&ch=e94b4b000f00480f"
+              }
+            ],
+            "publicationService": {
+              "id": "ard",
+              "name": "BR.de",
+              "partner": "br"
+            },
+            "synopsis": "Bei einer Relocation kann man sich für 1 Euro einen Mietwagen ausleihen und muss ihn dafür nur pünktlich zum nächsten Abholort bringen. Leah mietet sich einen Luxus-Van, mit dem sie in drei Tagen nach Italien fährt: Taugt's wirklich als Urlaub?",
+            "title": "Van-Urlaub für 1 Euro: Wie geht das?"
+          },
+          "pluginData": {
+            "recommendation@all": {
+              "isAutoplay": true,
+              "timerSeconds": 10,
+              "url": "https://api.ardmediathek.de/page-gateway/compilations/ard/recommendations?contextItemId=Y3JpZDovL2JyLmRlL3ZpZGVvLzE5NzEyZjU2LTY4NGYtNGJiYS05NWFhLWFlNWE2MzMxZDY3Yg"
+            },
+            "trackingAgf@all": {
+              "appId": "PA02DC09C-B8D3-4098-87D2-2C023682D6D5",
+              "clipData": {
+                "assetid": "13365267",
+                "length": "1247",
+                "nol_c0": "p0,666",
+                "nol_c10": "p10,BR.de",
+                "nol_c12": "p12,Content",
+                "nol_c15": "p15,",
+                "nol_c16": "p16,",
+                "nol_c18": "p18,N",
+                "nol_c19": "p19,© Bayerischer Rundfunk",
+                "nol_c2": "p2,Y",
+                "nol_c5": "p5,ARD Mediathek",
+                "nol_c7": "p7,crid://br.de/video/19712f56-684f-4bba-95aa-ae5a6331d67b",
+                "nol_c8": "p8,1247",
+                "nol_c9": "p9,PULS Reportage_Van-Urlaub für 1 Euro: Wie geht das?_01.05.2024 13:30",
+                "program": "PULS Reportage",
+                "title": "BR.de_PULS Reportage_Van-Urlaub für 1 Euro: Wie geht das?_01.05.2024 13:30",
+                "type": "content"
+              },
+              "tracker": "AGF"
+            },
+            "trackingAti@all": {
+              "config": {
+                "site": 511893
+              },
+              "isEnabled": true,
+              "richMedia": {
+                "broadcastMode": "clip",
+                "duration": "1247",
+                "mediaLabel": "Van-Urlaub für 1 Euro: Wie geht das__13365267__",
+                "mediaLevel2": "{richMediaLevelTwo}",
+                "mediaTheme1": "Bayerischer Rundfunk",
+                "mediaTheme2": "BR.de",
+                "mediaTheme3": "PULS Reportage",
+                "mediaType": "video",
+                "playerId": "urn:ard:publication:a7bc130881fcf351",
+                "refreshDuration": {
+                  "0": 5,
+                  "1": 12,
+                  "12": 15,
+                  "18": 30
+                }
+              },
+              "tracker": "ATI"
+            },
+            "trackingPiano@all": {
+              "avContent": {
+                "av_broadcasting_type": "OnDemand",
+                "av_content": "Van-Urlaub für 1 Euro: Wie geht das?",
+                "av_content_duration": 1247000,
+                "av_content_id": "urn:ard:publication:a7bc130881fcf351",
+                "av_content_type": "video",
+                "av_institution": "BR",
+                "av_institution_id": "urn:ard:institution:95a02eb6cc4f3d59",
+                "av_publisher": "BR.de",
+                "av_publisher_id": "urn:ard:publisher:98144fe10248e510",
+                "av_show": "PULS Reportage",
+                "av_show_id": "urn:ard:show:2d0602cd86c69825"
+              },
+              "config": {
+                "events": [
+                  "av.error",
+                  "av.speed",
+                  "av.quality",
+                  "av.jumpmark",
+                  "av.share",
+                  "av.playermode",
+                  "av.subtitle",
+                  "av.language",
+                  "av.audiodescription",
+                  "av.signlanguage",
+                  "av.volume.mute",
+                  "av.recommendation"
+                ],
+                "site": 634408
+              },
+              "isEnabled": true
+            }
+          },
+          "streams": [
+            {
+              "kind": "main",
+              "kindName": "Normal",
+              "media": [
+                {
+                  "aspectRatio": "16:9",
+                  "audios": [
+                    {
+                      "kind": "standard",
+                      "languageCode": "deu"
+                    }
+                  ],
+                  "forcedLabel": "SD",
+                  "hasEmbeddedSubtitles": false,
+                  "isAdaptiveQualitySelectable": false,
+                  "isHighDynamicRange": false,
+                  "maxHResolutionPx": 640,
+                  "maxVResolutionPx": 360,
+                  "mimeType": "video/mp4",
+                  "subtitles": [],
+                  "url": "https://cdn-storage.br.de/MUJIuUOVBwQIbtCCBLzGiLC1uwQoNA4p_29S/_-OS/_2Ff5y4f9K1S/19712f56-684f-4bba-95aa-ae5a6331d67b_E.mp4",
+                  "videoCodec": "H.264"
+                },
+                {
+                  "aspectRatio": "16:9",
+                  "audios": [
+                    {
+                      "kind": "standard",
+                      "languageCode": "deu"
+                    }
+                  ],
+                  "forcedLabel": "Full HD",
+                  "hasEmbeddedSubtitles": false,
+                  "isAdaptiveQualitySelectable": false,
+                  "isHighDynamicRange": false,
+                  "maxHResolutionPx": 1920,
+                  "maxVResolutionPx": 1080,
+                  "mimeType": "video/mp4",
+                  "subtitles": [],
+                  "url": "https://cdn-storage.br.de/MUJIuUOVBwQIbtCCBLzGiLC1uwQoNA4p_29S/_-OS/_2Ff5y4f9K1S/19712f56-684f-4bba-95aa-ae5a6331d67b_HD.mp4",
+                  "videoCodec": "H.264"
+                },
+                {
+                  "aspectRatio": "16:9",
+                  "audios": [
+                    {
+                      "kind": "standard",
+                      "languageCode": "deu"
+                    }
+                  ],
+                  "forcedLabel": "Auto",
+                  "hasEmbeddedSubtitles": false,
+                  "isAdaptiveQualitySelectable": false,
+                  "isHighDynamicRange": false,
+                  "maxHResolutionPx": 1920,
+                  "maxVResolutionPx": 1080,
+                  "mimeType": "application/vnd.apple.mpegurl",
+                  "subtitles": [],
+                  "url": "https://br-i.akamaihd.net/i/MUJIuUOVBwQIbtCCBLzGiLC1uwQoNA4p_29S/_-OS/_2Ff5y4f9K1S/19712f56-684f-4bba-95aa-ae5a6331d67b_,X,A,C,E,HD,.mp4.csmil/master.m3u8?__b__=200",
+                  "videoCodec": "H.264"
+                },
+                {
+                  "aspectRatio": "16:9",
+                  "audios": [
+                    {
+                      "kind": "standard",
+                      "languageCode": "deu"
+                    }
+                  ],
+                  "forcedLabel": "SD 480p",
+                  "hasEmbeddedSubtitles": false,
+                  "isAdaptiveQualitySelectable": false,
+                  "isHighDynamicRange": false,
+                  "maxHResolutionPx": 960,
+                  "maxVResolutionPx": 540,
+                  "mimeType": "video/mp4",
+                  "subtitles": [],
+                  "url": "https://cdn-storage.br.de/MUJIuUOVBwQIbtCCBLzGiLC1uwQoNA4p_29S/_-OS/_2Ff5y4f9K1S/19712f56-684f-4bba-95aa-ae5a6331d67b_C.mp4",
+                  "videoCodec": "H.264"
+                },
+                {
+                  "aspectRatio": "16:9",
+                  "audios": [
+                    {
+                      "kind": "standard",
+                      "languageCode": "deu"
+                    }
+                  ],
+                  "forcedLabel": "HD Ready",
+                  "hasEmbeddedSubtitles": false,
+                  "isAdaptiveQualitySelectable": false,
+                  "isHighDynamicRange": false,
+                  "maxHResolutionPx": 1280,
+                  "maxVResolutionPx": 720,
+                  "mimeType": "video/mp4",
+                  "subtitles": [],
+                  "url": "https://cdn-storage.br.de/MUJIuUOVBwQIbtCCBLzGiLC1uwQoNA4p_29S/_-OS/_2Ff5y4f9K1S/19712f56-684f-4bba-95aa-ae5a6331d67b_X.mp4",
+                  "videoCodec": "H.264"
+                }
+              ],
+              "videoLanguageCode": ""
+            }
+          ],
+          "subtitles": []
+        },
+        "href": "https://api.ardmediathek.de/page-gateway/mediacollectionv6/Y3JpZDovL2JyLmRlL3ZpZGVvLzE5NzEyZjU2LTY4NGYtNGJiYS05NWFhLWFlNWE2MzMxZDY3Yg?isTv=false"
+      },
+      "pagination": null,
+      "personalized": false,
+      "playerConfig": null,
+      "publicationService": {
+        "name": "BR.de",
+        "logo": {
+          "title": "Logo BR.de",
+          "alt": "Logo BR.de",
+          "producerName": "Logo BR.de",
+          "src": "https://api.ardmediathek.de/image-service/image-collections/urn:ard:image-collection:2213972a8d101de1/16x9?w={width}",
+          "aspectRatio": "16x9"
+        },
+        "publisherType": "TV",
+        "partner": "br",
+        "id": "b3JnYW5pemF0aW9uX0JS",
+        "coreId": "urn:ard:publisher:98144fe10248e510"
+      },
+      "links": {
+        "self": {
+          "id": "player_on_demand_widget_ard",
+          "urlId": "player_on_demand_widget_ard",
+          "title": "Van-Urlaub für 1 Euro: Wie geht das?",
+          "href": "https://api.ardmediathek.de/page-gateway/widgets/ard/editorials/player_on_demand_widget_ard/item/Y3JpZDovL2JyLmRlL3ZpZGVvLzE5NzEyZjU2LTY4NGYtNGJiYS05NWFhLWFlNWE2MzMxZDY3Yg?pageNumber=0&pageSize=100&embedded=true&mcV6=true",
+          "type": "application/vnd.ard.widget+json",
+          "partner": "ard"
+        }
+      },
+      "show": {
+        "id": "Y3JpZDovL2JyLmRlL2Jyb2FkY2FzdFNlcmllcy83NWY0MDIwYS04ZjU3LTQ4ZmMtYTVlNS1lZjY3NTY2YjM0MDA",
+        "title": "PULS Reportage",
+        "image": {
+          "alt": "Sendereihenbild \"PULS Reportage\" | Bild:  BR/ Marc Seibold",
+          "producerName": "BR/ Marc Seibold",
+          "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:88e0393c7f64f0be?w={width}&ch=7acb95d04efb4b32",
+          "title": "PULS Reportage"
+        },
+        "availableSeasons": null,
+        "binaryFeatures": [
+          "UT"
+        ],
+        "coreAssetType": "INFINITE_SERIES"
+      },
+      "synopsis": "Bei einer Relocation kann man sich für 1 Euro einen Mietwagen ausleihen und muss ihn dafür nur pünktlich zum nächsten Abholort bringen. Leah mietet sich einen Luxus-Van, mit dem sie in drei Tagen nach Italien fährt: Taugt's wirklich als Urlaub?",
+      "title": "Van-Urlaub für 1 Euro: Wie geht das?",
+      "trackingPiano": {
+        "teaser_recommended": false,
+        "widget_id": "player_on_demand_widget_ard",
+        "widget_title": "Van-Urlaub für 1 Euro: Wie geht das?",
+        "widget_typ": "player_ondemand"
+      },
+      "type": "player_ondemand"
+    },
+    {
+      "aZContent": false,
+      "compilationType": "itemsOfShow",
+      "id": "Y3JpZDovL2JyLmRlL2Jyb2FkY2FzdFNlcmllcy83NWY0MDIwYS04ZjU3LTQ4ZmMtYTVlNS1lZjY3NTY2YjM0MDA",
+      "isChildContent": false,
+      "pagination": {
+        "pageNumber": 0,
+        "pageSize": 24,
+        "totalElements": 532
+      },
+      "personalized": false,
+      "links": {
+        "self": {
+          "id": "Y3JpZDovL2JyLmRlL2Jyb2FkY2FzdFNlcmllcy83NWY0MDIwYS04ZjU3LTQ4ZmMtYTVlNS1lZjY3NTY2YjM0MDA",
+          "urlId": "Y3JpZDovL2JyLmRlL2Jyb2FkY2FzdFNlcmllcy83NWY0MDIwYS04ZjU3LTQ4ZmMtYTVlNS1lZjY3NTY2YjM0MDA",
+          "title": "PULS Reportage",
+          "href": "https://api.ardmediathek.de/page-gateway/widgets/ard/asset/Y3JpZDovL2JyLmRlL2Jyb2FkY2FzdFNlcmllcy83NWY0MDIwYS04ZjU3LTQ4ZmMtYTVlNS1lZjY3NTY2YjM0MDA?excludedAssetIds=Y3JpZDovL2JyLmRlL3ZpZGVvLzE5NzEyZjU2LTY4NGYtNGJiYS05NWFhLWFlNWE2MzMxZDY3Yg&pageNumber=0&pageSize=24&embedded=true&seasoned=false&seasonNumber=&withAudiodescription=false&withOriginalWithSubtitle=false&withOriginalversion=false&single=false",
+          "type": "application/vnd.ard.widget+json",
+          "partner": "ard"
+        }
+      },
+      "size": "m",
+      "swipeable": true,
+      "teasers": [
+        {
+          "availableTo": null,
+          "binaryFeatures": [],
+          "broadcastedOn": "2024-04-24T13:00:00Z",
+          "coreAssetType": "SECTION",
+          "duration": 1186,
+          "id": "Y3JpZDovL2JyLmRlL3ZpZGVvLzkwZTA1Y2Y5LTA4ZDEtNGU4Zi1iNTQyLWNiYjIyYzcyZDA0Mw",
+          "images": {
+            "aspect16x9": {
+              "alt": "Sebastian Meinberg | Bild: BR",
+              "producerName": "BR",
+              "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:b4fd84428a3b4ce9?w={width}&ch=2b6603d5872cd3f4",
+              "title": "Reich werden mit KI?!"
+            }
+          },
+          "isChildContent": false,
+          "longTitle": "Reich werden mit KI?!",
+          "maturityContentRating": "NONE",
+          "mediumTitle": "Reich werden mit KI?!",
+          "personalized": false,
+          "playtime": null,
+          "publicationService": {
+            "name": "BR.de",
+            "logo": {
+              "title": "Logo BR.de",
+              "alt": "Logo BR.de",
+              "producerName": "Logo BR.de",
+              "src": "https://api.ardmediathek.de/image-service/image-collections/urn:ard:image-collection:2213972a8d101de1/16x9?w={width}",
+              "aspectRatio": "16x9"
+            },
+            "publisherType": "TV",
+            "partner": "br",
+            "id": "b3JnYW5pemF0aW9uX0JS",
+            "coreId": "urn:ard:publisher:98144fe10248e510"
+          },
+          "links": {
+            "self": {
+              "id": "Y3JpZDovL2JyLmRlL3ZpZGVvLzkwZTA1Y2Y5LTA4ZDEtNGU4Zi1iNTQyLWNiYjIyYzcyZDA0Mw",
+              "urlId": "Y3JpZDovL2JyLmRlL3ZpZGVvLzkwZTA1Y2Y5LTA4ZDEtNGU4Zi1iNTQyLWNiYjIyYzcyZDA0Mw",
+              "title": "Reich werden mit KI?!",
+              "href": "https://api.ardmediathek.de/page-gateway/teasers/ard/items/Y3JpZDovL2JyLmRlL3ZpZGVvLzkwZTA1Y2Y5LTA4ZDEtNGU4Zi1iNTQyLWNiYjIyYzcyZDA0Mw",
+              "type": "application/vnd.ard.teaser+json",
+              "partner": "ard"
+            },
+            "target": {
+              "id": "Y3JpZDovL2JyLmRlL3ZpZGVvLzkwZTA1Y2Y5LTA4ZDEtNGU4Zi1iNTQyLWNiYjIyYzcyZDA0Mw",
+              "urlId": "Y3JpZDovL2JyLmRlL3ZpZGVvLzkwZTA1Y2Y5LTA4ZDEtNGU4Zi1iNTQyLWNiYjIyYzcyZDA0Mw",
+              "title": "Reich werden mit KI?!",
+              "href": "https://api.ardmediathek.de/page-gateway/pages/ard/item/Y3JpZDovL2JyLmRlL3ZpZGVvLzkwZTA1Y2Y5LTA4ZDEtNGU4Zi1iNTQyLWNiYjIyYzcyZDA0Mw?devicetype=pc&embedded=true",
+              "type": "application/vnd.ard.page+json",
+              "partner": "ard"
+            }
+          },
+          "shortTitle": "Reich werden mit KI?!",
+          "show": {
+            "id": "crid://br.de/broadcastSeries/75f4020a-8f57-48fc-a5e5-ef67566b3400",
+            "coremediaId": 14913810,
+            "title": "PULS Reportage",
+            "publisher": {
+              "name": "BR.de",
+              "logo": {
+                "title": "Logo BR.de",
+                "alt": "Logo BR.de",
+                "producerName": "Logo BR.de",
+                "src": "https://api.ardmediathek.de/image-service/image-collections/urn:ard:image-collection:2213972a8d101de1/16x9?w={width}",
+                "aspectRatio": "16x9"
+              },
+              "publisherType": "TV",
+              "partner": "br",
+              "id": "b3JnYW5pemF0aW9uX0JS",
+              "coreId": "urn:ard:publisher:98144fe10248e510"
+            },
+            "self": null,
+            "images": {
+              "16x9": {
+                "title": "PULS Reportage",
+                "alt": "Sendereihenbild \"PULS Reportage\" | Bild:  BR/ Marc Seibold",
+                "producerName": "BR/ Marc Seibold",
+                "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:88e0393c7f64f0be?w={width}&ch=7acb95d04efb4b32",
+                "aspectRatio": "16x9"
+              },
+              "16x7": {
+                "title": "PULS Reportage",
+                "alt": "Sendereihenbild \"PULS Reportage\" | Bild:  BR/ Marc Seibold",
+                "producerName": "BR/ Marc Seibold",
+                "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:3f2df381ef21d401?w={width}&ch=b01b9b672a844ae9",
+                "aspectRatio": "16x7"
+              },
+              "1x1": {
+                "title": "PULS Reportage",
+                "alt": "Sendereihenbild \"PULS Reportage\" | Bild:  BR/ Marc Seibold",
+                "producerName": "BR/ Marc Seibold",
+                "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:8e0eeebd59340efe?w={width}&ch=f8da88c4b6f563f9",
+                "aspectRatio": "1x1"
+              }
+            },
+            "shortSynopsis": "Wir sind Kevin Ebert, Ariane Alter, Sebastian Meinberg und Leah Nlemibe von PULS Reportage. Wir probieren aus, was euch bewegt! Jeden Mittwoch um 15 Uhr gibt’s hier eine neue Reportage.",
+            "synopsis": "Wir sind Kevin Ebert, Ariane Alter, Sebastian Meinberg und Leah Nlemibe von PULS Reportage. Wir probieren aus, was euch bewegt! Jeden Mittwoch um 15 Uhr gibt’s hier eine neue Reportage.",
+            "longSynopsis": "Wir sind Kevin Ebert, Ariane Alter, Sebastian Meinberg und Leah Nlemibe von PULS Reportage. Wir probieren aus, was euch bewegt! Jeden Mittwoch um 15 Uhr gibt’s hier eine neue Reportage.",
+            "modificationDate": null,
+            "assetSource": null,
+            "categories": null,
+            "categoryIds": null,
+            "coreAssetType": "INFINITE_SERIES",
+            "coreId": "urn:ard:show:2d0602cd86c69825",
+            "groupingType": "SHOW",
+            "homepage": {
+              "id": null,
+              "title": "PULS Reportage",
+              "href": "http://www.br.de/puls/tv/puls/index.html",
+              "type": null
+            },
+            "hasSeasons": false,
+            "availableSeasons": null,
+            "binaryFeatures": [
+              "UT"
+            ],
+            "isChildContent": false
+          },
+          "subtitled": false,
+          "titleVisible": true,
+          "trackingPiano": {
+            "teaser_content_type": "ondemand",
+            "teaser_id": "Y3JpZDovL2JyLmRlL3ZpZGVvLzkwZTA1Y2Y5LTA4ZDEtNGU4Zi1iNTQyLWNiYjIyYzcyZDA0Mw",
+            "teaser_institution": "ARD",
+            "teaser_institution_id": "urn:ard:institution:453603d77920d274",
+            "teaser_title": "Reich werden mit KI?!"
+          },
+          "type": "ondemand"
+        }
+      ],
+      "title": "PULS Reportage",
+      "titleVisible": true,
+      "trackingPiano": {
+        "teaser_recommended": false,
+        "widget_id": "Y3JpZDovL2JyLmRlL2Jyb2FkY2FzdFNlcmllcy83NWY0MDIwYS04ZjU3LTQ4ZmMtYTVlNS1lZjY3NTY2YjM0MDA",
+        "widget_title": "PULS Reportage",
+        "widget_typ": "gridlist"
+      },
+      "type": "gridlist",
+      "userVisibility": "ALWAYS"
+    }
+  ]
+}

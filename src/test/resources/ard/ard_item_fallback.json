@@ -1,0 +1,429 @@
+{
+  "coreAssetType": "EPISODE",
+  "fskRating": "NONE",
+  "id": "player_ondemand-page-ard",
+  "isChildContent": false,
+  "personalized": false,
+  "links": {
+    "self": {
+      "id": "player_ondemand-page-ard",
+      "urlId": "player_ondemand-page-ard",
+      "title": "Keine Chance für Smegma! Intimhygiene für Jungs I Fickt euch - Ist doch nur Sex",
+      "href": "https://api.ardmediathek.de/page-gateway/pages/ard/item/Y3JpZDovL2Z1bmsubmV0LzgzNS92aWRlby8xMDYzODE?embedded=true&mcV6=true",
+      "type": "application/vnd.ard.page+json",
+      "partner": "ard"
+    }
+  },
+  "title": "Keine Chance für Smegma! Intimhygiene für Jungs I Fickt euch - Ist doch nur Sex",
+  "tracking": {
+    "aggregationLevelId": 38,
+    "atiCustomVars": {
+      "clipTitle": "Keine Chance für Smegma! Intimhygiene für Jungs I Fickt euch - Ist doch nur Sex",
+      "mediaType": "video",
+      "lra": "funk",
+      "channel": "funk",
+      "show": "Fickt euch!",
+      "contentTypes": "",
+      "mediaDistributionType": 1,
+      "contentId": 83859168,
+      "metadataId": "crid://funk.net/835/video/106381",
+      "clipLength": 185
+    },
+    "chapter2": "Player",
+    "chapter3": "Fickt euch!",
+    "environmentId": 511893,
+    "pageTitle": "Mediathek/Player/Fickt euch!/Keine Chance für Smegma! Intimhygiene für Jungs I Fickt euch - Ist doch nur Sex/83859168/20161213_1400",
+    "szmType": "CP"
+  },
+  "trackingPiano": {
+    "page_chapter1": "Player",
+    "page_content_id": "urn:ard:publication:0500c9bbe1a10738",
+    "page_content_title": "Keine Chance für Smegma! Intimhygiene für Jungs I Fickt euch - Ist doch nur Sex",
+    "page_id": "player_ondemand-page-ard",
+    "page_institution": "funk",
+    "page_institution_id": "urn:ard:institution:3aa504dd9fc1e250",
+    "page_publisher": "funk",
+    "page_publisher_id": "urn:ard:publisher:bed7b6abe4dbfaca",
+    "page_show": "Fickt euch!",
+    "page_show_id": "urn:ard:show:ac739b52556da95d",
+    "page_title": "Keine Chance für Smegma! Intimhygiene für Jungs I Fickt euch - Ist doch nur Sex",
+    "site": "634408"
+  },
+  "widgets": [
+    {
+      "availableTo": null,
+      "binaryFeatures": [],
+      "blockedByFsk": false,
+      "broadcastedOn": "2016-12-13T14:00:00Z",
+      "embeddable": false,
+      "geoblocked": false,
+      "id": "Y3JpZDovL2Z1bmsubmV0LzgzNS92aWRlby8xMDYzODE",
+      "image": {
+        "alt": "Keine Chance für Smegma! Intimhygiene für Jungs I Fickt euch - Ist doch nur Sex - Thumbnail",
+        "producerName": "funk",
+        "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:a62bc714b8d0978e?w={width}&ch=06c37142f9990c3e",
+        "title": "Keine Chance für Smegma! Intimhygiene für Jungs I Fickt euch - Ist doch nur Sex - Thumbnail"
+      },
+      "isChildContent": false,
+      "maturityContentRating": "NONE",
+      "mediaCollection": {
+        "embedded": {
+          "isGeoBlocked": false,
+          "meta": {
+            "broadcastedOnDateTime": "2016-12-13T14:00:00Z",
+            "clipSourceName": "funk",
+            "durationSeconds": 185,
+            "images": [
+              {
+                "alt": "Keine Chance für Smegma! Intimhygiene für Jungs I Fickt euch - Ist doch nur Sex - Thumbnail",
+                "aspectRatio": "16x9",
+                "imageSourceName": "funk",
+                "kind": "preview",
+                "title": "Keine Chance für Smegma! Intimhygiene für Jungs I Fickt euch - Ist doch nur Sex - Thumbnail",
+                "url": "https://api.ardmediathek.de/image-service/images/urn:ard:image:a62bc714b8d0978e?w=960&ch=06c37142f9990c3e"
+              }
+            ],
+            "publicationService": {
+              "id": "ard",
+              "name": "funk",
+              "partner": "funk"
+            },
+            "seriesTitle": "Fickt euch!",
+            "synopsis": "Den Penis richtig waschen ist ganz\neinfach! Was ihr beachten müsst, um Infektionen und unangenehme Gerüche zu vermeiden, erfahrt\nihr im Video.\nDu willst mehr? Dann abonniere meinen\nKanal: https://www.youtube.com/channel/UC3ZkjIfabQzVypsQBd9-AIQ?sub_confirmation=1Fickt euch! bei\nFacebook: http://www.facebook.com/istdochnursexFickt euch! bei\nInstagram: http://www.instagram.com/istdochnursexFickt euch! bei\nSnapchat: @istdochnursex",
+            "title": "Keine Chance für Smegma! Intimhygiene für Jungs I Fickt euch - Ist doch nur Sex"
+          },
+          "pluginData": {
+            "recommendation@all": {
+              "isAutoplay": true,
+              "timerSeconds": 10,
+              "url": "https://api.ardmediathek.de/page-gateway/compilations/ard/recommendations?contextItemId=Y3JpZDovL2Z1bmsubmV0LzgzNS92aWRlby8xMDYzODE"
+            },
+            "trackingAgf@all": {
+              "appId": "PA02DC09C-B8D3-4098-87D2-2C023682D6D5",
+              "clipData": {
+                "assetid": "83859168",
+                "length": "185",
+                "nol_c0": "p0,0",
+                "nol_c10": "p10,funk",
+                "nol_c12": "p12,Content",
+                "nol_c15": "p15,",
+                "nol_c16": "p16,",
+                "nol_c18": "p18,N",
+                "nol_c19": "p19,funk",
+                "nol_c2": "p2,Y",
+                "nol_c5": "p5,ARD Mediathek",
+                "nol_c7": "p7,funk/episode/video/106381",
+                "nol_c8": "p8,185",
+                "nol_c9": "p9,Fickt euch!_Keine Chance für Smegma! Intimhygiene für Jungs I Fickt euch - Ist doch nur Sex_13.12.2016 14:00",
+                "program": "Fickt euch!",
+                "title": "funk_Fickt euch!_Keine Chance für Smegma! Intimhygiene für Jungs I Fickt euch - Ist doch nur Sex_13.12.2016 14:00",
+                "type": "content"
+              },
+              "tracker": "AGF"
+            },
+            "trackingAti@all": {
+              "config": {
+                "site": 511893
+              },
+              "isEnabled": true,
+              "richMedia": {
+                "broadcastMode": "clip",
+                "duration": "185",
+                "mediaLabel": "Keine Chance für Smegma! Intimhygiene für Jungs I Fickt euch - Ist doch nur Sex__83859168__",
+                "mediaLevel2": "{richMediaLevelTwo}",
+                "mediaTheme1": "funk",
+                "mediaTheme2": "funk",
+                "mediaTheme3": "Fickt euch!",
+                "mediaType": "video",
+                "playerId": "urn:ard:publication:0500c9bbe1a10738",
+                "refreshDuration": {
+                  "0": 5,
+                  "1": 12,
+                  "12": 15,
+                  "18": 30
+                }
+              },
+              "tracker": "ATI"
+            },
+            "trackingPiano@all": {
+              "avContent": {
+                "av_broadcasting_type": "OnDemand",
+                "av_content": "Keine Chance für Smegma! Intimhygiene für Jungs I Fickt euch - Ist doch nur Sex",
+                "av_content_duration": 185000,
+                "av_content_id": "urn:ard:publication:0500c9bbe1a10738",
+                "av_content_type": "video",
+                "av_institution": "funk",
+                "av_institution_id": "urn:ard:institution:3aa504dd9fc1e250",
+                "av_publisher": "funk",
+                "av_publisher_id": "urn:ard:publisher:bed7b6abe4dbfaca",
+                "av_show": "Fickt euch!",
+                "av_show_id": "urn:ard:show:ac739b52556da95d"
+              },
+              "config": {
+                "events": [
+                  "av.error",
+                  "av.speed",
+                  "av.quality",
+                  "av.jumpmark",
+                  "av.share",
+                  "av.playermode",
+                  "av.subtitle",
+                  "av.language",
+                  "av.audiodescription",
+                  "av.signlanguage",
+                  "av.volume.mute",
+                  "av.recommendation"
+                ],
+                "site": 634408
+              },
+              "isEnabled": true
+            }
+          },
+          "streams": [
+            {
+              "kind": "main",
+              "kindName": "Normal",
+              "media": [
+                {
+                  "aspectRatio": "16:9",
+                  "audios": [
+                    {
+                      "kind": "standard",
+                      "languageCode": "deu"
+                    }
+                  ],
+                  "forcedLabel": "Auto",
+                  "hasEmbeddedSubtitles": false,
+                  "isAdaptiveQualitySelectable": true,
+                  "isHighDynamicRange": false,
+                  "maxHResolutionPx": 1920,
+                  "maxVResolutionPx": 1080,
+                  "mimeType": "application/vnd.apple.mpegurl",
+                  "subtitles": [],
+                  "url": "http://localhost:0000/22679/files/21/01/30/2678992/22679-jqh9gFKRm8YDnC2.ism/manifest.m3u8",
+                  "videoCodec": "H.264"
+                }
+              ],
+              "videoLanguageCode": ""
+            }
+          ],
+          "subtitles": []
+        },
+        "href": "https://api.ardmediathek.de/page-gateway/mediacollectionv6/Y3JpZDovL2Z1bmsubmV0LzgzNS92aWRlby8xMDYzODE?isTv=false"
+      },
+      "pagination": null,
+      "personalized": false,
+      "playerConfig": null,
+      "publicationService": {
+        "name": "funk",
+        "logo": {
+          "title": "Logo funk",
+          "alt": "Logo funk",
+          "producerName": "Logo funk",
+          "src": "https://api.ardmediathek.de/image-service/image-collections/urn:ard:image-collection:2213972a8d101de1/16x9?w={width}",
+          "aspectRatio": "16x9"
+        },
+        "publisherType": "TV",
+        "partner": "funk",
+        "id": "b3JnYW5pemF0aW9uX2Z1bms",
+        "coreId": "urn:ard:publisher:bed7b6abe4dbfaca"
+      },
+      "links": {
+        "self": {
+          "id": "player_on_demand_widget_ard",
+          "urlId": "player_on_demand_widget_ard",
+          "title": "Keine Chance für Smegma! Intimhygiene für Jungs I Fickt euch - Ist doch nur Sex",
+          "href": "https://api.ardmediathek.de/page-gateway/widgets/ard/editorials/player_on_demand_widget_ard/item/Y3JpZDovL2Z1bmsubmV0LzgzNS92aWRlby8xMDYzODE?pageNumber=0&pageSize=100&embedded=true&mcV6=true",
+          "type": "application/vnd.ard.widget+json",
+          "partner": "ard"
+        }
+      },
+      "show": {
+        "id": "Y3JpZDovL2Z1bmsubmV0LzgzNQ",
+        "title": "Fickt euch!",
+        "image": {
+          "alt": "Fickt euch! - Teaser",
+          "producerName": "funk",
+          "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:5b473fcf58f57696?w={width}&ch=8510844b07cbdef9",
+          "title": "Fickt euch! - Teaser"
+        },
+        "availableSeasons": null,
+        "binaryFeatures": [],
+        "coreAssetType": "INFINITE_SERIES"
+      },
+      "synopsis": "Den Penis richtig waschen ist ganz\neinfach! Was ihr beachten müsst, um Infektionen und unangenehme Gerüche zu vermeiden, erfahrt\nihr im Video.\nDu willst mehr? Dann abonniere meinen\nKanal: https://www.youtube.com/channel/UC3ZkjIfabQzVypsQBd9-AIQ?sub_confirmation=1Fickt euch! bei\nFacebook: http://www.facebook.com/istdochnursexFickt euch! bei\nInstagram: http://www.instagram.com/istdochnursexFickt euch! bei\nSnapchat: @istdochnursex",
+      "title": "Keine Chance für Smegma! Intimhygiene für Jungs I Fickt euch - Ist doch nur Sex",
+      "trackingPiano": {
+        "teaser_recommended": false,
+        "widget_id": "player_on_demand_widget_ard",
+        "widget_title": "Keine Chance für Smegma! Intimhygiene für Jungs I Fickt euch - Ist doch nur Sex",
+        "widget_typ": "player_ondemand"
+      },
+      "type": "player_ondemand"
+    },
+    {
+      "aZContent": false,
+      "compilationType": "itemsOfShow",
+      "id": "Y3JpZDovL2Z1bmsubmV0LzgzNQ",
+      "isChildContent": false,
+      "pagination": {
+        "pageNumber": 0,
+        "pageSize": 24,
+        "totalElements": 123
+      },
+      "personalized": false,
+      "links": {
+        "self": {
+          "id": "Y3JpZDovL2Z1bmsubmV0LzgzNQ",
+          "urlId": "Y3JpZDovL2Z1bmsubmV0LzgzNQ",
+          "title": "Fickt euch!",
+          "href": "https://api.ardmediathek.de/page-gateway/widgets/ard/asset/Y3JpZDovL2Z1bmsubmV0LzgzNQ?excludedAssetIds=Y3JpZDovL2Z1bmsubmV0LzgzNS92aWRlby8xMDYzODE&pageNumber=0&pageSize=24&embedded=true&seasoned=false&seasonNumber=&withAudiodescription=false&withOriginalWithSubtitle=false&withOriginalversion=false&single=false",
+          "type": "application/vnd.ard.widget+json",
+          "partner": "ard"
+        }
+      },
+      "size": "m",
+      "swipeable": true,
+      "teasers": [
+        {
+          "availableTo": null,
+          "binaryFeatures": [],
+          "broadcastedOn": "2017-12-19T14:00:00Z",
+          "coreAssetType": "EPISODE",
+          "duration": 37,
+          "id": "Y3JpZDovL2Z1bmsubmV0LzgzNS92aWRlby8xMTQzMzY4",
+          "images": {
+            "aspect16x9": {
+              "alt": "Tschüss! | Fickt euch – Ist doch nur Sex - Thumbnail",
+              "producerName": "funk",
+              "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:149bea358a4674e1?w={width}&ch=40739cec4e752349",
+              "title": "Tschüss! | Fickt euch – Ist doch nur Sex - Thumbnail"
+            }
+          },
+          "isChildContent": false,
+          "longTitle": "Tschüss! | Fickt euch – Ist doch nur Sex",
+          "maturityContentRating": "NONE",
+          "mediumTitle": "Tschüss! | Fickt euch – Ist doch nur Sex",
+          "personalized": false,
+          "playtime": null,
+          "publicationService": {
+            "name": "funk",
+            "logo": {
+              "title": "Logo funk",
+              "alt": "Logo funk",
+              "producerName": "Logo funk",
+              "src": "https://api.ardmediathek.de/image-service/image-collections/urn:ard:image-collection:2213972a8d101de1/16x9?w={width}",
+              "aspectRatio": "16x9"
+            },
+            "publisherType": "TV",
+            "partner": "funk",
+            "id": "b3JnYW5pemF0aW9uX2Z1bms",
+            "coreId": "urn:ard:publisher:bed7b6abe4dbfaca"
+          },
+          "links": {
+            "self": {
+              "id": "Y3JpZDovL2Z1bmsubmV0LzgzNS92aWRlby8xMTQzMzY4",
+              "urlId": "Y3JpZDovL2Z1bmsubmV0LzgzNS92aWRlby8xMTQzMzY4",
+              "title": "Tschüss! | Fickt euch – Ist doch nur Sex",
+              "href": "https://api.ardmediathek.de/page-gateway/teasers/ard/items/Y3JpZDovL2Z1bmsubmV0LzgzNS92aWRlby8xMTQzMzY4",
+              "type": "application/vnd.ard.teaser+json",
+              "partner": "ard"
+            },
+            "target": {
+              "id": "Y3JpZDovL2Z1bmsubmV0LzgzNS92aWRlby8xMTQzMzY4",
+              "urlId": "Y3JpZDovL2Z1bmsubmV0LzgzNS92aWRlby8xMTQzMzY4",
+              "title": "Tschüss! | Fickt euch – Ist doch nur Sex",
+              "href": "https://api.ardmediathek.de/page-gateway/pages/ard/item/Y3JpZDovL2Z1bmsubmV0LzgzNS92aWRlby8xMTQzMzY4?devicetype=pc&embedded=true",
+              "type": "application/vnd.ard.page+json",
+              "partner": "ard"
+            }
+          },
+          "shortTitle": "Tschüss! | Fickt euch – Ist doch nur Sex",
+          "show": {
+            "id": "crid://funk.net/835",
+            "coremediaId": 83853182,
+            "title": "Fickt euch!",
+            "publisher": {
+              "name": "funk",
+              "logo": {
+                "title": "Logo funk",
+                "alt": "Logo funk",
+                "producerName": "Logo funk",
+                "src": "https://api.ardmediathek.de/image-service/image-collections/urn:ard:image-collection:2213972a8d101de1/16x9?w={width}",
+                "aspectRatio": "16x9"
+              },
+              "publisherType": "TV",
+              "partner": "funk",
+              "id": "b3JnYW5pemF0aW9uX2Z1bms",
+              "coreId": "urn:ard:publisher:bed7b6abe4dbfaca"
+            },
+            "self": null,
+            "images": {
+              "16x9": {
+                "title": "Fickt euch! - Teaser",
+                "alt": "Fickt euch! - Teaser",
+                "producerName": "funk",
+                "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:5b473fcf58f57696?w={width}&ch=8510844b07cbdef9",
+                "aspectRatio": "16x9"
+              },
+              "16x7": {
+                "title": "Fickt euch! - Teaser",
+                "alt": "Fickt euch! - Teaser",
+                "producerName": "funk",
+                "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:672d8047665fffa0?w={width}&ch=6ed45b3de1ca3f3b",
+                "aspectRatio": "16x7"
+              },
+              "1x1": {
+                "title": "Fickt euch! - Profile",
+                "alt": "Fickt euch! - Profile",
+                "producerName": "funk",
+                "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:a1f8855921b72c36?w={width}&ch=d473294baabf1237",
+                "aspectRatio": "1x1"
+              }
+            },
+            "shortSynopsis": "»Fickt euch!« beantwortet alle Fragen zum Thema Sex - offen und tabulos. Einmal die Woche erzählt Kristina auf YouTube, wie vielfältig Sex sein kann, spricht Themen an, die man vielleicht nicht mit Freunden und Familie besprechen möchte und geht auf die Fragen ihrer Nutzer ein. »Fuck.TEN« fasst die zehn wichtigsten Fakten aus »Fickt euch!« zusammen. Kristina Weitkamp hat mit dem YouTube-Kanal »DAFUQ Love & Sex« bereits zwei Jahre lang in Sachen Liebesfragen viel Erfahrung gesammelt. Jetzt gibt sie ihr Wissen weiter.",
+            "synopsis": "»Fickt euch!« beantwortet alle Fragen zum Thema Sex - offen und tabulos. Einmal die Woche erzählt Kristina auf YouTube, wie vielfältig Sex sein kann, spricht Themen an, die man vielleicht nicht mit Freunden und Familie besprechen möchte und geht auf die Fragen ihrer Nutzer ein. »Fuck.TEN« fasst die zehn wichtigsten Fakten aus »Fickt euch!« zusammen. Kristina Weitkamp hat mit dem YouTube-Kanal »DAFUQ Love & Sex« bereits zwei Jahre lang in Sachen Liebesfragen viel Erfahrung gesammelt. Jetzt gibt sie ihr Wissen weiter.",
+            "longSynopsis": "»Fickt euch!« beantwortet alle Fragen zum Thema Sex - offen und tabulos. Einmal die Woche erzählt Kristina auf YouTube, wie vielfältig Sex sein kann, spricht Themen an, die man vielleicht nicht mit Freunden und Familie besprechen möchte und geht auf die Fragen ihrer Nutzer ein. »Fuck.TEN« fasst die zehn wichtigsten Fakten aus »Fickt euch!« zusammen. Kristina Weitkamp hat mit dem YouTube-Kanal »DAFUQ Love & Sex« bereits zwei Jahre lang in Sachen Liebesfragen viel Erfahrung gesammelt. Jetzt gibt sie ihr Wissen weiter.",
+            "modificationDate": null,
+            "assetSource": null,
+            "categories": null,
+            "categoryIds": null,
+            "coreAssetType": "INFINITE_SERIES",
+            "coreId": "urn:ard:show:ac739b52556da95d",
+            "groupingType": "SHOW",
+            "homepage": {
+              "id": null,
+              "title": "Fickt euch!",
+              "href": "https://www.funk.net/channel/fickt-euch-835",
+              "type": null
+            },
+            "hasSeasons": false,
+            "availableSeasons": null,
+            "binaryFeatures": [],
+            "isChildContent": false
+          },
+          "subtitled": false,
+          "titleVisible": true,
+          "trackingPiano": {
+            "teaser_content_type": "ondemand",
+            "teaser_id": "Y3JpZDovL2Z1bmsubmV0LzgzNS92aWRlby8xMTQzMzY4",
+            "teaser_institution": "ARD",
+            "teaser_institution_id": "urn:ard:institution:453603d77920d274",
+            "teaser_title": "Tschüss! | Fickt euch – Ist doch nur Sex"
+          },
+          "type": "ondemand"
+        }
+      ],
+      "title": "Fickt euch!",
+      "titleVisible": true,
+      "trackingPiano": {
+        "teaser_recommended": false,
+        "widget_id": "Y3JpZDovL2Z1bmsubmV0LzgzNQ",
+        "widget_title": "Fickt euch!",
+        "widget_typ": "gridlist"
+      },
+      "type": "gridlist",
+      "userVisibility": "ALWAYS"
+    }
+  ]
+}
