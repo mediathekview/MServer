@@ -14,8 +14,7 @@ import jakarta.ws.rs.client.WebTarget;
 import java.lang.reflect.Type;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
+
 
 public class ArdTopicPageTask extends ArdTaskBase<ArdFilmInfoDto, CrawlerUrlDTO> {
   private static final Logger LOG = LogManager.getLogger(ArdTopicPageTask.class);
@@ -52,35 +51,21 @@ public class ArdTopicPageTask extends ArdTaskBase<ArdFilmInfoDto, CrawlerUrlDTO>
   private Queue<CrawlerUrlDTO> createSubPageUrls(
       final WebTarget aTarget, final ArdTopicInfoDto topicInfo) {
     final Queue<CrawlerUrlDTO> subpages = new ConcurrentLinkedQueue<>();
-
-    final int actualSubPageNumber = topicInfo.getSubPageNumber();
-    final Integer maximumAllowedSubpages = crawler.getCrawlerConfig().getMaximumSubpages();
-    if (actualSubPageNumber != 0) {
-      LOG.debug("Sub page {} is already the maximum allowed sub page.", actualSubPageNumber);
+    if (topicInfo.getTotalElements() < topicInfo.getPageSize() || topicInfo.getPageNumber() > 0) {
       return subpages;
     }
-
-    final int maxSubPageNumber = topicInfo.getMaxSubPageNumber();
-    subpages.addAll(
-        IntStream.range(
-                actualSubPageNumber + 1,
-                (maximumAllowedSubpages >= maxSubPageNumber
-                        ? maxSubPageNumber
-                        : maximumAllowedSubpages)
-                    + 1)
-            .parallel()
-            .mapToObj(subpageNumber -> changePageNumber(aTarget, subpageNumber))
-            .map(CrawlerUrlDTO::new)
-            .collect(Collectors.toSet()));
-
-    if (LOG.isDebugEnabled() && maxSubPageNumber > maximumAllowedSubpages) {
-      LOG.debug(
-          "Found {} sub pages, these are {} more then the allowed {} to crawl. Added {} and skipped the rest.",
-          maxSubPageNumber,
-          maxSubPageNumber - maximumAllowedSubpages,
-          maximumAllowedSubpages,
-          subpages.size());
+    //
+    final Integer maximumAllowedSubpages = crawler.getCrawlerConfig().getMaximumSubpages();
+    int index = 0;
+    while ((topicInfo.getPageSize() + (index * topicInfo.getPageSize())) < topicInfo.getTotalElements()) {
+      subpages.add(new CrawlerUrlDTO(changePageNumber(aTarget, index + 1)));
+      index++;
+      if (index >= maximumAllowedSubpages) {
+        LOG.debug("ignore more subpage due to limit of {} pages but found {}", maximumAllowedSubpages, Integer.valueOf(topicInfo.getTotalElements() / topicInfo.getPageSize()));
+        break;
+      }
     }
+    LOG.debug("Found {} subpage", subpages.size());
     return subpages;
   }
 
