@@ -1,13 +1,11 @@
 package mServer.crawler.sender.ard.json;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonDeserializer;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
+import com.google.gson.*;
+
+import mServer.crawler.sender.base.JsonUtils;
+
 import java.lang.reflect.Type;
 import java.util.Optional;
-import mServer.crawler.sender.base.JsonUtils;
 
 public class ArdErrorDeserializer implements JsonDeserializer<Optional<ArdErrorInfoDto>> {
 
@@ -17,13 +15,14 @@ public class ArdErrorDeserializer implements JsonDeserializer<Optional<ArdErrorI
   private static final String ELEMENT_EXTENSIONS = "extensions";
 
   @Override
-  public Optional<ArdErrorInfoDto> deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext context) {
+  public Optional<ArdErrorInfoDto> deserialize(
+      final JsonElement jsonElement, final Type type, final JsonDeserializationContext context) {
 
     if (!JsonUtils.hasElements(jsonElement, ELEMENT_ERRORS)) {
       return Optional.empty();
     }
 
-    JsonArray errors = jsonElement.getAsJsonObject().get(ELEMENT_ERRORS).getAsJsonArray();
+    final JsonArray errors = jsonElement.getAsJsonObject().get(ELEMENT_ERRORS).getAsJsonArray();
     if (errors.size() > 0) {
       return parseError(errors.get(0).getAsJsonObject());
     }
@@ -31,15 +30,17 @@ public class ArdErrorDeserializer implements JsonDeserializer<Optional<ArdErrorI
     return Optional.empty();
   }
 
-  private Optional<ArdErrorInfoDto> parseError(JsonObject error) {
-    Optional<String> message = JsonUtils.getAttributeAsString(error, ATTRIBUTE_MESSAGE);
+  private Optional<ArdErrorInfoDto> parseError(final JsonObject error) {
+    final Optional<String> message = JsonUtils.getAttributeAsString(error, ATTRIBUTE_MESSAGE);
     Optional<String> code = Optional.empty();
 
     if (JsonUtils.hasElements(error, ELEMENT_EXTENSIONS)) {
-      code = JsonUtils.getAttributeAsString(error.get(ELEMENT_EXTENSIONS).getAsJsonObject(), ATTRIBUTE_CODE);
+      code =
+          JsonUtils.getAttributeAsString(
+              error.get(ELEMENT_EXTENSIONS).getAsJsonObject(), ATTRIBUTE_CODE);
     }
 
-    ArdErrorInfoDto result = new ArdErrorInfoDto(code.orElse(""), message.orElse(""));
+    final ArdErrorInfoDto result = new ArdErrorInfoDto(code.orElse(""), message.orElse(""));
     return Optional.of(result);
   }
 }

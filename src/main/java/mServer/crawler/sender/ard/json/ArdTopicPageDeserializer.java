@@ -46,12 +46,12 @@ public class ArdTopicPageDeserializer extends ArdTeasersDeserializer
   }
 
   private int getChildElementAsIntOrNullIfNotExist(
-          final JsonElement parentElement, final String childElementName) {
+      final JsonElement parentElement, final String childElementName) {
     if (parentElement == null || parentElement.isJsonNull()) {
       return 0;
     }
     return getJsonElementAsIntOrNullIfNotExist(
-            parentElement.getAsJsonObject().get(childElementName));
+        parentElement.getAsJsonObject().get(childElementName));
   }
 
   private int getJsonElementAsIntOrNullIfNotExist(final JsonElement element) {

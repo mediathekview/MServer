@@ -139,11 +139,15 @@ public class FilmeSuchen {
     initStart(listeFilme);
     // die mReader nach Prio starten
     mrStarten(0);
-    if (!Config.getStop()) {
-      // waren und wenn Suchlauf noch nicht abgebrochen weiter mit dem Rest
-      mrWarten(4*60);//4*60);
-      mrStarten(1);
+    if (mediathekListe.stream().filter(mr -> mr.getStartPrio() == 1).count() == 0) {
       allStarted = true;
+    } else {
+      if (!Config.getStop()) {
+        // waren und wenn Suchlauf noch nicht abgebrochen weiter mit dem Rest
+        mrWarten(4*60);//4*60);
+        mrStarten(1);
+        allStarted = true;
+      }
     }
   }
 

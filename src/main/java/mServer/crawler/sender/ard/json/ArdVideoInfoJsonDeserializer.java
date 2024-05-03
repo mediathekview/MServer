@@ -58,7 +58,7 @@ public class ArdVideoInfoJsonDeserializer implements JsonDeserializer<ArdVideoIn
     return videoInfo;
   }
 
-  private void loadM3U8(Map<Qualities, URL> resolutionUrlMap) {
+  public static void loadM3U8(Map<Qualities, URL> resolutionUrlMap) {
     final URL m3u8File = resolutionUrlMap.get(Qualities.NORMAL);
     final Optional<String> m3u8Content = readContent(m3u8File);
     resolutionUrlMap.clear();

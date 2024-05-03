@@ -3,12 +3,15 @@ package mServer.crawler.sender.ard.json;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
 import mServer.crawler.sender.ard.ArdConstants;
 import mServer.crawler.sender.ard.ArdFilmInfoDto;
 import mServer.crawler.sender.base.JsonUtils;
+
+import java.util.Objects;
+import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 abstract class ArdTeasersDeserializer {
 
@@ -18,37 +21,38 @@ abstract class ArdTeasersDeserializer {
   private static final String ATTRIBUTE_ID = "id";
   private static final String ATTRIBUTE_NUMBER_OF_CLIPS = "numberOfClips";
 
-  Set<ArdFilmInfoDto> parseTeasers(JsonArray teasers) {
-    Set<ArdFilmInfoDto> results = new HashSet<>();
-    for (JsonElement teaserElement : teasers) {
-      JsonObject teaserObject = teaserElement.getAsJsonObject();
-      Optional<String> id;
-      int numberOfClips = 0;
-
-      if (JsonUtils
-              .checkTreePath(teaserObject, ELEMENT_LINKS, ELEMENT_TARGET)) {
-        JsonObject targetObject = teaserObject.get(ELEMENT_LINKS).getAsJsonObject().get(
-                ELEMENT_TARGET).getAsJsonObject();
-        id = JsonUtils.getAttributeAsString(targetObject, ATTRIBUTE_ID);
-      } else {
-        id = JsonUtils.getAttributeAsString(teaserObject, ATTRIBUTE_ID);
-      }
-
-      if (teaserObject.has(ATTRIBUTE_NUMBER_OF_CLIPS)) {
-        numberOfClips = teaserObject.get(ATTRIBUTE_NUMBER_OF_CLIPS).getAsInt();
-      }
-
-      if (id.isPresent()) {
-        results.add(createFilmInfo(id.get(), numberOfClips));
-      }
-    }
-
-    return results;
+  Set<ArdFilmInfoDto> parseTeasers(final JsonArray teasers) {
+    return StreamSupport.stream(teasers.spliterator(), true)
+        .map(JsonElement::getAsJsonObject)
+        .map(this::toFilmInfo)
+        .filter(Objects::nonNull)
+        .collect(Collectors.toSet());
   }
 
-  private ArdFilmInfoDto createFilmInfo(String id, int numberOfClips) {
-    final String url = ArdConstants.ITEM_URL + id;
+  private ArdFilmInfoDto toFilmInfo(final JsonObject teaserObject) {
+    return toId(teaserObject)
+        .map(id -> createFilmInfo(id, getNumberOfClips(teaserObject)))
+        .orElse(null);
+  }
 
+  private int getNumberOfClips(final JsonObject teaserObject) {
+    if (teaserObject.has(ATTRIBUTE_NUMBER_OF_CLIPS)) {
+      return teaserObject.get(ATTRIBUTE_NUMBER_OF_CLIPS).getAsInt();
+    }
+    return 0;
+  }
+
+  private Optional<String> toId(final JsonObject teaserObject) {
+    if (JsonUtils.checkTreePath(teaserObject, null, ELEMENT_LINKS, ELEMENT_TARGET)) {
+      final JsonObject targetObject =
+          teaserObject.get(ELEMENT_LINKS).getAsJsonObject().get(ELEMENT_TARGET).getAsJsonObject();
+      return JsonUtils.getAttributeAsString(targetObject, ATTRIBUTE_ID);
+    }
+    return JsonUtils.getAttributeAsString(teaserObject, ATTRIBUTE_ID);
+  }
+
+  private ArdFilmInfoDto createFilmInfo(final String id, final int numberOfClips) {
+    final String url = String.format(ArdConstants.ITEM_URL, id);
     return new ArdFilmInfoDto(id, url, numberOfClips);
   }
 }

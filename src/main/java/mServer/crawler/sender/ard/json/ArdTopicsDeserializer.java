@@ -20,7 +20,6 @@ public class ArdTopicsDeserializer implements JsonDeserializer<Set<CrawlerUrlDTO
   private static final String ELEMENT_SELF = "self";
 
   private static final String ATTRIBUTE_ID = "id";
-
   private final String sender;
 
   public ArdTopicsDeserializer(String sender) {
@@ -29,7 +28,7 @@ public class ArdTopicsDeserializer implements JsonDeserializer<Set<CrawlerUrlDTO
 
   @Override
   public Set<CrawlerUrlDTO> deserialize(
-          JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) {
+      JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) {
     final Set<CrawlerUrlDTO> result = new HashSet<>();
 
     if (JsonUtils.hasElements(jsonElement, ELEMENT_WIDGETS)) {
@@ -43,17 +42,17 @@ public class ArdTopicsDeserializer implements JsonDeserializer<Set<CrawlerUrlDTO
   private Optional<CrawlerUrlDTO> parseWidget(final JsonElement compilation) {
     if (JsonUtils.hasElements(compilation, ELEMENT_LINKS)) {
       final JsonElement selfLink =
-              compilation.getAsJsonObject().get(ELEMENT_LINKS).getAsJsonObject().get(ELEMENT_SELF);
+          compilation.getAsJsonObject().get(ELEMENT_LINKS).getAsJsonObject().get(ELEMENT_SELF);
       final Optional<String> id =
-              JsonUtils.getAttributeAsString(selfLink.getAsJsonObject(), ATTRIBUTE_ID);
+          JsonUtils.getAttributeAsString(selfLink.getAsJsonObject(), ATTRIBUTE_ID);
       if (id.isPresent()) {
         return Optional.of(
-                new CrawlerUrlDTO(
-                        String.format(
-                                ArdConstants.TOPICS_COMPILATION_URL,
-                                sender,
-                                id.get(),
-                                ArdConstants.TOPICS_COMPILATION_PAGE_SIZE)));
+            new CrawlerUrlDTO(
+                String.format(
+                    ArdConstants.TOPICS_COMPILATION_URL,
+                    sender,
+                    id.get(),
+                    ArdConstants.TOPICS_COMPILATION_PAGE_SIZE)));
       }
     }
 
