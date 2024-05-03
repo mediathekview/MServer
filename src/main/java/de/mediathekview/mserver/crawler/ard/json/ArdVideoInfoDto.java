@@ -2,6 +2,7 @@ package de.mediathekview.mserver.crawler.ard.json;
 
 import de.mediathekview.mlib.daten.Resolution;
 
+import java.util.Collection;
 import java.util.EnumMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -35,7 +36,7 @@ public class ArdVideoInfoDto {
       return Resolution.NORMAL;
     }
     return Stream.of(videoUrls.keySet(), videoUrlsAD.keySet(), videoUrlsDGS.keySet())
-        .flatMap(map -> map.stream())
+        .flatMap(Set<Resolution>::stream)
         .findFirst()
         .orElse(Resolution.SMALL);
   }
@@ -49,7 +50,7 @@ public class ArdVideoInfoDto {
       return videoUrlsDGS.get(getDefaultQuality());
     }
     return Stream.of(videoUrls.values(), videoUrlsAD.values(), videoUrlsDGS.values())
-        .flatMap(map -> map.stream())
+        .flatMap(Collection<String>::stream)
         .findFirst()
         .orElse(null);
     
@@ -61,10 +62,6 @@ public class ArdVideoInfoDto {
 
   public void setSubtitleUrl(final Optional<Set<String>> subtitleUrl) {
     this.subtitleUrl = subtitleUrl;
-  }
-
-  public Optional<Set<String>> getSubtitleUrlOptional() {
-    return subtitleUrl;
   }
 
   public Map<Resolution, String> getVideoUrls() {

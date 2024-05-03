@@ -74,7 +74,7 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
     if (mc.isEmpty()) {
       return Optional.empty();
     }
-    return Optional.of(JsonUtils.getElement(itemObject, ELEMENT_MEDIA_COLLECTION, ELEMENT_EMBEDDED).get().getAsJsonObject());  
+    return Optional.of(mc.get().getAsJsonObject());  
   }
 
   private static Optional<String> parseTopic(final JsonObject playerPageObject) {
@@ -132,7 +132,7 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
     Optional<JsonElement> sources = JsonUtils.getElement(subtitle.get().getAsJsonArray().get(0), ELEMENT_SOURCES);
     if (sources.isEmpty() || !sources.get().isJsonArray())
       return Optional.empty();
-    Set<String> urls = new HashSet<String>();
+    Set<String> urls = new HashSet<>();
     for (JsonElement url : sources.get().getAsJsonArray()) {
       JsonUtils.getElementValueAsString(url, ATTRIBUTE_URL).ifPresent(urls::add);
     }
@@ -164,35 +164,30 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
     final Optional<LocalDateTime> date = parseDate(itemObject);
     final Optional<Duration> duration = parseDuration(itemObject);
     final Sender sender = determinePartner(itemObject);
-    final Optional<ArdVideoInfoDto> videoInfo = parseVideos(itemObject, title);
+    final Optional<ArdVideoInfoDto> videoInfo = parseVideos(itemObject);
 
     if (title.isEmpty() || topic.isEmpty() || videoInfo.isEmpty()) {
       return films;
     }
-    // normal
-    if (videoInfo.isPresent()) {
-      // add film to ARD
-      final ArdFilmDto filmDto =
-          new ArdFilmDto(
-              createFilm(
-                  sender,
-                  topic.get(),
-                  title.get(),
-                  description.orElse(null),
-                  date.orElse(null),
-                  duration.orElse(null),
-                  videoInfo.get()));
-      if (widgets.size() > 1) {
-        parseRelatedFilms(filmDto, widgets.get(1).getAsJsonObject());
-      }
-      films.add(filmDto);
+    // add film to ARD
+    final ArdFilmDto filmDto =
+        new ArdFilmDto(
+            createFilm(
+                sender,
+                topic.get(),
+                title.get(),
+                description.orElse(null),
+                date.orElse(null),
+                duration.orElse(null),
+                videoInfo.get()));
+    if (widgets.size() > 1) {
+      parseRelatedFilms(filmDto, widgets.get(1).getAsJsonObject());
     }
-    
+    films.add(filmDto);
     return films;
   }
   
   private Optional<Map<Resolution, String>> fallbackToM3U(Optional<ArdVideoInfoDto> m3u) {
-    // FUNK provides adaptive only
     if (m3u.isPresent() && !m3u.get().getVideoUrls().isEmpty()) {
       String m3uUrl = m3u.get().getVideoUrls().values().toArray(new String[1])[0];
       Map<Resolution, URL> resolutionUrlMapFromM3U;
@@ -204,8 +199,7 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
           return Optional.of(newUrls);
         }
       } catch (MalformedURLException e) {
-        // TODO Auto-generated catch block
-        e.printStackTrace();
+        LOG.error("Could not convert {} to url", m3uUrl, e );
       }
     }
     return Optional.empty();
@@ -346,7 +340,7 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
     }
   }
   
-  private Optional<ArdVideoInfoDto> parseVideos(final JsonObject playerPageObject, Optional<String> title) {
+  private Optional<ArdVideoInfoDto> parseVideos(final JsonObject playerPageObject) {
     ArdVideoInfoDto allVideoUrls = new ArdVideoInfoDto();
     //
     final Optional<Map<Resolution, String>> videoInfoStandard = parseVideoUrls(playerPageObject, "main", "standard", "video/mp4");
@@ -401,10 +395,10 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
             Optional<JsonElement> audios = JsonUtils.getElement(video, ELEMENT_AUDIO);
             if (audios.isPresent() && audios.get().isJsonArray() && audios.get().getAsJsonArray().size() > 0) {
               Optional<String> kind = JsonUtils.getElementValueAsString(audios.get().getAsJsonArray().get(0), ATTRIBUTE_KIND);
-              Optional<String> res_h = JsonUtils.getElementValueAsString(video, ATTRIBUTE_RESOLUTION_H);
+              Optional<String> resh = JsonUtils.getElementValueAsString(video, ATTRIBUTE_RESOLUTION_H);
               Optional<String> url = JsonUtils.getElementValueAsString(video, ATTRIBUTE_URL);
-              if (url.isPresent() && res_h.isPresent() && kind.isPresent() && kind.get().equalsIgnoreCase(aduioType)) {
-                Resolution resolution = Resolution.getResolutionFromWidth(Integer.parseInt(res_h.get()));
+              if (url.isPresent() && resh.isPresent() && kind.isPresent() && kind.get().equalsIgnoreCase(aduioType)) {
+                Resolution resolution = Resolution.getResolutionFromWidth(Integer.parseInt(resh.get()));
                 videoInfo.put(resolution, url.get());
               }
             }
