@@ -58,8 +58,12 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
   private static final String ATTRIBUTE_MIME = "mimeType";
   private static final String ATTRIBUTE_KIND = "kind";
 
-
-  
+  private static final String MARKER_VIDEO_MP4 = "video/mp4"; 
+  private static final String MARKER_VIDEO_STANDARD = "standard";
+  private static final String MARKER_VIDEO_CATEGORY_MAIN = "main";
+  private static final String MARKER_VIDEO_CATEGORY_MPEG = "application/vnd.apple.mpegurl";
+  private static final String MARKER_VIDEO_AD = "audio-description";
+  private static final String MARKER_VIDEO_DGS = "sign-language";  
 
   private final ArdVideoInfoJsonDeserializer videoDeserializer;
   private final AbstractCrawler crawler;
@@ -343,10 +347,10 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
   private Optional<ArdVideoInfoDto> parseVideos(final JsonObject playerPageObject) {
     ArdVideoInfoDto allVideoUrls = new ArdVideoInfoDto();
     //
-    final Optional<Map<Resolution, String>> videoInfoStandard = parseVideoUrls(playerPageObject, "main", "standard", "video/mp4");
-    final Optional<Map<Resolution, String>> videoInfoAdaptive = parseVideoUrls(playerPageObject, "main", "standard", "application/vnd.apple.mpegurl");
-    final Optional<Map<Resolution, String>> videoInfoAD = parseVideoUrls(playerPageObject, "main", "audio-description", "video/mp4");
-    final Optional<Map<Resolution, String>> videoInfoDGS = parseVideoUrls(playerPageObject, "sign-language", "standard", "video/mp4");
+    final Optional<Map<Resolution, String>> videoInfoStandard = parseVideoUrls(playerPageObject, MARKER_VIDEO_CATEGORY_MAIN, MARKER_VIDEO_STANDARD, MARKER_VIDEO_MP4);
+    final Optional<Map<Resolution, String>> videoInfoAdaptive = parseVideoUrls(playerPageObject, MARKER_VIDEO_CATEGORY_MAIN, MARKER_VIDEO_STANDARD, MARKER_VIDEO_CATEGORY_MPEG);
+    final Optional<Map<Resolution, String>> videoInfoAD = parseVideoUrls(playerPageObject, MARKER_VIDEO_CATEGORY_MAIN, MARKER_VIDEO_AD, MARKER_VIDEO_MP4);
+    final Optional<Map<Resolution, String>> videoInfoDGS = parseVideoUrls(playerPageObject, MARKER_VIDEO_DGS, MARKER_VIDEO_STANDARD, MARKER_VIDEO_MP4);
     final Optional<Set<String>> subtitles = prepareSubtitleUrl(playerPageObject);
     //
     if (subtitles.isPresent()) {
