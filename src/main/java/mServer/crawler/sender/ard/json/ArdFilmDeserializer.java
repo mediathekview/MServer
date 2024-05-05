@@ -222,6 +222,7 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
     final Optional<Map<Qualities, String>> videoInfoAD = parseVideoUrls(itemObject, MARKER_VIDEO_CATEGORY_MAIN, MARKER_VIDEO_AD, MARKER_VIDEO_MP4);
     final Optional<Map<Qualities, String>> videoInfoDGS = parseVideoUrls(itemObject, MARKER_VIDEO_DGS, MARKER_VIDEO_STANDARD, MARKER_VIDEO_MP4);
     final Optional<String> subtitles = prepareSubtitleUrl(itemObject);
+    
     if (topic.isEmpty() || title.isEmpty() || partner.isEmpty() || ADDITIONAL_SENDER.get(partner.get()) == null) {
       if (partner.isPresent() && ADDITIONAL_SENDER.get(partner.get()) == null) {
         LOG.warn("Missing Partner " + partner.get());
