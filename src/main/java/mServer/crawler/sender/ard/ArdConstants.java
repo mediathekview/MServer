@@ -37,6 +37,8 @@ public class ArdConstants {
           "phoenix"
       };
 
+  public static final String[] IGNORED_SENDER = new String[] {"zdf", "kika", "3sat", "arte"};
+
   public static final String WEBSITE_URL = "https://www.ardmediathek.de/video/%s";
 
   public static final String BASE_URL_SUBTITLES = "https://classic.ardmediathek.de";

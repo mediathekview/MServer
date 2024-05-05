@@ -43,7 +43,7 @@ abstract class ArdTeasersDeserializer {
   }
 
   private Optional<String> toId(final JsonObject teaserObject) {
-    if (JsonUtils.checkTreePath(teaserObject, null, ELEMENT_LINKS, ELEMENT_TARGET)) {
+    if (JsonUtils.checkTreePath(teaserObject, ELEMENT_LINKS, ELEMENT_TARGET)) {
       final JsonObject targetObject =
           teaserObject.get(ELEMENT_LINKS).getAsJsonObject().get(ELEMENT_TARGET).getAsJsonObject();
       return JsonUtils.getAttributeAsString(targetObject, ATTRIBUTE_ID);

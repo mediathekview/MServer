@@ -7,7 +7,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import de.mediathekview.mlib.Const;
 import de.mediathekview.mlib.daten.DatenFilm;
-import de.mediathekview.mlib.tool.Log;
 import java.lang.reflect.Type;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -33,7 +32,6 @@ import mServer.crawler.sender.ard.ArdFilmDto;
 import mServer.crawler.sender.ard.ArdFilmInfoDto;
 import mServer.crawler.sender.base.JsonUtils;
 import mServer.crawler.sender.base.Qualities;
-import mServer.crawler.sender.base.UrlUtils;
 import org.apache.logging.log4j.LogManager;
 
 public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
@@ -93,6 +91,15 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
     ADDITIONAL_SENDER.put("hr", Const.HR);
     ADDITIONAL_SENDER.put("br", Const.BR);
     ADDITIONAL_SENDER.put("radio_bremen", "rbtv");
+    ADDITIONAL_SENDER.put("tagesschau24", Const.ARD);
+    ADDITIONAL_SENDER.put("das_erste", Const.ARD);
+    ADDITIONAL_SENDER.put("one", "ONE"); // ONE
+    ADDITIONAL_SENDER.put("ard-alpha", "ARD-alpha"); // ARD-alpha
+    ADDITIONAL_SENDER.put("funk", "Funk.net"); // Funk.net
+    ADDITIONAL_SENDER.put("sr", Const.SR);
+    ADDITIONAL_SENDER.put("phoenix", Const.PHOENIX);
+    ADDITIONAL_SENDER.put("ard", Const.ARD);
+    //IGNORED_SENDER "zdf", "kika", "3sat", "arte"
   }
 
   private static Optional<JsonObject> getMediaCollectionObject(final JsonObject itemObject) {
@@ -181,7 +188,7 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
       JsonUtils.getElementValueAsString(url, ATTRIBUTE_URL).ifPresent(urls::add);
     }
     return urls.stream()
-        .filter(s -> s.endsWith(".vtt"))
+        .filter(s -> !s.endsWith(".vtt"))
         .findFirst();
   }
 
@@ -215,8 +222,10 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
     final Optional<Map<Qualities, String>> videoInfoAD = parseVideoUrls(itemObject, MARKER_VIDEO_CATEGORY_MAIN, MARKER_VIDEO_AD, MARKER_VIDEO_MP4);
     final Optional<Map<Qualities, String>> videoInfoDGS = parseVideoUrls(itemObject, MARKER_VIDEO_DGS, MARKER_VIDEO_STANDARD, MARKER_VIDEO_MP4);
     final Optional<String> subtitles = prepareSubtitleUrl(itemObject);
-    
-    if (topic.isEmpty() || title.isEmpty()) {
+    if (topic.isEmpty() || title.isEmpty() || partner.isEmpty() || ADDITIONAL_SENDER.get(partner.get()) == null) {
+      if (partner.isPresent() && ADDITIONAL_SENDER.get(partner.get()) == null) {
+        LOG.warn("Missing Partner " + partner.get());
+      }
       return films;
     } 
     
@@ -253,7 +262,7 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
       }
     }
 
-    if (videoInfoStandard.isPresent() && videoInfoStandard.get().size() > 0) {
+    if (videoInfoStandard.isPresent() && videoInfoStandard.get().size() > 0 && !title.get().contains("Gebärdensprache") ) {
       // add film standard
       final ArdFilmDto filmDto
           = new ArdFilmDto(
@@ -273,7 +282,7 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
     }
     //
     if (videoInfoAD.isPresent() && videoInfoAD.get().size() > 0) {
-      // add film standard
+      // add film ad
       final ArdFilmDto filmDto
           = new ArdFilmDto(
           createFilm(
@@ -285,6 +294,9 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
               duration,
               videoInfoAD.get(),
               subtitles));
+      if (widgets.size() > 1) {
+        parseRelatedFilms(filmDto, widgets.get(1).getAsJsonObject());
+      }
       films.add(filmDto);
     }
     //
@@ -301,6 +313,9 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
               duration,
               videoInfoDGS.get(),
               subtitles));
+      if (widgets.size() > 1) {
+        parseRelatedFilms(filmDto, widgets.get(1).getAsJsonObject());
+      }
       films.add(filmDto);
     }
 
@@ -336,8 +351,7 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
           final Optional<String> id
               = JsonUtils.getAttributeAsString(teasersItemObject, ATTRIBUTE_ID);
           if (id.isPresent()) {
-            final String url = ArdConstants.ITEM_URL + id.get();
-
+            final String url = String.format(ArdConstants.ITEM_URL, id.get());
             filmDto.addRelatedFilm(new ArdFilmInfoDto(id.get(), url, 0));
           }
         }
@@ -359,9 +373,12 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
 
     String dateValue = time.format(DATE_FORMAT);
     String timeValue = time.format(TIME_FORMAT);
+    
+    String baseUrl = videoUrls.get(Qualities.NORMAL);
+    baseUrl = baseUrl != null ? baseUrl : videoUrls.get(Qualities.SMALL);
+    baseUrl = baseUrl != null ? baseUrl : videoUrls.get(Qualities.HD);
 
-
-    DatenFilm film = new DatenFilm(sender, topic, "", title, videoUrls.get(Qualities.NORMAL), "",
+    DatenFilm film = new DatenFilm(sender, topic, "", title, baseUrl, "",
         dateValue, timeValue, duration.orElse(Duration.ZERO).getSeconds(), description.orElse(""));
     if (videoUrls.containsKey(Qualities.SMALL)) {
       CrawlerTool.addUrlKlein(film, videoUrls.get(Qualities.SMALL));
@@ -409,10 +426,9 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
         }
       }
     }
-    if (videoInfo.size() > 0) {
-      return Optional.of(videoInfo);
-    } else {
+    if (videoInfo.size() == 0) {
       return Optional.empty();
     }
+    return Optional.of(videoInfo);
   }
 }
