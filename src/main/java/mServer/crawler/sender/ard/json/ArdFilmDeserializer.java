@@ -227,7 +227,7 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
         LOG.warn("Missing Partner " + partner.get());
       }
       return films;
-    } 
+    }
     
     if(videoInfoStandard.isEmpty() && videoInfoAD.isEmpty() && videoInfoDGS.isEmpty() && videoInfoAdaptive.isPresent()) {
        // UUAAAARRGGGG - SAD
@@ -262,7 +262,7 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
       }
     }
 
-    if (videoInfoStandard.isPresent() && videoInfoStandard.get().size() > 0 && !title.get().contains("Gebärdensprache") ) {
+    if (videoInfoStandard.isPresent() && videoInfoStandard.get().size() > 0 && !(title.get().contains("Gebärdensprache") && videoInfoDGS.isPresent()) ) {
       // add film standard
       final ArdFilmDto filmDto
           = new ArdFilmDto(
@@ -419,7 +419,9 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
               Optional<String> url = JsonUtils.getElementValueAsString(video, ATTRIBUTE_URL);
               if (url.isPresent() && resh.isPresent() && kind.isPresent() && kind.get().equalsIgnoreCase(aduioType)) {
                 Qualities resolution = Qualities.getResolutionFromWidth(Integer.parseInt(resh.get()));
-                videoInfo.put(resolution, url.get());
+                if(!videoInfo.containsKey(resolution)) { // do not overwrite 1920 with 1280 res
+                  videoInfo.put(resolution, url.get());
+                }
               }
             }
           }
