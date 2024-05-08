@@ -113,6 +113,13 @@ public final class JsonUtils {
     return true;
   }
 
+  public static Optional<Integer> getElementValueAsInteger(final JsonElement aJsonElement, final String... aElementIds) {
+    Optional<JsonElement> rs = JsonUtils.getElement(aJsonElement, aElementIds);
+    if (rs.isPresent()) {
+      return Optional.of(rs.get().getAsInt());
+    }
+    return Optional.empty();
+  }
   /**
    * Checks if the {@link JsonObject} has all given elements and if no element
    * is null or empty.
