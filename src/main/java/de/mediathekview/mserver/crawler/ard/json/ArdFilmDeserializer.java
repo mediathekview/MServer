@@ -167,12 +167,30 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
         JsonUtils.getAttributeAsString(itemObject, ATTRIBUTE_SYNOPSIS);
     final Optional<LocalDateTime> date = parseDate(itemObject);
     final Optional<Duration> duration = parseDuration(itemObject);
-    final Sender sender = determinePartner(itemObject);
-    final Optional<ArdVideoInfoDto> videoInfo = parseVideos(itemObject);
+    //final Sender sender = determinePartner(itemObject);
+    final Optional<String> partner = parsePartner(itemObject);
+    final Sender sender = ArdConstants.PARTNER_TO_SENDER.get(partner.orElse(""));
+    final Optional<ArdVideoInfoDto> videoInfo = parseVideos(itemObject, title.orElse(""));
 
+    if(title.orElse("").contains("- Die Antwort auf fast")) {
+      
+      System.out.println("stop");
+    }
+    
     if (title.isEmpty() || topic.isEmpty() || videoInfo.isEmpty()) {
       return films;
     }
+    
+    if (sender == null) {
+      LOG.error("Missing Partner {}", partner.orElse(""));
+      if (partner.isEmpty()) {
+        LOG.error("Missing Partner Element {}", jsonElement);
+      }
+      
+      return films;
+    }
+    
+    
     // add film to ARD
     final ArdFilmDto filmDto =
         new ArdFilmDto(
@@ -215,19 +233,26 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
     return title.map(nonNullTitle -> nonNullTitle.replace("Hörfassung", "Audiodeskription"));
   }
   
-  
+  /*
   private Sender determinePartner(JsonObject playerPageObject) {
     final Optional<String> partner = parsePartner(playerPageObject);
-    final Sender sender;
     // If partner is present and an existing sender set it. Like for RBB
+    Sender partnerSender = null;
     if (partner.isPresent()) {
-      final Optional<Sender> additionalSender = Sender.getSenderByName(partner.get());
-      sender = additionalSender.orElse(Sender.ARD);
+      partnerSender = ArdConstants.PARTNER_TO_SENDER.get(partner.get());
+      if (partnerSender != null) {
+        return partnerSender;
+      } else {
+        partnerSender = Sender.ARD;
+        LOG.info("unkown partner {}", partner.get() );
+      }
     } else {
-      sender = Sender.ARD;
+      partnerSender = Sender.ARD;
+      LOG.info("missing partner {}", playerPageObject);
     }
-    return sender;
-  }
+    return partnerSender;
+
+  } */
 
   private Optional<String> parsePartner(final JsonObject playerPageObject) {
     if (playerPageObject.has(ELEMENT_PUBLICATION_SERVICE)) {
@@ -344,7 +369,7 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
     }
   }
   
-  private Optional<ArdVideoInfoDto> parseVideos(final JsonObject playerPageObject) {
+  private Optional<ArdVideoInfoDto> parseVideos(final JsonObject playerPageObject, final String title) {
     ArdVideoInfoDto allVideoUrls = new ArdVideoInfoDto();
     //
     final Optional<Map<Resolution, String>> videoInfoStandard = parseVideoUrls(playerPageObject, MARKER_VIDEO_CATEGORY_MAIN, MARKER_VIDEO_STANDARD, MARKER_VIDEO_MP4);
@@ -362,9 +387,10 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
     if (videoInfoDGS.isPresent()) {
       allVideoUrls.putAllDGS(videoInfoDGS.get());
     }
-    if (videoInfoStandard.isPresent()) {
+    // Sometimes we have DGS & standard
+    if (videoInfoStandard.isPresent() && !(videoInfoDGS.isPresent() && title.contains("Gebärdensprache"))) {
       allVideoUrls.putAll(videoInfoStandard.get());
-    } else if (videoInfoAdaptive.isPresent()) {
+    } else if (videoInfoAdaptive.isPresent() && !(videoInfoDGS.isPresent() && title.contains("Gebärdensprache"))) {
       ArdVideoInfoDto fallbackM3UUrl = new ArdVideoInfoDto();
       fallbackM3UUrl.putAll(videoInfoAdaptive.get());
       Optional<Map<Resolution, String>> fallback = fallbackToM3U(Optional.of(fallbackM3UUrl));
@@ -410,10 +436,15 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
         }
       }
     }
-    if (videoInfo.size() > 0) {
-      return Optional.of(videoInfo);
-    } else {
+    if (videoInfo.size() == 0) {
       return Optional.empty();
     }
+    // TODO: FIX ME
+    if (!videoInfo.containsKey(Resolution.NORMAL)) {
+      Resolution r = videoInfo.keySet().stream().findFirst().get();
+      videoInfo.put(Resolution.NORMAL, videoInfo.get(r));
+      videoInfo.remove(r);
+    }
+    return Optional.of(videoInfo);
   }
 }
