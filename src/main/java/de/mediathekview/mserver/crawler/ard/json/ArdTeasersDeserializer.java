@@ -21,9 +21,13 @@ abstract class ArdTeasersDeserializer {
   private static final String ATTRIBUTE_ID = "id";
   private static final String ATTRIBUTE_NUMBER_OF_CLIPS = "numberOfClips";
 
+  private static final String ELEMENT_PUBLICATION_SERVICE = "publicationService";
+  private static final String ATTRIBUTE_PARTNER = "partner";
+  
   Set<ArdFilmInfoDto> parseTeasers(final JsonArray teasers) {
     return StreamSupport.stream(teasers.spliterator(), true)
         .map(JsonElement::getAsJsonObject)
+        .filter(this::isRelevant)
         .map(this::toFilmInfo)
         .filter(Objects::nonNull)
         .collect(Collectors.toSet());
@@ -54,5 +58,19 @@ abstract class ArdTeasersDeserializer {
   private ArdFilmInfoDto createFilmInfo(final String id, final int numberOfClips) {
     final String url = String.format(ArdConstants.ITEM_URL, id);
     return new ArdFilmInfoDto(id, url, numberOfClips);
+  }
+  
+  private boolean isRelevant(final JsonObject teaserObject) {
+    if (teaserObject.has(ELEMENT_PUBLICATION_SERVICE)) {
+      final JsonObject publicationService =
+              teaserObject.get(ELEMENT_PUBLICATION_SERVICE).getAsJsonObject();
+      final Optional<String> attributeAsString =
+              JsonUtils.getAttributeAsString(publicationService, ATTRIBUTE_PARTNER);
+      if (attributeAsString.isPresent()) {
+        return ArdConstants.PARTNER_TO_SENDER.get(attributeAsString.get()) != null;
+      }
+    }
+
+    return true;
   }
 }

@@ -36,11 +36,10 @@ public class ArdConstants {
         "swr",
         "wdr",
         "one",
+        "funk",
         "alpha",
         "tagesschau24",
-        "funk",
-        "phoenix",
-        "arte"
+        "phoenix"
       };
 
   public static final Map<String, Sender> PARTNER_TO_SENDER = new HashMap<>();

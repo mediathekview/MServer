@@ -172,21 +172,16 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
     final Sender sender = ArdConstants.PARTNER_TO_SENDER.get(partner.orElse(""));
     final Optional<ArdVideoInfoDto> videoInfo = parseVideos(itemObject, title.orElse(""));
 
-    if(title.orElse("").contains("- Die Antwort auf fast")) {
-      
-      System.out.println("stop");
-    }
-    
     if (title.isEmpty() || topic.isEmpty() || videoInfo.isEmpty()) {
       return films;
     }
     
     if (sender == null) {
-      LOG.error("Missing Partner {}", partner.orElse(""));
       if (partner.isEmpty()) {
         LOG.error("Missing Partner Element {}", jsonElement);
+      } else {
+        LOG.error("Ignore Partner {}", partner.get());
       }
-      
       return films;
     }
     
