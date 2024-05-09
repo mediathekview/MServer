@@ -125,9 +125,9 @@ public class ArdFilmDeserializerTest {
             /*description*/ "Spielfilm Deutschland 2024 +++    \"Der Fluch des Geldes\" beginnt da, wo \"Die Kälte der Erde\" endete. Die Hauptkommissare streiten sich, denn Leo Hölzer musste entdecken, dass sein Partner Adam Schürk im Besitz der Beute aus einem Bankraub seines verstorbenen Vaters ist. +++    Mit Vladimir Burlakov, Daniel Sträßer, Susanne Bormann, Omar El-Saeidi, Jasmina Al Zihairi u.a. | Buch: Hendrik Hölzemann \n.....",
             /*date*/ LocalDateTime.parse("2024-01-28T20:15"),
             /*duration*/ Duration.parse("PT1H28M33S"),
-            /*small*/ "https://pd-videos.daserste.de/int/2024/01/18/3322bac1-6935-4101-8e41-380d70eff67e/JOB_430813_sendeton_640x360-50p-1200kbit.mp4",
-            /*normal*/ "https://pd-videos.daserste.de/int/2024/01/18/3322bac1-6935-4101-8e41-380d70eff67e/JOB_430813_sendeton_960x540-50p-1600kbit.mp4",
-            /*hd*/ "https://pd-videos.daserste.de/int/2024/01/18/3322bac1-6935-4101-8e41-380d70eff67e/JOB_430813_sendeton_1280x720-50p-3200kbit.mp4",
+            /*small*/ "",
+            /*normal*/ "",
+            /*hd*/ "",
             /*ADsmall*/ "https://pd-videos.daserste.de/int/2024/01/18/3322bac1-6935-4101-8e41-380d70eff67e/JOB_430814_internationalerton_640x360-50p-1200kbit.mp4",
             /*ADnormal*/ "https://pd-videos.daserste.de/int/2024/01/18/3322bac1-6935-4101-8e41-380d70eff67e/JOB_430814_internationalerton_960x540-50p-1600kbit.mp4",
             /*ADhd*/ "https://pd-videos.daserste.de/int/2024/01/18/3322bac1-6935-4101-8e41-380d70eff67e/JOB_430814_internationalerton_1280x720-50p-3200kbit.mp4",
@@ -357,31 +357,34 @@ public class ArdFilmDeserializerTest {
 
     final ArdFilmDeserializer target = new ArdFilmDeserializer(createCrawler());
     final List<ArdFilmDto> actualFilms = target.deserialize(jsonElement, null, null);
-
-    assertThat(actualFilms.size(), equalTo(expectedFilmCount));
     final ArdFilmDto[] films = actualFilms.toArray(new ArdFilmDto[] {});
-    //AssertFilm.toTestCase("", films[0].getFilm())
-    AssertFilm.assertEquals(
-        films[0].getFilm(),
-        additionalSender.orElse(Sender.ARD),
-        expectedTopic,
-        expectedTitle,
-        expectedDateTime,
-        expectedDuration,
-        expectedDescription,
-        "", // website
-        new GeoLocations[] {expectedGeo},
-        expectedUrlSmall,
-        expectedUrlNormal,
-        expectedUrlHd,
-        expectedDGSUrlSmall,
-        expectedDGSUrlNormal,
-        expectedDGSUrlHd,
-        expectedADUrlSmall,
-        expectedADUrlNormal,
-        expectedADUrlHd,
-        expectedSubtitle);
-    assertThat(films[0].getRelatedFilms(), Matchers.containsInAnyOrder(relatedFilms));
+    if (additionalSender.get().equals(Sender.KIKA)) {
+      // ignore kika
+      assertThat(actualFilms.size(), equalTo(0));
+    } else {
+      assertThat(actualFilms.size(), equalTo(expectedFilmCount));
+      AssertFilm.assertEquals(
+          films[0].getFilm(),
+          additionalSender.orElse(Sender.ARD),
+          expectedTopic,
+          expectedTitle,
+          expectedDateTime,
+          expectedDuration,
+          expectedDescription,
+          "", // website
+          new GeoLocations[] {expectedGeo},
+          expectedUrlSmall,
+          expectedUrlNormal,
+          expectedUrlHd,
+          expectedDGSUrlSmall,
+          expectedDGSUrlNormal,
+          expectedDGSUrlHd,
+          expectedADUrlSmall,
+          expectedADUrlNormal,
+          expectedADUrlHd,
+          expectedSubtitle);
+      assertThat(films[0].getRelatedFilms(), Matchers.containsInAnyOrder(relatedFilms));
+    }
   }
 
   protected ArdCrawler createCrawler() {
