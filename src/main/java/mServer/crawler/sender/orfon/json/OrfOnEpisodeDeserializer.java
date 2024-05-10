@@ -45,6 +45,7 @@ public class OrfOnEpisodeDeserializer implements JsonDeserializer<OrfOnVideoInfo
   private static final String[] TAG_SUBTITLE_SECTION = {"_embedded", "subtitle"};
   private static final String TAG_SUBTITLE_TTML = "ttml_url";
   private static final String[] PREFERED_CODEC = {"hls", "hds", "progressive"};
+  private static final String[] VIDEO_THUMBNAIL = {"thumbnail_sources","hls"};
   //
   private final OrfHttpClient connection;
   //
@@ -91,7 +92,7 @@ public class OrfOnEpisodeDeserializer implements JsonDeserializer<OrfOnVideoInfo
             parseDuration(JsonUtils.getElementValueAsString(jsonElement, TAG_DURATION)),
             JsonUtils.getElementValueAsString(jsonElement, TAG_DESCRIPTION),
             parseWebsite(JsonUtils.getElementValueAsString(jsonElement, TAG_SHARE_BODY)),
-            optimizeUrls(parseUrl(jsonElement)),
+            optimizeUrls(parseVideoFromSegmentPlaylist(jsonElement)),
             buildOrResolveSubs(jsonElement)
 
     );
@@ -139,7 +140,7 @@ public class OrfOnEpisodeDeserializer implements JsonDeserializer<OrfOnVideoInfo
     return JsonUtils.getElementValueAsString(element, TAG_SUBTITLE_TTML);
   }
 
-  private Optional<Map<Qualities, String>> parseUrl(JsonElement jsonElement) {
+  private Optional<Map<Qualities, String>> parseVideoFromSegmentPlaylist(JsonElement jsonElement) {
     Optional<JsonElement> videoPath1 = JsonUtils.getElement(jsonElement, TAG_VIDEO_PATH_1);
     if (videoPath1.isEmpty() || !videoPath1.get().isJsonArray() || videoPath1.get().getAsJsonArray().size() == 0) {
       return Optional.empty();
@@ -157,10 +158,10 @@ public class OrfOnEpisodeDeserializer implements JsonDeserializer<OrfOnVideoInfo
         }
       }
     }
-    return parseFallbackVideo(jsonElement);
+    return parseVideoFromSources(jsonElement);
   }
 
-  private Optional<Map<Qualities, String>> parseFallbackVideo(JsonElement root) {
+  private Optional<Map<Qualities, String>> parseVideoFromSources(JsonElement root) {
     Optional<JsonElement> videoSources = JsonUtils.getElement(root, TAG_VIDEO_FALLBACK);
     if (videoSources.isPresent()) {
       Map<Qualities, String> urls = new EnumMap<>(Qualities.class);
@@ -177,7 +178,31 @@ public class OrfOnEpisodeDeserializer implements JsonDeserializer<OrfOnVideoInfo
         }
       }
     }
-    return Optional.empty();
+    return parseVideoFromThumbnail(root);
+  }
+  
+  private Optional<Map<Qualities, String>> parseVideoFromThumbnail(JsonElement root) {
+    Map<Qualities, String> urls = new EnumMap<>(Qualities.class);
+    try {
+      Optional<JsonElement> id = JsonUtils.getElement(root, TAG_ID);
+      Optional<JsonElement> thumbnailSources = JsonUtils.getElement(root, VIDEO_THUMBNAIL);
+      if (id.isPresent() && thumbnailSources.isPresent() && thumbnailSources.get().isJsonArray() && thumbnailSources.get().getAsJsonArray().size() > 0 ) {
+        Optional<JsonElement> thumbnailSrc = JsonUtils.getElement(thumbnailSources.get().getAsJsonArray().get(0), "src");
+        if (thumbnailSrc.isPresent()) {
+          int indexId = thumbnailSrc.get().getAsString().indexOf(id.get().getAsString());
+          String fromSecondIdOnwards = thumbnailSrc.get().getAsString().substring(indexId + id.get().getAsString().length() + 1);
+          String secondId = fromSecondIdOnwards.substring(0, fromSecondIdOnwards.indexOf("_"));
+          String url = String.format("https://apasfiis.sf.apa.at/ipad/cms-worldwide_episodes/%s_%s_QXA.mp4/playlist.m3u8", id.get().getAsString(), secondId);
+          urls.put(Qualities.NORMAL, url);
+        }
+      }
+    } catch (Exception e) {
+      LOG.error("generateFallbackVideo {}", e);
+    }
+    if (urls.size() == 0) {
+      return Optional.empty();
+    }
+    return Optional.of(urls);
   }
 
   private Optional<Map<Qualities, String>> readVideoForTargetCodec(JsonElement urlArray, String targetCodec) {
