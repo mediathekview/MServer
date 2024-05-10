@@ -39,7 +39,9 @@ public class ZdfFilmDetailDeserializer implements JsonDeserializer<Optional<ZdfF
   private static final String JSON_ELEMENT_TITLE = "title";
   private static final String JSON_ELEMENT_TEASER_TEXT = "teasertext";
   private static final String JSON_ATTRIBUTE_TEMPLATE = "http://zdf.de/rels/streams/ptmd-template";
-
+  private static final String EPISODENUMBER = "episodeNumber";
+  private static final String[] SEASONNUMBER = {"http://zdf.de/rels/cmdm/season", "seasonNumber"};
+  
   private static final String PLACEHOLDER_PLAYER_ID = "{playerId}";
   private static final String PLAYER_ID = "android_native_5";
 
@@ -215,38 +217,53 @@ public class ZdfFilmDetailDeserializer implements JsonDeserializer<Optional<ZdfF
     return Optional.empty();
   }
 
-  private Optional<String> parseTitle(JsonObject aRootNode, JsonObject aTarget) {
-    Optional<String> title = parseTitleValue(aRootNode, aTarget);
-    return title.map(s -> s.replaceAll("\\(CC.*\\) - .* Creative Commons.*", ""));
-  }
-
-  private Optional<String> parseTitleValue(JsonObject aRootNode, JsonObject aTarget) {
-    // use property "title" if found
-    JsonElement titleElement = aRootNode.get(JSON_ELEMENT_TITLE);
-    if (titleElement != null) {
-      JsonElement subTitleElement = aRootNode.get(JSON_ELEMENT_SUBTITLE);
-      if (subTitleElement != null) {
-        return Optional.of(titleElement.getAsString().trim() + " - " + subTitleElement.getAsString());
-      } else {
-        return Optional.of(titleElement.getAsString());
-      }
-    } else {
-      // programmItem target required to determine title
-      if (aTarget != null && aTarget.has(JSON_ELEMENT_TITLE)) {
-        String title = aTarget.get(JSON_ELEMENT_TITLE).getAsString();
-        String subTitle = aTarget.get(JSON_ELEMENT_SUBTITLE).getAsString();
-
-        if (subTitle.isEmpty()) {
-          return Optional.of(title);
-        } else {
-          return Optional.of(title.trim() + " - " + subTitle);
-        }
-      }
+  private Optional<String> parseTitle(final JsonObject aRootNode, final JsonObject aTarget) {
+    final Optional<String> programmTitle = JsonUtils.getElementValueAsString(aRootNode, JSON_ELEMENT_TITLE);
+    final Optional<String> programmSubtitle = JsonUtils.getElementValueAsString(aRootNode, JSON_ELEMENT_SUBTITLE);
+    Optional<String> resultingTitle = formatTitle(programmTitle, programmSubtitle); 
+    if (resultingTitle.isEmpty()) {
+      final Optional<String> targetTitle = JsonUtils.getElementValueAsString(aTarget, JSON_ELEMENT_TITLE);
+      final Optional<String> targetSubtitle = JsonUtils.getElementValueAsString(aTarget, JSON_ELEMENT_SUBTITLE);
+      resultingTitle = formatTitle(targetTitle, targetSubtitle);
     }
-
+    if (resultingTitle.isPresent()) {
+      final Optional<Integer> season = JsonUtils.getElementValueAsInteger(aTarget, SEASONNUMBER);
+      final Optional<Integer> episode = JsonUtils.getElementValueAsInteger(aTarget, EPISODENUMBER);
+      final Optional<String> seasonEpisodeTitle = formatEpisodeTitle(season, episode);
+      final Optional<String> title = cleanupTitle((resultingTitle.get() + " " + seasonEpisodeTitle.orElse("")).trim());
+      return title;
+    }
     return Optional.empty();
   }
-
+  
+  private Optional<String> cleanupTitle(String title) {
+    return Optional.of(title.replaceAll("\\(CC.*\\) - .* Creative Commons.*", ""));
+  }
+  
+  private Optional<String> formatTitle(Optional<String> title, Optional<String> sub) {
+    if (title.isEmpty()) {
+      return Optional.empty();
+    }
+    if (sub.isPresent() && !sub.get().isBlank()) {
+      return Optional.of(title.get().trim() + " - " + sub.get().trim());
+    } else {
+      return Optional.of(title.get().trim());
+    }
+  }
+  
+  private Optional<String> formatEpisodeTitle(Optional<Integer> season, Optional<Integer> episode) {
+    if (season.isEmpty() && episode.isEmpty()) {
+      return Optional.empty();
+    }
+    String result = "";
+    if (season.isPresent()) {
+      result += String.format("S%02d", season.get());
+    }
+    if (episode.isPresent()) {
+      result += String.format("E%02d", episode.get());
+    }
+    return Optional.of("("+result+")");
+  }
   private Optional<String> parseTopic(JsonObject aRootNode) {
     JsonObject brand = aRootNode.getAsJsonObject(JSON_ELEMENT_BRAND);
     JsonObject category = aRootNode.getAsJsonObject(JSON_ELEMENT_CATEGORY);
