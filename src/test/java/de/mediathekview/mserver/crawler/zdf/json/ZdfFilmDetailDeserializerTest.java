@@ -1,5 +1,8 @@
 package de.mediathekview.mserver.crawler.zdf.json;
 
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
+
 import com.google.gson.JsonObject;
 import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.Sender;
@@ -7,19 +10,15 @@ import de.mediathekview.mserver.crawler.zdf.ZdfConstants;
 import de.mediathekview.mserver.crawler.zdf.ZdfFilmDto;
 import de.mediathekview.mserver.testhelper.AssertFilm;
 import de.mediathekview.mserver.testhelper.JsonFileReader;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
-
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Optional;
-
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.MatcherAssert.assertThat;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
 
 @RunWith(Parameterized.class)
 public class ZdfFilmDetailDeserializerTest {
@@ -158,6 +157,18 @@ public class ZdfFilmDetailDeserializerTest {
             "https://api.zdf.de/tmd/2/android_native_5/vod/ptmd/mediathek/220505_geliebt_geduldet_getoetet_inf/4",
             Optional.of(
                 "https://api.zdf.de/tmd/2/android_native_5/vod/ptmd/mediathek/220505_geliebt_geduldet_getoetet_inf_dgs/2")
+          },
+          {
+            "/zdf/zdf_film_details_with_episodes.json",
+            Sender.ZDF,
+            "The Rookie",
+            "Der Prozess (S05E01)",
+            LocalDateTime.of(2024, 4, 11, 20, 15, 0),
+            Duration.ofMinutes(41).plusSeconds(6),
+            "Officer John Nolan sieht sich wieder mit der Serienmörderin Rosalind Dyer konfrontiert. Vor Beginn der Gerichtsverhandlung gelingt ihr die Flucht und sie muss erneut gefasst werden.",
+            "https://www.zdf.de/serien/the-rookie/der-prozess-110.html",
+            "https://api.zdf.de/tmd/2/android_native_5/vod/ptmd/mediathek/240411_2015_sendung_roo/2",
+            Optional.empty()
           }
         });
   }
