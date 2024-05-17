@@ -185,7 +185,6 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
       return films;
     }
     
-    
     // add film to ARD
     final ArdFilmDto filmDto =
         new ArdFilmDto(
@@ -223,31 +222,19 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
   }
 
   private Optional<String> parseTitle(final JsonObject playerPageObject) {
-    final Optional<String> title =
-        JsonUtils.getAttributeAsString(playerPageObject, ATTRIBUTE_TITLE);
-    return title.map(nonNullTitle -> nonNullTitle.replace("Hörfassung", "Audiodeskription"));
+    Optional<String> title = JsonUtils.getAttributeAsString(playerPageObject, ATTRIBUTE_TITLE);
+    if (title.isPresent()) {
+      String[] replaceWords = {" - Hörfassung", " (mit Gebärdensprache)", " mit Gebärdensprache"," (mit Audiodeskription)", "Audiodeskription"};
+      String cleanTitle = title.get().trim();
+      for (String replaceWord : replaceWords) {
+        cleanTitle = cleanTitle.replace(replaceWord, "");
+      }
+      cleanTitle = cleanTitle.trim();
+      return Optional.of(cleanTitle);
+    }
+    return title;
   }
   
-  /*
-  private Sender determinePartner(JsonObject playerPageObject) {
-    final Optional<String> partner = parsePartner(playerPageObject);
-    // If partner is present and an existing sender set it. Like for RBB
-    Sender partnerSender = null;
-    if (partner.isPresent()) {
-      partnerSender = ArdConstants.PARTNER_TO_SENDER.get(partner.get());
-      if (partnerSender != null) {
-        return partnerSender;
-      } else {
-        partnerSender = Sender.ARD;
-        LOG.info("unkown partner {}", partner.get() );
-      }
-    } else {
-      partnerSender = Sender.ARD;
-      LOG.info("missing partner {}", playerPageObject);
-    }
-    return partnerSender;
-
-  } */
 
   private Optional<String> parsePartner(final JsonObject playerPageObject) {
     if (playerPageObject.has(ELEMENT_PUBLICATION_SERVICE)) {
