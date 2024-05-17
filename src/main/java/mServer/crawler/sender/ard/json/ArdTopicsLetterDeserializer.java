@@ -29,8 +29,6 @@ public class ArdTopicsLetterDeserializer implements JsonDeserializer<PaginationU
 
   private static final String ATTRIBUTE_ID = "id";
 
-  private static final String[] IGNORED_SENDER = new String[] {"zdf", "kika", "3sat", "arte"};
-
   @Override
   public PaginationUrlDto deserialize(
           final JsonElement jsonElement, final Type type, final JsonDeserializationContext context) {
@@ -104,7 +102,7 @@ public class ArdTopicsLetterDeserializer implements JsonDeserializer<PaginationU
               JsonUtils.getAttributeAsString(publicationService, ATTRIBUTE_NAME);
       if (attributeAsString.isPresent()) {
 
-        return !Arrays.stream(IGNORED_SENDER)
+        return !Arrays.stream(ArdConstants.IGNORED_SENDER)
                 .anyMatch(sender -> sender.equalsIgnoreCase(attributeAsString.get()));
       }
     }

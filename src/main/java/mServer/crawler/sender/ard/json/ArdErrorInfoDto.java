@@ -4,10 +4,10 @@ import java.util.Objects;
 
 public class ArdErrorInfoDto {
 
-  private String code;
-  private String message;
+  private final String code;
+  private final String message;
 
-  public ArdErrorInfoDto(String code, String message) {
+  public ArdErrorInfoDto(final String code, final String message) {
     this.code = code;
     this.message = message;
   }
@@ -21,14 +21,13 @@ public class ArdErrorInfoDto {
   }
 
   @Override
-  public boolean equals(Object o) {
+  public boolean equals(final Object o) {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof ArdErrorInfoDto)) {
+    if (!(o instanceof ArdErrorInfoDto that)) {
       return false;
     }
-    ArdErrorInfoDto that = (ArdErrorInfoDto) o;
     return Objects.equals(code, that.code) &&
         Objects.equals(message, that.message);
   }
