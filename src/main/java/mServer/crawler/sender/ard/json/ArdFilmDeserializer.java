@@ -139,9 +139,14 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
   private Optional<String> parseTitle(final JsonObject playerPageObject) {
     Optional<String> title = JsonUtils.getAttributeAsString(playerPageObject, ATTRIBUTE_TITLE);
     if (title.isPresent()) {
-      return Optional.of(title.get().replace("Hörfassung", "Audiodeskription"));
+      String[] replaceWords = {" - Hörfassung", " (mit Gebärdensprache)", " mit Gebärdensprache"," (mit Audiodeskription)", "Audiodeskription"};
+      String cleanTitle = title.get().trim();
+      for (String replaceWord : replaceWords) {
+        cleanTitle = cleanTitle.replace(replaceWord, "");
+      }
+      cleanTitle = cleanTitle.trim();
+      return Optional.of(cleanTitle);
     }
-
     return title;
   }
 
@@ -241,6 +246,9 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
                   return null;
               }
           }));
+      if (!qualitiesUrls.containsKey(Qualities.NORMAL)) {
+        qualitiesUrls.put(Qualities.NORMAL,  qualitiesUrls.entrySet().stream().findFirst().get().getValue());
+      }
       //
       ArdVideoInfoJsonDeserializer.loadM3U8(qualitiesUrls);
       //
@@ -263,7 +271,7 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
       }
     }
 
-    if (videoInfoStandard.isPresent() && videoInfoStandard.get().size() > 0 && !(title.get().contains("Gebärdensprache") && videoInfoDGS.isPresent()) ) {
+    if (videoInfoStandard.isPresent() && videoInfoStandard.get().size() > 0) {
       // add film standard
       final ArdFilmDto filmDto
           = new ArdFilmDto(
@@ -289,7 +297,7 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
           createFilm(
               ADDITIONAL_SENDER.get(partner.get()),
               topic.get(),
-              title.get(),
+              title.get() + " (Audiodeskription)",
               description,
               date,
               duration,
@@ -308,7 +316,7 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
           createFilm(
               ADDITIONAL_SENDER.get(partner.get()),
               topic.get(),
-              title.get(),
+              title.get() + " (Gebärdensprache)",
               description,
               date,
               duration,
