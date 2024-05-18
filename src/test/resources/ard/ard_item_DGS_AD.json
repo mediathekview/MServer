@@ -1,0 +1,540 @@
+{
+  "coreAssetType": "EPISODE",
+  "fskRating": "NONE",
+  "id": "player_ondemand-page-ard",
+  "isChildContent": true,
+  "personalized": false,
+  "links": {
+    "self": {
+      "id": "player_ondemand-page-ard",
+      "urlId": "player_ondemand-page-ard",
+      "title": "Die schlaflose Eule (mit Gebärdensprache)",
+      "href": "https://api.ardmediathek.de/page-gateway/pages/ard/item/Y3JpZDovL25kci5kZS82ZDdlMGFkMC00OGQ5LTRmYTMtYjdiMy04NDYzZTg4ODkyYjkvZ2ViYWVyZGVuc3ByYWNoZQ?embedded=true&mcV6=true",
+      "type": "application/vnd.ard.page+json",
+      "partner": "ard"
+    }
+  },
+  "title": "Die schlaflose Eule (mit Gebärdensprache)",
+  "tracking": {
+    "aggregationLevelId": 38,
+    "atiCustomVars": {
+      "clipTitle": "Die schlaflose Eule (mit Gebärdensprache)",
+      "mediaType": "video",
+      "lra": "KiKA",
+      "channel": "KiKA",
+      "show": "Sesamstraße Magazin",
+      "contentTypes": "GD | UT",
+      "mediaDistributionType": 1,
+      "contentId": 10147697,
+      "metadataId": "crid://ndr.de/6d7e0ad0-48d9-4fa3-b7b3-8463e88892b9/gebaerdensprache",
+      "clipLength": 1226
+    },
+    "chapter2": "Player",
+    "chapter3": "Sesamstraße Magazin",
+    "environmentId": 511893,
+    "pageTitle": "Mediathek/Player/Sesamstraße Magazin/Die schlaflose Eule (mit Gebärdensprache)/10147697/20240219_0645",
+    "szmType": "CP"
+  },
+  "trackingPiano": {
+    "page_chapter1": "Player",
+    "page_content_id": "urn:ard:publication:1ad647c65f0db565",
+    "page_content_title": "Die schlaflose Eule (mit Gebärdensprache)",
+    "page_id": "player_ondemand-page-ard",
+    "page_institution": "KiKA",
+    "page_institution_id": "urn:ard:institution:4ef58479de880838",
+    "page_publisher": "KiKA",
+    "page_publisher_id": "urn:ard:publisher:d974dc16b65aef8b",
+    "page_show": "Sesamstraße Magazin",
+    "page_show_id": "urn:ard:show:6d28705b69b83872",
+    "page_title": "Die schlaflose Eule (mit Gebärdensprache)",
+    "site": "634408"
+  },
+  "widgets": [
+    {
+      "availableTo": "2026-02-19T06:45:00Z",
+      "binaryFeatures": [
+        "DGS",
+        "UT",
+        "AD"
+      ],
+      "blockedByFsk": false,
+      "broadcastedOn": "2024-02-19T06:45:00Z",
+      "embeddable": false,
+      "geoblocked": false,
+      "id": "Y3JpZDovL25kci5kZS82ZDdlMGFkMC00OGQ5LTRmYTMtYjdiMy04NDYzZTg4ODkyYjkvZ2ViYWVyZGVuc3ByYWNoZQ",
+      "image": {
+        "alt": "Sesamstraßen Logo Jan Delay mit Sesamstraßen Puppen und Disco-Kugel.",
+        "producerName": "Sesamstraße",
+        "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:7752e5eeb1e3fa5d?w={width}&ch=58b367a962e5dfe6",
+        "title": "Die schlaflose Eule"
+      },
+      "isChildContent": true,
+      "maturityContentRating": "NONE",
+      "mediaCollection": {
+        "embedded": {
+          "isGeoBlocked": true,
+          "meta": {
+            "availableToDateTime": "2026-02-19T06:45:00Z",
+            "broadcastedOnDateTime": "2024-02-19T06:45:00Z",
+            "clipSourceName": "NDR",
+            "durationSeconds": 1226,
+            "images": [
+              {
+                "alt": "Sesamstraßen Logo Jan Delay mit Sesamstraßen Puppen und Disco-Kugel.",
+                "aspectRatio": "16x9",
+                "imageSourceName": "Sesamstraße",
+                "kind": "preview",
+                "title": "Die schlaflose Eule",
+                "url": "https://api.ardmediathek.de/image-service/images/urn:ard:image:7752e5eeb1e3fa5d?w=960&ch=58b367a962e5dfe6"
+              }
+            ],
+            "publicationService": {
+              "id": "ard",
+              "name": "KiKA",
+              "partner": "kika"
+            },
+            "seriesTitle": "Sesamstraße Magazin",
+            "synopsis": "2893. Ernie & Jan Delay bringen den müden Bert mit ihrem Lied um seinen nächtlichen Schlaf.\nIn einer neuen Sesamstraßen Reihe nehmen uns Kinder mit an ihre \"Lieblingsorte\". Heute besuchen wir mit Elli (4), Jonathan (5) und Mattis (8) das nächtliche Miniaturwunderland.\nAußerdem hat der Prinz Probleme damit, Dornröschen zu wecken und Krümelmonster bringt Abby zur Verzweiflung. Susi Schraube erfindet eine Maschine, die beim Einschlafen hilft.",
+            "title": "Die schlaflose Eule"
+          },
+          "pluginData": {
+            "recommendation@all": {
+              "isAutoplay": true,
+              "timerSeconds": 10,
+              "url": "https://api.ardmediathek.de/page-gateway/compilations/ard/recommendations?contextItemId=Y3JpZDovL25kci5kZS82ZDdlMGFkMC00OGQ5LTRmYTMtYjdiMy04NDYzZTg4ODkyYjk"
+            },
+            "trackingAgf@all": {
+              "appId": "PA02DC09C-B8D3-4098-87D2-2C023682D6D5",
+              "clipData": {
+                "assetid": "10147697",
+                "length": "1226",
+                "nol_c0": "p0,0",
+                "nol_c10": "p10,KiKA",
+                "nol_c12": "p12,Content",
+                "nol_c15": "p15,",
+                "nol_c16": "p16,ARD_Information",
+                "nol_c18": "p18,N",
+                "nol_c19": "p19,NDR",
+                "nol_c2": "p2,N",
+                "nol_c5": "p5,ARD Mediathek",
+                "nol_c7": "p7,crid://ndr.de/4440_2021-12-16-07-45",
+                "nol_c8": "p8,1226",
+                "nol_c9": "p9,Sesamstraße Magazin_Die schlaflose Eule_19.02.2024 06:45",
+                "program": "Sesamstraße Magazin",
+                "title": "KiKA_Sesamstraße Magazin_Die schlaflose Eule_19.02.2024 06:45",
+                "type": "content"
+              },
+              "tracker": "AGF"
+            },
+            "trackingAti@all": {
+              "config": {
+                "site": 511893
+              },
+              "isEnabled": true,
+              "richMedia": {
+                "broadcastMode": "clip",
+                "duration": "1226",
+                "mediaLabel": "Die schlaflose Eule__10147697__AD | GD | UT",
+                "mediaLevel2": "{richMediaLevelTwo}",
+                "mediaTheme1": "KiKA",
+                "mediaTheme2": "KiKA",
+                "mediaTheme3": "Sesamstraße Magazin",
+                "mediaType": "video",
+                "playerId": "urn:ard:publication:1ad647c65f0db565",
+                "refreshDuration": {
+                  "0": 5,
+                  "1": 12,
+                  "12": 15,
+                  "18": 30
+                }
+              },
+              "tracker": "ATI"
+            },
+            "trackingPiano@all": {
+              "avContent": {
+                "av_broadcasting_type": "OnDemand",
+                "av_content": "Die schlaflose Eule",
+                "av_content_duration": 1226000,
+                "av_content_id": "urn:ard:publication:1ad647c65f0db565",
+                "av_content_type": "video",
+                "av_institution": "KiKA",
+                "av_institution_id": "urn:ard:institution:4ef58479de880838",
+                "av_publisher": "KiKA",
+                "av_publisher_id": "urn:ard:publisher:d974dc16b65aef8b",
+                "av_show": "Sesamstraße Magazin",
+                "av_show_id": "urn:ard:show:6d28705b69b83872"
+              },
+              "config": {
+                "events": [
+                  "av.error",
+                  "av.speed",
+                  "av.quality",
+                  "av.jumpmark",
+                  "av.share",
+                  "av.playermode",
+                  "av.subtitle",
+                  "av.language",
+                  "av.audiodescription",
+                  "av.signlanguage",
+                  "av.volume.mute",
+                  "av.recommendation"
+                ],
+                "site": 634408
+              },
+              "isEnabled": true
+            }
+          },
+          "streams": [
+            {
+              "kind": "main",
+              "kindName": "Normal",
+              "media": [
+                {
+                  "aspectRatio": "16:9",
+                  "audios": [
+                    {
+                      "kind": "standard",
+                      "languageCode": "deu"
+                    }
+                  ],
+                  "forcedLabel": "SD",
+                  "hasEmbeddedSubtitles": false,
+                  "isAdaptiveQualitySelectable": false,
+                  "isHighDynamicRange": false,
+                  "maxHResolutionPx": 640,
+                  "maxVResolutionPx": 360,
+                  "mimeType": "video/mp4",
+                  "subtitles": [],
+                  "url": "https://mediandr-a.akamaihd.net/progressive_geo/2021/0928/TV-20210928-1420-0200.ln.mp4",
+                  "videoCodec": "H.264"
+                },
+                {
+                  "aspectRatio": "16:9",
+                  "audios": [
+                    {
+                      "kind": "standard",
+                      "languageCode": "deu"
+                    }
+                  ],
+                  "forcedLabel": "SD 480p",
+                  "hasEmbeddedSubtitles": false,
+                  "isAdaptiveQualitySelectable": false,
+                  "isHighDynamicRange": false,
+                  "maxHResolutionPx": 960,
+                  "maxVResolutionPx": 540,
+                  "mimeType": "video/mp4",
+                  "subtitles": [],
+                  "url": "https://mediandr-a.akamaihd.net/progressive_geo/2021/0928/TV-20210928-1420-0200.hq.mp4",
+                  "videoCodec": "H.264"
+                },
+                {
+                  "aspectRatio": "16:9",
+                  "audios": [
+                    {
+                      "kind": "standard",
+                      "languageCode": "deu"
+                    }
+                  ],
+                  "forcedLabel": "HD Ready",
+                  "hasEmbeddedSubtitles": false,
+                  "isAdaptiveQualitySelectable": false,
+                  "isHighDynamicRange": false,
+                  "maxHResolutionPx": 1280,
+                  "maxVResolutionPx": 720,
+                  "mimeType": "video/mp4",
+                  "subtitles": [],
+                  "url": "https://mediandr-a.akamaihd.net/progressive_geo/2021/0928/TV-20210928-1420-0200.hd.mp4",
+                  "videoCodec": "H.264"
+                },
+                {
+                  "aspectRatio": "16:9",
+                  "audios": [
+                    {
+                      "kind": "standard",
+                      "languageCode": "deu"
+                    }
+                  ],
+                  "forcedLabel": "Auto",
+                  "hasEmbeddedSubtitles": false,
+                  "isAdaptiveQualitySelectable": false,
+                  "isHighDynamicRange": false,
+                  "maxHResolutionPx": 1280,
+                  "maxVResolutionPx": 720,
+                  "mimeType": "application/vnd.apple.mpegurl",
+                  "subtitles": [],
+                  "url": "https://adaptive.ndr.de/i/geo/2021/0928/TV-20210928-1420-0200.,hq,hd,ln,mn,ao,.mp4.csmil/master.m3u8",
+                  "videoCodec": "H.264"
+                },
+                {
+                  "aspectRatio": "16:9",
+                  "audios": [
+                    {
+                      "kind": "audio-description",
+                      "languageCode": "deu"
+                    }
+                  ],
+                  "forcedLabel": "SD",
+                  "hasEmbeddedSubtitles": false,
+                  "isAdaptiveQualitySelectable": false,
+                  "isHighDynamicRange": false,
+                  "maxHResolutionPx": 640,
+                  "maxVResolutionPx": 360,
+                  "mimeType": "video/mp4",
+                  "subtitles": [],
+                  "url": "https://mediandr-a.akamaihd.net/progressive_geo/2021/1001/TV-20211001-1625-4000.ln.mp4",
+                  "videoCodec": "H.264"
+                },
+                {
+                  "aspectRatio": "16:9",
+                  "audios": [
+                    {
+                      "kind": "audio-description",
+                      "languageCode": "deu"
+                    }
+                  ],
+                  "forcedLabel": "HD Ready",
+                  "hasEmbeddedSubtitles": false,
+                  "isAdaptiveQualitySelectable": false,
+                  "isHighDynamicRange": false,
+                  "maxHResolutionPx": 1280,
+                  "maxVResolutionPx": 720,
+                  "mimeType": "video/mp4",
+                  "subtitles": [],
+                  "url": "https://mediandr-a.akamaihd.net/progressive_geo/2021/1001/TV-20211001-1625-4000.hd.mp4",
+                  "videoCodec": "H.264"
+                },
+                {
+                  "aspectRatio": "16:9",
+                  "audios": [
+                    {
+                      "kind": "audio-description",
+                      "languageCode": "deu"
+                    }
+                  ],
+                  "forcedLabel": "Auto",
+                  "hasEmbeddedSubtitles": false,
+                  "isAdaptiveQualitySelectable": false,
+                  "isHighDynamicRange": false,
+                  "maxHResolutionPx": 1280,
+                  "maxVResolutionPx": 720,
+                  "mimeType": "application/vnd.apple.mpegurl",
+                  "subtitles": [],
+                  "url": "https://adaptive.ndr.de/i/geo/2021/1001/TV-20211001-1625-4000.,hq,hd,ln,mn,ao,.mp4.csmil/master.m3u8",
+                  "videoCodec": "H.264"
+                },
+                {
+                  "aspectRatio": "16:9",
+                  "audios": [
+                    {
+                      "kind": "audio-description",
+                      "languageCode": "deu"
+                    }
+                  ],
+                  "forcedLabel": "SD 480p",
+                  "hasEmbeddedSubtitles": false,
+                  "isAdaptiveQualitySelectable": false,
+                  "isHighDynamicRange": false,
+                  "maxHResolutionPx": 960,
+                  "maxVResolutionPx": 540,
+                  "mimeType": "video/mp4",
+                  "subtitles": [],
+                  "url": "https://mediandr-a.akamaihd.net/progressive_geo/2021/1001/TV-20211001-1625-4000.hq.mp4",
+                  "videoCodec": "H.264"
+                }
+              ],
+              "videoLanguageCode": ""
+            },
+            {
+              "kind": "sign-language",
+              "kindName": "DGS",
+              "media": [
+                {
+                  "aspectRatio": "16:9",
+                  "audios": [
+                    {
+                      "kind": "standard",
+                      "languageCode": "deu"
+                    }
+                  ],
+                  "forcedLabel": "SD",
+                  "hasEmbeddedSubtitles": false,
+                  "isAdaptiveQualitySelectable": false,
+                  "isHighDynamicRange": false,
+                  "maxHResolutionPx": 640,
+                  "maxVResolutionPx": 360,
+                  "mimeType": "video/mp4",
+                  "subtitles": [],
+                  "url": "https://mediandr-a.akamaihd.net/progressive_geo/2022/0104/TV-20220104-0902-5000.ln.mp4",
+                  "videoCodec": "H.264"
+                },
+                {
+                  "aspectRatio": "16:9",
+                  "audios": [
+                    {
+                      "kind": "standard",
+                      "languageCode": "deu"
+                    }
+                  ],
+                  "forcedLabel": "Auto",
+                  "hasEmbeddedSubtitles": false,
+                  "isAdaptiveQualitySelectable": false,
+                  "isHighDynamicRange": false,
+                  "maxHResolutionPx": 1280,
+                  "maxVResolutionPx": 720,
+                  "mimeType": "application/vnd.apple.mpegurl",
+                  "subtitles": [],
+                  "url": "https://adaptive.ndr.de/i/geo/2022/0104/TV-20220104-0902-5000.,hq,hd,ln,mn,ao,.mp4.csmil/master.m3u8",
+                  "videoCodec": "H.264"
+                },
+                {
+                  "aspectRatio": "16:9",
+                  "audios": [
+                    {
+                      "kind": "standard",
+                      "languageCode": "deu"
+                    }
+                  ],
+                  "forcedLabel": "HD Ready",
+                  "hasEmbeddedSubtitles": false,
+                  "isAdaptiveQualitySelectable": false,
+                  "isHighDynamicRange": false,
+                  "maxHResolutionPx": 1280,
+                  "maxVResolutionPx": 720,
+                  "mimeType": "video/mp4",
+                  "subtitles": [],
+                  "url": "https://mediandr-a.akamaihd.net/progressive_geo/2022/0104/TV-20220104-0902-5000.hd.mp4",
+                  "videoCodec": "H.264"
+                },
+                {
+                  "aspectRatio": "16:9",
+                  "audios": [
+                    {
+                      "kind": "standard",
+                      "languageCode": "deu"
+                    }
+                  ],
+                  "forcedLabel": "SD 480p",
+                  "hasEmbeddedSubtitles": false,
+                  "isAdaptiveQualitySelectable": false,
+                  "isHighDynamicRange": false,
+                  "maxHResolutionPx": 960,
+                  "maxVResolutionPx": 540,
+                  "mimeType": "video/mp4",
+                  "subtitles": [],
+                  "url": "https://mediandr-a.akamaihd.net/progressive_geo/2022/0104/TV-20220104-0902-5000.hq.mp4",
+                  "videoCodec": "H.264"
+                }
+              ],
+              "videoLanguageCode": "dgs"
+            }
+          ],
+          "subtitles": [
+            {
+              "kind": "normal",
+              "languageCode": "deu",
+              "sources": [
+                {
+                  "kind": "ebutt",
+                  "url": "https://api.ardmediathek.de/player-service/subtitle/ebutt/urn:ard:subtitle:eaa2ed13a677cd00"
+                },
+                {
+                  "kind": "webvtt",
+                  "url": "https://api.ardmediathek.de/player-service/subtitle/webvtt/urn:ard:subtitle:eaa2ed13a677cd00.vtt"
+                }
+              ]
+            }
+          ]
+        },
+        "href": "https://api.ardmediathek.de/page-gateway/mediacollectionv6/Y3JpZDovL25kci5kZS82ZDdlMGFkMC00OGQ5LTRmYTMtYjdiMy04NDYzZTg4ODkyYjkvZ2ViYWVyZGVuc3ByYWNoZQ?isTv=false"
+      },
+      "pagination": null,
+      "personalized": false,
+      "playerConfig": null,
+      "publicationService": {
+        "name": "KiKA",
+        "logo": {
+          "title": "Logo KiKA",
+          "alt": "Logo KiKA",
+          "producerName": "Logo KiKA",
+          "src": "https://api.ardmediathek.de/image-service/image-collections/urn:ard:image-collection:2213972a8d101de1/16x9?w={width}",
+          "aspectRatio": "16x9"
+        },
+        "publisherType": "TV",
+        "partner": "KiKa",
+        "id": "b3JnYW5pemF0aW9uX0tpS0E",
+        "coreId": "urn:ard:publisher:d974dc16b65aef8b"
+      },
+      "links": {
+        "self": {
+          "id": "player_on_demand_widget_ard",
+          "urlId": "player_on_demand_widget_ard",
+          "title": "Die schlaflose Eule (mit Gebärdensprache)",
+          "href": "https://api.ardmediathek.de/page-gateway/widgets/ard/editorials/player_on_demand_widget_ard/item/Y3JpZDovL25kci5kZS82ZDdlMGFkMC00OGQ5LTRmYTMtYjdiMy04NDYzZTg4ODkyYjkvZ2ViYWVyZGVuc3ByYWNoZQ?pageNumber=0&pageSize=100&embedded=true&mcV6=true",
+          "type": "application/vnd.ard.widget+json",
+          "partner": "ard"
+        }
+      },
+      "show": {
+        "id": "Y3JpZDovL25kci5kZS80NDQw",
+        "title": "Sesamstraße Magazin",
+        "image": {
+          "alt": "Logo der Sendung Sesamstraße",
+          "producerName": "NDR",
+          "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:0aaf50e00c831d8f?w={width}&ch=bf49a3d17d79a407",
+          "title": "Sesamstraße Magazin"
+        },
+        "availableSeasons": null,
+        "binaryFeatures": [
+          "UT",
+          "DGS",
+          "AD"
+        ],
+        "coreAssetType": "INFINITE_SERIES"
+      },
+      "synopsis": "2893. Ernie & Jan Delay bringen den müden Bert mit ihrem Lied um seinen nächtlichen Schlaf.\nIn einer neuen Sesamstraßen Reihe nehmen uns Kinder mit an ihre \"Lieblingsorte\". Heute besuchen wir mit Elli (4), Jonathan (5) und Mattis (8) das nächtliche Miniaturwunderland.\nAußerdem hat der Prinz Probleme damit, Dornröschen zu wecken und Krümelmonster bringt Abby zur Verzweiflung. Susi Schraube erfindet eine Maschine, die beim Einschlafen hilft.",
+      "title": "Die schlaflose Eule (mit Gebärdensprache)",
+      "trackingPiano": {
+        "teaser_recommended": false,
+        "widget_id": "player_on_demand_widget_ard",
+        "widget_title": "Die schlaflose Eule (mit Gebärdensprache)",
+        "widget_typ": "player_ondemand"
+      },
+      "type": "player_ondemand"
+    },
+    {
+      "aZContent": false,
+      "compilationType": "itemsOfShow",
+      "id": "Y3JpZDovL25kci5kZS80NDQw",
+      "isChildContent": false,
+      "pagination": {
+        "pageNumber": 0,
+        "pageSize": 24,
+        "totalElements": 353
+      },
+      "personalized": false,
+      "links": {
+        "self": {
+          "id": "Y3JpZDovL25kci5kZS80NDQw",
+          "urlId": "Y3JpZDovL25kci5kZS80NDQw",
+          "title": "Sesamstraße Magazin",
+          "href": "https://api.ardmediathek.de/page-gateway/widgets/ard/asset/Y3JpZDovL25kci5kZS80NDQw?excludedAssetIds=Y3JpZDovL25kci5kZS82ZDdlMGFkMC00OGQ5LTRmYTMtYjdiMy04NDYzZTg4ODkyYjkvZ2ViYWVyZGVuc3ByYWNoZQ&pageNumber=0&pageSize=24&embedded=true&seasoned=false&seasonNumber=&withAudiodescription=false&withOriginalWithSubtitle=false&withOriginalversion=false&single=false",
+          "type": "application/vnd.ard.widget+json",
+          "partner": "ard"
+        }
+      },
+      "size": "m",
+      "swipeable": true,
+      "teasers": [],
+      "title": "Sesamstraße Magazin",
+      "titleVisible": true,
+      "trackingPiano": {
+        "teaser_recommended": false,
+        "widget_id": "Y3JpZDovL25kci5kZS80NDQw",
+        "widget_title": "Sesamstraße Magazin",
+        "widget_typ": "gridlist"
+      },
+      "type": "gridlist",
+      "userVisibility": "ALWAYS"
+    }
+  ]
+}

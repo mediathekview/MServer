@@ -13,7 +13,6 @@ import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractDocumentTask;
 import de.mediathekview.mserver.crawler.basic.AbstractUrlTask;
 import de.mediathekview.mserver.crawler.sr.SrTopicUrlDTO;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Node;
@@ -151,8 +150,14 @@ public class SrFilmDetailTask extends AbstractDocumentTask<Film, SrTopicUrlDTO> 
         description.ifPresent(film::setBeschreibung);
 
         final ArdVideoInfoDto videoInfo = videoInfoOptional.get();
-        if (StringUtils.isNotBlank(videoInfo.getSubtitleUrl())) {
-          film.addSubtitle(new URL(addMissingProtocol(videoInfo.getSubtitleUrl())));
+        if (videoInfo.getSubtitleUrl().isPresent()) {
+          for (String url : videoInfo.getSubtitleUrl().get()) {
+            try {
+              film.addSubtitle(new URL(addMissingProtocol(url)));
+            } catch (Exception e) {
+              LOG.error("invalid subtitle url {} {}", url, e);
+            }
+          }
         }
 
         addUrls(film, videoInfo.getVideoUrls());

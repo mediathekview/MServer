@@ -1,0 +1,405 @@
+{
+  "coreAssetType": "EXTRA_BONUS_CONTENT",
+  "fskRating": "FSK12",
+  "id": "player_ondemand-page-ard",
+  "isChildContent": false,
+  "personalized": false,
+  "links": {
+    "self": {
+      "id": "player_ondemand-page-ard",
+      "urlId": "player_ondemand-page-ard",
+      "title": "Folge 4: Geisterstunde (S01/E04) - (Originalversion)",
+      "href": "https://api.ardmediathek.de/page-gateway/pages/ard/item/Y3JpZDovL3dkci5kZS9CZWl0cmFnLXNvcGhvcmEtNTc0OTQxMWUtZGMxNi00OGJkLWFkNzktZmEyZmVjNzJkZTU0?embedded=true&mcV6=true",
+      "type": "application/vnd.ard.page+json",
+      "partner": "ard"
+    }
+  },
+  "title": "Folge 4: Geisterstunde (S01/E04) - (Originalversion)",
+  "tracking": {
+    "aggregationLevelId": 38,
+    "atiCustomVars": {
+      "clipTitle": "Folge 4: Geisterstunde (S01/E04) - (Originalversion)",
+      "mediaType": "video",
+      "lra": "ONE",
+      "channel": "ONE",
+      "show": "Murdoch Mysteries",
+      "contentTypes": "UT",
+      "mediaDistributionType": 1,
+      "contentId": 13334379,
+      "metadataId": "crid://wdr.de/Beitrag-sophora-5749411e-dc16-48bd-ad79-fa2fec72de54",
+      "clipLength": 2764
+    },
+    "chapter2": "Player",
+    "chapter3": "Murdoch Mysteries",
+    "environmentId": 511893,
+    "pageTitle": "Mediathek/Player/Murdoch Mysteries/Folge 4: Geisterstunde (S01/E04) - (Originalversion)/13334379/20240501_0215",
+    "szmType": "CP"
+  },
+  "trackingPiano": {
+    "page_chapter1": "Player",
+    "page_content_id": "urn:ard:publication:b1e2c718684c9a80",
+    "page_content_title": "Folge 4: Geisterstunde (S01/E04) - (Originalversion)",
+    "page_id": "player_ondemand-page-ard",
+    "page_institution": "ONE",
+    "page_institution_id": "urn:ard:institution:9edd94d68de90140",
+    "page_publisher": "ONE",
+    "page_publisher_id": "urn:ard:publisher:892e3c758ca56a9d",
+    "page_show": "Murdoch Mysteries",
+    "page_show_id": "urn:ard:show:85088a146d3740b7",
+    "page_title": "Folge 4: Geisterstunde (S01/E04) - (Originalversion)",
+    "site": "634408"
+  },
+  "widgets": [
+    {
+      "availableTo": "2024-05-08T02:15:00Z",
+      "binaryFeatures": [
+        "OV",
+        "UT"
+      ],
+      "blockedByFsk": false,
+      "broadcastedOn": "2024-05-01T02:15:00Z",
+      "embeddable": false,
+      "geoblocked": false,
+      "id": "Y3JpZDovL3dkci5kZS9CZWl0cmFnLXNvcGhvcmEtNTc0OTQxMWUtZGMxNi00OGJkLWFkNzktZmEyZmVjNzJkZTU0",
+      "image": {
+        "alt": "Dr. Ogden (Hélène Joy) untersucht die Leiche von Amos, während Detective Murdoch (Yannick Bisson) zusieht.",
+        "producerName": "WDR",
+        "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:13faad6cef810a2a?w={width}&ch=d7cb07e74d3b8ecc",
+        "title": "Murdoch Mysteries (S01/E04) - OV"
+      },
+      "isChildContent": false,
+      "maturityContentRating": "FSK12",
+      "mediaCollection": {
+        "embedded": {
+          "isGeoBlocked": true,
+          "meta": {
+            "availableToDateTime": "2024-05-08T02:15:00Z",
+            "broadcastedOnDateTime": "2024-05-01T02:15:00Z",
+            "clipSourceName": "ONE",
+            "durationSeconds": 2764,
+            "images": [
+              {
+                "alt": "Dr. Ogden (Hélène Joy) untersucht die Leiche von Amos, während Detective Murdoch (Yannick Bisson) zusieht.",
+                "aspectRatio": "16x9",
+                "imageSourceName": "WDR",
+                "kind": "preview",
+                "title": "Murdoch Mysteries (S01/E04) - OV",
+                "url": "https://api.ardmediathek.de/image-service/images/urn:ard:image:13faad6cef810a2a?w=960&ch=d7cb07e74d3b8ecc"
+              }
+            ],
+            "maturityContentRating": {
+              "age": 12,
+              "isBlocked": false,
+              "kind": "other"
+            },
+            "publicationService": {
+              "id": "ard",
+              "name": "ONE",
+              "partner": "one"
+            },
+            "synopsis": "Murdoch schließt sich mit seinem Helden Arthur Conan Doyle zusammen, um einen Mord aufzuklären, der während einer Séance unter der Leitung des Mediums Sarah Pensall aufgedeckt wurde. Es scheint, dass das Opfer Ida Winston, Mitglied einer paranormalen Wächtergruppe, nicht von Sarahs Fähigkeiten überzeugt war. Murdoch fragt sich, ob Sarah Ida getötet hat, weil sie kurz davorstand, als Betrügerin entlarvt zu werden. ",
+            "title": "Folge 4: Geisterstunde (S01/E04) - (Originalversion)"
+          },
+          "pluginData": {
+            "recommendation@all": {
+              "isAutoplay": true,
+              "timerSeconds": 10,
+              "url": "https://api.ardmediathek.de/page-gateway/compilations/ard/recommendations?contextItemId=Y3JpZDovL3dkci5kZS9CZWl0cmFnLXNvcGhvcmEtNTc0OTQxMWUtZGMxNi00OGJkLWFkNzktZmEyZmVjNzJkZTU0"
+            },
+            "trackingAgf@all": {
+              "appId": "PA02DC09C-B8D3-4098-87D2-2C023682D6D5",
+              "clipData": {
+                "assetid": "13334379",
+                "length": "2764",
+                "nol_c0": "p0,0",
+                "nol_c10": "p10,ONE",
+                "nol_c12": "p12,Content",
+                "nol_c15": "p15,POC_2002800613",
+                "nol_c16": "p16,Fiction",
+                "nol_c18": "p18,N",
+                "nol_c19": "p19,ONE",
+                "nol_c2": "p2,N",
+                "nol_c5": "p5,ARD Mediathek",
+                "nol_c7": "p7,crid://wdr.de/Beitrag-sophora-5749411e-dc16-48bd-ad79-fa2fec72de54",
+                "nol_c8": "p8,2764",
+                "nol_c9": "p9,Murdoch Mysteries_Folge 4: Geisterstunde (S01/E04) - (Originalversion)_01.05.2024 02:15",
+                "program": "Murdoch Mysteries",
+                "title": "ONE_Murdoch Mysteries_Folge 4: Geisterstunde (S01/E04) - (Originalversion)_01.05.2024 02:15",
+                "type": "content"
+              },
+              "tracker": "AGF"
+            },
+            "trackingAti@all": {
+              "config": {
+                "site": 511893
+              },
+              "isEnabled": true,
+              "richMedia": {
+                "broadcastMode": "clip",
+                "duration": "2764",
+                "mediaLabel": "Folge 4: Geisterstunde (S01/E04) - (Originalversion)__13334379__OV | UT",
+                "mediaLevel2": "{richMediaLevelTwo}",
+                "mediaTheme1": "ONE",
+                "mediaTheme2": "ONE",
+                "mediaTheme3": "Murdoch Mysteries",
+                "mediaType": "video",
+                "playerId": "urn:ard:publication:b1e2c718684c9a80",
+                "refreshDuration": {
+                  "0": 5,
+                  "1": 12,
+                  "12": 15,
+                  "18": 30
+                }
+              },
+              "tracker": "ATI"
+            },
+            "trackingPiano@all": {
+              "avContent": {
+                "av_broadcasting_type": "OnDemand",
+                "av_content": "Folge 4: Geisterstunde (S01/E04) - (Originalversion)",
+                "av_content_duration": 2764000,
+                "av_content_id": "urn:ard:publication:b1e2c718684c9a80",
+                "av_content_type": "video",
+                "av_institution": "ONE",
+                "av_institution_id": "urn:ard:institution:9edd94d68de90140",
+                "av_publisher": "ONE",
+                "av_publisher_id": "urn:ard:publisher:892e3c758ca56a9d",
+                "av_show": "Murdoch Mysteries",
+                "av_show_id": "urn:ard:show:85088a146d3740b7"
+              },
+              "config": {
+                "events": [
+                  "av.error",
+                  "av.speed",
+                  "av.quality",
+                  "av.jumpmark",
+                  "av.share",
+                  "av.playermode",
+                  "av.subtitle",
+                  "av.language",
+                  "av.audiodescription",
+                  "av.signlanguage",
+                  "av.volume.mute",
+                  "av.recommendation"
+                ],
+                "site": 634408
+              },
+              "isEnabled": true
+            }
+          },
+          "streams": [
+            {
+              "kind": "main",
+              "kindName": "Normal",
+              "media": [
+                {
+                  "aspectRatio": "16:9",
+                  "audios": [
+                    {
+                      "kind": "standard",
+                      "languageCode": "ov"
+                    }
+                  ],
+                  "forcedLabel": "Auto",
+                  "hasEmbeddedSubtitles": false,
+                  "isAdaptiveQualitySelectable": false,
+                  "isHighDynamicRange": false,
+                  "maxHResolutionPx": 1920,
+                  "maxVResolutionPx": 1080,
+                  "mimeType": "application/vnd.apple.mpegurl",
+                  "subtitles": [],
+                  "url": "https://wdradaptiv-vh.akamaihd.net/i/medp/ondemand/de/fsk12/310/3106351/,3106351_57089636,3106351_57089637,3106351_57089635,3106351_57089638,3106351_57089634,.mp4.csmil/master.m3u8",
+                  "videoCodec": "H.264"
+                },
+                {
+                  "aspectRatio": "16:9",
+                  "audios": [
+                    {
+                      "kind": "standard",
+                      "languageCode": "ov"
+                    }
+                  ],
+                  "forcedLabel": "SD",
+                  "hasEmbeddedSubtitles": false,
+                  "isAdaptiveQualitySelectable": false,
+                  "isHighDynamicRange": false,
+                  "maxHResolutionPx": 640,
+                  "maxVResolutionPx": 360,
+                  "mimeType": "video/mp4",
+                  "subtitles": [],
+                  "url": "https://wdrmedien-a.akamaihd.net/medp/ondemand/de/fsk12/310/3106351/3106351_57089636.mp4",
+                  "videoCodec": "H.264"
+                },
+                {
+                  "aspectRatio": "16:9",
+                  "audios": [
+                    {
+                      "kind": "standard",
+                      "languageCode": "ov"
+                    }
+                  ],
+                  "forcedLabel": "SD 480p",
+                  "hasEmbeddedSubtitles": false,
+                  "isAdaptiveQualitySelectable": false,
+                  "isHighDynamicRange": false,
+                  "maxHResolutionPx": 960,
+                  "maxVResolutionPx": 540,
+                  "mimeType": "video/mp4",
+                  "subtitles": [],
+                  "url": "https://wdrmedien-a.akamaihd.net/medp/ondemand/de/fsk12/310/3106351/3106351_57089637.mp4",
+                  "videoCodec": "H.264"
+                },
+                {
+                  "aspectRatio": "16:9",
+                  "audios": [
+                    {
+                      "kind": "standard",
+                      "languageCode": "ov"
+                    }
+                  ],
+                  "forcedLabel": "Full HD",
+                  "hasEmbeddedSubtitles": false,
+                  "isAdaptiveQualitySelectable": false,
+                  "isHighDynamicRange": false,
+                  "maxHResolutionPx": 1920,
+                  "maxVResolutionPx": 1080,
+                  "mimeType": "video/mp4",
+                  "subtitles": [],
+                  "url": "https://wdrmedien-a.akamaihd.net/medp/ondemand/de/fsk12/310/3106351/3106351_57089634.mp4",
+                  "videoCodec": "H.264"
+                },
+                {
+                  "aspectRatio": "16:9",
+                  "audios": [
+                    {
+                      "kind": "standard",
+                      "languageCode": "ov"
+                    }
+                  ],
+                  "forcedLabel": "HD Ready",
+                  "hasEmbeddedSubtitles": false,
+                  "isAdaptiveQualitySelectable": false,
+                  "isHighDynamicRange": false,
+                  "maxHResolutionPx": 1280,
+                  "maxVResolutionPx": 720,
+                  "mimeType": "video/mp4",
+                  "subtitles": [],
+                  "url": "https://wdrmedien-a.akamaihd.net/medp/ondemand/de/fsk12/310/3106351/3106351_57089638.mp4",
+                  "videoCodec": "H.264"
+                }
+              ],
+              "videoLanguageCode": ""
+            }
+          ],
+          "subtitles": [
+            {
+              "kind": "normal",
+              "languageCode": "deu",
+              "sources": [
+                {
+                  "kind": "ebutt",
+                  "url": "https://api.ardmediathek.de/player-service/subtitle/ebutt/urn:ard:subtitle:0567b031db73e4b9"
+                },
+                {
+                  "kind": "webvtt",
+                  "url": "https://api.ardmediathek.de/player-service/subtitle/webvtt/urn:ard:subtitle:0567b031db73e4b9.vtt"
+                }
+              ]
+            }
+          ]
+        },
+        "href": "https://api.ardmediathek.de/page-gateway/mediacollectionv6/Y3JpZDovL3dkci5kZS9CZWl0cmFnLXNvcGhvcmEtNTc0OTQxMWUtZGMxNi00OGJkLWFkNzktZmEyZmVjNzJkZTU0?isTv=false"
+      },
+      "pagination": null,
+      "personalized": false,
+      "playerConfig": null,
+      "publicationService": {
+        "name": "ONE",
+        "logo": {
+          "title": "Logo ONE",
+          "alt": "Logo ONE",
+          "producerName": "Logo ONE",
+          "src": "https://api.ardmediathek.de/image-service/image-collections/urn:ard:image-collection:2213972a8d101de1/16x9?w={width}",
+          "aspectRatio": "16x9"
+        },
+        "publisherType": "TV",
+        "partner": "one",
+        "id": "b3JnYW5pemF0aW9uX09ORQ",
+        "coreId": "urn:ard:publisher:892e3c758ca56a9d"
+      },
+      "links": {
+        "self": {
+          "id": "player_on_demand_widget_ard",
+          "urlId": "player_on_demand_widget_ard",
+          "title": "Folge 4: Geisterstunde (S01/E04) - (Originalversion)",
+          "href": "https://api.ardmediathek.de/page-gateway/widgets/ard/editorials/player_on_demand_widget_ard/item/Y3JpZDovL3dkci5kZS9CZWl0cmFnLXNvcGhvcmEtNTc0OTQxMWUtZGMxNi00OGJkLWFkNzktZmEyZmVjNzJkZTU0?pageNumber=0&pageSize=100&embedded=true&mcV6=true",
+          "type": "application/vnd.ard.widget+json",
+          "partner": "ard"
+        }
+      },
+      "show": {
+        "id": "Y3JpZDovL3dkci5kZTdvbmUvbXVyZG9jaG15c3Rlcmllcw",
+        "title": "Murdoch Mysteries",
+        "image": {
+          "alt": "Sendungslogo \"Murdoch Mysteries\"",
+          "producerName": "Shaftesbury Murdoch II Inc",
+          "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:559937f982bde0f5?w={width}&ch=dc9ee6ab714f2b88",
+          "title": "Murdoch Mysteries"
+        },
+        "availableSeasons": [
+          "1",
+          "4"
+        ],
+        "binaryFeatures": [
+          "UT",
+          "OV"
+        ],
+        "coreAssetType": "SEASON_SERIES"
+      },
+      "synopsis": "Murdoch schließt sich mit seinem Helden Arthur Conan Doyle zusammen, um einen Mord aufzuklären, der während einer Séance unter der Leitung des Mediums Sarah Pensall aufgedeckt wurde. Es scheint, dass das Opfer Ida Winston, Mitglied einer paranormalen Wächtergruppe, nicht von Sarahs Fähigkeiten überzeugt war. Murdoch fragt sich, ob Sarah Ida getötet hat, weil sie kurz davorstand, als Betrügerin entlarvt zu werden. ",
+      "title": "Folge 4: Geisterstunde (S01/E04) - (Originalversion)",
+      "trackingPiano": {
+        "teaser_recommended": false,
+        "widget_id": "player_on_demand_widget_ard",
+        "widget_title": "Folge 4: Geisterstunde (S01/E04) - (Originalversion)",
+        "widget_typ": "player_ondemand"
+      },
+      "type": "player_ondemand"
+    },
+    {
+      "aZContent": false,
+      "compilationType": "itemsOfShow",
+      "id": "Y3JpZDovL3dkci5kZTdvbmUvbXVyZG9jaG15c3Rlcmllcw",
+      "isChildContent": false,
+      "pagination": {
+        "pageNumber": 0,
+        "pageSize": 24,
+        "totalElements": 15
+      },
+      "personalized": false,
+      "links": {
+        "self": {
+          "id": "Y3JpZDovL3dkci5kZTdvbmUvbXVyZG9jaG15c3Rlcmllcw",
+          "urlId": "Y3JpZDovL3dkci5kZTdvbmUvbXVyZG9jaG15c3Rlcmllcw",
+          "title": "Murdoch Mysteries",
+          "href": "https://api.ardmediathek.de/page-gateway/widgets/ard/asset/Y3JpZDovL3dkci5kZTdvbmUvbXVyZG9jaG15c3Rlcmllcw?excludedAssetIds=Y3JpZDovL3dkci5kZS9CZWl0cmFnLXNvcGhvcmEtNTc0OTQxMWUtZGMxNi00OGJkLWFkNzktZmEyZmVjNzJkZTU0&pageNumber=0&pageSize=24&embedded=true&seasoned=false&seasonNumber=&withAudiodescription=false&withOriginalWithSubtitle=false&withOriginalversion=false&single=false",
+          "type": "application/vnd.ard.widget+json",
+          "partner": "ard"
+        }
+      },
+      "size": "m",
+      "swipeable": true,
+      "teasers": [],
+      "title": "Murdoch Mysteries",
+      "titleVisible": true,
+      "trackingPiano": {
+        "teaser_recommended": false,
+        "widget_id": "Y3JpZDovL3dkci5kZTdvbmUvbXVyZG9jaG15c3Rlcmllcw",
+        "widget_title": "Murdoch Mysteries",
+        "widget_typ": "gridlist"
+      },
+      "type": "gridlist",
+      "userVisibility": "ALWAYS"
+    }
+  ]
+}

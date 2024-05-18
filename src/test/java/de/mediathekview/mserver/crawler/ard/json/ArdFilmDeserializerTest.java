@@ -37,6 +37,12 @@ public class ArdFilmDeserializerTest {
   private final String expectedUrlSmall;
   private final String expectedUrlNormal;
   private final String expectedUrlHd;
+  private final String expectedADUrlSmall;
+  private final String expectedADUrlNormal;
+  private final String expectedADUrlHd;
+  private final String expectedDGSUrlSmall;
+  private final String expectedDGSUrlNormal;
+  private final String expectedDGSUrlHd;
   private final String expectedSubtitle;
   private final GeoLocations expectedGeo;
   private final ArdFilmInfoDto[] relatedFilms;
@@ -55,6 +61,12 @@ public class ArdFilmDeserializerTest {
       final String expectedUrlSmall,
       final String expectedUrlNormal,
       final String expectedUrlHd,
+      final String expectedADUrlSmall,
+      final String expectedADUrlNormal,
+      final String expectedADUrlHd,
+      final String expectedDGSUrlSmall,
+      final String expectedDGSUrlNormal,
+      final String expectedDGSUrlHd,
       final String expectedSubtitle,
       final GeoLocations expectedGeo,
       final ArdFilmInfoDto[] relatedFilms,
@@ -68,6 +80,12 @@ public class ArdFilmDeserializerTest {
     this.expectedUrlSmall = expectedUrlSmall;
     this.expectedUrlNormal = expectedUrlNormal;
     this.expectedUrlHd = expectedUrlHd;
+    this.expectedADUrlSmall = expectedADUrlSmall;
+    this.expectedADUrlNormal = expectedADUrlNormal;
+    this.expectedADUrlHd = expectedADUrlHd;
+    this.expectedDGSUrlSmall = expectedDGSUrlSmall;
+    this.expectedDGSUrlNormal = expectedDGSUrlNormal;
+    this.expectedDGSUrlHd = expectedDGSUrlHd;
     this.expectedSubtitle = expectedSubtitle;
     this.expectedGeo = expectedGeo;
     this.relatedFilms = relatedFilms;
@@ -80,140 +98,254 @@ public class ArdFilmDeserializerTest {
     return Arrays.asList(
         new Object[][] {
           {
-            "/ard/ard_film_page11.json",
-            "Tagesschau",
-            "tagesschau, 09:00 Uhr",
-            "Themen der Sendung: Bundestag und Bundesrat stimmen über Kohleausstieg ab, Werbeverbot für Tabak wird verschärft, Großbritannien lockert Corona-Einreisebeschränkungen, Zahl der Corona-Neuinfektionen in den USA erreicht neuen Höchststand, Urteil im Prozess gegen Menschenrechtler Steudtner in Istanbul erwartet, Hongkonger Bürgerrechtsaktivist bittet Deutschland um Hilfe für die Demokratie-Bewegung, \n.....",
-            LocalDateTime.of(2020, 7, 3, 9, 0, 0),
-            Duration.ofMinutes(4).plusSeconds(9),
-            "https://media.tagesschau.de/video/2020/0703/TV-20200703-0912-2800.webml.h264.mp4",
-            "https://media.tagesschau.de/video/2020/0703/TV-20200703-0912-2800.webl.h264.mp4",
-            "https://media.tagesschau.de/video/2020/0703/TV-20200703-0912-2800.webxl.h264.mp4",
-            "https://www.ardmediathek.de/subtitle/410890",
-            GeoLocations.GEO_NONE,
-            new ArdFilmInfoDto[0],
-            Optional.empty()
+            /*jsonFile*/ "/ard/ard_item_DGS_AD.json",
+            /*topic*/ "Sesamstraße Magazin",
+            /*title*/ "Die schlaflose Eule x",
+            /*description*/ "2893. Ernie & Jan Delay bringen den müden Bert mit ihrem Lied um seinen nächtlichen Schlaf. In einer neuen Sesamstraßen Reihe nehmen uns Kinder mit an ihre \"Lieblingsorte\". Heute besuchen wir mit Elli (4), Jonathan (5) und Mattis (8) das nächtliche Miniaturwunderland. Außerdem hat der Prinz Probleme damit, Dornröschen zu wecken und Krümelmonster bringt Abby zur Verzweiflung. Susi Schraube erfindet\n.....",
+            /*date*/ LocalDateTime.parse("2024-02-19T07:45"),
+            /*duration*/ Duration.parse("PT20M26S"),
+            /*small*/ "https://mediandr-a.akamaihd.net/progressive_geo/2021/0928/TV-20210928-1420-0200.ln.mp4",
+            /*normal*/ "https://mediandr-a.akamaihd.net/progressive_geo/2021/0928/TV-20210928-1420-0200.hq.mp4",
+            /*hd*/ "https://mediandr-a.akamaihd.net/progressive_geo/2021/0928/TV-20210928-1420-0200.hd.mp4",
+            /*ADsmall*/ "https://mediandr-a.akamaihd.net/progressive_geo/2021/1001/TV-20211001-1625-4000.ln.mp4",
+            /*ADnormal*/ "https://mediandr-a.akamaihd.net/progressive_geo/2021/1001/TV-20211001-1625-4000.hq.mp4",
+            /*ADhd*/ "https://mediandr-a.akamaihd.net/progressive_geo/2021/1001/TV-20211001-1625-4000.hd.mp4",
+            /*DGSsmall*/ "https://mediandr-a.akamaihd.net/progressive_geo/2022/0104/TV-20220104-0902-5000.ln.mp4",
+            /*DGSnormal*/ "https://mediandr-a.akamaihd.net/progressive_geo/2022/0104/TV-20220104-0902-5000.hq.mp4",
+            /*DGShd*/ "https://mediandr-a.akamaihd.net/progressive_geo/2022/0104/TV-20220104-0902-5000.hd.mp4",
+            /*sub*/ "https://api.ardmediathek.de/player-service/subtitle/ebutt/urn:ard:subtitle:eaa2ed13a677cd00",
+            /*hd*/ GeoLocations.GEO_DE,
+            /*related*/ new ArdFilmInfoDto[0],
+            /*sender*/ Optional.of(Sender.KIKA)
           },
           {
-            "/ard/ard_film_page_with_related11.json",
-            "Live nach neun",
-            "Live nach Neun",
-            "",
-            LocalDateTime.of(2020, 7, 3, 9, 5, 0),
-            Duration.ofMinutes(49).plusSeconds(46),
-            "https://pdvideosdaserste-a.akamaihd.net/de/2020/07/03/live_20200703_070454_sendeton_640x360-25p-1300kbit.mp4",
-            "https://pdvideosdaserste-a.akamaihd.net/de/2020/07/03/live_20200703_070454_sendeton_960x540-50p-2600kbit.mp4",
-            "https://pdvideosdaserste-a.akamaihd.net/de/2020/07/03/live_20200703_070454_sendeton_1920x1080-50p-8000kbit.mp4",
-            "https://www.ardmediathek.de/subtitle/410911",
-            GeoLocations.GEO_DE,
-            new ArdFilmInfoDto[] {
-              new ArdFilmInfoDto(
-                  "Y3JpZDovL2Rhc2Vyc3RlLmRlL2xpdmUgbmFjaCBuZXVuL2U2NjBiMDU0LWM3YmYtNDdkYy1iMmFlLWM1N2NkNmM1MjVhZA",
-                  ArdConstants.ITEM_URL
-                      + "Y3JpZDovL2Rhc2Vyc3RlLmRlL2xpdmUgbmFjaCBuZXVuL2U2NjBiMDU0LWM3YmYtNDdkYy1iMmFlLWM1N2NkNmM1MjVhZA",
-                  0),
-              new ArdFilmInfoDto(
-                  "Y3JpZDovL2Rhc2Vyc3RlLmRlL2xpdmUgbmFjaCBuZXVuLzc2NjcyOTI0LWNmNjMtNDhkNy05ZTcwLTQ1Y2EzYmZmZTUzMg",
-                  ArdConstants.ITEM_URL
-                      + "Y3JpZDovL2Rhc2Vyc3RlLmRlL2xpdmUgbmFjaCBuZXVuLzc2NjcyOTI0LWNmNjMtNDhkNy05ZTcwLTQ1Y2EzYmZmZTUzMg",
-                  0),
-              new ArdFilmInfoDto(
-                  "Y3JpZDovL2Rhc2Vyc3RlLmRlL2xpdmUgbmFjaCBuZXVuLzhmZWRlOTE2LTg4NmMtNDZhNy1iNmI5LTQ5NmMzMWJlNWZiZQ",
-                  ArdConstants.ITEM_URL
-                      + "Y3JpZDovL2Rhc2Vyc3RlLmRlL2xpdmUgbmFjaCBuZXVuLzhmZWRlOTE2LTg4NmMtNDZhNy1iNmI5LTQ5NmMzMWJlNWZiZQ",
-                  0)
-            },
-            Optional.empty()
+            /*jsonFile*/ "/ard/ard_item_DGS_UT_AD.json",
+            /*topic*/ "Tatort",
+            /*title*/ "Der Fluch des Geldes",
+            /*description*/ "Spielfilm Deutschland 2024 +++    \"Der Fluch des Geldes\" beginnt da, wo \"Die Kälte der Erde\" endete. Die Hauptkommissare streiten sich, denn Leo Hölzer musste entdecken, dass sein Partner Adam Schürk im Besitz der Beute aus einem Bankraub seines verstorbenen Vaters ist. +++    Mit Vladimir Burlakov, Daniel Sträßer, Susanne Bormann, Omar El-Saeidi, Jasmina Al Zihairi u.a. | Buch: Hendrik Hölzemann \n.....",
+            /*date*/ LocalDateTime.parse("2024-01-28T20:15"),
+            /*duration*/ Duration.parse("PT1H28M33S"),
+            /*small*/ "https://pd-videos.daserste.de/int/2024/01/18/3322bac1-6935-4101-8e41-380d70eff67e/JOB_430813_sendeton_640x360-50p-1200kbit.mp4",
+            /*normal*/ "https://pd-videos.daserste.de/int/2024/01/18/3322bac1-6935-4101-8e41-380d70eff67e/JOB_430813_sendeton_960x540-50p-1600kbit.mp4",
+            /*hd*/ "https://pd-videos.daserste.de/int/2024/01/18/3322bac1-6935-4101-8e41-380d70eff67e/JOB_430813_sendeton_1280x720-50p-3200kbit.mp4",
+            /*ADsmall*/ "https://pd-videos.daserste.de/int/2024/01/18/3322bac1-6935-4101-8e41-380d70eff67e/JOB_430814_internationalerton_640x360-50p-1200kbit.mp4",
+            /*ADnormal*/ "https://pd-videos.daserste.de/int/2024/01/18/3322bac1-6935-4101-8e41-380d70eff67e/JOB_430814_internationalerton_960x540-50p-1600kbit.mp4",
+            /*ADhd*/ "https://pd-videos.daserste.de/int/2024/01/18/3322bac1-6935-4101-8e41-380d70eff67e/JOB_430814_internationalerton_1280x720-50p-3200kbit.mp4",
+            /*DGSsmall*/ "https://pd-videos.daserste.de/int/2024/01/24/03247ab1-4dcc-427e-b577-a6ca25c1dffe/JOB_432151_sendeton_640x360-50p-1200kbit.mp4",
+            /*DGSnormal*/ "https://pd-videos.daserste.de/int/2024/01/24/03247ab1-4dcc-427e-b577-a6ca25c1dffe/JOB_432151_sendeton_960x540-50p-1600kbit.mp4",
+            /*DGShd*/ "https://pd-videos.daserste.de/int/2024/01/24/03247ab1-4dcc-427e-b577-a6ca25c1dffe/JOB_432151_sendeton_1280x720-50p-3200kbit.mp4",
+            /*sub*/ "https://api.ardmediathek.de/player-service/subtitle/webvtt/urn:ard:subtitle:7b0043ec0b358eb8.vtt",
+            /*hd*/ GeoLocations.GEO_NONE,
+            /*related*/ new ArdFilmInfoDto[] {
+                new ArdFilmInfoDto(
+                    "Y3JpZDovL3dkci5kZS9CZWl0cmFnLThlNjczODVlLWZhZTktNDMwYi1iNzI1LTA0NjU1ZmRmMDljZQ",
+                    String.format(ArdConstants.ITEM_URL, "Y3JpZDovL3dkci5kZS9CZWl0cmFnLThlNjczODVlLWZhZTktNDMwYi1iNzI1LTA0NjU1ZmRmMDljZQ"),
+                    0),
+                new ArdFilmInfoDto(
+                    "Y3JpZDovL3dkci5kZS9CZWl0cmFnLXNvcGhvcmEtZWRmMTRhM2UtNmM3Ny00NGZhLTg1ZWYtYTJkYmZmNzM0NTg5",
+                    String.format(ArdConstants.ITEM_URL, "Y3JpZDovL3dkci5kZS9CZWl0cmFnLXNvcGhvcmEtZWRmMTRhM2UtNmM3Ny00NGZhLTg1ZWYtYTJkYmZmNzM0NTg5"),
+                    0)
+              },
+            /*sender*/ Optional.of(Sender.ARD)
           },
           {
-            "/ard/ard_film_page_ndr11.json",
-            "Wer weiß denn sowas? | 03.07.2020",
-            "Wer weiß denn sowas? | 03.07.2020",
-            "Das beliebte Wissensspiel mit Bernhard Hoëcker und Elton. Moderator Kai Pflaume präsentiert unglaubliche Rätselfragen. Welches Team gewinnt? Gäste: Hardy Krüger jr. und Oliver Masucci.",
-            LocalDateTime.of(2020, 7, 3, 16, 25, 0),
-            Duration.ofMinutes(44).plusSeconds(14),
-            "https://mediandr-a.akamaihd.net/progressive/2020/0703/TV-20200703-1726-5500.ln.mp4",
-            "https://mediandr-a.akamaihd.net/progressive/2020/0703/TV-20200703-1726-5500.hq.mp4",
-            "https://mediandr-a.akamaihd.net/progressive/2020/0703/TV-20200703-1726-5500.hd.mp4",
-            "https://www.ardmediathek.de/subtitle/411033",
-            GeoLocations.GEO_NONE,
-            new ArdFilmInfoDto[0],
-            Optional.of(Sender.NDR)
+            /*jsonFile*/ "/ard/ard_item_STD_BR.json",
+            /*topic*/ "PULS Reportage",
+            /*title*/ "Van-Urlaub für 1 Euro: Wie geht das?",
+            /*description*/ "Bei einer Relocation kann man sich für 1 Euro einen Mietwagen ausleihen und muss ihn dafür nur pünktlich zum nächsten Abholort bringen. Leah mietet sich einen Luxus-Van, mit dem sie in drei Tagen nach Italien fährt: Taugt's wirklich als Urlaub?",
+            /*date*/ LocalDateTime.parse("2024-05-01T15:00"),
+            /*duration*/ Duration.parse("PT20M47S"),
+            /*small*/ "https://cdn-storage.br.de/MUJIuUOVBwQIbtCCBLzGiLC1uwQoNA4p_29S/_-OS/_2Ff5y4f9K1S/19712f56-684f-4bba-95aa-ae5a6331d67b_E.mp4",
+            /*normal*/ "https://cdn-storage.br.de/MUJIuUOVBwQIbtCCBLzGiLC1uwQoNA4p_29S/_-OS/_2Ff5y4f9K1S/19712f56-684f-4bba-95aa-ae5a6331d67b_C.mp4",
+            /*hd*/ "https://cdn-storage.br.de/MUJIuUOVBwQIbtCCBLzGiLC1uwQoNA4p_29S/_-OS/_2Ff5y4f9K1S/19712f56-684f-4bba-95aa-ae5a6331d67b_X.mp4",
+            /*ADsmall*/ "",
+            /*ADnormal*/ "",
+            /*ADhd*/ "",
+            /*DGSsmall */ "",
+            /*DGSnormal */ "",
+            /*DGShd */ "",
+            /*sub*/ "",
+            /*hd*/ GeoLocations.GEO_NONE,
+            /*related*/ new ArdFilmInfoDto[] {
+                new ArdFilmInfoDto(
+                    "Y3JpZDovL2JyLmRlL3ZpZGVvLzkwZTA1Y2Y5LTA4ZDEtNGU4Zi1iNTQyLWNiYjIyYzcyZDA0Mw",
+                    String.format(ArdConstants.ITEM_URL, "Y3JpZDovL2JyLmRlL3ZpZGVvLzkwZTA1Y2Y5LTA4ZDEtNGU4Zi1iNTQyLWNiYjIyYzcyZDA0Mw"),
+                    0)
+              },
+            /*sender*/ Optional.of(Sender.BR)
           },
           {
-            "/ard/ard_film_page_funk.json",
-            "maiLab",
-            "Spieltheorie des Lebens | Tragödie des Gemeinguts",
-            "Dinge, von denen alle was haben, um die sich aber auch alle kümmern müssen, werden meist scheiße behandelt. Warum ist das so? Und muss das wirklich immer so sein?",
-            LocalDateTime.of(2019, 6, 19, 0, 0, 0),
-            Duration.ofMinutes(14).plusSeconds(27),
-            "",
-            "http://funk-01dd.akamaized.net/06961997-44b3-4888-8f86-ad60286370ce/1700458_src_1024x576_1500.mp4",
-            "http://funk-01dd.akamaized.net/06961997-44b3-4888-8f86-ad60286370ce/1700458_src_1920x1080_6000.mp4",
-            "",
-            GeoLocations.GEO_NONE,
-            new ArdFilmInfoDto[0],
-            Optional.of(Sender.FUNK)
+            /*jsonFile*/ "/ard/ard_item_STD_DasErste.json",
+            /*topic*/ "tagesschau",
+            /*title*/ "tagesschau 11:10 Uhr, 01.05.2024",
+            /*description*/ "Bundesweit Kundgebungen zum Tag der Arbeit für bessere Arbeitsbedingungen, Bereits erste Demonstrationen in Berlin und Hamburg, Polizei in Georgiens Hauptstadt Tiflis geht massiv gegen pro-europäische Demonstranten vor, US-Einsatzkräfte räumen mit Großaufgebot besetztes Gebäude der Columbia Universität in New York, US-Bestsellerautor Paul Auster stirbt im Alter von 77 Jahren, Walpurgisnacht im Har\n.....",
+            /*date*/ LocalDateTime.parse("2024-05-01T11:10"),
+            /*duration*/ Duration.parse("PT5M6S"),
+            /*small*/ "https://media.tagesschau.de/video/2024/0501/TV-20240501-1117-3700.webm.h264.mp4",
+            /*normal*/ "https://media.tagesschau.de/video/2024/0501/TV-20240501-1117-3700.webl.h264.mp4",
+            /*hd*/ "https://media.tagesschau.de/video/2024/0501/TV-20240501-1117-3700.webxl.h264.mp4",
+            /*ADsmall*/ "",
+            /*ADnormal*/ "",
+            /*ADhd*/ "",
+            /*DGSsmall */ "",
+            /*DGSnormal */ "",
+            /*DGShd */ "",
+            /*sub*/ "https://api.ardmediathek.de/player-service/subtitle/webvtt/urn:ard:subtitle:c09c9cee3bf53db8.vtt",
+            /*hd*/ GeoLocations.GEO_NONE,
+            /*related*/ new ArdFilmInfoDto[] {
+                new ArdFilmInfoDto(
+                    "Y3JpZDovL3RhZ2Vzc2NoYXUuZGUvNTBjOTc0OGUtMTIwYi00MjllLWI2ODEtZTkyMTY5ODEyNGI0X2dhbnplU2VuZHVuZw",
+                    String.format(ArdConstants.ITEM_URL, "Y3JpZDovL3RhZ2Vzc2NoYXUuZGUvNTBjOTc0OGUtMTIwYi00MjllLWI2ODEtZTkyMTY5ODEyNGI0X2dhbnplU2VuZHVuZw"),
+                    0)
+              },
+            /*sender*/ Optional.of(Sender.ARD),
           },
           {
-            "/ard/ard_film_page_arte_geo.json",
-            "ARTE",
-            "Der Sommer nach dem Abitur",
-            "Nach dem Abitur wollten die drei Schulfreunde Alexander, Paul und Ole auf ein Konzert ihrer Lieblingsband Madness. Doch irgendetwas kam für alle dazwischen. Zu ihrem Glück gibt es die Band immer noch und so machen sie sich ein Vierteljahrhundert später auf den Weg ... - Tragikomödie (2019, Regie: Eoin Moore) über Lebenslügen, verpasste Träume und Existenzängste.",
-            LocalDateTime.of(2021, 6, 18, 5, 0, 0),
-            Duration.ofMinutes(88).plusSeconds(29),
-            "https://arte-ard-mediathek.akamaized.net/am/mp4/084000/084600/084657-000-A_HQ_1_VOA_05911353_MP4-800_AMM-IPTV-ARD_1ZbnJfgtHA.mp4",
-            "https://arte-ard-mediathek.akamaized.net/am/mp4/084000/084600/084657-000-A_EQ_1_VOA_05911351_MP4-1500_AMM-IPTV-ARD_1ZbnIfgtFZ.mp4",
-            "https://arte-ard-mediathek.akamaized.net/am/mp4/084000/084600/084657-000-A_SQ_1_VOA_05911354_MP4-2200_AMM-IPTV-ARD_1ZbnKfgtJr.mp4",
-            "",
-            GeoLocations.GEO_DE_FR,
-            new ArdFilmInfoDto[0],
-            Optional.empty()
+            /*jsonFile*/ "/ard/ard_item_STD_HR.json",
+            /*topic*/ "hallo hessen",
+            /*title*/ "hallo hessen – Teil 1 vom 30.04.2024",
+            /*description*/ "Der Mai steht vor der Tür und wir haben für Sie die perfekten Wandertipps. Los geht es heute mit dem herrlichen Rheingau. Außerdem wollen wir passend dazu auch die Grillsaison eröffnen. Und ein hessischer Erdbeerbauer verrät uns alles Wissenswerte um die roten Superfrüchtchen.",
+            /*date*/ LocalDateTime.parse("2024-04-30T16:00"),
+            /*duration*/ Duration.parse("PT46M"),
+            /*small*/ "https://hrardmediathek-a.akamaihd.net/odinson/hallo-hessen/SVID-BC6574CF-5A5A-4D00-B8D3-44D241F14519/ebe1419f-59b2-47de-a430-74bde4fb25df/L489595_sendeton_640x360-50p-1200kbit.mp4",
+            /*normal*/ "https://hrardmediathek-a.akamaihd.net/odinson/hallo-hessen/SVID-BC6574CF-5A5A-4D00-B8D3-44D241F14519/ebe1419f-59b2-47de-a430-74bde4fb25df/L489595_sendeton_960x540-50p-1600kbit.mp4",
+            /*hd*/ "https://hrardmediathek-a.akamaihd.net/odinson/hallo-hessen/SVID-BC6574CF-5A5A-4D00-B8D3-44D241F14519/ebe1419f-59b2-47de-a430-74bde4fb25df/L489595_sendeton_1280x720-50p-3200kbit.mp4",
+            /*ADsmall*/ "",
+            /*ADnormal*/ "",
+            /*ADhd*/ "",
+            /*DGSsmall */ "",
+            /*DGSnormal */ "",
+            /*DGShd */ "",
+            /*sub*/ "",
+            /*hd*/ GeoLocations.GEO_NONE,
+            /*related*/ new ArdFilmInfoDto[0],
+            /*sender*/ Optional.of(Sender.HR),
           },
           {
-            "/ard/ard_film_page_encoding_nbsp.json",
-            "Die Stein",
-            "Folge 8: Neues Glück (S01/E08)",
-            "Karola hat ein Stipendium für Italien bekommen. Aufgeregt ruft sie Katja an, die gerade mit Stefan ausreitet. Als Katja mit Stefan im Atelier erscheint, bricht Karola plötzlich zusammen. In der Klinik stellt sich heraus: Karola ist schwanger. Und alles spricht dafür, dass Oliver der Vater ist. Katja ist niedergeschlagen, hat sie doch ihr gemeinsames Kind damals verloren. Aber auch Karola ist kreuz\n.....",
-            LocalDateTime.of(2021, 10, 28, 17, 0, 0),
-            Duration.ofMinutes(47).plusSeconds(57),
-            "https://wdrmedien-a.akamaihd.net/medp/ondemand/weltweit/fsk0/255/2559347/2559347_39488364.mp4",
-            "https://wdrmedien-a.akamaihd.net/medp/ondemand/weltweit/fsk0/255/2559347/2559347_39488365.mp4",
-            "https://wdrmedien-a.akamaihd.net/medp/ondemand/weltweit/fsk0/255/2559347/2559347_39488366.mp4",
-            "",
-            GeoLocations.GEO_NONE,
-            new ArdFilmInfoDto[0],
-            Optional.of(Sender.ONE)
+            /*jsonFile*/ "/ard/ard_item_STD_NDR.json",
+            /*topic*/ "NDR Info",
+            /*title*/ "NDR Info 14:00 | 30.04.2024",
+            /*description*/ "Die Nachrichten für den Norden: Suche nach Arian eingestellt / Viele Pflege-Ausbildungsplätze in Schleswig-Holstein unbesetzt",
+            /*date*/ LocalDateTime.parse("2024-04-30T14:00"),
+            /*duration*/ Duration.parse("PT10M19S"),
+            /*small*/ "https://mediandr-a.akamaihd.net/progressive/2024/0430/TV-20240430-1400-3611.ln.mp4",
+            /*normal*/ "https://mediandr-a.akamaihd.net/progressive/2024/0430/TV-20240430-1400-3611.hq.mp4",
+            /*hd*/ "https://mediandr-a.akamaihd.net/progressive/2024/0430/TV-20240430-1400-3611.hd.mp4",
+            /*ADsmall*/ "",
+            /*ADnormal*/ "",
+            /*ADhd*/ "",
+            /*DGSsmall */ "",
+            /*DGSnormal */ "",
+            /*DGShd */ "",
+            /*sub*/ "https://api.ardmediathek.de/player-service/subtitle/webvtt/urn:ard:subtitle:ea9ad6b71df1b8ed.vtt",
+            /*hd*/ GeoLocations.GEO_NONE,
+            /*related*/ new ArdFilmInfoDto[0],
+            /*sender*/ Optional.of(Sender.NDR),
           },
           {
-            "/ard/ard_film_page_uhd.json",
-            "Leeroy will's wissen",
-            "Wie ist das DOWN-SYNDROM ZU HABEN?",
-            "Tamara ist 26 Jahre alt und hat das Down-Syndrom. Doch das ist für sie kein Hindernis – ganz im Gegenteil! Seit Jahren ist sie als Model und Schauspielerin sehr erfolgreich. So stand sie schon für die Designer Hugo Boss und Victoria Beckham vor der Kamera",
-            LocalDateTime.of(2022, 7, 24, 20, 0, 0),
-            Duration.ofMinutes(15).plusSeconds(50),
-            "https://funk-02dd.akamaized.net/22679/files/22/07/12/5933559/4-q4xvKF6nmVLY7Pw8Ckr9.mp4",
-            "https://funk-02dd.akamaized.net/22679/files/22/07/12/5933559/2-M7wvJWnjNmgfBGCLDYZV.mp4",
-            "https://funk-02dd.akamaized.net/22679/files/22/07/12/5933559/1-dz73ZV4wXPrfK8YDMBxj.mp4",
-            "",
-            GeoLocations.GEO_NONE,
-            new ArdFilmInfoDto[0],
-            Optional.of(Sender.FUNK)
+            /*jsonFile*/ "/ard/ard_item_STD_ONE.json",
+            /*topic*/ "Murdoch Mysteries",
+            /*title*/ "Folge 4: Geisterstunde (S01/E04) - (Originalversion)",
+            /*description*/ "Murdoch schließt sich mit seinem Helden Arthur Conan Doyle zusammen, um einen Mord aufzuklären, der während einer Séance unter der Leitung des Mediums Sarah Pensall aufgedeckt wurde. Es scheint, dass das Opfer Ida Winston, Mitglied einer paranormalen Wächtergruppe, nicht von Sarahs Fähigkeiten überzeugt war. Murdoch fragt sich, ob Sarah Ida getötet hat, weil sie kurz davorstand, als Betrügerin ent\n.....",
+            /*date*/ LocalDateTime.parse("2024-05-01T04:15"),
+            /*duration*/ Duration.parse("PT46M4S"),
+            /*small*/ "https://wdrmedien-a.akamaihd.net/medp/ondemand/de/fsk12/310/3106351/3106351_57089636.mp4",
+            /*normal*/ "https://wdrmedien-a.akamaihd.net/medp/ondemand/de/fsk12/310/3106351/3106351_57089637.mp4",
+            /*hd*/ "https://wdrmedien-a.akamaihd.net/medp/ondemand/de/fsk12/310/3106351/3106351_57089638.mp4",
+            /*ADsmall*/ "",
+            /*ADnormal*/ "",
+            /*ADhd*/ "",
+            /*DGSsmall */ "",
+            /*DGSnormal */ "",
+            /*DGShd */ "",
+            /*sub*/ "https://api.ardmediathek.de/player-service/subtitle/webvtt/urn:ard:subtitle:0567b031db73e4b9.vtt",
+            /*hd*/ GeoLocations.GEO_DE,
+            /*related*/ new ArdFilmInfoDto[0],
+            /*sender*/ Optional.of(Sender.ONE),
           },
           {
-            "/ard/ard_film_page_only_single_resolution.json",
-            "Planet Schule",
-            "Der Spargel · Feldküche: Vom Acker direkt in den Topf",
-            "Spargelernte ist Knochenarbeit! Das erlebt auch Tom bei Landwirtin Regina Rothkopf und ihrem Sohn Maximilian in Euskirchen. Ob grün oder weiß, die Stangen sind der Spross der Spargelpflanze und ein gesundes Frühlingsgemüse. Zusammen mit Maximilian brät Tom am Feldrand aus dem frisch geernteten Spargel ein schnelles Pfannengericht.",
-            LocalDateTime.of(2023, 2, 10, 5, 30, 0),
-            Duration.ofMinutes(10),
-            "https://odplanetschule-a.akamaihd.net/schulfernsehen/feldkueche/feldkueche-vom-acker-direkt-in-den-topf-spargel.mp4",
-            "",
-            "",
-            "https://api.ardmediathek.de/subtitle-format-service/ebutt/urn:ard:subtitle:1090d019e4f165e1",
-            GeoLocations.GEO_NONE,
-            new ArdFilmInfoDto[0],
-            Optional.of(Sender.SWR)
+            /*jsonFile*/ "/ard/ard_item_STD_RBB.json",
+            /*topic*/ "Blue Moon",
+            /*title*/ "Blue Moon vom 30.04.2024",
+            /*description*/ "Den Rucksack auskippen, bloßstellende Fotos posten oder Beleidigungen nachrufen - fast jedes sechste Schulkind ist bei uns von Mobbing betroffen. Aber auch im Büro, an der Uni oder im Verein gibt es Mobbing! Diese Woche sprechen wir bei Fritz über das Thema Mobbing, alle Inhalte und Hilfsangebote findet ihr hier: fritz.de/mobbing. Claudia Kamieth will deshalb heute im Blue Moon von euch wissen: Wu\n.....",
+            /*date*/ LocalDateTime.parse("2024-04-30T22:15"),
+            /*duration*/ Duration.parse("PT1H43M15S"),
+            /*small*/ "https://rbbmediapmdp-a.akamaihd.net/content/dd/f9/ddf9c4f0-2da1-45b9-812f-873f213ccbd5/eb2ed184-078d-11ef-b0da-02420a000df3_hd1080-avc360.mp4",
+            /*normal*/ "https://rbbmediapmdp-a.akamaihd.net/content/dd/f9/ddf9c4f0-2da1-45b9-812f-873f213ccbd5/eb2ed184-078d-11ef-b0da-02420a000df3_hd1080-avc540.mp4",
+            /*hd*/ "https://rbbmediapmdp-a.akamaihd.net/content/dd/f9/ddf9c4f0-2da1-45b9-812f-873f213ccbd5/eb2ed184-078d-11ef-b0da-02420a000df3_hd1080-avc720.mp4",
+            /*ADsmall*/ "",
+            /*ADnormal*/ "",
+            /*ADhd*/ "",
+            /*DGSsmall */ "",
+            /*DGSnormal */ "",
+            /*DGShd */ "",
+            /*sub*/ "",
+            /*hd*/ GeoLocations.GEO_NONE,
+            /*related*/ new ArdFilmInfoDto[0],
+            /*sender*/ Optional.of(Sender.RBB),
+          },
+          {
+            /*jsonFile*/ "/ard/ard_item_STD_AD_DasErste.json",
+            /*topic*/ "Mord mit Aussicht",
+            /*title*/ "Folge 3: Die Bestechlichen (S05/E03)",
+            /*description*/ "Marie zögert noch bei Gisberts Angebot, zu ihm auf den Schweine-Hof zu ziehen. Willkommene Ablenkung bietet Marie eine Leiche im Heuballen auf Müller Schlichtings Wiese.  Der Tote ist Albert Appel, der mit seinem Bruder Kai einen Bauernhof betreibt und außerdem Schiedsrichter der Regionalliga ist. Die Ermittlungen führen in die Welt des Fußballs und zweier rivalisierender Clubs. Das Auftauchen ein\n.....",
+            /*date*/ LocalDateTime.parse("2024-04-30T20:15"),
+            /*duration*/ Duration.parse("PT47M20S"),
+            /*small*/ "https://wdrmedien-a.akamaihd.net/medp/ondemand/weltweit/fsk12/310/3101569/3101569_56955169.mp4",
+            /*normal*/ "https://wdrmedien-a.akamaihd.net/medp/ondemand/weltweit/fsk12/310/3101569/3101569_56955170.mp4",
+            /*hd*/ "https://wdrmedien-a.akamaihd.net/medp/ondemand/weltweit/fsk12/310/3101569/3101569_56955171.mp4",
+            /*ADsmall*/ "https://wdrmedien-a.akamaihd.net/medp/ondemand/weltweit/fsk12/310/3101569/3101569_57101825.mp4",
+            /*ADnormal*/ "https://wdrmedien-a.akamaihd.net/medp/ondemand/weltweit/fsk12/310/3101569/3101569_57101826.mp4",
+            /*ADhd*/ "https://wdrmedien-a.akamaihd.net/medp/ondemand/weltweit/fsk12/310/3101569/3101569_57101827.mp4",
+            /*DGSsmall */ "",
+            /*DGSnormal */ "",
+            /*DGShd */ "",
+            /*sub*/ "https://api.ardmediathek.de/player-service/subtitle/webvtt/urn:ard:subtitle:a1d11ac623c7d120.vtt",
+            /*hd*/ GeoLocations.GEO_NONE,
+            /*related*/ new ArdFilmInfoDto[0],
+            /*sender*/ Optional.of(Sender.ARD),
+          },
+          {
+            /*jsonFile*/ "/ard/ard_item_STD_AD_MDR.json",
+            /*topic*/ "Auf schmaler Spur",
+            /*title*/ "Reichsbahn-Oldies im Trend",
+            /*description*/ "Mit gerade mal 27 Jahren ist Tobias Sambill Geschäftsführer des „Salzland Railservice“ in Bernburg. Seine Geschäftsidee: Er betreibt Güterverkehr mit alten Reichsbahnloks und ist ganz verrückt nach „Ludmilla“, Baujahr 1974, 3.000 PS Leistung. Ludmilla ist der Spitzname für Dieselloks der Baureihe 130, die ab 1970 aus der Sowjetunion zur Reichsbahn kamen.  Auch in Löbau ist der Nachwuchs schon in d\n.....",
+            /*date*/ LocalDateTime.parse("2024-05-01T13:20"),
+            /*duration*/ Duration.parse("PT29M31S"),
+            /*small*/ "https://odgeomdr-a.akamaihd.net/mp4dyn2/a/FCMS-a66d00f7-05d6-4280-8dbe-9c81a47c8667-41dd60577440_a6.mp4",
+            /*normal*/ "https://odgeomdr-a.akamaihd.net/mp4dyn2/a/FCMS-a66d00f7-05d6-4280-8dbe-9c81a47c8667-730aae549c28_a6.mp4",
+            /*hd*/ "https://odgeomdr-a.akamaihd.net/mp4dyn2/a/FCMS-a66d00f7-05d6-4280-8dbe-9c81a47c8667-be7c2950aac6_a6.mp4",
+            /*ADsmall*/ "https://odgeomdr-a.akamaihd.net/mp4dyn2/2/FCMS-25d93e81-d91a-40f7-92a7-90b28b675943-41dd60577440_25.mp4",
+            /*ADnormal*/ "https://odgeomdr-a.akamaihd.net/mp4dyn2/2/FCMS-25d93e81-d91a-40f7-92a7-90b28b675943-730aae549c28_25.mp4",
+            /*ADhd*/ "https://odgeomdr-a.akamaihd.net/mp4dyn2/2/FCMS-25d93e81-d91a-40f7-92a7-90b28b675943-be7c2950aac6_25.mp4",
+            /*DGSsmall */ "",
+            /*DGSnormal */ "",
+            /*DGShd */ "",
+            /*sub*/ "https://api.ardmediathek.de/player-service/subtitle/ebutt/urn:ard:subtitle:7d1c01087f8cae77",
+            /*hd*/ GeoLocations.GEO_DE,
+            /*related*/ new ArdFilmInfoDto[0],
+            /*sender*/ Optional.of(Sender.MDR),
+          },
+          {
+            /*jsonFile*/ "/ard/ard_item_STD_AD_SWR.json",
+            /*topic*/ "Traumziele",
+            /*title*/ "Im Herzen Italiens - Von den Abruzzen nach Kalabrien",
+            /*description*/ "Der Apennin ist das Rückgrat und die Seele Italiens. Orte voller Geschichte und wilde Natur prägen das Land.",
+            /*date*/ LocalDateTime.parse("2024-05-01T14:15"),
+            /*duration*/ Duration.parse("PT43M55S"),
+            /*small*/ "https://pdodswr-a.akamaihd.net/swrfernsehen/geo/de/traumziele/2029736.ml.mp4",
+            /*normal*/ "https://pdodswr-a.akamaihd.net/swrfernsehen/geo/de/traumziele/2029736.l.mp4",
+            /*hd*/ "https://pdodswr-a.akamaihd.net/swrfernsehen/geo/de/traumziele/2029736.xl.mp4",
+            /*ADsmall*/ "https://pdodswr-a.akamaihd.net/swrfernsehen/geo/de/traumziele/2029736.audio_description.ml.mp4",
+            /*ADnormal*/ "https://pdodswr-a.akamaihd.net/swrfernsehen/geo/de/traumziele/2029736.audio_description.l.mp4",
+            /*ADhd*/ "https://pdodswr-a.akamaihd.net/swrfernsehen/geo/de/traumziele/2029736.audio_description.xl.mp4",
+            /*DGSsmall */ "",
+            /*DGSnormal */ "",
+            /*DGShd */ "",
+            /*sub*/ "",
+            /*hd*/ GeoLocations.GEO_DE,
+            /*related*/ new ArdFilmInfoDto[0],
+            /*sender*/ Optional.of(Sender.SWR),
           }
         });
   }
@@ -225,24 +357,34 @@ public class ArdFilmDeserializerTest {
 
     final ArdFilmDeserializer target = new ArdFilmDeserializer(createCrawler());
     final List<ArdFilmDto> actualFilms = target.deserialize(jsonElement, null, null);
-
-    assertThat(actualFilms.size(), equalTo(expectedFilmCount));
     final ArdFilmDto[] films = actualFilms.toArray(new ArdFilmDto[] {});
-    AssertFilm.assertEquals(
-        films[0].getFilm(),
-        additionalSender.orElse(Sender.ARD),
-        expectedTopic,
-        expectedTitle,
-        expectedDateTime,
-        expectedDuration,
-        expectedDescription,
-        "",
-        new GeoLocations[] {expectedGeo},
-        expectedUrlSmall,
-        expectedUrlNormal,
-        expectedUrlHd,
-        expectedSubtitle);
-    assertThat(films[0].getRelatedFilms(), Matchers.containsInAnyOrder(relatedFilms));
+    if (additionalSender.get().equals(Sender.KIKA)) {
+      // ignore kika
+      assertThat(actualFilms.size(), equalTo(0));
+    } else {
+      assertThat(actualFilms.size(), equalTo(expectedFilmCount));
+      AssertFilm.assertEquals(
+          films[0].getFilm(),
+          additionalSender.orElse(Sender.ARD),
+          expectedTopic,
+          expectedTitle,
+          expectedDateTime,
+          expectedDuration,
+          expectedDescription,
+          "", // website
+          new GeoLocations[] {expectedGeo},
+          expectedUrlSmall,
+          expectedUrlNormal,
+          expectedUrlHd,
+          expectedDGSUrlSmall,
+          expectedDGSUrlNormal,
+          expectedDGSUrlHd,
+          expectedADUrlSmall,
+          expectedADUrlNormal,
+          expectedADUrlHd,
+          expectedSubtitle);
+      assertThat(films[0].getRelatedFilms(), Matchers.containsInAnyOrder(relatedFilms));
+    }
   }
 
   protected ArdCrawler createCrawler() {

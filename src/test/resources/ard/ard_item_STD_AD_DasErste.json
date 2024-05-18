@@ -1,0 +1,504 @@
+{
+  "coreAssetType": "EPISODE",
+  "fskRating": "FSK12",
+  "id": "player_ondemand-page-ard",
+  "isChildContent": false,
+  "personalized": false,
+  "links": {
+    "self": {
+      "id": "player_ondemand-page-ard",
+      "urlId": "player_ondemand-page-ard",
+      "title": "Folge 3: Die Bestechlichen (S05/E03)",
+      "href": "https://api.ardmediathek.de/page-gateway/pages/ard/item/Y3JpZDovL3dkci5kZS9CZWl0cmFnLXNvcGhvcmEtMDhiNTM0OTAtN2VmMy00YTU4LTg0YTUtNTdmMTVmNGYwYWIx?embedded=true&mcV6=true",
+      "type": "application/vnd.ard.page+json",
+      "partner": "ard"
+    }
+  },
+  "title": "Folge 3: Die Bestechlichen (S05/E03)",
+  "tracking": {
+    "aggregationLevelId": 38,
+    "atiCustomVars": {
+      "clipTitle": "Folge 3: Die Bestechlichen (S05/E03)",
+      "mediaType": "video",
+      "lra": "Das Erste",
+      "channel": "Das Erste",
+      "show": "Mord mit Aussicht ",
+      "contentTypes": "UT",
+      "mediaDistributionType": 1,
+      "contentId": 13309263,
+      "metadataId": "crid://wdr.de/Beitrag-sophora-08b53490-7ef3-4a58-84a5-57f15f4f0ab1",
+      "clipLength": 2840
+    },
+    "chapter2": "Player",
+    "chapter3": "Mord mit Aussicht ",
+    "environmentId": 511893,
+    "pageTitle": "Mediathek/Player/Mord mit Aussicht /Folge 3: Die Bestechlichen (S05/E03)/13309263/20240430_1815",
+    "szmType": "CP"
+  },
+  "trackingPiano": {
+    "page_chapter1": "Player",
+    "page_content_id": "urn:ard:publication:2da2fc7b79f58993",
+    "page_content_title": "Folge 3: Die Bestechlichen (S05/E03)",
+    "page_id": "player_ondemand-page-ard",
+    "page_institution": "Das Erste",
+    "page_institution_id": "urn:ard:institution:59ccb6ea77d75af5",
+    "page_publisher": "Das Erste",
+    "page_publisher_id": "urn:ard:publisher:a42e4291cd9eaf0b",
+    "page_show": "Mord mit Aussicht ",
+    "page_show_id": "urn:ard:show:2f97918e83660f77",
+    "page_title": "Folge 3: Die Bestechlichen (S05/E03)",
+    "site": "634408"
+  },
+  "widgets": [
+    {
+      "availableTo": "2025-05-28T18:15:00Z",
+      "binaryFeatures": [
+        "UT",
+        "AD"
+      ],
+      "blockedByFsk": false,
+      "broadcastedOn": "2024-04-30T18:15:00Z",
+      "embeddable": false,
+      "geoblocked": false,
+      "id": "Y3JpZDovL3dkci5kZS9CZWl0cmFnLXNvcGhvcmEtMDhiNTM0OTAtN2VmMy00YTU4LTg0YTUtNTdmMTVmNGYwYWIx",
+      "image": {
+        "alt": "Jenny Dickel (Eva Bühnen, h.), Marie Gabler (Katharina Wackernagel, M.) und Heino Fuß (Sebastian Schwarz, v.) observieren Evi Schmadalla auf dem Hof von Kai Appel.",
+        "producerName": "ARD/Frank Dicks",
+        "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:745002c4c35c4413?w={width}&ch=4cd4b713f932a703",
+        "title": "Mord mit Aussicht (S05/E03) - Die Bestechlichen"
+      },
+      "isChildContent": false,
+      "maturityContentRating": "FSK12",
+      "mediaCollection": {
+        "embedded": {
+          "isGeoBlocked": false,
+          "meta": {
+            "availableToDateTime": "2025-05-28T18:15:00Z",
+            "broadcastedOnDateTime": "2024-04-16T03:30:00Z",
+            "clipSourceName": "WDR",
+            "durationSeconds": 2840,
+            "images": [
+              {
+                "alt": "Jenny Dickel (Eva Bühnen, h.), Marie Gabler (Katharina Wackernagel, M.) und Heino Fuß (Sebastian Schwarz, v.) observieren Evi Schmadalla auf dem Hof von Kai Appel.",
+                "aspectRatio": "16x9",
+                "imageSourceName": "ARD/Frank Dicks",
+                "kind": "preview",
+                "title": "Mord mit Aussicht (S05/E03) - Die Bestechlichen",
+                "url": "https://api.ardmediathek.de/image-service/images/urn:ard:image:745002c4c35c4413?w=960&ch=4cd4b713f932a703"
+              }
+            ],
+            "maturityContentRating": {
+              "age": 12,
+              "isBlocked": false,
+              "kind": "other"
+            },
+            "publicationService": {
+              "id": "ard",
+              "name": "Das Erste",
+              "partner": "daserste"
+            },
+            "seriesTitle": "Mord mit Aussicht ",
+            "synopsis": "Marie zögert noch bei Gisberts Angebot, zu ihm auf den Schweine-Hof zu ziehen. Willkommene Ablenkung bietet Marie eine Leiche im Heuballen auf Müller Schlichtings Wiese.\n\nDer Tote ist Albert Appel, der mit seinem Bruder Kai einen Bauernhof betreibt und außerdem Schiedsrichter der Regionalliga ist. Die Ermittlungen führen in die Welt des Fußballs und zweier rivalisierender Clubs. Das Auftauchen einer verängstigten jungen Bulgarin auf Gisberts Hof verkompliziert nicht nur den Fall, sondern auch die private Harmonie zwischen Gisbert und Marie.",
+            "title": "Folge 3: Die Bestechlichen"
+          },
+          "pluginData": {
+            "recommendation@all": {
+              "isAutoplay": true,
+              "timerSeconds": 10,
+              "url": "https://api.ardmediathek.de/page-gateway/compilations/ard/recommendations?contextItemId=Y3JpZDovL3dkci5kZS9CZWl0cmFnLXNvcGhvcmEtMDhiNTM0OTAtN2VmMy00YTU4LTg0YTUtNTdmMTVmNGYwYWIx"
+            },
+            "trackingAgf@all": {
+              "appId": "PA02DC09C-B8D3-4098-87D2-2C023682D6D5",
+              "clipData": {
+                "assetid": "13309263",
+                "length": "2840",
+                "nol_c0": "p0,0",
+                "nol_c10": "p10,Das Erste",
+                "nol_c12": "p12,Content",
+                "nol_c15": "p15,X005424422",
+                "nol_c16": "p16,",
+                "nol_c18": "p18,N",
+                "nol_c19": "p19,WDR",
+                "nol_c2": "p2,N",
+                "nol_c5": "p5,ARD Mediathek",
+                "nol_c7": "p7,crid://wdr.de/poc_import_4001396934_ganzeSendung",
+                "nol_c8": "p8,2840",
+                "nol_c9": "p9,Mord mit Aussicht _Folge 3: Die Bestechlichen_30.04.2024 18:15",
+                "program": "Mord mit Aussicht ",
+                "title": "Das Erste_Mord mit Aussicht _Folge 3: Die Bestechlichen_30.04.2024 18:15",
+                "type": "content"
+              },
+              "tracker": "AGF"
+            },
+            "trackingAti@all": {
+              "config": {
+                "site": 511893
+              },
+              "isEnabled": true,
+              "richMedia": {
+                "broadcastMode": "clip",
+                "duration": "2840",
+                "mediaLabel": "Folge 3: Die Bestechlichen__13309263__AD | UT",
+                "mediaLevel2": "{richMediaLevelTwo}",
+                "mediaTheme1": "Das Erste",
+                "mediaTheme2": "Das Erste",
+                "mediaTheme3": "Mord mit Aussicht ",
+                "mediaType": "video",
+                "playerId": "urn:ard:publication:2da2fc7b79f58993",
+                "refreshDuration": {
+                  "0": 5,
+                  "1": 12,
+                  "12": 15,
+                  "18": 30
+                }
+              },
+              "tracker": "ATI"
+            },
+            "trackingPiano@all": {
+              "avContent": {
+                "av_broadcasting_type": "OnDemand",
+                "av_content": "Folge 3: Die Bestechlichen",
+                "av_content_duration": 2840000,
+                "av_content_id": "urn:ard:publication:2da2fc7b79f58993",
+                "av_content_type": "video",
+                "av_institution": "Das Erste",
+                "av_institution_id": "urn:ard:institution:59ccb6ea77d75af5",
+                "av_publisher": "Das Erste",
+                "av_publisher_id": "urn:ard:publisher:a42e4291cd9eaf0b",
+                "av_show": "Mord mit Aussicht ",
+                "av_show_id": "urn:ard:show:2f97918e83660f77"
+              },
+              "config": {
+                "events": [
+                  "av.error",
+                  "av.speed",
+                  "av.quality",
+                  "av.jumpmark",
+                  "av.share",
+                  "av.playermode",
+                  "av.subtitle",
+                  "av.language",
+                  "av.audiodescription",
+                  "av.signlanguage",
+                  "av.volume.mute",
+                  "av.recommendation"
+                ],
+                "site": 634408
+              },
+              "isEnabled": true
+            }
+          },
+          "streams": [
+            {
+              "kind": "main",
+              "kindName": "Normal",
+              "media": [
+                {
+                  "aspectRatio": "16:9",
+                  "audios": [
+                    {
+                      "kind": "standard",
+                      "languageCode": "deu"
+                    }
+                  ],
+                  "forcedLabel": "Auto",
+                  "hasEmbeddedSubtitles": false,
+                  "isAdaptiveQualitySelectable": false,
+                  "isHighDynamicRange": false,
+                  "maxHResolutionPx": 1920,
+                  "maxVResolutionPx": 1080,
+                  "mimeType": "application/vnd.apple.mpegurl",
+                  "subtitles": [],
+                  "url": "https://wdradaptiv-vh.akamaihd.net/i/medp/ondemand/weltweit/fsk12/310/3101569/,3101569_56955169,3101569_56955170,3101569_56955168,3101569_56955171,3101569_56955167,.mp4.csmil/master.m3u8",
+                  "videoCodec": "H.264"
+                },
+                {
+                  "aspectRatio": "16:9",
+                  "audios": [
+                    {
+                      "kind": "standard",
+                      "languageCode": "deu"
+                    }
+                  ],
+                  "forcedLabel": "SD 480p",
+                  "hasEmbeddedSubtitles": false,
+                  "isAdaptiveQualitySelectable": false,
+                  "isHighDynamicRange": false,
+                  "maxHResolutionPx": 960,
+                  "maxVResolutionPx": 540,
+                  "mimeType": "video/mp4",
+                  "subtitles": [],
+                  "url": "https://wdrmedien-a.akamaihd.net/medp/ondemand/weltweit/fsk12/310/3101569/3101569_56955170.mp4",
+                  "videoCodec": "H.264"
+                },
+                {
+                  "aspectRatio": "16:9",
+                  "audios": [
+                    {
+                      "kind": "standard",
+                      "languageCode": "deu"
+                    }
+                  ],
+                  "forcedLabel": "Full HD",
+                  "hasEmbeddedSubtitles": false,
+                  "isAdaptiveQualitySelectable": false,
+                  "isHighDynamicRange": false,
+                  "maxHResolutionPx": 1920,
+                  "maxVResolutionPx": 1080,
+                  "mimeType": "video/mp4",
+                  "subtitles": [],
+                  "url": "https://wdrmedien-a.akamaihd.net/medp/ondemand/weltweit/fsk12/310/3101569/3101569_56955167.mp4",
+                  "videoCodec": "H.264"
+                },
+                {
+                  "aspectRatio": "16:9",
+                  "audios": [
+                    {
+                      "kind": "standard",
+                      "languageCode": "deu"
+                    }
+                  ],
+                  "forcedLabel": "HD Ready",
+                  "hasEmbeddedSubtitles": false,
+                  "isAdaptiveQualitySelectable": false,
+                  "isHighDynamicRange": false,
+                  "maxHResolutionPx": 1280,
+                  "maxVResolutionPx": 720,
+                  "mimeType": "video/mp4",
+                  "subtitles": [],
+                  "url": "https://wdrmedien-a.akamaihd.net/medp/ondemand/weltweit/fsk12/310/3101569/3101569_56955171.mp4",
+                  "videoCodec": "H.264"
+                },
+                {
+                  "aspectRatio": "16:9",
+                  "audios": [
+                    {
+                      "kind": "standard",
+                      "languageCode": "deu"
+                    }
+                  ],
+                  "forcedLabel": "SD",
+                  "hasEmbeddedSubtitles": false,
+                  "isAdaptiveQualitySelectable": false,
+                  "isHighDynamicRange": false,
+                  "maxHResolutionPx": 640,
+                  "maxVResolutionPx": 360,
+                  "mimeType": "video/mp4",
+                  "subtitles": [],
+                  "url": "https://wdrmedien-a.akamaihd.net/medp/ondemand/weltweit/fsk12/310/3101569/3101569_56955169.mp4",
+                  "videoCodec": "H.264"
+                },
+                {
+                  "aspectRatio": "16:9",
+                  "audios": [
+                    {
+                      "kind": "audio-description",
+                      "languageCode": "deu"
+                    }
+                  ],
+                  "forcedLabel": "SD",
+                  "hasEmbeddedSubtitles": false,
+                  "isAdaptiveQualitySelectable": false,
+                  "isHighDynamicRange": false,
+                  "maxHResolutionPx": 640,
+                  "maxVResolutionPx": 360,
+                  "mimeType": "video/mp4",
+                  "subtitles": [],
+                  "url": "https://wdrmedien-a.akamaihd.net/medp/ondemand/weltweit/fsk12/310/3101569/3101569_57101825.mp4",
+                  "videoCodec": "H.264"
+                },
+                {
+                  "aspectRatio": "16:9",
+                  "audios": [
+                    {
+                      "kind": "audio-description",
+                      "languageCode": "deu"
+                    }
+                  ],
+                  "forcedLabel": "Auto",
+                  "hasEmbeddedSubtitles": false,
+                  "isAdaptiveQualitySelectable": false,
+                  "isHighDynamicRange": false,
+                  "maxHResolutionPx": 1920,
+                  "maxVResolutionPx": 1080,
+                  "mimeType": "application/vnd.apple.mpegurl",
+                  "subtitles": [],
+                  "url": "https://wdradaptiv-vh.akamaihd.net/i/medp/ondemand/weltweit/fsk12/310/3101569/,3101569_57101825,3101569_57101826,3101569_57101824,3101569_57101827,3101569_57101823,.mp4.csmil/master.m3u8",
+                  "videoCodec": "H.264"
+                },
+                {
+                  "aspectRatio": "16:9",
+                  "audios": [
+                    {
+                      "kind": "audio-description",
+                      "languageCode": "deu"
+                    }
+                  ],
+                  "forcedLabel": "SD 480p",
+                  "hasEmbeddedSubtitles": false,
+                  "isAdaptiveQualitySelectable": false,
+                  "isHighDynamicRange": false,
+                  "maxHResolutionPx": 960,
+                  "maxVResolutionPx": 540,
+                  "mimeType": "video/mp4",
+                  "subtitles": [],
+                  "url": "https://wdrmedien-a.akamaihd.net/medp/ondemand/weltweit/fsk12/310/3101569/3101569_57101826.mp4",
+                  "videoCodec": "H.264"
+                },
+                {
+                  "aspectRatio": "16:9",
+                  "audios": [
+                    {
+                      "kind": "audio-description",
+                      "languageCode": "deu"
+                    }
+                  ],
+                  "forcedLabel": "HD Ready",
+                  "hasEmbeddedSubtitles": false,
+                  "isAdaptiveQualitySelectable": false,
+                  "isHighDynamicRange": false,
+                  "maxHResolutionPx": 1280,
+                  "maxVResolutionPx": 720,
+                  "mimeType": "video/mp4",
+                  "subtitles": [],
+                  "url": "https://wdrmedien-a.akamaihd.net/medp/ondemand/weltweit/fsk12/310/3101569/3101569_57101827.mp4",
+                  "videoCodec": "H.264"
+                },
+                {
+                  "aspectRatio": "16:9",
+                  "audios": [
+                    {
+                      "kind": "audio-description",
+                      "languageCode": "deu"
+                    }
+                  ],
+                  "forcedLabel": "Full HD",
+                  "hasEmbeddedSubtitles": false,
+                  "isAdaptiveQualitySelectable": false,
+                  "isHighDynamicRange": false,
+                  "maxHResolutionPx": 1920,
+                  "maxVResolutionPx": 1080,
+                  "mimeType": "video/mp4",
+                  "subtitles": [],
+                  "url": "https://wdrmedien-a.akamaihd.net/medp/ondemand/weltweit/fsk12/310/3101569/3101569_57101823.mp4",
+                  "videoCodec": "H.264"
+                }
+              ],
+              "videoLanguageCode": ""
+            }
+          ],
+          "subtitles": [
+            {
+              "kind": "normal",
+              "languageCode": "deu",
+              "sources": [
+                {
+                  "kind": "ebutt",
+                  "url": "https://api.ardmediathek.de/player-service/subtitle/ebutt/urn:ard:subtitle:a1d11ac623c7d120"
+                },
+                {
+                  "kind": "webvtt",
+                  "url": "https://api.ardmediathek.de/player-service/subtitle/webvtt/urn:ard:subtitle:a1d11ac623c7d120.vtt"
+                }
+              ]
+            }
+          ]
+        },
+        "href": "https://api.ardmediathek.de/page-gateway/mediacollectionv6/Y3JpZDovL3dkci5kZS9CZWl0cmFnLXNvcGhvcmEtMDhiNTM0OTAtN2VmMy00YTU4LTg0YTUtNTdmMTVmNGYwYWIx?isTv=false"
+      },
+      "pagination": null,
+      "personalized": false,
+      "playerConfig": null,
+      "publicationService": {
+        "name": "Das Erste",
+        "logo": {
+          "title": "Logo Das Erste",
+          "alt": "Logo Das Erste",
+          "producerName": "Logo Das Erste",
+          "src": "https://api.ardmediathek.de/image-service/image-collections/urn:ard:image-collection:2213972a8d101de1/16x9?w={width}",
+          "aspectRatio": "16x9"
+        },
+        "publisherType": "TV",
+        "partner": "das_erste",
+        "id": "b3JnYW5pemF0aW9uX0RhcyBFcnN0ZQ",
+        "coreId": "urn:ard:publisher:a42e4291cd9eaf0b"
+      },
+      "links": {
+        "self": {
+          "id": "player_on_demand_widget_ard",
+          "urlId": "player_on_demand_widget_ard",
+          "title": "Folge 3: Die Bestechlichen (S05/E03)",
+          "href": "https://api.ardmediathek.de/page-gateway/widgets/ard/editorials/player_on_demand_widget_ard/item/Y3JpZDovL3dkci5kZS9CZWl0cmFnLXNvcGhvcmEtMDhiNTM0OTAtN2VmMy00YTU4LTg0YTUtNTdmMTVmNGYwYWIx?pageNumber=0&pageSize=100&embedded=true&mcV6=true",
+          "type": "application/vnd.ard.widget+json",
+          "partner": "ard"
+        }
+      },
+      "show": {
+        "id": "Y3JpZDovL3dkci5kZS9tb3JkIG1pdCBhdXNzaWNodA",
+        "title": "Mord mit Aussicht ",
+        "image": {
+          "alt": "Zwei Polizistinnen und ein Polizist stehen in einer grünen Szene, auf dem Bild der Schriftzug \"Mord mit Aussicht\"",
+          "producerName": "WDR",
+          "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:7bf8f348c5406992?w={width}&ch=3fce2348c6a8a931",
+          "title": "Neues Sendungslogo Mord mit Aussicht"
+        },
+        "availableSeasons": [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+        ],
+        "binaryFeatures": [
+          "UT",
+          "AD"
+        ],
+        "coreAssetType": "SEASON_SERIES"
+      },
+      "synopsis": "Marie zögert noch bei Gisberts Angebot, zu ihm auf den Schweine-Hof zu ziehen. Willkommene Ablenkung bietet Marie eine Leiche im Heuballen auf Müller Schlichtings Wiese.\n\nDer Tote ist Albert Appel, der mit seinem Bruder Kai einen Bauernhof betreibt und außerdem Schiedsrichter der Regionalliga ist. Die Ermittlungen führen in die Welt des Fußballs und zweier rivalisierender Clubs. Das Auftauchen einer verängstigten jungen Bulgarin auf Gisberts Hof verkompliziert nicht nur den Fall, sondern auch die private Harmonie zwischen Gisbert und Marie.",
+      "title": "Folge 3: Die Bestechlichen (S05/E03)",
+      "trackingPiano": {
+        "teaser_recommended": false,
+        "widget_id": "player_on_demand_widget_ard",
+        "widget_title": "Folge 3: Die Bestechlichen (S05/E03)",
+        "widget_typ": "player_ondemand"
+      },
+      "type": "player_ondemand"
+    },
+    {
+      "aZContent": false,
+      "compilationType": "itemsOfShow",
+      "id": "Y3JpZDovL3dkci5kZS9tb3JkIG1pdCBhdXNzaWNodA",
+      "isChildContent": false,
+      "pagination": {
+        "pageNumber": 0,
+        "pageSize": 24,
+        "totalElements": 68
+      },
+      "personalized": false,
+      "links": {
+        "self": {
+          "id": "Y3JpZDovL3dkci5kZS9tb3JkIG1pdCBhdXNzaWNodA",
+          "urlId": "Y3JpZDovL3dkci5kZS9tb3JkIG1pdCBhdXNzaWNodA",
+          "title": "Mord mit Aussicht ",
+          "href": "https://api.ardmediathek.de/page-gateway/widgets/ard/asset/Y3JpZDovL3dkci5kZS9tb3JkIG1pdCBhdXNzaWNodA?excludedAssetIds=Y3JpZDovL3dkci5kZS9CZWl0cmFnLXNvcGhvcmEtMDhiNTM0OTAtN2VmMy00YTU4LTg0YTUtNTdmMTVmNGYwYWIx&pageNumber=0&pageSize=24&embedded=true&seasoned=false&seasonNumber=&withAudiodescription=false&withOriginalWithSubtitle=false&withOriginalversion=false&single=false",
+          "type": "application/vnd.ard.widget+json",
+          "partner": "ard"
+        }
+      },
+      "size": "m",
+      "swipeable": true,
+      "teasers": [],
+      "title": "Mord mit Aussicht ",
+      "titleVisible": true,
+      "trackingPiano": {
+        "teaser_recommended": false,
+        "widget_id": "Y3JpZDovL3dkci5kZS9tb3JkIG1pdCBhdXNzaWNodA",
+        "widget_title": "Mord mit Aussicht ",
+        "widget_typ": "gridlist"
+      },
+      "type": "gridlist",
+      "userVisibility": "ALWAYS"
+    }
+  ]
+}

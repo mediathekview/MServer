@@ -1,0 +1,377 @@
+{
+  "coreAssetType": "EPISODE",
+  "fskRating": "NONE",
+  "id": "player_ondemand-page-ard",
+  "isChildContent": false,
+  "personalized": false,
+  "links": {
+    "self": {
+      "id": "player_ondemand-page-ard",
+      "urlId": "player_ondemand-page-ard",
+      "title": "Blue Moon vom 30.04.2024",
+      "href": "https://api.ardmediathek.de/page-gateway/pages/ard/item/Y3JpZDovL3JiYl8zZDU0ZmNhNC05YTdkLTQ1MmQtYjY1OS1jNWRmMTk1MzJiYTBfcHVibGljYXRpb24?embedded=true&mcV6=true",
+      "type": "application/vnd.ard.page+json",
+      "partner": "ard"
+    }
+  },
+  "title": "Blue Moon vom 30.04.2024",
+  "tracking": {
+    "aggregationLevelId": 38,
+    "atiCustomVars": {
+      "clipTitle": "Blue Moon vom 30.04.2024",
+      "mediaType": "video",
+      "lra": "RBB",
+      "channel": "rbb Fernsehen",
+      "show": "Blue Moon",
+      "contentTypes": "",
+      "mediaDistributionType": 1,
+      "contentId": 13364935,
+      "metadataId": "crid://rbb_3d54fca4-9a7d-452d-b659-c5df19532ba0_publication",
+      "clipLength": 6195
+    },
+    "chapter2": "Player",
+    "chapter3": "Blue Moon",
+    "environmentId": 511893,
+    "pageTitle": "Mediathek/Player/Blue Moon/Blue Moon vom 30.04.2024/13364935/20240430_2015",
+    "szmType": "CP"
+  },
+  "trackingPiano": {
+    "page_chapter1": "Player",
+    "page_content_id": "urn:ard:publication:13a17ee4a534c2b4",
+    "page_content_title": "Blue Moon vom 30.04.2024",
+    "page_id": "player_ondemand-page-ard",
+    "page_institution": "RBB",
+    "page_institution_id": "urn:ard:institution:6fd2ea6b797a605b",
+    "page_publisher": "rbb Fernsehen",
+    "page_publisher_id": "urn:ard:publisher:4bd261083522aeef",
+    "page_show": "Blue Moon",
+    "page_show_id": "urn:ard:show:27233a9f3d191182",
+    "page_title": "Blue Moon vom 30.04.2024",
+    "site": "634408"
+  },
+  "widgets": [
+    {
+      "availableTo": "2026-04-30T21:59:59Z",
+      "binaryFeatures": [],
+      "blockedByFsk": false,
+      "broadcastedOn": "2024-04-30T20:15:00Z",
+      "embeddable": false,
+      "geoblocked": false,
+      "id": "Y3JpZDovL3JiYl8zZDU0ZmNhNC05YTdkLTQ1MmQtYjY1OS1jNWRmMTk1MzJiYTBfcHVibGljYXRpb24",
+      "image": {
+        "alt": "Moderatorin Claudia Kamieth (Quelle: rbb/Lilly Extra/Holger Günther)",
+        "producerName": "rbb/Lilly Extra/Holger Günther",
+        "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:d7bfa9a891a19695?w={width}&ch=c38a8fa44f1ec834",
+        "title": "Blue Moon, Moderatorin Claudia Kamieth"
+      },
+      "isChildContent": false,
+      "maturityContentRating": "NONE",
+      "mediaCollection": {
+        "embedded": {
+          "isGeoBlocked": false,
+          "meta": {
+            "availableToDateTime": "2026-04-30T21:59:59Z",
+            "broadcastedOnDateTime": "2024-04-30T20:15:00Z",
+            "clipSourceName": "rbb",
+            "durationSeconds": 6195,
+            "images": [
+              {
+                "alt": "Moderatorin Claudia Kamieth (Quelle: rbb/Lilly Extra/Holger Günther)",
+                "aspectRatio": "16x9",
+                "imageSourceName": "rbb/Lilly Extra/Holger Günther",
+                "kind": "preview",
+                "title": "Blue Moon, Moderatorin Claudia Kamieth",
+                "url": "https://api.ardmediathek.de/image-service/images/urn:ard:image:b02c96000d82e941?w=960&ch=ade4b9c4aa512941"
+              }
+            ],
+            "publicationService": {
+              "id": "ard",
+              "name": "rbb Fernsehen",
+              "partner": "rbb"
+            },
+            "seriesTitle": "Blue Moon",
+            "synopsis": "Den Rucksack auskippen, bloßstellende Fotos posten oder Beleidigungen nachrufen - fast jedes sechste Schulkind ist bei uns von Mobbing betroffen. Aber auch im Büro, an der Uni oder im Verein gibt es Mobbing! Diese Woche sprechen wir bei Fritz über das Thema Mobbing, alle Inhalte und Hilfsangebote findet ihr hier: fritz.de/mobbing. Claudia Kamieth will deshalb heute im Blue Moon von euch wissen: Wurdet ihr mal gemobbt und wie sehr hat euch das geprägt? Habt ihr beobachtet, wie Kolleg:innen vom Boss gemobbt wurden oder habt ihr selbst jemanden gemobbt und bereut es heute? Ruft an unter 0331 70 97 110 und erzählt eure Geschichte! Heute gibt's den Blue Moon wieder zum Hören bei YOUFM und Fritz und auch zum Sehen im rbb Fernsehen.",
+            "title": "Blue Moon vom 30.04.2024"
+          },
+          "pluginData": {
+            "recommendation@all": {
+              "isAutoplay": true,
+              "timerSeconds": 10,
+              "url": "https://api.ardmediathek.de/page-gateway/compilations/ard/recommendations?contextItemId=Y3JpZDovL3JiYl8zZDU0ZmNhNC05YTdkLTQ1MmQtYjY1OS1jNWRmMTk1MzJiYTBfcHVibGljYXRpb24"
+            },
+            "trackingAgf@all": {
+              "appId": "PA02DC09C-B8D3-4098-87D2-2C023682D6D5",
+              "clipData": {
+                "assetid": "13364935",
+                "length": "6195",
+                "nol_c0": "p0,0",
+                "nol_c10": "p10,rbb Fernsehen",
+                "nol_c12": "p12,Content",
+                "nol_c15": "p15,",
+                "nol_c16": "p16,",
+                "nol_c18": "p18,N",
+                "nol_c19": "p19,rbb",
+                "nol_c2": "p2,N",
+                "nol_c5": "p5,ARD Mediathek",
+                "nol_c7": "p7,rbb_3d54fca4-9a7d-452d-b659-c5df19532ba0",
+                "nol_c8": "p8,6195",
+                "nol_c9": "p9,Blue Moon_Blue Moon vom 30.04.2024_30.04.2024 20:15",
+                "program": "Blue Moon",
+                "title": "rbb Fernsehen_Blue Moon_Blue Moon vom 30.04.2024_30.04.2024 20:15",
+                "type": "content"
+              },
+              "tracker": "AGF"
+            },
+            "trackingAti@all": {
+              "config": {
+                "site": 511893
+              },
+              "isEnabled": true,
+              "richMedia": {
+                "broadcastMode": "clip",
+                "duration": "6195",
+                "mediaLabel": "Blue Moon vom 30.04.2024__13364935__",
+                "mediaLevel2": "{richMediaLevelTwo}",
+                "mediaTheme1": "Rundfunk Berlin-Brandenburg",
+                "mediaTheme2": "rbb Fernsehen",
+                "mediaTheme3": "Blue Moon",
+                "mediaType": "video",
+                "playerId": "urn:ard:publication:13a17ee4a534c2b4",
+                "refreshDuration": {
+                  "0": 5,
+                  "1": 12,
+                  "12": 15,
+                  "18": 30
+                }
+              },
+              "tracker": "ATI"
+            },
+            "trackingPiano@all": {
+              "avContent": {
+                "av_broadcasting_type": "OnDemand",
+                "av_content": "Blue Moon vom 30.04.2024",
+                "av_content_duration": 6195000,
+                "av_content_id": "urn:ard:publication:13a17ee4a534c2b4",
+                "av_content_type": "video",
+                "av_institution": "RBB",
+                "av_institution_id": "urn:ard:institution:6fd2ea6b797a605b",
+                "av_publisher": "rbb Fernsehen",
+                "av_publisher_id": "urn:ard:publisher:4bd261083522aeef",
+                "av_show": "Blue Moon",
+                "av_show_id": "urn:ard:show:27233a9f3d191182"
+              },
+              "config": {
+                "events": [
+                  "av.error",
+                  "av.speed",
+                  "av.quality",
+                  "av.jumpmark",
+                  "av.share",
+                  "av.playermode",
+                  "av.subtitle",
+                  "av.language",
+                  "av.audiodescription",
+                  "av.signlanguage",
+                  "av.volume.mute",
+                  "av.recommendation"
+                ],
+                "site": 634408
+              },
+              "isEnabled": true
+            }
+          },
+          "streams": [
+            {
+              "kind": "main",
+              "kindName": "Normal",
+              "media": [
+                {
+                  "aspectRatio": "16:9",
+                  "audios": [
+                    {
+                      "kind": "standard",
+                      "languageCode": "deu"
+                    }
+                  ],
+                  "forcedLabel": "Full HD",
+                  "hasEmbeddedSubtitles": false,
+                  "isAdaptiveQualitySelectable": false,
+                  "isHighDynamicRange": false,
+                  "maxHResolutionPx": 1920,
+                  "maxVResolutionPx": 1080,
+                  "mimeType": "video/mp4",
+                  "subtitles": [],
+                  "url": "https://rbbmediapmdp-a.akamaihd.net/content/dd/f9/ddf9c4f0-2da1-45b9-812f-873f213ccbd5/eb2ed184-078d-11ef-b0da-02420a000df3_hd1080-avc1080.mp4",
+                  "videoCodec": "H.264"
+                },
+                {
+                  "aspectRatio": "16:9",
+                  "audios": [
+                    {
+                      "kind": "standard",
+                      "languageCode": "deu"
+                    }
+                  ],
+                  "forcedLabel": "HD Ready",
+                  "hasEmbeddedSubtitles": false,
+                  "isAdaptiveQualitySelectable": false,
+                  "isHighDynamicRange": false,
+                  "maxHResolutionPx": 1280,
+                  "maxVResolutionPx": 720,
+                  "mimeType": "video/mp4",
+                  "subtitles": [],
+                  "url": "https://rbbmediapmdp-a.akamaihd.net/content/dd/f9/ddf9c4f0-2da1-45b9-812f-873f213ccbd5/eb2ed184-078d-11ef-b0da-02420a000df3_hd1080-avc720.mp4",
+                  "videoCodec": "H.264"
+                },
+                {
+                  "aspectRatio": "16:9",
+                  "audios": [
+                    {
+                      "kind": "standard",
+                      "languageCode": "deu"
+                    }
+                  ],
+                  "forcedLabel": "SD",
+                  "hasEmbeddedSubtitles": false,
+                  "isAdaptiveQualitySelectable": false,
+                  "isHighDynamicRange": false,
+                  "maxHResolutionPx": 640,
+                  "maxVResolutionPx": 360,
+                  "mimeType": "video/mp4",
+                  "subtitles": [],
+                  "url": "https://rbbmediapmdp-a.akamaihd.net/content/dd/f9/ddf9c4f0-2da1-45b9-812f-873f213ccbd5/eb2ed184-078d-11ef-b0da-02420a000df3_hd1080-avc360.mp4",
+                  "videoCodec": "H.264"
+                },
+                {
+                  "aspectRatio": "16:9",
+                  "audios": [
+                    {
+                      "kind": "standard",
+                      "languageCode": "deu"
+                    }
+                  ],
+                  "forcedLabel": "SD 480p",
+                  "hasEmbeddedSubtitles": false,
+                  "isAdaptiveQualitySelectable": false,
+                  "isHighDynamicRange": false,
+                  "maxHResolutionPx": 960,
+                  "maxVResolutionPx": 540,
+                  "mimeType": "video/mp4",
+                  "subtitles": [],
+                  "url": "https://rbbmediapmdp-a.akamaihd.net/content/dd/f9/ddf9c4f0-2da1-45b9-812f-873f213ccbd5/eb2ed184-078d-11ef-b0da-02420a000df3_hd1080-avc540.mp4",
+                  "videoCodec": "H.264"
+                },
+                {
+                  "aspectRatio": "16:9",
+                  "audios": [
+                    {
+                      "kind": "standard",
+                      "languageCode": "deu"
+                    }
+                  ],
+                  "forcedLabel": "Auto",
+                  "hasEmbeddedSubtitles": false,
+                  "isAdaptiveQualitySelectable": false,
+                  "isHighDynamicRange": false,
+                  "maxHResolutionPx": 1920,
+                  "maxVResolutionPx": 1080,
+                  "mimeType": "application/vnd.apple.mpegurl",
+                  "subtitles": [],
+                  "url": "https://rbbvod.akamaized.net/i/content/dd/f9/ddf9c4f0-2da1-45b9-812f-873f213ccbd5/eb2ed184-078d-11ef-b0da-02420a000df3_,hd1080-avc360,hd1080-avc270,hd1080-avc540,hd1080-avc720,hd1080-avc1080,.mp4.csmil/master.m3u8?set-akamai-hls-revision=5",
+                  "videoCodec": "H.264"
+                }
+              ],
+              "videoLanguageCode": ""
+            }
+          ],
+          "subtitles": []
+        },
+        "href": "https://api.ardmediathek.de/page-gateway/mediacollectionv6/Y3JpZDovL3JiYl8zZDU0ZmNhNC05YTdkLTQ1MmQtYjY1OS1jNWRmMTk1MzJiYTBfcHVibGljYXRpb24?isTv=false"
+      },
+      "pagination": null,
+      "personalized": false,
+      "playerConfig": null,
+      "publicationService": {
+        "name": "rbb Fernsehen",
+        "logo": {
+          "title": "Logo rbb Fernsehen",
+          "alt": "Logo rbb Fernsehen",
+          "producerName": "Logo rbb Fernsehen",
+          "src": "https://api.ardmediathek.de/image-service/image-collections/urn:ard:image-collection:2213972a8d101de1/16x9?w={width}",
+          "aspectRatio": "16x9"
+        },
+        "publisherType": "TV",
+        "partner": "rbb",
+        "id": "b3JnYW5pemF0aW9uX1JCQg",
+        "coreId": "urn:ard:publisher:4bd261083522aeef"
+      },
+      "links": {
+        "self": {
+          "id": "player_on_demand_widget_ard",
+          "urlId": "player_on_demand_widget_ard",
+          "title": "Blue Moon vom 30.04.2024",
+          "href": "https://api.ardmediathek.de/page-gateway/widgets/ard/editorials/player_on_demand_widget_ard/item/Y3JpZDovL3JiYl8zZDU0ZmNhNC05YTdkLTQ1MmQtYjY1OS1jNWRmMTk1MzJiYTBfcHVibGljYXRpb24?pageNumber=0&pageSize=100&embedded=true&mcV6=true",
+          "type": "application/vnd.ard.widget+json",
+          "partner": "ard"
+        }
+      },
+      "show": {
+        "id": "Y3JpZDovL3JiYi1vbmxpbmUuZGUvYmx1ZS1tb29u",
+        "title": "Blue Moon",
+        "image": {
+          "alt": "Logo: Blue Moon (Quelle: rbb/Lilly Extra/Holger Günther)",
+          "producerName": "rbb/Lilly Extra/Holger Günther",
+          "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:b9822f72da75ccf1?w={width}&ch=013476f5a68eff0c",
+          "title": "Logo: Blue Moon"
+        },
+        "availableSeasons": null,
+        "binaryFeatures": [],
+        "coreAssetType": "INFINITE_SERIES"
+      },
+      "synopsis": "Den Rucksack auskippen, bloßstellende Fotos posten oder Beleidigungen nachrufen - fast jedes sechste Schulkind ist bei uns von Mobbing betroffen. Aber auch im Büro, an der Uni oder im Verein gibt es Mobbing! Diese Woche sprechen wir bei Fritz über das Thema Mobbing, alle Inhalte und Hilfsangebote findet ihr hier: fritz.de/mobbing. Claudia Kamieth will deshalb heute im Blue Moon von euch wissen: Wurdet ihr mal gemobbt und wie sehr hat euch das geprägt? Habt ihr beobachtet, wie Kolleg:innen vom Boss gemobbt wurden oder habt ihr selbst jemanden gemobbt und bereut es heute? Ruft an unter 0331 70 97 110 und erzählt eure Geschichte! Heute gibt's den Blue Moon wieder zum Hören bei YOUFM und Fritz und auch zum Sehen im rbb Fernsehen.",
+      "title": "Blue Moon vom 30.04.2024",
+      "trackingPiano": {
+        "teaser_recommended": false,
+        "widget_id": "player_on_demand_widget_ard",
+        "widget_title": "Blue Moon vom 30.04.2024",
+        "widget_typ": "player_ondemand"
+      },
+      "type": "player_ondemand"
+    },
+    {
+      "aZContent": false,
+      "compilationType": "itemsOfShow",
+      "id": "Y3JpZDovL3JiYi1vbmxpbmUuZGUvYmx1ZS1tb29u",
+      "isChildContent": false,
+      "pagination": {
+        "pageNumber": 0,
+        "pageSize": 24,
+        "totalElements": 11
+      },
+      "personalized": false,
+      "links": {
+        "self": {
+          "id": "Y3JpZDovL3JiYi1vbmxpbmUuZGUvYmx1ZS1tb29u",
+          "urlId": "Y3JpZDovL3JiYi1vbmxpbmUuZGUvYmx1ZS1tb29u",
+          "title": "Blue Moon",
+          "href": "https://api.ardmediathek.de/page-gateway/widgets/ard/asset/Y3JpZDovL3JiYi1vbmxpbmUuZGUvYmx1ZS1tb29u?excludedAssetIds=Y3JpZDovL3JiYl8zZDU0ZmNhNC05YTdkLTQ1MmQtYjY1OS1jNWRmMTk1MzJiYTBfcHVibGljYXRpb24&pageNumber=0&pageSize=24&embedded=true&seasoned=false&seasonNumber=&withAudiodescription=false&withOriginalWithSubtitle=false&withOriginalversion=false&single=false",
+          "type": "application/vnd.ard.widget+json",
+          "partner": "ard"
+        }
+      },
+      "size": "m",
+      "swipeable": true,
+      "teasers": [],
+      "title": "Blue Moon",
+      "titleVisible": true,
+      "trackingPiano": {
+        "teaser_recommended": false,
+        "widget_id": "Y3JpZDovL3JiYi1vbmxpbmUuZGUvYmx1ZS1tb29u",
+        "widget_title": "Blue Moon",
+        "widget_typ": "gridlist"
+      },
+      "type": "gridlist",
+      "userVisibility": "ALWAYS"
+    }
+  ]
+}

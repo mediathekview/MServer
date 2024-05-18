@@ -23,6 +23,8 @@ public class ArdTopicsLetterDeserializer implements JsonDeserializer<PaginationU
   private static final String ELEMENT_TOTAL_ELEMENTS = "totalElements";
   private static final String ELEMENT_PAGE_SIZE = "pageSize";
   private static final String ELEMENT_PAGINATION = "pagination";
+  private static final String ELEMENT_PUBLICATION_SERVICE = "publicationService";
+  private static final String ATTRIBUTE_PARTNER = "partner";
 
   private static final String ATTRIBUTE_ID = "id";
 
@@ -78,14 +80,29 @@ public class ArdTopicsLetterDeserializer implements JsonDeserializer<PaginationU
     } else {
       id = JsonUtils.getAttributeAsString(teaserObject, ATTRIBUTE_ID);
     }
-
-    id.ifPresent(
-        nonNullId ->
-            results.add(
-                new CrawlerUrlDTO(
-                    String.format(
-                        ArdConstants.TOPIC_URL, nonNullId, ArdConstants.TOPIC_PAGE_SIZE))));
+    if (isRelevant(teaserObject)) {
+      id.ifPresent(
+          nonNullId ->
+              results.add(
+                  new CrawlerUrlDTO(
+                      String.format(
+                          ArdConstants.TOPIC_URL, nonNullId, ArdConstants.TOPIC_PAGE_SIZE))));
+    }
 
     return results;
+  }
+  
+  private boolean isRelevant(final JsonObject teaserObject) {
+    if (teaserObject.has(ELEMENT_PUBLICATION_SERVICE)) {
+      final JsonObject publicationService =
+              teaserObject.get(ELEMENT_PUBLICATION_SERVICE).getAsJsonObject();
+      final Optional<String> attributeAsString =
+              JsonUtils.getAttributeAsString(publicationService, ATTRIBUTE_PARTNER);
+      if (attributeAsString.isPresent()) {
+        return ArdConstants.PARTNER_TO_SENDER.get(attributeAsString.get()) != null;
+      }
+    }
+
+    return true;
   }
 }

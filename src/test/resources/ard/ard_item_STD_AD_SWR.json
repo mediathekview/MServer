@@ -1,0 +1,482 @@
+{
+  "coreAssetType": "EPISODE",
+  "fskRating": "FSK0",
+  "id": "player_ondemand-page-ard",
+  "isChildContent": false,
+  "personalized": false,
+  "links": {
+    "self": {
+      "id": "player_ondemand-page-ard",
+      "urlId": "player_ondemand-page-ard",
+      "title": "Im Herzen Italiens - Von den Abruzzen nach Kalabrien",
+      "href": "https://api.ardmediathek.de/page-gateway/pages/ard/item/Y3JpZDovL3N3ci5kZS9hZXgvbzIwMjk3MzY?embedded=true&mcV6=true",
+      "type": "application/vnd.ard.page+json",
+      "partner": "ard"
+    }
+  },
+  "title": "Im Herzen Italiens - Von den Abruzzen nach Kalabrien",
+  "tracking": {
+    "aggregationLevelId": 38,
+    "atiCustomVars": {
+      "clipTitle": "Im Herzen Italiens - Von den Abruzzen nach Kalabrien",
+      "mediaType": "video",
+      "lra": "SWR",
+      "channel": "SWR",
+      "show": "Traumziele",
+      "contentTypes": "",
+      "mediaDistributionType": 1,
+      "contentId": 13288709,
+      "metadataId": "crid://swr.de/aex/o2029736",
+      "clipLength": 2635
+    },
+    "chapter2": "Player",
+    "chapter3": "Traumziele",
+    "environmentId": 511893,
+    "pageTitle": "Mediathek/Player/Traumziele/Im Herzen Italiens - Von den Abruzzen nach Kalabrien/13288709/20240501_1215",
+    "szmType": "CP"
+  },
+  "trackingPiano": {
+    "page_chapter1": "Player",
+    "page_content_id": "urn:ard:publication:74bb0ec9016ff8a5",
+    "page_content_title": "Im Herzen Italiens - Von den Abruzzen nach Kalabrien",
+    "page_id": "player_ondemand-page-ard",
+    "page_institution": "SWR",
+    "page_institution_id": "urn:ard:institution:a3004ff924ece1a2",
+    "page_publisher": "SWR",
+    "page_publisher_id": "urn:ard:publisher:6478b1e3557817e3",
+    "page_show": "Traumziele",
+    "page_show_id": "urn:ard:show:f8bbf1ada8504543",
+    "page_title": "Im Herzen Italiens - Von den Abruzzen nach Kalabrien",
+    "site": "634408"
+  },
+  "widgets": [
+    {
+      "availableTo": "2024-05-29T14:00:00Z",
+      "binaryFeatures": [
+        "AD"
+      ],
+      "blockedByFsk": false,
+      "broadcastedOn": "2024-05-01T12:15:00Z",
+      "embeddable": false,
+      "geoblocked": false,
+      "id": "Y3JpZDovL3N3ci5kZS9hZXgvbzIwMjk3MzY",
+      "image": {
+        "alt": "Wilde Pferde in den Bergen des Apennin. In in diesem Teil Italiens  gibt es noch zahlreiche archaische Landschaften.",
+        "producerName": "SWR, Berlin Producers Media/Gero von Schneider-Marientreu",
+        "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:66948bb89532aeb3?w={width}&ch=e65949c85ee2c39d",
+        "title": "Wilde Pferde in den Bergen des Apennin. In in diesem Teil Italiens  gibt es noch zahlreiche archaische Landschaften."
+      },
+      "isChildContent": false,
+      "maturityContentRating": "FSK0",
+      "mediaCollection": {
+        "embedded": {
+          "isGeoBlocked": true,
+          "meta": {
+            "availableToDateTime": "2024-05-29T14:00:00Z",
+            "broadcastedOnDateTime": "2024-04-30T14:00:00Z",
+            "clipSourceName": "10804",
+            "durationSeconds": 2635,
+            "images": [
+              {
+                "alt": "Wilde Pferde in den Bergen des Apennin. In in diesem Teil Italiens  gibt es noch zahlreiche archaische Landschaften.",
+                "aspectRatio": "16x9",
+                "imageSourceName": "SWR, Berlin Producers Media/Gero von Schneider-Marientreu",
+                "kind": "preview",
+                "title": "Wilde Pferde in den Bergen des Apennin. In in diesem Teil Italiens  gibt es noch zahlreiche archaische Landschaften.",
+                "url": "https://api.ardmediathek.de/image-service/images/urn:ard:image:66948bb89532aeb3?w=960&ch=e65949c85ee2c39d"
+              }
+            ],
+            "maturityContentRating": {
+              "age": 0,
+              "isBlocked": false,
+              "kind": "other"
+            },
+            "publicationService": {
+              "id": "ard",
+              "name": "SWR",
+              "partner": "swr"
+            },
+            "seriesTitle": "Traumziele",
+            "synopsis": "Der Apennin ist das Rückgrat und die Seele Italiens. Orte voller Geschichte und wilde Natur prägen das Land.",
+            "title": "Im Herzen Italiens - Von den Abruzzen nach Kalabrien"
+          },
+          "pluginData": {
+            "recommendation@all": {
+              "isAutoplay": true,
+              "timerSeconds": 10,
+              "url": "https://api.ardmediathek.de/page-gateway/compilations/ard/recommendations?contextItemId=Y3JpZDovL3N3ci5kZS9hZXgvbzIwMjk3MzY"
+            },
+            "trackingAgf@all": {
+              "appId": "PA02DC09C-B8D3-4098-87D2-2C023682D6D5",
+              "clipData": {
+                "assetid": "13288709",
+                "length": "2635",
+                "nol_c0": "p0,0",
+                "nol_c10": "p10,SWR",
+                "nol_c12": "p12,Content",
+                "nol_c15": "p15,4314471817812",
+                "nol_c16": "p16,ARD_Information",
+                "nol_c18": "p18,N",
+                "nol_c19": "p19,10804",
+                "nol_c2": "p2,N",
+                "nol_c5": "p5,ARD Mediathek",
+                "nol_c7": "p7,crid://swr.de/aex/o2029736",
+                "nol_c8": "p8,2635",
+                "nol_c9": "p9,Traumziele_Im Herzen Italiens - Von den Abruzzen nach Kalabrien_01.05.2024 12:15",
+                "program": "Traumziele",
+                "title": "SWR_Traumziele_Im Herzen Italiens - Von den Abruzzen nach Kalabrien_01.05.2024 12:15",
+                "type": "content"
+              },
+              "tracker": "AGF"
+            },
+            "trackingAti@all": {
+              "config": {
+                "site": 511893
+              },
+              "isEnabled": true,
+              "richMedia": {
+                "broadcastMode": "clip",
+                "duration": "2635",
+                "mediaLabel": "Im Herzen Italiens - Von den Abruzzen nach Kalabrien__13288709__AD",
+                "mediaLevel2": "{richMediaLevelTwo}",
+                "mediaTheme1": "Südwestrundfunk",
+                "mediaTheme2": "SWR",
+                "mediaTheme3": "Traumziele",
+                "mediaType": "video",
+                "playerId": "urn:ard:publication:74bb0ec9016ff8a5",
+                "refreshDuration": {
+                  "0": 5,
+                  "1": 12,
+                  "12": 15,
+                  "18": 30
+                }
+              },
+              "tracker": "ATI"
+            },
+            "trackingPiano@all": {
+              "avContent": {
+                "av_broadcasting_type": "OnDemand",
+                "av_content": "Im Herzen Italiens - Von den Abruzzen nach Kalabrien",
+                "av_content_duration": 2635000,
+                "av_content_id": "urn:ard:publication:74bb0ec9016ff8a5",
+                "av_content_type": "video",
+                "av_institution": "SWR",
+                "av_institution_id": "urn:ard:institution:a3004ff924ece1a2",
+                "av_publisher": "SWR",
+                "av_publisher_id": "urn:ard:publisher:6478b1e3557817e3",
+                "av_show": "Traumziele",
+                "av_show_id": "urn:ard:show:f8bbf1ada8504543"
+              },
+              "config": {
+                "events": [
+                  "av.error",
+                  "av.speed",
+                  "av.quality",
+                  "av.jumpmark",
+                  "av.share",
+                  "av.playermode",
+                  "av.subtitle",
+                  "av.language",
+                  "av.audiodescription",
+                  "av.signlanguage",
+                  "av.volume.mute",
+                  "av.recommendation"
+                ],
+                "site": 634408
+              },
+              "isEnabled": true
+            }
+          },
+          "streams": [
+            {
+              "kind": "main",
+              "kindName": "Normal",
+              "media": [
+                {
+                  "aspectRatio": "16:9",
+                  "audios": [
+                    {
+                      "kind": "standard",
+                      "languageCode": "deu"
+                    }
+                  ],
+                  "forcedLabel": "HD Ready",
+                  "hasEmbeddedSubtitles": false,
+                  "isAdaptiveQualitySelectable": false,
+                  "isHighDynamicRange": false,
+                  "maxHResolutionPx": 1280,
+                  "maxVResolutionPx": 720,
+                  "mimeType": "video/mp4",
+                  "subtitles": [],
+                  "url": "https://pdodswr-a.akamaihd.net/swrfernsehen/geo/de/traumziele/2029736.xl.mp4",
+                  "videoCodec": "H.264"
+                },
+                {
+                  "aspectRatio": "16:9",
+                  "audios": [
+                    {
+                      "kind": "standard",
+                      "languageCode": "deu"
+                    }
+                  ],
+                  "forcedLabel": "Full HD",
+                  "hasEmbeddedSubtitles": false,
+                  "isAdaptiveQualitySelectable": false,
+                  "isHighDynamicRange": false,
+                  "maxHResolutionPx": 1920,
+                  "maxVResolutionPx": 1080,
+                  "mimeType": "video/mp4",
+                  "subtitles": [],
+                  "url": "https://pdodswr-a.akamaihd.net/swrfernsehen/geo/de/traumziele/2029736.xxl.mp4",
+                  "videoCodec": "H.264"
+                },
+                {
+                  "aspectRatio": "16:9",
+                  "audios": [
+                    {
+                      "kind": "standard",
+                      "languageCode": "deu"
+                    }
+                  ],
+                  "forcedLabel": "SD 480p",
+                  "hasEmbeddedSubtitles": false,
+                  "isAdaptiveQualitySelectable": false,
+                  "isHighDynamicRange": false,
+                  "maxHResolutionPx": 960,
+                  "maxVResolutionPx": 540,
+                  "mimeType": "video/mp4",
+                  "subtitles": [],
+                  "url": "https://pdodswr-a.akamaihd.net/swrfernsehen/geo/de/traumziele/2029736.l.mp4",
+                  "videoCodec": "H.264"
+                },
+                {
+                  "aspectRatio": "16:9",
+                  "audios": [
+                    {
+                      "kind": "standard",
+                      "languageCode": "deu"
+                    }
+                  ],
+                  "forcedLabel": "SD",
+                  "hasEmbeddedSubtitles": false,
+                  "isAdaptiveQualitySelectable": false,
+                  "isHighDynamicRange": false,
+                  "maxHResolutionPx": 640,
+                  "maxVResolutionPx": 360,
+                  "mimeType": "video/mp4",
+                  "subtitles": [],
+                  "url": "https://pdodswr-a.akamaihd.net/swrfernsehen/geo/de/traumziele/2029736.ml.mp4",
+                  "videoCodec": "H.264"
+                },
+                {
+                  "aspectRatio": "16:9",
+                  "audios": [
+                    {
+                      "kind": "standard",
+                      "languageCode": "deu"
+                    }
+                  ],
+                  "forcedLabel": "Auto",
+                  "hasEmbeddedSubtitles": false,
+                  "isAdaptiveQualitySelectable": false,
+                  "isHighDynamicRange": false,
+                  "maxHResolutionPx": 1920,
+                  "maxVResolutionPx": 1080,
+                  "mimeType": "application/vnd.apple.mpegurl",
+                  "subtitles": [],
+                  "url": "https://av-adaptive.swr.de/i/swrfernsehen/geo/de/traumziele/2029736,.sm,.ml,.l,.xl,.xxl,.mp4.csmil/master.m3u8",
+                  "videoCodec": "H.264"
+                },
+                {
+                  "aspectRatio": "16:9",
+                  "audios": [
+                    {
+                      "kind": "audio-description",
+                      "languageCode": "deu"
+                    }
+                  ],
+                  "forcedLabel": "HD Ready",
+                  "hasEmbeddedSubtitles": false,
+                  "isAdaptiveQualitySelectable": false,
+                  "isHighDynamicRange": false,
+                  "maxHResolutionPx": 1280,
+                  "maxVResolutionPx": 720,
+                  "mimeType": "video/mp4",
+                  "subtitles": [],
+                  "url": "https://pdodswr-a.akamaihd.net/swrfernsehen/geo/de/traumziele/2029736.audio_description.xl.mp4",
+                  "videoCodec": "H.264"
+                },
+                {
+                  "aspectRatio": "16:9",
+                  "audios": [
+                    {
+                      "kind": "audio-description",
+                      "languageCode": "deu"
+                    }
+                  ],
+                  "forcedLabel": "Auto",
+                  "hasEmbeddedSubtitles": false,
+                  "isAdaptiveQualitySelectable": false,
+                  "isHighDynamicRange": false,
+                  "maxHResolutionPx": 1920,
+                  "maxVResolutionPx": 1080,
+                  "mimeType": "application/vnd.apple.mpegurl",
+                  "subtitles": [],
+                  "url": "https://av-adaptive.swr.de/i/swrfernsehen/geo/de/traumziele/2029736.audio_description,.sm,.ml,.l,.xl,.xxl,.mp4.csmil/master.m3u8",
+                  "videoCodec": "H.264"
+                },
+                {
+                  "aspectRatio": "16:9",
+                  "audios": [
+                    {
+                      "kind": "audio-description",
+                      "languageCode": "deu"
+                    }
+                  ],
+                  "forcedLabel": "SD",
+                  "hasEmbeddedSubtitles": false,
+                  "isAdaptiveQualitySelectable": false,
+                  "isHighDynamicRange": false,
+                  "maxHResolutionPx": 640,
+                  "maxVResolutionPx": 360,
+                  "mimeType": "video/mp4",
+                  "subtitles": [],
+                  "url": "https://pdodswr-a.akamaihd.net/swrfernsehen/geo/de/traumziele/2029736.audio_description.ml.mp4",
+                  "videoCodec": "H.264"
+                },
+                {
+                  "aspectRatio": "16:9",
+                  "audios": [
+                    {
+                      "kind": "audio-description",
+                      "languageCode": "deu"
+                    }
+                  ],
+                  "forcedLabel": "Full HD",
+                  "hasEmbeddedSubtitles": false,
+                  "isAdaptiveQualitySelectable": false,
+                  "isHighDynamicRange": false,
+                  "maxHResolutionPx": 1920,
+                  "maxVResolutionPx": 1080,
+                  "mimeType": "video/mp4",
+                  "subtitles": [],
+                  "url": "https://pdodswr-a.akamaihd.net/swrfernsehen/geo/de/traumziele/2029736.audio_description.xxl.mp4",
+                  "videoCodec": "H.264"
+                },
+                {
+                  "aspectRatio": "16:9",
+                  "audios": [
+                    {
+                      "kind": "audio-description",
+                      "languageCode": "deu"
+                    }
+                  ],
+                  "forcedLabel": "SD 480p",
+                  "hasEmbeddedSubtitles": false,
+                  "isAdaptiveQualitySelectable": false,
+                  "isHighDynamicRange": false,
+                  "maxHResolutionPx": 960,
+                  "maxVResolutionPx": 540,
+                  "mimeType": "video/mp4",
+                  "subtitles": [],
+                  "url": "https://pdodswr-a.akamaihd.net/swrfernsehen/geo/de/traumziele/2029736.audio_description.l.mp4",
+                  "videoCodec": "H.264"
+                }
+              ],
+              "videoLanguageCode": ""
+            }
+          ],
+          "subtitles": []
+        },
+        "href": "https://api.ardmediathek.de/page-gateway/mediacollectionv6/Y3JpZDovL3N3ci5kZS9hZXgvbzIwMjk3MzY?isTv=false"
+      },
+      "pagination": null,
+      "personalized": false,
+      "playerConfig": null,
+      "publicationService": {
+        "name": "SWR",
+        "logo": {
+          "title": "Logo SWR",
+          "alt": "Logo SWR",
+          "producerName": "Logo SWR",
+          "src": "https://api.ardmediathek.de/image-service/image-collections/urn:ard:image-collection:2213972a8d101de1/16x9?w={width}",
+          "aspectRatio": "16x9"
+        },
+        "publisherType": "TV",
+        "partner": "swr",
+        "id": "b3JnYW5pemF0aW9uX1NXUg",
+        "coreId": "urn:ard:publisher:6478b1e3557817e3"
+      },
+      "links": {
+        "self": {
+          "id": "player_on_demand_widget_ard",
+          "urlId": "player_on_demand_widget_ard",
+          "title": "Im Herzen Italiens - Von den Abruzzen nach Kalabrien",
+          "href": "https://api.ardmediathek.de/page-gateway/widgets/ard/editorials/player_on_demand_widget_ard/item/Y3JpZDovL3N3ci5kZS9hZXgvbzIwMjk3MzY?pageNumber=0&pageSize=100&embedded=true&mcV6=true",
+          "type": "application/vnd.ard.widget+json",
+          "partner": "ard"
+        }
+      },
+      "show": {
+        "id": "Y3JpZDovL3N3ci5kZS9zZGIvc3RJZC8xMzQ2",
+        "title": "Traumziele",
+        "image": {
+          "alt": "Sendungssignet \"Traumziele\"",
+          "producerName": "SWR",
+          "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:af6c5760727f0cb0?w={width}&ch=9f816f887ce828f6",
+          "title": "Sendungssignet \"Traumziele\""
+        },
+        "availableSeasons": null,
+        "binaryFeatures": [
+          "UT",
+          "AD"
+        ],
+        "coreAssetType": "INFINITE_SERIES"
+      },
+      "synopsis": "Der Apennin ist das Rückgrat und die Seele Italiens. Orte voller Geschichte und wilde Natur prägen das Land.",
+      "title": "Im Herzen Italiens - Von den Abruzzen nach Kalabrien",
+      "trackingPiano": {
+        "teaser_recommended": false,
+        "widget_id": "player_on_demand_widget_ard",
+        "widget_title": "Im Herzen Italiens - Von den Abruzzen nach Kalabrien",
+        "widget_typ": "player_ondemand"
+      },
+      "type": "player_ondemand"
+    },
+    {
+      "aZContent": false,
+      "compilationType": "itemsOfShow",
+      "id": "Y3JpZDovL3N3ci5kZS9zZGIvc3RJZC8xMzQ2",
+      "isChildContent": false,
+      "pagination": {
+        "pageNumber": 0,
+        "pageSize": 24,
+        "totalElements": 64
+      },
+      "personalized": false,
+      "links": {
+        "self": {
+          "id": "Y3JpZDovL3N3ci5kZS9zZGIvc3RJZC8xMzQ2",
+          "urlId": "Y3JpZDovL3N3ci5kZS9zZGIvc3RJZC8xMzQ2",
+          "title": "Traumziele",
+          "href": "https://api.ardmediathek.de/page-gateway/widgets/ard/asset/Y3JpZDovL3N3ci5kZS9zZGIvc3RJZC8xMzQ2?excludedAssetIds=Y3JpZDovL3N3ci5kZS9hZXgvbzIwMjk3MzY&pageNumber=0&pageSize=24&embedded=true&seasoned=false&seasonNumber=&withAudiodescription=false&withOriginalWithSubtitle=false&withOriginalversion=false&single=false",
+          "type": "application/vnd.ard.widget+json",
+          "partner": "ard"
+        }
+      },
+      "size": "m",
+      "swipeable": true,
+      "teasers": [],
+      "title": "Traumziele",
+      "titleVisible": true,
+      "trackingPiano": {
+        "teaser_recommended": false,
+        "widget_id": "Y3JpZDovL3N3ci5kZS9zZGIvc3RJZC8xMzQ2",
+        "widget_title": "Traumziele",
+        "widget_typ": "gridlist"
+      },
+      "type": "gridlist",
+      "userVisibility": "ALWAYS"
+    }
+  ]
+}

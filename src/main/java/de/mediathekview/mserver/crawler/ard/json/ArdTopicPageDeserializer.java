@@ -30,13 +30,12 @@ public class ArdTopicPageDeserializer extends ArdTeasersDeserializer
     }
 
     final JsonElement paginationElement = showPageObject.get(ELEMENT_PAGINATION);
-    ardTopicInfoDto.setSubPageNumber(
-            getChildElementAsIntOrNullIfNotExist(paginationElement, ELEMENT_PAGE_NUMBER));
+    final int pageNumber = getChildElementAsIntOrNullIfNotExist(paginationElement, ELEMENT_PAGE_NUMBER);
     final int totalElements = getChildElementAsIntOrNullIfNotExist(paginationElement, ELEMENT_TOTAL_ELEMENTS);
     final int pageSize = getChildElementAsIntOrNullIfNotExist(paginationElement, ELEMENT_PAGE_SIZE);
-    ardTopicInfoDto.setMaxSubPageNumber(pageSize == 0 ? 0 :
-            (totalElements+pageSize-1)/pageSize);
-
+    ardTopicInfoDto.setPageNumber(pageNumber);
+    ardTopicInfoDto.setPageSize(pageSize);
+    ardTopicInfoDto.setTotalElements(totalElements);    
     return ardTopicInfoDto;
   }
 

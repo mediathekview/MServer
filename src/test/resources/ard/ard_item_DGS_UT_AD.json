@@ -1,0 +1,909 @@
+{
+  "coreAssetType": "EPISODE",
+  "fskRating": "FSK12",
+  "id": "player_ondemand-page-ard",
+  "isChildContent": false,
+  "personalized": false,
+  "links": {
+    "self": {
+      "id": "player_ondemand-page-ard",
+      "urlId": "player_ondemand-page-ard",
+      "title": "Der Fluch des Geldes (mit Gebärdensprache)",
+      "href": "https://api.ardmediathek.de/page-gateway/pages/ard/item/Y3JpZDovL2Rhc2Vyc3RlLmRlL3RhdG9ydC8yMDI0LTAxLTI4XzIwLTE1LU1FWi9nZWJhZXJkZW5zcHJhY2hl?embedded=true&mcV6=true",
+      "type": "application/vnd.ard.page+json",
+      "partner": "ard"
+    }
+  },
+  "title": "Der Fluch des Geldes (mit Gebärdensprache)",
+  "tracking": {
+    "aggregationLevelId": 38,
+    "atiCustomVars": {
+      "clipTitle": "Der Fluch des Geldes (mit Gebärdensprache)",
+      "mediaType": "video",
+      "lra": "ARD",
+      "channel": "ARD",
+      "show": "Tatort",
+      "contentTypes": "GD | UT",
+      "mediaDistributionType": 1,
+      "contentId": 13100815,
+      "metadataId": "crid://daserste.de/tatort/2024-01-28_20-15-MEZ/gebaerdensprache",
+      "clipLength": 5313
+    },
+    "chapter2": "Player",
+    "chapter3": "Tatort",
+    "environmentId": 511893,
+    "pageTitle": "Mediathek/Player/Tatort/Der Fluch des Geldes (mit Gebärdensprache)/13100815/20240128_1915",
+    "szmType": "CP"
+  },
+  "trackingPiano": {
+    "page_chapter1": "Player",
+    "page_content_id": "urn:ard:publication:abb02a54f8711468",
+    "page_content_title": "Der Fluch des Geldes (mit Gebärdensprache)",
+    "page_id": "player_ondemand-page-ard",
+    "page_institution": "ARD",
+    "page_institution_id": "urn:ard:institution:453603d77920d274",
+    "page_publisher": "ARD",
+    "page_publisher_id": "urn:ard:publisher:d6c3befc4d6b7e76",
+    "page_show": "Tatort",
+    "page_show_id": "urn:ard:show:24a41843cd919fb8",
+    "page_title": "Der Fluch des Geldes (mit Gebärdensprache)",
+    "site": "634408"
+  },
+  "widgets": [
+    {
+      "availableTo": "2025-01-28T19:15:00Z",
+      "binaryFeatures": [
+        "DGS",
+        "UT",
+        "AD"
+      ],
+      "blockedByFsk": false,
+      "broadcastedOn": "2024-01-28T19:15:00Z",
+      "embeddable": false,
+      "geoblocked": false,
+      "id": "Y3JpZDovL2Rhc2Vyc3RlLmRlL3RhdG9ydC8yMDI0LTAxLTI4XzIwLTE1LU1FWi9nZWJhZXJkZW5zcHJhY2hl",
+      "image": {
+        "alt": "Hauptkommissar Leo Hölzer (Vladimir Burlakov,li.) sagt seinem Kollegen Hauptkommissar Adam Schürk (Daniel Sträßer), dass er nicht an einen Unfall glaubt.",
+        "producerName": "SR / Manuela Meyer",
+        "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:355b22d986951f5e?w={width}&ch=177f66b8952ac44e",
+        "title": "Hauptkommissar Leo Hölzer sagt seinem Kollegen Hauptkommissar Adam Schürk, dass er nicht an einen Unfall glaubt."
+      },
+      "isChildContent": false,
+      "maturityContentRating": "FSK12",
+      "mediaCollection": {
+        "embedded": {
+          "isGeoBlocked": false,
+          "meta": {
+            "availableToDateTime": "2025-01-28T19:15:00Z",
+            "broadcastedOnDateTime": "2024-01-28T18:40:00Z",
+            "clipSourceName": "deg",
+            "durationSeconds": 5313,
+            "images": [
+              {
+                "alt": "Hauptkommissar Leo Hölzer (Vladimir Burlakov,li.) sagt seinem Kollegen Hauptkommissar Adam Schürk (Daniel Sträßer), dass er nicht an einen Unfall glaubt.",
+                "aspectRatio": "16x9",
+                "imageSourceName": "SR / Manuela Meyer",
+                "kind": "preview",
+                "title": "Hauptkommissar Leo Hölzer sagt seinem Kollegen Hauptkommissar Adam Schürk, dass er nicht an einen Unfall glaubt.",
+                "url": "https://api.ardmediathek.de/image-service/images/urn:ard:image:355b22d986951f5e?w=960&ch=177f66b8952ac44e"
+              }
+            ],
+            "maturityContentRating": {
+              "age": 12,
+              "isBlocked": false,
+              "kind": "other"
+            },
+            "publicationService": {
+              "id": "ard",
+              "name": "ARD",
+              "partner": "ard"
+            },
+            "seriesTitle": "Tatort",
+            "synopsis": "Spielfilm Deutschland 2024 +++\r\n\r\n\"Der Fluch des Geldes\" beginnt da, wo \"Die Kälte der Erde\" endete. Die Hauptkommissare streiten sich, denn Leo Hölzer musste entdecken, dass sein Partner Adam Schürk im Besitz der Beute aus einem Bankraub seines verstorbenen Vaters ist. +++\r\n\r\nMit Vladimir Burlakov, Daniel Sträßer, Susanne Bormann, Omar El-Saeidi, Jasmina Al Zihairi u.a. | Buch: Hendrik Hölzemann | Regie: Christian Theede",
+            "title": "Der Fluch des Geldes"
+          },
+          "pluginData": {
+            "recommendation@all": {
+              "isAutoplay": true,
+              "timerSeconds": 10,
+              "url": "https://api.ardmediathek.de/page-gateway/compilations/ard/recommendations?contextItemId=Y3JpZDovL2Rhc2Vyc3RlLmRlL3RhdG9ydC8yMDI0LTAxLTI4XzIwLTE1LU1FWg"
+            },
+            "trackingAgf@all": {
+              "appId": "PA02DC09C-B8D3-4098-87D2-2C023682D6D5",
+              "clipData": {
+                "assetid": "13100815",
+                "length": "5313",
+                "nol_c0": "p0,0",
+                "nol_c10": "p10,ARD",
+                "nol_c12": "p12,Content",
+                "nol_c15": "p15,X005428862",
+                "nol_c16": "p16,Das Erste_f|film|sonntagskrimi|crid://daserste.de/tatort",
+                "nol_c18": "p18,N",
+                "nol_c19": "p19,deg",
+                "nol_c2": "p2,N",
+                "nol_c5": "p5,ARD Mediathek",
+                "nol_c7": "p7,crid://daserste.de/tatort/2024-01-28_20-15-MEZ",
+                "nol_c8": "p8,5313",
+                "nol_c9": "p9,Tatort_Der Fluch des Geldes_28.01.2024 19:15",
+                "program": "Tatort",
+                "title": "ARD_Tatort_Der Fluch des Geldes_28.01.2024 19:15",
+                "type": "content"
+              },
+              "tracker": "AGF"
+            },
+            "trackingAti@all": {
+              "config": {
+                "site": 511893
+              },
+              "isEnabled": true,
+              "richMedia": {
+                "broadcastMode": "clip",
+                "duration": "5313",
+                "mediaLabel": "Der Fluch des Geldes__13100815__AD | GD | UT",
+                "mediaLevel2": "{richMediaLevelTwo}",
+                "mediaTheme1": "ARD",
+                "mediaTheme2": "ARD",
+                "mediaTheme3": "Tatort",
+                "mediaType": "video",
+                "playerId": "urn:ard:publication:abb02a54f8711468",
+                "refreshDuration": {
+                  "0": 5,
+                  "1": 12,
+                  "12": 15,
+                  "18": 30
+                }
+              },
+              "tracker": "ATI"
+            },
+            "trackingPiano@all": {
+              "avContent": {
+                "av_broadcasting_type": "OnDemand",
+                "av_content": "Der Fluch des Geldes",
+                "av_content_duration": 5313000,
+                "av_content_id": "urn:ard:publication:abb02a54f8711468",
+                "av_content_type": "video",
+                "av_institution": "ARD",
+                "av_institution_id": "urn:ard:institution:453603d77920d274",
+                "av_publisher": "ARD",
+                "av_publisher_id": "urn:ard:publisher:d6c3befc4d6b7e76",
+                "av_show": "Tatort",
+                "av_show_id": "urn:ard:show:24a41843cd919fb8"
+              },
+              "config": {
+                "events": [
+                  "av.error",
+                  "av.speed",
+                  "av.quality",
+                  "av.jumpmark",
+                  "av.share",
+                  "av.playermode",
+                  "av.subtitle",
+                  "av.language",
+                  "av.audiodescription",
+                  "av.signlanguage",
+                  "av.volume.mute",
+                  "av.recommendation"
+                ],
+                "site": 634408
+              },
+              "isEnabled": true
+            }
+          },
+          "streams": [
+            {
+              "kind": "main",
+              "kindName": "Normal",
+              "media": [
+                {
+                  "aspectRatio": "16:9",
+                  "audios": [
+                    {
+                      "kind": "standard",
+                      "languageCode": "deu"
+                    }
+                  ],
+                  "forcedLabel": "Auto",
+                  "hasEmbeddedSubtitles": false,
+                  "isAdaptiveQualitySelectable": false,
+                  "isHighDynamicRange": false,
+                  "maxHResolutionPx": 1920,
+                  "maxVResolutionPx": 1080,
+                  "mimeType": "application/vnd.apple.mpegurl",
+                  "subtitles": [],
+                  "url": "https://universal-vod.daserste.de/i/int/2024/01/18/3322bac1-6935-4101-8e41-380d70eff67e/,JOB_430813_sendeton_640x360-50p-1200kbit,JOB_430813_sendeton_480x270-50p-700kbit,JOB_430813_sendeton_960x540-50p-1600kbit,JOB_430813_sendeton_1280x720-50p-3200kbit,JOB_430813_sendeton_1920x1080-50p-5000kbit,.mp4.csmil/master.m3u8",
+                  "videoCodec": "H.264"
+                },
+                {
+                  "aspectRatio": "16:9",
+                  "audios": [
+                    {
+                      "kind": "standard",
+                      "languageCode": "deu"
+                    }
+                  ],
+                  "forcedLabel": "Full HD",
+                  "hasEmbeddedSubtitles": false,
+                  "isAdaptiveQualitySelectable": false,
+                  "isHighDynamicRange": false,
+                  "maxHResolutionPx": 1920,
+                  "maxVResolutionPx": 1080,
+                  "mimeType": "video/mp4",
+                  "subtitles": [],
+                  "url": "https://pd-videos.daserste.de/int/2024/01/18/3322bac1-6935-4101-8e41-380d70eff67e/JOB_430813_sendeton_1920x1080-50p-5000kbit.mp4",
+                  "videoCodec": "H.264"
+                },
+                {
+                  "aspectRatio": "16:9",
+                  "audios": [
+                    {
+                      "kind": "standard",
+                      "languageCode": "deu"
+                    }
+                  ],
+                  "forcedLabel": "HD Ready",
+                  "hasEmbeddedSubtitles": false,
+                  "isAdaptiveQualitySelectable": false,
+                  "isHighDynamicRange": false,
+                  "maxHResolutionPx": 1280,
+                  "maxVResolutionPx": 720,
+                  "mimeType": "video/mp4",
+                  "subtitles": [],
+                  "url": "https://pd-videos.daserste.de/int/2024/01/18/3322bac1-6935-4101-8e41-380d70eff67e/JOB_430813_sendeton_1280x720-50p-3200kbit.mp4",
+                  "videoCodec": "H.264"
+                },
+                {
+                  "aspectRatio": "16:9",
+                  "audios": [
+                    {
+                      "kind": "standard",
+                      "languageCode": "deu"
+                    }
+                  ],
+                  "forcedLabel": "SD 480p",
+                  "hasEmbeddedSubtitles": false,
+                  "isAdaptiveQualitySelectable": false,
+                  "isHighDynamicRange": false,
+                  "maxHResolutionPx": 960,
+                  "maxVResolutionPx": 540,
+                  "mimeType": "video/mp4",
+                  "subtitles": [],
+                  "url": "https://pd-videos.daserste.de/int/2024/01/18/3322bac1-6935-4101-8e41-380d70eff67e/JOB_430813_sendeton_960x540-50p-1600kbit.mp4",
+                  "videoCodec": "H.264"
+                },
+                {
+                  "aspectRatio": "16:9",
+                  "audios": [
+                    {
+                      "kind": "standard",
+                      "languageCode": "deu"
+                    }
+                  ],
+                  "forcedLabel": "SD",
+                  "hasEmbeddedSubtitles": false,
+                  "isAdaptiveQualitySelectable": false,
+                  "isHighDynamicRange": false,
+                  "maxHResolutionPx": 640,
+                  "maxVResolutionPx": 360,
+                  "mimeType": "video/mp4",
+                  "subtitles": [],
+                  "url": "https://pd-videos.daserste.de/int/2024/01/18/3322bac1-6935-4101-8e41-380d70eff67e/JOB_430813_sendeton_640x360-50p-1200kbit.mp4",
+                  "videoCodec": "H.264"
+                },
+                {
+                  "aspectRatio": "16:9",
+                  "audios": [
+                    {
+                      "kind": "audio-description",
+                      "languageCode": "deu"
+                    }
+                  ],
+                  "forcedLabel": "SD",
+                  "hasEmbeddedSubtitles": false,
+                  "isAdaptiveQualitySelectable": false,
+                  "isHighDynamicRange": false,
+                  "maxHResolutionPx": 640,
+                  "maxVResolutionPx": 360,
+                  "mimeType": "video/mp4",
+                  "subtitles": [],
+                  "url": "https://pd-videos.daserste.de/int/2024/01/18/3322bac1-6935-4101-8e41-380d70eff67e/JOB_430814_internationalerton_640x360-50p-1200kbit.mp4",
+                  "videoCodec": "H.264"
+                },
+                {
+                  "aspectRatio": "16:9",
+                  "audios": [
+                    {
+                      "kind": "audio-description",
+                      "languageCode": "deu"
+                    }
+                  ],
+                  "forcedLabel": "HD Ready",
+                  "hasEmbeddedSubtitles": false,
+                  "isAdaptiveQualitySelectable": false,
+                  "isHighDynamicRange": false,
+                  "maxHResolutionPx": 1280,
+                  "maxVResolutionPx": 720,
+                  "mimeType": "video/mp4",
+                  "subtitles": [],
+                  "url": "https://pd-videos.daserste.de/int/2024/01/18/3322bac1-6935-4101-8e41-380d70eff67e/JOB_430814_internationalerton_1280x720-50p-3200kbit.mp4",
+                  "videoCodec": "H.264"
+                },
+                {
+                  "aspectRatio": "16:9",
+                  "audios": [
+                    {
+                      "kind": "audio-description",
+                      "languageCode": "deu"
+                    }
+                  ],
+                  "forcedLabel": "Full HD",
+                  "hasEmbeddedSubtitles": false,
+                  "isAdaptiveQualitySelectable": false,
+                  "isHighDynamicRange": false,
+                  "maxHResolutionPx": 1920,
+                  "maxVResolutionPx": 1080,
+                  "mimeType": "video/mp4",
+                  "subtitles": [],
+                  "url": "https://pd-videos.daserste.de/int/2024/01/18/3322bac1-6935-4101-8e41-380d70eff67e/JOB_430814_internationalerton_1920x1080-50p-5000kbit.mp4",
+                  "videoCodec": "H.264"
+                },
+                {
+                  "aspectRatio": "16:9",
+                  "audios": [
+                    {
+                      "kind": "audio-description",
+                      "languageCode": "deu"
+                    }
+                  ],
+                  "forcedLabel": "Auto",
+                  "hasEmbeddedSubtitles": false,
+                  "isAdaptiveQualitySelectable": false,
+                  "isHighDynamicRange": false,
+                  "maxHResolutionPx": 1920,
+                  "maxVResolutionPx": 1080,
+                  "mimeType": "application/vnd.apple.mpegurl",
+                  "subtitles": [],
+                  "url": "https://universal-vod.daserste.de/i/int/2024/01/18/3322bac1-6935-4101-8e41-380d70eff67e/,JOB_430814_internationalerton_640x360-50p-1200kbit,JOB_430814_internationalerton_480x270-50p-700kbit,JOB_430814_internationalerton_960x540-50p-1600kbit,JOB_430814_internationalerton_1280x720-50p-3200kbit,JOB_430814_internationalerton_1920x1080-50p-5000kbit,.mp4.csmil/master.m3u8",
+                  "videoCodec": "H.264"
+                },
+                {
+                  "aspectRatio": "16:9",
+                  "audios": [
+                    {
+                      "kind": "audio-description",
+                      "languageCode": "deu"
+                    }
+                  ],
+                  "forcedLabel": "SD 480p",
+                  "hasEmbeddedSubtitles": false,
+                  "isAdaptiveQualitySelectable": false,
+                  "isHighDynamicRange": false,
+                  "maxHResolutionPx": 960,
+                  "maxVResolutionPx": 540,
+                  "mimeType": "video/mp4",
+                  "subtitles": [],
+                  "url": "https://pd-videos.daserste.de/int/2024/01/18/3322bac1-6935-4101-8e41-380d70eff67e/JOB_430814_internationalerton_960x540-50p-1600kbit.mp4",
+                  "videoCodec": "H.264"
+                }
+              ],
+              "videoLanguageCode": ""
+            },
+            {
+              "kind": "sign-language",
+              "kindName": "DGS",
+              "media": [
+                {
+                  "aspectRatio": "16:9",
+                  "audios": [
+                    {
+                      "kind": "standard",
+                      "languageCode": "deu"
+                    }
+                  ],
+                  "forcedLabel": "SD 480p",
+                  "hasEmbeddedSubtitles": false,
+                  "isAdaptiveQualitySelectable": false,
+                  "isHighDynamicRange": false,
+                  "maxHResolutionPx": 960,
+                  "maxVResolutionPx": 540,
+                  "mimeType": "video/mp4",
+                  "subtitles": [],
+                  "url": "https://pd-videos.daserste.de/int/2024/01/24/03247ab1-4dcc-427e-b577-a6ca25c1dffe/JOB_432151_sendeton_960x540-50p-1600kbit.mp4",
+                  "videoCodec": "H.264"
+                },
+                {
+                  "aspectRatio": "16:9",
+                  "audios": [
+                    {
+                      "kind": "standard",
+                      "languageCode": "deu"
+                    }
+                  ],
+                  "forcedLabel": "Full HD",
+                  "hasEmbeddedSubtitles": false,
+                  "isAdaptiveQualitySelectable": false,
+                  "isHighDynamicRange": false,
+                  "maxHResolutionPx": 1920,
+                  "maxVResolutionPx": 1080,
+                  "mimeType": "video/mp4",
+                  "subtitles": [],
+                  "url": "https://pd-videos.daserste.de/int/2024/01/24/03247ab1-4dcc-427e-b577-a6ca25c1dffe/JOB_432151_sendeton_1920x1080-50p-5000kbit.mp4",
+                  "videoCodec": "H.264"
+                },
+                {
+                  "aspectRatio": "16:9",
+                  "audios": [
+                    {
+                      "kind": "standard",
+                      "languageCode": "deu"
+                    }
+                  ],
+                  "forcedLabel": "SD",
+                  "hasEmbeddedSubtitles": false,
+                  "isAdaptiveQualitySelectable": false,
+                  "isHighDynamicRange": false,
+                  "maxHResolutionPx": 640,
+                  "maxVResolutionPx": 360,
+                  "mimeType": "video/mp4",
+                  "subtitles": [],
+                  "url": "https://pd-videos.daserste.de/int/2024/01/24/03247ab1-4dcc-427e-b577-a6ca25c1dffe/JOB_432151_sendeton_640x360-50p-1200kbit.mp4",
+                  "videoCodec": "H.264"
+                },
+                {
+                  "aspectRatio": "16:9",
+                  "audios": [
+                    {
+                      "kind": "standard",
+                      "languageCode": "deu"
+                    }
+                  ],
+                  "forcedLabel": "HD Ready",
+                  "hasEmbeddedSubtitles": false,
+                  "isAdaptiveQualitySelectable": false,
+                  "isHighDynamicRange": false,
+                  "maxHResolutionPx": 1280,
+                  "maxVResolutionPx": 720,
+                  "mimeType": "video/mp4",
+                  "subtitles": [],
+                  "url": "https://pd-videos.daserste.de/int/2024/01/24/03247ab1-4dcc-427e-b577-a6ca25c1dffe/JOB_432151_sendeton_1280x720-50p-3200kbit.mp4",
+                  "videoCodec": "H.264"
+                },
+                {
+                  "aspectRatio": "16:9",
+                  "audios": [
+                    {
+                      "kind": "standard",
+                      "languageCode": "deu"
+                    }
+                  ],
+                  "forcedLabel": "Auto",
+                  "hasEmbeddedSubtitles": false,
+                  "isAdaptiveQualitySelectable": false,
+                  "isHighDynamicRange": false,
+                  "maxHResolutionPx": 1920,
+                  "maxVResolutionPx": 1080,
+                  "mimeType": "application/vnd.apple.mpegurl",
+                  "subtitles": [],
+                  "url": "https://universal-vod.daserste.de/i/int/2024/01/24/03247ab1-4dcc-427e-b577-a6ca25c1dffe/,JOB_432151_sendeton_640x360-50p-1200kbit,JOB_432151_sendeton_480x270-50p-700kbit,JOB_432151_sendeton_960x540-50p-1600kbit,JOB_432151_sendeton_1280x720-50p-3200kbit,JOB_432151_sendeton_1920x1080-50p-5000kbit,.mp4.csmil/master.m3u8",
+                  "videoCodec": "H.264"
+                }
+              ],
+              "videoLanguageCode": "dgs"
+            }
+          ],
+          "subtitles": [
+            {
+              "kind": "normal",
+              "languageCode": "deu",
+              "sources": [
+                {
+                  "kind": "ebutt",
+                  "url": "https://api.ardmediathek.de/player-service/subtitle/ebutt/urn:ard:subtitle:7b0043ec0b358eb8"
+                },
+                {
+                  "kind": "webvtt",
+                  "url": "https://api.ardmediathek.de/player-service/subtitle/webvtt/urn:ard:subtitle:7b0043ec0b358eb8.vtt"
+                }
+              ]
+            }
+          ]
+        },
+        "href": "https://api.ardmediathek.de/page-gateway/mediacollectionv6/Y3JpZDovL2Rhc2Vyc3RlLmRlL3RhdG9ydC8yMDI0LTAxLTI4XzIwLTE1LU1FWi9nZWJhZXJkZW5zcHJhY2hl?isTv=false"
+      },
+      "pagination": null,
+      "personalized": false,
+      "playerConfig": null,
+      "publicationService": {
+        "name": "ARD",
+        "logo": {
+          "title": "Logo ARD",
+          "alt": "Logo ARD",
+          "producerName": "Logo ARD",
+          "src": "https://api.ardmediathek.de/image-service/image-collections/urn:ard:image-collection:2213972a8d101de1/16x9?w={width}",
+          "aspectRatio": "16x9"
+        },
+        "publisherType": "TV",
+        "partner": "ard",
+        "id": "b3JnYW5pemF0aW9uX0FSRA",
+        "coreId": "urn:ard:publisher:d6c3befc4d6b7e76"
+      },
+      "links": {
+        "self": {
+          "id": "player_on_demand_widget_ard",
+          "urlId": "player_on_demand_widget_ard",
+          "title": "Der Fluch des Geldes (mit Gebärdensprache)",
+          "href": "https://api.ardmediathek.de/page-gateway/widgets/ard/editorials/player_on_demand_widget_ard/item/Y3JpZDovL2Rhc2Vyc3RlLmRlL3RhdG9ydC8yMDI0LTAxLTI4XzIwLTE1LU1FWi9nZWJhZXJkZW5zcHJhY2hl?pageNumber=0&pageSize=100&embedded=true&mcV6=true",
+          "type": "application/vnd.ard.widget+json",
+          "partner": "ard"
+        }
+      },
+      "show": {
+        "id": "Y3JpZDovL2Rhc2Vyc3RlLmRlL3RhdG9ydA",
+        "title": "Tatort",
+        "image": {
+          "alt": "\"Tatort\"-Logo",
+          "producerName": "WDR",
+          "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:a8959bc57bedd88a?w={width}&ch=389e8f7aef781c55",
+          "title": "\"Tatort\"-Logo"
+        },
+        "availableSeasons": null,
+        "binaryFeatures": [
+          "UT",
+          "DGS",
+          "AD"
+        ],
+        "coreAssetType": "INFINITE_SERIES"
+      },
+      "synopsis": "Spielfilm Deutschland 2024 +++\r\n\r\n\"Der Fluch des Geldes\" beginnt da, wo \"Die Kälte der Erde\" endete. Die Hauptkommissare streiten sich, denn Leo Hölzer musste entdecken, dass sein Partner Adam Schürk im Besitz der Beute aus einem Bankraub seines verstorbenen Vaters ist. +++\r\n\r\nMit Vladimir Burlakov, Daniel Sträßer, Susanne Bormann, Omar El-Saeidi, Jasmina Al Zihairi u.a. | Buch: Hendrik Hölzemann | Regie: Christian Theede",
+      "title": "Der Fluch des Geldes (mit Gebärdensprache)",
+      "trackingPiano": {
+        "teaser_recommended": false,
+        "widget_id": "player_on_demand_widget_ard",
+        "widget_title": "Der Fluch des Geldes (mit Gebärdensprache)",
+        "widget_typ": "player_ondemand"
+      },
+      "type": "player_ondemand"
+    },
+    {
+      "aZContent": false,
+      "compilationType": "itemsOfShow",
+      "id": "Y3JpZDovL2Rhc2Vyc3RlLmRlL3RhdG9ydA",
+      "isChildContent": false,
+      "pagination": {
+        "pageNumber": 0,
+        "pageSize": 24,
+        "totalElements": 736
+      },
+      "personalized": false,
+      "links": {
+        "self": {
+          "id": "Y3JpZDovL2Rhc2Vyc3RlLmRlL3RhdG9ydA",
+          "urlId": "Y3JpZDovL2Rhc2Vyc3RlLmRlL3RhdG9ydA",
+          "title": "Tatort",
+          "href": "https://api.ardmediathek.de/page-gateway/widgets/ard/asset/Y3JpZDovL2Rhc2Vyc3RlLmRlL3RhdG9ydA?excludedAssetIds=Y3JpZDovL2Rhc2Vyc3RlLmRlL3RhdG9ydC8yMDI0LTAxLTI4XzIwLTE1LU1FWi9nZWJhZXJkZW5zcHJhY2hl&pageNumber=0&pageSize=24&embedded=true&seasoned=false&seasonNumber=&withAudiodescription=false&withOriginalWithSubtitle=false&withOriginalversion=false&single=false",
+          "type": "application/vnd.ard.widget+json",
+          "partner": "ard"
+        }
+      },
+      "size": "m",
+      "swipeable": true,
+      "teasers": [
+        {
+          "availableTo": "2024-07-30T19:45:00Z",
+          "binaryFeatures": [
+            "UT"
+          ],
+          "broadcastedOn": "2024-06-04T18:15:00Z",
+          "coreAssetType": "EPISODE",
+          "duration": 5314,
+          "id": "Y3JpZDovL3dkci5kZS9CZWl0cmFnLThlNjczODVlLWZhZTktNDMwYi1iNzI1LTA0NjU1ZmRmMDljZQ",
+          "images": {
+            "aspect16x9": {
+              "alt": "Prof. Karl-Friedrich Boerne (Jan Josef Liefers), Vater Thiel (Claus D. Clausnitzer) und Frank Thiel (Axel Prahl) essen gemeinsam Spargel.",
+              "producerName": "WDR/Martin Menke",
+              "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:27e385089acb1dcc?w={width}&ch=93fd6a5deb45a997",
+              "title": "Spargelzeit"
+            },
+            "aspect16x7": {
+              "alt": "Prof. Karl-Friedrich Boerne (Jan Josef Liefers), Vater Thiel (Claus D. Clausnitzer) und Frank Thiel (Axel Prahl) essen gemeinsam Spargel.",
+              "producerName": "WDR/Martin Menke",
+              "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:f42df5508e275d92?w={width}&ch=e61daec90b9ef9e4",
+              "title": "Spargelzeit"
+            },
+            "aspect1x1": {
+              "alt": "Prof. Karl-Friedrich Boerne (Jan Josef Liefers), Vater Thiel (Claus D. Clausnitzer) und Frank Thiel (Axel Prahl) essen gemeinsam Spargel.",
+              "producerName": "WDR/Martin Menke",
+              "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:3852f8909d44c9b3?w={width}&ch=0f686333d1007294",
+              "title": "Spargelzeit"
+            }
+          },
+          "isChildContent": false,
+          "longTitle": "Spargelzeit (2010)",
+          "maturityContentRating": "FSK12",
+          "mediumTitle": "Spargelzeit (2010)",
+          "personalized": false,
+          "playtime": null,
+          "publicationService": {
+            "name": "WDR",
+            "logo": {
+              "title": "Logo WDR",
+              "alt": "Logo WDR",
+              "producerName": "Logo WDR",
+              "src": "https://api.ardmediathek.de/image-service/image-collections/urn:ard:image-collection:2213972a8d101de1/16x9?w={width}",
+              "aspectRatio": "16x9"
+            },
+            "publisherType": "TV",
+            "partner": "wdr",
+            "id": "b3JnYW5pemF0aW9uX1dEUg",
+            "coreId": "urn:ard:publisher:10b1059a7b59f1da"
+          },
+          "links": {
+            "self": {
+              "id": "Y3JpZDovL3dkci5kZS9CZWl0cmFnLThlNjczODVlLWZhZTktNDMwYi1iNzI1LTA0NjU1ZmRmMDljZQ",
+              "urlId": "Y3JpZDovL3dkci5kZS9CZWl0cmFnLThlNjczODVlLWZhZTktNDMwYi1iNzI1LTA0NjU1ZmRmMDljZQ",
+              "title": "Spargelzeit (2010)",
+              "href": "https://api.ardmediathek.de/page-gateway/teasers/ard/items/Y3JpZDovL3dkci5kZS9CZWl0cmFnLThlNjczODVlLWZhZTktNDMwYi1iNzI1LTA0NjU1ZmRmMDljZQ",
+              "type": "application/vnd.ard.teaser+json",
+              "partner": "ard"
+            },
+            "target": {
+              "id": "Y3JpZDovL3dkci5kZS9CZWl0cmFnLThlNjczODVlLWZhZTktNDMwYi1iNzI1LTA0NjU1ZmRmMDljZQ",
+              "urlId": "Y3JpZDovL3dkci5kZS9CZWl0cmFnLThlNjczODVlLWZhZTktNDMwYi1iNzI1LTA0NjU1ZmRmMDljZQ",
+              "title": "Spargelzeit (2010)",
+              "href": "https://api.ardmediathek.de/page-gateway/pages/ard/item/Y3JpZDovL3dkci5kZS9CZWl0cmFnLThlNjczODVlLWZhZTktNDMwYi1iNzI1LTA0NjU1ZmRmMDljZQ?devicetype=pc&embedded=true",
+              "type": "application/vnd.ard.page+json",
+              "partner": "ard"
+            }
+          },
+          "shortTitle": "Spargelzeit (2010)",
+          "show": {
+            "id": "crid://daserste.de/tatort",
+            "coremediaId": 602916,
+            "title": "Tatort",
+            "publisher": {
+              "name": "ARD",
+              "logo": {
+                "title": "Logo ARD",
+                "alt": "Logo ARD",
+                "producerName": "Logo ARD",
+                "src": "https://api.ardmediathek.de/image-service/image-collections/urn:ard:image-collection:2213972a8d101de1/16x9?w={width}",
+                "aspectRatio": "16x9"
+              },
+              "publisherType": "TV",
+              "partner": "ard",
+              "id": "b3JnYW5pemF0aW9uX0FSRA",
+              "coreId": "urn:ard:publisher:d6c3befc4d6b7e76"
+            },
+            "self": null,
+            "images": {
+              "16x9": {
+                "title": "\"Tatort\"-Logo",
+                "alt": "\"Tatort\"-Logo",
+                "producerName": "WDR",
+                "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:a8959bc57bedd88a?w={width}&ch=389e8f7aef781c55",
+                "aspectRatio": "16x9"
+              },
+              "16x7": {
+                "title": "\"Tatort\"-Logo",
+                "alt": "\"Tatort\"-Logo",
+                "producerName": "WDR",
+                "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:57559fd8493b090e?w={width}&ch=bfa7f51159a70920",
+                "aspectRatio": "16x7"
+              },
+              "1x1": {
+                "title": "\"Tatort\"-Logo",
+                "alt": "\"Tatort\"-Logo",
+                "producerName": "WDR",
+                "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:4c55e01954532da6?w={width}&ch=b8eff11ee60b8401",
+                "aspectRatio": "1x1"
+              },
+              "3x4": {
+                "title": "\"Tatort\"-Logo",
+                "alt": "\"Tatort\"-Logo",
+                "producerName": "WDR",
+                "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:c82ca21f13bac66f?w={width}&ch=81a039028bec1df2",
+                "aspectRatio": "3x4"
+              }
+            },
+            "shortSynopsis": "In der dienstältesten Krimireihe des deutschen Fernsehens gehen die unterschiedlichsten Ermittlertypen auf Verbrecherjagd. ",
+            "synopsis": "In der dienstältesten Krimireihe des deutschen Fernsehens gehen die unterschiedlichsten Ermittlertypen auf Verbrecherjagd. ",
+            "longSynopsis": "In der dienstältesten Krimireihe des deutschen Fernsehens gehen die unterschiedlichsten Ermittlertypen auf Verbrecherjagd. ",
+            "modificationDate": null,
+            "assetSource": null,
+            "categories": null,
+            "categoryIds": null,
+            "coreAssetType": "INFINITE_SERIES",
+            "coreId": "urn:ard:show:24a41843cd919fb8",
+            "groupingType": "SHOW",
+            "homepage": {
+              "id": null,
+              "title": "Tatort",
+              "href": "https://www.daserste.de/unterhaltung/krimi/tatort/index.html",
+              "type": null
+            },
+            "hasSeasons": false,
+            "availableSeasons": null,
+            "binaryFeatures": [
+              "UT",
+              "DGS",
+              "AD"
+            ],
+            "isChildContent": false
+          },
+          "subtitled": true,
+          "titleVisible": true,
+          "trackingPiano": {
+            "teaser_content_type": "ondemand",
+            "teaser_id": "Y3JpZDovL3dkci5kZS9CZWl0cmFnLThlNjczODVlLWZhZTktNDMwYi1iNzI1LTA0NjU1ZmRmMDljZQ",
+            "teaser_institution": "ARD",
+            "teaser_institution_id": "urn:ard:institution:453603d77920d274",
+            "teaser_title": "Spargelzeit (2010)"
+          },
+          "type": "ondemand"
+        },
+        {
+          "availableTo": "2024-07-30T19:45:00Z",
+          "binaryFeatures": [
+            "UT"
+          ],
+          "broadcastedOn": "2024-06-04T18:15:00Z",
+          "coreAssetType": "EXTRA_BONUS_CONTENT",
+          "duration": 5314,
+          "id": "Y3JpZDovL3dkci5kZS9CZWl0cmFnLXNvcGhvcmEtZWRmMTRhM2UtNmM3Ny00NGZhLTg1ZWYtYTJkYmZmNzM0NTg5",
+          "images": {
+            "aspect16x9": {
+              "alt": "Prof. Karl-Friedrich Boerne (Jan Josef Liefers), Vater Thiel (Claus D. Clausnitzer) und Frank Thiel (Axel Prahl) essen gemeinsam Spargel.",
+              "producerName": "WDR/Martin Menke",
+              "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:2fc98995629a7208?w={width}&ch=95de7feef876cb78",
+              "title": "Spargelzeit"
+            },
+            "aspect16x7": {
+              "alt": "Prof. Karl-Friedrich Boerne (Jan Josef Liefers), Vater Thiel (Claus D. Clausnitzer) und Frank Thiel (Axel Prahl) essen gemeinsam Spargel.",
+              "producerName": "WDR/Martin Menke",
+              "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:8b4b569409819ac9?w={width}&ch=7a595d0301f1bf55",
+              "title": "Spargelzeit"
+            },
+            "aspect1x1": {
+              "alt": "Prof. Karl-Friedrich Boerne (Jan Josef Liefers), Vater Thiel (Claus D. Clausnitzer) und Frank Thiel (Axel Prahl) essen gemeinsam Spargel.",
+              "producerName": "WDR/Martin Menke",
+              "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:9cd82a97a7cc54f1?w={width}&ch=c9a3fd5f1799e8a4",
+              "title": "Spargelzeit"
+            }
+          },
+          "isChildContent": false,
+          "longTitle": "Spargelzeit (2010) (klare Sprache)",
+          "maturityContentRating": "FSK12",
+          "mediumTitle": "Spargelzeit (2010) (klare Sprache)",
+          "personalized": false,
+          "playtime": null,
+          "publicationService": {
+            "name": "WDR",
+            "logo": {
+              "title": "Logo WDR",
+              "alt": "Logo WDR",
+              "producerName": "Logo WDR",
+              "src": "https://api.ardmediathek.de/image-service/image-collections/urn:ard:image-collection:2213972a8d101de1/16x9?w={width}",
+              "aspectRatio": "16x9"
+            },
+            "publisherType": "TV",
+            "partner": "wdr",
+            "id": "b3JnYW5pemF0aW9uX1dEUg",
+            "coreId": "urn:ard:publisher:10b1059a7b59f1da"
+          },
+          "links": {
+            "self": {
+              "id": "Y3JpZDovL3dkci5kZS9CZWl0cmFnLXNvcGhvcmEtZWRmMTRhM2UtNmM3Ny00NGZhLTg1ZWYtYTJkYmZmNzM0NTg5",
+              "urlId": "Y3JpZDovL3dkci5kZS9CZWl0cmFnLXNvcGhvcmEtZWRmMTRhM2UtNmM3Ny00NGZhLTg1ZWYtYTJkYmZmNzM0NTg5",
+              "title": "Spargelzeit (2010) (klare Sprache)",
+              "href": "https://api.ardmediathek.de/page-gateway/teasers/ard/items/Y3JpZDovL3dkci5kZS9CZWl0cmFnLXNvcGhvcmEtZWRmMTRhM2UtNmM3Ny00NGZhLTg1ZWYtYTJkYmZmNzM0NTg5",
+              "type": "application/vnd.ard.teaser+json",
+              "partner": "ard"
+            },
+            "target": {
+              "id": "Y3JpZDovL3dkci5kZS9CZWl0cmFnLXNvcGhvcmEtZWRmMTRhM2UtNmM3Ny00NGZhLTg1ZWYtYTJkYmZmNzM0NTg5",
+              "urlId": "Y3JpZDovL3dkci5kZS9CZWl0cmFnLXNvcGhvcmEtZWRmMTRhM2UtNmM3Ny00NGZhLTg1ZWYtYTJkYmZmNzM0NTg5",
+              "title": "Spargelzeit (2010) (klare Sprache)",
+              "href": "https://api.ardmediathek.de/page-gateway/pages/ard/item/Y3JpZDovL3dkci5kZS9CZWl0cmFnLXNvcGhvcmEtZWRmMTRhM2UtNmM3Ny00NGZhLTg1ZWYtYTJkYmZmNzM0NTg5?devicetype=pc&embedded=true",
+              "type": "application/vnd.ard.page+json",
+              "partner": "ard"
+            }
+          },
+          "shortTitle": "Spargelzeit (2010) (klare Sprache)",
+          "show": {
+            "id": "crid://daserste.de/tatort",
+            "coremediaId": 602916,
+            "title": "Tatort",
+            "publisher": {
+              "name": "ARD",
+              "logo": {
+                "title": "Logo ARD",
+                "alt": "Logo ARD",
+                "producerName": "Logo ARD",
+                "src": "https://api.ardmediathek.de/image-service/image-collections/urn:ard:image-collection:2213972a8d101de1/16x9?w={width}",
+                "aspectRatio": "16x9"
+              },
+              "publisherType": "TV",
+              "partner": "ard",
+              "id": "b3JnYW5pemF0aW9uX0FSRA",
+              "coreId": "urn:ard:publisher:d6c3befc4d6b7e76"
+            },
+            "self": null,
+            "images": {
+              "16x9": {
+                "title": "\"Tatort\"-Logo",
+                "alt": "\"Tatort\"-Logo",
+                "producerName": "WDR",
+                "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:a8959bc57bedd88a?w={width}&ch=389e8f7aef781c55",
+                "aspectRatio": "16x9"
+              },
+              "16x7": {
+                "title": "\"Tatort\"-Logo",
+                "alt": "\"Tatort\"-Logo",
+                "producerName": "WDR",
+                "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:57559fd8493b090e?w={width}&ch=bfa7f51159a70920",
+                "aspectRatio": "16x7"
+              },
+              "1x1": {
+                "title": "\"Tatort\"-Logo",
+                "alt": "\"Tatort\"-Logo",
+                "producerName": "WDR",
+                "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:4c55e01954532da6?w={width}&ch=b8eff11ee60b8401",
+                "aspectRatio": "1x1"
+              },
+              "3x4": {
+                "title": "\"Tatort\"-Logo",
+                "alt": "\"Tatort\"-Logo",
+                "producerName": "WDR",
+                "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:c82ca21f13bac66f?w={width}&ch=81a039028bec1df2",
+                "aspectRatio": "3x4"
+              }
+            },
+            "shortSynopsis": "In der dienstältesten Krimireihe des deutschen Fernsehens gehen die unterschiedlichsten Ermittlertypen auf Verbrecherjagd. ",
+            "synopsis": "In der dienstältesten Krimireihe des deutschen Fernsehens gehen die unterschiedlichsten Ermittlertypen auf Verbrecherjagd. ",
+            "longSynopsis": "In der dienstältesten Krimireihe des deutschen Fernsehens gehen die unterschiedlichsten Ermittlertypen auf Verbrecherjagd. ",
+            "modificationDate": null,
+            "assetSource": null,
+            "categories": null,
+            "categoryIds": null,
+            "coreAssetType": "INFINITE_SERIES",
+            "coreId": "urn:ard:show:24a41843cd919fb8",
+            "groupingType": "SHOW",
+            "homepage": {
+              "id": null,
+              "title": "Tatort",
+              "href": "https://www.daserste.de/unterhaltung/krimi/tatort/index.html",
+              "type": null
+            },
+            "hasSeasons": false,
+            "availableSeasons": null,
+            "binaryFeatures": [
+              "UT",
+              "DGS",
+              "AD"
+            ],
+            "isChildContent": false
+          },
+          "subtitled": true,
+          "titleVisible": true,
+          "trackingPiano": {
+            "teaser_content_type": "ondemand",
+            "teaser_id": "Y3JpZDovL3dkci5kZS9CZWl0cmFnLXNvcGhvcmEtZWRmMTRhM2UtNmM3Ny00NGZhLTg1ZWYtYTJkYmZmNzM0NTg5",
+            "teaser_institution": "ARD",
+            "teaser_institution_id": "urn:ard:institution:453603d77920d274",
+            "teaser_title": "Spargelzeit (2010) (klare Sprache)"
+          },
+          "type": "ondemand"
+        }
+      ],
+      "title": "Tatort",
+      "titleVisible": true,
+      "trackingPiano": {
+        "teaser_recommended": false,
+        "widget_id": "Y3JpZDovL2Rhc2Vyc3RlLmRlL3RhdG9ydA",
+        "widget_title": "Tatort",
+        "widget_typ": "gridlist"
+      },
+      "type": "gridlist",
+      "userVisibility": "ALWAYS"
+    }
+  ]
+}

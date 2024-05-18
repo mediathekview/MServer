@@ -135,6 +135,33 @@ public final class AssertFilm {
           equalTo(cleanupWireMockUrlForCheck(aExpectedUrl)));
     }
   }
+  
+  // generate a test case constructor from a film
+  public static String toTestCase(final String fileNameAndPath, final Film f) {
+    String x = ("" +
+        "/*jsonFile*/ \""+fileNameAndPath+"\"" + ",\n" +
+        "/*topic*/ \""+ f.getThema()+"\"" + ",\n" +
+        "/*title*/ \""+ f.getTitel()+"\"" + ",\n" +
+        "/*description*/ \""+ f.getBeschreibung()+"\"" + ",\n" +
+        "/*date*/ LocalDateTime.parse(\""+ f.getTime().toString()+"\")" + ",\n" +
+        "/*duration*/ Duration.parse(\""+ f.getDuration().toString()+"\")" + ",\n" +
+        "/*small*/ \""+ f.getUrl(Resolution.SMALL)+"\"" + ",\n" +
+        "/*normal*/ \""+ f.getUrl(Resolution.NORMAL)+"\"" + ",\n" +
+        "/*hd*/ \""+ f.getUrl(Resolution.HD)+"\"" + ",\n" +
+        "/*ADsmall*/ \""+ (f.getAudioDescription(Resolution.SMALL) != null ? f.getAudioDescription(Resolution.SMALL) : "") +"\"" + ",\n" +
+        "/*ADnormal*/ \""+ (f.getAudioDescription(Resolution.NORMAL) != null ? f.getAudioDescription(Resolution.NORMAL) : "")+"\"" + ",\n" +
+        "/*ADhd*/ \""+ (f.getAudioDescription(Resolution.HD) != null ? f.getAudioDescription(Resolution.HD) : "")+"\"" + ",\n" +
+        "/*DGSsmall*/ \""+ (f.getSignLanguage(Resolution.SMALL) != null ? f.getSignLanguage(Resolution.SMALL) : "") +"\"" + ",\n" +
+        "/*DGSnormal*/ \""+ (f.getSignLanguage(Resolution.NORMAL) != null ? f.getSignLanguage(Resolution.NORMAL) : "")+"\"" + ",\n" +
+        "/*DGShd*/ \""+ (f.getSignLanguage(Resolution.HD) != null ? f.getSignLanguage(Resolution.HD) : "")+"\"" + ",\n" +
+        "/*sub*/ \""+ (f.getSubtitles().parallelStream().findFirst().isPresent() ? f.getSubtitles().parallelStream().findFirst().get().toString(): "")+"\"" + ",\n" +
+        "/*website*/ \""+ (f.getWebsite().isPresent() ? f.getWebsite().get().toString() : "")+"\"" + ",\n" +
+        "/*hd*/ GeoLocations."+ f.getGeoLocations().toString() + ",\n" +
+        "/*related*/ new ArdFilmInfoDto[0]" + ",\n" +
+        "/*sender*/ Optional.of(Sender."+f.getSender()+")" + ",\n" +
+        "");
+    return x;
+  }
 
   private static String cleanupWireMockUrlForCheck(final String urlToCleanUp) {
     return urlToCleanUp.replaceAll("localhost:\\d+", "localhost:8589");
@@ -167,4 +194,5 @@ public final class AssertFilm {
     assertUrl(aExpectedUrlSignLanguageNormal, aActualFilm.getSignLanguage(Resolution.NORMAL));
     assertUrl(aExpectedUrlSignLanguageHd, aActualFilm.getSignLanguage(Resolution.HD));
   }
+  
 }
