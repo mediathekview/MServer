@@ -17,6 +17,7 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -24,6 +25,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 import mServer.crawler.CrawlerTool;
@@ -32,6 +34,8 @@ import mServer.crawler.sender.ard.ArdFilmDto;
 import mServer.crawler.sender.ard.ArdFilmInfoDto;
 import mServer.crawler.sender.base.JsonUtils;
 import mServer.crawler.sender.base.Qualities;
+import mServer.crawler.sender.base.UrlUtils;
+
 import org.apache.logging.log4j.LogManager;
 
 public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
@@ -66,6 +70,7 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
   private static final String ATTRIBUTE_RESOLUTION_H = "maxHResolutionPx";
   private static final String ATTRIBUTE_MIME = "mimeType";
   private static final String ATTRIBUTE_KIND = "kind";
+  private static final String ATTRIBUTE_ADUIO_LANG = "languageCode";
 
   private static final String MARKER_VIDEO_MP4 = "video/mp4"; 
   private static final String MARKER_VIDEO_STANDARD = "standard";
@@ -73,6 +78,8 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
   private static final String MARKER_VIDEO_CATEGORY_MPEG = "application/vnd.apple.mpegurl";
   private static final String MARKER_VIDEO_AD = "audio-description";
   private static final String MARKER_VIDEO_DGS = "sign-language";
+  private static final String MARKER_VIDEO_OV = "OV";
+  private static final String MARKER_VIDEO_DE = "deu";
   
   private static final DateTimeFormatter DATE_FORMAT
       = DateTimeFormatter.ofPattern("dd.MM.yyyy");
@@ -222,16 +229,35 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
     final Optional<LocalDateTime> date = parseDate(itemObject);
     final Optional<Duration> duration = parseDuration(itemObject);
     final Optional<String> partner = parsePartner(itemObject);
-    final Optional<Map<Qualities, String>> videoInfoStandard = parseVideoUrls(itemObject, MARKER_VIDEO_CATEGORY_MAIN, MARKER_VIDEO_STANDARD, MARKER_VIDEO_MP4);
-    final Optional<Map<Qualities, String>> videoInfoAdaptive = parseVideoUrls(itemObject, MARKER_VIDEO_CATEGORY_MAIN, MARKER_VIDEO_STANDARD, MARKER_VIDEO_CATEGORY_MPEG);
-    final Optional<Map<Qualities, String>> videoInfoAD = parseVideoUrls(itemObject, MARKER_VIDEO_CATEGORY_MAIN, MARKER_VIDEO_AD, MARKER_VIDEO_MP4);
-    final Optional<Map<Qualities, String>> videoInfoDGS = parseVideoUrls(itemObject, MARKER_VIDEO_DGS, MARKER_VIDEO_STANDARD, MARKER_VIDEO_MP4);
+    final Optional<Map<Qualities, String>> videoInfoStandard = parseVideoUrls(itemObject, MARKER_VIDEO_CATEGORY_MAIN, MARKER_VIDEO_STANDARD, MARKER_VIDEO_MP4, MARKER_VIDEO_DE);
+    final Optional<Map<Qualities, String>> videoInfoAdaptive = parseVideoUrls(itemObject, MARKER_VIDEO_CATEGORY_MAIN, MARKER_VIDEO_STANDARD, MARKER_VIDEO_CATEGORY_MPEG, MARKER_VIDEO_DE);
+    final Optional<Map<Qualities, String>> videoInfoAD = parseVideoUrls(itemObject, MARKER_VIDEO_CATEGORY_MAIN, MARKER_VIDEO_AD, MARKER_VIDEO_MP4, MARKER_VIDEO_DE);
+    final Optional<Map<Qualities, String>> videoInfoDGS = parseVideoUrls(itemObject, MARKER_VIDEO_DGS, MARKER_VIDEO_STANDARD, MARKER_VIDEO_MP4, MARKER_VIDEO_DE);
+    final Optional<Map<Qualities, String>> videoInfoOV = parseVideoUrls(itemObject, MARKER_VIDEO_CATEGORY_MAIN, MARKER_VIDEO_STANDARD, MARKER_VIDEO_MP4, MARKER_VIDEO_OV);
     final Optional<String> subtitles = prepareSubtitleUrl(itemObject);
     
     if (topic.isEmpty() || title.isEmpty() || partner.isEmpty() || ADDITIONAL_SENDER.get(partner.get()) == null) {
       if (partner.isPresent() && ADDITIONAL_SENDER.get(partner.get()) == null) {
         LOG.warn("Missing Partner " + partner.get());
       }
+      return films;
+    }
+    
+    
+    
+    if ((title.get().toUpperCase().contains("(OV)") || title.get().toUpperCase().contains("(ORIGINALVERSION)")) && videoInfoOV.isPresent()) {
+      final ArdFilmDto filmDto
+      = new ArdFilmDto(
+      createFilm(
+          ADDITIONAL_SENDER.get(partner.get()),
+          topic.get(),
+          title.get(),
+          description,
+          date,
+          duration,
+          videoInfoOV.get(),
+          subtitles));
+      films.add(filmDto);
       return films;
     }
     
@@ -310,7 +336,7 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
     }
     //
     if (videoInfoDGS.isPresent() && videoInfoDGS.get().size() > 0) {
-      // add film standard
+      // add film dgs
       final ArdFilmDto filmDto
           = new ArdFilmDto(
           createFilm(
@@ -382,11 +408,7 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
 
     String dateValue = time.format(DATE_FORMAT);
     String timeValue = time.format(TIME_FORMAT);
-    
     String baseUrl = videoUrls.get(Qualities.NORMAL);
-    baseUrl = baseUrl != null ? baseUrl : videoUrls.get(Qualities.SMALL);
-    baseUrl = baseUrl != null ? baseUrl : videoUrls.get(Qualities.HD);
-
     DatenFilm film = new DatenFilm(sender, topic, "", title, baseUrl, "",
         dateValue, timeValue, duration.orElse(Duration.ZERO).getSeconds(), description.orElse(""));
     if (videoUrls.containsKey(Qualities.SMALL)) {
@@ -402,8 +424,32 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
     return film;
   }
 
+  private Optional<Map<Qualities, String>> parseVideoUrls(final JsonObject playerPageObject, String streamType, String aduioType, String mimeType, String language) {
+    Optional<Map<Integer, String>> urls = parseVideoUrlMap(playerPageObject, streamType, aduioType, mimeType, language);
+    if (urls.isEmpty()) {
+      return Optional.empty();
+    }
+    Map<Qualities, String> videoInfo = new EnumMap<>(Qualities.class);
+    for (Map.Entry<Integer, String> entry : urls.get().entrySet()) {
+      Qualities resolution = Qualities.getResolutionFromWidth(entry.getKey());
+      if(!videoInfo.containsKey(resolution)) {
+        videoInfo.put(resolution, entry.getValue());
+      }
+    }
+    // issue if we do not have normal res
+    if (!videoInfo.containsKey(Qualities.NORMAL)) {
+      if (videoInfo.containsKey(Qualities.HD)) {
+        videoInfo.put(Qualities.NORMAL, videoInfo.get(Qualities.HD));
+        videoInfo.remove(Qualities.HD);
+      } else {
+        videoInfo.put(Qualities.NORMAL, videoInfo.get(Qualities.SMALL));
+        videoInfo.remove(Qualities.SMALL);
+      }
+    }
+    return Optional.of(videoInfo);
+  }
 
-  private Optional<Map<Qualities, String>> parseVideoUrls(final JsonObject playerPageObject, String streamType, String aduioType, String mimeType) {
+  private Optional<Map<Integer, String>> parseVideoUrlMap(final JsonObject playerPageObject, String streamType, String aduioType, String mimeType, String language) {
     final Optional<JsonObject> mediaCollectionObject = getMediaCollectionObject(playerPageObject);
     if (mediaCollectionObject.isEmpty())
       return Optional.empty();
@@ -411,7 +457,7 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
     if (streams.isEmpty() || !streams.get().isJsonArray() || (streams.get().getAsJsonArray().size() == 0))
       return Optional.empty();
     //
-    Map<Qualities, String> videoInfo = new EnumMap<>(Qualities.class);
+    Map<Integer, String> videoInfo = new TreeMap<>(Comparator.reverseOrder());
     for (JsonElement streamsCategory : streams.get().getAsJsonArray()) {
       final Optional<String> streamKind = JsonUtils.getElementValueAsString(streamsCategory, ATTRIBUTE_KIND);
       final Optional<JsonElement> media = JsonUtils.getElement(streamsCategory, ELEMENT_MEDIA);
@@ -426,11 +472,9 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
               Optional<String> kind = JsonUtils.getElementValueAsString(audios.get().getAsJsonArray().get(0), ATTRIBUTE_KIND);
               Optional<String> resh = JsonUtils.getElementValueAsString(video, ATTRIBUTE_RESOLUTION_H);
               Optional<String> url = JsonUtils.getElementValueAsString(video, ATTRIBUTE_URL);
-              if (url.isPresent() && resh.isPresent() && kind.isPresent() && kind.get().equalsIgnoreCase(aduioType)) {
-                Qualities resolution = Qualities.getResolutionFromWidth(Integer.parseInt(resh.get()));
-                if(!videoInfo.containsKey(resolution)) { // do not overwrite 1920 with 1280 res
-                  videoInfo.put(resolution, url.get());
-                }
+              Optional<String> languageCode = JsonUtils.getElementValueAsString(audios.get().getAsJsonArray().get(0), ATTRIBUTE_ADUIO_LANG);
+              if (url.isPresent() && resh.isPresent() && kind.isPresent() && kind.get().equalsIgnoreCase(aduioType) && languageCode.orElse("").equalsIgnoreCase(language)) {
+                videoInfo.put(Integer.parseInt(resh.get()), UrlUtils.removeParameters(url.get()));
               }
             }
           }

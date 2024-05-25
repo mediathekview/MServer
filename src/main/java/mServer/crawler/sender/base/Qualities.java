@@ -17,15 +17,12 @@ public enum Qualities
     }
     
     public static Qualities getResolutionFromWidth(final int width) {
-      if (width >= 2160) {
-        return Qualities.UHD;
-      }
-      if (width >= 1280) {
+      if (width > 1280) {
         return Qualities.HD;
-      }
-      if (width >= 720) {
+      } else if (width > 640) {
         return Qualities.NORMAL;
+      } else {
+        return Qualities.SMALL;  
       }
-      return Qualities.SMALL;
-    }
+    } 
 }
