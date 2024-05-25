@@ -303,6 +303,9 @@ public class ZdfFilmDetailDeserializer implements JsonDeserializer<Optional<ZdfF
     if (season.isPresent()) {
       result += String.format("S%02d", season.get());
     }
+    if (season.isPresent() && episode.isPresent()) {
+      result += "/";
+    }
     if (episode.isPresent()) {
       result += String.format("E%02d", episode.get());
     }

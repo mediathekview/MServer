@@ -3,6 +3,7 @@ package de.mediathekview.mserver.crawler.ard;
 import java.util.HashMap;
 import java.util.Map;
 
+import de.mediathekview.mlib.daten.Resolution;
 import de.mediathekview.mlib.daten.Sender;
 
 public class ArdConstants {
@@ -67,6 +68,17 @@ public class ArdConstants {
   public static final String WEBSITE_URL = "https://www.ardmediathek.de/video/%s";
 
   public static final String BASE_URL_SUBTITLES = "https://classic.ardmediathek.de";
+  
+  // provide the same as master until crawler release
+  public static Resolution getResolutionFromWidth(final int width) {
+    if (width > 1280) {
+      return Resolution.HD;
+    } else if (width > 640) {
+      return Resolution.NORMAL;
+    } else {
+      return Resolution.SMALL;  
+    }
+  }
 
   private ArdConstants() {}
 }

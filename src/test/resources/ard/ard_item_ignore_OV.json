@@ -1,0 +1,597 @@
+{
+  "coreAssetType": "EPISODE",
+  "fskRating": "FSK12",
+  "id": "player_ondemand-page-ard",
+  "isChildContent": false,
+  "personalized": false,
+  "links": {
+    "self": {
+      "id": "player_ondemand-page-ard",
+      "urlId": "player_ondemand-page-ard",
+      "title": "Folge 4: Der Verrat (S01/E04) - Hörfassung",
+      "href": "https://api.ardmediathek.de/page-gateway/pages/ard/item/Y3JpZDovL2Rhc2Vyc3RlLmRlL3lvdSBzaGFsbCBub3QgbGllLzIwMjItMTAtMTVfMDItNTAtTUVTWi9hdWRpb2Rlc2tyaXB0aW9u?embedded=true&mcV6=true",
+      "type": "application/vnd.ard.page+json",
+      "partner": "ard"
+    }
+  },
+  "title": "Folge 4: Der Verrat (S01/E04) - Hörfassung",
+  "tracking": {
+    "aggregationLevelId": 38,
+    "atiCustomVars": {
+      "clipTitle": "Folge 4: Der Verrat (S01/E04) - Hörfassung",
+      "mediaType": "video",
+      "lra": "Das Erste",
+      "channel": "Das Erste",
+      "show": "You shall not lie - Tödliche Geheimnisse",
+      "contentTypes": "AD | UT",
+      "mediaDistributionType": 1,
+      "contentId": 12011611,
+      "metadataId": "crid://daserste.de/you shall not lie/2022-10-15_02-50-MESZ/audiodeskription",
+      "clipLength": 2538
+    },
+    "chapter2": "Player",
+    "chapter3": "You shall not lie - Tödliche Geheimnisse",
+    "environmentId": 511893,
+    "pageTitle": "Mediathek/Player/You shall not lie - Tödliche Geheimnisse/Folge 4: Der Verrat (S01/E04) - Hörfassung/12011611/20221015_0050",
+    "szmType": "CP"
+  },
+  "trackingPiano": {
+    "page_chapter1": "Player",
+    "page_content_id": "urn:ard:publication:1b16c22aa3c33a86",
+    "page_content_title": "Folge 4: Der Verrat (S01/E04) - Hörfassung",
+    "page_id": "player_ondemand-page-ard",
+    "page_institution": "Das Erste",
+    "page_institution_id": "urn:ard:institution:59ccb6ea77d75af5",
+    "page_publisher": "Das Erste",
+    "page_publisher_id": "urn:ard:publisher:a42e4291cd9eaf0b",
+    "page_show": "You shall not lie - Tödliche Geheimnisse",
+    "page_show_id": "urn:ard:show:b30f5c64ef884984",
+    "page_title": "Folge 4: Der Verrat (S01/E04) - Hörfassung",
+    "site": "634408"
+  },
+  "widgets": [
+    {
+      "availableTo": "2024-06-06T23:45:00Z",
+      "binaryFeatures": [
+        "AD",
+        "UT",
+        "OV"
+      ],
+      "blockedByFsk": false,
+      "broadcastedOn": "2022-10-15T00:50:00Z",
+      "embeddable": false,
+      "geoblocked": false,
+      "id": "Y3JpZDovL2Rhc2Vyc3RlLmRlL3lvdSBzaGFsbCBub3QgbGllLzIwMjItMTAtMTVfMDItNTAtTUVTWi9hdWRpb2Rlc2tyaXB0aW9u",
+      "image": {
+        "alt": "Sergio (Juan Diego Botto, re.) unterstützt seine Schwester Macarena (Irene Arcos, li.)",
+        "producerName": "ARD Degeto / Beta Film/Moviestar/filmax/Arca Audiovisual",
+        "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:c323b99dadd1c023?w={width}&ch=5b882f70124a20a8",
+        "title": "Sergio (Juan Diego Botto, re.) unterstützt seine Schwester Macarena (Irene Arcos, li.)"
+      },
+      "isChildContent": false,
+      "maturityContentRating": "FSK12",
+      "mediaCollection": {
+        "embedded": {
+          "isGeoBlocked": true,
+          "meta": {
+            "availableToDateTime": "2024-06-06T23:45:00Z",
+            "broadcastedOnDateTime": "2022-10-15T00:50:00Z",
+            "clipSourceName": "deg",
+            "durationSeconds": 2538,
+            "images": [
+              {
+                "alt": "Sergio (Juan Diego Botto, re.) unterstützt seine Schwester Macarena (Irene Arcos, li.)",
+                "aspectRatio": "16x9",
+                "imageSourceName": "ARD Degeto / Beta Film/Moviestar/filmax/Arca Audiovisual",
+                "kind": "preview",
+                "title": "Sergio (Juan Diego Botto, re.) unterstützt seine Schwester Macarena (Irene Arcos, li.)",
+                "url": "https://api.ardmediathek.de/image-service/images/urn:ard:image:c323b99dadd1c023?w=960&ch=5b882f70124a20a8"
+              }
+            ],
+            "maturityContentRating": {
+              "age": 12,
+              "isBlocked": false,
+              "kind": "other"
+            },
+            "publicationService": {
+              "id": "ard",
+              "name": "Das Erste",
+              "partner": "daserste"
+            },
+            "seriesTitle": "You shall not lie - Tödliche Geheimnisse",
+            "synopsis": "Zwischen Macarena und Iván, der jetzt von ihrer Schwangerschaft weiß, kommt es zu einer dramatischen Auseinandersetzung auf See. Erschöpft schwimmt der 18-Jährige an Land und beschuldigt sie, ihn vom Boot gestoßen zu haben. Die Lehrerin muss nun nicht nur die Folgen ihres Seitensprungs fürchten, sondern auch eine Anzeige wegen versuchten Totschlags.  +++\r\n\r\nSechsteilige Thrillerserie, Spanien 2021 | Mit Irene Arcos, Lucas Nabor, Natalia Verbeke u.a. | Regie: Pau Freixas\r\n",
+            "title": "Folge 4: Der Verrat"
+          },
+          "pluginData": {
+            "recommendation@all": {
+              "isAutoplay": true,
+              "timerSeconds": 10,
+              "url": "https://api.ardmediathek.de/page-gateway/compilations/ard/recommendations?contextItemId=Y3JpZDovL2Rhc2Vyc3RlLmRlL3lvdSBzaGFsbCBub3QgbGllLzIwMjItMTAtMTVfMDItNTAtTUVTWg"
+            },
+            "trackingAgf@all": {
+              "appId": "PA02DC09C-B8D3-4098-87D2-2C023682D6D5",
+              "clipData": {
+                "assetid": "12011611",
+                "length": "2538",
+                "nol_c0": "p0,0",
+                "nol_c10": "p10,Das Erste",
+                "nol_c12": "p12,Content",
+                "nol_c15": "p15,X004971589",
+                "nol_c16": "p16,",
+                "nol_c18": "p18,N",
+                "nol_c19": "p19,deg",
+                "nol_c2": "p2,N",
+                "nol_c5": "p5,ARD Mediathek",
+                "nol_c7": "p7,crid://daserste.de/you shall not lie/2022-10-15_02-50-MESZ",
+                "nol_c8": "p8,2538",
+                "nol_c9": "p9,You shall not lie - Tödliche Geheimnisse_Folge 4: Der Verrat_15.10.2022 00:50",
+                "program": "You shall not lie - Tödliche Geheimnisse",
+                "title": "Das Erste_You shall not lie - Tödliche Geheimnisse_Folge 4: Der Verrat_15.10.2022 00:50",
+                "type": "content"
+              },
+              "tracker": "AGF"
+            },
+            "trackingAti@all": {
+              "config": {
+                "site": 511893
+              },
+              "isEnabled": true,
+              "richMedia": {
+                "broadcastMode": "clip",
+                "duration": "2538",
+                "mediaLabel": "Folge 4: Der Verrat__12011611__AD | OV | UT",
+                "mediaLevel2": "{richMediaLevelTwo}",
+                "mediaTheme1": "Das Erste",
+                "mediaTheme2": "Das Erste",
+                "mediaTheme3": "You shall not lie - Tödliche Geheimnisse",
+                "mediaType": "video",
+                "playerId": "urn:ard:publication:1b16c22aa3c33a86",
+                "refreshDuration": {
+                  "0": 5,
+                  "1": 12,
+                  "12": 15,
+                  "18": 30
+                }
+              },
+              "tracker": "ATI"
+            },
+            "trackingPiano@all": {
+              "avContent": {
+                "av_broadcasting_type": "OnDemand",
+                "av_content": "Folge 4: Der Verrat",
+                "av_content_duration": 2538000,
+                "av_content_id": "urn:ard:publication:1b16c22aa3c33a86",
+                "av_content_type": "video",
+                "av_institution": "Das Erste",
+                "av_institution_id": "urn:ard:institution:59ccb6ea77d75af5",
+                "av_publisher": "Das Erste",
+                "av_publisher_id": "urn:ard:publisher:a42e4291cd9eaf0b",
+                "av_show": "You shall not lie - Tödliche Geheimnisse",
+                "av_show_id": "urn:ard:show:b30f5c64ef884984"
+              },
+              "config": {
+                "events": [
+                  "av.error",
+                  "av.speed",
+                  "av.quality",
+                  "av.jumpmark",
+                  "av.share",
+                  "av.playermode",
+                  "av.subtitle",
+                  "av.language",
+                  "av.audiodescription",
+                  "av.signlanguage",
+                  "av.volume.mute",
+                  "av.recommendation"
+                ],
+                "site": 634408
+              },
+              "isEnabled": true
+            }
+          },
+          "streams": [
+            {
+              "kind": "main",
+              "kindName": "Normal",
+              "media": [
+                {
+                  "aspectRatio": "16:9",
+                  "audios": [
+                    {
+                      "kind": "standard",
+                      "languageCode": "deu"
+                    }
+                  ],
+                  "forcedLabel": "Auto",
+                  "hasEmbeddedSubtitles": false,
+                  "isAdaptiveQualitySelectable": false,
+                  "isHighDynamicRange": false,
+                  "maxHResolutionPx": 1920,
+                  "maxVResolutionPx": 1080,
+                  "mimeType": "application/vnd.apple.mpegurl",
+                  "subtitles": [],
+                  "url": "https://universal-vod.daserste.de/i/de/2022/10/11/1cb6c5d8-c0f4-4868-ac42-2a06b7a3381f/,JOB_461836_sendeton_640x360-50p-1200kbit,JOB_461836_sendeton_480x270-50p-700kbit,JOB_461836_sendeton_960x540-50p-1600kbit,JOB_461836_sendeton_1280x720-50p-3200kbit,JOB_461836_sendeton_1920x1080-50p-5000kbit,.mp4.csmil/master.m3u8",
+                  "videoCodec": "H.264"
+                },
+                {
+                  "aspectRatio": "16:9",
+                  "audios": [
+                    {
+                      "kind": "standard",
+                      "languageCode": "deu"
+                    }
+                  ],
+                  "forcedLabel": "Full HD",
+                  "hasEmbeddedSubtitles": false,
+                  "isAdaptiveQualitySelectable": false,
+                  "isHighDynamicRange": false,
+                  "maxHResolutionPx": 1920,
+                  "maxVResolutionPx": 1080,
+                  "mimeType": "video/mp4",
+                  "subtitles": [],
+                  "url": "https://pd-videos.daserste.de/de/2022/10/11/1cb6c5d8-c0f4-4868-ac42-2a06b7a3381f/JOB_461836_sendeton_1920x1080-50p-5000kbit.mp4",
+                  "videoCodec": "H.264"
+                },
+                {
+                  "aspectRatio": "16:9",
+                  "audios": [
+                    {
+                      "kind": "standard",
+                      "languageCode": "deu"
+                    }
+                  ],
+                  "forcedLabel": "SD 480p",
+                  "hasEmbeddedSubtitles": false,
+                  "isAdaptiveQualitySelectable": false,
+                  "isHighDynamicRange": false,
+                  "maxHResolutionPx": 960,
+                  "maxVResolutionPx": 540,
+                  "mimeType": "video/mp4",
+                  "subtitles": [],
+                  "url": "https://pd-videos.daserste.de/de/2022/10/11/1cb6c5d8-c0f4-4868-ac42-2a06b7a3381f/JOB_461836_sendeton_960x540-50p-1600kbit.mp4",
+                  "videoCodec": "H.264"
+                },
+                {
+                  "aspectRatio": "16:9",
+                  "audios": [
+                    {
+                      "kind": "standard",
+                      "languageCode": "deu"
+                    }
+                  ],
+                  "forcedLabel": "HD Ready",
+                  "hasEmbeddedSubtitles": false,
+                  "isAdaptiveQualitySelectable": false,
+                  "isHighDynamicRange": false,
+                  "maxHResolutionPx": 1280,
+                  "maxVResolutionPx": 720,
+                  "mimeType": "video/mp4",
+                  "subtitles": [],
+                  "url": "https://pd-videos.daserste.de/de/2022/10/11/1cb6c5d8-c0f4-4868-ac42-2a06b7a3381f/JOB_461836_sendeton_1280x720-50p-3200kbit.mp4",
+                  "videoCodec": "H.264"
+                },
+                {
+                  "aspectRatio": "16:9",
+                  "audios": [
+                    {
+                      "kind": "standard",
+                      "languageCode": "deu"
+                    }
+                  ],
+                  "forcedLabel": "SD",
+                  "hasEmbeddedSubtitles": false,
+                  "isAdaptiveQualitySelectable": false,
+                  "isHighDynamicRange": false,
+                  "maxHResolutionPx": 640,
+                  "maxVResolutionPx": 360,
+                  "mimeType": "video/mp4",
+                  "subtitles": [],
+                  "url": "https://pd-videos.daserste.de/de/2022/10/11/1cb6c5d8-c0f4-4868-ac42-2a06b7a3381f/JOB_461836_sendeton_640x360-50p-1200kbit.mp4",
+                  "videoCodec": "H.264"
+                },
+                {
+                  "aspectRatio": "16:9",
+                  "audios": [
+                    {
+                      "kind": "standard",
+                      "languageCode": "ov"
+                    }
+                  ],
+                  "forcedLabel": "SD",
+                  "hasEmbeddedSubtitles": false,
+                  "isAdaptiveQualitySelectable": false,
+                  "isHighDynamicRange": false,
+                  "maxHResolutionPx": 640,
+                  "maxVResolutionPx": 360,
+                  "mimeType": "video/mp4",
+                  "subtitles": [],
+                  "url": "https://pd-videos.daserste.de/de/2022/10/07/279f63f5-0067-4867-bced-7408a8d308d0/JOB_468689_sendeton_640x360-50p-1200kbit.mp4",
+                  "videoCodec": "H.264"
+                },
+                {
+                  "aspectRatio": "16:9",
+                  "audios": [
+                    {
+                      "kind": "standard",
+                      "languageCode": "ov"
+                    }
+                  ],
+                  "forcedLabel": "HD Ready",
+                  "hasEmbeddedSubtitles": false,
+                  "isAdaptiveQualitySelectable": false,
+                  "isHighDynamicRange": false,
+                  "maxHResolutionPx": 1280,
+                  "maxVResolutionPx": 720,
+                  "mimeType": "video/mp4",
+                  "subtitles": [],
+                  "url": "https://pd-videos.daserste.de/de/2022/10/07/279f63f5-0067-4867-bced-7408a8d308d0/JOB_468689_sendeton_1280x720-50p-3200kbit.mp4",
+                  "videoCodec": "H.264"
+                },
+                {
+                  "aspectRatio": "16:9",
+                  "audios": [
+                    {
+                      "kind": "standard",
+                      "languageCode": "ov"
+                    }
+                  ],
+                  "forcedLabel": "Full HD",
+                  "hasEmbeddedSubtitles": false,
+                  "isAdaptiveQualitySelectable": false,
+                  "isHighDynamicRange": false,
+                  "maxHResolutionPx": 1920,
+                  "maxVResolutionPx": 1080,
+                  "mimeType": "video/mp4",
+                  "subtitles": [],
+                  "url": "https://pd-videos.daserste.de/de/2022/10/07/279f63f5-0067-4867-bced-7408a8d308d0/JOB_468689_sendeton_1920x1080-50p-5000kbit.mp4",
+                  "videoCodec": "H.264"
+                },
+                {
+                  "aspectRatio": "16:9",
+                  "audios": [
+                    {
+                      "kind": "standard",
+                      "languageCode": "ov"
+                    }
+                  ],
+                  "forcedLabel": "Auto",
+                  "hasEmbeddedSubtitles": false,
+                  "isAdaptiveQualitySelectable": false,
+                  "isHighDynamicRange": false,
+                  "maxHResolutionPx": 1920,
+                  "maxVResolutionPx": 1080,
+                  "mimeType": "application/vnd.apple.mpegurl",
+                  "subtitles": [],
+                  "url": "https://universal-vod.daserste.de/i/de/2022/10/07/279f63f5-0067-4867-bced-7408a8d308d0/,JOB_468689_sendeton_640x360-50p-1200kbit,JOB_468689_sendeton_480x270-50p-700kbit,JOB_468689_sendeton_960x540-50p-1600kbit,JOB_468689_sendeton_1280x720-50p-3200kbit,JOB_468689_sendeton_1920x1080-50p-5000kbit,.mp4.csmil/master.m3u8",
+                  "videoCodec": "H.264"
+                },
+                {
+                  "aspectRatio": "16:9",
+                  "audios": [
+                    {
+                      "kind": "standard",
+                      "languageCode": "ov"
+                    }
+                  ],
+                  "forcedLabel": "SD 480p",
+                  "hasEmbeddedSubtitles": false,
+                  "isAdaptiveQualitySelectable": false,
+                  "isHighDynamicRange": false,
+                  "maxHResolutionPx": 960,
+                  "maxVResolutionPx": 540,
+                  "mimeType": "video/mp4",
+                  "subtitles": [],
+                  "url": "https://pd-videos.daserste.de/de/2022/10/07/279f63f5-0067-4867-bced-7408a8d308d0/JOB_468689_sendeton_960x540-50p-1600kbit.mp4",
+                  "videoCodec": "H.264"
+                },
+                {
+                  "aspectRatio": "16:9",
+                  "audios": [
+                    {
+                      "kind": "audio-description",
+                      "languageCode": "deu"
+                    }
+                  ],
+                  "forcedLabel": "HD Ready",
+                  "hasEmbeddedSubtitles": false,
+                  "isAdaptiveQualitySelectable": false,
+                  "isHighDynamicRange": false,
+                  "maxHResolutionPx": 1280,
+                  "maxVResolutionPx": 720,
+                  "mimeType": "video/mp4",
+                  "subtitles": [],
+                  "url": "https://pd-videos.daserste.de/de/2022/10/11/1cb6c5d8-c0f4-4868-ac42-2a06b7a3381f/JOB_461837_internationalerton_1280x720-50p-3200kbit.mp4",
+                  "videoCodec": "H.264"
+                },
+                {
+                  "aspectRatio": "16:9",
+                  "audios": [
+                    {
+                      "kind": "audio-description",
+                      "languageCode": "deu"
+                    }
+                  ],
+                  "forcedLabel": "SD",
+                  "hasEmbeddedSubtitles": false,
+                  "isAdaptiveQualitySelectable": false,
+                  "isHighDynamicRange": false,
+                  "maxHResolutionPx": 640,
+                  "maxVResolutionPx": 360,
+                  "mimeType": "video/mp4",
+                  "subtitles": [],
+                  "url": "https://pd-videos.daserste.de/de/2022/10/11/1cb6c5d8-c0f4-4868-ac42-2a06b7a3381f/JOB_461837_internationalerton_640x360-50p-1200kbit.mp4",
+                  "videoCodec": "H.264"
+                },
+                {
+                  "aspectRatio": "16:9",
+                  "audios": [
+                    {
+                      "kind": "audio-description",
+                      "languageCode": "deu"
+                    }
+                  ],
+                  "forcedLabel": "Auto",
+                  "hasEmbeddedSubtitles": false,
+                  "isAdaptiveQualitySelectable": false,
+                  "isHighDynamicRange": false,
+                  "maxHResolutionPx": 1920,
+                  "maxVResolutionPx": 1080,
+                  "mimeType": "application/vnd.apple.mpegurl",
+                  "subtitles": [],
+                  "url": "https://universal-vod.daserste.de/i/de/2022/10/11/1cb6c5d8-c0f4-4868-ac42-2a06b7a3381f/,JOB_461837_internationalerton_640x360-50p-1200kbit,JOB_461837_internationalerton_480x270-50p-700kbit,JOB_461837_internationalerton_960x540-50p-1600kbit,JOB_461837_internationalerton_1280x720-50p-3200kbit,JOB_461837_internationalerton_1920x1080-50p-5000kbit,.mp4.csmil/master.m3u8",
+                  "videoCodec": "H.264"
+                },
+                {
+                  "aspectRatio": "16:9",
+                  "audios": [
+                    {
+                      "kind": "audio-description",
+                      "languageCode": "deu"
+                    }
+                  ],
+                  "forcedLabel": "SD 480p",
+                  "hasEmbeddedSubtitles": false,
+                  "isAdaptiveQualitySelectable": false,
+                  "isHighDynamicRange": false,
+                  "maxHResolutionPx": 960,
+                  "maxVResolutionPx": 540,
+                  "mimeType": "video/mp4",
+                  "subtitles": [],
+                  "url": "https://pd-videos.daserste.de/de/2022/10/11/1cb6c5d8-c0f4-4868-ac42-2a06b7a3381f/JOB_461837_internationalerton_960x540-50p-1600kbit.mp4",
+                  "videoCodec": "H.264"
+                },
+                {
+                  "aspectRatio": "16:9",
+                  "audios": [
+                    {
+                      "kind": "audio-description",
+                      "languageCode": "deu"
+                    }
+                  ],
+                  "forcedLabel": "Full HD",
+                  "hasEmbeddedSubtitles": false,
+                  "isAdaptiveQualitySelectable": false,
+                  "isHighDynamicRange": false,
+                  "maxHResolutionPx": 1920,
+                  "maxVResolutionPx": 1080,
+                  "mimeType": "video/mp4",
+                  "subtitles": [],
+                  "url": "https://pd-videos.daserste.de/de/2022/10/11/1cb6c5d8-c0f4-4868-ac42-2a06b7a3381f/JOB_461837_internationalerton_1920x1080-50p-5000kbit.mp4",
+                  "videoCodec": "H.264"
+                }
+              ],
+              "videoLanguageCode": ""
+            }
+          ],
+          "subtitles": [
+            {
+              "kind": "normal",
+              "languageCode": "deu",
+              "sources": [
+                {
+                  "kind": "ebutt",
+                  "url": "https://api.ardmediathek.de/player-service/subtitle/ebutt/urn:ard:subtitle:efab8bf55007171e"
+                },
+                {
+                  "kind": "webvtt",
+                  "url": "https://api.ardmediathek.de/player-service/subtitle/webvtt/urn:ard:subtitle:efab8bf55007171e.vtt"
+                }
+              ]
+            }
+          ]
+        },
+        "href": "https://api.ardmediathek.de/page-gateway/mediacollectionv6/Y3JpZDovL2Rhc2Vyc3RlLmRlL3lvdSBzaGFsbCBub3QgbGllLzIwMjItMTAtMTVfMDItNTAtTUVTWi9hdWRpb2Rlc2tyaXB0aW9u?isTv=false"
+      },
+      "pagination": null,
+      "personalized": false,
+      "playerConfig": null,
+      "publicationService": {
+        "name": "Das Erste",
+        "logo": {
+          "title": "Logo Das Erste",
+          "alt": "Logo Das Erste",
+          "producerName": "Logo Das Erste",
+          "src": "https://api.ardmediathek.de/image-service/image-collections/urn:ard:image-collection:2213972a8d101de1/16x9?w={width}",
+          "aspectRatio": "16x9"
+        },
+        "publisherType": "TV",
+        "partner": "das_erste",
+        "id": "b3JnYW5pemF0aW9uX0RhcyBFcnN0ZQ",
+        "coreId": "urn:ard:publisher:a42e4291cd9eaf0b"
+      },
+      "links": {
+        "self": {
+          "id": "player_on_demand_widget_ard",
+          "urlId": "player_on_demand_widget_ard",
+          "title": "Folge 4: Der Verrat (S01/E04) - Hörfassung",
+          "href": "https://api.ardmediathek.de/page-gateway/widgets/ard/editorials/player_on_demand_widget_ard/item/Y3JpZDovL2Rhc2Vyc3RlLmRlL3lvdSBzaGFsbCBub3QgbGllLzIwMjItMTAtMTVfMDItNTAtTUVTWi9hdWRpb2Rlc2tyaXB0aW9u?pageNumber=0&pageSize=100&embedded=true&mcV6=true",
+          "type": "application/vnd.ard.widget+json",
+          "partner": "ard"
+        }
+      },
+      "show": {
+        "id": "Y3JpZDovL2Rhc2Vyc3RlLmRlL3lvdSBzaGFsbCBub3QgbGll",
+        "title": "You shall not lie - Tödliche Geheimnisse",
+        "image": {
+          "alt": "You shall not lie – Tödliche Geheimnisse",
+          "producerName": "ARD Degeto/Beta Film/Moviestar/filmax/Arca Audiovisual",
+          "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:b4cf2a895a8ff022?w={width}&ch=a6cf546bb4243ad6",
+          "title": "You shall not lie – Tödliche Geheimnisse"
+        },
+        "availableSeasons": [
+          "1"
+        ],
+        "binaryFeatures": [
+          "UT",
+          "AD",
+          "OV"
+        ],
+        "coreAssetType": "SEASON_SERIES"
+      },
+      "synopsis": "Zwischen Macarena und Iván, der jetzt von ihrer Schwangerschaft weiß, kommt es zu einer dramatischen Auseinandersetzung auf See. Erschöpft schwimmt der 18-Jährige an Land und beschuldigt sie, ihn vom Boot gestoßen zu haben. Die Lehrerin muss nun nicht nur die Folgen ihres Seitensprungs fürchten, sondern auch eine Anzeige wegen versuchten Totschlags.  +++\r\n\r\nSechsteilige Thrillerserie, Spanien 2021 | Mit Irene Arcos, Lucas Nabor, Natalia Verbeke u.a. | Regie: Pau Freixas\r\n",
+      "title": "Folge 4: Der Verrat (S01/E04) - Hörfassung",
+      "trackingPiano": {
+        "teaser_recommended": false,
+        "widget_id": "player_on_demand_widget_ard",
+        "widget_title": "Folge 4: Der Verrat (S01/E04) - Hörfassung",
+        "widget_typ": "player_ondemand"
+      },
+      "type": "player_ondemand"
+    },
+    {
+      "aZContent": false,
+      "compilationType": "itemsOfShow",
+      "id": "Y3JpZDovL2Rhc2Vyc3RlLmRlL3lvdSBzaGFsbCBub3QgbGll",
+      "isChildContent": false,
+      "pagination": {
+        "pageNumber": 0,
+        "pageSize": 24,
+        "totalElements": 17
+      },
+      "personalized": false,
+      "links": {
+        "self": {
+          "id": "Y3JpZDovL2Rhc2Vyc3RlLmRlL3lvdSBzaGFsbCBub3QgbGll",
+          "urlId": "Y3JpZDovL2Rhc2Vyc3RlLmRlL3lvdSBzaGFsbCBub3QgbGll",
+          "title": "You shall not lie - Tödliche Geheimnisse",
+          "href": "https://api.ardmediathek.de/page-gateway/widgets/ard/asset/Y3JpZDovL2Rhc2Vyc3RlLmRlL3lvdSBzaGFsbCBub3QgbGll?excludedAssetIds=Y3JpZDovL2Rhc2Vyc3RlLmRlL3lvdSBzaGFsbCBub3QgbGllLzIwMjItMTAtMTVfMDItNTAtTUVTWi9hdWRpb2Rlc2tyaXB0aW9u&pageNumber=0&pageSize=24&embedded=true&seasoned=false&seasonNumber=&withAudiodescription=false&withOriginalWithSubtitle=false&withOriginalversion=false&single=false",
+          "type": "application/vnd.ard.widget+json",
+          "partner": "ard"
+        }
+      },
+      "size": "m",
+      "swipeable": true,
+      "teasers": [],
+      "title": "You shall not lie - Tödliche Geheimnisse",
+      "titleVisible": true,
+      "trackingPiano": {
+        "teaser_recommended": false,
+        "widget_id": "Y3JpZDovL2Rhc2Vyc3RlLmRlL3lvdSBzaGFsbCBub3QgbGll",
+        "widget_title": "You shall not lie - Tödliche Geheimnisse",
+        "widget_typ": "gridlist"
+      },
+      "type": "gridlist",
+      "userVisibility": "ALWAYS"
+    }
+  ]
+}

@@ -37,24 +37,22 @@ public class NexxCloudSessionInitiationTask implements Callable<Long> {
   public Long call() {
     final Gson gson = createGson();
 
-    try(final Client client = createClient()) {
-      final WebTarget target =
-          client.target(FunkUrls.NEXX_CLOUD_SESSION_INIT.getAsString(crawler.getRuntimeConfig()));
+    final Client client = createClient();
+    final WebTarget target =
+        client.target(FunkUrls.NEXX_CLOUD_SESSION_INIT.getAsString(crawler.getRuntimeConfig()));
 
-      final MultivaluedHashMap<String, String> formData = createForm();
+    final MultivaluedHashMap<String, String> formData = createForm();
 
-      try(final Response response = target.request().post(Entity.form(formData)))
-      {
-        if (response.getStatus() == 201) {
-          final String jsonOutput = response.readEntity(String.class);
-          return gson.fromJson(jsonOutput, Long.class);
-        } else {
-          crawler.printErrorMessage();
-          LOG.fatal(
-              "A HTTP error {} occurred when initialising the Nexx cloud session.",
-              response.getStatus());
-        }
-      }
+    final Response response = target.request().post(Entity.form(formData));
+
+    if (response.getStatus() == 201) {
+      final String jsonOutput = response.readEntity(String.class);
+      return gson.fromJson(jsonOutput, Long.class);
+    } else {
+      crawler.printErrorMessage();
+      LOG.fatal(
+          "A HTTP error {} occurred when initialising the Nexx cloud session.",
+          response.getStatus());
     }
     return null;
   }
