@@ -221,6 +221,18 @@ public class ZdfFilmDetailTask extends ZdfTaskBase<Film, CrawlerUrlDTO> {
             Resolution.HD, new FilmUrl(hdUrl.get(), crawler.determineFileSizeInKB(hdUrl.get())));
       }
     }
+    
+    // FIXME
+    // old filmlist needs normal url - remove after decom
+    if (!result.containsKey(Resolution.NORMAL)) {
+      if (result.containsKey(Resolution.SMALL)) {
+        result.put(Resolution.NORMAL, result.get(Resolution.SMALL));
+        result.remove(Resolution.SMALL);
+      } else if (result.containsKey(Resolution.HD)) {
+        result.put(Resolution.NORMAL, result.get(Resolution.HD));
+        result.remove(Resolution.HD);
+      }
+    }
     return result;
   }
 }
