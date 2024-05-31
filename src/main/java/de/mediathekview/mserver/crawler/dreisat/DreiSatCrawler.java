@@ -26,7 +26,7 @@ public class DreiSatCrawler extends AbstractZdfCrawler {
       final Collection<MessageListener> aMessageListeners,
       final Collection<SenderProgressListener> aProgressListeners,
       final MServerConfigManager rootConfig) {
-    super(aForkJoinPool, aMessageListeners, aProgressListeners, rootConfig);
+    super(aForkJoinPool, aMessageListeners, aProgressListeners, rootConfig, DreisatConstants.PARTNER_TO_SENDER);
   }
 
   /**

@@ -5,6 +5,7 @@ import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.FilmUrl;
 import de.mediathekview.mlib.daten.GeoLocations;
 import de.mediathekview.mlib.daten.Resolution;
+import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractRecursiveConverterTask;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
@@ -33,17 +34,19 @@ public class ZdfFilmDetailTask extends ZdfTaskBase<Film, CrawlerUrlDTO> {
 
   private final transient ZdfVideoUrlOptimizer optimizer = new ZdfVideoUrlOptimizer(crawler);
   private final String apiUrlBase;
+  private final Map<String, Sender> partner2Sender;
 
   public ZdfFilmDetailTask(
       final AbstractCrawler aCrawler,
       final String aApiUrlBase,
       final Queue<CrawlerUrlDTO> aUrlToCrawlDtos,
-      final String authKey) {
+      final String authKey,
+      final Map<String, Sender> partner2Sender) {
     super(aCrawler, aUrlToCrawlDtos, authKey);
     apiUrlBase = aApiUrlBase;
-
+    this.partner2Sender = partner2Sender;
     registerJsonDeserializer(
-        OPTIONAL_FILM_TYPE_TOKEN, new ZdfFilmDetailDeserializer(apiUrlBase, aCrawler.getSender()));
+        OPTIONAL_FILM_TYPE_TOKEN, new ZdfFilmDetailDeserializer(apiUrlBase, partner2Sender));
     registerJsonDeserializer(OPTIONAL_DOWNLOAD_DTO_TYPE_TOKEN, new ZdfDownloadDtoDeserializer());
   }
 
@@ -113,9 +116,6 @@ public class ZdfFilmDetailTask extends ZdfTaskBase<Film, CrawlerUrlDTO> {
         crawler.incrementAndGetErrorCount();
         crawler.updateProgress();
       }
-    } else {
-      crawler.incrementAndGetErrorCount();
-      crawler.updateProgress();
     }
   }
 
@@ -140,7 +140,7 @@ public class ZdfFilmDetailTask extends ZdfTaskBase<Film, CrawlerUrlDTO> {
   protected AbstractRecursiveConverterTask<Film, CrawlerUrlDTO> createNewOwnInstance(
       final Queue<CrawlerUrlDTO> aElementsToProcess) {
     return new ZdfFilmDetailTask(
-        crawler, apiUrlBase, aElementsToProcess, getAuthKey().orElse(null));
+        crawler, apiUrlBase, aElementsToProcess, getAuthKey().orElse(null), partner2Sender);
   }
 
   private void addFilm(final DownloadDto downloadDto, final Film result)

@@ -14,6 +14,8 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -255,6 +257,16 @@ public class ZdfFilmDetailTaskTest extends ZdfTaskTestBase {
   private Set<Film> executeTask(final String detailUrl) {
     final Queue<CrawlerUrlDTO> urls = new ConcurrentLinkedQueue<>();
     urls.add(new CrawlerUrlDTO(getWireMockBaseUrlSafe() + detailUrl));
-    return new ZdfFilmDetailTask(createCrawler(), getWireMockBaseUrlSafe(), urls, null).invoke();
+    return new ZdfFilmDetailTask(createCrawler(), getWireMockBaseUrlSafe(), urls, null, createPartnerMap()).invoke();
+  }
+  
+  private Map<String, Sender> createPartnerMap() {
+    Map<String, Sender> partnerMap = new HashMap<>();
+    partnerMap.put("ZDFinfo", Sender.ZDF);
+    partnerMap.put("ZDFneo", Sender.ZDF);
+    partnerMap.put("ZDF", Sender.ZDF); 
+    partnerMap.put("EMPTY", Sender.ZDF);
+      // IGNORED Sender [KI.KA, WDR, PHOENIX, one, HR, 3sat, SWR, arte, BR, RBB, ARD, daserste, alpha, MDR, radiobremen, funk, ZDF, NDR, SR]
+    return partnerMap;
   }
 }

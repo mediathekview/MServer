@@ -1,5 +1,10 @@
 package de.mediathekview.mserver.crawler.dreisat;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import de.mediathekview.mlib.daten.Sender;
+
 public final class DreisatConstants {
 
   /** Base url of the 3Sat website. */
@@ -13,5 +18,11 @@ public final class DreisatConstants {
 
   public static final String URL_HTML_DAY = URL_BASE + "/programm?airtimeDate=%s";
 
+  public static final Map<String, Sender> PARTNER_TO_SENDER = new HashMap<>();
+
+  static {
+    PARTNER_TO_SENDER.put("3sat", Sender.DREISAT);
+  }
+  
   private DreisatConstants() {}
 }

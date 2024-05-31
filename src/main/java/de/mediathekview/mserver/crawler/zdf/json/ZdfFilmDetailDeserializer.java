@@ -44,6 +44,7 @@ public class ZdfFilmDetailDeserializer implements JsonDeserializer<Optional<ZdfF
   private static final String JSON_ELEMENT_TITLE = "title";
   private static final String JSON_ELEMENT_TEASER_TEXT = "teasertext";
   private static final String JSON_ATTRIBUTE_TEMPLATE = "http://zdf.de/rels/streams/ptmd-template";
+  private static final String JSON_ELEMENT_TVSERVICE = "tvService";
 
   private static final String PLACEHOLDER_PLAYER_ID = "{playerId}";
   private static final String PLAYER_ID = "android_native_5";
@@ -63,11 +64,11 @@ public class ZdfFilmDetailDeserializer implements JsonDeserializer<Optional<ZdfF
   private static final String[] SEASONNUMBER = {"http://zdf.de/rels/cmdm/season", "seasonNumber"};
   
   private final String apiUrlBase;
-  private final Sender sender;
+  private final Map<String, Sender> partner2Sender;
   
-  public ZdfFilmDetailDeserializer(final String apiUrlBase, final Sender sender) {
+  public ZdfFilmDetailDeserializer(final String apiUrlBase, Map<String, Sender> partner2Sender) {
     this.apiUrlBase = apiUrlBase;
-    this.sender = sender;
+    this.partner2Sender= partner2Sender; 
   }
 
   @Override
@@ -93,7 +94,12 @@ public class ZdfFilmDetailDeserializer implements JsonDeserializer<Optional<ZdfF
         mainVideoTarget = mainVideo.get(JSON_ELEMENT_TARGET).getAsJsonObject();
       }
     }
-
+    final Optional<String> tvService = JsonUtils.getElementValueAsString(aJsonObject, JSON_ELEMENT_TVSERVICE);
+    //System.out.println(tvService + " " + partner2Sender.get(tvService.orElse("EMPTY")));
+    if (!partner2Sender.containsKey(tvService.orElse("EMPTY"))) {
+      return Optional.empty();
+    }
+    
     final Optional<String> title = parseTitle(rootNode, programItemTarget);
     final Optional<String> topic = parseTopic(rootNode);
     final Optional<String> description = parseDescription(rootNode);
@@ -106,7 +112,7 @@ public class ZdfFilmDetailDeserializer implements JsonDeserializer<Optional<ZdfF
     
     if (title.isPresent()) {
       final Optional<Film> film =
-          createFilm(topic, title.get(), description, website, time, duration);
+          createFilm(partner2Sender.get(tvService.orElse("EMPTY")), topic, title.get(), description, website, time, duration);
 
       if (film.isPresent() && downloadUrl.containsKey(DOWNLOAD_URL_DEFAULT)) {
         return Optional.of(new ZdfFilmDto(film.get(), downloadUrl.get(DOWNLOAD_URL_DEFAULT), downloadUrl.get(DOWNLOAD_URL_DGS)));
@@ -157,6 +163,7 @@ public class ZdfFilmDetailDeserializer implements JsonDeserializer<Optional<ZdfF
   }
 
   private Optional<Film> createFilm(
+      final Sender sender,
       final Optional<String> aTopic,
       final String aTitle,
       final Optional<String> aDescription,
