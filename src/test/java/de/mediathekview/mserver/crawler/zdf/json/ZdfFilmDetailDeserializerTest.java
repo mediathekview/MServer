@@ -186,7 +186,7 @@ public class ZdfFilmDetailDeserializerTest {
     assertThat(actual.isPresent(), equalTo(true));
 
     AssertFilm.assertEquals(
-        actual.get().getFilm(),
+        actual.get().getFilm().get(),
         expectedSender,
         expectedTopic,
         expectedTitle,

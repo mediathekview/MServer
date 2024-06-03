@@ -95,7 +95,6 @@ public class ZdfFilmDetailDeserializer implements JsonDeserializer<Optional<ZdfF
       }
     }
     final Optional<String> tvService = JsonUtils.getElementValueAsString(aJsonObject, JSON_ELEMENT_TVSERVICE);
-    //System.out.println(tvService + " " + partner2Sender.get(tvService.orElse("EMPTY")));
     if (!partner2Sender.containsKey(tvService.orElse("EMPTY"))) {
       return Optional.empty();
     }
@@ -113,11 +112,7 @@ public class ZdfFilmDetailDeserializer implements JsonDeserializer<Optional<ZdfF
     if (title.isPresent()) {
       final Optional<Film> film =
           createFilm(partner2Sender.get(tvService.orElse("EMPTY")), topic, title.get(), description, website, time, duration);
-
-      if (film.isPresent() && downloadUrl.containsKey(DOWNLOAD_URL_DEFAULT)) {
-        return Optional.of(new ZdfFilmDto(film.get(), downloadUrl.get(DOWNLOAD_URL_DEFAULT), downloadUrl.get(DOWNLOAD_URL_DGS)));
-      }
-      LOG.error("ZdfFilmDetailDeserializer: no film or downloadUrl: {}, {}", topic, title.get());
+      return Optional.of(new ZdfFilmDto(film, downloadUrl.get(DOWNLOAD_URL_DEFAULT), downloadUrl.get(DOWNLOAD_URL_DGS)));
     } else {
       LOG.error("ZdfFilmDetailDeserializer: no title found");
     }

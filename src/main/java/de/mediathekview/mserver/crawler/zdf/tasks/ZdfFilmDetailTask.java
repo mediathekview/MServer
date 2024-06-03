@@ -90,29 +90,36 @@ public class ZdfFilmDetailTask extends ZdfTaskBase<Film, CrawlerUrlDTO> {
   protected void processRestTarget(final CrawlerUrlDTO aDto, final WebTarget aTarget) {
     final Optional<ZdfFilmDto> film = deserializeOptional(aTarget, OPTIONAL_FILM_TYPE_TOKEN);
     if (film.isPresent()) {
-      final Optional<DownloadDto> downloadDtoOptional =
-          deserializeOptional(
-              createWebTarget(film.get().getUrl()), OPTIONAL_DOWNLOAD_DTO_TYPE_TOKEN);
-
-      if (downloadDtoOptional.isPresent()) {
-        final DownloadDto downloadDto = downloadDtoOptional.get();
-        appendSignLanguage(downloadDto, film.get().getUrlSignLanguage());
-
-        try {
-          final Film result = film.get().getFilm();
-          if (result.getDuration().isZero() && downloadDto.getDuration().isPresent()) {
-            result.setDuration(downloadDto.getDuration().get());
+      if (film.get().getUrl().isPresent()) {
+        final Optional<DownloadDto> downloadDtoOptional =
+            deserializeOptional(
+                createWebTarget(film.get().getUrl().get()), OPTIONAL_DOWNLOAD_DTO_TYPE_TOKEN);
+  
+        if (downloadDtoOptional.isPresent()) {
+          final DownloadDto downloadDto = downloadDtoOptional.get();
+          appendSignLanguage(downloadDto, film.get().getUrlSignLanguage());
+  
+          try {
+            final Film result = film.get().getFilm().get();
+            if (result.getDuration().isZero() && downloadDto.getDuration().isPresent()) {
+              result.setDuration(downloadDto.getDuration().get());
+            }
+            addFilm(downloadDto, result);
+  
+            crawler.incrementAndGetActualCount();
+            crawler.updateProgress();
+          } catch (final MalformedURLException e) {
+            LOG.error("ZdfFilmDetailTask: url can't be parsed: ", e);
+            crawler.incrementAndGetErrorCount();
+            crawler.updateProgress();
           }
-          addFilm(downloadDto, result);
-
-          crawler.incrementAndGetActualCount();
-          crawler.updateProgress();
-        } catch (final MalformedURLException e) {
-          LOG.error("ZdfFilmDetailTask: url can't be parsed: ", e);
+        } else {
+          LOG.error("ZdfFilmDetailTask: no video {} {} {} in {}",film.get().getFilm().get().getSenderName(), film.get().getFilm().get().getTitel(), film.get().getFilm().get().getThema() , aDto.toString());
           crawler.incrementAndGetErrorCount();
           crawler.updateProgress();
         }
       } else {
+        LOG.error("ZdfFilmDetailTask: no film found in {}", aDto.toString());
         crawler.incrementAndGetErrorCount();
         crawler.updateProgress();
       }
