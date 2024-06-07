@@ -1,7 +1,7 @@
 #### Server configurations ####
 
 # The maximum amount of cpu threads to be used.
-maximumCpuThreads: 1
+maximumCpuThreads: 10
 
 # The maximum duration in minutes the server should run.<br>
 # If set to 0 the server runs without a time limit.
@@ -28,11 +28,11 @@ senderIncluded:
   #- FUNK
   #- KIKA
   # - DW
-   - ORF
+  # - ORF
   #- PHOENIX
   #- SRF
   #- SR
-  #- ZDF
+  - ZDF
   
 #SRF,SR,PHONIX,ORF,KIKA,DW,3SAT<
 
@@ -130,7 +130,7 @@ maximumCrawlDurationInMinutes: 120
 
 # Enables the topics search
 # maximumSubpages limits the depth of the topics search
-topicsSearchEnabled: true
+topicsSearchEnabled: false
 
 # The maximum amount of sub pages to be crawled.<br>
 # Example: If a Sendung overview side has 10 pages with videos for this Sendung and
@@ -176,7 +176,8 @@ senderConfigurations:
     maximumSubpages: 2
     maximumRequestsPerSecond: 8.0
   ZDF:
-    maximumRequestsPerSecond: 10.0
+    maximumDaysForSendungVerpasstSection: 21
+    maximumRequestsPerSecond: 20
   FUNK:
     maximumUrlsPerTask: 99
   DREISAT:

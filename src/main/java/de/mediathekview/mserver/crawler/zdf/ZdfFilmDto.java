@@ -6,14 +6,19 @@ import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import java.util.Objects;
 import java.util.Optional;
 
-public class ZdfFilmDto extends CrawlerUrlDTO {
+public class ZdfFilmDto {
 
-  private final Film film;
+  private final Optional<Film> film;
   private final Optional<String> urlSignLanguage;
+  private final Optional<String> videoUrl;
 
-  public ZdfFilmDto(final Film film, final String videoUrl, String urlSignLanguage) {
-    super(videoUrl);
+  public ZdfFilmDto(final Optional<Film> film, final String videoUrl, String urlSignLanguage) {
     this.film = film;
+    if (videoUrl == null) {
+      this.videoUrl = Optional.empty();
+    } else {
+      this.videoUrl = Optional.of(videoUrl);
+    }
 
     if (urlSignLanguage != null && !urlSignLanguage.isEmpty()) {
       this.urlSignLanguage = Optional.of(urlSignLanguage);
@@ -22,7 +27,11 @@ public class ZdfFilmDto extends CrawlerUrlDTO {
     }
   }
 
-  public Film getFilm() {
+  public Optional<String> getUrl() {
+    return videoUrl;
+  }
+  
+  public Optional<Film> getFilm() {
     return film;
   }
 

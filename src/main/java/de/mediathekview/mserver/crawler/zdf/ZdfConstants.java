@@ -1,5 +1,10 @@
 package de.mediathekview.mserver.crawler.zdf;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import de.mediathekview.mlib.daten.Sender;
+
 public final class ZdfConstants {
 
   /** Name of the header required for authentification. */
@@ -27,6 +32,16 @@ public final class ZdfConstants {
   /** The language key of german audio description. */
   public static final String LANGUAGE_GERMAN_AD = LANGUAGE_GERMAN + LANGUAGE_SUFFIX_AD;
   public static final String LANGUAGE_GERMAN_DGS = LANGUAGE_GERMAN + LANGUAGE_SUFFIX_DGS;
+  
+  public static final Map<String, Sender> PARTNER_TO_SENDER = new HashMap<>();
+
+  static {
+    PARTNER_TO_SENDER.put("ZDFinfo", Sender.ZDF);
+    PARTNER_TO_SENDER.put("ZDFneo", Sender.ZDF);
+    PARTNER_TO_SENDER.put("ZDF", Sender.ZDF); 
+    PARTNER_TO_SENDER.put("EMPTY", Sender.ZDF);
+    // IGNORED Sender [KI.KA, WDR, PHOENIX, one, HR, 3sat, SWR, arte, BR, RBB, ARD, daserste, alpha, MDR, radiobremen, funk, ZDF, NDR, SR]
+  }
 
   private ZdfConstants() {}
 }

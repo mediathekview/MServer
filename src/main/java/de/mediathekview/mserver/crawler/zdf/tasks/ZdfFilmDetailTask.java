@@ -5,6 +5,7 @@ import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.FilmUrl;
 import de.mediathekview.mlib.daten.GeoLocations;
 import de.mediathekview.mlib.daten.Resolution;
+import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractRecursiveConverterTask;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
@@ -33,17 +34,19 @@ public class ZdfFilmDetailTask extends ZdfTaskBase<Film, CrawlerUrlDTO> {
 
   private final transient ZdfVideoUrlOptimizer optimizer = new ZdfVideoUrlOptimizer(crawler);
   private final String apiUrlBase;
+  private final Map<String, Sender> partner2Sender;
 
   public ZdfFilmDetailTask(
       final AbstractCrawler aCrawler,
       final String aApiUrlBase,
       final Queue<CrawlerUrlDTO> aUrlToCrawlDtos,
-      final String authKey) {
+      final String authKey,
+      final Map<String, Sender> partner2Sender) {
     super(aCrawler, aUrlToCrawlDtos, authKey);
     apiUrlBase = aApiUrlBase;
-
+    this.partner2Sender = partner2Sender;
     registerJsonDeserializer(
-        OPTIONAL_FILM_TYPE_TOKEN, new ZdfFilmDetailDeserializer(apiUrlBase, aCrawler.getSender()));
+        OPTIONAL_FILM_TYPE_TOKEN, new ZdfFilmDetailDeserializer(apiUrlBase, partner2Sender));
     registerJsonDeserializer(OPTIONAL_DOWNLOAD_DTO_TYPE_TOKEN, new ZdfDownloadDtoDeserializer());
   }
 
@@ -87,35 +90,39 @@ public class ZdfFilmDetailTask extends ZdfTaskBase<Film, CrawlerUrlDTO> {
   protected void processRestTarget(final CrawlerUrlDTO aDto, final WebTarget aTarget) {
     final Optional<ZdfFilmDto> film = deserializeOptional(aTarget, OPTIONAL_FILM_TYPE_TOKEN);
     if (film.isPresent()) {
-      final Optional<DownloadDto> downloadDtoOptional =
-          deserializeOptional(
-              createWebTarget(film.get().getUrl()), OPTIONAL_DOWNLOAD_DTO_TYPE_TOKEN);
-
-      if (downloadDtoOptional.isPresent()) {
-        final DownloadDto downloadDto = downloadDtoOptional.get();
-        appendSignLanguage(downloadDto, film.get().getUrlSignLanguage());
-
-        try {
-          final Film result = film.get().getFilm();
-          if (result.getDuration().isZero() && downloadDto.getDuration().isPresent()) {
-            result.setDuration(downloadDto.getDuration().get());
+      if (film.get().getUrl().isPresent()) {
+        final Optional<DownloadDto> downloadDtoOptional =
+            deserializeOptional(
+                createWebTarget(film.get().getUrl().get()), OPTIONAL_DOWNLOAD_DTO_TYPE_TOKEN);
+  
+        if (downloadDtoOptional.isPresent()) {
+          final DownloadDto downloadDto = downloadDtoOptional.get();
+          appendSignLanguage(downloadDto, film.get().getUrlSignLanguage());
+  
+          try {
+            final Film result = film.get().getFilm().get();
+            if (result.getDuration().isZero() && downloadDto.getDuration().isPresent()) {
+              result.setDuration(downloadDto.getDuration().get());
+            }
+            addFilm(downloadDto, result);
+  
+            crawler.incrementAndGetActualCount();
+            crawler.updateProgress();
+          } catch (final MalformedURLException e) {
+            LOG.error("ZdfFilmDetailTask: url can't be parsed: ", e);
+            crawler.incrementAndGetErrorCount();
+            crawler.updateProgress();
           }
-          addFilm(downloadDto, result);
-
-          crawler.incrementAndGetActualCount();
-          crawler.updateProgress();
-        } catch (final MalformedURLException e) {
-          LOG.error("ZdfFilmDetailTask: url can't be parsed: ", e);
+        } else {
+          LOG.error("ZdfFilmDetailTask: no video {} {} {} in {}",film.get().getFilm().get().getSenderName(), film.get().getFilm().get().getTitel(), film.get().getFilm().get().getThema() , aDto.toString());
           crawler.incrementAndGetErrorCount();
           crawler.updateProgress();
         }
       } else {
+        LOG.error("ZdfFilmDetailTask: no film found in {}", aDto.toString());
         crawler.incrementAndGetErrorCount();
         crawler.updateProgress();
       }
-    } else {
-      crawler.incrementAndGetErrorCount();
-      crawler.updateProgress();
     }
   }
 
@@ -140,7 +147,7 @@ public class ZdfFilmDetailTask extends ZdfTaskBase<Film, CrawlerUrlDTO> {
   protected AbstractRecursiveConverterTask<Film, CrawlerUrlDTO> createNewOwnInstance(
       final Queue<CrawlerUrlDTO> aElementsToProcess) {
     return new ZdfFilmDetailTask(
-        crawler, apiUrlBase, aElementsToProcess, getAuthKey().orElse(null));
+        crawler, apiUrlBase, aElementsToProcess, getAuthKey().orElse(null), partner2Sender);
   }
 
   private void addFilm(final DownloadDto downloadDto, final Film result)

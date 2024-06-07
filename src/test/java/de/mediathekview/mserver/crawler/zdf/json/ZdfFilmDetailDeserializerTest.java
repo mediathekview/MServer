@@ -14,6 +14,8 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -177,14 +179,14 @@ public class ZdfFilmDetailDeserializerTest {
   public void test() {
     final JsonObject json = JsonFileReader.readJson(jsonFile);
     final ZdfFilmDetailDeserializer target =
-        new ZdfFilmDetailDeserializer(ZdfConstants.URL_API_BASE, expectedSender);
+        new ZdfFilmDetailDeserializer(ZdfConstants.URL_API_BASE, createPartnerMap());
 
     final Optional<ZdfFilmDto> actual = target.deserialize(json, Film.class, null);
 
     assertThat(actual.isPresent(), equalTo(true));
 
     AssertFilm.assertEquals(
-        actual.get().getFilm(),
+        actual.get().getFilm().get(),
         expectedSender,
         expectedTopic,
         expectedTitle,
@@ -192,7 +194,19 @@ public class ZdfFilmDetailDeserializerTest {
         expectedDuration,
         expectedDescription,
         expectedWebsite);
-    assertThat(actual.get().getUrl(), equalTo(expectedDownloadUrl));
+    assertThat(actual.get().getUrl().get(), equalTo(expectedDownloadUrl));
     assertThat(actual.get().getUrlSignLanguage(), equalTo(expectedDownloadUrlSignLanguage));
+  }
+  
+  private Map<String, Sender> createPartnerMap() {
+    Map<String, Sender> partnerMap = new HashMap<>();
+    partnerMap.put("ZDFinfo", Sender.ZDF);
+    partnerMap.put("ZDFneo", Sender.ZDF);
+    partnerMap.put("ZDF", Sender.ZDF); 
+    partnerMap.put("EMPTY", Sender.ZDF);
+    partnerMap.put("KI.KA", Sender.ZDF); // for testing only
+    partnerMap.put("3sat", Sender.DREISAT); // for testing only
+      // IGNORED Sender [KI.KA, WDR, PHOENIX, one, HR, 3sat, SWR, arte, BR, RBB, ARD, daserste, alpha, MDR, radiobremen, funk, ZDF, NDR, SR]
+    return partnerMap;
   }
 }

@@ -1,6 +1,7 @@
 package de.mediathekview.mserver.crawler.zdf;
 
 import de.mediathekview.mlib.daten.Film;
+import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mlib.messages.listener.MessageListener;
 import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.base.messages.ServerMessages;
@@ -19,6 +20,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -29,13 +31,16 @@ import java.util.concurrent.RecursiveTask;
 public abstract class AbstractZdfCrawler extends AbstractCrawler {
 
   private static final Logger LOG = LogManager.getLogger(AbstractZdfCrawler.class);
+  private final Map<String, Sender> partner2Sender;
 
   protected AbstractZdfCrawler(
       final ForkJoinPool aForkJoinPool,
       final Collection<MessageListener> aMessageListeners,
       final Collection<SenderProgressListener> aProgressListeners,
-      final MServerConfigManager rootConfig) {
+      final MServerConfigManager rootConfig,
+      final Map<String, Sender> partner2Sender) {
     super(aForkJoinPool, aMessageListeners, aProgressListeners, rootConfig);
+    this.partner2Sender = partner2Sender;
   }
 
   @Override
@@ -60,7 +65,8 @@ public abstract class AbstractZdfCrawler extends AbstractCrawler {
           this,
           getApiUrlBase(),
           new ConcurrentLinkedQueue<>(shows),
-          configuration.getVideoAuthKey().orElse(null));
+          configuration.getVideoAuthKey().orElse(null),
+          partner2Sender);
     } catch (final InterruptedException ex) {
       LOG.debug("{} crawler interrupted.", getSender().getName(), ex);
       Thread.currentThread().interrupt();

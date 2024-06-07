@@ -30,7 +30,7 @@ public class ZdfCrawler extends AbstractZdfCrawler {
       final Collection<MessageListener> aMessageListeners,
       final Collection<SenderProgressListener> aProgressListeners,
       final MServerConfigManager rootConfig) {
-    super(aForkJoinPool, aMessageListeners, aProgressListeners, rootConfig);
+    super(aForkJoinPool, aMessageListeners, aProgressListeners, rootConfig, ZdfConstants.PARTNER_TO_SENDER);
   }
 
   @Override
