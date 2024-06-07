@@ -194,7 +194,7 @@ public class ZdfFilmDetailDeserializerTest {
         expectedDuration,
         expectedDescription,
         expectedWebsite);
-    assertThat(actual.get().getUrl(), equalTo(expectedDownloadUrl));
+    assertThat(actual.get().getUrl().get(), equalTo(expectedDownloadUrl));
     assertThat(actual.get().getUrlSignLanguage(), equalTo(expectedDownloadUrlSignLanguage));
   }
   
