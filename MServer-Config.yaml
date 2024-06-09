@@ -18,7 +18,7 @@ maximumRequestsPerSecond: 999.0
 # If set only these Sender will be crawled all other will be ignored.
 senderIncluded:
   #- ARD
-  #- ARTE_DE
+  - ARTE_DE
   #- ARGE_FR
   #- ARTE_EN
   #- ARTE_PL
@@ -32,7 +32,7 @@ senderIncluded:
   #- PHOENIX
   #- SRF
   #- SR
-  - ZDF
+  #- ZDF
   
 #SRF,SR,PHONIX,ORF,KIKA,DW,3SAT<
 
@@ -159,9 +159,10 @@ senderConfigurations:
   ORF:
     maximumRequestsPerSecond: 10.0
   ARTE_DE:
-    maximumUrlsPerTask: 1
-    maximumDaysForSendungVerpasstSectionFuture: 0
-    maximumRequestsPerSecond: 2.0
+    maximumSubpages: 2
+    #maximumUrlsPerTask: 1
+    #maximumDaysForSendungVerpasstSectionFuture: 0
+    #maximumRequestsPerSecond: 2.0
   ARTE_FR:
     maximumDaysForSendungVerpasstSectionFuture: 0
     # The maximum amount of URLs to be processed per task.
