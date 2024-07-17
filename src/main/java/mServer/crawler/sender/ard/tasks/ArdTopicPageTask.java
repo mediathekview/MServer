@@ -2,6 +2,7 @@ package mServer.crawler.sender.ard.tasks;
 
 import com.google.gson.reflect.TypeToken;
 import de.mediathekview.mlib.Config;
+import de.mediathekview.mlib.tool.Log;
 import jakarta.ws.rs.client.WebTarget;
 import mServer.crawler.sender.MediathekReader;
 import mServer.crawler.sender.ard.ArdFilmInfoDto;
@@ -84,6 +85,10 @@ public class ArdTopicPageTask extends ArdTaskBase<ArdFilmInfoDto, CrawlerUrlDTO>
     TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL3dkci5kZS9vbmUvcm90ZXJvc2Vu");
     // Heimatflimmern
     TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL3dkci5kZS9oZWltYXRmbGltbWVybg");
+    // Euro 2024
+    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL3Nwb3J0c2NoYXUuZGUvc3BvcnRzY2hhdS1ldXJvLTIwMjQ");
+    // ard debüt
+    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL2Rhc2Vyc3RlLmRlL2FyZGRlYnVldA");
   }
 
   public ArdTopicPageTask(MediathekReader aCrawler,
@@ -147,6 +152,7 @@ public class ArdTopicPageTask extends ArdTaskBase<ArdFilmInfoDto, CrawlerUrlDTO>
 
   private int getMaximumSubpages(String id) {
     if (TOPICS_LOAD_ALL_PAGES.contains(id)) {
+      Log.sysLog("ARD search all: " + id);
       return 999;
     }
     return 0;
