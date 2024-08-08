@@ -25,6 +25,17 @@ public class ArdCrawler extends MediathekCrawler {
   private static final DateTimeFormatter DAY_PAGE_DATE_FORMATTER
           = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
+  public static final String[] MISSING_TOPIC_IDS = new String[]{
+          // Dahoam is dahoam
+          "Y3JpZDovL2JyLmRlL2Jyb2FkY2FzdFNlcmllcy9icm9hZGNhc3RTZXJpZXM6L2JyZGUvZmVybnNlaGVuL2JheWVyaXNjaGVzLWZlcm5zZWhlbi9zZW5kdW5nZW4vZGFob2FtLWlzLWRhaG9hbQ",
+          // Rote Rosen
+          "Y3JpZDovL3dkci5kZS9vbmUvcm90ZXJvc2Vu",
+          // Sturm der Liebe
+          "Y3JpZDovL2Rhc2Vyc3RlLmRlL3N0dXJtIGRlciBsaWViZQ",
+          // in aller freundschaft -die jungen ärzte
+          "Y3JpZDovL21kci5kZS9zZW5kZXJlaWhlbi9zdGFmZmVsc2VyaWUtaW4tYWxsZXItZnJldW5kc2NoYWZ0LWRpZS1qdW5nZW4tYWVyenRl"
+  };
+
   public ArdCrawler(FilmeSuchen ssearch, int startPrio) {
     super(ssearch, SENDERNAME, 0, 1, startPrio);
   }
@@ -127,12 +138,21 @@ public class ArdCrawler extends MediathekCrawler {
     }
 
     Log.sysLog("ard mediathek topics: " + topics.size());
+    addAdditionalTopics(topics);
+    Log.sysLog("ard mediathek topics with additional: " + topics.size());
     ConcurrentLinkedQueue<CrawlerUrlDTO> topicUrls = new ConcurrentLinkedQueue<>(topics);
 
     final ArdTopicPageTask topicTask = new ArdTopicPageTask(this, topicUrls);
     final Set<ArdFilmInfoDto> filmInfos = forkJoinPool.submit(topicTask).get();
     Log.sysLog("ard shows by topics: " + filmInfos.size());
     return filmInfos;
+  }
+
+  // temporary workaround for missing topics
+  private void addAdditionalTopics(Set<CrawlerUrlDTO> topics) {
+    for (String topicId : MISSING_TOPIC_IDS) {
+      topics.add(new CrawlerUrlDTO(String.format(ArdConstants.TOPICS_URL, topicId, ArdConstants.TOPIC_PAGE_SIZE)));
+    }
   }
 
   private Set<CrawlerUrlDTO> getTopicEntriesBySender(final String sender) throws ExecutionException, InterruptedException {

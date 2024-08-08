@@ -2,6 +2,7 @@ package mServer.crawler.sender.ard.tasks;
 
 import com.google.gson.reflect.TypeToken;
 import de.mediathekview.mlib.Config;
+import de.mediathekview.mlib.tool.Log;
 import jakarta.ws.rs.client.WebTarget;
 import mServer.crawler.sender.MediathekReader;
 import mServer.crawler.sender.ard.ArdFilmInfoDto;
@@ -82,8 +83,16 @@ public class ArdTopicPageTask extends ArdTaskBase<ArdFilmInfoDto, CrawlerUrlDTO>
     TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL2JyLmRlL2Jyb2FkY2FzdFNlcmllcy9icm9hZGNhc3RTZXJpZXM6L2JyZGUvZmVybnNlaGVuL2JheWVyaXNjaGVzLWZlcm5zZWhlbi9zZW5kdW5nZW4vZGFob2FtLWlzLWRhaG9hbQ");
     // Rote Rosen
     TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL3dkci5kZS9vbmUvcm90ZXJvc2Vu");
-    // Heimatflimmern
-    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL3dkci5kZS9oZWltYXRmbGltbWVybg");
+    // Sturm der Liebe
+    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL2Rhc2Vyc3RlLmRlL3N0dXJtIGRlciBsaWViZQ");
+    // in aller freundschaft -die jungen ärzte
+    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL21kci5kZS9zZW5kZXJlaWhlbi9zdGFmZmVsc2VyaWUtaW4tYWxsZXItZnJldW5kc2NoYWZ0LWRpZS1qdW5nZW4tYWVyenRl");
+    // Euro 2024
+    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL3Nwb3J0c2NoYXUuZGUvc3BvcnRzY2hhdS1ldXJvLTIwMjQ");
+    // Olympia 2024
+    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL3Nwb3J0c2NoYXUuZGUvc3BvcnRzY2hhdS1vbHltcGlh");
+    // um Himmels willen
+    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL3dkci5kZS9VbSBIaW1tZWxzIFdpbGxlbiBPTkU");    
   }
 
   public ArdTopicPageTask(MediathekReader aCrawler,
@@ -147,6 +156,7 @@ public class ArdTopicPageTask extends ArdTaskBase<ArdFilmInfoDto, CrawlerUrlDTO>
 
   private int getMaximumSubpages(String id) {
     if (TOPICS_LOAD_ALL_PAGES.contains(id)) {
+      Log.sysLog("ARD search all: " + id);
       return 999;
     }
     return 0;
