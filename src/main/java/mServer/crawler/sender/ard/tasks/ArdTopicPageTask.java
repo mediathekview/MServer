@@ -92,7 +92,10 @@ public class ArdTopicPageTask extends ArdTaskBase<ArdFilmInfoDto, CrawlerUrlDTO>
     // Olympia 2024
     TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL3Nwb3J0c2NoYXUuZGUvc3BvcnRzY2hhdS1vbHltcGlh");
     // um Himmels willen
-    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL3dkci5kZS9VbSBIaW1tZWxzIFdpbGxlbiBPTkU");    
+    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL3dkci5kZS9VbSBIaW1tZWxzIFdpbGxlbiBPTkU");
+    // Rentnercops
+    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL2Rhc2Vyc3RlLmRlL3JlbnRuZXJjb3Bz");
+    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL3dkci5kZS9yZW50bmVyY29wcw");
   }
 
   public ArdTopicPageTask(MediathekReader aCrawler,
