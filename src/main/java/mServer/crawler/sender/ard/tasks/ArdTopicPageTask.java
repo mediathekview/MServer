@@ -96,6 +96,8 @@ public class ArdTopicPageTask extends ArdTaskBase<ArdFilmInfoDto, CrawlerUrlDTO>
     // Rentnercops
     TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL2Rhc2Vyc3RlLmRlL3JlbnRuZXJjb3Bz");
     TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL3dkci5kZS9yZW50bmVyY29wcw");
+    // alles klara
+    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL21kci5kZS9zZW5kZXJlaWhlbi9zdGFmZmVsc2VyaWUtYWxsZXMta2xhcmE");
   }
 
   public ArdTopicPageTask(MediathekReader aCrawler,

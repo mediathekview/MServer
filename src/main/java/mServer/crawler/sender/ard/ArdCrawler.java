@@ -151,7 +151,7 @@ public class ArdCrawler extends MediathekCrawler {
   // temporary workaround for missing topics
   private void addAdditionalTopics(Set<CrawlerUrlDTO> topics) {
     for (String topicId : MISSING_TOPIC_IDS) {
-      topics.add(new CrawlerUrlDTO(String.format(ArdConstants.TOPICS_URL, topicId, ArdConstants.TOPIC_PAGE_SIZE)));
+      topics.add(new CrawlerUrlDTO(String.format(ArdConstants.TOPIC_URL, topicId, ArdConstants.TOPIC_PAGE_SIZE)));
     }
   }
 
