@@ -41,7 +41,7 @@ public class ArteHttpClient {
 
   private static Request createRequest(String aUrl) {
     Builder b;
-    if (aUrl.contains("/opa/")) {
+    if (aUrl.contains("/api/opa/")) {
       b = BUILDER_OPA;
     } else {
       b = BUILDER;
