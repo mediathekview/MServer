@@ -40,7 +40,7 @@ public class ArteVideoDeserializer
 
                 final String code = value.get(ATTRIBUTE_VERSION_CODE).getAsString();
                 final String quality = value.get(ATTRIBUTE_QUALITY).getAsString();
-                final String url = value.get(ATTRIBUTE_URL).getAsString();
+                final String url = value.get(ATTRIBUTE_URL).getAsString().replace("http://", "https://");
 
                 final Optional<Qualities> resolution = mapQuality(quality);
                 final Optional<ArteVideoType> arteVideoType = ArteVideoTypeMapper.map(sender, code);
