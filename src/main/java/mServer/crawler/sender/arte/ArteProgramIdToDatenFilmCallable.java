@@ -28,7 +28,7 @@ public class ArteProgramIdToDatenFilmCallable implements Callable<Set<DatenFilm>
 
   private static final Logger LOG = LogManager.getLogger(ArteProgramIdToDatenFilmCallable.class);
 
-  private static final String ARTE_VIDEO_INFORMATION_URL_PATTERN = "https://api.arte.tv/api/opa/v3/videoStreams?programId=%s&limit=100&language=%s&protocol=HTTPS&kind=SHOW";
+  private static final String ARTE_VIDEO_INFORMATION_URL_PATTERN = "https://www.arte.tv/hbbtvv2/services/web/index.php/OPA/v3/streams/%s/SHOW/%s";
   private static final String ARTE_VIDEO_INFORMATION_URL_PATTERN_2 = "https://api.arte.tv/api/opa/v3/programs/%s/%s"; // Für broadcastBeginRounded
 
   private final FastDateFormat broadcastDateFormat = FastDateFormat.getInstance("yyyy-MM-dd'T'HH:mm:ssX");//2016-10-29T16:15:00Z
@@ -93,7 +93,11 @@ public class ArteProgramIdToDatenFilmCallable implements Callable<Set<DatenFilm>
         if (video.getVideoUrlsOriginalWithSubtitle().containsKey(Qualities.NORMAL)) {
           films.add(createFilm(details.getTheme(), details.getWebsite(), details.getTitle() + " (Originalversion mit Untertitel)", video.getVideoUrlsOriginalWithSubtitle(), details, durationAsTime, details.getDescription()));
         }
+      } else {
+        Log.errorLog(8572677, "arte: no program found "  + programId);
       }
+    } else {
+      Log.errorLog(84572678, "arte: no video found " + programId);
     }
 
     return films;
