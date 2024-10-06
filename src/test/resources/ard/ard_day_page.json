@@ -1,0 +1,1168 @@
+{
+  "links":{
+    "self":{
+      "type":"application/vnd.ard.page+json",
+      "title":"EPG Grid",
+      "href":"https://localhost/program/api/program?channelIds=daserste&day=2024-09-28&mode=channel"
+    }
+  },
+  "channels":[
+    {
+      "id":"daserste",
+      "trackingPiano":{
+        "widget_type":"vertical-widget",
+        "widget_title":"Das Erste",
+        "widget_id":"urn:ard:institution:59ccb6ea77d75af5"
+      },
+      "timeSlots":[
+        [
+          {
+            "id":"66c4725256e0879f4460b21a",
+            "links":{
+              "self":{
+                "type":"application/vnd.ard.page+json",
+                "title":"Twin Teams - Die Geschwister-Challenge",
+                "href":"https://programm-api.ard.de/program/api/teaser?teaserId=66c4725256e0879f4460b21a"
+              },
+              "target":{
+                "type":"application/vnd.ard.page+json",
+                "title":"Die Finalrunde 1 (S01/E19)",
+                "urlId":"Y3JpZDovL3JiYl8xY2RjODJjMy01ZTIyLTQ0MDctODEwZi0yMWMwYTBhY2NjMmNfcHVibGljYXRpb24",
+                "partner":"ard"
+              }
+            },
+            "type":"epg",
+            "title":"Twin Teams - Die Geschwister-Challenge",
+            "duration":1500,
+            "images":{
+              "aspect16x9":{
+                "title":"Die Finalrunde 1 (S01/E19)",
+                "text":"Die Finalrunde 1 (S01/E19)",
+                "alt":"Die Finalrunde 1 (S01/E19)",
+                "src":"https://api.ardmediathek.de/image-service/images/urn:ard:image:63644632ba0f34ac?w={width}",
+                "producerName":"ARD-Mediathek"
+              }
+            },
+            "channel":{
+              "id":"daserste",
+              "name":"Das Erste",
+              "main_channel_id":"daserste"
+            },
+            "trackingPiano":{
+              "widget_section":"Vormittags, 05:30-14:00 Uhr",
+              "teaser_title":"Twin Teams - Die Geschwister-Challenge",
+              "teaser_recommended":false,
+              "teaser_institution_id":"urn:ard:institution:59ccb6ea77d75af5",
+              "teaser_institution":"Das Erste",
+              "teaser_id":"66c4725256e0879f4460b21a",
+              "teaser_content_type":"Video"
+            },
+            "creationDate":"2024-09-30T19:18:14.000Z",
+            "heightUnits":9,
+            "beginNet":"2024-09-28T05:30:06+02:00",
+            "binaryFeatures":[
+              "UT"
+            ],
+            "video":{
+              "availableFrom":"2024-03-23T05:45:00+01:00",
+              "availableTo":"2029-03-23T23:59:59+01:00",
+              "broadcastedOn":"2024-03-23T05:45:00+01:00",
+              "createdAt":"2024-03-23T05:51:08+01:00",
+              "duration":1496,
+              "episodeNumber":null,
+              "externalMedia":[
+                {
+                  "mediaType":"IMAGE",
+                  "ratio":"16:9",
+                  "type":"foto",
+                  "url":"https://api.ardmediathek.de/image-service/images/urn:ard:image:63644632ba0f34ac?w=540&ch=eb5df9e25c8fd04f",
+                  "versions":[
+
+                  ]
+                }
+              ],
+              "extras":[
+                {
+                  "index":null,
+                  "text":"1",
+                  "type":"UT"
+                },
+                {
+                  "index":null,
+                  "text":"Twin Teams",
+                  "type":"broadcastTitle"
+                },
+                {
+                  "index":null,
+                  "text":"rbb",
+                  "type":"station"
+                }
+              ],
+              "fsk":"FSK_LEER",
+              "groupingTitle":null,
+              "groupingWebUrl":"https://www.ardmediathek.de/sendung/Twin%20Teams/Y3JpZDovL3JiYi1vbmxpbmUuZGUvdHdpbnRlYW1z",
+              "id":"65fe5fbce7dba46f7c2232aa",
+              "imageUrl":"https://api.ardmediathek.de/image-service/images/urn:ard:image:63644632ba0f34ac?w=540&ch=eb5df9e25c8fd04f",
+              "seasonNumber":null,
+              "singleReport":false,
+              "source":"ARD-Mediathek",
+              "sourceId":"Y3JpZDovL3JiYl8xY2RjODJjMy01ZTIyLTQ0MDctODEwZi0yMWMwYTBhY2NjMmNfcHVibGljYXRpb24",
+              "sourceUpdatedAt":"2024-03-23T05:45:03+01:00",
+              "tagIds":[
+
+              ],
+              "text":{
+                "short":"Am anderen Ende der Welt, mitten in den Tropen Malaysias, beginnt das Finale im Kampf um den Titel TWIN TEAM DES JAHRES!"
+              },
+              "title":"Die Finalrunde 1 (S01/E19)",
+              "updatedAt":"2024-03-23T05:51:08+01:00",
+              "webUrl":"https://www.ardmediathek.de/video/Y3JpZDovL3JiYl8xY2RjODJjMy01ZTIyLTQ0MDctODEwZi0yMWMwYTBhY2NjMmNfcHVibGljYXRpb24"
+            },
+            "broadcastEnd":"2024-09-28T05:55:00+02:00",
+            "broadcastedOn":"2024-09-28T05:30:00+02:00",
+            "coreSubline":"Finalrunde 1",
+            "coreTitle":"Twin Teams - Die Geschwister-Challenge",
+            "lastMod":"2024-09-28T05:30:08+02:00",
+            "numericId":"4001847895",
+            "subline":"Finalrunde 1",
+            "synopsis":"Am anderen Ende der Welt, mitten in den Tropen Malaysias, beginnt das Finale im Kampf um den Titel TWIN TEAM DES JAHRES!"
+          },
+          {
+            "id":"66c4725256e0879f4460b218",
+            "links":{
+              "self":{
+                "type":"application/vnd.ard.page+json",
+                "title":"Twin Teams - Die Geschwister-Challenge",
+                "href":"https://programm-api.ard.de/program/api/teaser?teaserId=66c4725256e0879f4460b218"
+              },
+              "target":{
+                "type":"application/vnd.ard.page+json",
+                "title":"Die Finalrunde 2 (S01/E20)",
+                "urlId":"Y3JpZDovL3JiYl9hN2RkMDNjMC0yMmU5LTRmYzEtYmNiOC1kYTg0Y2RjOWMxMWZfcHVibGljYXRpb24",
+                "partner":"ard"
+              }
+            },
+            "type":"epg",
+            "title":"Twin Teams - Die Geschwister-Challenge",
+            "duration":1500,
+            "images":{
+              "aspect16x9":{
+                "title":"Die Finalrunde 2 (S01/E20)",
+                "text":"Die Finalrunde 2 (S01/E20)",
+                "alt":"Die Finalrunde 2 (S01/E20)",
+                "src":"https://api.ardmediathek.de/image-service/images/urn:ard:image:3c5960bf6ffa1a43?w={width}",
+                "producerName":"ARD-Mediathek"
+              }
+            },
+            "channel":{
+              "id":"daserste",
+              "name":"Das Erste",
+              "main_channel_id":"daserste"
+            },
+            "trackingPiano":{
+              "widget_section":"Vormittags, 05:30-14:00 Uhr",
+              "teaser_title":"Twin Teams - Die Geschwister-Challenge",
+              "teaser_recommended":false,
+              "teaser_institution_id":"urn:ard:institution:59ccb6ea77d75af5",
+              "teaser_institution":"Das Erste",
+              "teaser_id":"66c4725256e0879f4460b218",
+              "teaser_content_type":"Video"
+            },
+            "creationDate":"2024-09-30T19:18:14.000Z",
+            "heightUnits":9,
+            "beginNet":"2024-09-28T05:55:03+02:00",
+            "binaryFeatures":[
+              "UT"
+            ],
+            "video":{
+              "availableFrom":"2024-03-23T06:10:00+01:00",
+              "availableTo":"2029-03-23T23:59:59+01:00",
+              "broadcastedOn":"2024-03-23T06:10:00+01:00",
+              "createdAt":"2024-03-23T06:15:10+01:00",
+              "duration":1483,
+              "episodeNumber":null,
+              "externalMedia":[
+                {
+                  "mediaType":"IMAGE",
+                  "ratio":"16:9",
+                  "type":"foto",
+                  "url":"https://api.ardmediathek.de/image-service/images/urn:ard:image:3c5960bf6ffa1a43?w=540&ch=89346209b06423d2",
+                  "versions":[
+
+                  ]
+                }
+              ],
+              "extras":[
+                {
+                  "index":null,
+                  "text":"1",
+                  "type":"UT"
+                },
+                {
+                  "index":null,
+                  "text":"Twin Teams",
+                  "type":"broadcastTitle"
+                },
+                {
+                  "index":null,
+                  "text":"rbb",
+                  "type":"station"
+                }
+              ],
+              "fsk":"FSK_LEER",
+              "groupingTitle":null,
+              "groupingWebUrl":"https://www.ardmediathek.de/sendung/Twin%20Teams/Y3JpZDovL3JiYi1vbmxpbmUuZGUvdHdpbnRlYW1z",
+              "id":"65fe655e108b113beb33f97d",
+              "imageUrl":"https://api.ardmediathek.de/image-service/images/urn:ard:image:3c5960bf6ffa1a43?w=540&ch=89346209b06423d2",
+              "seasonNumber":null,
+              "singleReport":false,
+              "source":"ARD-Mediathek",
+              "sourceId":"Y3JpZDovL3JiYl9hN2RkMDNjMC0yMmU5LTRmYzEtYmNiOC1kYTg0Y2RjOWMxMWZfcHVibGljYXRpb24",
+              "sourceUpdatedAt":"2024-03-23T06:10:03+01:00",
+              "tagIds":[
+
+              ],
+              "text":{
+                "short":"Ein letztes Mal ziehen die Finalisten heute in den Kampf um den Titel TWIN TEAM DES JAHRES."
+              },
+              "title":"Die Finalrunde 2 (S01/E20)",
+              "updatedAt":"2024-03-23T06:15:10+01:00",
+              "webUrl":"https://www.ardmediathek.de/video/Y3JpZDovL3JiYl9hN2RkMDNjMC0yMmU5LTRmYzEtYmNiOC1kYTg0Y2RjOWMxMWZfcHVibGljYXRpb24"
+            },
+            "broadcastEnd":"2024-09-28T06:20:00+02:00",
+            "broadcastedOn":"2024-09-28T05:55:00+02:00",
+            "coreSubline":"Finalrunde 2",
+            "coreTitle":"Twin Teams - Die Geschwister-Challenge",
+            "lastMod":"2024-09-28T05:55:03+02:00",
+            "numericId":"4001847883",
+            "subline":"Finalrunde 2",
+            "synopsis":"Ein letztes Mal ziehen die Finalisten heute in den Kampf um den Titel TWIN TEAM DES JAHRES."
+          },
+          {
+            "id":"66c4725256e0879f4460b216",
+            "links":{
+              "self":{
+                "type":"application/vnd.ard.page+json",
+                "title":"Elefant, Tiger & Kids (5)",
+                "href":"https://programm-api.ard.de/program/api/teaser?teaserId=66c4725256e0879f4460b216"
+              },
+              "target":{
+                "type":"application/vnd.ard.page+json",
+                "title":"Folge 5: Immer schön vorsichtig! (S01/E05)",
+                "urlId":"Y3JpZDovL21kci5kZS9zZW5kdW5nLzI4MjA0MC80MDQ4MzMtMzg1Mjgw",
+                "partner":"ard"
+              }
+            },
+            "type":"epg",
+            "title":"Elefant, Tiger & Kids (5)",
+            "duration":1500,
+            "images":{
+              "aspect16x9":{
+                "title":"Folge 5: Immer schön vorsichtig! (S01/E05)",
+                "text":"Folge 5: Immer schön vorsichtig! (S01/E05)",
+                "alt":"Folge 5: Immer schön vorsichtig! (S01/E05)",
+                "src":"https://api.ardmediathek.de/image-service/images/urn:ard:image:12c855a64535a3e4?w={width}",
+                "producerName":"ARD-Mediathek"
+              }
+            },
+            "channel":{
+              "id":"daserste",
+              "name":"Das Erste",
+              "main_channel_id":"daserste"
+            },
+            "trackingPiano":{
+              "widget_section":"Vormittags, 05:30-14:00 Uhr",
+              "teaser_title":"Elefant, Tiger & Kids (5)",
+              "teaser_recommended":false,
+              "teaser_institution_id":"urn:ard:institution:59ccb6ea77d75af5",
+              "teaser_institution":"Das Erste",
+              "teaser_id":"66c4725256e0879f4460b216",
+              "teaser_content_type":"Video"
+            },
+            "creationDate":"2024-09-30T19:18:14.000Z",
+            "heightUnits":9,
+            "beginNet":"2024-09-28T06:20:27+02:00",
+            "binaryFeatures":[
+              "UT"
+            ],
+            "video":{
+              "availableFrom":"2023-07-09T14:25:00+02:00",
+              "availableTo":"2029-10-01T17:00:00+02:00",
+              "broadcastedOn":"2023-08-08T14:25:00+02:00",
+              "createdAt":"2023-08-08T00:11:34+02:00",
+              "duration":1442,
+              "episodeNumber":5,
+              "externalMedia":[
+                {
+                  "mediaType":"IMAGE",
+                  "ratio":"16:9",
+                  "type":"foto",
+                  "url":"https://api.ardmediathek.de/image-service/images/urn:ard:image:12c855a64535a3e4?w=540&ch=e99dd831dee38017",
+                  "versions":[
+                    {
+                      "ratio":"16:7",
+                      "url":"https://api.ardmediathek.de/image-service/images/urn:ard:image:59b08c47f2a3e0bf?w=540&ch=7222d887ef8b713e"
+                    },
+                    {
+                      "ratio":"1:1",
+                      "url":"https://api.ardmediathek.de/image-service/images/urn:ard:image:2906858653b60a87?w=540&ch=7e5aac1ca82e94a8"
+                    }
+                  ]
+                }
+              ],
+              "extras":[
+                {
+                  "index":null,
+                  "text":"1",
+                  "type":"UT"
+                },
+                {
+                  "index":null,
+                  "text":"Elefant, Tiger & Kids",
+                  "type":"broadcastTitle"
+                },
+                {
+                  "index":null,
+                  "text":"mdr",
+                  "type":"station"
+                }
+              ],
+              "fsk":"FSK_LEER",
+              "groupingTitle":"Elefant, Tiger & Kids",
+              "groupingWebUrl":"https://www.ardmediathek.de/sendung/Elefant%2C%20Tiger%20%26%20Kids/Y3JpZDovL21kci5kZS9zZW5kZXJlaWhlbi8xMDI3MWI4My04NGFiLTQwZmQtYWM5Yy01MmE2ZTc0YzM5YzE",
+              "id":"64d16c16516f570008c0c8ca",
+              "imageUrl":"https://api.ardmediathek.de/image-service/images/urn:ard:image:12c855a64535a3e4?w=540&ch=e99dd831dee38017",
+              "seasonNumber":1,
+              "singleReport":false,
+              "source":"ARD-Mediathek",
+              "sourceId":"Y3JpZDovL21kci5kZS9zZW5kdW5nLzI4MjA0MC80MDQ4MzMtMzg1Mjgw",
+              "sourceUpdatedAt":"2024-09-26T16:33:26+02:00",
+              "tagIds":[
+
+              ],
+              "text":{
+                "short":"Auf gehts in die zweite Praktikumswoche! In der Oper Leipzig heißt es: Mutige vor. Hier gibt es Bienen, deren Honig abgefüllt werden muss. Denn im Zoo wartet schon der Lippenbär darauf, mit seiner Lieblingsspeise beschäftigt zu werden. Wer traut sich ran an die Bienen?\n\n\nSechs Kinder aus den unterschiedlichsten Regionen Deutschlands erleben im Zoo Leipzig eine abenteuerliche Zeit. Die zwölfteilige Dokuserie \"Elefant, Tiger & Kids\" begleitet sie beim dreiwöchigem Praktikum in einem der schönsten Zoos Europas und stellt den Zooalltag aus einem ganz besonderen Blickwinkel dar. Die Dokuserie erweitert die erfolgreichste deutsche Zoo-Dokusoap \"Elefant, Tiger & Co.\" mit einem besonderen Blick auf jüngere Menschen, bei denen Tier- und Artenschutz Themen mit besonderer Relevanz sind.\n\n\nMitwirkende\n\nKamera: Kirsten Kofahl, Matthias Müller, Philip Schroeder\nBuch: Andrea Gentsch, Juliane Zeisler\nRegie: Andrea Gentsch"
+              },
+              "title":"Folge 5: Immer schön vorsichtig! (S01/E05)",
+              "updatedAt":"2024-09-29T13:12:32+02:00",
+              "webUrl":"https://www.ardmediathek.de/video/Y3JpZDovL21kci5kZS9zZW5kdW5nLzI4MjA0MC80MDQ4MzMtMzg1Mjgw"
+            },
+            "broadcastEnd":"2024-09-28T06:45:00+02:00",
+            "broadcastedOn":"2024-09-28T06:20:00+02:00",
+            "coreSubline":"Immer schön vorsichtig!",
+            "coreTitle":"Elefant, Tiger & Kids (5)",
+            "lastMod":"2024-09-29T13:12:32+02:00",
+            "numericId":"4001847771",
+            "subline":"Immer schön vorsichtig!",
+            "synopsis":"Auf gehts in die zweite Praktikumswoche! In der Oper Leipzig heißt es: Mutige vor. Hier gibt es Bienen, deren Honig abgefüllt werden muss. Denn im Zoo wartet schon der Lippenbär darauf, mit seiner Lieblingsspeise beschäftigt zu werden. Wer traut sich ran an die Bienen?\n\n\nSechs Kinder aus den unterschiedlichsten Regionen Deutschlands erleben im Zoo Leipzig eine abenteuerliche Zeit. Die zwölfteilige Dokuserie \"Elefant, Tiger & Kids\" begleitet sie beim dreiwöchigem Praktikum in einem der schönsten Zoos Europas und stellt den Zooalltag aus einem ganz besonderen Blickwinkel dar. Die Dokuserie erweitert die erfolgreichste deutsche Zoo-Dokusoap \"Elefant, Tiger & Co.\" mit einem besonderen Blick auf jüngere Menschen, bei denen Tier- und Artenschutz Themen mit besonderer Relevanz sind.\n\n"
+          },
+          {
+            "id":"66c4725256e0879f4460b214",
+            "links":{
+              "self":{
+                "type":"application/vnd.ard.page+json",
+                "title":"Elefant, Tiger & Kids (6)",
+                "href":"https://programm-api.ard.de/program/api/teaser?teaserId=66c4725256e0879f4460b214"
+              },
+              "target":{
+                "type":"application/vnd.ard.page+json",
+                "title":"Folge 6: Das gewinnen wir locker! (S01/E06)",
+                "urlId":"Y3JpZDovL21kci5kZS9zZW5kdW5nLzI4MjA0MC80MDQ4MzQtMzg1Mjgx",
+                "partner":"ard"
+              }
+            },
+            "type":"epg",
+            "title":"Elefant, Tiger & Kids (6)",
+            "duration":1200,
+            "images":{
+              "aspect16x9":{
+                "title":"Folge 6: Das gewinnen wir locker! (S01/E06)",
+                "text":"Folge 6: Das gewinnen wir locker! (S01/E06)",
+                "alt":"Folge 6: Das gewinnen wir locker! (S01/E06)",
+                "src":"https://api.ardmediathek.de/image-service/images/urn:ard:image:192bee29cf102a5c?w={width}",
+                "producerName":"ARD-Mediathek"
+              }
+            },
+            "channel":{
+              "id":"daserste",
+              "name":"Das Erste",
+              "main_channel_id":"daserste"
+            },
+            "trackingPiano":{
+              "widget_section":"Vormittags, 05:30-14:00 Uhr",
+              "teaser_title":"Elefant, Tiger & Kids (6)",
+              "teaser_recommended":false,
+              "teaser_institution_id":"urn:ard:institution:59ccb6ea77d75af5",
+              "teaser_institution":"Das Erste",
+              "teaser_id":"66c4725256e0879f4460b214",
+              "teaser_content_type":"Video"
+            },
+            "creationDate":"2024-09-30T19:18:14.000Z",
+            "heightUnits":9,
+            "beginNet":"2024-09-28T06:44:29+02:00",
+            "binaryFeatures":[
+              "UT"
+            ],
+            "video":{
+              "availableFrom":"2023-07-09T14:50:00+02:00",
+              "availableTo":"2029-10-02T17:00:00+02:00",
+              "broadcastedOn":"2023-08-08T14:50:00+02:00",
+              "createdAt":"2023-08-08T00:11:34+02:00",
+              "duration":1442,
+              "episodeNumber":6,
+              "externalMedia":[
+                {
+                  "mediaType":"IMAGE",
+                  "ratio":"16:9",
+                  "type":"foto",
+                  "url":"https://api.ardmediathek.de/image-service/images/urn:ard:image:192bee29cf102a5c?w=540&ch=da966055ca6b40d3",
+                  "versions":[
+                    {
+                      "ratio":"16:7",
+                      "url":"https://api.ardmediathek.de/image-service/images/urn:ard:image:525337c878866907?w=540&ch=806d2e720270376a"
+                    },
+                    {
+                      "ratio":"1:1",
+                      "url":"https://api.ardmediathek.de/image-service/images/urn:ard:image:22e53e09d993833f?w=540&ch=3164bad54bf39969"
+                    }
+                  ]
+                }
+              ],
+              "extras":[
+                {
+                  "index":null,
+                  "text":"1",
+                  "type":"UT"
+                },
+                {
+                  "index":null,
+                  "text":"Elefant, Tiger & Kids",
+                  "type":"broadcastTitle"
+                },
+                {
+                  "index":null,
+                  "text":"mdr",
+                  "type":"station"
+                }
+              ],
+              "fsk":"FSK_LEER",
+              "groupingTitle":"Elefant, Tiger & Kids",
+              "groupingWebUrl":"https://www.ardmediathek.de/sendung/Elefant%2C%20Tiger%20%26%20Kids/Y3JpZDovL21kci5kZS9zZW5kZXJlaWhlbi8xMDI3MWI4My04NGFiLTQwZmQtYWM5Yy01MmE2ZTc0YzM5YzE",
+              "id":"64d16c16457d840008346234",
+              "imageUrl":"https://api.ardmediathek.de/image-service/images/urn:ard:image:192bee29cf102a5c?w=540&ch=da966055ca6b40d3",
+              "seasonNumber":1,
+              "singleReport":false,
+              "source":"ARD-Mediathek",
+              "sourceId":"Y3JpZDovL21kci5kZS9zZW5kdW5nLzI4MjA0MC80MDQ4MzQtMzg1Mjgx",
+              "sourceUpdatedAt":"2024-09-26T16:33:26+02:00",
+              "tagIds":[
+
+              ],
+              "text":{
+                "short":"Team Wasserschwein tritt gegen Team Laufvogel an: Wer das größte Expertenwissen hat, darf sich vom Verlierer-Team bekochen lassen. Jakob möchte auf keinen Fall kochen und saugt jede Menge Wasserschweinwissen auf. Kalid dagegen muss sich für die Laufvogelküken erst einmal durch die Brennnesseln kämpfen. Wer wird wohl kochen müssen?\n\n\nMitwirkende\n\nKamera: Kirsten Kofahl, Matthias Müller, Philip Schroeder\nBuch: Andrea Gentsch, Juliane Zeisler\nRegie: Andrea Gentsch"
+              },
+              "title":"Folge 6: Das gewinnen wir locker! (S01/E06)",
+              "updatedAt":"2024-09-29T13:13:06+02:00",
+              "webUrl":"https://www.ardmediathek.de/video/Y3JpZDovL21kci5kZS9zZW5kdW5nLzI4MjA0MC80MDQ4MzQtMzg1Mjgx"
+            },
+            "broadcastEnd":"2024-09-28T07:05:00+02:00",
+            "broadcastedOn":"2024-09-28T06:45:00+02:00",
+            "coreSubline":"Das gewinnen wir locker!",
+            "coreTitle":"Elefant, Tiger & Kids (6)",
+            "lastMod":"2024-09-29T13:13:06+02:00",
+            "numericId":"4001847779",
+            "subline":"Das gewinnen wir locker!",
+            "synopsis":"Team Wasserschwein tritt gegen Team Laufvogel an: Wer das größte Expertenwissen hat, darf sich vom Verlierer-Team bekochen lassen. Jakob möchte auf keinen Fall kochen und saugt jede Menge Wasserschweinwissen auf. Kalid dagegen muss sich für die Laufvogelküken erst einmal durch die Brennnesseln kämpfen. Wer wird wohl kochen müssen?\n\n"
+          },
+          {
+            "id":"66c4725256e0879f4460b212",
+            "links":{
+              "self":{
+                "type":"application/vnd.ard.page+json",
+                "title":"Shaun das Schaf",
+                "href":"https://programm-api.ard.de/program/api/teaser?teaserId=66c4725256e0879f4460b212"
+              }
+            },
+            "type":"epg",
+            "title":"Shaun das Schaf",
+            "duration":600,
+            "images":{
+              "aspect16x9":{
+                "title":"Logo",
+                "text":null,
+                "alt":"Logo",
+                "src":"https://programm-api.ard.de/images/MjAyMS0wNS0wMQ==/608ca65f0b51af0008d814a6_1619830367713.jpg?w={width}",
+                "producerName":""
+              }
+            },
+            "channel":{
+              "id":"daserste",
+              "name":"Das Erste",
+              "main_channel_id":"daserste"
+            },
+            "trackingPiano":{
+              "widget_section":"Vormittags, 05:30-14:00 Uhr",
+              "teaser_title":"Shaun das Schaf",
+              "teaser_recommended":false,
+              "teaser_institution_id":"urn:ard:institution:59ccb6ea77d75af5",
+              "teaser_institution":"Das Erste",
+              "teaser_id":"66c4725256e0879f4460b212",
+              "teaser_content_type":"Sendung"
+            },
+            "creationDate":"2024-09-30T19:18:14.000Z",
+            "heightUnits":8,
+            "beginNet":"2024-09-28T07:08:31+02:00",
+            "maturityContentRating":"FSK0",
+            "broadcastEnd":"2024-09-28T07:15:00+02:00",
+            "broadcastedOn":"2024-09-28T07:05:00+02:00",
+            "coreSubline":"Babysitter Bitzer",
+            "coreTitle":"Shaun das Schaf",
+            "lastMod":"2024-09-28T07:08:32+02:00",
+            "numericId":"4001847892",
+            "subline":"Babysitter Bitzer",
+            "synopsis":"Shaun geht mit den Mädels aus. Bitzer hütet Timmy. Aber der Job als Babysitter hat seine Tücken: Erst will Timmy nicht essen, dann weigert er sich zu baden. Der Kleine will reiten und Bitzer ist sein Pferd! Bitzer macht gute Miene zum bösen Spiel, aber Timmy geht es nicht schnell genug."
+          }
+        ],
+        [
+          {
+            "id":"66c4725156e0879f4460b1f2",
+            "links":{
+              "self":{
+                "type":"application/vnd.ard.page+json",
+                "title":"Die Versöhnung",
+                "href":"https://programm-api.ard.de/program/api/teaser?teaserId=66c4725156e0879f4460b1f2"
+              },
+              "target":{
+                "type":"application/vnd.ard.page+json",
+                "title":"Die Versöhnung",
+                "urlId":"Y3JpZDovL2Rhc2Vyc3RlLmRlL2Zlcm5zZWhmaWxtZSBpbSBlcnN0ZW4vMjAyNC0wOS0yOF8xNC0wMC1NRVNa",
+                "partner":"ard"
+              }
+            },
+            "type":"epg",
+            "title":"Die Versöhnung",
+            "duration":5400,
+            "images":{
+              "aspect16x9":{
+                "title":"Die Versöhnung",
+                "text":"Die Versöhnung",
+                "alt":"Die Versöhnung",
+                "src":"https://api.ardmediathek.de/image-service/images/urn:ard:image:1a82552fa31cde80?w={width}",
+                "producerName":"ARD-Mediathek"
+              }
+            },
+            "channel":{
+              "id":"daserste",
+              "name":"Das Erste",
+              "main_channel_id":"daserste"
+            },
+            "trackingPiano":{
+              "widget_section":"Nachmittags, 14:00-20:15 Uhr",
+              "teaser_title":"Die Versöhnung",
+              "teaser_recommended":false,
+              "teaser_institution_id":"urn:ard:institution:59ccb6ea77d75af5",
+              "teaser_institution":"Das Erste",
+              "teaser_id":"66c4725156e0879f4460b1f2",
+              "teaser_content_type":"Video"
+            },
+            "creationDate":"2024-09-30T19:18:14.000Z",
+            "heightUnits":31,
+            "beginNet":"2024-09-28T14:04:47+02:00",
+            "binaryFeatures":[
+              "UT"
+            ],
+            "video":{
+              "availableFrom":"2024-09-28T00:00:00+02:00",
+              "availableTo":"2025-09-28T13:59:00+02:00",
+              "broadcastedOn":"2024-09-28T14:00:00+02:00",
+              "createdAt":"2024-09-28T01:13:40+02:00",
+              "duration":5051,
+              "episodeNumber":null,
+              "externalMedia":[
+                {
+                  "mediaType":"IMAGE",
+                  "ratio":"16:9",
+                  "type":"foto",
+                  "url":"https://api.ardmediathek.de/image-service/images/urn:ard:image:1a82552fa31cde80?w=540&ch=da4f811b77d09236",
+                  "versions":[
+                    {
+                      "ratio":"16:7",
+                      "url":"https://api.ardmediathek.de/image-service/images/urn:ard:image:e542513291ca0f04?w=540&ch=29d057b0bf2e7dba"
+                    },
+                    {
+                      "ratio":"3:4",
+                      "url":"https://api.ardmediathek.de/image-service/images/urn:ard:image:dc4652a50528ced3?w=540&ch=f761328d452d42b2"
+                    },
+                    {
+                      "ratio":"1:1",
+                      "url":"https://api.ardmediathek.de/image-service/images/urn:ard:image:6337c9aeb242e6c5?w=540&ch=037e246598b1b46b"
+                    }
+                  ]
+                }
+              ],
+              "extras":[
+                {
+                  "index":null,
+                  "text":"1",
+                  "type":"UT"
+                },
+                {
+                  "index":null,
+                  "text":"Filme in der ARD",
+                  "type":"broadcastTitle"
+                },
+                {
+                  "index":null,
+                  "text":"daserste",
+                  "type":"station"
+                }
+              ],
+              "fsk":"FSK_LEER",
+              "groupingTitle":"Filme in der ARD",
+              "groupingWebUrl":"https://www.ardmediathek.de/sendung/Filme%20in%20der%20ARD/Y3JpZDovL2Rhc2Vyc3RlLmRlL2Zlcm5zZWhmaWxtZSBpbSBlcnN0ZW4",
+              "id":"66f73c24393207b5c1d62560",
+              "imageUrl":"https://api.ardmediathek.de/image-service/images/urn:ard:image:1a82552fa31cde80?w=540&ch=da4f811b77d09236",
+              "seasonNumber":null,
+              "singleReport":false,
+              "source":"ARD-Mediathek",
+              "sourceId":"Y3JpZDovL2Rhc2Vyc3RlLmRlL2Zlcm5zZWhmaWxtZSBpbSBlcnN0ZW4vMjAyNC0wOS0yOF8xNC0wMC1NRVNa",
+              "sourceUpdatedAt":"2024-09-24T11:18:34+02:00",
+              "tagIds":[
+
+              ],
+              "text":{
+                "short":"Spielfilm Deutschland/Österreich 2008\r\n\r\nZehn Jahre ist es her, seit Benedikt Stirner (Markus Böker) sein Zuhause in einem Bergdorf in Bayern verlassen hat. Damals war sein jüngster Bruder bei einer gemeinsamen Klettertour abgestürzt und ums Leben gekommen: ein tragischer Unfall, für den der Vater (Kurt Weinzierl) Benedikt verantwortlich macht. Nun kehrt der verstoßene Sohn auf Bitten der Mutter (Gertrud Roll) nach Hause zurück – der Vater liegt im Sterben und Benedikt soll sich mit ihm versöhnen. Doch der strenge Familienpatriarch reagiert abweisend auf den überraschenden Besuch. Er kann Benedikt den Tod des Jüngsten noch immer nicht verzeihen. Auch Anton (Sebastian Bezzel), der Mittlere der Brüder, ist alles andere als erfreut über das plötzliche Auftauchen des Ältesten. Anton, der sich vom Vater immer zurückgesetzt fühlte, hat aus dem elterlichen Hof inzwischen einen florierenden Betrieb gemacht, kämpft jedoch immer noch um die Anerkennung des Vaters. Zudem ist Anton mittlerweile mit Benedikts großer Liebe Johanna (Victoria Mayer) verlobt. Die beiden wollen bald heiraten – doch nun fürchtet Anton, dass sein Bruder ihm nicht nur die Gunst des Vaters abspenstig machen, sondern auch Johanna wegnehmen könnte. Tatsächlich dauert es nicht lange, bis die alte Liebe erneut aufflammt und Benedikt sich Antons offenen Hass zuzieht. Dabei könnte Anton als Einziger aufklären, dass Benedikt keine Schuld am Unfalltod des jüngsten Bruders trägt. Ohne dies zu ahnen, aufgewühlt von der erhofften Aussöhnung mit dem Vater, der Rivalität mit dem Bruder und den wiedererwachten Gefühlen für Johanna, beschließt Benedikt abzureisen, um nicht erneut Unheil anzurichten. Blind vor Eifersucht sinnt Anton derweil auf Rache. Am Tag von Benedikts Abreise droht der Streit zu eskalieren. \r\n\r\nMit Markus Böker, Victoria Mayer, Sebastian Bezzel, Gertrud Roll, Kurt Weinzierl u.a. | Buch: Maureen Herzfeld und Martin Kluger | Regie: Olaf Kreinsen\r\n"
+              },
+              "title":"Die Versöhnung",
+              "updatedAt":"2024-09-28T01:13:40+02:00",
+              "webUrl":"https://www.ardmediathek.de/video/Y3JpZDovL2Rhc2Vyc3RlLmRlL2Zlcm5zZWhmaWxtZSBpbSBlcnN0ZW4vMjAyNC0wOS0yOF8xNC0wMC1NRVNa"
+            },
+            "broadcastEnd":"2024-09-28T15:30:00+02:00",
+            "broadcastedOn":"2024-09-28T14:00:00+02:00",
+            "coreSubline":"Spielfilm Österreich/Deutschland 2008",
+            "coreTitle":"Die Versöhnung",
+            "lastMod":"2024-09-28T16:33:34+02:00",
+            "numericId":"4001847849",
+            "subline":"Spielfilm Österreich/Deutschland 2008",
+            "synopsis":"Spielfilm Deutschland/Österreich 2008\r\n\r\nZehn Jahre ist es her, seit Benedikt Stirner (Markus Böker) sein Zuhause in einem Bergdorf in Bayern verlassen hat. Damals war sein jüngster Bruder bei einer gemeinsamen Klettertour abgestürzt und ums Leben gekommen: ein tragischer Unfall, für den der Vater (Kurt Weinzierl) Benedikt verantwortlich macht. Nun kehrt der verstoßene Sohn auf Bitten der Mutter (Gertrud Roll) nach Hause zurück – der Vater liegt im Sterben und Benedikt soll sich mit ihm versöhnen. Doch der strenge Familienpatriarch reagiert abweisend auf den überraschenden Besuch. Er kann Benedikt den Tod des Jüngsten noch immer nicht verzeihen. Auch Anton (Sebastian Bezzel), der Mittlere der Brüder, ist alles andere als erfreut über das plötzliche Auftauchen des Ältesten. Anton, der sich vom Vater immer zurückgesetzt fühlte, hat aus dem elterlichen Hof inzwischen einen florierenden Betrieb gemacht, kämpft jedoch immer noch um die Anerkennung des Vaters. Zudem ist Anton mittlerweile mit Benedikts großer Liebe Johanna (Victoria Mayer) verlobt. Die beiden wollen bald heiraten – doch nun fürchtet Anton, dass sein Bruder ihm nicht nur die Gunst des Vaters abspenstig machen, sondern auch Johanna wegnehmen könnte. Tatsächlich dauert es nicht lange, bis die alte Liebe erneut aufflammt und Benedikt sich Antons offenen Hass zuzieht. Dabei könnte Anton als Einziger aufklären, dass Benedikt keine Schuld am Unfalltod des jüngsten Bruders trägt. Ohne dies zu ahnen, aufgewühlt von der erhofften Aussöhnung mit dem Vater, der Rivalität mit dem Bruder und den wiedererwachten Gefühlen für Johanna, beschließt Benedikt abzureisen, um nicht erneut Unheil anzurichten. Blind vor Eifersucht sinnt Anton derweil auf Rache. Am Tag von Benedikts Abreise droht der Streit zu eskalieren. \r\n\r\nMit Markus Böker, Victoria Mayer, Sebastian Bezzel, Gertrud Roll, Kurt Weinzierl u.a. | Buch: Maureen Herzfeld und Martin Kluger | Regie: Olaf Kreinsen\r\n"
+          },
+          {
+            "id":"66c4725156e0879f4460b1f0",
+            "links":{
+              "self":{
+                "type":"application/vnd.ard.page+json",
+                "title":"Sturköpfe",
+                "href":"https://programm-api.ard.de/program/api/teaser?teaserId=66c4725156e0879f4460b1f0"
+              },
+              "target":{
+                "type":"application/vnd.ard.page+json",
+                "title":"Sturköpfe",
+                "urlId":"Y3JpZDovL2Rhc2Vyc3RlLmRlL2Zlcm5zZWhmaWxtZSBpbSBlcnN0ZW4vMjAyNC0wOS0yOF8xNS0zMC1NRVNa",
+                "partner":"ard"
+              }
+            },
+            "type":"epg",
+            "title":"Sturköpfe",
+            "duration":5400,
+            "images":{
+              "aspect16x9":{
+                "title":"Sturköpfe",
+                "text":"Sturköpfe",
+                "alt":"Sturköpfe",
+                "src":"https://api.ardmediathek.de/image-service/images/urn:ard:image:c025edf53a9bdb0e?w={width}",
+                "producerName":"ARD-Mediathek"
+              }
+            },
+            "channel":{
+              "id":"daserste",
+              "name":"Das Erste",
+              "main_channel_id":"daserste"
+            },
+            "trackingPiano":{
+              "widget_section":"Nachmittags, 14:00-20:15 Uhr",
+              "teaser_title":"Sturköpfe",
+              "teaser_recommended":false,
+              "teaser_institution_id":"urn:ard:institution:59ccb6ea77d75af5",
+              "teaser_institution":"Das Erste",
+              "teaser_id":"66c4725156e0879f4460b1f0",
+              "teaser_content_type":"Video"
+            },
+            "creationDate":"2024-09-30T19:18:14.000Z",
+            "heightUnits":31,
+            "beginNet":"2024-09-28T15:30:18+02:00",
+            "binaryFeatures":[
+              "AD",
+              "UT"
+            ],
+            "maturityContentRating":"FSK6",
+            "video":{
+              "availableFrom":"2024-09-28T00:00:00+02:00",
+              "availableTo":"2025-09-28T15:29:00+02:00",
+              "broadcastedOn":"2024-09-28T15:30:00+02:00",
+              "createdAt":"2024-09-28T01:13:40+02:00",
+              "duration":5330,
+              "episodeNumber":null,
+              "externalMedia":[
+                {
+                  "mediaType":"IMAGE",
+                  "ratio":"16:9",
+                  "type":"foto",
+                  "url":"https://api.ardmediathek.de/image-service/images/urn:ard:image:c025edf53a9bdb0e?w=540&ch=04153e9af58f1dd8",
+                  "versions":[
+                    {
+                      "ratio":"16:7",
+                      "url":"https://api.ardmediathek.de/image-service/images/urn:ard:image:3fe5e9e8084d0a8a?w=540&ch=0d21cf827325897a"
+                    },
+                    {
+                      "ratio":"3:4",
+                      "url":"https://api.ardmediathek.de/image-service/images/urn:ard:image:1a1faa28e988d114?w=540&ch=0a779d04ec22974b"
+                    },
+                    {
+                      "ratio":"1:1",
+                      "url":"https://api.ardmediathek.de/image-service/images/urn:ard:image:7f5006c458594770?w=540&ch=d3d64949c3b7f23d"
+                    }
+                  ]
+                }
+              ],
+              "extras":[
+                {
+                  "index":null,
+                  "text":"1",
+                  "type":"UT"
+                },
+                {
+                  "index":null,
+                  "text":"1",
+                  "type":"AD"
+                },
+                {
+                  "index":null,
+                  "text":"Filme in der ARD",
+                  "type":"broadcastTitle"
+                },
+                {
+                  "index":null,
+                  "text":"daserste",
+                  "type":"station"
+                }
+              ],
+              "fsk":"FSK_6",
+              "groupingTitle":"Filme in der ARD",
+              "groupingWebUrl":"https://www.ardmediathek.de/sendung/Filme%20in%20der%20ARD/Y3JpZDovL2Rhc2Vyc3RlLmRlL2Zlcm5zZWhmaWxtZSBpbSBlcnN0ZW4",
+              "id":"66f73c24393207b5c1d62561",
+              "imageUrl":"https://api.ardmediathek.de/image-service/images/urn:ard:image:c025edf53a9bdb0e?w=540&ch=04153e9af58f1dd8",
+              "seasonNumber":null,
+              "singleReport":false,
+              "source":"ARD-Mediathek",
+              "sourceId":"Y3JpZDovL2Rhc2Vyc3RlLmRlL2Zlcm5zZWhmaWxtZSBpbSBlcnN0ZW4vMjAyNC0wOS0yOF8xNS0zMC1NRVNa",
+              "sourceUpdatedAt":"2024-09-24T11:22:47+02:00",
+              "tagIds":[
+
+              ],
+              "text":{
+                "short":"Spielfilm Deutschland 2015\r\n\r\nVon einem Erfolgsmenschen ist Sissi Fischbacher (Alwara Höfels) weit entfernt. Mit Ende 20 wohnt sie noch immer bei ihrer Mutter (Johanna Gastdorf) und auch beruflich steht sie vor einem Neuanfang. Sissi will von Erzieherin auf Reha-Trainerin für Blinde umschulen, doch ausgerechnet beim letzten entscheidenden Test verliert sie die Nerven und rasselt durch die Prüfung. Dennoch gibt ihr Ausbilder (Stefan Merki) ihr noch eine Chance: Sissi soll sich um den erblindeten Stahlfabrikanten Theo Olsson (Peter Haber) kümmern. Einen schwierigeren ersten Schüler hätte Sissi kaum bekommen können. Theo ist ein erfolgreicher Geschäftsmann, aber privat hat er außer einer gescheiterten Ehe und einem sehr angespannten Verhältnis zu seinem Sohn Jens (Sönke Möhring) wenig vorzuweisen. Ohnehin ungeduldig und herrisch, ist Theo durch die Erblindung zusätzlich verbittert und lässt niemanden an sich heran. Schon gar nicht eine unerfahrene junge Frau, die aus einfachen Verhältnissen stammt. Doch so einfach lässt Sissi sich nicht ins Bockshorn jagen. Wenn Theo sie gar zu sehr provoziert, lässt sie ihn auch mal ungebremst gegen Wände laufen. Er dagegen erspürt mit geradezu beängstigender Sicherheit ihre Schwachpunkte – und hat keine Hemmungen, Sissi damit zu konfrontieren. Nicht immer leicht zu ertragen, und Sissi ist mehr als einmal versucht, alles hinzuschmeißen. Aber sie fühlt auch die Wahrheit, die hinter Theos verletzenden Worten steckt, und beginnt, ihr Leben in die eigenen Hände zu nehmen und sich von ihrer Mutter zu lösen. Und auch Theo lernt durch Sissi nicht nur, wie er sich als Blinder durch die Welt bewegen kann. \r\n\r\nMit Alwara Höfels, Peter Haber, Sönke Möhring, Johanna Gastdorf, Gundi Ellert u.a. | Buch: Dominique Lorenz | Regie: Pia Strietmann"
+              },
+              "title":"Sturköpfe",
+              "updatedAt":"2024-09-28T01:13:40+02:00",
+              "webUrl":"https://www.ardmediathek.de/video/Y3JpZDovL2Rhc2Vyc3RlLmRlL2Zlcm5zZWhmaWxtZSBpbSBlcnN0ZW4vMjAyNC0wOS0yOF8xNS0zMC1NRVNa"
+            },
+            "broadcastEnd":"2024-09-28T17:00:00+02:00",
+            "broadcastedOn":"2024-09-28T15:30:00+02:00",
+            "coreSubline":"Spielfilm Deutschland 2015",
+            "coreTitle":"Sturköpfe",
+            "lastMod":"2024-09-28T16:33:36+02:00",
+            "numericId":"4001847792",
+            "subline":"Spielfilm Deutschland 2015",
+            "synopsis":"Spielfilm Deutschland 2015\r\n\r\nVon einem Erfolgsmenschen ist Sissi Fischbacher (Alwara Höfels) weit entfernt. Mit Ende 20 wohnt sie noch immer bei ihrer Mutter (Johanna Gastdorf) und auch beruflich steht sie vor einem Neuanfang. Sissi will von Erzieherin auf Reha-Trainerin für Blinde umschulen, doch ausgerechnet beim letzten entscheidenden Test verliert sie die Nerven und rasselt durch die Prüfung. Dennoch gibt ihr Ausbilder (Stefan Merki) ihr noch eine Chance: Sissi soll sich um den erblindeten Stahlfabrikanten Theo Olsson (Peter Haber) kümmern. Einen schwierigeren ersten Schüler hätte Sissi kaum bekommen können. Theo ist ein erfolgreicher Geschäftsmann, aber privat hat er außer einer gescheiterten Ehe und einem sehr angespannten Verhältnis zu seinem Sohn Jens (Sönke Möhring) wenig vorzuweisen. Ohnehin ungeduldig und herrisch, ist Theo durch die Erblindung zusätzlich verbittert und lässt niemanden an sich heran. Schon gar nicht eine unerfahrene junge Frau, die aus einfachen Verhältnissen stammt. Doch so einfach lässt Sissi sich nicht ins Bockshorn jagen. Wenn Theo sie gar zu sehr provoziert, lässt sie ihn auch mal ungebremst gegen Wände laufen. Er dagegen erspürt mit geradezu beängstigender Sicherheit ihre Schwachpunkte – und hat keine Hemmungen, Sissi damit zu konfrontieren. Nicht immer leicht zu ertragen, und Sissi ist mehr als einmal versucht, alles hinzuschmeißen. Aber sie fühlt auch die Wahrheit, die hinter Theos verletzenden Worten steckt, und beginnt, ihr Leben in die eigenen Hände zu nehmen und sich von ihrer Mutter zu lösen. Und auch Theo lernt durch Sissi nicht nur, wie er sich als Blinder durch die Welt bewegen kann. \r\n\r\nMit Alwara Höfels, Peter Haber, Sönke Möhring, Johanna Gastdorf, Gundi Ellert u.a. | Buch: Dominique Lorenz | Regie: Pia Strietmann"
+          }
+        ],
+        [
+          {
+            "id":"66f813bb36fb50e0e883118b",
+            "links":{
+              "self":{
+                "type":"application/vnd.ard.page+json",
+                "title":"Brennpunkt: Hisbollah-Chef getötet - Eskalation in Nahost?",
+                "href":"https://programm-api.ard.de/program/api/teaser?teaserId=66f813bb36fb50e0e883118b"
+              },
+              "target":{
+                "type":"application/vnd.ard.page+json",
+                "title":"Brennpunkt: Hisbollah-Chef getötet - Eskalation in Nahost?",
+                "urlId":"Y3JpZDovL3dkci5kZS9CZWl0cmFnLXNvcGhvcmEtMmIwZDg4NDMtMzQ0YS00OTZmLTlhNDYtNGY3ODk5MjE2MmFi",
+                "partner":"ard"
+              }
+            },
+            "type":"epg",
+            "title":"Brennpunkt: Hisbollah-Chef getötet - Eskalation in Nahost?",
+            "duration":600,
+            "images":{
+              "aspect16x9":{
+                "title":"Brennpunkt: Hisbollah-Chef getötet - Eskalation in Nahost?",
+                "text":"Brennpunkt: Hisbollah-Chef getötet - Eskalation in Nahost?",
+                "alt":"Brennpunkt: Hisbollah-Chef getötet - Eskalation in Nahost?",
+                "src":"https://api.ardmediathek.de/image-service/images/urn:ard:image:1f1299cc0103e8a1?w={width}",
+                "producerName":"ARD-Mediathek"
+              }
+            },
+            "channel":{
+              "id":"daserste",
+              "name":"Das Erste",
+              "main_channel_id":"daserste"
+            },
+            "trackingPiano":{
+              "widget_section":"Abends, 20:15-05:30 Uhr",
+              "teaser_title":"Brennpunkt: Hisbollah-Chef getötet - Eskalation in Nahost?",
+              "teaser_recommended":false,
+              "teaser_institution_id":"urn:ard:institution:59ccb6ea77d75af5",
+              "teaser_institution":"Das Erste",
+              "teaser_id":"66f813bb36fb50e0e883118b",
+              "teaser_content_type":"Video"
+            },
+            "creationDate":"2024-09-30T19:18:14.000Z",
+            "heightUnits":27,
+            "beginNet":"2024-09-28T20:15:00+02:00",
+            "binaryFeatures":[
+              "DGS"
+            ],
+            "video":{
+              "availableFrom":"2024-09-28T20:15:00+02:00",
+              "availableTo":"2026-09-28T20:25:00+02:00",
+              "broadcastedOn":"2024-09-28T20:15:00+02:00",
+              "createdAt":"2024-09-28T20:56:31+02:00",
+              "duration":836,
+              "episodeNumber":null,
+              "externalMedia":[
+                {
+                  "mediaType":"IMAGE",
+                  "ratio":"16:9",
+                  "type":"foto",
+                  "url":"https://api.ardmediathek.de/image-service/images/urn:ard:image:1f1299cc0103e8a1?w=540&ch=3cfdfebc52af3970",
+                  "versions":[
+                    {
+                      "ratio":"16:7",
+                      "url":"https://api.ardmediathek.de/image-service/images/urn:ard:image:b512edc3712d6fe9?w=540&ch=8243cc9f663ddc71"
+                    },
+                    {
+                      "ratio":"1:1",
+                      "url":"https://api.ardmediathek.de/image-service/images/urn:ard:image:f9ba2341ed4ffc7c?w=540&ch=4dcd4db9c3d532b5"
+                    }
+                  ]
+                }
+              ],
+              "extras":[
+                {
+                  "index":null,
+                  "text":"1",
+                  "type":"DGS"
+                },
+                {
+                  "index":null,
+                  "text":"Brennpunkt",
+                  "type":"broadcastTitle"
+                },
+                {
+                  "index":null,
+                  "text":"daserste",
+                  "type":"station"
+                }
+              ],
+              "fsk":"FSK_LEER",
+              "groupingTitle":"Brennpunkt",
+              "groupingWebUrl":"https://www.ardmediathek.de/sendung/Brennpunkt/Y3JpZDovL2Rhc2Vyc3RlLmRlL2JyZW5ucHVua3Q",
+              "id":"66f8515fda2bd018c8536e58",
+              "imageUrl":"https://api.ardmediathek.de/image-service/images/urn:ard:image:1f1299cc0103e8a1?w=540&ch=3cfdfebc52af3970",
+              "seasonNumber":null,
+              "singleReport":false,
+              "source":"ARD-Mediathek",
+              "sourceId":"Y3JpZDovL3dkci5kZS9CZWl0cmFnLXNvcGhvcmEtMmIwZDg4NDMtMzQ0YS00OTZmLTlhNDYtNGY3ODk5MjE2MmFi",
+              "sourceUpdatedAt":"2024-09-28T20:46:09+02:00",
+              "tagIds":[
+
+              ],
+              "text":{
+                "short":"Bei einem israelischen Angriff auf die libanesische Hauptstadt Beirut wurde Hisbollah-Chef Hassan Nasrallah getötet. Wie reagiert nun die Terrormiliz Hisbollah? Wie verhält sich der Iran, der seit Jahren die Hisbollah militärisch und finanziell unterstützt? Und wie geht Israel weiter vor? Der Brennpunkt beleuchtet die Hintergründe der aktuellen Entwicklungen.\n\nModeration: Christian Nitsche\r\n\r\n"
+              },
+              "title":"Brennpunkt: Hisbollah-Chef getötet - Eskalation in Nahost?",
+              "updatedAt":"2024-09-28T20:56:31+02:00",
+              "webUrl":"https://www.ardmediathek.de/video/Y3JpZDovL3dkci5kZS9CZWl0cmFnLXNvcGhvcmEtMmIwZDg4NDMtMzQ0YS00OTZmLTlhNDYtNGY3ODk5MjE2MmFi"
+            },
+            "broadcastEnd":"2024-09-28T20:25:00+02:00",
+            "broadcastedOn":"2024-09-28T20:15:00+02:00",
+            "coreSubline":"Moderation: Christian Nitsche",
+            "coreTitle":"Brennpunkt: Hisbollah-Chef getötet - Eskalation in Nahost?",
+            "lastMod":"2024-09-28T20:56:31+02:00",
+            "numericId":"4002000923",
+            "subline":"Moderation: Christian Nitsche",
+            "synopsis":"Bei einem israelischen Angriff auf die libanesische Hauptstadt Beirut wurde Hisbollah-Chef Hassan Nasrallah getötet. Wie reagiert nun die Terrormiliz Hisbollah? Wie verhält sich der Iran, der seit Jahren die Hisbollah militärisch und finanziell unterstützt? Und wie geht Israel weiter vor? Der Brennpunkt beleuchtet die Hintergründe der aktuellen Entwicklungen.\n\nModeration: Christian Nitsche\r\n\r\n"
+          },
+          {
+            "id":"66c4725156e0879f4460b1e0",
+            "links":{
+              "self":{
+                "type":"application/vnd.ard.page+json",
+                "title":"Die stillen Mörder",
+                "href":"https://programm-api.ard.de/program/api/teaser?teaserId=66c4725156e0879f4460b1e0"
+              },
+              "target":{
+                "type":"application/vnd.ard.page+json",
+                "title":"Die stillen Mörder",
+                "urlId":"Y3JpZDovL2Rhc2Vyc3RlLmRlL2RpZS1zdGlsbGVuLW1vZXJkZXIvMjAyNC0wOS0yOF8yMC0xNS1NRVNa",
+                "partner":"ard"
+              }
+            },
+            "type":"epg",
+            "title":"Die stillen Mörder",
+            "duration":5400,
+            "images":{
+              "aspect16x9":{
+                "title":"Die stillen Mörder",
+                "text":"Die stillen Mörder",
+                "alt":"Die stillen Mörder",
+                "src":"https://api.ardmediathek.de/image-service/images/urn:ard:image:51402891e48747d9?w={width}",
+                "producerName":"ARD-Mediathek"
+              }
+            },
+            "channel":{
+              "id":"daserste",
+              "name":"Das Erste",
+              "main_channel_id":"daserste"
+            },
+            "trackingPiano":{
+              "widget_section":"Abends, 20:15-05:30 Uhr",
+              "teaser_title":"Die stillen Mörder",
+              "teaser_recommended":false,
+              "teaser_institution_id":"urn:ard:institution:59ccb6ea77d75af5",
+              "teaser_institution":"Das Erste",
+              "teaser_id":"66c4725156e0879f4460b1e0",
+              "teaser_content_type":"Video"
+            },
+            "creationDate":"2024-09-30T19:18:14.000Z",
+            "heightUnits":32,
+            "beginNet":"2024-09-28T20:29:26+02:00",
+            "binaryFeatures":[
+              "AD",
+              "UT"
+            ],
+            "video":{
+              "availableFrom":"2024-09-26T17:00:00+02:00",
+              "availableTo":"2025-09-28T23:59:00+02:00",
+              "broadcastedOn":"2024-09-28T20:15:00+02:00",
+              "createdAt":"2024-09-27T10:30:00+02:00",
+              "duration":5318,
+              "episodeNumber":null,
+              "externalMedia":[
+                {
+                  "mediaType":"IMAGE",
+                  "ratio":"16:9",
+                  "type":"foto",
+                  "url":"https://api.ardmediathek.de/image-service/images/urn:ard:image:51402891e48747d9?w=540&ch=d05243296f3efebf",
+                  "versions":[
+
+                  ]
+                }
+              ],
+              "extras":[
+                {
+                  "index":null,
+                  "text":"1",
+                  "type":"UT"
+                },
+                {
+                  "index":null,
+                  "text":"1",
+                  "type":"AD"
+                },
+                {
+                  "index":null,
+                  "text":"Die stillen Mörder",
+                  "type":"broadcastTitle"
+                },
+                {
+                  "index":null,
+                  "text":"ard",
+                  "type":"station"
+                }
+              ],
+              "fsk":"FSK_LEER",
+              "groupingTitle":null,
+              "id":"66f66d08da2bd018c8534875",
+              "imageUrl":"https://api.ardmediathek.de/image-service/images/urn:ard:image:51402891e48747d9?w=540&ch=d05243296f3efebf",
+              "seasonNumber":null,
+              "singleReport":false,
+              "source":"ARD-Mediathek",
+              "sourceId":"Y3JpZDovL2Rhc2Vyc3RlLmRlL2RpZS1zdGlsbGVuLW1vZXJkZXIvMjAyNC0wOS0yOF8yMC0xNS1NRVNa",
+              "sourceUpdatedAt":"2024-09-25T09:09:30+02:00",
+              "tagIds":[
+
+              ],
+              "text":{
+                "short":"Spielfilm Deutschland 2023\r\n\r\nDie junge Anwältin Mia Stocker (Milena Tscharntke) tritt ihre erste Arbeitsstelle in der renommierten Kanzlei ihres Vaters (Joachim Raaf) an. Mia ist ohne ihren Vater aufgewachsen, umso größer ist für sie die Chance und die Herausforderung, ihm endlich näherzukommen. Ihr erster Fall scheint reine Routine zu sein: In einem Pflegeheim stirbt ein alter Herr an einer falschen Medikation. Mia vertritt den Betreiber des Pflegeheims, Richard Willenborg (Matthias Matschke), einen alten Freund ihres Vaters. Zusammen mit ihrem ehrgeizigen Kollegen Jan Wilke (Franz Hartwig) gelingt es, die Schadensersatzklage abzuwehren und die Schuld auf die Pflegerin abzuwälzen: Dana Kowalczyk (Maria Magdalena Wardzinska) hat offensichtlich aus Überforderung die Überdosis eines Beruhigungsmittels verabreicht. Doch so einfach liegen die Dinge nicht.\r\n\r\nMit Milena Tscharntke, Joachim Raaf, Franz Hartwig, Matthias Matschke, Mignon Remé u.a. | Buch: Martin Dolejs und Christine Heinlein | Regie: Till Endemann"
+              },
+              "title":"Die stillen Mörder",
+              "updatedAt":"2024-09-27T10:30:06+02:00",
+              "webUrl":"https://www.ardmediathek.de/video/Y3JpZDovL2Rhc2Vyc3RlLmRlL2RpZS1zdGlsbGVuLW1vZXJkZXIvMjAyNC0wOS0yOF8yMC0xNS1NRVNa"
+            },
+            "broadcastEnd":"2024-09-28T21:55:00+02:00",
+            "broadcastedOn":"2024-09-28T20:25:00+02:00",
+            "coreSubline":"Fernsehfilm Deutschland 2023",
+            "coreTitle":"Die stillen Mörder",
+            "lastMod":"2024-09-28T20:29:26+02:00",
+            "numericId":"4001847833",
+            "subline":"Fernsehfilm Deutschland 2023",
+            "synopsis":"Spielfilm Deutschland 2023\r\n\r\nDie junge Anwältin Mia Stocker (Milena Tscharntke) tritt ihre erste Arbeitsstelle in der renommierten Kanzlei ihres Vaters (Joachim Raaf) an. Mia ist ohne ihren Vater aufgewachsen, umso größer ist für sie die Chance und die Herausforderung, ihm endlich näherzukommen. Ihr erster Fall scheint reine Routine zu sein: In einem Pflegeheim stirbt ein alter Herr an einer falschen Medikation. Mia vertritt den Betreiber des Pflegeheims, Richard Willenborg (Matthias Matschke), einen alten Freund ihres Vaters. Zusammen mit ihrem ehrgeizigen Kollegen Jan Wilke (Franz Hartwig) gelingt es, die Schadensersatzklage abzuwehren und die Schuld auf die Pflegerin abzuwälzen: Dana Kowalczyk (Maria Magdalena Wardzinska) hat offensichtlich aus Überforderung die Überdosis eines Beruhigungsmittels verabreicht. Doch so einfach liegen die Dinge nicht.\r\n\r\nMit Milena Tscharntke, Joachim Raaf, Franz Hartwig, Matthias Matschke, Mignon Remé u.a. | Buch: Martin Dolejs und Christine Heinlein | Regie: Till Endemann"
+          },
+          {
+            "id":"66c4725156e0879f4460b1de",
+            "links":{
+              "self":{
+                "type":"application/vnd.ard.page+json",
+                "title":"Hartwig Seeler - Im Labyrinth der Rache",
+                "href":"https://programm-api.ard.de/program/api/teaser?teaserId=66c4725156e0879f4460b1de"
+              },
+              "target":{
+                "type":"application/vnd.ard.page+json",
+                "title":"Hartwig Seeler (3) – Im Labyrinth der Rache",
+                "urlId":"Y3JpZDovL2Rhc2Vyc3RlLmRlL2hhcnR3aWctc2VlbGVyLzIwMjQtMDktMjhfMjEtNDUtTUVTWg",
+                "partner":"ard"
+              }
+            },
+            "type":"epg",
+            "title":"Hartwig Seeler - Im Labyrinth der Rache",
+            "duration":5400,
+            "images":{
+              "aspect16x9":{
+                "title":"Hartwig Seeler (3) – Im Labyrinth der Rache",
+                "text":"Hartwig Seeler (3) – Im Labyrinth der Rache",
+                "alt":"Hartwig Seeler (3) – Im Labyrinth der Rache",
+                "src":"https://api.ardmediathek.de/image-service/images/urn:ard:image:b67ed4d83cf49644?w={width}",
+                "producerName":"ARD-Mediathek"
+              }
+            },
+            "channel":{
+              "id":"daserste",
+              "name":"Das Erste",
+              "main_channel_id":"daserste"
+            },
+            "trackingPiano":{
+              "widget_section":"Abends, 20:15-05:30 Uhr",
+              "teaser_title":"Hartwig Seeler - Im Labyrinth der Rache",
+              "teaser_recommended":false,
+              "teaser_institution_id":"urn:ard:institution:59ccb6ea77d75af5",
+              "teaser_institution":"Das Erste",
+              "teaser_id":"66c4725156e0879f4460b1de",
+              "teaser_content_type":"Video"
+            },
+            "creationDate":"2024-09-30T19:18:14.000Z",
+            "heightUnits":32,
+            "beginNet":"2024-09-28T21:58:40+02:00",
+            "binaryFeatures":[
+              "AD",
+              "UT"
+            ],
+            "video":{
+              "availableFrom":"2024-09-27T13:49:20+02:00",
+              "availableTo":"2025-09-28T21:45:00+02:00",
+              "broadcastedOn":"2024-09-28T21:45:00+02:00",
+              "createdAt":"2024-09-29T13:15:10+02:00",
+              "duration":5398,
+              "episodeNumber":3,
+              "externalMedia":[
+                {
+                  "mediaType":"IMAGE",
+                  "ratio":"16:9",
+                  "type":"foto",
+                  "url":"https://api.ardmediathek.de/image-service/images/urn:ard:image:b67ed4d83cf49644?w=540&ch=60c6bd81a79ef92f",
+                  "versions":[
+
+                  ]
+                }
+              ],
+              "extras":[
+                {
+                  "index":null,
+                  "text":"1",
+                  "type":"UT"
+                },
+                {
+                  "index":null,
+                  "text":"1",
+                  "type":"AD"
+                },
+                {
+                  "index":null,
+                  "text":"Hartwig Seeler",
+                  "type":"broadcastTitle"
+                },
+                {
+                  "index":null,
+                  "text":"ard",
+                  "type":"station"
+                }
+              ],
+              "fsk":"FSK_LEER",
+              "groupingTitle":null,
+              "id":"66f936beb69e85c943110f12",
+              "imageUrl":"https://api.ardmediathek.de/image-service/images/urn:ard:image:b67ed4d83cf49644?w=540&ch=60c6bd81a79ef92f",
+              "seasonNumber":1,
+              "singleReport":false,
+              "source":"ARD-Mediathek",
+              "sourceId":"Y3JpZDovL2Rhc2Vyc3RlLmRlL2hhcnR3aWctc2VlbGVyLzIwMjQtMDktMjhfMjEtNDUtTUVTWg",
+              "sourceUpdatedAt":"2024-09-28T16:34:35+02:00",
+              "tagIds":[
+
+              ],
+              "text":{
+                "short":"Spielfilm Deutschland 2022\r\n\r\nDer Privatdetektiv Hartwig Seeler lässt sich zu einem Auftrag überreden, den er eigentlich ablehnen möchte. Im südgriechischen Kardamili soll der Münchner Ex-Polizist nach dem verschwundenen Bruder seines Auftraggebers suchen. Mit dem Küstenort verbindet Seeler eigene Erinnerungen an den letzten Urlaub vor dem Tod seiner Frau Maria. Was für ein Zufall! Oder vielleicht ein guter Anlass, das Trauma endlich zu verarbeiten? Nach seiner Ankunft versucht Seeler, die Spur des Vermissten aufzunehmen. Sein Ausgangspunkt, ein Foto mit dem Gesuchten in einer bekannten Taverne, führt zwar zu der Urlauberin Sarah. Jedoch behauptet die Frau, den Mann auf dem Bild noch nie gesehen zu haben! Auch die Begegnung mit dem zwielichtigen Partykönig Zehnberg gibt dem erfahrenen Ermittler das beängstigende Gefühl, Teil eines mysteriösen Spiels zu sein. Als Einsatz geht es, wie Seeler nach einem Zwischenfall auf einer steilen Serpentinenstraße feststellen muss, um sein eigenes Leben.\r\n\r\nMit Matthias Koeberlin, Petra Michelle Nérette, Hendrik Heutmann, Dagny Dewath, Lasse Myhr u.a. | Buch: Johannes Fabrick | Regie: Johannes Fabrick"
+              },
+              "title":"Hartwig Seeler (3) – Im Labyrinth der Rache",
+              "updatedAt":"2024-09-29T13:15:10+02:00",
+              "webUrl":"https://www.ardmediathek.de/video/Y3JpZDovL2Rhc2Vyc3RlLmRlL2hhcnR3aWctc2VlbGVyLzIwMjQtMDktMjhfMjEtNDUtTUVTWg"
+            },
+            "broadcastEnd":"2024-09-28T23:25:00+02:00",
+            "broadcastedOn":"2024-09-28T21:55:00+02:00",
+            "coreSubline":"Fernsehfilm Deutschland 2022",
+            "coreTitle":"Hartwig Seeler - Im Labyrinth der Rache",
+            "lastMod":"2024-09-29T13:15:10+02:00",
+            "numericId":"4001847802",
+            "subline":"Fernsehfilm Deutschland 2022",
+            "synopsis":"Spielfilm Deutschland 2022\r\n\r\nDer Privatdetektiv Hartwig Seeler lässt sich zu einem Auftrag überreden, den er eigentlich ablehnen möchte. Im südgriechischen Kardamili soll der Münchner Ex-Polizist nach dem verschwundenen Bruder seines Auftraggebers suchen. Mit dem Küstenort verbindet Seeler eigene Erinnerungen an den letzten Urlaub vor dem Tod seiner Frau Maria. Was für ein Zufall! Oder vielleicht ein guter Anlass, das Trauma endlich zu verarbeiten? Nach seiner Ankunft versucht Seeler, die Spur des Vermissten aufzunehmen. Sein Ausgangspunkt, ein Foto mit dem Gesuchten in einer bekannten Taverne, führt zwar zu der Urlauberin Sarah. Jedoch behauptet die Frau, den Mann auf dem Bild noch nie gesehen zu haben! Auch die Begegnung mit dem zwielichtigen Partykönig Zehnberg gibt dem erfahrenen Ermittler das beängstigende Gefühl, Teil eines mysteriösen Spiels zu sein. Als Einsatz geht es, wie Seeler nach einem Zwischenfall auf einer steilen Serpentinenstraße feststellen muss, um sein eigenes Leben.\r\n\r\nMit Matthias Koeberlin, Petra Michelle Nérette, Hendrik Heutmann, Dagny Dewath, Lasse Myhr u.a. | Buch: Johannes Fabrick | Regie: Johannes Fabrick"
+          }
+        ]
+      ],
+      "publicationService":{
+        "name":"Das Erste",
+        "partner":"daserste"
+      },
+      "crid":"Y3JpZDovL2Rhc2Vyc3RlLmRlL2xpdmUvY2xpcC9hYmNhMDdhMy0zNDc2LTQ4NTEtYjE2Mi1mZGU4ZjY0NmQ0YzQ"
+    }
+  ],
+  "trackingPiano":{
+    "page_title":"Programm",
+    "page_institution_id":"urn:ard:institution:59ccb6ea77d75af5",
+    "page_institution":"Das Erste",
+    "page_id":"epg-001",
+    "page_chapter2":"2024-09-28",
+    "page_chapter1":"EPG"
+  },
+  "timeSlots":[
+    {
+      "title":"05:30 - 14:00 Uhr",
+      "heightUnits":196,
+      "endDate":"2024-09-28T12:00:00Z.000",
+      "startDate":"2024-09-28T03:30:00.000Z"
+    },
+    {
+      "title":"14:00 - 20:15 Uhr",
+      "heightUnits":150,
+      "endDate":"2024-09-28T18:15:00.000Z",
+      "startDate":"2024-09-28T12:00:00.000Z"
+    },
+    {
+      "title":"20:15 - 05:30 Uhr",
+      "heightUnits":233,
+      "endDate":"2024-09-29T03:30:00.000Z",
+      "startDate":"2024-09-28T18:15:00.000Z"
+    }
+  ],
+  "creationDate":"2024-09-30T19:18:23.000Z"
+}
