@@ -48,7 +48,7 @@ public class ArdCrawler extends AbstractCrawler {
 
       for (final String client : ArdConstants.CLIENTS) {
         final String url =
-            String.format(ArdConstants.DAY_PAGE_URL, client, day, day, ArdConstants.DAY_PAGE_SIZE);
+            String.format(ArdConstants.DAY_PAGE_URL, day, client);
         dayUrlsToCrawl.offer(new CrawlerUrlDTO(url));
       }
     }

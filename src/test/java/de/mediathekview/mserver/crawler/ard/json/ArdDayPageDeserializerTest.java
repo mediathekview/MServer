@@ -1,6 +1,7 @@
 package de.mediathekview.mserver.crawler.ard.json;
 
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import de.mediathekview.mserver.crawler.ard.ArdConstants;
 import de.mediathekview.mserver.crawler.ard.ArdFilmInfoDto;
 import de.mediathekview.mserver.testhelper.JsonFileReader;
@@ -16,41 +17,63 @@ public class ArdDayPageDeserializerTest {
 
   @Test
   public void testDeserialize() {
-    final JsonArray jsonElement = JsonFileReader.readJsonArray("/ard/ard_day_page11.json");
+    final JsonElement jsonElement = JsonFileReader.readJson("/ard/ard_day_page.json");
 
     final ArdFilmInfoDto[] expected =
         new ArdFilmInfoDto[] {
           new ArdFilmInfoDto(
-              "Y3JpZDovL2hyLW9ubGluZS8xMDE5Nzc",
-              String.format(ArdConstants.ITEM_URL, "Y3JpZDovL2hyLW9ubGluZS8xMDE5Nzc"),
+              "Y3JpZDovL3JiYl8xY2RjODJjMy01ZTIyLTQ0MDctODEwZi0yMWMwYTBhY2NjMmNfcHVibGljYXRpb24",
+              String.format(
+                  ArdConstants.ITEM_URL,
+                  "Y3JpZDovL3JiYl8xY2RjODJjMy01ZTIyLTQ0MDctODEwZi0yMWMwYTBhY2NjMmNfcHVibGljYXRpb24"),
               1),
           new ArdFilmInfoDto(
-              "Y3JpZDovL2hyLW9ubGluZS8xMDE5Nzg",
-              String.format(ArdConstants.ITEM_URL, "Y3JpZDovL2hyLW9ubGluZS8xMDE5Nzg"),
+              "Y3JpZDovL3JiYl9hN2RkMDNjMC0yMmU5LTRmYzEtYmNiOC1kYTg0Y2RjOWMxMWZfcHVibGljYXRpb24",
+              String.format(
+                  ArdConstants.ITEM_URL,
+                  "Y3JpZDovL3JiYl9hN2RkMDNjMC0yMmU5LTRmYzEtYmNiOC1kYTg0Y2RjOWMxMWZfcHVibGljYXRpb24"),
               1),
           new ArdFilmInfoDto(
-              "Y3JpZDovL2hyLW9ubGluZS8xMDE5ODI",
-              String.format(ArdConstants.ITEM_URL, "Y3JpZDovL2hyLW9ubGluZS8xMDE5ODI"),
+              "Y3JpZDovL21kci5kZS9zZW5kdW5nLzI4MjA0MC80MDQ4MzMtMzg1Mjgw",
+              String.format(
+                  ArdConstants.ITEM_URL,
+                  "Y3JpZDovL21kci5kZS9zZW5kdW5nLzI4MjA0MC80MDQ4MzMtMzg1Mjgw"),
               1),
           new ArdFilmInfoDto(
-              "Y3JpZDovL2hyLW9ubGluZS8xMDE4MjA",
-              String.format(ArdConstants.ITEM_URL, "Y3JpZDovL2hyLW9ubGluZS8xMDE4MjA"),
+              "Y3JpZDovL21kci5kZS9zZW5kdW5nLzI4MjA0MC80MDQ4MzQtMzg1Mjgx",
+              String.format(
+                  ArdConstants.ITEM_URL,
+                  "Y3JpZDovL21kci5kZS9zZW5kdW5nLzI4MjA0MC80MDQ4MzQtMzg1Mjgx"),
               1),
           new ArdFilmInfoDto(
-              "Y3JpZDovL2hyLW9ubGluZS8xMDEyMDM",
-              String.format(ArdConstants.ITEM_URL, "Y3JpZDovL2hyLW9ubGluZS8xMDEyMDM"),
+              "Y3JpZDovL2Rhc2Vyc3RlLmRlL2Zlcm5zZWhmaWxtZSBpbSBlcnN0ZW4vMjAyNC0wOS0yOF8xNC0wMC1NRVNa",
+              String.format(
+                  ArdConstants.ITEM_URL,
+                  "Y3JpZDovL2Rhc2Vyc3RlLmRlL2Zlcm5zZWhmaWxtZSBpbSBlcnN0ZW4vMjAyNC0wOS0yOF8xNC0wMC1NRVNa"),
               1),
           new ArdFilmInfoDto(
-              "Y3JpZDovL2hyLW9ubGluZS8xMDE5OTI",
-              String.format(ArdConstants.ITEM_URL, "Y3JpZDovL2hyLW9ubGluZS8xMDE5OTI"),
-              7),
-          new ArdFilmInfoDto(
-              "Y3JpZDovL2hyLW9ubGluZS8xMDE5NzI",
-              String.format(ArdConstants.ITEM_URL, "Y3JpZDovL2hyLW9ubGluZS8xMDE5NzI"),
+              "Y3JpZDovL2Rhc2Vyc3RlLmRlL2Zlcm5zZWhmaWxtZSBpbSBlcnN0ZW4vMjAyNC0wOS0yOF8xNS0zMC1NRVNa",
+              String.format(
+                  ArdConstants.ITEM_URL,
+                  "Y3JpZDovL2Rhc2Vyc3RlLmRlL2Zlcm5zZWhmaWxtZSBpbSBlcnN0ZW4vMjAyNC0wOS0yOF8xNS0zMC1NRVNa"),
               1),
           new ArdFilmInfoDto(
-              "Y3JpZDovL2hyLW9ubGluZS8xMDE5NzE",
-              String.format(ArdConstants.ITEM_URL, "Y3JpZDovL2hyLW9ubGluZS8xMDE5NzE"),
+              "Y3JpZDovL3dkci5kZS9CZWl0cmFnLXNvcGhvcmEtMmIwZDg4NDMtMzQ0YS00OTZmLTlhNDYtNGY3ODk5MjE2MmFi",
+              String.format(
+                  ArdConstants.ITEM_URL,
+                  "Y3JpZDovL3dkci5kZS9CZWl0cmFnLXNvcGhvcmEtMmIwZDg4NDMtMzQ0YS00OTZmLTlhNDYtNGY3ODk5MjE2MmFi"),
+              1),
+          new ArdFilmInfoDto(
+              "Y3JpZDovL2Rhc2Vyc3RlLmRlL2RpZS1zdGlsbGVuLW1vZXJkZXIvMjAyNC0wOS0yOF8yMC0xNS1NRVNa",
+              String.format(
+                  ArdConstants.ITEM_URL,
+                  "Y3JpZDovL2Rhc2Vyc3RlLmRlL2RpZS1zdGlsbGVuLW1vZXJkZXIvMjAyNC0wOS0yOF8yMC0xNS1NRVNa"),
+              1),
+          new ArdFilmInfoDto(
+              "Y3JpZDovL2Rhc2Vyc3RlLmRlL2hhcnR3aWctc2VlbGVyLzIwMjQtMDktMjhfMjEtNDUtTUVTWg",
+              String.format(
+                  ArdConstants.ITEM_URL,
+                  "Y3JpZDovL2Rhc2Vyc3RlLmRlL2hhcnR3aWctc2VlbGVyLzIwMjQtMDktMjhfMjEtNDUtTUVTWg"),
               1)
         };
 
