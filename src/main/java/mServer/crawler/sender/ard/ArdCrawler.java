@@ -20,8 +20,9 @@ import java.util.concurrent.RecursiveTask;
 public class ArdCrawler extends MediathekCrawler {
 
   public static final String SENDERNAME = Const.ARD;
-  private static final int MAX_DAYS_PAST = 2;
-  private static final int MAX_DAYS_PAST_AVAILABLE = 6;
+  private static final int MAX_DAYS_PAST = 7;
+  private static final int MAX_DAYS_FUTURE = 7;
+  private static final int MAX_DAYS_PAST_AVAILABLE = 7;
   private static final DateTimeFormatter DAY_PAGE_DATE_FORMATTER
           = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
@@ -71,6 +72,12 @@ public class ArdCrawler extends MediathekCrawler {
       addDayUrls(dayUrlsToCrawl, now.minusDays(i));
     }
 
+    if (CrawlerTool.loadLongMax()) {
+      for (int i = 0; i < MAX_DAYS_FUTURE; i++) {
+        addDayUrls(dayUrlsToCrawl, now.plusDays(i));
+      }
+    }
+
     addSpecialDays(dayUrlsToCrawl);
 
     return dayUrlsToCrawl;
@@ -79,7 +86,7 @@ public class ArdCrawler extends MediathekCrawler {
   private void addDayUrls(ConcurrentLinkedQueue<CrawlerUrlDTO> dayUrlsToCrawl, LocalDateTime day) {
     final String formattedDay = day.format(DAY_PAGE_DATE_FORMATTER);
     for (String client : ArdConstants.CLIENTS) {
-      final String url = String.format(ArdConstants.DAY_PAGE_URL, client, formattedDay, formattedDay, ArdConstants.DAY_PAGE_SIZE);
+      final String url = String.format(ArdConstants.DAY_PAGE_URL, formattedDay, client);
       dayUrlsToCrawl.offer(new CrawlerUrlDTO(url));
     }
   }
