@@ -68,12 +68,12 @@ public class ArdCrawler extends MediathekCrawler {
     final ConcurrentLinkedQueue<CrawlerUrlDTO> dayUrlsToCrawl = new ConcurrentLinkedQueue<>();
 
     final LocalDateTime now = LocalDateTime.now();
-    for (int i = 0; i < MAX_DAYS_PAST; i++) {
+    for (int i = 0; i <= MAX_DAYS_PAST; i++) {
       addDayUrls(dayUrlsToCrawl, now.minusDays(i));
     }
 
     if (CrawlerTool.loadLongMax()) {
-      for (int i = 0; i < MAX_DAYS_FUTURE; i++) {
+      for (int i = 0; i <= MAX_DAYS_FUTURE; i++) {
         addDayUrls(dayUrlsToCrawl, now.plusDays(i));
       }
     }
