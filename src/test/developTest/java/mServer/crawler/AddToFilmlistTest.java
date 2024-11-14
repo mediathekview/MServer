@@ -2,7 +2,6 @@ package mServer.crawler;
 
 import static jakarta.ws.rs.core.HttpHeaders.CONTENT_LENGTH;
 import static jakarta.ws.rs.core.HttpHeaders.CONTENT_TYPE;
-import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.*;
 
 import de.mediathekview.mlib.Const;
@@ -407,6 +406,22 @@ public class AddToFilmlistTest {
     target.addOldList();
 
     assertEquals(list.size(), 2);
+  }
+
+  @Test
+  public void testRefreshTitleWithTrailingDash() {
+    final DatenFilm testFilmUpdated = createTestFilm(Const.ARD, "My Topic", "Title - ", FILM_NAME_ONLINE);
+    final DatenFilm testFilmNotUpdated = createTestFilm(Const.ARD, "My Topic", "Title - Episode", FILM_NAME_ONLINE);
+
+    listToAdd.add(testFilmUpdated);
+    listToAdd.add(testFilmNotUpdated);
+
+    AddToFilmlist target = new AddToFilmlist(list, listToAdd);
+    target.addOldList();
+
+    assertEquals(list.size(), 4);
+    assertEquals("Title", testFilmUpdated.arr[DatenFilm.FILM_TITEL]);
+    assertEquals("Title - Episode", testFilmNotUpdated.arr[DatenFilm.FILM_TITEL]);
   }
 
   @Test
