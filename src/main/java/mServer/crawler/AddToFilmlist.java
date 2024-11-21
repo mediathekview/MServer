@@ -12,9 +12,6 @@ import de.mediathekview.mlib.daten.ListeFilme;
 import de.mediathekview.mlib.tool.Hash;
 import de.mediathekview.mlib.tool.Log;
 import de.mediathekview.mlib.tool.MVHttpClient;
-
-import java.util.*;
-
 import mServer.crawler.sender.base.UrlUtils;
 import mServer.crawler.sender.orfon.OrfOnConstants;
 import mServer.tool.MserverDaten;
@@ -22,14 +19,15 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Request.Builder;
 import okhttp3.Response;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.net.SocketTimeoutException;
+import java.util.*;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
-import org.jetbrains.annotations.NotNull;
 
 import static jakarta.ws.rs.core.HttpHeaders.CONTENT_TYPE;
 
@@ -53,6 +51,15 @@ public class AddToFilmlist {
     this.vonListe = vonListe;
     this.listeEinsortieren = listeEinsortieren;
     this.bannedFilmFilter = new BannedFilmFilter();
+  }
+
+  private static String cutOutSrfParameterInUrl(String url) {
+    int startIndex = url.indexOf("/hdntl=exp");
+    int endIndex = url.indexOf("/index-f");
+    if (endIndex > -1 && startIndex < endIndex) {
+      url = url.substring(0, startIndex) + url.substring(endIndex);
+    }
+    return url;
   }
 
   public synchronized void addLiveStream() {
@@ -114,7 +121,7 @@ public class AddToFilmlist {
   private void performInitialCleanup() {
     listeEinsortieren.removeIf(f -> !f.arr[DatenFilm.FILM_URL].toLowerCase().startsWith("http"));
     listeEinsortieren.removeIf(f -> f.arr[DatenFilm.FILM_SENDER].equals(Const.ORF) && f.arr[DatenFilm.FILM_URL]
-        .matches(OrfOnConstants.FILTER_JUGENDSCHUTZ));
+            .matches(OrfOnConstants.FILTER_JUGENDSCHUTZ));
     listeEinsortieren.removeIf(f -> f.arr[DatenFilm.FILM_SENDER].equals(Const.ARD) && isArdUrlToRemove(f.arr[DatenFilm.FILM_URL]));
     listeEinsortieren.removeIf(f -> {
       String groesse = f.arr[DatenFilm.FILM_GROESSE];
@@ -129,6 +136,7 @@ public class AddToFilmlist {
     removeTimeFromOrf(listeEinsortieren);
     updateAudioDescriptionOrf(listeEinsortieren);
     updateAudioDescriptionSrf(listeEinsortieren);
+    updateTitle(listeEinsortieren);
     updateArdWebsite(listeEinsortieren);
     updateFunkMissingHost(listeEinsortieren);
     removeSrfUrlParameter(listeEinsortieren);
@@ -142,31 +150,21 @@ public class AddToFilmlist {
 
   // check https://github.com/mediathekview/MServer/issues/904 for examples and more information
   private void removeSrfUrlParameter(ListeFilme listeEinsortieren) {
-      final List<DatenFilm> list = listeEinsortieren.parallelStream()
-              .filter(film -> film.arr[DatenFilm.FILM_SENDER].equals(Const.SRF) && film.arr[DatenFilm.FILM_URL].contains("/hdntl=exp"))
-              .collect(Collectors.toList());
-      Log.sysLog("SRF: remove url parameter für " + list.size() + " Einträge von " + listeEinsortieren.size() );
-      
-      list.forEach(film -> {
-          String url = film.arr[DatenFilm.FILM_URL];
-          String urlKlein = film.arr[DatenFilm.FILM_URL_KLEIN] == null || film.arr[DatenFilm.FILM_URL_KLEIN].isEmpty() ? "" : film.getUrlFuerAufloesung(DatenFilm.AUFLOESUNG_KLEIN);
-          String urlGross = film.arr[DatenFilm.FILM_URL_HD] == null || film.arr[DatenFilm.FILM_URL_HD].isEmpty() ? "" : film.getUrlFuerAufloesung(DatenFilm.AUFLOESUNG_HD);
-          film.arr[DatenFilm.FILM_URL] = cutOutSrfParameterInUrl(UrlUtils.removeParameters(url));
-          CrawlerTool.addUrlKlein(film,cutOutSrfParameterInUrl(UrlUtils.removeParameters(urlKlein)));
-          CrawlerTool.addUrlHd(film, cutOutSrfParameterInUrl(UrlUtils.removeParameters(urlGross)));
-      });
-      
+    final List<DatenFilm> list = listeEinsortieren.parallelStream()
+            .filter(film -> film.arr[DatenFilm.FILM_SENDER].equals(Const.SRF) && film.arr[DatenFilm.FILM_URL].contains("/hdntl=exp"))
+            .collect(Collectors.toList());
+    Log.sysLog("SRF: remove url parameter für " + list.size() + " Einträge von " + listeEinsortieren.size());
+
+    list.forEach(film -> {
+      String url = film.arr[DatenFilm.FILM_URL];
+      String urlKlein = film.arr[DatenFilm.FILM_URL_KLEIN] == null || film.arr[DatenFilm.FILM_URL_KLEIN].isEmpty() ? "" : film.getUrlFuerAufloesung(DatenFilm.AUFLOESUNG_KLEIN);
+      String urlGross = film.arr[DatenFilm.FILM_URL_HD] == null || film.arr[DatenFilm.FILM_URL_HD].isEmpty() ? "" : film.getUrlFuerAufloesung(DatenFilm.AUFLOESUNG_HD);
+      film.arr[DatenFilm.FILM_URL] = cutOutSrfParameterInUrl(UrlUtils.removeParameters(url));
+      CrawlerTool.addUrlKlein(film, cutOutSrfParameterInUrl(UrlUtils.removeParameters(urlKlein)));
+      CrawlerTool.addUrlHd(film, cutOutSrfParameterInUrl(UrlUtils.removeParameters(urlGross)));
+    });
 
 
-  }
-  
-  private static String cutOutSrfParameterInUrl(String url) {
-      int startIndex = url.indexOf("/hdntl=exp");
-      int endIndex = url.indexOf("/index-f");
-      if (endIndex > -1 && startIndex < endIndex) {
-          url = url.substring(0, startIndex) + url.substring(endIndex);
-      }
-      return url;
   }
 
   private void updateFunkMissingHost(ListeFilme listeEinsortieren) {
@@ -178,6 +176,15 @@ public class AddToFilmlist {
     list.forEach(film -> film.arr[DatenFilm.FILM_URL] = film.arr[DatenFilm.FILM_URL].replace("https://", "https://funk-02.akamaized.net/").trim());
     list.forEach(film -> film.arr[DatenFilm.FILM_URL_KLEIN] = film.arr[DatenFilm.FILM_URL_KLEIN].replace("https://", "https://funk-02.akamaized.net/").trim());
     list.forEach(film -> film.arr[DatenFilm.FILM_URL_HD] = film.arr[DatenFilm.FILM_URL_HD].replace("https://", "https://funk-02.akamaized.net/").trim());
+  }
+
+  private void updateTitle(ListeFilme listeEinsortieren) {
+    listeEinsortieren.forEach(film -> {
+      final String title = film.arr[DatenFilm.FILM_TITEL].trim();
+      if (title.endsWith("-")) {
+        film.arr[DatenFilm.FILM_TITEL] = title.replaceAll("-+$", "").trim();
+      }
+    });
   }
 
   private void updateArdWebsite(ListeFilme listeEinsortieren) {
@@ -222,10 +229,10 @@ public class AddToFilmlist {
 
   private void removeTimeFromOrf(ListeFilme listeEinsortieren) {
     final List<DatenFilm> list = listeEinsortieren.parallelStream()
-        .filter(
-            film -> film.arr[DatenFilm.FILM_SENDER].equals(Const.ORF) && film.arr[DatenFilm.FILM_THEMA]
-                .matches(".*[0-9]{1,2}:[0-9][0-9]$"))
-        .collect(Collectors.toList());
+            .filter(
+                    film -> film.arr[DatenFilm.FILM_SENDER].equals(Const.ORF) && film.arr[DatenFilm.FILM_THEMA]
+                            .matches(".*[0-9]{1,2}:[0-9][0-9]$"))
+            .collect(Collectors.toList());
     Log.sysLog("ORF: update Thema für " + list.size() + " Einträge.");
     if (!list.isEmpty()) {
       list.forEach(film -> film.arr[DatenFilm.FILM_THEMA] = film.arr[DatenFilm.FILM_THEMA].replaceAll("[0-9]{1,2}:[0-9][0-9]$", "").trim());
@@ -235,8 +242,8 @@ public class AddToFilmlist {
   private void removeTimeFromMdrAktuell(ListeFilme listeEinsortieren) {
     final String topic = "MDR aktuell";
     final List<DatenFilm> list = listeEinsortieren.parallelStream()
-        .filter(film -> film.arr[DatenFilm.FILM_THEMA].startsWith(topic))
-        .collect(Collectors.toList());
+            .filter(film -> film.arr[DatenFilm.FILM_THEMA].startsWith(topic))
+            .collect(Collectors.toList());
     Log.sysLog("MDR aktuell: update Thema für " + list.size() + " Einträge.");
     if (!list.isEmpty()) {
       list.forEach(film -> film.arr[DatenFilm.FILM_THEMA] = topic);
@@ -343,7 +350,7 @@ public class AddToFilmlist {
 
     private final Queue<DatenFilm> listeOld;
     private final ArrayList<DatenFilm> localAddList = new ArrayList<>(
-        (vonListe.size() / NUMBER_OF_THREADS) + 500);
+            (vonListe.size() / NUMBER_OF_THREADS) + 500);
     private int treffer = 0;
     private OkHttpClient client = null;
 
@@ -386,8 +393,8 @@ public class AddToFilmlist {
               long respLength = determineContentLength(response);
 
               if (isRelevantContentType(response) && !removedVideo(film, response) &&
-                  // ignore file length of m3u8-files because it is always too small
-                  (isM3u8File(url) || respLength > MIN_SIZE_ADD_OLD)) {
+                      // ignore file length of m3u8-files because it is always too small
+                      (isM3u8File(url) || respLength > MIN_SIZE_ADD_OLD)) {
                 addOld(film);
               } else {
                 Log.sysLog("film removed: code: " + response.code() + ": " + url);
