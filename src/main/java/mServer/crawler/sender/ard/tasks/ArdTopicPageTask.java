@@ -71,12 +71,8 @@ public class ArdTopicPageTask extends ArdTaskBase<ArdFilmInfoDto, CrawlerUrlDTO>
     // Sportschau
     TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL2Rhc2Vyc3RlLmRlL3Nwb3J0c2NoYXU");
     // temporary load all => remove if old entries exists
-    // Odysso
-    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL3N3ci5kZS8yMjI2MTE0");
     // MDR in aller Freundschaft
     TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL21kci5kZS9zZW5kZXJlaWhlbi9zdGFmZmVsc2VyaWUtaW4tYWxsZXItZnJldW5kc2NoYWZ0");
-    // Super.markt
-    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL3JiYi1vbmxpbmUuZGUvc3VwZXJtYXJrdA");
     // Verrückt nach Meer
     TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL2JyLmRlL2Jyb2FkY2FzdFNlcmllcy92ZXJydWVja3QtbmFjaC1tZWVy");
     // Dahoam is dahoam
@@ -87,10 +83,6 @@ public class ArdTopicPageTask extends ArdTaskBase<ArdFilmInfoDto, CrawlerUrlDTO>
     TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL2Rhc2Vyc3RlLmRlL3N0dXJtIGRlciBsaWViZQ");
     // in aller freundschaft -die jungen ärzte
     TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL21kci5kZS9zZW5kZXJlaWhlbi9zdGFmZmVsc2VyaWUtaW4tYWxsZXItZnJldW5kc2NoYWZ0LWRpZS1qdW5nZW4tYWVyenRl");
-    // Euro 2024
-    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL3Nwb3J0c2NoYXUuZGUvc3BvcnRzY2hhdS1ldXJvLTIwMjQ");
-    // Olympia 2024
-    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL3Nwb3J0c2NoYXUuZGUvc3BvcnRzY2hhdS1vbHltcGlh");
     // um Himmels willen
     TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL3dkci5kZS9VbSBIaW1tZWxzIFdpbGxlbiBPTkU");
     // Rentnercops
@@ -98,6 +90,10 @@ public class ArdTopicPageTask extends ArdTaskBase<ArdFilmInfoDto, CrawlerUrlDTO>
     TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL3dkci5kZS9yZW50bmVyY29wcw");
     // alles klara
     TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL21kci5kZS9zZW5kZXJlaWhlbi9zdGFmZmVsc2VyaWUtYWxsZXMta2xhcmE");
+    // bergauf bergab
+    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL2JyLmRlL2Jyb2FkY2FzdFNlcmllcy9icm9hZGNhc3RTZXJpZXM6L2JyZGUvZmVybnNlaGVuL2JheWVyaXNjaGVzLWZlcm5zZWhlbi9zZW5kdW5nZW4vYmVyZ2F1Zi1iZXJnYWI");
+    // HIP
+    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL25kci5kZS80NzQ0");    
   }
 
   public ArdTopicPageTask(MediathekReader aCrawler,
