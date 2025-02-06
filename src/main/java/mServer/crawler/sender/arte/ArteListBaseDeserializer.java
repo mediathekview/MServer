@@ -16,24 +16,32 @@ public abstract class ArteListBaseDeserializer {
   private static final String JSON_ELEMENT_LINKS = "links";
   private static final String JSON_ELEMENT_NEXT = "next";
 
+  private static String buildUrl(String nextUrl) {
+    return UrlUtils.addDomainIfMissing(
+            nextUrl
+                    .replace("/api/emac/", "/api/rproxy/emac/")
+                    // fix non reachable host
+                    .replace("api-internal.infra-priv.arte.tv", "www.arte.tv")
+            , "https://www.arte.tv");
+  }
+
   protected Optional<String> parsePagination(JsonObject jsonObject) {
     if (jsonObject.has(JSON_ELEMENT_PAGINATION) && !jsonObject.get(JSON_ELEMENT_PAGINATION).isJsonNull()) {
       final JsonObject pagionationObject = jsonObject.get(JSON_ELEMENT_PAGINATION).getAsJsonObject();
-      if(pagionationObject.has(JSON_ELEMENT_LINKS)) {
+      if (pagionationObject.has(JSON_ELEMENT_LINKS)) {
         final JsonObject linksObject = pagionationObject.get(JSON_ELEMENT_LINKS).getAsJsonObject();
         final Optional<String> nextUrl = JsonUtils.getAttributeAsString(linksObject, JSON_ELEMENT_NEXT);
         if (nextUrl.isPresent()) {
-          return Optional.of(UrlUtils.addDomainIfMissing(nextUrl.get().replace("/api/emac/", "/api/rproxy/emac/"), "https://www.arte.tv"));
+          return Optional.of(buildUrl(nextUrl.get()));
         }
       }
     }
     return Optional.empty();
   }
 
-
   protected void extractProgramIdFromData(JsonObject jsonObectWithData, ArteCategoryFilmsDTO dto) {
     if (jsonObectWithData.has(JSON_ELEMENT_DATA)) {
-      for(JsonElement dataElement : jsonObectWithData.get(JSON_ELEMENT_DATA).getAsJsonArray()) {
+      for (JsonElement dataElement : jsonObectWithData.get(JSON_ELEMENT_DATA).getAsJsonArray()) {
         if (!dataElement.getAsJsonObject().get(JSON_ELEMENT_PROGRAMID).isJsonNull()) {
           Optional<String> programId = JsonUtils.getAttributeAsString(dataElement.getAsJsonObject(), JSON_ELEMENT_PROGRAMID);
           if (programId.isPresent()) {
