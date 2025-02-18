@@ -17,11 +17,12 @@ public abstract class ArteListBaseDeserializer {
   private static final String JSON_ELEMENT_NEXT = "next";
 
   private static String buildUrl(String nextUrl) {
+    final String baseUrl = UrlUtils.getBaseUrl(nextUrl);
     return UrlUtils.addDomainIfMissing(
             nextUrl
                     .replace("/api/emac/", "/api/rproxy/emac/")
                     // fix non reachable host
-                    .replace("api-internal.infra-priv.arte.tv", "www.arte.tv")
+                    .replace(baseUrl, "https://www.arte.tv")
             , "https://www.arte.tv");
   }
 
