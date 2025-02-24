@@ -86,12 +86,10 @@ public class ZdfDownloadDtoDeserializer implements JsonDeserializer<Optional<Dow
     }
   }
 
-  private void parseFormitaet(final DownloadDto dto, final JsonElement formitaet) {
+  private void parseFormitaet(final List<DownloadInfo> downloads, final JsonElement formitaet) {
     // only mp4-videos are relevant
     final JsonElement mimeType = formitaet.getAsJsonObject().get(JSON_ELEMENT_MIMETYPE);
     if (mimeType != null && mimeType.getAsString().equalsIgnoreCase(RELEVANT_MIME_TYPE)) {
-      List<DownloadInfo> downloads = new ArrayList<>();
-
       // array Resolution
       final JsonArray qualityList
               = formitaet.getAsJsonObject().getAsJsonArray(JSON_ELEMENT_QUALITIES);
@@ -113,8 +111,6 @@ public class ZdfDownloadDtoDeserializer implements JsonDeserializer<Optional<Dow
           }
         }
       }
-      downloads.sort(Comparator.comparingInt(DownloadInfo::getVerticalResolution));
-      downloads.forEach(info -> dto.addUrl(info.getLanguage(), info.getQuality(), info.getUri()));
     }
   }
 
@@ -154,14 +150,14 @@ public class ZdfDownloadDtoDeserializer implements JsonDeserializer<Optional<Dow
     }
   }
 
-  private void parsePriority(final DownloadDto dto, final JsonElement priority) {
+  private void parsePriority(final List<DownloadInfo> downloads, final JsonElement priority) {
     if (priority != null) {
 
       // array formitaeten
       final JsonArray formitaetList
               = priority.getAsJsonObject().getAsJsonArray(JSON_ELEMENT_FORMITAET);
       for (final JsonElement formitaet : formitaetList) {
-        parseFormitaet(dto, formitaet);
+        parseFormitaet(downloads, formitaet);
       }
     }
   }
@@ -198,9 +194,9 @@ public class ZdfDownloadDtoDeserializer implements JsonDeserializer<Optional<Dow
         qualityValue = Qualities.SMALL;
         break;
       case ZDF_QUALITY_VERYHIGH:
+      case ZDF_QUALITY_HD:
         qualityValue = Qualities.NORMAL;
         break;
-      case ZDF_QUALITY_HD:
       case ZDF_QUALITY_FHD:
         qualityValue = Qualities.HD;
         break;
@@ -216,12 +212,17 @@ public class ZdfDownloadDtoDeserializer implements JsonDeserializer<Optional<Dow
   }
 
   private void parseVideoUrls(final DownloadDto dto, final JsonObject rootNode) {
+    List<DownloadInfo> downloads = new ArrayList<>();
+
     // array priorityList
     final JsonArray priorityList = rootNode.getAsJsonArray(JSON_ELEMENT_PRIORITYLIST);
     for (final JsonElement priority : priorityList) {
 
-      parsePriority(dto, priority);
+      parsePriority(downloads, priority);
     }
+
+    downloads.sort(Comparator.comparingInt(DownloadInfo::getVerticalResolution));
+    downloads.forEach(info -> dto.addUrl(info.getLanguage(), info.getQuality(), info.getUri()));
   }
 
   private class DownloadInfo {
