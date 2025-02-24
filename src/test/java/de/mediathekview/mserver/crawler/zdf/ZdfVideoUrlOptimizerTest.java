@@ -66,19 +66,10 @@ public class ZdfVideoUrlOptimizerTest extends WireMockTestBase {
 
   @Test
   public void getOptimizedUrlHdTestBetterUrlExists() {
-    final String url = getWireMockBaseUrlSafe() + "/video_3360k_p36v17.mp4";
+    final String url = getWireMockBaseUrlSafe() + "/video_6628k_p61v17.mp4";
     final String expectedUrl = getWireMockBaseUrlSafe() + "/video_6660k_p37v17.mp4";
 
     setupHeadResponse("/video_6660k_p37v17.mp4", 200);
-    assertGetOptimizedUrlHd(expectedUrl, url);
-  }
-
-  @Test
-  public void getOptimizedUrlHdTestBetterUrlExists2() {
-    final String url = getWireMockBaseUrlSafe() + "/video_3360k_p36v17.mp4";
-    final String expectedUrl = getWireMockBaseUrlSafe() + "/video_6628k_p61v17.mp4";
-
-    setupHeadResponse("/video_6628k_p61v17.mp4", 200);
     assertGetOptimizedUrlHd(expectedUrl, url);
   }
 
@@ -92,57 +83,57 @@ public class ZdfVideoUrlOptimizerTest extends WireMockTestBase {
 
   @Test
   public void determineUrlHdTestFirstUrlExists() {
-    final String url = getWireMockBaseUrlSafe() + "/video_1456k_p13v12.mp4";
-    final String expectedUrl = getWireMockBaseUrlSafe() + "/video_3328k_p36v12.mp4";
+    final String url = getWireMockBaseUrlSafe() + "/video_1628k_p13v17.mp4";
+    final String expectedUrl = getWireMockBaseUrlSafe() + "/video_6660k_p37v17.mp4";
 
-    setupHeadResponse("/video_3328k_p36v12.mp4", 200);
+    setupHeadResponse("/video_6660k_p37v17.mp4", 200);
     assertDetermineUrlHd(Optional.of(expectedUrl), url);
   }
 
   @Test
   public void determineUrlHdTestFirstUrlExists2() {
-    final String url = getWireMockBaseUrlSafe() + "/video_2360k_p35v15.mp4";
-    final String expectedUrl = getWireMockBaseUrlSafe() + "/video_3360k_p36v15.mp4";
+    final String url = getWireMockBaseUrlSafe() + "/video_2360k_p35v17.mp4";
+    final String expectedUrl = getWireMockBaseUrlSafe() + "/video_6660k_p37v17.mp4";
 
-    setupHeadResponse("/video_3360k_p36v15.mp4", 200);
+    setupHeadResponse("/video_6660k_p37v17.mp4", 200);
     assertDetermineUrlHd(Optional.of(expectedUrl), url);
   }
 
   @Test
   public void determineUrlHdTestFirstUrlExists3() {
-    final String url = getWireMockBaseUrlSafe() + "/video_1628k_p13v15.mp4";
-    final String expectedUrl = getWireMockBaseUrlSafe() + "/video_3360k_p36v15.mp4";
+    final String url = getWireMockBaseUrlSafe() + "/video_3328k_p15v17.mp4";
+    final String expectedUrl = getWireMockBaseUrlSafe() + "/video_6660k_p37v17.mp4";
 
-    setupHeadResponse("/video_3360k_p36v15.mp4", 200);
+    setupHeadResponse("/video_6660k_p37v17.mp4", 200);
     assertDetermineUrlHd(Optional.of(expectedUrl), url);
   }
 
   @Test
   public void determineUrlHdTestSecondUrlExists() {
-    final String url = getWireMockBaseUrlSafe() + "/video_1456k_p13v12.mp4";
-    final String expectedUrl = getWireMockBaseUrlSafe() + "/video_3256k_p15v12.mp4";
+    final String url = getWireMockBaseUrlSafe() + "/video_1628k_p13v17.mp4";
+    final String expectedUrl = getWireMockBaseUrlSafe() + "/video_6628k_p61v17.mp4";
 
-    setupHeadResponse("/video_3328k_p36v12.mp4", 404);
-    setupHeadResponse("/video_3256k_p15v12.mp4", 200);
+    setupHeadResponse("/video_6660k_p37v17.mp4", 404);
+    setupHeadResponse("/video_6628k_p61v17.mp4", 200);
     assertDetermineUrlHd(Optional.of(expectedUrl), url);
   }
 
   @Test
   public void determineUrlHdTestNoUrlExists() {
-    final String url = getWireMockBaseUrlSafe() + "/video_1456k_p13v12.mp4";
+    final String url = getWireMockBaseUrlSafe() + "/video_1628k_p13v17.mp4";
 
-    setupHeadResponse("/video_3328k_p36v12.mp4", 404);
-    setupHeadResponse("/video_3256k_p15v12.mp4", 404);
+    setupHeadResponse("/video_6660k_p37v17.mp4", 404);
+    setupHeadResponse("/video_6628k_p61v17.mp4", 404);
     assertDetermineUrlHd(Optional.empty(), url);
   }
 
   @Test
   public void determineUrlHdTestBothUrlExists() {
-    final String url = getWireMockBaseUrlSafe() + "/video_1496k_p13v13.mp4";
-    final String expectedUrl = getWireMockBaseUrlSafe() + "/video_3328k_p36v13.mp4";
+    final String url = getWireMockBaseUrlSafe() + "/video_1628k_p13v17.mp4";
+    final String expectedUrl = getWireMockBaseUrlSafe() + "/video_6660k_p37v17.mp4";
 
-    setupHeadResponse("/video_3328k_p36v13.mp4", 200);
-    setupHeadResponse("/video_3296k_p15v13.mp4", 200);
+    setupHeadResponse("/video_6660k_p37v17.mp4", 200);
+    setupHeadResponse("/video_6628k_p61v17.mp4", 200);
     assertDetermineUrlHd(Optional.of(expectedUrl), url);
   }
 

@@ -31,19 +31,19 @@ public class ZdfVideoUrlOptimizer {
   private static final String NORMAL_2360_35_15 = "2360k_p35v15.mp4";
   private static final String NORMAL_2360_35_17 = "2360k_p35v17.mp4";
 
-  private static final String HD_3256 = "3256k_p15v12.mp4";
-  private static final String HD_3296_15_13 = "3296k_p15v13.mp4";
-  private static final String HD_3296_15_14 = "3296k_p15v14.mp4";
-  private static final String HD_3328_15_15 = "3328k_p15v15.mp4";
-  private static final String HD_3328_15_17 = "3328k_p15v17.mp4";
-  private static final String HD_3328_12 = "3328k_p36v12.mp4";
-  private static final String HD_3328_13 = "3328k_p36v13.mp4";
-  private static final String HD_3328_14 = "3328k_p36v14.mp4";
-  private static final String HD_3328_35_14 = "3328k_p35v14.mp4";
-  private static final String HD_3328_36_13 = "3328k_p36v13.mp4";
-  private static final String HD_3328_36_14 = "3328k_p36v14.mp4";
-  private static final String HD_3360_36_15 = "3360k_p36v15.mp4";
-  private static final String HD_3360_36_17 = "3360k_p36v17.mp4";
+  private static final String NORMAL_3256 = "3256k_p15v12.mp4";
+  private static final String NORMAL_3296_15_13 = "3296k_p15v13.mp4";
+  private static final String NORMAL_3296_15_14 = "3296k_p15v14.mp4";
+  private static final String NORMAL_3328_15_15 = "3328k_p15v15.mp4";
+  private static final String NORMAL_3328_15_17 = "3328k_p15v17.mp4";
+  private static final String NORMAL_3328_12 = "3328k_p36v12.mp4";
+  private static final String NORMAL_3328_13 = "3328k_p36v13.mp4";
+  private static final String NORMAL_3328_14 = "3328k_p36v14.mp4";
+  private static final String NORMAL_3328_35_14 = "3328k_p35v14.mp4";
+  private static final String NORMAL_3328_36_13 = "3328k_p36v13.mp4";
+  private static final String NORMAL_3328_36_14 = "3328k_p36v14.mp4";
+  private static final String NORMAL_3360_36_15 = "3360k_p36v15.mp4";
+  private static final String NORMAL_3360_36_17 = "3360k_p36v17.mp4";
   private static final String HD_6628_61_17 = "6628k_p61v17.mp4";
   private static final String HD_6660_37_17 = "6660k_p37v17.mp4";
 
@@ -52,38 +52,33 @@ public class ZdfVideoUrlOptimizer {
   private static final Map<String, String[]> HD_OPTIMIZE = new HashMap<>();
 
   static {
-    NORMAL_OPTIMIZE.put(NORMAL_1628_13_17, new String[] {NORMAL_2360_35_17});
+    NORMAL_OPTIMIZE.put(NORMAL_1628_13_17, new String[] {NORMAL_3360_36_17, NORMAL_2360_35_17});
     NORMAL_OPTIMIZE.put(NORMAL_2256_14_11, new String[] {NORMAL_2328_35_11});
-    NORMAL_OPTIMIZE.put(NORMAL_2256_14_12, new String[] {NORMAL_2328_35_12});
+    NORMAL_OPTIMIZE.put(NORMAL_2256_14_12, new String[] {NORMAL_3328_12, NORMAL_3256, NORMAL_2328_35_12});
     NORMAL_OPTIMIZE.put(NORMAL_2296_14_13, new String[] {NORMAL_2328_35_13});
-    NORMAL_OPTIMIZE.put(NORMAL_2296_14_14, new String[] {NORMAL_2328_35_14});
+    NORMAL_OPTIMIZE.put(NORMAL_2296_14_14, new String[] {NORMAL_3328_14, NORMAL_3328_35_14, NORMAL_3328_13, NORMAL_3296_15_14, NORMAL_3296_15_13, NORMAL_2328_35_14});
     NORMAL_OPTIMIZE.put(NORMAL_1456_13_11, new String[] {NORMAL_2328_35_11, NORMAL_2256_14_11});
-    NORMAL_OPTIMIZE.put(NORMAL_1456_13_12, new String[] {NORMAL_2328_35_12, NORMAL_2256_14_12});
-    NORMAL_OPTIMIZE.put(NORMAL_1496_13_13, new String[] {NORMAL_2328_35_13, NORMAL_2296_14_13});
-    NORMAL_OPTIMIZE.put(NORMAL_1496_13_14, new String[] {NORMAL_2328_35_14, NORMAL_2296_14_14});
-    NORMAL_OPTIMIZE.put(NORMAL_1628_13_15, new String[] {NORMAL_2360_35_15});
+    NORMAL_OPTIMIZE.put(NORMAL_1456_13_12, new String[] {NORMAL_3328_12, NORMAL_3256, NORMAL_2328_35_12, NORMAL_2256_14_12});
+    NORMAL_OPTIMIZE.put(NORMAL_1496_13_13, new String[] {NORMAL_3328_13, NORMAL_3296_15_14, NORMAL_3296_15_13, NORMAL_2328_35_13, NORMAL_2296_14_13});
+    NORMAL_OPTIMIZE.put(NORMAL_1496_13_14, new String[] {NORMAL_3328_14, NORMAL_3328_35_14, NORMAL_2328_35_14, NORMAL_2296_14_14});
+    NORMAL_OPTIMIZE.put(NORMAL_1628_13_15, new String[] {NORMAL_3360_36_15, NORMAL_2360_35_15});
+    NORMAL_OPTIMIZE.put(NORMAL_3328_15_15, new String[] {NORMAL_3360_36_15});
+    NORMAL_OPTIMIZE.put(NORMAL_3256, new String[] {NORMAL_3328_12});
+    NORMAL_OPTIMIZE.put(NORMAL_3296_15_14, new String[] {NORMAL_3328_36_14});
+    NORMAL_OPTIMIZE.put(NORMAL_3296_15_13, new String[] {NORMAL_3328_36_13});
+    NORMAL_OPTIMIZE.put(NORMAL_3328_15_17, new String[] {NORMAL_3360_36_17});
+    NORMAL_OPTIMIZE.put(NORMAL_2328_35_12, new String[] {NORMAL_3328_12, NORMAL_3256});
+    NORMAL_OPTIMIZE.put(NORMAL_2328_35_13, new String[] {NORMAL_3328_13, NORMAL_3296_15_14, NORMAL_3296_15_13});
+    NORMAL_OPTIMIZE.put(NORMAL_2328_35_14, new String[] {NORMAL_3328_14, NORMAL_3328_35_14});
+    NORMAL_OPTIMIZE.put(NORMAL_2360_35_15, new String[] {NORMAL_3360_36_15});
+    NORMAL_OPTIMIZE.put(NORMAL_2360_35_17, new String[] {NORMAL_3360_36_17});
 
-    NORMAL_TO_HD.put(NORMAL_2360_35_17, new String[] {HD_6660_37_17, HD_6628_61_17, HD_3360_36_17});
-    NORMAL_TO_HD.put(NORMAL_1628_13_17, new String[] {HD_6660_37_17, HD_6628_61_17, HD_3360_36_17});
-    NORMAL_TO_HD.put(NORMAL_1456_13_12, new String[] {HD_3328_12, HD_3256});
-    NORMAL_TO_HD.put(NORMAL_2256_14_12, new String[] {HD_3328_12, HD_3256});
-    NORMAL_TO_HD.put(NORMAL_2328_35_12, new String[] {HD_3328_12, HD_3256});
-    NORMAL_TO_HD.put(NORMAL_1496_13_13, new String[] {HD_3328_13, HD_3296_15_14, HD_3296_15_13});
-    NORMAL_TO_HD.put(NORMAL_2296_14_13, new String[] {HD_3328_13, HD_3296_15_14, HD_3296_15_13});
-    NORMAL_TO_HD.put(NORMAL_2328_35_13, new String[] {HD_3328_13, HD_3296_15_14, HD_3296_15_13});
-    NORMAL_TO_HD.put(NORMAL_1496_13_14, new String[] {HD_3328_14, HD_3328_35_14});
-    NORMAL_TO_HD.put(NORMAL_2296_14_14, new String[] {HD_3328_14, HD_3328_35_14});
-    NORMAL_TO_HD.put(NORMAL_2328_35_14, new String[] {HD_3328_14, HD_3328_35_14});
-    NORMAL_TO_HD.put(NORMAL_1628_13_15, new String[] {HD_3360_36_15});
-    NORMAL_TO_HD.put(NORMAL_2360_35_15, new String[] {HD_3360_36_15});
+    NORMAL_TO_HD.put(NORMAL_2360_35_17, new String[] {HD_6660_37_17, HD_6628_61_17});
+    NORMAL_TO_HD.put(NORMAL_1628_13_17, new String[] {HD_6660_37_17, HD_6628_61_17});
+    NORMAL_TO_HD.put(NORMAL_3360_36_17, new String[] {HD_6660_37_17, HD_6628_61_17});
+    NORMAL_TO_HD.put(NORMAL_3328_15_17, new String[] {HD_6660_37_17, HD_6628_61_17});
 
-    HD_OPTIMIZE.put(HD_3360_36_17, new String[] {HD_6660_37_17, HD_6628_61_17});
     HD_OPTIMIZE.put(HD_6628_61_17, new String[] {HD_6660_37_17});
-    HD_OPTIMIZE.put(HD_3328_15_17, new String[] {HD_6660_37_17, HD_6628_61_17, HD_3360_36_17});
-    HD_OPTIMIZE.put(HD_3328_15_15, new String[] {HD_3360_36_15});
-    HD_OPTIMIZE.put(HD_3256, new String[] {HD_3328_12});
-    HD_OPTIMIZE.put(HD_3296_15_14, new String[] {HD_3328_36_14});
-    HD_OPTIMIZE.put(HD_3296_15_13, new String[] {HD_3328_36_13});
   }
 
   protected AbstractCrawler crawler;
