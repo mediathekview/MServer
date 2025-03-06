@@ -114,6 +114,14 @@ public class AddToFilmlistTest {
     list.add(createTestFilm(Const.BR, FILM_TOPIC1, FILM_TITLE1, "film1.mp4"));
     list.add(createTestFilm(Const.BR, FILM_TOPIC2, FILM_TITLE1, "film2.mp4"));
   }
+  @Test
+  public void testNotAddSameSenderTopicTitleButDifferentUrl() {
+    listToAdd.add(createTestFilm(Const.BR, FILM_TOPIC1, FILM_TITLE1, FILM_NAME_ONLINE));
+    AddToFilmlist target = new AddToFilmlist(list, listToAdd);
+    target.addOldList();
+
+    assertEquals(list.size(), 2);
+  }
 
   @Test
   public void testAddOldListDifferentSenderAndUrlAdded() {
