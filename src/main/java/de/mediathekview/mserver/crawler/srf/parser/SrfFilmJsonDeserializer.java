@@ -214,12 +214,12 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
       if (widthMeta.isPresent()) {
         final int width = Integer.parseInt(widthMeta.get());
 
-        if (width <= 700000) {
-          return Optional.of(Resolution.SMALL);
-        } else if (width > 3000000) {
+        if (width > 6000000) {
           return Optional.of(Resolution.HD);
-        } else {
+        } else if (width > 2000000) {
           return Optional.of(Resolution.NORMAL);
+        } else {
+          return Optional.of(Resolution.SMALL);
         }
       }
     }
