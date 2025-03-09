@@ -37,10 +37,11 @@ public class M3U8DtoGetResolutionTest {
           {"noavcl.url", "other codec", "1280x720", Optional.empty()},
           {"small.url", "avc1", "480x320", Optional.of(Resolution.SMALL)},
           {"small.url", "avc1", "512x288", Optional.of(Resolution.SMALL)},
-          {"normal.url", "avc1", "640x360", Optional.of(Resolution.NORMAL)},
-          {"normal.url", "avc1", "720x544", Optional.of(Resolution.NORMAL)},
+          {"small.url", "avc1", "640x360", Optional.of(Resolution.SMALL)},
+          {"small.url", "avc1", "720x544", Optional.of(Resolution.SMALL)},
           {"normal.url", "avc1", "960x544", Optional.of(Resolution.NORMAL)},
-          {"hd.url", "avc1", "1280x720", Optional.of(Resolution.HD)},
+          {"normal.url", "avc1", "1280x720", Optional.of(Resolution.NORMAL)},
+          {"hd.url", "avc1", "1920x1080", Optional.of(Resolution.HD)},
           {"uhd.url", "avc1", "3840x2160", Optional.of(Resolution.UHD)},
           {"unknown.url", "avc1", "1280x719", Optional.empty()}
         });

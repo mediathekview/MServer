@@ -150,16 +150,16 @@ public class ArdVideoInfoJsonDeserializerTest extends WireMockTestBase {
             "/ndr/ndr_film_detail_m3u8.json",
             "/i/ndrfs_nds@430233/master.m3u8",
             "/ndr/ndr_film_detail_m3u8.m3u8",
-            "https://ndrfs-lh.akamaihd.net/i/ndrfs_nds@430233/index_608_av-b.m3u8",
-            "https://ndrfs-lh.akamaihd.net/i/ndrfs_nds@430233/index_1992_av-b.m3u8",
-            "https://ndrfs-lh.akamaihd.net/i/ndrfs_nds@430233/index_3776_av-b.m3u8"
+            "https://ndrfs-lh.akamaihd.net/i/ndrfs_nds@430233/index_1216_av-b.m3u8",
+            "https://ndrfs-lh.akamaihd.net/i/ndrfs_nds@430233/index_3776_av-b.m3u8",
+            null
           },
           {
             "/ard/ard_video_alpha_centauri.json",
             "/i/mir-live/bw1XsLzS/bLQH/bLOliLioMXZhiKT1/uLoXb69zbX06/MUJIuUOVBwQIb71S/bLWCMUJIuUOVBwQIb71S/_2rp9U1S/_-JS/_-Fp_H1S/d6b48cc8-60f3-4625-a56a-fba68c0841c7_,0,A,B,E,C,.mp4.csmil/master.m3u8",
             "/ard/ard_video_alpha_centauri.m3u8",
-            "http://br-i.akamaihd.net/i/mir-live/bw1XsLzS/bLQH/bLOliLioMXZhiKT1/uLoXb69zbX06/MUJIuUOVBwQIb71S/bLWCMUJIuUOVBwQIb71S/_2rp9U1S/_-JS/_-Fp_H1S/d6b48cc8-60f3-4625-a56a-fba68c0841c7_,0,A,B,E,C,.mp4.csmil/index_3_av.m3u8",
             "http://br-i.akamaihd.net/i/mir-live/bw1XsLzS/bLQH/bLOliLioMXZhiKT1/uLoXb69zbX06/MUJIuUOVBwQIb71S/bLWCMUJIuUOVBwQIb71S/_2rp9U1S/_-JS/_-Fp_H1S/d6b48cc8-60f3-4625-a56a-fba68c0841c7_,0,A,B,E,C,.mp4.csmil/index_4_av.m3u8",
+            null,
             null
           },
           {
@@ -174,8 +174,8 @@ public class ArdVideoInfoJsonDeserializerTest extends WireMockTestBase {
             "/ard/ard_video_funk_m3u8.json",
             "/22679/files/21/12/22/4418917/22679-qhFBn6dpPtxVW9K.ism/manifest.m3u8.m3u8",
             "/ard/ard_video_funk.m3u8",
-            "http://localhost:8589/22679/files/21/12/22/4418917/22679-qhFBn6dpPtxVW9K.ism/22679-qhFBn6dpPtxVW9K-audio=128000-video=316000.m3u8",
-            "http://localhost:8589/22679/files/21/12/22/4418917/22679-qhFBn6dpPtxVW9K.ism/22679-qhFBn6dpPtxVW9K-audio=152000-video=1451000.m3u8",
+            "http://localhost:8589/22679/files/21/12/22/4418917/22679-qhFBn6dpPtxVW9K.ism/22679-qhFBn6dpPtxVW9K-audio=152000-video=748000.m3u8",
+            "http://localhost:8589/22679/files/21/12/22/4418917/22679-qhFBn6dpPtxVW9K.ism/22679-qhFBn6dpPtxVW9K-audio=152000-video=2771000.m3u8",
             "http://localhost:8589/22679/files/21/12/22/4418917/22679-qhFBn6dpPtxVW9K.ism/22679-qhFBn6dpPtxVW9K-audio=152000-video=3838000.m3u8",
           }
         });
