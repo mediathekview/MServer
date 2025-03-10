@@ -245,8 +245,17 @@ public class FilmeSuchen {
       mrClear();
       if (CrawlerConfig.updateFilmliste) {
         // alte Filme eintragen wenn angefordert oder nur ein update gesucht wurde
-        //////toDo
+        zeile = "" + '\n';
+        zeile += "-------------------------------------------------------------------------------------" + '\n';
+        zeile += "Update Filmliste:" + '\n';
+        zeile += "     -> Einträge bisher: " + listeFilmeNeu.size() + '\n';
+        zeile += "     -> Einträge alte: " + listeFilmeAlt.size() + '\n';
+
         listeFilmeNeu.updateListe(listeFilmeAlt, true /* über den Index vergleichen */, false /*ersetzen*/);
+
+        zeile += "     -> Einträge danach: " + listeFilmeNeu.size() + '\n';
+        zeile += "-------------------------------------------------------------------------------------" + '\n';
+        Log.sysLog(zeile);
       }
       listeFilmeNeu.sort();
       // FilmlisteMetaDaten

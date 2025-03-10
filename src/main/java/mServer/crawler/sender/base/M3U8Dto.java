@@ -67,7 +67,6 @@ public class M3U8Dto {
         case "480x320":
         case "480x360":
         case "512x288":
-          return Optional.of(Qualities.SMALL);
         case "636x360":
         case "640x360":
         case "640x480":
@@ -77,15 +76,16 @@ public class M3U8Dto {
         case "720x544":
         case "768x576":
         case "852x480":
+          return Optional.of(Qualities.SMALL);
         case "960x540":
         case "960x544":
         case "1024x576":
         case "1064x576":
         case "1152x576":
-          return Optional.of(Qualities.NORMAL);
         case "1280x720":
         case "1330x720":
         case "1440x720":
+          return Optional.of(Qualities.NORMAL);
         case "1920x1080":
         case "2560x1440":
         case "3840x2160":
