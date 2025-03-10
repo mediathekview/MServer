@@ -53,7 +53,7 @@ public class ArdConstants {
     PARTNER_TO_SENDER.put("hr", Sender.HR);
     PARTNER_TO_SENDER.put("br", Sender.BR);
     PARTNER_TO_SENDER.put("radio_bremen", Sender.RBTV);
-    PARTNER_TO_SENDER.put("tagesschau24", Sender.ARD);
+    PARTNER_TO_SENDER.put("tagesschau24", Sender.TAGESSCHAU24);
     PARTNER_TO_SENDER.put("das_erste", Sender.ARD);
     PARTNER_TO_SENDER.put("one", Sender.ONE); // ONE
     PARTNER_TO_SENDER.put("ard-alpha", Sender.ARD_ALPHA); // ARD-alpha
