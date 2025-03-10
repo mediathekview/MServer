@@ -27,13 +27,13 @@ sourceCompatibility = JavaVersion.VERSION_17
 targetCompatibility = JavaVersion.VERSION_17
 group = 'de.mediathekview'
 archivesBaseName = "MServer"
-version = '3.1.248'
+version = '3.1.249'
 
 def jarName = 'MServer.jar'
 def mainClass = 'mServer.Main'
 
 dependencies {
-    implementation 'de.mediathekview:MLib:3.0.14'
+    implementation 'de.mediathekview:MLib:3.0.15'
     implementation 'commons-net:commons-net:3.9.0'
     implementation 'org.apache.commons:commons-compress:1.22'
     implementation 'org.apache.commons:commons-text:1.10.0'
