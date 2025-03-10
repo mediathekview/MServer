@@ -57,6 +57,7 @@ public class ArdCrawler extends MediathekCrawler {
       mlibFilmeSuchen.meldenFertig("ONE");
       mlibFilmeSuchen.meldenFertig("ARD-alpha");
       mlibFilmeSuchen.meldenFertig("Funk.net");
+      mlibFilmeSuchen.meldenFertig("tagesschau24");
       mlibFilmeSuchen.meldenFertig(Const.SR);
       mlibFilmeSuchen.meldenFertig(Const.PHOENIX);
     }
