@@ -159,12 +159,12 @@ public class ZdfVideoUrlOptimizerTest extends WireMockTestBase {
     assertThat(actual, equalTo(aExpectedUrl));
   }
 
-  protected ZdfCrawler createCrawler() {
+  protected ZdfCrawlerOld createCrawler() {
     final ForkJoinPool forkJoinPool = new ForkJoinPool();
     final Collection<MessageListener> nachrichten = new ArrayList<>();
     final Collection<SenderProgressListener> fortschritte = new ArrayList<>();
 
-    return new ZdfCrawler(
+    return new ZdfCrawlerOld(
         forkJoinPool,
         nachrichten,
         fortschritte,
