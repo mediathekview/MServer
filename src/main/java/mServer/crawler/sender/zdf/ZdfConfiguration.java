@@ -8,8 +8,8 @@ public class ZdfConfiguration {
   private Optional<String> videoAuthKey;
 
   public ZdfConfiguration() {
-    searchAuthKey = Optional.empty();
-    videoAuthKey = Optional.empty();
+    searchAuthKey = Optional.of("5bb200097db507149612d7d983131d06c79706d5");
+    videoAuthKey = Optional.of("20c238b5345eb428d01ae5c748c5076f033dfcc7");
   }
 
   public Optional<String> getSearchAuthKey() {
