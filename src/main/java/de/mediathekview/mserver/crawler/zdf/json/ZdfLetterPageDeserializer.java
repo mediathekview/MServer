@@ -7,33 +7,31 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import de.mediathekview.mserver.base.utils.JsonUtils;
-import de.mediathekview.mserver.crawler.basic.TopicUrlDTO;
+import de.mediathekview.mserver.crawler.basic.PagedElementListDTO;
 import de.mediathekview.mserver.crawler.zdf.ZdfConstants;
+import de.mediathekview.mserver.crawler.zdf.ZdfTopicUrlDto;
 import de.mediathekview.mserver.crawler.zdf.ZdfUrlBuilder;
 import java.lang.reflect.Type;
-import java.util.HashSet;
 import java.util.Optional;
-import java.util.Set;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class ZdfLetterPageDeserializer implements JsonDeserializer<Set<TopicUrlDTO>> {
+public class ZdfLetterPageDeserializer implements JsonDeserializer<PagedElementListDTO<ZdfTopicUrlDto>> {
 
-  public static final int EPISODES_PAGE_SIZE = 24;
   private static final Logger LOG = LogManager.getLogger(ZdfLetterPageDeserializer.class);
 
   @Override
-  public Set<TopicUrlDTO> deserialize(
+  public PagedElementListDTO<ZdfTopicUrlDto> deserialize(
       JsonElement json, Type typeOfT, JsonDeserializationContext context)
       throws JsonParseException {
-    final Set<TopicUrlDTO> canonicalSet = new HashSet<>();
+    final PagedElementListDTO<ZdfTopicUrlDto> result = new PagedElementListDTO<>();
     JsonObject rootNode = json.getAsJsonObject();
-    JsonArray nodes =
-        rootNode
+
+    JsonObject content = rootNode
             .getAsJsonObject("data")
             .getAsJsonObject("specialPageByCanonical")
-            .getAsJsonObject("content")
-            .getAsJsonArray("nodes");
+            .getAsJsonObject("content");
+    JsonArray nodes = content.getAsJsonArray("nodes");
 
     for (JsonElement element : nodes) {
       JsonObject node = element.getAsJsonObject();
@@ -42,19 +40,35 @@ public class ZdfLetterPageDeserializer implements JsonDeserializer<Set<TopicUrlD
       final Optional<String> topic = JsonUtils.getElementValueAsString(node, "title");
       final Optional<String> countSeasons = JsonUtils.getElementValueAsString(node, "countSeasons");
       if (ZdfConstants.PARTNER_TO_SENDER.containsKey(sender.orElse("ZDF"))) {
-        // TODO: gibt es den Fall, dass es keine Season gibt??
+        // todo: gibt es den Fall, dass es keine Season gibt??
         if (countSeasons.isEmpty()) {
           LOG.error("no season found for {}", node.get("canonical").getAsString());
         }
         for (int i = 0; i < Integer.parseInt(countSeasons.orElse("0")); i++) {
-          canonicalSet.add(
-              new TopicUrlDTO(topic.orElse(""),
+          String canonical = node.get("canonical").getAsString();
+          result.addElement(
+              new ZdfTopicUrlDto(
+                  topic.orElse(""),
+                  i,
+                  canonical,
                   ZdfUrlBuilder.buildTopicSeasonUrl(
-                      i, EPISODES_PAGE_SIZE, node.get("canonical").getAsString())));
+                      i, ZdfConstants.EPISODES_PAGE_SIZE, canonical)));
         }
       }
     }
 
-    return canonicalSet;
+    result.setNextPage(parseNextPage(content.getAsJsonObject("pageInfo")));
+
+    return result;
+  }
+
+  private Optional<String> parseNextPage(JsonObject pageInfo) {
+    if (!pageInfo.isJsonNull()) {
+      final Optional<String> hasNextPage = JsonUtils.getAttributeAsString(pageInfo, "hasNextPage");
+      if (hasNextPage.isPresent() && hasNextPage.get().equals("true")) {
+        return JsonUtils.getAttributeAsString(pageInfo, "endCursor");
+      }
+    }
+    return Optional.empty();
   }
 }

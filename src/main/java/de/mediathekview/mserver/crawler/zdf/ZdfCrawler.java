@@ -6,8 +6,6 @@ import de.mediathekview.mlib.messages.listener.MessageListener;
 import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.base.messages.ServerMessages;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
-import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
-import de.mediathekview.mserver.crawler.basic.TopicUrlDTO;
 import de.mediathekview.mserver.crawler.zdf.tasks.ZdfFilmTask;
 import de.mediathekview.mserver.crawler.zdf.tasks.ZdfLetterPageTask;
 import de.mediathekview.mserver.crawler.zdf.tasks.ZdfTopicSeasonTask;
@@ -42,7 +40,7 @@ public class ZdfCrawler extends AbstractCrawler {
     final String authKey = "aa3noh4ohz9eeboo8shiesheec9ciequ9Quah7el";
     try {
       ZdfLetterPageTask letterPageTask = new ZdfLetterPageTask(this, createLetterPageUrls(), authKey);
-      final Set<TopicUrlDTO> topicUrls = forkJoinPool.submit(letterPageTask).get();
+      final Set<ZdfTopicUrlDto> topicUrls = forkJoinPool.submit(letterPageTask).get();
 
       printMessage(
               ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), topicUrls.size());
@@ -64,10 +62,10 @@ public class ZdfCrawler extends AbstractCrawler {
     return null;
   }
 
-  private Queue<CrawlerUrlDTO> createLetterPageUrls() {
-    final Queue<CrawlerUrlDTO> urls = new ConcurrentLinkedQueue<>();
+  private Queue<ZdfLetterDto> createLetterPageUrls() {
+    final Queue<ZdfLetterDto> urls = new ConcurrentLinkedQueue<>();
     for (int i = 0; i < MAX_LETTER_PAGEGS; i++) {
-      urls.add(new CrawlerUrlDTO(ZdfUrlBuilder.buildLetterPageUrl(i)));
+      urls.add(new ZdfLetterDto(i, ZdfUrlBuilder.buildLetterPageUrl(ZdfConstants.NO_CURSOR, i)));
     }
 
     return urls;

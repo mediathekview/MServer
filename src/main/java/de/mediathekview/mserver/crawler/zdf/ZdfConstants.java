@@ -16,14 +16,17 @@ public final class ZdfConstants {
   /** Base url of the ZDF api. */
   public static final String URL_API_BASE = "https://api.zdf.de";
 
-  // todo: next-page, itemsfilter so ok?
+  public static final String NO_CURSOR = "null";
+  public static final int EPISODES_PAGE_SIZE = 24;
+
+  // todo: itemsfilter so ok?
   public static final String URL_LETTER_PAGE =
       URL_API_BASE
           + "/graphql?operationName=specialPageByCanonical&" +
               "variables=%s&" +
               "extensions=%s";
   public static final String URL_LETTER_PAGE_VARIABLES =
-      "{\"staticGridClusterPageSize\":6,\"staticGridClusterOffset\":0,\"canonical\":\"sendungen-100\",\"endCursor\":null,\"tabIndex\":%d,\"itemsFilter\":{\"teaserUsageNotIn\":[\"TIVI_HBBTV_ONLY\"]}}";
+      "{\"staticGridClusterPageSize\":6,\"staticGridClusterOffset\":0,\"canonical\":\"sendungen-100\",\"endCursor\":%s,\"tabIndex\":%d,\"itemsFilter\":{\"teaserUsageNotIn\":[\"TIVI_HBBTV_ONLY\"]}}";
   public static final String URL_LETTER_PAGE_EXTENSIONS =
       "{\"persistedQuery\":{\"version\":1,\"sha256Hash\":\"7d33167e7700ba57779f48b28b5d485c8ada0a1d5dfbdc8a261b7bd62ca28ba7\"}}";
 
@@ -32,6 +35,7 @@ public final class ZdfConstants {
           "variables=%s&" +
           "extensions=%s";
   public static final String URL_TOPIC_PAGE_VARIABLES = "{\"seasonIndex\":%d,\"episodesPageSize\":%d,\"canonical\":\"%s\",\"sortBy\":[{\"field\":\"EDITORIAL_DATE\",\"direction\":\"DESC\"}]}";
+  public static final String URL_TOPIC_PAGE_VARIABLES_WITH_CURSOR = "{\"seasonIndex\":%d,\"episodesPageSize\":%d,\"canonical\":\"%s\",\"sortBy\":[{\"field\":\"EDITORIAL_DATE\",\"direction\":\"DESC\"}],\"episodesAfter\":\"%s\"}";
   public static final String URL_TOPIC_PAGE_EXTENSIONS =
       "{\"persistedQuery\":{\"version\":1,\"sha256Hash\":\"9412a0f4ac55dc37d46975d461ec64bfd14380d815df843a1492348f77b5c99a\"}}";
 

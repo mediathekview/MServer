@@ -4,6 +4,7 @@ import com.google.gson.*;
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mserver.base.utils.JsonUtils;
 import de.mediathekview.mserver.base.utils.UrlUtils;
+import de.mediathekview.mserver.crawler.basic.PagedElementListDTO;
 import de.mediathekview.mserver.crawler.zdf.ZdfConstants;
 import de.mediathekview.mserver.crawler.zdf.ZdfFilmDto;
 import java.lang.reflect.Type;
@@ -13,28 +14,29 @@ import java.util.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class ZdfTopicSeasonDeserializer implements JsonDeserializer<Set<ZdfFilmDto>> {
+public class ZdfTopicSeasonDeserializer implements JsonDeserializer<PagedElementListDTO<ZdfFilmDto>> {
 
   private static final Logger LOG = LogManager.getLogger(ZdfTopicSeasonDeserializer.class);
 
   private static final String PLACEHOLDER_PLAYER_ID = "{playerId}";
+  // todo check if this is the correct player id
   private static final String PLAYER_ID = "android_native_5";
   private static final DateTimeFormatter DATE_FORMATTER_EDITORIAL =
       DateTimeFormatter.ofPattern(
           "yyyy-MM-dd'T'HH:mm:ss.SSSSSSXXX"); // 2016-10-29T16:15:00.000+02:00
 
   private static Optional<LocalDateTime> parseDate(JsonObject episodeObject) {
-    // TODO Ausstrahlungszeit scheint es nicht zu geben!
+    // todo Ausstrahlungszeit scheint es nicht zu geben!
     final Optional<String> dateValue =
         JsonUtils.getAttributeAsString(episodeObject, "editorialDate");
     return dateValue.map(s -> LocalDateTime.parse(s, DATE_FORMATTER_EDITORIAL));
   }
 
   @Override
-  public Set<ZdfFilmDto> deserialize(
+  public PagedElementListDTO<ZdfFilmDto> deserialize(
       JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext)
       throws JsonParseException {
-    final Set<ZdfFilmDto> films = new HashSet<>();
+    final PagedElementListDTO<ZdfFilmDto> films = new PagedElementListDTO<>();
 
     JsonObject rootNode = jsonElement.getAsJsonObject();
     JsonArray nodes =
@@ -45,8 +47,9 @@ public class ZdfTopicSeasonDeserializer implements JsonDeserializer<Set<ZdfFilmD
             .getAsJsonArray("nodes");
 
     for (JsonElement element : nodes) {
-      final JsonArray episodeNodes =
-          element.getAsJsonObject().getAsJsonObject("episodes").getAsJsonArray("nodes");
+
+      final JsonObject episodes = element.getAsJsonObject().getAsJsonObject("episodes");
+      final JsonArray episodeNodes = episodes.getAsJsonArray("nodes");
       for (JsonElement episode : episodeNodes) {
         final JsonObject episodeObject = episode.getAsJsonObject();
         final Optional<String> title = parseTitle(episodeObject);
@@ -55,6 +58,7 @@ public class ZdfTopicSeasonDeserializer implements JsonDeserializer<Set<ZdfFilmD
         final Optional<LocalDateTime> time = parseDate(episodeObject);
         final Optional<String> description =
             JsonUtils.getAttributeAsString(episodeObject.getAsJsonObject("teaser"), "description");
+        // todo hier kann ein JSONNull auftreten
         final Optional<String> sender =
             JsonUtils.getAttributeAsString(episodeObject.getAsJsonObject("contentOwner"), "title");
 
@@ -74,7 +78,7 @@ public class ZdfTopicSeasonDeserializer implements JsonDeserializer<Set<ZdfFilmD
         }
 
         if (title.isPresent()) {
-          films.addAll(
+          films.addElements(
               createFilm(
                   ZdfConstants.PARTNER_TO_SENDER.get(sender.orElse("EMPTY")),
                   title.get(),
@@ -86,11 +90,21 @@ public class ZdfTopicSeasonDeserializer implements JsonDeserializer<Set<ZdfFilmD
           LOG.error("ZdfTopicSeasonDeserializer: no title found");
         }
       }
+
+      films.setNextPage(parseNextPage(episodes.getAsJsonObject("pageInfo")));
     }
 
-    // TODO next page
-
     return films;
+  }
+
+  private Optional<String> parseNextPage(JsonObject pageInfo) {
+    if (!pageInfo.isJsonNull()) {
+      final Optional<String> hasNextPage = JsonUtils.getAttributeAsString(pageInfo, "hasNextPage");
+      if (hasNextPage.isPresent() && hasNextPage.get().equals("true")) {
+        return JsonUtils.getAttributeAsString(pageInfo, "endCursor");
+      }
+    }
+    return Optional.empty();
   }
 
   private Optional<String> parseTitle(final JsonObject episodeObject) {
