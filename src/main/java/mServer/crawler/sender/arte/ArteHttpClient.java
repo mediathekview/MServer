@@ -36,7 +36,7 @@ public class ArteHttpClient {
             .addHeader(AUTH_HEADER, AUTH_TOKEN);
 
     BUILDER = new Request.Builder().addHeader(USER_AGENT, USER_AGENT_VALUE);
-    LIMITER = RateLimiter.create(2);
+    LIMITER = RateLimiter.create(0.5);
   }
 
   private static Request createRequest(String aUrl) {
