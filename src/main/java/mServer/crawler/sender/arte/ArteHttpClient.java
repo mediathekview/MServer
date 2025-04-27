@@ -2,6 +2,7 @@ package mServer.crawler.sender.arte;
 
 import com.google.common.util.concurrent.RateLimiter;
 import com.google.gson.Gson;
+import de.mediathekview.mlib.Config;
 import de.mediathekview.mlib.tool.Log;
 import de.mediathekview.mlib.tool.MVHttpClient;
 import okhttp3.OkHttpClient;
@@ -87,7 +88,8 @@ public class ArteHttpClient {
             } else {
               // bei 429 (too many requests) warten und nochmal versuchen
               // Wartezeit von 60s aus Header Retry-After
-              Log.sysLog("429: " + aUrl);
+              String retryAfter = response.header("Retry-After", "");
+              Log.sysLog("429: " + aUrl + " - retry after: " + retryAfter);
               try {
                 TimeUnit.MILLISECONDS.sleep(60000);
                 FilmeSuchen.listeSenderLaufen.inc(sender, RunSender.Count.FEHLVERSUCHE);
@@ -102,7 +104,7 @@ public class ArteHttpClient {
           }
 
         }
-      } while (!stop);
+      } while (!stop && !Config.getStop());
 
     } catch (IOException ex) {
       logger.error("Beim laden der Filme für Arte kam es zu Verbindungsproblemen.", ex);
