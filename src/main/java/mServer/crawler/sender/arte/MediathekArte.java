@@ -273,10 +273,10 @@ public class MediathekArte extends MediathekReader {
 
     private boolean shouldLoadNextPage(String sender) {
       if (Const.ARTE_DE.equals(sender)) {
-        return true;
+         return subPage < 10;
       }
 
-      return subPage < 5;
+      return subPage < 2;
     }
 
     private void loadCollections(String sender, String langCode, Gson gsonParent, Gson gsonChild, ArteCategoryFilmsDTO dto) {
