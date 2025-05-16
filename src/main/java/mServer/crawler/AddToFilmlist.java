@@ -138,7 +138,6 @@ public class AddToFilmlist {
     updateAudioDescriptionSrf(listeEinsortieren);
     updateTitle(listeEinsortieren);
     updateArdWebsite(listeEinsortieren);
-    // todo geht so was auch für ONE und ardalpha?
     updateSenderTagesschau24(listeEinsortieren);
     updateFunkMissingHost(listeEinsortieren);
     removeSrfUrlParameter(listeEinsortieren);
