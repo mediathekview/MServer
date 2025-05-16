@@ -180,7 +180,7 @@ public class AddToFilmlist {
   }
 
   private void updateThema(ListeFilme listeEinsortieren) {
-    listeEinsortieren.forEach(film -> {
+    listeEinsortieren.parallelStream().forEach(film -> {
       final String thema = film.arr[DatenFilm.FILM_THEMA].trim();
       if (thema.contains("–")) {
         film.arr[DatenFilm.FILM_THEMA] = thema.replace("–", "-").trim();
@@ -189,7 +189,7 @@ public class AddToFilmlist {
   }
 
   private void updateTitle(ListeFilme listeEinsortieren) {
-    listeEinsortieren.forEach(film -> {
+    listeEinsortieren.parallelStream().forEach(film -> {
       final String title = film.arr[DatenFilm.FILM_TITEL].trim();
       if (title.endsWith("-")) {
         film.arr[DatenFilm.FILM_TITEL] = title.replaceAll("-+$", "").trim();
