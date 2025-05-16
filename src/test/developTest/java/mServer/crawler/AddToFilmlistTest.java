@@ -478,6 +478,23 @@ public class AddToFilmlistTest {
   }
 
   @Test
+  public void testArdEntriesNotAddedIfOneEntryExists() {
+    final DatenFilm testFilmOne = createTestFilm(Const.ARD, "one topic", "one title", FILM_NAME_ONLINE);
+    final DatenFilm testFilmArdOk = createTestFilm(Const.ARD, "ardtopic", "ard title", FILM_NAME_ONLINE2);
+    listToAdd.add(testFilmOne);
+    listToAdd.add(testFilmArdOk);
+    list.add(createTestFilm(Const.ONE, "one topic", "one title", FILM_NAME_ONLINE));
+
+    AddToFilmlist target =new AddToFilmlist(list, listToAdd);
+    target.addOldList();
+
+    assertEquals(list.size(),4);
+    assertFalse(list.contains(testFilmOne));
+    assertTrue(list.contains(testFilmArdOk));
+    assertEquals(Const.ARD, testFilmArdOk.arr[DatenFilm.FILM_SENDER]);
+  }
+
+  @Test
   public void testArdTagesschau24EntriesNotAdded() {
     final DatenFilm testFilmArd24 = createTestFilm(Const.ARD, "tagesschau24", "film title", FILM_NAME_ONLINE);
     final DatenFilm testFilmArdOk = createTestFilm(Const.ARD, "tagesschau", "film title", FILM_NAME_ONLINE2);
