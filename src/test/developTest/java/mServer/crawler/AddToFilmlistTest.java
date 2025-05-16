@@ -477,6 +477,53 @@ public class AddToFilmlistTest {
     assertFalse(list.contains(testFilmZdf));
   }
 
+  @Test
+  public void testArdEntriesNotAddedIfOneEntryExists() {
+    final DatenFilm testFilmOne = createTestFilm(Const.ARD, "one topic", "one title", FILM_NAME_ONLINE);
+    final DatenFilm testFilmArdOk = createTestFilm(Const.ARD, "ardtopic", "ard title", FILM_NAME_ONLINE2);
+    listToAdd.add(testFilmOne);
+    listToAdd.add(testFilmArdOk);
+    list.add(createTestFilm(Const.ONE, "one topic", "one title", FILM_NAME_ONLINE));
+
+    AddToFilmlist target =new AddToFilmlist(list, listToAdd);
+    target.addOldList();
+
+    assertEquals(list.size(),4);
+    assertFalse(list.contains(testFilmOne));
+    assertTrue(list.contains(testFilmArdOk));
+    assertEquals(Const.ARD, testFilmArdOk.arr[DatenFilm.FILM_SENDER]);
+  }
+
+  @Test
+  public void testArdTagesschau24EntriesNotAdded() {
+    final DatenFilm testFilmArd24 = createTestFilm(Const.ARD, "tagesschau24", "film title", FILM_NAME_ONLINE);
+    final DatenFilm testFilmArdOk = createTestFilm(Const.ARD, "tagesschau", "film title", FILM_NAME_ONLINE2);
+    listToAdd.add(testFilmArd24);
+    listToAdd.add(testFilmArdOk);
+    list.add(createTestFilm(Const.TAGESSCHAU24, "tagesschau24", "film title", FILM_NAME_ONLINE));
+
+    AddToFilmlist target =new AddToFilmlist(list, listToAdd);
+    target.addOldList();
+
+    assertEquals(list.size(),4);
+    assertFalse(list.contains(testFilmArd24));
+    assertTrue(list.contains(testFilmArdOk));
+    assertEquals(Const.ARD, testFilmArdOk.arr[DatenFilm.FILM_SENDER]);
+  }
+
+  @Test
+  public void testArdTagesschau24UpdateSender() {
+    final DatenFilm testFilmArd24 = createTestFilm(Const.ARD, "tagesschau24", "film title", FILM_NAME_ONLINE);
+    listToAdd.add(testFilmArd24);
+
+    AddToFilmlist target =new AddToFilmlist(list, listToAdd);
+    target.addOldList();
+
+    assertEquals(list.size(),3);
+    assertTrue(list.contains(testFilmArd24));
+    assertEquals(Const.TAGESSCHAU24, testFilmArd24.arr[DatenFilm.FILM_SENDER]);
+  }
+
   private static DatenFilm createTestFilm(String sender, String topic, String title,
       String filmUrl) {
     DatenFilm film = new DatenFilm(sender, topic, "url", title, baseUrl + filmUrl, "", "", "", 12,
