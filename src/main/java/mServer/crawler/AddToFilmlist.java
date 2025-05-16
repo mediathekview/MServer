@@ -136,8 +136,10 @@ public class AddToFilmlist {
     removeTimeFromOrf(listeEinsortieren);
     updateAudioDescriptionOrf(listeEinsortieren);
     updateAudioDescriptionSrf(listeEinsortieren);
+    updateThema(listeEinsortieren);
     updateTitle(listeEinsortieren);
     updateArdWebsite(listeEinsortieren);
+    updateSenderTagesschau24(listeEinsortieren);
     updateFunkMissingHost(listeEinsortieren);
     removeSrfUrlParameter(listeEinsortieren);
   }
@@ -178,8 +180,17 @@ public class AddToFilmlist {
     list.forEach(film -> film.arr[DatenFilm.FILM_URL_HD] = film.arr[DatenFilm.FILM_URL_HD].replace("https://", "https://funk-02.akamaized.net/").trim());
   }
 
+  private void updateThema(ListeFilme listeEinsortieren) {
+    listeEinsortieren.parallelStream().forEach(film -> {
+      final String thema = film.arr[DatenFilm.FILM_THEMA].trim();
+      if (thema.contains("–")) {
+        film.arr[DatenFilm.FILM_THEMA] = thema.replace("–", "-").trim();
+      }
+    });
+  }
+
   private void updateTitle(ListeFilme listeEinsortieren) {
-    listeEinsortieren.forEach(film -> {
+    listeEinsortieren.parallelStream().forEach(film -> {
       final String title = film.arr[DatenFilm.FILM_TITEL].trim();
       if (title.endsWith("-")) {
         film.arr[DatenFilm.FILM_TITEL] = title.replaceAll("-+$", "").trim();
@@ -196,6 +207,15 @@ public class AddToFilmlist {
     list.forEach(film -> film.arr[DatenFilm.FILM_WEBSEITE] = film.arr[DatenFilm.FILM_WEBSEITE].replace("/ard/player/", "/video/").trim());
   }
 
+  private void updateSenderTagesschau24(ListeFilme listeEinsortieren) {
+    final List<String> whiteListTagesschau24 = Arrays.stream(new String[] { "Ulrich Timm im Gespräch", "tagesschau in Einfacher Sprache", "tagesschau in 100 Sekunden", "tagesschau24" }).toList();
+    final List<DatenFilm> list = listeEinsortieren.parallelStream()
+            .filter(film -> film.arr[DatenFilm.FILM_SENDER].equals(Const.ARD) && whiteListTagesschau24.contains(film.arr[DatenFilm.FILM_THEMA]))
+            .collect(Collectors.toList());
+    Log.sysLog("ARD: set sender tagesschau24 für " +  list.size() + " Einträge.");
+
+    list.forEach(film -> film.arr[DatenFilm.FILM_SENDER] = Const.TAGESSCHAU24);
+  }
 
   private void updateAudioDescriptionOrf(ListeFilme listeEinsortieren) {
     final List<DatenFilm> list = listeEinsortieren.parallelStream()

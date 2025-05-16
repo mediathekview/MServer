@@ -97,11 +97,11 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
     ADDITIONAL_SENDER.put("wdr", Const.WDR);
     ADDITIONAL_SENDER.put("hr", Const.HR);
     ADDITIONAL_SENDER.put("br", Const.BR);
-    ADDITIONAL_SENDER.put("radio_bremen", "rbtv");
-    ADDITIONAL_SENDER.put("tagesschau24", Const.ARD);
+    ADDITIONAL_SENDER.put("radio_bremen", Const.RBTV);
+    ADDITIONAL_SENDER.put("tagesschau24", Const.TAGESSCHAU24);
     ADDITIONAL_SENDER.put("das_erste", Const.ARD);
-    ADDITIONAL_SENDER.put("one", Const.ARD); // ONE
-    ADDITIONAL_SENDER.put("ard-alpha", Const.ARD); // ARD-alpha
+    ADDITIONAL_SENDER.put("one", Const.ONE); // ONE
+    ADDITIONAL_SENDER.put("ard-alpha", Const.ARD_ALPHA); // ARD-alpha
     ADDITIONAL_SENDER.put("funk", "Funk.net"); // Funk.net
     ADDITIONAL_SENDER.put("sr", Const.SR);
     ADDITIONAL_SENDER.put("phoenix", Const.PHOENIX);
