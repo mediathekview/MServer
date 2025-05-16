@@ -136,6 +136,7 @@ public class AddToFilmlist {
     removeTimeFromOrf(listeEinsortieren);
     updateAudioDescriptionOrf(listeEinsortieren);
     updateAudioDescriptionSrf(listeEinsortieren);
+    updateThema(listeEinsortieren);
     updateTitle(listeEinsortieren);
     updateArdWebsite(listeEinsortieren);
     updateFunkMissingHost(listeEinsortieren);
@@ -176,6 +177,15 @@ public class AddToFilmlist {
     list.forEach(film -> film.arr[DatenFilm.FILM_URL] = film.arr[DatenFilm.FILM_URL].replace("https://", "https://funk-02.akamaized.net/").trim());
     list.forEach(film -> film.arr[DatenFilm.FILM_URL_KLEIN] = film.arr[DatenFilm.FILM_URL_KLEIN].replace("https://", "https://funk-02.akamaized.net/").trim());
     list.forEach(film -> film.arr[DatenFilm.FILM_URL_HD] = film.arr[DatenFilm.FILM_URL_HD].replace("https://", "https://funk-02.akamaized.net/").trim());
+  }
+
+  private void updateThema(ListeFilme listeEinsortieren) {
+    listeEinsortieren.forEach(film -> {
+      final String thema = film.arr[DatenFilm.FILM_THEMA].trim();
+      if (thema.contains("–")) {
+        film.arr[DatenFilm.FILM_THEMA] = thema.replace("–", "-").trim();
+      }
+    });
   }
 
   private void updateTitle(ListeFilme listeEinsortieren) {

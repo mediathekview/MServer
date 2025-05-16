@@ -417,6 +417,23 @@ public class AddToFilmlistTest {
   }
 
   @Test
+  public void testRefreshThemaWithBindestrich() {
+    final DatenFilm testFilmNotUpdated = createTestFilm(Const.ARD, "My - Topic", "Film with normal", FILM_NAME_ONLINE);
+    final DatenFilm testFilmUpdated = createTestFilm(Const.ARD, "My - Topic", "Film with wrong", FILM_NAME_ONLINE);
+    testFilmUpdated.arr[DatenFilm.FILM_THEMA] = "My – Topic";
+
+    listToAdd.add(testFilmUpdated);
+    listToAdd.add(testFilmNotUpdated);
+
+    AddToFilmlist target = new AddToFilmlist(list, listToAdd);
+    target.addOldList();
+
+    assertEquals(list.size(), 4);
+    assertEquals("My - Topic", testFilmUpdated.arr[DatenFilm.FILM_THEMA]);
+    assertEquals("My - Topic", testFilmNotUpdated.arr[DatenFilm.FILM_THEMA]);
+  }
+
+  @Test
   public void testRefreshTitleWithTrailingDash() {
     final DatenFilm testFilmUpdated = createTestFilm(Const.ARD, "My Topic", "Title - ", FILM_NAME_ONLINE);
     final DatenFilm testFilmNotUpdated = createTestFilm(Const.ARD, "My Topic", "Title - Episode", FILM_NAME_ONLINE);
