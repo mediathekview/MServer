@@ -65,8 +65,8 @@ public final class ZdfConstants {
   public static final Map<String, Sender> PARTNER_TO_SENDER = new HashMap<>();
 
   static {
-    PARTNER_TO_SENDER.put("ZDFinfo", Sender.ZDF);
-    PARTNER_TO_SENDER.put("ZDFneo", Sender.ZDF);
+    PARTNER_TO_SENDER.put("ZDFinfo", Sender.ZDF_INFO);
+    PARTNER_TO_SENDER.put("ZDFneo", Sender.ZDF_NEO);
     PARTNER_TO_SENDER.put("ZDF", Sender.ZDF); 
     PARTNER_TO_SENDER.put("EMPTY", Sender.ZDF);
     // IGNORED Sender [KI.KA, WDR, PHOENIX, one, HR, 3sat, SWR, arte, BR, RBB, ARD, daserste, alpha, MDR, radiobremen, funk, ZDF, NDR, SR]

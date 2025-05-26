@@ -58,9 +58,7 @@ public class ZdfTopicSeasonDeserializer implements JsonDeserializer<PagedElement
         final Optional<LocalDateTime> time = parseDate(episodeObject);
         final Optional<String> description =
             JsonUtils.getAttributeAsString(episodeObject.getAsJsonObject("teaser"), "description");
-        // todo hier kann ein JSONNull auftreten
-        final Optional<String> sender =
-            JsonUtils.getAttributeAsString(episodeObject.getAsJsonObject("contentOwner"), "title");
+        final Optional<String> sender = parseSender(episodeObject);
 
         // streamingoptions relevant, um zu erkennen ob uhd/dgs/ad/ov...?
         final Map<String, String> downloadUrls = new HashMap<>();
@@ -95,6 +93,25 @@ public class ZdfTopicSeasonDeserializer implements JsonDeserializer<PagedElement
     }
 
     return films;
+  }
+
+  private Optional<String> parseSender(JsonObject episodeObject) {
+
+    if (!episodeObject.has("tracking")) {
+      return Optional.empty();
+    }
+    final Optional<JsonElement> trackingVideoElement = JsonUtils.getElement(episodeObject, "tracking", "piano", "video");
+    if (trackingVideoElement.isEmpty() ||trackingVideoElement.get().isJsonNull()) {
+      return Optional.empty();
+    }
+
+    final JsonObject trackingVideoObject = trackingVideoElement.get().getAsJsonObject();
+    Optional<String> sender =
+        JsonUtils.getAttributeAsString(trackingVideoObject, "av_broadcastdetail");
+    if (sender.isEmpty()) {
+      sender = JsonUtils.getAttributeAsString(trackingVideoObject, "av_broadcaster");
+    }
+    return sender;
   }
 
   private Optional<String> parseNextPage(JsonObject pageInfo) {
@@ -176,7 +193,9 @@ public class ZdfTopicSeasonDeserializer implements JsonDeserializer<PagedElement
                   aTime.orElse(LocalDateTime.now()),
                   key.toLowerCase(),
                   url)));
-    } else LOG.error("ZdfTopicSeasonDeserializer: no video found");
+    } else {
+      LOG.error("ZdfTopicSeasonDeserializer: no video found for {}: {}", sender, aTitle);
+    }
 
     return films;
   }
