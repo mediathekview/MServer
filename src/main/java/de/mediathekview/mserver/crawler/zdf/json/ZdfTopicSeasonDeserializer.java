@@ -39,60 +39,84 @@ public class ZdfTopicSeasonDeserializer implements JsonDeserializer<PagedElement
     final PagedElementListDTO<ZdfFilmDto> films = new PagedElementListDTO<>();
 
     JsonObject rootNode = jsonElement.getAsJsonObject();
-    JsonArray nodes =
-        rootNode
-            .getAsJsonObject("data")
-            .getAsJsonObject("smartCollectionByCanonical")
-            .getAsJsonObject("seasons")
-            .getAsJsonArray("nodes");
+    final JsonObject data = rootNode.getAsJsonObject("data");
+    if (data.isJsonNull()) {
+      LOG.error("ZdfTopicSeasonDeserializer: No data found in response");
+      return films;
+    }
 
-    for (JsonElement element : nodes) {
+    if (data.has("smartCollectionByCanonical")) {
+      final JsonArray seasonNodes = data.getAsJsonObject("smartCollectionByCanonical")
+              .getAsJsonObject("seasons")
+              .getAsJsonArray("nodes");
+      for (JsonElement element : seasonNodes) {
+        final JsonObject episodes = element.getAsJsonObject().getAsJsonObject("episodes");
+        final JsonArray episodeNodes = episodes.getAsJsonArray("nodes");
+        addFilms(films, episodeNodes);
+        films.setNextPage(parseNextPage(episodes.getAsJsonObject("pageInfo")));
+      }
+    }
+    else if (data.has("metaCollectionContent")) {
+      final JsonObject metaCollectionContent = data.getAsJsonObject("metaCollectionContent");
+      final JsonArray collectionNodes = metaCollectionContent
+              .getAsJsonArray("smartCollections");
+      addFilms(films, collectionNodes);
+      films.setNextPage(parseNextPage(metaCollectionContent.getAsJsonObject("pageInfo")));
+    } else {
+      LOG.error("ZdfTopicSeasonDeserializer: No valid entry nodes found");
+    }
+    return films;
+  }
 
-      final JsonObject episodes = element.getAsJsonObject().getAsJsonObject("episodes");
-      final JsonArray episodeNodes = episodes.getAsJsonArray("nodes");
-      for (JsonElement episode : episodeNodes) {
-        final JsonObject episodeObject = episode.getAsJsonObject();
-        final Optional<String> title = parseTitle(episodeObject);
-        final Optional<String> website =
-            JsonUtils.getAttributeAsString(episodeObject, "sharingUrl");
-        final Optional<LocalDateTime> time = parseDate(episodeObject);
-        final Optional<String> description =
-            JsonUtils.getAttributeAsString(episodeObject.getAsJsonObject("teaser"), "description");
-        final Optional<String> sender = parseSender(episodeObject);
+  private void addFilms(PagedElementListDTO<ZdfFilmDto> films, JsonArray episodeNodes) {
+    for (JsonElement episode : episodeNodes) {
+      final JsonObject episodeObject = episode.getAsJsonObject();
+      final Optional<String> title = parseTitle(episodeObject);
+      final Optional<String> website =
+          JsonUtils.getAttributeAsString(episodeObject, "sharingUrl");
+      final Optional<LocalDateTime> time = parseDate(episodeObject);
+      final Optional<String> description =
+          JsonUtils.getAttributeAsString(episodeObject.getAsJsonObject("teaser"), "description");
+      final Optional<String> sender = parseSender(episodeObject);
 
-        // streamingoptions relevant, um zu erkennen ob uhd/dgs/ad/ov...?
-        final Map<String, String> downloadUrls = new HashMap<>();
+      // streamingoptions relevant, um zu erkennen ob uhd/dgs/ad/ov...?
+      final Map<String, String> downloadUrls = new HashMap<>();
 
-        final JsonArray mediaNodes =
-            episodeObject.getAsJsonObject("currentMedia").getAsJsonArray("nodes");
-        for (JsonElement media : mediaNodes) {
-          final JsonObject mediaObject = media.getAsJsonObject();
-          final Optional<String> mediaType =
-              JsonUtils.getAttributeAsString(mediaObject, "vodMediaType");
-          final Optional<String> url = JsonUtils.getAttributeAsString(mediaObject, "ptmdTemplate");
-          if (mediaType.isPresent() && url.isPresent()) {
-            downloadUrls.put(mediaType.get(), finalizeDownloadUrl(url.get()));
-          }
-        }
-
-        if (title.isPresent()) {
-          films.addElements(
-              createFilm(
-                  ZdfConstants.PARTNER_TO_SENDER.get(sender.orElse("EMPTY")),
-                  title.get(),
-                  description,
-                  website,
-                  time,
-                  downloadUrls));
-        } else {
-          LOG.error("ZdfTopicSeasonDeserializer: no title found");
+      final JsonArray mediaNodes = getMediaNodes(episodeObject);
+      for (JsonElement media : mediaNodes) {
+        final JsonObject mediaObject = media.getAsJsonObject();
+        final Optional<String> mediaType =
+            JsonUtils.getAttributeAsString(mediaObject, "vodMediaType");
+        final Optional<String> url = JsonUtils.getAttributeAsString(mediaObject, "ptmdTemplate");
+        if (mediaType.isPresent() && url.isPresent()) {
+          downloadUrls.put(mediaType.get(), finalizeDownloadUrl(url.get()));
         }
       }
 
-      films.setNextPage(parseNextPage(episodes.getAsJsonObject("pageInfo")));
+      if (title.isPresent()) {
+        films.addElements(
+            createFilm(
+                ZdfConstants.PARTNER_TO_SENDER.get(sender.orElse("EMPTY")),
+                title.get(),
+                description,
+                website,
+                time,
+                downloadUrls));
+      } else {
+        LOG.error("ZdfTopicSeasonDeserializer: no title found");
+      }
     }
+  }
 
-    return films;
+  private JsonArray getMediaNodes(JsonObject episodeObject) {
+    JsonObject videoRootObject = episodeObject;
+    if (episodeObject.has("video")) {
+      videoRootObject = episodeObject.getAsJsonObject("video");
+    }
+    if (!videoRootObject.has("currentMedia")) {
+      return new JsonArray();
+    }
+    return videoRootObject.getAsJsonObject("currentMedia").getAsJsonArray("nodes");
   }
 
   private Optional<String> parseSender(JsonObject episodeObject) {
@@ -130,13 +154,18 @@ public class ZdfTopicSeasonDeserializer implements JsonDeserializer<PagedElement
     Optional<String> resultingTitle = formatTitle(title, subtitle);
 
     if (resultingTitle.isPresent()) {
-      final Optional<Integer> season =
-          JsonUtils.getAttributeAsInt(episodeObject.getAsJsonObject("episodeInfo"), "seasonNumber");
-      final Optional<Integer> episode =
-          JsonUtils.getAttributeAsInt(
-              episodeObject.getAsJsonObject("episodeInfo"), "episodeNumber");
-      final Optional<String> seasonEpisodeTitle = formatEpisodeTitle(season, episode);
-      return cleanupTitle((resultingTitle.get() + " " + seasonEpisodeTitle.orElse("")).trim());
+      if (episodeObject.has("episodeInfo")) {
+        final Optional<Integer> season =
+            JsonUtils.getAttributeAsInt(
+                episodeObject.getAsJsonObject("episodeInfo"), "seasonNumber");
+        final Optional<Integer> episode =
+            JsonUtils.getAttributeAsInt(
+                episodeObject.getAsJsonObject("episodeInfo"), "episodeNumber");
+        final Optional<String> seasonEpisodeTitle = formatEpisodeTitle(season, episode);
+        return cleanupTitle((resultingTitle.get() + " " + seasonEpisodeTitle.orElse("")).trim());
+      } else {
+        return cleanupTitle(resultingTitle.get());
+      }
     }
     return Optional.empty();
   }

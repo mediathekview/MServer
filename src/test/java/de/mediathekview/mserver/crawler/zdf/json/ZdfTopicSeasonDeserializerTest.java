@@ -54,4 +54,13 @@ class ZdfTopicSeasonDeserializerTest {
     assertEquals(13, actual.getElements().size());
     actual.getElements().forEach(element -> assertEquals(Sender.ZDF_NEO, element.getSender()));
   }
+  @Test
+  void deserializeNoSeason() {
+    final JsonObject json = JsonFileReader.readJson("/zdf/zdf_topic_page_no_season.json");
+    final PagedElementListDTO<ZdfFilmDto> actual = target.deserialize(json, null, null);
+
+    assertEquals(Optional.empty(), actual.getNextPage());
+    assertEquals(11, actual.getElements().size());
+    actual.getElements().forEach(element -> assertEquals(Sender.ZDF, element.getSender()));
+  }
 }

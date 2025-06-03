@@ -40,19 +40,27 @@ public class ZdfLetterPageDeserializer implements JsonDeserializer<PagedElementL
       final Optional<String> topic = JsonUtils.getElementValueAsString(node, "title");
       final Optional<String> countSeasons = JsonUtils.getElementValueAsString(node, "countSeasons");
       if (ZdfConstants.PARTNER_TO_SENDER.containsKey(sender.orElse("ZDF"))) {
-        // todo: gibt es den Fall, dass es keine Season gibt??
         if (countSeasons.isEmpty()) {
-          LOG.error("no season found for {}", node.get("canonical").getAsString());
-        }
-        for (int i = 0; i < Integer.parseInt(countSeasons.orElse("0")); i++) {
-          String canonical = node.get("canonical").getAsString();
-          result.addElement(
-              new ZdfTopicUrlDto(
-                  topic.orElse(""),
-                  i,
-                  canonical,
-                  ZdfUrlBuilder.buildTopicSeasonUrl(
-                      i, ZdfConstants.EPISODES_PAGE_SIZE, canonical)));
+          final Optional<String> id = JsonUtils.getElementValueAsString(node, "id");
+          id.ifPresent(s -> result.addElement(
+                  new ZdfTopicUrlDto(
+                          topic.orElse(""),
+                          0,
+                          s,
+                          ZdfUrlBuilder.buildTopicNoSeasonUrl(
+                                  ZdfConstants.EPISODES_PAGE_SIZE, s, ZdfConstants.NO_CURSOR)
+                  )));
+        } else {
+          for (int i = 0; i < Integer.parseInt(countSeasons.orElse("0")); i++) {
+            String canonical = node.get("canonical").getAsString();
+            result.addElement(
+                new ZdfTopicUrlDto(
+                    topic.orElse(""),
+                    i,
+                    canonical,
+                    ZdfUrlBuilder.buildTopicSeasonUrl(
+                        i, ZdfConstants.EPISODES_PAGE_SIZE, canonical)));
+          }
         }
       }
     }

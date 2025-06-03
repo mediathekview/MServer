@@ -39,6 +39,18 @@ public final class ZdfConstants {
   public static final String URL_TOPIC_PAGE_EXTENSIONS =
       "{\"persistedQuery\":{\"version\":1,\"sha256Hash\":\"9412a0f4ac55dc37d46975d461ec64bfd14380d815df843a1492348f77b5c99a\"}}";
 
+  public static final String URL_TOPIC_PAGE_NO_SEASON = URL_API_BASE + "/graphql?operationName=getMetaCollectionContent&" +
+          "variables=%s&" +
+          "extensions=%s";
+  // "appId":"ffw-mt-web-879d5c17",
+  // ,"filters":{"contentOwner":[],"fsk":[],"language":[]}
+  // ,"user":{"abGroup":"gruppe-b","userSegment":"segment_0"}
+  public static final String URL_TOPIC_PAGE_NO_SEASON_VARIABLES =
+      "{\"collectionId\":\"%s\",\"input\":{\"appId\":\"ffw-mt-web-879d5c17\",\"filters\":{\"contentOwner\":[],\"fsk\":[],\"language\":[]},\"pagination\":{\"first\":%d,\"after\":%s},\"user\":{\"abGroup\":\"gruppe-d\",\"userSegment\":\"segment_0\"},\"tabId\":null}}";
+  // todo woher kommt ie CollectionId? =>id
+  public static final String URL_TOPIC_PAGE_NO_SEASON_EXTENSIONS =
+      "{\"persistedQuery\":{\"version\":1,\"sha256Hash\":\"c85ca9c636258a65961a81124abd0dbef06ab97eaca9345cbdfde23b54117242\"}}";
+
   public static final String URL_FILM_ENRY =
           URL_API_BASE + "/graphql?operationName=GetVideoMetaByCanonical&"
                   + "variables={\"canonical\"=\"%s\"}&"
@@ -69,6 +81,7 @@ public final class ZdfConstants {
     PARTNER_TO_SENDER.put("ZDFneo", Sender.ZDF_NEO);
     PARTNER_TO_SENDER.put("ZDF", Sender.ZDF); 
     PARTNER_TO_SENDER.put("EMPTY", Sender.ZDF);
+    PARTNER_TO_SENDER.put("ZDFtivi", Sender.ZDF_TIVI);
     // IGNORED Sender [KI.KA, WDR, PHOENIX, one, HR, 3sat, SWR, arte, BR, RBB, ARD, daserste, alpha, MDR, radiobremen, funk, ZDF, NDR, SR]
   }
 

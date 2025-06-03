@@ -30,4 +30,11 @@ class ZdfUrlBuilderTest {
             ZdfUrlBuilder.buildTopicSeasonUrl(18, 24, "soko-wismar-104", "WyJmZTlmZTc5ZDU1IiwiMjAyMy0xMi0wOFQxOTo0NjowNi4wOTIwMDArMDA6MDAiLCJwYWdlLXZpZGVvLWFyZF92aWRlb19hcmRfZFhKdU9tRnlaRHB3ZFdKc2FXTmhkR2x2YmpvMVlqSXhZV1E1TmpFeFpqVTRNalZqIl0="));
   }
 
+  @Test
+  void testBuildTopicUrlNoSeason() {
+    assertEquals("https://api.zdf.de/graphql?operationName=getMetaCollectionContent&variables=%7B%22collectionId%22%3A%22e5acd149-ee98-44b9-8b08-0b70357b4b46%22%2C%22input%22%3A%7B%22pagination%22%3A%7B%22first%22%3A18%2C%22after%22%3Anull%7D%2C%22tabId%22%3Anull%7D%7D&extensions=%7B%22persistedQuery%22%3A%7B%22version%22%3A1%2C%22sha256Hash%22%3A%22c85ca9c636258a65961a81124abd0dbef06ab97eaca9345cbdfde23b54117242%22%7D%7D",
+            ZdfUrlBuilder.buildTopicNoSeasonUrl(18, "e5acd149-ee98-44b9-8b08-0b70357b4b46", ZdfConstants.NO_CURSOR));
+  }
+
+
 }
