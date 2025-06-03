@@ -32,7 +32,7 @@ class ZdfUrlBuilderTest {
 
   @Test
   void testBuildTopicUrlNoSeason() {
-    assertEquals("https://api.zdf.de/graphql?operationName=getMetaCollectionContent&variables=%7B%22collectionId%22%3A%22e5acd149-ee98-44b9-8b08-0b70357b4b46%22%2C%22input%22%3A%7B%22pagination%22%3A%7B%22first%22%3A18%2C%22after%22%3Anull%7D%2C%22tabId%22%3Anull%7D%7D&extensions=%7B%22persistedQuery%22%3A%7B%22version%22%3A1%2C%22sha256Hash%22%3A%22c85ca9c636258a65961a81124abd0dbef06ab97eaca9345cbdfde23b54117242%22%7D%7D",
+    assertEquals("https://api.zdf.de/graphql?operationName=getMetaCollectionContent&variables=%7B%22collectionId%22%3A%22e5acd149-ee98-44b9-8b08-0b70357b4b46%22%2C%22input%22%3A%7B%22appId%22%3A%22ffw-mt-web-879d5c17%22%2C%22filters%22%3A%7B%22contentOwner%22%3A%5B%5D%2C%22fsk%22%3A%5B%5D%2C%22language%22%3A%5B%5D%7D%2C%22pagination%22%3A%7B%22first%22%3A18%2C%22after%22%3Anull%7D%2C%22user%22%3A%7B%22abGroup%22%3A%22gruppe-d%22%2C%22userSegment%22%3A%22segment_0%22%7D%2C%22tabId%22%3Anull%7D%7D&extensions=%7B%22persistedQuery%22%3A%7B%22version%22%3A1%2C%22sha256Hash%22%3A%22c85ca9c636258a65961a81124abd0dbef06ab97eaca9345cbdfde23b54117242%22%7D%7D",
             ZdfUrlBuilder.buildTopicNoSeasonUrl(18, "e5acd149-ee98-44b9-8b08-0b70357b4b46", ZdfConstants.NO_CURSOR));
   }
 
