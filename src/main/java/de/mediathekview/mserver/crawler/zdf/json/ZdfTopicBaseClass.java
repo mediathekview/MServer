@@ -125,7 +125,7 @@ public class ZdfTopicBaseClass {
 
   private JsonArray getMediaNodes(JsonObject episodeObject) {
     JsonObject videoRootObject = episodeObject;
-    if (episodeObject.has("video")) {
+     if (episodeObject.has("video") && !episodeObject.get("video").isJsonNull()) {
       videoRootObject = episodeObject.getAsJsonObject("video");
     }
     if (!videoRootObject.has("currentMedia")) {
