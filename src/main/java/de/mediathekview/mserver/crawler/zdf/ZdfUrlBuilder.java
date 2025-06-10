@@ -39,7 +39,7 @@ public class ZdfUrlBuilder {
   public static String buildTopicNoSeasonUrl(int pageSize, String id, String cursor) {
     return String.format(
             ZdfConstants.URL_TOPIC_PAGE_NO_SEASON,
-            URLEncoder.encode(String.format(ZdfConstants.URL_TOPIC_PAGE_NO_SEASON_VARIABLES, id, pageSize, cursor), Charset.defaultCharset()),
+            URLEncoder.encode(String.format(ZdfConstants.URL_TOPIC_PAGE_NO_SEASON_VARIABLES, id, pageSize, addQuotationMarkIfNecessary(cursor)), Charset.defaultCharset()),
             URLEncoder.encode(ZdfConstants.URL_TOPIC_PAGE_NO_SEASON_EXTENSIONS, Charset.defaultCharset()));
   }
 }
