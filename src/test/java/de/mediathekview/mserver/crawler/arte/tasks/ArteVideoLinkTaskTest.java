@@ -70,7 +70,7 @@ public class ArteVideoLinkTaskTest extends WireMockTestBase {
     return Arrays.asList(
         new Object[][] {
           {
-            "/arte/arte_videos_1.json", // url
+            "/arte/arte_video_1.json", // url
             new ArteVideoLinkDto[] {
                 new ArteVideoLinkDto(
                     Optional.of("121542-000-A"),

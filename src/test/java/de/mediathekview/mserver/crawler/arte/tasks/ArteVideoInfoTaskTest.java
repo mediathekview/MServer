@@ -20,7 +20,7 @@ public class ArteVideoInfoTaskTest extends WireMockTestBase {
 
   @Test
   public void test() {
-    setupSuccessfulJsonResponse("/arte_video1", "/arte/arte_video_1.json");
+    setupSuccessfulJsonResponse("/arte_videos1", "/arte/arte_videos_1.json");
     Set<ArteVideoInfoDto> result = executeTask("/arte_videos1");
     List<List<Optional<String>>> expectedResult = generateExpectedResult();
     for(List<Optional<String>> entry : expectedResult) {
