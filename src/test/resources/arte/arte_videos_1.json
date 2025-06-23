@@ -1,0 +1,70 @@
+{
+  "videoStreams": [
+    {
+      "programId": "121542-000-A",
+      "url": "http:\/\/arteptweb-a.akamaihd.net\/am\/ptweb\/121000\/121500\/121542-000-A_SQ_0_VOF_09098757_MP4-2200_AMM-PTWEB-20240728150944_2MuElnHI7x.mp4",
+      "quality": "SQ",
+      "audioSlot": 2,
+      "audioCode": "VOF",
+      "audioLabel": "Franz\u00f6sisch",
+      "audioShortLabel": "FR",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "programId": "121542-000-A",
+      "url": "http:\/\/arteptweb-a.akamaihd.net\/am\/ptweb\/121000\/121500\/121542-000-A_HQ_0_VOF_09098755_MP4-800_AMM-PTWEB-20240728150944_2MuEjnHI7x.mp4",
+      "quality": "HQ",
+      "audioSlot": 2,
+      "audioCode": "VOF",
+      "audioLabel": "Franz\u00f6sisch",
+      "audioShortLabel": "FR",
+      "width": 640,
+      "height": 360
+    },
+    {
+      "programId": "121542-000-A",
+      "url": "http:\/\/arteptweb-a.akamaihd.net\/am\/ptweb\/121000\/121500\/121542-000-A_SQ_0_VA_09098752_MP4-2200_AMM-PTWEB-20240728151022_2MuEgnHI7x.mp4",
+      "quality": "SQ",
+      "audioSlot": 1,
+      "audioCode": "VA",
+      "audioLabel": "Deutsch",
+      "audioShortLabel": "DE",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "programId": "121542-000-A",
+      "url": "http:\/\/arteptweb-a.akamaihd.net\/am\/ptweb\/121000\/121500\/121542-000-A_EQ_0_VOF_09098754_MP4-1500_AMM-PTWEB-20240728150944_2MuEinHI7x.mp4",
+      "quality": "EQ",
+      "audioSlot": 2,
+      "audioCode": "VOF",
+      "audioLabel": "Franz\u00f6sisch",
+      "audioShortLabel": "FR",
+      "width": 720,
+      "height": 406
+    },
+    {
+      "programId": "121542-000-A",
+      "url": "http:\/\/arteptweb-a.akamaihd.net\/am\/ptweb\/121000\/121500\/121542-000-A_EQ_0_VA_09098749_MP4-1500_AMM-PTWEB-20240728151022_2MuEdnHI7w.mp4",
+      "quality": "EQ",
+      "audioSlot": 1,
+      "audioCode": "VA",
+      "audioLabel": "Deutsch",
+      "audioShortLabel": "DE",
+      "width": 720,
+      "height": 406
+    },
+    {
+      "programId": "121542-000-A",
+      "url": "http:\/\/arteptweb-a.akamaihd.net\/am\/ptweb\/121000\/121500\/121542-000-A_HQ_0_VA_09098750_MP4-800_AMM-PTWEB-20240728151022_2MuEenHI7w.mp4",
+      "quality": "HQ",
+      "audioSlot": 1,
+      "audioCode": "VA",
+      "audioLabel": "Deutsch",
+      "audioShortLabel": "DE",
+      "width": 640,
+      "height": 360
+    }
+  ]
+}

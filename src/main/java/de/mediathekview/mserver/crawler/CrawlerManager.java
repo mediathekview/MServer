@@ -16,7 +16,12 @@ import de.mediathekview.mserver.base.uploader.copy.FileCopyTarget;
 import de.mediathekview.mserver.base.uploader.copy.FileCopyTask;
 import de.mediathekview.mserver.base.utils.CheckUrlAvailability;
 import de.mediathekview.mserver.crawler.ard.ArdCrawler;
-import de.mediathekview.mserver.crawler.arte.*;
+import de.mediathekview.mserver.crawler.arte.ArteCrawler;
+import de.mediathekview.mserver.crawler.arte.ArteCrawler_EN;
+import de.mediathekview.mserver.crawler.arte.ArteCrawler_ES;
+import de.mediathekview.mserver.crawler.arte.ArteCrawler_FR;
+import de.mediathekview.mserver.crawler.arte.ArtetCrawler_IT;
+import de.mediathekview.mserver.crawler.arte.ArteCrawler_PL;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.IgnoreFilmFilter;
 import de.mediathekview.mserver.crawler.basic.TimeoutTask;
@@ -504,7 +509,7 @@ public class CrawlerManager extends AbstractManager {
         new ArteCrawler_PL(forkJoinPool, messageListeners, progressListeners, rootConfig));
     crawlerMap.put(
         Sender.ARTE_IT,
-        new ArteCrawler_IT(forkJoinPool, messageListeners, progressListeners, rootConfig));
+        new ArtetCrawler_IT(forkJoinPool, messageListeners, progressListeners, rootConfig));
     crawlerMap.put(
         Sender.ARTE_ES,
         new ArteCrawler_ES(forkJoinPool, messageListeners, progressListeners, rootConfig));
@@ -519,8 +524,6 @@ public class CrawlerManager extends AbstractManager {
         new KikaApiCrawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
     crawlerMap.put(
         Sender.DW, new DwCrawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
-    //crawlerMap.put(
-    //    Sender.ORF, new OrfCrawler(forkJoinPool, messageListeners, progressListeners, rootConfig));      
     crawlerMap.put(
         Sender.ORF, new OrfOnCrawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
     crawlerMap.put(

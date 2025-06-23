@@ -1,0 +1,551 @@
+{
+    "meta": {
+        "videos": {
+            "totalCount": 14151,
+            "limit": 100,
+            "href": "https:\/\/api.arte.tv\/api\/opa\/v3\/videos?language=de&limit=100&page=75&sort=-creationDate",
+            "pages": 142,
+            "page": 75,
+            "links": {
+                "first": {
+                    "href": "https:\/\/api.arte.tv\/api\/opa\/v3\/videos?language=de&limit=100&page=1&sort=-creationDate"
+                },
+                "next": {
+                    "href": "https:\/\/api.arte.tv\/api\/opa\/v3\/videos?language=de&limit=100&page=76&sort=-creationDate"
+                },
+                "previous": {
+                    "href": "https:\/\/api.arte.tv\/api\/opa\/v3\/videos?language=de&limit=100&page=74&sort=-creationDate"
+                }
+            }
+        }
+    },
+    "videos": [
+        {
+            "firstBroadcastDate": "2024-04-26T16:57:58Z",
+            "id": "111749-020-A_SHOW_ARTE_NEXT_DE_de",
+            "programId": "111749-020-A",
+            "mainReassembly": true,
+            "reassembly": "A",
+            "channel": "DE",
+            "language": "de",
+            "kind": "SHOW",
+            "catalogType": "SHOW",
+            "programType": "BROADCAST",
+            "programFamily": "PROGRAM",
+            "platform": "ARTE_NEXT",
+            "platformLabel": "ARTE",
+            "title": "Re: Der Traum vom Paradies - Nur die Liebe zählt",
+            "subtitle": null,
+            "originalTitle": "",
+            "originalLanguage": {
+                "arteCode": "ALL",
+                "label": "Deutsch",
+                "iso6391Code": "de"
+            },
+            "tags": [],
+            "twitterAccount": null,
+            "twitterHashTag": null,
+            "durationSeconds": 1818,
+            "shortDescription": "Seit über fünf Jahren lebt eine Gruppe von Aussteigern auf der Kanareninsel La Gomera in wechselnder Besetzung ein alternatives Lebensmodell. Ein Leben abseits bürgerlicher Konventionen, mit offenen Partnerschaften, dominiert vom Grundgedanken der Liebe als Lebenshaltung.",
+            "shortDescriptionRich": "Seit über fünf Jahren lebt eine Gruppe von Aussteigern auf der Kanareninsel La Gomera in wechselnder Besetzung ein alternatives Lebensmodell. Ein Leben abseits bürgerlicher Konventionen, mit offenen Partnerschaften, dominiert vom Grundgedanken der Liebe als Lebenshaltung.",
+            "fullDescription": "Kiran und Tonique leben mit anderen jungen Aussteigern in einer Bucht La Gomeras. Die meiste Zeit des Jahres verbringen sie am Strand und in Höhlen, fernab der Touristenregionen. Zur Gruppe gehören auch Foxi aus Bayern, ihr Freund Panda und Viktor aus Teneriffa. Foxi und Panda gaben ihr bürgerliches Leben in Deutschland auf, weil es sie nicht glücklich machte.\nSie alle wollen nun in einer gemeinsamen Liebesbeziehung leben – ohne großen materiellen Besitz und auch ohne Exklusivität oder gegenseitige Besitzansprüche. Ihren Lebensunterhalt verdienen sie sich durch Musizieren, Tanz- und Feuer-Performances am Strand oder Life-coaching: Tonique berät Menschen in Existenzkrisen, denen ihr bisheriges Leben sinnlos und fremd geworden scheint.\nSo konnte sie beispielsweise dem Briten Dani helfen, den sein gutsituiertes, bürgerliches Leben in eine Depression getrieben hatte. In seiner Zeit auf La Gomera bei Tonique und den anderen Aussteigern wurde ihm bewusst, dass er sein Leben ändern muss. Tonique half ihm, seine Depression zu überwinden, sodass er mit neuem Lebensmut zurück nach Nordengland zu seiner Partnerin Sharon gehen konnte. Doch nun lädt er Tonique nach Huddersfield ein und möchte sie Sharon vorstellen. Wie wird sie auf Danis Geständnis reagieren, dass er beide Frauen liebt – wenn auch auf verschiedene Weise?",
+            "fullDescriptionRich": "Kiran und Tonique leben mit anderen jungen Aussteigern in einer Bucht La Gomeras. Die meiste Zeit des Jahres verbringen sie am Strand und in Höhlen, fernab der Touristenregionen. Zur Gruppe gehören auch Foxi aus Bayern, ihr Freund Panda und Viktor aus Teneriffa. Foxi und Panda gaben ihr bürgerliches Leben in Deutschland auf, weil es sie nicht glücklich machte.<br>Sie alle wollen nun in einer gemeinsamen Liebesbeziehung leben – ohne großen materiellen Besitz und auch ohne Exklusivität oder gegenseitige Besitzansprüche. Ihren Lebensunterhalt verdienen sie sich durch Musizieren, Tanz- und Feuer-Performances am Strand oder Life-coaching: Tonique berät Menschen in Existenzkrisen, denen ihr bisheriges Leben sinnlos und fremd geworden scheint.<br>So konnte sie beispielsweise dem Briten Dani helfen, den sein gutsituiertes, bürgerliches Leben in eine Depression getrieben hatte. In seiner Zeit auf La Gomera bei Tonique und den anderen Aussteigern wurde ihm bewusst, dass er sein Leben ändern muss. Tonique half ihm, seine Depression zu überwinden, sodass er mit neuem Lebensmut zurück nach Nordengland zu seiner Partnerin Sharon gehen konnte. Doch nun lädt er Tonique nach Huddersfield ein und möchte sie Sharon vorstellen. Wie wird sie auf Danis Geständnis reagieren, dass er beide Frauen liebt – wenn auch auf verschiedene Weise?",
+            "teaserText": "Seit über fünf Jahren lebt eine Gruppe von Aussteigern auf der Kanareninsel La Gomera ein alternatives Lebensmodell.",
+            "teaserTextRich": "Seit über fünf Jahren lebt eine Gruppe von Aussteigern auf der Kanareninsel La Gomera ein alternatives Lebensmodell.",
+            "headerText": "Reportage (D 2024, 31 Min)",
+            "headerTextRich": "Reportage (D 2024, 31 Min)",
+            "producer": null,
+            "productionYear": 2024,
+            "shootingDate": null,
+            "allowEmbed": true,
+            "adult": 0,
+            "legalBan": "NONE",
+            "mainImage": {
+                "creationDate": "2012-08-24T22:00:00Z",
+                "lastModified": "2025-06-18T09:17:58Z",
+                "width": 940,
+                "height": 530,
+                "keyframe": false,
+                "alternateResolutions": [],
+                "type": "PHOTO_LANDSCAPE",
+                "name": "111749-020-A_4310292.jpg",
+                "extension": "jpg",
+                "caption": null,
+                "url": "https:\/\/api-cdn.arte.tv\/img\/v2\/image\/aBJN4vFzDMYZLrwDaAf98c\/940x530",
+                "imageId": "4310292",
+                "programId": "111749-020-A",
+                "language": "de",
+                "copyright": "",
+                "blurImage": "https:\/\/api-cdn.arte.tv\/img\/v2\/image\/aBJN4vFzDMYZLrwDaAf98c\/80x45?blur=true",
+                "kind": "internet"
+            },
+            "parents": [
+                "RC-013956",
+                "RC-020744",
+                "RC-026975",
+                "RC-019948",
+                "111749-020-A"
+            ],
+            "collections": [
+                {
+                    "kind": "MAGAZINE",
+                    "catalogType": "MAGAZINE",
+                    "collectionId": "RC-013956",
+                    "order": 282
+                },
+                {
+                    "kind": "TOPIC",
+                    "catalogType": null,
+                    "collectionId": "RC-020744",
+                    "order": 57
+                },
+                {
+                    "kind": "TOPIC",
+                    "catalogType": "TOPIC",
+                    "collectionId": "RC-026975",
+                    "order": 8
+                },
+                {
+                    "kind": "TOPIC",
+                    "catalogType": "TOPIC",
+                    "collectionId": "RC-019948",
+                    "order": 34
+                }
+            ],
+            "programmingId": 4430195,
+            "videoRightsBegin": "2024-04-26T03:00:00Z",
+            "videoRightsEnd": "2029-04-25T03:00:00Z",
+            "mainProgramming": true,
+            "mainChannel": true,
+            "geoblockingZone": "SAT",
+            "geoblocking": {
+                "code": "SAT",
+                "label": "Verfügbar in Europa",
+                "inclusion": [],
+                "exclusion": []
+            },
+            "partners": [],
+            "director": null,
+            "casting": [],
+            "crew": [],
+            "chapters": [],
+            "chaptersSpriteUrl": null,
+            "caseCode": 852,
+            "case": "REPORTAGES QUOTIDIENS",
+            "genrePresseCode": 13,
+            "genrePresse": "Reportage",
+            "tracking": {
+                "tablet": {
+                    "ANDROID": "https:\/\/www.arte.tv\/pa\/api\/multimedia\/v1\/111749-020\/A\/de\/ARTE_NEXT\/TABLET\/ANDROID\/arte.gif"
+                },
+                "mobile": {
+                    "ANDROID": "https:\/\/www.arte.tv\/pa\/api\/multimedia\/v1\/111749-020\/A\/de\/ARTE_NEXT\/MOBILE\/ANDROID\/arte.gif"
+                },
+                "download": {
+                    "ANDROID": "https:\/\/www.arte.tv\/pa\/api\/multimedia\/v1\/111749-020\/A\/de\/ARTE_NEXT\/DOWNLOAD\/ANDROID\/arte.gif"
+                }
+            },
+            "mainAudioVersion": "VOA",
+            "audioVersions": [
+                "VOA",
+                "VOA-STMA",
+                "VF-STF",
+                "VOEU[ALL]-STE[ANG]",
+                "VOEU[ALL]-STE[ESP]",
+                "VOEU[ALL]-STE[POL]",
+                "VOEU[ALL]-STE[ITA]"
+            ],
+            "permalink": "https:\/\/www.arte.tv\/de\/videos\/111749-020-A\/permalink\/",
+            "infolink": "https:\/\/www.arte.tv\/de\/videos\/111749-020-A\/re-der-traum-vom-paradies-nur-die-liebe-zaehlt\/",
+            "availableScreens": [
+                "desktop",
+                "tv"
+            ],
+            "oEmbed": "https:\/\/api.arte.tv\/api\/player\/v1\/oembed\/de\/111749-020-A?platform=ARTE_NEXT",
+            "categories": [
+                {
+                    "order": 1,
+                    "code": "ACT",
+                    "name": "Aktuelles & Gesellschaft",
+                    "url": null,
+                    "slug": "aktuelles-gesellschaft"
+                }
+            ],
+            "category": {
+                "order": 1,
+                "code": "ACT",
+                "name": "Aktuelles und Gesellschaft",
+                "url": "https:\/\/www.arte.tv\/de\/videos\/aktuelles-und-gesellschaft\/",
+                "slug": "aktuelles-und-gesellschaft"
+            },
+            "subcategory": {
+                "order": 2,
+                "code": "ENQ",
+                "name": "Reportagen und Recherchen",
+                "url": "https:\/\/www.arte.tv\/de\/videos\/aktuelles-und-gesellschaft\/reportagen-und-recherchen\/",
+                "slug": "reportagen-und-recherchen"
+            },
+            "views": 1,
+            "thesaurus": [
+                {
+                    "code": 1344,
+                    "label": "Alternatives Leben",
+                    "parents": [
+                        1,
+                        1107,
+                        13237,
+                        1344
+                    ]
+                },
+                {
+                    "code": 453,
+                    "label": "Spanien",
+                    "parents": [
+                        1,
+                        2,
+                        333,
+                        449,
+                        453
+                    ]
+                },
+                {
+                    "code": 5144,
+                    "label": "Liebe",
+                    "parents": [
+                        1,
+                        4022,
+                        5484,
+                        4142,
+                        4079,
+                        5144
+                    ]
+                }
+            ],
+            "postroll": "https:\/\/api.arte.tv\/api\/player\/v1\/recommendedPostroll\/de\/111749-020-A",
+            "mainPlatform": true,
+            "imageColor": {
+                "code": "COLOR",
+                "label": "Farbfilm"
+            },
+            "arteSchedulingDay": "2024-04-26",
+            "deletedAt": null,
+            "productionCountries": [
+                {
+                    "arteCode": "GER",
+                    "isoAlpha2Code": "DE",
+                    "label": "Deutschland"
+                }
+            ],
+            "url": "https:\/\/www.arte.tv\/de\/videos\/111749-020-A\/re-der-traum-vom-paradies-nur-die-liebe-zaehlt\/",
+            "clusters": [],
+            "illico": true,
+            "season": 0,
+            "episode": 2,
+            "totalEpisodes": 25,
+            "mainCrossPlatform": true,
+            "kindLabel": "PROGRAMM",
+            "videoLibrary": true,
+            "broadcastBegin": "2024-04-26T17:42:32Z",
+            "broadcastBeginRounded": null,
+            "viewsPeriod": 1,
+            "markings": [],
+            "webLinks": [],
+            "warning": null,
+            "livestreamRights": true,
+            "eStat": {
+                "streamName": "Re: Der Traum vom Paradies - Nur die Liebe zählt",
+                "streamDuration": 1818,
+                "streamGenre": "1_dokus-und-reportagen",
+                "level1": "ACT_aktuelles-und-gesellschaft",
+                "level2": "PROGRAMME_ANTENNE",
+                "level3": "de",
+                "level4": "ENQ_reportagen-und-recherchen",
+                "level5": "111749-020-A",
+                "newLevel1": "SHOW",
+                "newLevel2": null,
+                "newLevel11": "852_reportages-quotidiens",
+                "mediaChannel": "850",
+                "mediaContentId": "111749-020-A",
+                "mediaDiffMode": "TVOD"
+            },
+            "mediametrie": {
+                "type": "content",
+                "assetid": "111749-020-A_2",
+                "program": "852_reportages-quotidiens",
+                "title": "re-der-traum-vom-paradies-nur-die-liebe-zahlt",
+                "length": 1818,
+                "islivestn": "n",
+                "cli_md": "TVOD",
+                "cli_ch": 850,
+                "cli_cn": "111749-020-A",
+                "nol_p0": "p0,de",
+                "nol_p1": "p1,PROGRAMME_ANTENNE",
+                "nol_p2": "p2,SHOW",
+                "nol_p13": "p13,n"
+            },
+            "adtech": {
+                "kvprogramid": "111749-020-A",
+                "kvvty": "ARTE_NEXT",
+                "kvcategory": "ACT",
+                "kvsubcategory": "ENQ",
+                "kvwebonly": false,
+                "kvbroadcast": true,
+                "kvduration": 1818,
+                "kvcaseprogram": "852_reportages-quotidiens",
+                "kvvideoisolang": "de"
+            },
+            "agf": {
+                "type": "content",
+                "assetid": "111749-020-A",
+                "program": "852_reportages-quotidiens",
+                "title": "re-der-traum-vom-paradies-nur-die-liebe-zaehlt",
+                "length": 1818,
+                "nol_c2": "p2,N",
+                "nol_c7": "p7,111749-020-A",
+                "nol_c8": "p8,1818",
+                "nol_c9": "p9,re-der-traum-vom-paradies-nur-die-liebe-zaehlt",
+                "nol_c10": "p10,ARTE",
+                "nol_c12": "p12,Content",
+                "nol_c15": "p15,111749-020-A",
+                "nol_c18": "p18,N"
+            },
+            "offlineAvailability": true,
+            "genre": {
+                "code": 1,
+                "label": "Dokus und Reportagen"
+            },
+            "audioLanguages": [
+                {
+                    "arteCode": "ALL",
+                    "iso6392Code": "deu",
+                    "iso6391Code": "de",
+                    "label": "Deutsch",
+                    "version": "VOA",
+                    "audioDescription": false
+                },
+                {
+                    "arteCode": "FRA",
+                    "iso6392Code": "fra",
+                    "iso6391Code": "fr",
+                    "label": "Französisch",
+                    "version": "VF",
+                    "audioDescription": false
+                },
+                {
+                    "arteCode": "ALL",
+                    "iso6392Code": "deu",
+                    "iso6391Code": "de",
+                    "label": "Deutsch",
+                    "version": "VOEU",
+                    "audioDescription": false
+                }
+            ],
+            "subtitles": [
+                {
+                    "arteCode": "MAL",
+                    "version": "VA-MAL",
+                    "iso6392Code": "und",
+                    "iso6391Code": "",
+                    "label": "für Hörgeschädigte",
+                    "closedCaptioning": true,
+                    "burned": true,
+                    "filename": "111749-020-A-VA-MAL"
+                },
+                {
+                    "arteCode": "FRA",
+                    "version": "VF-FRA",
+                    "iso6392Code": "fra",
+                    "iso6391Code": "fr",
+                    "label": "Französisch",
+                    "closedCaptioning": false,
+                    "burned": true,
+                    "filename": "111749-020-A-VF-FRA"
+                },
+                {
+                    "arteCode": "ANG",
+                    "version": "VO-ANG",
+                    "iso6392Code": "eng",
+                    "iso6391Code": "en",
+                    "label": "Englisch",
+                    "closedCaptioning": false,
+                    "burned": true,
+                    "filename": "111749-020-A-VO-ANG"
+                },
+                {
+                    "arteCode": "ESP",
+                    "version": "VO-ESP",
+                    "iso6392Code": "spa",
+                    "iso6391Code": "es",
+                    "label": "Spanisch",
+                    "closedCaptioning": false,
+                    "burned": true,
+                    "filename": "111749-020-A-VO-ESP"
+                },
+                {
+                    "arteCode": "POL",
+                    "version": "VO-POL",
+                    "iso6392Code": "pol",
+                    "iso6391Code": "pl",
+                    "label": "Polnisch",
+                    "closedCaptioning": false,
+                    "burned": true,
+                    "filename": "111749-020-A-VO-POL"
+                },
+                {
+                    "arteCode": "ITA",
+                    "version": "VO-ITA",
+                    "iso6392Code": "ita",
+                    "iso6391Code": "it",
+                    "label": "Italienisch",
+                    "closedCaptioning": false,
+                    "burned": true,
+                    "filename": "111749-020-A-VO-ITA"
+                }
+            ],
+            "versions": [
+                {
+                    "code": 6,
+                    "audioCode": "VOA",
+                    "audioLabel": "Deutsch",
+                    "audioShortLabel": "DE",
+                    "audioLanguage": "de",
+                    "subtitleLanguage": "und",
+                    "closedCaptioning": false,
+                    "audioDescription": false
+                },
+                {
+                    "code": 22,
+                    "audioCode": "VOA-STMA",
+                    "audioLabel": "Deutsch (Hörgeschädigte)",
+                    "audioShortLabel": "UT",
+                    "audioLanguage": "de",
+                    "subtitleLanguage": "de",
+                    "closedCaptioning": true,
+                    "audioDescription": false
+                },
+                {
+                    "code": 8,
+                    "audioCode": "VF-STF",
+                    "audioLabel": "Französisch",
+                    "audioShortLabel": "FR",
+                    "audioLanguage": "fr",
+                    "subtitleLanguage": "und",
+                    "closedCaptioning": false,
+                    "audioDescription": false
+                },
+                {
+                    "code": 40,
+                    "audioCode": "VOEU[ALL]-STE[ANG]",
+                    "audioLabel": "UT Englisch",
+                    "audioShortLabel": "OmU-ANG",
+                    "audioLanguage": "mul",
+                    "subtitleLanguage": "en",
+                    "closedCaptioning": false,
+                    "audioDescription": false
+                },
+                {
+                    "code": 40,
+                    "audioCode": "VOEU[ALL]-STE[ESP]",
+                    "audioLabel": "UT Spanisch",
+                    "audioShortLabel": "OmU-ESP",
+                    "audioLanguage": "mul",
+                    "subtitleLanguage": "es",
+                    "closedCaptioning": false,
+                    "audioDescription": false
+                },
+                {
+                    "code": 40,
+                    "audioCode": "VOEU[ALL]-STE[POL]",
+                    "audioLabel": "UT Polnisch",
+                    "audioShortLabel": "OmU-POL",
+                    "audioLanguage": "mul",
+                    "subtitleLanguage": "pl",
+                    "closedCaptioning": false,
+                    "audioDescription": false
+                },
+                {
+                    "code": 40,
+                    "audioCode": "VOEU[ALL]-STE[ITA]",
+                    "audioLabel": "UT Italienisch",
+                    "audioShortLabel": "OmU-ITA",
+                    "audioLanguage": "mul",
+                    "subtitleLanguage": "it",
+                    "closedCaptioning": false,
+                    "audioDescription": false
+                }
+            ],
+            "origins": [
+                {
+                    "order": 1,
+                    "label": "ZDF"
+                }
+            ],
+            "availableImages": [
+                "DEFAULT",
+                "POSTER_LANDSCAPE",
+                "POSTER",
+                "PHOTO_LANDSCAPE",
+                "PHOTO_SQUARE"
+            ],
+            "allowThirdPlayer": false,
+            "externalIds": [
+                {
+                    "type": "PLURIMEDIA",
+                    "id": "314611364"
+                }
+            ],
+            "broadcastType": null,
+            "clearVoice": true,
+            "ancestors": [
+                {
+                    "programId": "RC-013956",
+                    "order": 282,
+                    "kind": "MAGAZINE",
+                    "catalogType": "MAGAZINE",
+                    "ancestors": []
+                },
+                {
+                    "programId": "RC-020744",
+                    "order": 57,
+                    "kind": "TOPIC",
+                    "ancestors": []
+                },
+                {
+                    "programId": "RC-026975",
+                    "order": 8,
+                    "kind": "TOPIC",
+                    "catalogType": "TOPIC",
+                    "ancestors": [
+                        {
+                            "programId": "RC-019948",
+                            "order": 7,
+                            "kind": "TOPIC",
+                            "catalogType": "TOPIC",
+                            "ancestors": []
+                        }
+                    ]
+                },
+                {
+                    "programId": "RC-019948",
+                    "order": 34,
+                    "kind": "TOPIC",
+                    "catalogType": "TOPIC",
+                    "ancestors": []
+                }
+            ],
+            "mainPlatformCode": null,
+            "arteClub": false,
+            "previewRightsBegin": "2024-04-26T03:00:00Z",
+            "creationDate": "2024-04-05T09:13:33Z",
+            "lastModified": "2025-06-20T08:20:32Z",
+            "ageRating": 0,
+            "imageReference": "aBJN4vFzDMYZLrwDaAf98c",
+            "programmingType": "AUTO",
+            "links": {
+                "programs": {
+                    "href": "https:\/\/api.arte.tv\/api\/opa\/v3\/programs\/de\/111749-020-A"
+                }
+            }
+        }
+    ]
+}
