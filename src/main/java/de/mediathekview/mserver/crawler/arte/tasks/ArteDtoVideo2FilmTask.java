@@ -37,8 +37,6 @@ public class ArteDtoVideo2FilmTask extends AbstractRecursiveConverterTask<Film, 
   private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ssX");
   private static final ZoneId ZONE_ID = ZoneId.of("Europe/Berlin");
   
-  public static HashSet<String> categories = new HashSet<String>();
-  
   public ArteDtoVideo2FilmTask(AbstractCrawler aCrawler, Queue<ArteVideoInfoDto> aUrlToCrawlDTOs) {
     super(aCrawler, aUrlToCrawlDTOs);
   }
@@ -62,11 +60,6 @@ public class ArteDtoVideo2FilmTask extends AbstractRecursiveConverterTask<Film, 
   ///////////////////////////////////////////////////////////////////////////
   
   protected void parse(ArteVideoInfoDto aElement) {
-    //
-    if (aElement.getTitle().get().contains("Klima Krise Kunst")) {
-      System.out.println("d");
-    }
-    //
     Map<Resolution, FilmUrl> videoUrls = buildVideoUrls(aElement, ArteVideoType.DEFAULT);
     Map<Resolution, FilmUrl> videoSubs = buildVideoUrls(aElement, ArteVideoType.AUDIO_DESCRIPTION);
     if (videoUrls.size() > 0) {

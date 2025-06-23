@@ -34,7 +34,7 @@ public class ArteVideoLinkTaskTest extends WireMockTestBase {
     setupSuccessfulJsonResponse(this.filmUrl, this.filmUrl);
     Set<ArteVideoInfoDto> resultSet = executeTask(buildWireMockUrl(this.filmUrl));
     
-    assertEquals(resultSet.size(), 1);
+    assertEquals(1, resultSet.size());
     ArteVideoInfoDto result = resultSet.stream().findAny().get();
     assertEquals(result.getVideoLinks().size(), this.arteVideoLinkDtoData.length);
     //

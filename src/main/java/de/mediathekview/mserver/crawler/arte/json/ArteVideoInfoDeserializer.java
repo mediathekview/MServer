@@ -23,7 +23,7 @@ public class ArteVideoInfoDeserializer implements JsonDeserializer<PagedElementL
     INCLUDE_KIND.add("SHOW");
     INCLUDE_KIND.add("MANUAL_CLIP");
     INCLUDE_KIND.add("BONUS");
-  };
+  }
   
   private static final String[] TAG_NEXT_PAGE_NEXT = {"meta","videos","links","next","href"};
   private static final String[] TAG_NEXT_PAGE_TOTAL = {"meta","videos","totalCount"};
@@ -90,8 +90,8 @@ public class ArteVideoInfoDeserializer implements JsonDeserializer<PagedElementL
   
   protected Optional<ArteVideoInfoDto> parseVideoInfoElement(final JsonElement arrayElement) {
     // EXTRAIT
-    if (JsonUtils.getElementValueAsString(arrayElement, TAG_PLATFORM).get().equalsIgnoreCase(EXTRAIT) ||
-        !INCLUDE_KIND.contains(JsonUtils.getElementValueAsString(arrayElement, TAG_KIND).get().toUpperCase())) {
+    if (JsonUtils.getElementValueAsString(arrayElement, TAG_PLATFORM).orElse("").equalsIgnoreCase(EXTRAIT) ||
+        !INCLUDE_KIND.contains(JsonUtils.getElementValueAsString(arrayElement, TAG_KIND).orElse("").toUpperCase())) {
       return Optional.empty();
     }
     //

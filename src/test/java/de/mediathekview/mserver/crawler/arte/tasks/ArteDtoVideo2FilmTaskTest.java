@@ -164,7 +164,7 @@ public class ArteDtoVideo2FilmTaskTest extends WireMockTestBase {
     return getWireMockBaseUrlSafe() + this.inputResource + "_links.json";
   }
 
-  private Set<ArteVideoInfoDto> executeArteVideoInfoTask(String requestUrls) {
+  private Set<ArteVideoInfoDto> executeArteVideoInfoTask() {
     Queue<TopicUrlDTO> input = new ConcurrentLinkedQueue<>();
     input.add(new TopicUrlDTO("", getVideoInfoUrl()));
     return new ArteVideoInfoTask(ArteTaskTestBase.createCrawler(), input).invoke();
@@ -184,13 +184,13 @@ public class ArteDtoVideo2FilmTaskTest extends WireMockTestBase {
   }
 
   @Test
-  public void testFilmParsing() throws IOException {
+  public void testFilmParsing() {
     setupSuccessfulJsonResponse(this.inputResource + "_videos.json", this.inputResource + "_videos.json");
     setupSuccessfulJsonResponse(this.inputResource + "_links.json", this.inputResource + "_links.json");
     setupHeadRequestForFileSize();
     
     // create info
-    Set<ArteVideoInfoDto> infos = executeArteVideoInfoTask(this.inputResource);
+    Set<ArteVideoInfoDto> infos = executeArteVideoInfoTask();
     assertThat(infos, is(not(empty())));
 
     // get all videolinks
@@ -245,7 +245,7 @@ public class ArteDtoVideo2FilmTaskTest extends WireMockTestBase {
     try {
       return new URL(url);
     } catch (MalformedURLException e) {
-      
+      // unit test - no exception needed
     }
     return null;
   }
