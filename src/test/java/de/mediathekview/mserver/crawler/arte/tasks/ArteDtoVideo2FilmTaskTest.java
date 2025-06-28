@@ -12,7 +12,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
-import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.Duration;
@@ -134,7 +133,69 @@ public class ArteDtoVideo2FilmTaskTest extends WireMockTestBase {
         "NORMAL", "https://arteconcert-a.akamaihd.net/am/concert/118000/118200/118208-012-A_EQ_0_VO_09745386_MP4-1500_AMM-CONCERT-NEXT-60691964320037_2WM2pKa4I8.mp4",
         "HD", "https://arteconcert-a.akamaihd.net/am/concert/118000/118200/118208-012-A_SQ_0_VO_09745389_MP4-2200_AMM-CONCERT-NEXT-60691964320037_2WM3mKa4Rc.mp4"
     ));
-    //    
+    //
+    Film film7a = new Film(
+        UUID.randomUUID(), 
+        Sender.ARTE_DE, 
+        "Salon Spitz",
+        "Kino - Kurzfilme",
+        LocalDateTime.of(2024,04,14,01,13,07),
+        Duration.parse("PT8M30S"));
+    film7a.setBeschreibung("Berlin, 1923: Minna betritt auf Einladung ihrer Freundin Edith das erste Mal einen Frauenliteratursalon. Eingeschüchtert von den anderen Frauen hat sie nicht den Mut, selbst die Bühne zu betreten. Als wäre das nicht schon aufregend genug, dringt auch noch Lars, ein selbsternannter Dichter, in die Intimsphäre des Abends ein ...");
+    film7a.setGeoLocations(Arrays.asList(GeoLocations.GEO_DE_FR));
+    film7a.setWebsite(toUrl("https://www.arte.tv/de/videos/114555-002-A/salon-spitz/"));
+    film7a.setUrls(toResolutionMap(
+        "SMALL","https://arteptweb-a.akamaihd.net/am/ptweb/114000/114500/114555-002-A_HQ_0_VOA_08791484_MP4-800_AMM-PTWEB-80903920433300_2IhUCS5yQB.mp4",
+        "NORMAL", "https://arteptweb-a.akamaihd.net/am/ptweb/114000/114500/114555-002-A_EQ_0_VOA_08791483_MP4-1500_AMM-PTWEB-80903920433300_2IhUBS5yQB.mp4",
+        "HD", "https://arteptweb-a.akamaihd.net/am/ptweb/114000/114500/114555-002-A_SQ_0_VOA_08791486_MP4-2200_AMM-PTWEB-80903920433300_2IhSRS5yK7.mp4"
+    ));
+    Film film7b = new Film(
+        UUID.randomUUID(), 
+        Sender.ARTE_DE, 
+        "Salon Spitz (Originalversion mit Untertitel)",
+        "Kino - Kurzfilme",
+        LocalDateTime.of(2024,04,14,01,13,07),
+        Duration.parse("PT8M30S"));
+    film7b.setBeschreibung("Berlin, 1923: Minna betritt auf Einladung ihrer Freundin Edith das erste Mal einen Frauenliteratursalon. Eingeschüchtert von den anderen Frauen hat sie nicht den Mut, selbst die Bühne zu betreten. Als wäre das nicht schon aufregend genug, dringt auch noch Lars, ein selbsternannter Dichter, in die Intimsphäre des Abends ein ...");
+    film7b.setGeoLocations(Arrays.asList(GeoLocations.GEO_DE_FR));
+    film7b.setWebsite(toUrl("https://www.arte.tv/de/videos/114555-002-A/salon-spitz/"));
+    film7b.setUrls(toResolutionMap(
+        "SMALL","https://arteptweb-a.akamaihd.net/am/ptweb/114000/114500/114555-002-A_HQ_0_VOA-STF_08791493_MP4-800_AMM-PTWEB-101144248555256_2IhUIS5yQO.mp4",
+        "NORMAL", "https://arteptweb-a.akamaihd.net/am/ptweb/114000/114500/114555-002-A_EQ_0_VOA-STF_08791492_MP4-1500_AMM-PTWEB-101144248555256_2IhVCS5ySP.mp4",
+        "HD", "https://arteptweb-a.akamaihd.net/am/ptweb/114000/114500/114555-002-A_SQ_0_VOA-STF_08791495_MP4-2200_AMM-PTWEB-101144248555256_2IhSTS5yKB.mp4"
+    ));
+    //
+    Film film8a = new Film(
+        UUID.randomUUID(), 
+        Sender.ARTE_DE, 
+        "Kenia: Die Mücken schlagen zurück - ARTE Reportage",
+        "Aktuelles und Gesellschaft - Reportagen und Recherchen",
+        LocalDateTime.of(2024,9,27,12,00,00),
+        Duration.parse("PT12M21S"));
+    film8a.setBeschreibung("Alte und neue die Malaria übertragende Mücken entwickelten neue Überlebens- und Angriffs-Strategien. An den Folgen ihrer Stiche sterben zurzeit über 600.000 Menschen pro Jahr. In Kenia scheinen die Wissenschaftler ihren Kampf gegen sie zu verlieren.");
+    film8a.setGeoLocations(Arrays.asList(GeoLocations.GEO_NONE));
+    film8a.setWebsite(toUrl("https://www.arte.tv/de/videos/118963-000-A/kenia-die-muecken-schlagen-zurueck/"));
+    film8a.setUrls(toResolutionMap(
+        "SMALL","https://arteptweb-a.akamaihd.net/am/ptweb/118000/118900/118963-000-A_HQ_0_VA_09253362_MP4-800_AMM-PTWEB-80923512472000_2PIgf10g7F6.mp4",
+        "NORMAL", "https://arteptweb-a.akamaihd.net/am/ptweb/118000/118900/118963-000-A_EQ_0_VA_09253361_MP4-1500_AMM-PTWEB-80923512472000_2PIg910g7D3.mp4",
+        "HD", "https://arteptweb-a.akamaihd.net/am/ptweb/118000/118900/118963-000-A_SQ_0_VA_09253364_MP4-2200_AMM-PTWEB-80923512472000_2PIcj10g5qr.mp4"
+    ));
+    Film film8b = new Film(
+        UUID.randomUUID(), 
+        Sender.ARTE_DE, 
+        "Kenia: Die Mücken schlagen zurück - ARTE Reportage (Originalversion)",
+        "Aktuelles und Gesellschaft - Reportagen und Recherchen",
+        LocalDateTime.of(2024,9,27,12,00,00),
+        Duration.parse("PT12M21S"));
+    film8b.setBeschreibung("Alte und neue die Malaria übertragende Mücken entwickelten neue Überlebens- und Angriffs-Strategien. An den Folgen ihrer Stiche sterben zurzeit über 600.000 Menschen pro Jahr. In Kenia scheinen die Wissenschaftler ihren Kampf gegen sie zu verlieren.");
+    film8b.setGeoLocations(Arrays.asList(GeoLocations.GEO_NONE));
+    film8b.setWebsite(toUrl("https://www.arte.tv/de/videos/118963-000-A/kenia-die-muecken-schlagen-zurueck/"));
+    film8b.setUrls(toResolutionMap(
+        "SMALL","https://arteptweb-a.akamaihd.net/am/ptweb/118000/118900/118963-000-A_HQ_0_VO_09253367_MP4-800_AMM-PTWEB-80923512472000_2PIhG10g7I2.mp4",
+        "NORMAL", "https://arteptweb-a.akamaihd.net/am/ptweb/118000/118900/118963-000-A_EQ_0_VO_09253366_MP4-1500_AMM-PTWEB-80923512472000_2PIgh10g7F6.mp4",
+        "HD", "https://arteptweb-a.akamaihd.net/am/ptweb/118000/118900/118963-000-A_SQ_0_VO_09253369_MP4-2200_AMM-PTWEB-80923512472000_2PIgi10g7F6.mp4"
+    ));
+    //
     return Arrays.asList(new Object[][] {
       { "/arte/arte_film_1", 
         new Film[] {film1}
@@ -153,7 +214,13 @@ public class ArteDtoVideo2FilmTaskTest extends WireMockTestBase {
       },
       { "/arte/arte_film_6", 
         new Film[] {film6}
-      } 
+      },
+      { "/arte/arte_film_7", 
+        new Film[] {film7a, film7b}
+      },
+      { "/arte/arte_film_8", 
+        new Film[] {film8a, film8b }
+      }
     });
   }
   
@@ -202,7 +269,11 @@ public class ArteDtoVideo2FilmTaskTest extends WireMockTestBase {
     assertThat(actualFilms, is(not(empty())));
 
     assertThat(actualFilms.size(), is(expectedFilms.length));
-    assertFilm(actualFilms.stream().findAny().get(), expectedFilms[0]);
+    for (int i = 0; i < expectedFilms.length; i++) {
+      //assertFilm(actualFilms.toArray(new Film[0])[i], expectedFilms[i]);
+      String title = expectedFilms[i].getTitel();
+      assertFilm(actualFilms.stream().filter(film -> title.equalsIgnoreCase(film.getTitel())).findAny().get(), expectedFilms[i]);
+    }
     
   }
   

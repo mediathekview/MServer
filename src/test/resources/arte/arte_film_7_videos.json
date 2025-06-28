@@ -1,0 +1,464 @@
+{
+    "meta": {
+        "videos": {
+            "totalCount": 14149,
+            "limit": 100,
+            "href": "https:\/\/api.arte.tv\/api\/opa\/v3\/videos?language=de&limit=100&page=75&sort=-creationDate",
+            "pages": 142,
+            "page": 75,
+            "links": {
+                "first": {
+                    "href": "https:\/\/api.arte.tv\/api\/opa\/v3\/videos?language=de&limit=100&page=1&sort=-creationDate"
+                },
+                "next": {
+                    "href": "https:\/\/api.arte.tv\/api\/opa\/v3\/videos?language=de&limit=100&page=76&sort=-creationDate"
+                },
+                "previous": {
+                    "href": "https:\/\/api.arte.tv\/api\/opa\/v3\/videos?language=de&limit=100&page=74&sort=-creationDate"
+                }
+            }
+        }
+    },
+    "videos": [
+        {
+            "firstBroadcastDate": "2024-04-13T23:13:07Z",
+            "id": "114555-002-A_SHOW_ARTE_NEXT_DE_de",
+            "programId": "114555-002-A",
+            "mainReassembly": true,
+            "reassembly": "A",
+            "channel": "DE",
+            "language": "de",
+            "kind": "SHOW",
+            "catalogType": "MOVIE",
+            "programType": "BROADCAST",
+            "programFamily": "PROGRAM",
+            "platform": "ARTE_NEXT",
+            "platformLabel": "ARTE",
+            "title": "Salon Spitz",
+            "subtitle": null,
+            "originalTitle": "Salon Spitz",
+            "originalLanguage": {
+                "arteCode": "ALL",
+                "label": "Deutsch",
+                "iso6391Code": "de"
+            },
+            "tags": [],
+            "twitterAccount": null,
+            "twitterHashTag": null,
+            "durationSeconds": 510,
+            "shortDescription": "Berlin, 1923: Minna betritt auf Einladung ihrer Freundin Edith das erste Mal einen Frauenliteratursalon. Eingeschüchtert von den anderen Frauen hat sie nicht den Mut, selbst die Bühne zu betreten. Als wäre das nicht schon aufregend genug, dringt auch noch Lars, ein selbsternannter Dichter, in die Intimsphäre des Abends ein ...",
+            "shortDescriptionRich": "<p>Berlin, 1923: Minna betritt auf Einladung ihrer Freundin Edith das erste Mal einen Frauenliteratursalon. Eingeschüchtert von den anderen Frauen hat sie nicht den Mut, selbst die Bühne zu betreten. Als wäre das nicht schon aufregend genug, dringt auch noch Lars, ein selbsternannter Dichter, in die Intimsphäre des Abends ein ...<\/p>",
+            "fullDescription": null,
+            "fullDescriptionRich": null,
+            "teaserText": "Berlin, 1923: Minna betritt auf Einladung ihrer Freundin Edith das erste Mal einen Frauenliteratursalon.",
+            "teaserTextRich": "Berlin, 1923: Minna betritt auf Einladung ihrer Freundin Edith das erste Mal einen Frauenliteratursalon.",
+            "headerText": "Kurzfilm von Maxi Antonia Stumpp (D 2023, 9 Min)",
+            "headerTextRich": "Kurzfilm von Maxi Antonia Stumpp (D 2023, 9 Min)",
+            "producer": null,
+            "productionYear": 2023,
+            "shootingDate": null,
+            "allowEmbed": true,
+            "adult": 0,
+            "legalBan": "NONE",
+            "mainImage": {
+                "creationDate": "2012-08-24T22:00:00Z",
+                "lastModified": "2024-11-24T12:21:58Z",
+                "width": 940,
+                "height": 530,
+                "keyframe": false,
+                "alternateResolutions": [],
+                "type": "DEFAULT",
+                "name": "114555-002-A_4271944.jpg",
+                "extension": "jpg",
+                "caption": "Lars (Rinaldo Steller) gibt sich als Minnas (Samirah Breuer) Abendbegleitung aus und schmuggelt sich so in den Frauenliteratursalon.",
+                "url": "https:\/\/api-cdn.arte.tv\/img\/v2\/image\/HfXedTCZT9eURC5fdggvW8\/940x530",
+                "imageId": "4271944",
+                "programId": "114555-002-A",
+                "language": "de",
+                "copyright": "© SWR\/Filmakademie Baden-Württemberg\/Lina Marzin",
+                "blurImage": "https:\/\/api-cdn.arte.tv\/img\/v2\/image\/HfXedTCZT9eURC5fdggvW8\/80x45?blur=true",
+                "kind": "press"
+            },
+            "parents": [
+                "RC-025236",
+                "114555-002-A"
+            ],
+            "collections": [
+                {
+                    "kind": "TOPIC",
+                    "catalogType": null,
+                    "collectionId": "RC-025236",
+                    "order": 5
+                }
+            ],
+            "programmingId": 4439563,
+            "videoRightsBegin": "2024-04-15T13:10:00Z",
+            "videoRightsEnd": "2029-04-16T22:00:00Z",
+            "mainProgramming": true,
+            "mainChannel": true,
+            "geoblockingZone": "DE_FR",
+            "geoblocking": {
+                "code": "DE_FR",
+                "label": "Verfügbar in Deutschland und Frankreich",
+                "inclusion": [],
+                "exclusion": []
+            },
+            "partners": [],
+            "director": "Maxi Antonia Stumpp",
+            "casting": [
+                {
+                    "name": "Samirah Breuer",
+                    "activity": "Darsteller",
+                    "activityCode": "ACT",
+                    "characterName": null
+                },
+                {
+                    "name": "Rinaldo Steller",
+                    "activity": "Darsteller",
+                    "activityCode": "ACT",
+                    "characterName": null
+                },
+                {
+                    "name": "Clara Immel",
+                    "activity": "Darsteller",
+                    "activityCode": "ACT",
+                    "characterName": null
+                },
+                {
+                    "name": "Nadine Warmuth",
+                    "activity": "Darsteller",
+                    "activityCode": "ACT",
+                    "characterName": null
+                }
+            ],
+            "crew": [
+                {
+                    "name": "Maxi Antonia Stumpp",
+                    "activity": "Regie",
+                    "activityCode": "REA",
+                    "characterName": null
+                },
+                {
+                    "name": "Filmakademie Baden-Württemberg",
+                    "activity": "Produktion",
+                    "activityCode": "PRD",
+                    "characterName": null
+                },
+                {
+                    "name": "Verena Meyer",
+                    "activity": "Produzent\/-in",
+                    "activityCode": "PRO",
+                    "characterName": null
+                },
+                {
+                    "name": "Marta Szymanowska",
+                    "activity": "Produzent\/-in",
+                    "activityCode": "PRO",
+                    "characterName": null
+                },
+                {
+                    "name": "ARTE",
+                    "activity": "Koproduktion",
+                    "activityCode": "CPD",
+                    "characterName": null
+                },
+                {
+                    "name": "SWR",
+                    "activity": "Koproduktion",
+                    "activityCode": "CPD",
+                    "characterName": null
+                },
+                {
+                    "name": "La Fémis",
+                    "activity": "Koproduktion",
+                    "activityCode": "CPD",
+                    "characterName": null
+                },
+                {
+                    "name": "Lina Marzin",
+                    "activity": "Kamera",
+                    "activityCode": "IMA",
+                    "characterName": null
+                },
+                {
+                    "name": "Lukas Wengorz",
+                    "activity": "Schnitt",
+                    "activityCode": "MON",
+                    "characterName": null
+                }
+            ],
+            "chapters": [],
+            "chaptersSpriteUrl": null,
+            "caseCode": 207,
+            "case": "COURT CIRCUIT",
+            "genrePresseCode": 7,
+            "genrePresse": "Kurzfilm",
+            "tracking": {
+                "tablet": {
+                    "ANDROID": "https:\/\/www.arte.tv\/pa\/api\/multimedia\/v1\/114555-002\/A\/de\/ARTE_NEXT\/TABLET\/ANDROID\/arte.gif"
+                },
+                "mobile": {
+                    "ANDROID": "https:\/\/www.arte.tv\/pa\/api\/multimedia\/v1\/114555-002\/A\/de\/ARTE_NEXT\/MOBILE\/ANDROID\/arte.gif"
+                },
+                "download": {
+                    "ANDROID": "https:\/\/www.arte.tv\/pa\/api\/multimedia\/v1\/114555-002\/A\/de\/ARTE_NEXT\/DOWNLOAD\/ANDROID\/arte.gif"
+                }
+            },
+            "mainAudioVersion": "VOA",
+            "audioVersions": [
+                "VOA",
+                "VOA-STMA",
+                "VOA-STF"
+            ],
+            "permalink": "https:\/\/www.arte.tv\/de\/videos\/114555-002-A\/permalink\/",
+            "infolink": "https:\/\/www.arte.tv\/de\/videos\/114555-002-A\/salon-spitz\/",
+            "availableScreens": [
+                "desktop",
+                "mobile",
+                "tv"
+            ],
+            "oEmbed": "https:\/\/api.arte.tv\/api\/player\/v1\/oembed\/de\/114555-002-A?platform=ARTE_NEXT",
+            "categories": [
+                {
+                    "order": 3,
+                    "code": "CIN",
+                    "name": "Kino",
+                    "url": null,
+                    "slug": "kino"
+                }
+            ],
+            "category": {
+                "order": 2,
+                "code": "CIN",
+                "name": "Kino",
+                "url": "https:\/\/www.arte.tv\/de\/videos\/kino\/",
+                "slug": "kino"
+            },
+            "subcategory": {
+                "order": 2,
+                "code": "CMG",
+                "name": "Kurzfilme",
+                "url": "https:\/\/www.arte.tv\/de\/videos\/kino\/kurzfilme\/",
+                "slug": "kurzfilme"
+            },
+            "views": 4,
+            "thesaurus": [
+                {
+                    "code": 1107,
+                    "label": "Gesellschaft",
+                    "parents": [
+                        1,
+                        1107
+                    ]
+                },
+                {
+                    "code": 527,
+                    "label": "Geschichte",
+                    "parents": [
+                        1,
+                        527
+                    ]
+                },
+                {
+                    "code": 613,
+                    "label": "Kultur",
+                    "parents": [
+                        1,
+                        613
+                    ]
+                }
+            ],
+            "postroll": "https:\/\/api.arte.tv\/api\/player\/v1\/recommendedPostroll\/de\/114555-002-A",
+            "mainPlatform": true,
+            "imageColor": {
+                "code": "COLOR",
+                "label": "Farbfilm"
+            },
+            "arteSchedulingDay": null,
+            "deletedAt": null,
+            "productionCountries": [
+                {
+                    "arteCode": "GER",
+                    "isoAlpha2Code": "DE",
+                    "label": "Deutschland"
+                }
+            ],
+            "url": "https:\/\/www.arte.tv\/de\/videos\/114555-002-A\/salon-spitz\/",
+            "clusters": [],
+            "illico": false,
+            "season": 0,
+            "episode": 2,
+            "totalEpisodes": 7,
+            "mainCrossPlatform": true,
+            "kindLabel": "PROGRAMM",
+            "videoLibrary": true,
+            "broadcastBegin": null,
+            "broadcastBeginRounded": null,
+            "viewsPeriod": 4,
+            "markings": [],
+            "webLinks": [],
+            "warning": null,
+            "livestreamRights": true,
+            "eStat": {
+                "streamName": "Salon Spitz",
+                "streamDuration": 510,
+                "streamGenre": "2_filme",
+                "level1": "CIN_kino",
+                "level2": "PROGRAMME_ANTENNE",
+                "level3": "de",
+                "level4": "CMG_kurzfilme",
+                "level5": "114555-002-A",
+                "newLevel1": "SHOW",
+                "newLevel2": null,
+                "newLevel11": "207_court-circuit",
+                "mediaChannel": "850",
+                "mediaContentId": "114555-002-A",
+                "mediaDiffMode": "TVOD"
+            },
+            "mediametrie": {
+                "type": "content",
+                "assetid": "114555-002-A_2",
+                "program": "207_court-circuit",
+                "title": "salon-spitz",
+                "length": 510,
+                "islivestn": "n",
+                "cli_md": "TVOD",
+                "cli_ch": 850,
+                "cli_cn": "114555-002-A",
+                "nol_p0": "p0,de",
+                "nol_p1": "p1,PROGRAMME_ANTENNE",
+                "nol_p2": "p2,SHOW",
+                "nol_p13": "p13,n"
+            },
+            "adtech": {
+                "kvprogramid": "114555-002-A",
+                "kvvty": "ARTE_NEXT",
+                "kvcategory": "CIN",
+                "kvsubcategory": "CMG",
+                "kvwebonly": false,
+                "kvbroadcast": true,
+                "kvduration": 510,
+                "kvcaseprogram": "207_court-circuit",
+                "kvvideoisolang": "de"
+            },
+            "agf": {
+                "type": "content",
+                "assetid": "114555-002-A",
+                "program": "207_court-circuit",
+                "title": "salon-spitz",
+                "length": 510,
+                "nol_c2": "p2,N",
+                "nol_c7": "p7,114555-002-A",
+                "nol_c8": "p8,510",
+                "nol_c9": "p9,salon-spitz",
+                "nol_c10": "p10,ARTE",
+                "nol_c12": "p12,Content",
+                "nol_c15": "p15,114555-002-A",
+                "nol_c18": "p18,N"
+            },
+            "offlineAvailability": true,
+            "genre": {
+                "code": 2,
+                "label": "Filme"
+            },
+            "audioLanguages": [
+                {
+                    "arteCode": "ALL",
+                    "iso6392Code": "deu",
+                    "iso6391Code": "de",
+                    "label": "Deutsch",
+                    "version": "VOA",
+                    "audioDescription": false
+                }
+            ],
+            "subtitles": [
+                {
+                    "arteCode": "MAL",
+                    "version": "VA-MAL",
+                    "iso6392Code": "und",
+                    "iso6391Code": "",
+                    "label": "für Hörgeschädigte",
+                    "closedCaptioning": true,
+                    "burned": false,
+                    "filename": "114555-002-A-VA-MAL.stl"
+                },
+                {
+                    "arteCode": "FRA",
+                    "version": "VO-FRA",
+                    "iso6392Code": "fra",
+                    "iso6391Code": "fr",
+                    "label": "Französisch",
+                    "closedCaptioning": false,
+                    "burned": false,
+                    "filename": "114555-002-A-VO-FRA.stl"
+                }
+            ],
+            "versions": [
+                {
+                    "code": 6,
+                    "audioCode": "VOA",
+                    "audioLabel": "Deutsch",
+                    "audioShortLabel": "DE",
+                    "audioLanguage": "de",
+                    "subtitleLanguage": "und",
+                    "closedCaptioning": false,
+                    "audioDescription": false
+                },
+                {
+                    "code": 22,
+                    "audioCode": "VOA-STMA",
+                    "audioLabel": "Deutsch (Hörgeschädigte)",
+                    "audioShortLabel": "UT",
+                    "audioLanguage": "de",
+                    "subtitleLanguage": "de",
+                    "closedCaptioning": true,
+                    "audioDescription": false
+                },
+                {
+                    "code": 15,
+                    "audioCode": "VOA-STF",
+                    "audioLabel": "Deutsch - UT französisch",
+                    "audioShortLabel": "UT (frz.)",
+                    "audioLanguage": "de",
+                    "subtitleLanguage": "fr",
+                    "closedCaptioning": false,
+                    "audioDescription": false
+                }
+            ],
+            "origins": [
+                {
+                    "order": 1,
+                    "label": "SWR"
+                }
+            ],
+            "availableImages": [
+                "DEFAULT"
+            ],
+            "allowThirdPlayer": false,
+            "externalIds": [],
+            "broadcastType": null,
+            "clearVoice": true,
+            "ancestors": [
+                {
+                    "programId": "RC-025236",
+                    "order": 5,
+                    "kind": "TOPIC",
+                    "ancestors": []
+                }
+            ],
+            "mainPlatformCode": null,
+            "arteClub": false,
+            "previewRightsBegin": "2024-04-15T13:10:00Z",
+            "creationDate": "2024-04-15T13:05:36Z",
+            "lastModified": "2024-11-24T12:22:00Z",
+            "ageRating": 0,
+            "imageReference": "HfXedTCZT9eURC5fdggvW8",
+            "programmingType": "MANUAL",
+            "links": {
+                "programs": {
+                    "href": "https:\/\/api.arte.tv\/api\/opa\/v3\/programs\/de\/114555-002-A"
+                }
+            }
+        }
+    ]
+}
