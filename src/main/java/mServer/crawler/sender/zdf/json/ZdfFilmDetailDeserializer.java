@@ -3,7 +3,7 @@ package mServer.crawler.sender.zdf.json;
 import com.google.gson.*;
 import mServer.crawler.sender.base.JsonUtils;
 import mServer.crawler.sender.base.UrlUtils;
-import mServer.crawler.sender.zdf.ZdfFilmDto;
+import mServer.crawler.sender.zdf.ZdfFilmDtoOld;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-public class ZdfFilmDetailDeserializer implements JsonDeserializer<Optional<ZdfFilmDto>> {
+public class ZdfFilmDetailDeserializer implements JsonDeserializer<Optional<ZdfFilmDtoOld>> {
 
   private static final Logger LOG = LogManager.getLogger(ZdfFilmDetailDeserializer.class);
 
@@ -63,7 +63,7 @@ public class ZdfFilmDetailDeserializer implements JsonDeserializer<Optional<ZdfF
   }
 
   @Override
-  public Optional<ZdfFilmDto> deserialize(
+  public Optional<ZdfFilmDtoOld> deserialize(
           JsonElement aJsonObject, Type aType, JsonDeserializationContext aContext) {
     JsonObject rootNode = aJsonObject.getAsJsonObject();
     JsonObject programItemTarget = null;
@@ -98,7 +98,7 @@ public class ZdfFilmDetailDeserializer implements JsonDeserializer<Optional<ZdfF
     final Map<String, String> downloadUrl = parseDownloadUrls(mainVideoTarget);
 
     if (title.isPresent() && downloadUrl.containsKey(DOWNLOAD_URL_DEFAULT)) {
-      return Optional.of(new ZdfFilmDto(downloadUrl.get(DOWNLOAD_URL_DEFAULT), topic, title.get(), description, website, time, duration, downloadUrl.get(DOWNLOAD_URL_DGS)));
+      return Optional.of(new ZdfFilmDtoOld(downloadUrl.get(DOWNLOAD_URL_DEFAULT), topic, title.get(), description, website, time, duration, downloadUrl.get(DOWNLOAD_URL_DGS)));
     } else {
       LOG.error("ZdfFilmDetailDeserializer: no title or url found");
     }
