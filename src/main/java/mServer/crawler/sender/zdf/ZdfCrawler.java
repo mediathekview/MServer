@@ -162,7 +162,7 @@ public class ZdfCrawler extends MediathekCrawler {
 
   private ConcurrentLinkedQueue<CrawlerUrlDTO> getDayUrls() {
 
-    int daysPast = 10;
+    int daysPast = 7;
     int daysFuture = 5;
 
     final ConcurrentLinkedQueue<CrawlerUrlDTO> urls = new ConcurrentLinkedQueue<>();

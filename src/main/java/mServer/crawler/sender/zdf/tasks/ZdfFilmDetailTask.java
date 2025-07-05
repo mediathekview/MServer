@@ -157,7 +157,7 @@ public class ZdfFilmDetailTask extends ZdfTaskBase<DatenFilm, CrawlerUrlDTO> {
 
     Duration duration = zdfFilmDto.getDuration().orElse(downloadDto.getDuration().orElse(Duration.ZERO));
 
-    DatenFilm film = new ZdfDatenFilm(crawler.getSendername(),
+    DatenFilm film = new ZdfDatenFilm(zdfFilmDto.getSender(),
       zdfFilmDto.getTopic().orElse(title),
       zdfFilmDto.getWebsite().orElse(""),
       title, downloadUrls.get(Qualities.NORMAL), "", dateValue, timeValue, duration.getSeconds(), zdfFilmDto.getDescription().orElse(""));

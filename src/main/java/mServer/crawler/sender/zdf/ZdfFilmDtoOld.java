@@ -9,6 +9,7 @@ import java.util.Optional;
 
 public class ZdfFilmDtoOld extends CrawlerUrlDTO {
 
+  private final String sender;
   private final Optional<String> topic;
   private final String title;
   private final Optional<String> description;
@@ -17,10 +18,11 @@ public class ZdfFilmDtoOld extends CrawlerUrlDTO {
   private final Optional<Duration> duration;
   private final Optional<String> urlSignLanguage;
 
-  public ZdfFilmDtoOld(String url, Optional<String> topic, String title,
+  public ZdfFilmDtoOld(String sender, String url, Optional<String> topic, String title,
                     Optional<String> description, Optional<String> website,
                     Optional<LocalDateTime> time, Optional<Duration> duration, String urlSignLanguage) {
     super(url);
+    this.sender = sender;
     this.topic = topic;
     this.title = title;
     this.description = description;
@@ -33,6 +35,10 @@ public class ZdfFilmDtoOld extends CrawlerUrlDTO {
     } else {
       this.urlSignLanguage = Optional.empty();
     }
+  }
+
+  public String getSender() {
+    return sender;
   }
 
   public Optional<String> getTopic() {
