@@ -170,10 +170,15 @@ public class OrfOnEpisodeDeserializer implements JsonDeserializer<OrfOnVideoInfo
         if (codecs.isPresent() && codecs.get().isJsonArray()) {
           for (JsonElement singleVideo : codecs.get().getAsJsonArray()) {
             Optional<String> tgtUrl = JsonUtils.getElementValueAsString(singleVideo, TAG_VIDEO_FALLBACK_URL);
-            if (tgtUrl.isPresent() && !tgtUrl.get().contains("/Jugendschutz") && !tgtUrl.get().contains("/no_drm_support") && !tgtUrl.get().contains("/schwarzung")) {
-              urls.put(Qualities.NORMAL, tgtUrl.get());
-              return Optional.of(urls);
+            Optional<String> qualityValue = JsonUtils.getElementValueAsString(singleVideo, "quality_key");
+            final Optional<Qualities> quality = OrfOnEpisodeDeserializer.getQuality(qualityValue.get());
+            if (tgtUrl.isPresent() && !tgtUrl.get().contains("/Jugendschutz") && !tgtUrl.get().contains("/no_drm_support") && !tgtUrl.get().contains("/schwarzung") && 
+                quality.isPresent()) {
+              urls.put(quality.get(), tgtUrl.get());
             }
+          }
+          if (!urls.isEmpty()) {
+            return Optional.of(urls);
           }
         }
       }
