@@ -254,7 +254,8 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
     if ((titleoriginal.get().contains(" (mit Gebärdensprache)") || titleoriginal.get().contains(" mit Gebärdensprache")) && videoInfoStandard.isPresent() && videoInfoDGS.isEmpty()) {
       videoInfoDGS = videoInfoStandard;
       videoInfoStandard = Optional.empty();
-    }
+    } 
+    // in aller freundschaft
     if ((titleoriginal.get().contains("- Hörfassung") || titleoriginal.get().contains("(mit Audiodeskription)")) && videoInfoStandard.isPresent() && videoInfoAD.isEmpty()) {
       videoInfoAD = videoInfoStandard;
       videoInfoStandard = Optional.empty();
@@ -486,6 +487,10 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
      //
      Map<Qualities, String> fallback = qualitiesUrls.entrySet().stream()
      .collect(Collectors.toMap(Map.Entry::getKey, entry -> entry.getValue().toString()));
+     //
+     if (!fallback.containsKey(Qualities.NORMAL) && !fallback.isEmpty()) {
+       fallback.put(Qualities.NORMAL, fallback.entrySet().stream().findFirst().get().getValue());
+     }
      
      return Optional.of(fallback);
    }
