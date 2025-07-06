@@ -195,14 +195,19 @@ public class OrfOnEpisodeDeserializer implements JsonDeserializer<OrfOnVideoInfo
         if (codecs.isPresent() && codecs.get().isJsonArray()) {
           for (JsonElement singleVideo : codecs.get().getAsJsonArray()) {
             Optional<String> tgtUrl = JsonUtils.getElementValueAsString(singleVideo, TAG_VIDEO_FALLBACK_URL);
+            Optional<String> quality = JsonUtils.getElementValueAsString(singleVideo, "quality_key");
             if (tgtUrl.isPresent() && !tgtUrl.get().contains("/Jugendschutz") && !tgtUrl.get().contains("/no_drm_support") && !tgtUrl.get().contains("/schwarzung")) {
               try {
-                urls.put(Resolution.NORMAL, new FilmUrl(tgtUrl.get(), 0L));
+                if (OrfOnEpisodeDeserializer.getQuality(quality.get()).isPresent()) {
+                  urls.put(OrfOnEpisodeDeserializer.getQuality(quality.get()).get(), new FilmUrl(tgtUrl.get(), 0L));
+                }
               } catch (MalformedURLException e) {
                 LOG.warn("invalid video url {} error {}", tgtUrl, e );
               }
-              return Optional.of(urls);
             }
+          }
+          if (!urls.isEmpty()) {
+            return Optional.of(urls);
           }
         }
       }
