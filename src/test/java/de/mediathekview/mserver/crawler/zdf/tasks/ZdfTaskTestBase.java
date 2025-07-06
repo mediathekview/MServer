@@ -5,7 +5,6 @@ import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.crawler.zdf.ZdfCrawler;
 import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
 import de.mediathekview.mserver.testhelper.WireMockTestBase;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.concurrent.ForkJoinPool;

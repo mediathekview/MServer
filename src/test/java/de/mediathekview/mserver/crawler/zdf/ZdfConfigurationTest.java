@@ -18,8 +18,8 @@ public class ZdfConfigurationTest {
   }
 
   @Test
-  public void getSearchAuthKeyReturnsEmptyOptionalIfSetNotCalled() {
-    assertThat(Optional.empty(), equalTo(target.getSearchAuthKey()));
+  public void getSearchAuthKeyReturnsDefaultIfSetNotCalled() {
+    assertThat(Optional.of(ZdfConfiguration.AUTH_KEY_SEARCH), equalTo(target.getSearchAuthKey()));
   }
 
   @Test
@@ -29,12 +29,12 @@ public class ZdfConfigurationTest {
     target.setSearchAuthKey(value);
 
     assertThat(Optional.of(value), equalTo(target.getSearchAuthKey()));
-    assertThat(Optional.empty(), equalTo(target.getVideoAuthKey()));
+    assertThat(Optional.of(ZdfConfiguration.AUTH_KEY_VIDEO), equalTo(target.getVideoAuthKey()));
   }
 
   @Test
-  public void getVideoAuthKeyReturnssValueUsedInSetBefore() {
-    assertThat(Optional.empty(), equalTo(target.getVideoAuthKey()));
+  public void getVideoAuthKeyReturnsDefaultIfSetNotCalled() {
+    assertThat(Optional.of(ZdfConfiguration.AUTH_KEY_VIDEO), equalTo(target.getVideoAuthKey()));
   }
 
   @Test
@@ -43,7 +43,7 @@ public class ZdfConfigurationTest {
 
     target.setVideoAuthKey(value);
 
-    assertThat(Optional.empty(), equalTo(target.getSearchAuthKey()));
+    assertThat(Optional.of(ZdfConfiguration.AUTH_KEY_SEARCH), equalTo(target.getSearchAuthKey()));
     assertThat(Optional.of(value), equalTo(target.getVideoAuthKey()));
   }
 }

@@ -35,7 +35,8 @@ public class ZdfIndexPageTaskTest {
 
   @Mock JsoupConnection jsoupConnection;
 
-  @Mock ZdfCrawler crawler;
+  @Mock
+  ZdfCrawler crawler;
 
   public ZdfIndexPageTaskTest(
       final String aHtmlFile,
