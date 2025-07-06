@@ -10,11 +10,7 @@ import mServer.crawler.sender.base.AbstractRecursivConverterTask;
 import mServer.crawler.sender.base.CrawlerUrlDTO;
 import mServer.crawler.sender.base.GeoLocations;
 import mServer.crawler.sender.base.Qualities;
-import mServer.crawler.sender.zdf.DownloadDtoFilmConverter;
-import mServer.crawler.sender.zdf.ZdfConstants;
-import mServer.crawler.sender.zdf.ZdfDatenFilm;
-import mServer.crawler.sender.zdf.ZdfFilmDto;
-import mServer.crawler.sender.zdf.ZdfVideoUrlOptimizer;
+import mServer.crawler.sender.zdf.*;
 import mServer.crawler.sender.zdf.json.DownloadDto;
 import mServer.crawler.sender.zdf.json.ZdfDownloadDtoDeserializer;
 import mServer.crawler.sender.zdf.json.ZdfFilmDetailDeserializer;
@@ -35,7 +31,7 @@ public class ZdfFilmDetailTask extends ZdfTaskBase<DatenFilm, CrawlerUrlDTO> {
   private static final Logger LOG = LogManager.getLogger(ZdfFilmDetailTask.class);
 
   private static final Type OPTIONAL_FILM_TYPE_TOKEN
-    = new TypeToken<Optional<ZdfFilmDto>>() {
+    = new TypeToken<Optional<ZdfFilmDtoOld>>() {
   }.getType();
   private static final Type OPTIONAL_DOWNLOAD_DTO_TYPE_TOKEN
     = new TypeToken<Optional<DownloadDto>>() {
@@ -68,7 +64,7 @@ public class ZdfFilmDetailTask extends ZdfTaskBase<DatenFilm, CrawlerUrlDTO> {
     }
 
     try {
-      final Optional<ZdfFilmDto> film = deserializeOptional(aTarget, OPTIONAL_FILM_TYPE_TOKEN);
+      final Optional<ZdfFilmDtoOld> film = deserializeOptional(aTarget, OPTIONAL_FILM_TYPE_TOKEN);
       if (film.isPresent()) {
         final Optional<DownloadDto> downloadDtoOptional
           = deserializeOptional(
@@ -78,7 +74,7 @@ public class ZdfFilmDetailTask extends ZdfTaskBase<DatenFilm, CrawlerUrlDTO> {
           final DownloadDto downloadDto = downloadDtoOptional.get();
           appendSignLanguage(downloadDto, film.get().getUrlSignLanguage());
 
-          final ZdfFilmDto result = film.get();
+          final ZdfFilmDtoOld result = film.get();
           addFilm(downloadDto, result);
         }
       }
@@ -111,7 +107,7 @@ public class ZdfFilmDetailTask extends ZdfTaskBase<DatenFilm, CrawlerUrlDTO> {
     return new ZdfFilmDetailTask(crawler, apiUrlBase, aElementsToProcess, authKey);
   }
 
-  private void addFilm(final DownloadDto downloadDto, final ZdfFilmDto result) {
+  private void addFilm(final DownloadDto downloadDto, final ZdfFilmDtoOld result) {
     for (final String language : downloadDto.getLanguages()) {
 
       if (downloadDto.getUrl(language, Qualities.NORMAL).isPresent()) {
@@ -148,7 +144,7 @@ public class ZdfFilmDetailTask extends ZdfTaskBase<DatenFilm, CrawlerUrlDTO> {
     return title;
   }
 
-  private DatenFilm createFilm(final ZdfFilmDto zdfFilmDto, final DownloadDto downloadDto, final String aLanguage) {
+  private DatenFilm createFilm(final ZdfFilmDtoOld zdfFilmDto, final DownloadDto downloadDto, final String aLanguage) {
 
     final String title = updateTitle(aLanguage, zdfFilmDto.getTitle());
 
@@ -161,7 +157,7 @@ public class ZdfFilmDetailTask extends ZdfTaskBase<DatenFilm, CrawlerUrlDTO> {
 
     Duration duration = zdfFilmDto.getDuration().orElse(downloadDto.getDuration().orElse(Duration.ZERO));
 
-    DatenFilm film = new ZdfDatenFilm(crawler.getSendername(),
+    DatenFilm film = new ZdfDatenFilm(zdfFilmDto.getSender(),
       zdfFilmDto.getTopic().orElse(title),
       zdfFilmDto.getWebsite().orElse(""),
       title, downloadUrls.get(Qualities.NORMAL), "", dateValue, timeValue, duration.getSeconds(), zdfFilmDto.getDescription().orElse(""));

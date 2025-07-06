@@ -91,6 +91,7 @@ public abstract class ZdfTaskBase<T, D extends CrawlerUrlDTO> extends AbstractRe
     }
 
     LIMITER.acquire();
-    return request.header(HEADER_ACCEPT_ENCODING, ENCODING_GZIP).get();
+    // todo funktioniert short noch? 3sat noch?
+    return request.header(HEADER_ACCEPT_ENCODING, ENCODING_GZIP).header("zdf-app-id", "ffw-mt-web-6b266f6f").header("Content-Type", "application/json").get();
   }
 }
