@@ -5,7 +5,7 @@ import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.crawler.zdf.ZdfConfiguration;
 import de.mediathekview.mserver.crawler.zdf.ZdfConstants;
-import de.mediathekview.mserver.crawler.zdf.ZdfCrawlerOld;
+import de.mediathekview.mserver.crawler.zdf.ZdfCrawler;
 import de.mediathekview.mserver.testhelper.JsoupMock;
 import org.jsoup.nodes.Document;
 import org.junit.Before;
@@ -36,7 +36,7 @@ public class ZdfIndexPageTaskTest {
   @Mock JsoupConnection jsoupConnection;
 
   @Mock
-  ZdfCrawlerOld crawler;
+  ZdfCrawler crawler;
 
   public ZdfIndexPageTaskTest(
       final String aHtmlFile,
