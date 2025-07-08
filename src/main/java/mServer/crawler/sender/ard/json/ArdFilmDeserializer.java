@@ -294,7 +294,6 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
           vid,
           subtitles));
       films.add(filmDto);
-      return films;
     }
     //
     if (videoInfoAD.isPresent() && videoInfoAD.get().size() > 0) {
