@@ -286,8 +286,8 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
       = new ArdFilmDto(
       createFilm(
           ADDITIONAL_SENDER.get(partner.get()),
-          topic.get() + " (Originalversion)",
-          title.get(),
+          topic.get(),
+          title.get() + " (Originalversion)",
           description,
           date,
           duration,
