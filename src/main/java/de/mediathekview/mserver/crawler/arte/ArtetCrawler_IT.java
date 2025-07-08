@@ -8,9 +8,9 @@ import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
 import java.util.Collection;
 import java.util.concurrent.ForkJoinPool;
 
-public class ArteCrawler_EN extends ArteCrawler {
+public class ArtetCrawler_IT extends ArteCrawler {
 
-  public ArteCrawler_EN(
+  public ArtetCrawler_IT(
       final ForkJoinPool aForkJoinPool,
       final Collection<MessageListener> aMessageListeners,
       final Collection<SenderProgressListener> aProgressListeners,
@@ -20,12 +20,12 @@ public class ArteCrawler_EN extends ArteCrawler {
 
   @Override
   public Sender getSender() {
-    return Sender.ARTE_EN;
+    return Sender.ARTE_IT;
   }
 
   @Override
   protected ArteLanguage getLanguage() {
-    return ArteLanguage.EN;
+    return ArteLanguage.IT;
   }
 
 }

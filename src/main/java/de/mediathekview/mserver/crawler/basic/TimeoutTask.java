@@ -6,10 +6,8 @@ import java.time.LocalDateTime;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import de.mediathekview.mserver.crawler.arte.ArteCrawler;
-
 public abstract class TimeoutTask extends Thread {
-  private static final Logger LOG = LogManager.getLogger(ArteCrawler.class);
+  private static final Logger LOG = LogManager.getLogger(TimeoutTask.class);
   private final long maxTime;
   private boolean isRun;
 
