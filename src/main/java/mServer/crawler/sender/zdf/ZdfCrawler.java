@@ -69,7 +69,7 @@ public class ZdfCrawler extends MediathekCrawler {
           Set<CrawlerUrlDTO> shows = new HashSet<>(getDaysEntries(configuration));
           Log.sysLog(getSendername() + " Anzahl: " + shows.size());
           meldungAddMax(shows.size());
-          return new ZdfFilmDetailTask(this, getApiUrlBase(), new ConcurrentLinkedQueue<>(shows), configuration.getVideoAuthKey());
+          return new ZdfFilmDetailTask(this, getApiUrlBase(), new ConcurrentLinkedQueue<>(shows), configuration.getVideoAuthKey(), ZdfConstants.PARTNER_TO_SENDER);
         }
       }
     } catch (final InterruptedException ex) {

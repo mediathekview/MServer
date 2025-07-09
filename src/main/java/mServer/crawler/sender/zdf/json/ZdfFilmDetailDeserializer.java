@@ -4,7 +4,6 @@ import com.google.gson.*;
 import de.mediathekview.mlib.Const;
 import mServer.crawler.sender.base.JsonUtils;
 import mServer.crawler.sender.base.UrlUtils;
-import mServer.crawler.sender.zdf.ZdfConstants;
 import mServer.crawler.sender.zdf.ZdfFilmDtoOld;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -59,9 +58,11 @@ public class ZdfFilmDetailDeserializer implements JsonDeserializer<Optional<ZdfF
           = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ssXXX"); // 2016-10-29T16:15:00+02:00
 
   private final String apiUrlBase;
+  private final Map<String, String> partnerToSender;
 
-  public ZdfFilmDetailDeserializer(final String apiUrlBase) {
+  public ZdfFilmDetailDeserializer(final String apiUrlBase, Map<String, String> partnerToSender) {
     this.apiUrlBase = apiUrlBase;
+    this.partnerToSender = partnerToSender;
   }
 
   @Override
@@ -72,7 +73,7 @@ public class ZdfFilmDetailDeserializer implements JsonDeserializer<Optional<ZdfF
     JsonObject mainVideoTarget = null;
 
     final Optional<String> tvService = JsonUtils.getAttributeAsString(rootNode, "tvService");
-    if (tvService.isPresent() && !ZdfConstants.PARTNER_TO_SENDER.containsKey(tvService.get())) {
+    if (tvService.isPresent() && !partnerToSender.containsKey(tvService.get())) {
       LOG.debug("ZdfFilmDetailDeserializer: ignore film of sender {}", tvService.orElse("EMPTY"));
       return Optional.empty();
     }
@@ -106,7 +107,7 @@ public class ZdfFilmDetailDeserializer implements JsonDeserializer<Optional<ZdfF
     final Map<String, String> downloadUrl = parseDownloadUrls(mainVideoTarget);
 
     if (title.isPresent() && downloadUrl.containsKey(DOWNLOAD_URL_DEFAULT)) {
-      return Optional.of(new ZdfFilmDtoOld(tvService.orElse(Const.ZDF), downloadUrl.get(DOWNLOAD_URL_DEFAULT), topic, title.get(), description, website, time, duration, downloadUrl.get(DOWNLOAD_URL_DGS)));
+      return Optional.of(new ZdfFilmDtoOld(partnerToSender.get(tvService.orElse(Const.ZDF)), downloadUrl.get(DOWNLOAD_URL_DEFAULT), topic, title.get(), description, website, time, duration, downloadUrl.get(DOWNLOAD_URL_DGS)));
     } else {
       LOG.error("ZdfFilmDetailDeserializer: no title or url found");
     }
