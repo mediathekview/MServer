@@ -121,6 +121,12 @@ public class ZdfFilmTask extends ZdfTaskBase<DatenFilm, ZdfFilmDto> {
     switch (aLanguage) {
       case ZdfConstants.LANGUAGE_GERMAN:
         break;
+      case ZdfConstants.LANGUAGE_GERMAN_AD:
+        title += " (Audiodeskription)";
+        break;
+      case ZdfConstants.LANGUAGE_GERMAN_DGS:
+        title += " (Gebärdensprache)";
+        break;
       case ZdfConstants.LANGUAGE_ENGLISH:
         title += " (Englisch)";
         break;
