@@ -81,32 +81,16 @@ public class ZdfFilmTask extends ZdfTaskBase<DatenFilm, ZdfFilmDto> {
 
   private void addFilm(final ZdfFilmDto zdfFilmDto, final DownloadDto downloadDto) {
 
-    String previousLanguage = null;
-    DatenFilm previousMainFilm = null;
     for (final String language : downloadDto.getLanguages().stream().sorted().toList()) {
 // todo deu-ad bei audiodescription passt nicht im title
-      // todo kann der auskommentierte code hier weg?
-/*      if (previousLanguage != null && language.startsWith(previousLanguage)) {
-        final DatenFilm currentFilm = previousMainFilm;
+      DownloadDtoFilmConverter.getOptimizedUrls(
+              downloadDto.getDownloadUrls(language), Optional.of(optimizer));
 
-        if (language.endsWith(ZdfConstants.LANGUAGE_SUFFIX_AD)) {
-          final Map<Qualities, String> urls =
-                  getOptimizedUrls(downloadDto.getDownloadUrls(language));
-          urls.forEach(currentFilm::addAudioDescription);
-        } else if (language.endsWith(ZdfConstants.LANGUAGE_SUFFIX_DGS)) {
-          final Map<Qualities, String> urls =
-                  getOptimizedUrls(downloadDto.getDownloadUrls(language));
-          urls.forEach(currentFilm::addSignLanguage);
-        } else {
-          LOG.debug("unknown language suffix: {}", language);
-        }
-      } else {*/
-        final DatenFilm filmWithLanguage = createFilm(zdfFilmDto, downloadDto, language);
+      final DatenFilm filmWithLanguage = createFilm(zdfFilmDto, downloadDto, language);
         setSubtitle(downloadDto, filmWithLanguage, language);
         setGeoLocation(downloadDto, filmWithLanguage);
 
-        final Map<Qualities, String> urls =
-                getOptimizedUrls(downloadDto.getDownloadUrls(language));
+      final Map<Qualities, String> urls = downloadDto.getDownloadUrls(language);
         if (urls.containsKey(Qualities.SMALL)) {
           CrawlerTool.addUrlKlein(filmWithLanguage, urls.get(Qualities.SMALL));
         }
@@ -117,35 +101,7 @@ public class ZdfFilmTask extends ZdfTaskBase<DatenFilm, ZdfFilmDto> {
         if (!taskResults.add(filmWithLanguage)) {
           LOG.error("Rejected duplicate {}", filmWithLanguage);
         }
-        previousMainFilm = filmWithLanguage;
-        previousLanguage = language;
-      //}
     }
-  }
-
-  private Map<Qualities, String> getOptimizedUrls(Map<Qualities, String> urls) {
-    Map<Qualities, String> result = new EnumMap<>(Qualities.class);
-
-    for (final Map.Entry<Qualities, String> qualitiesEntry : urls.entrySet()) {
-      String url = qualitiesEntry.getValue();
-
-      if (qualitiesEntry.getKey() == Qualities.NORMAL) {
-        url = optimizer.getOptimizedUrlNormal(url);
-      } else if (qualitiesEntry.getKey() == Qualities.HD) {
-        url = optimizer.getOptimizedUrlHd(url);
-      }
-
-      result.put(qualitiesEntry.getKey(), url);
-    }
-
-    if (!result.containsKey(Qualities.HD)) {
-      final Optional<String> hdUrl = optimizer.determineUrlHd(result.get(Qualities.NORMAL));
-      if (hdUrl.isPresent()) {
-        result.put(
-                Qualities.HD, hdUrl.get());
-      }
-    }
-    return result;
   }
 
   private static void setSubtitle(DownloadDto downloadDto, DatenFilm filmWithLanguage, String language) {
@@ -164,6 +120,12 @@ public class ZdfFilmTask extends ZdfTaskBase<DatenFilm, ZdfFilmDto> {
     String title = aTitle;
     switch (aLanguage) {
       case ZdfConstants.LANGUAGE_GERMAN:
+        break;
+      case ZdfConstants.LANGUAGE_GERMAN_AD:
+        title += " (Audiodeskription)";
+        break;
+      case ZdfConstants.LANGUAGE_GERMAN_DGS:
+        title += " (Gebärdensprache)";
         break;
       case ZdfConstants.LANGUAGE_ENGLISH:
         title += " (Englisch)";
