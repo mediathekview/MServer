@@ -56,7 +56,7 @@ public class PhoenixFilmDetailTask extends ZdfTaskBase<DatenFilm, CrawlerUrlDTO>
                             this.filmDetailHost,
                             filmDetailDto.getBaseName())));
     final ZdfFilmDetailTask zdfFilmDetailTask =
-            new ZdfFilmDetailTask(this.crawler, "", shows, Optional.empty());
+            new ZdfFilmDetailTask(this.crawler, "", shows, Optional.empty(), PhoenixConstants.PARTNER_TO_SENDER);
     final Set<DatenFilm> films = zdfFilmDetailTask.invoke();
     films.forEach(
             film -> {

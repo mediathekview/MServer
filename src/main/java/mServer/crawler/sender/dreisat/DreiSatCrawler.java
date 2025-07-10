@@ -4,7 +4,6 @@ import de.mediathekview.mlib.Const;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.sender.base.CrawlerUrlDTO;
 import mServer.crawler.sender.base.JsoupConnection;
-import mServer.crawler.sender.zdf.AbstractZdfCrawler;
 import mServer.crawler.sender.zdf.ZdfConfiguration;
 import org.jetbrains.annotations.NotNull;
 

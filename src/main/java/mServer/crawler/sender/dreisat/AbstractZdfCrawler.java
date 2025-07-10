@@ -1,4 +1,4 @@
-package mServer.crawler.sender.zdf;
+package mServer.crawler.sender.dreisat;
 
 import de.mediathekview.mlib.daten.DatenFilm;
 import de.mediathekview.mlib.tool.Log;
@@ -7,6 +7,7 @@ import mServer.crawler.FilmeSuchen;
 import mServer.crawler.sender.MediathekCrawler;
 import mServer.crawler.sender.base.CrawlerUrlDTO;
 import mServer.crawler.sender.base.JsoupConnection;
+import mServer.crawler.sender.zdf.ZdfConfiguration;
 import mServer.crawler.sender.zdf.tasks.ZdfDayPageTask;
 import mServer.crawler.sender.zdf.tasks.ZdfFilmDetailTask;
 import mServer.crawler.sender.zdf.tasks.ZdfIndexPageTask;
@@ -53,7 +54,7 @@ public abstract class AbstractZdfCrawler extends MediathekCrawler {
         meldungAddMax(shows.size());
       }
 
-      return new ZdfFilmDetailTask(this, getApiUrlBase(), new ConcurrentLinkedQueue<>(shows), configuration.getVideoAuthKey());
+      return new ZdfFilmDetailTask(this, getApiUrlBase(), new ConcurrentLinkedQueue<>(shows), configuration.getVideoAuthKey(), DreisatConstants.PARTNER_TO_SENDER);
     } catch (final InterruptedException ex) {
       LOG.debug("{} crawler interrupted.", getSendername(), ex);
       Thread.currentThread().interrupt();

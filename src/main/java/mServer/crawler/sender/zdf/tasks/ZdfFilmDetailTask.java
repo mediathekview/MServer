@@ -44,16 +44,19 @@ public class ZdfFilmDetailTask extends ZdfTaskBase<DatenFilm, CrawlerUrlDTO> {
 
   private final transient ZdfVideoUrlOptimizer optimizer = new ZdfVideoUrlOptimizer();
   private final String apiUrlBase;
+  private final Map<String, String> partnerToSender;
 
   public ZdfFilmDetailTask(
     final MediathekReader aCrawler,
     final String aApiUrlBase,
     final ConcurrentLinkedQueue<CrawlerUrlDTO> aUrlToCrawlDtos,
-    final Optional<String> aAuthKey) {
+    final Optional<String> aAuthKey,
+    final Map<String, String> partnerToSender) {
     super(aCrawler, aUrlToCrawlDtos, aAuthKey);
     apiUrlBase = aApiUrlBase;
+    this.partnerToSender = partnerToSender;
 
-    registerJsonDeserializer(OPTIONAL_FILM_TYPE_TOKEN, new ZdfFilmDetailDeserializer(apiUrlBase));
+    registerJsonDeserializer(OPTIONAL_FILM_TYPE_TOKEN, new ZdfFilmDetailDeserializer(apiUrlBase, partnerToSender));
     registerJsonDeserializer(OPTIONAL_DOWNLOAD_DTO_TYPE_TOKEN, new ZdfDownloadDtoDeserializer());
   }
 
@@ -104,7 +107,7 @@ public class ZdfFilmDetailTask extends ZdfTaskBase<DatenFilm, CrawlerUrlDTO> {
   @Override
   protected AbstractRecursivConverterTask<DatenFilm, CrawlerUrlDTO> createNewOwnInstance(
     final ConcurrentLinkedQueue<CrawlerUrlDTO> aElementsToProcess) {
-    return new ZdfFilmDetailTask(crawler, apiUrlBase, aElementsToProcess, authKey);
+    return new ZdfFilmDetailTask(crawler, apiUrlBase, aElementsToProcess, authKey, partnerToSender);
   }
 
   private void addFilm(final DownloadDto downloadDto, final ZdfFilmDtoOld result) {
