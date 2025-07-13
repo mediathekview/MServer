@@ -13,8 +13,6 @@ import de.mediathekview.mserver.crawler.zdf.ZdfTopicUrlDto;
 import de.mediathekview.mserver.crawler.zdf.ZdfUrlBuilder;
 import java.lang.reflect.Type;
 import java.util.Optional;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 public class ZdfPubFormDeserializer extends ZdfTopicBaseClass
     implements JsonDeserializer<ZdfPubFormResult> {

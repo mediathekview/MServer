@@ -13,12 +13,8 @@ import de.mediathekview.mserver.crawler.zdf.ZdfTopicUrlDto;
 import de.mediathekview.mserver.crawler.zdf.ZdfUrlBuilder;
 import java.lang.reflect.Type;
 import java.util.Optional;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 public class ZdfLetterPageDeserializer implements JsonDeserializer<PagedElementListDTO<ZdfTopicUrlDto>> {
-
-  private static final Logger LOG = LogManager.getLogger(ZdfLetterPageDeserializer.class);
 
   @Override
   public PagedElementListDTO<ZdfTopicUrlDto> deserialize(
