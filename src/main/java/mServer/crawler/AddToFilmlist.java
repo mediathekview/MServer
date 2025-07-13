@@ -136,6 +136,7 @@ public class AddToFilmlist {
     removeTimeFromOrf(listeEinsortieren);
     updateAudioDescriptionOrf(listeEinsortieren);
     updateAudioDescriptionSrf(listeEinsortieren);
+    updateAudioDescriptionZdf(listeEinsortieren);
     updateThema(listeEinsortieren);
     updateTitle(listeEinsortieren);
     updateArdWebsite(listeEinsortieren);
@@ -243,6 +244,19 @@ public class AddToFilmlist {
       list.forEach(film -> {
         film.arr[DatenFilm.FILM_THEMA] = film.arr[DatenFilm.FILM_THEMA].replace("mit Audiodeskription", "").trim();
         film.arr[DatenFilm.FILM_TITEL] = film.arr[DatenFilm.FILM_TITEL].replace(" mit Audiodeskription", "").trim() + " (Audiodeskription)";
+      });
+    }
+  }
+
+  private void updateAudioDescriptionZdf(ListeFilme listeEinsortieren) {
+    final List<DatenFilm> list = listeEinsortieren.parallelStream()
+            .filter(
+                    film -> film.arr[DatenFilm.FILM_TITEL].contains("(deu-ad)"))
+            .toList();
+    Log.sysLog("ZDF: erstetze (deu-ad) mit " + list.size() + " (Audiodeskription).");
+    if (!list.isEmpty()) {
+      list.forEach(film -> {
+        film.arr[DatenFilm.FILM_TITEL] = film.arr[DatenFilm.FILM_TITEL].replace("(deu-ad)", " (Audiodeskription)").trim();
       });
     }
   }
