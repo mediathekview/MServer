@@ -242,6 +242,9 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
       }
       return films;
     }
+    boolean subVideoPage = titleoriginal.get().contains(" - (Originalversion)") || titleoriginal.get().contains(" (OV)") 
+        || titleoriginal.get().contains(" (mit Gebärdensprache)") || titleoriginal.get().contains(" mit Gebärdensprache")
+        || titleoriginal.get().contains("- Hörfassung") || titleoriginal.get().contains("(mit Audiodeskription)");
     // mainly funk
     if (videoInfoStandard.isEmpty() && videoInfoAD.isEmpty() && videoInfoDGS.isEmpty() && videoInfoOV.isEmpty() && videoInfoAdaptive.isPresent()) {
       videoInfoStandard = resolveFallbackFromPlaylist(videoInfoAdaptive);
@@ -261,7 +264,7 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
       videoInfoStandard = Optional.empty();
     }
     //
-    if (videoInfoStandard.isPresent() && videoInfoStandard.get().size() > 0) {
+    if (!subVideoPage && videoInfoStandard.isPresent() && videoInfoStandard.get().size() > 0) {
       // add film standard
       final ArdFilmDto filmDto
           = new ArdFilmDto(
@@ -274,10 +277,10 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
               duration,
               videoInfoStandard.get(),
               subtitles));
+      films.add(filmDto);
       if (widgets.size() > 1) {
         parseRelatedFilms(filmDto, widgets.get(1).getAsJsonObject());
       }
-      films.add(filmDto);
     }
     //
     if (videoInfoOV.isPresent() && videoInfoOV.get().size() > 0) {
@@ -309,9 +312,6 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
               duration,
               videoInfoAD.get(),
               subtitles));
-      if (widgets.size() > 1) {
-        parseRelatedFilms(filmDto, widgets.get(1).getAsJsonObject());
-      }
       films.add(filmDto);
     }
     //
@@ -328,9 +328,6 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
               duration,
               videoInfoDGS.get(),
               subtitles));
-      if (widgets.size() > 1) {
-        parseRelatedFilms(filmDto, widgets.get(1).getAsJsonObject());
-      }
       films.add(filmDto);
     }
 
