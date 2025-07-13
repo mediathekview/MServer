@@ -16,8 +16,10 @@ import org.apache.logging.log4j.Logger;
 
 public class ZdfTopicBaseClass {
   private static final String PLACEHOLDER_PLAYER_ID = "{playerId}";
-  // todo check if this is the correct player id
   private static final String PLAYER_ID = "android_native_5";
+
+  public static final String ELEMENT_EPISODE_INFO = "episodeInfo";
+  public static final String ELEMENT_VIDEO = "video";
 
   private static final Logger LOG = LogManager.getLogger(ZdfTopicBaseClass.class);
 
@@ -75,13 +77,13 @@ public class ZdfTopicBaseClass {
     Optional<String> resultingTitle = formatTitle(title, subtitle);
 
     if (resultingTitle.isPresent()) {
-      if (episodeObject.has("episodeInfo")) {
+      if (episodeObject.has(ELEMENT_EPISODE_INFO)) {
         final Optional<Integer> season =
             JsonUtils.getAttributeAsInt(
-                episodeObject.getAsJsonObject("episodeInfo"), "seasonNumber");
+                episodeObject.getAsJsonObject(ELEMENT_EPISODE_INFO), "seasonNumber");
         final Optional<Integer> episode =
             JsonUtils.getAttributeAsInt(
-                episodeObject.getAsJsonObject("episodeInfo"), "episodeNumber");
+                episodeObject.getAsJsonObject(ELEMENT_EPISODE_INFO), "episodeNumber");
         final Optional<String> seasonEpisodeTitle = formatEpisodeTitle(season, episode);
         return cleanupTitle((resultingTitle.get() + " " + seasonEpisodeTitle.orElse("")).trim());
       } else {
@@ -125,8 +127,8 @@ public class ZdfTopicBaseClass {
 
   private JsonArray getMediaNodes(JsonObject episodeObject) {
     JsonObject videoRootObject = episodeObject;
-     if (episodeObject.has("video") && !episodeObject.get("video").isJsonNull()) {
-      videoRootObject = episodeObject.getAsJsonObject("video");
+     if (episodeObject.has(ELEMENT_VIDEO) && !episodeObject.get(ELEMENT_VIDEO).isJsonNull()) {
+      videoRootObject = episodeObject.getAsJsonObject(ELEMENT_VIDEO);
     }
     if (!videoRootObject.has("currentMedia")) {
       return new JsonArray();
@@ -140,7 +142,7 @@ public class ZdfTopicBaseClass {
       return Optional.empty();
     }
     final Optional<JsonElement> trackingVideoElement =
-        JsonUtils.getElement(episodeObject, "tracking", "piano", "video");
+        JsonUtils.getElement(episodeObject, "tracking", "piano", ELEMENT_VIDEO);
     if (trackingVideoElement.isEmpty() || trackingVideoElement.get().isJsonNull()) {
       return Optional.empty();
     }
