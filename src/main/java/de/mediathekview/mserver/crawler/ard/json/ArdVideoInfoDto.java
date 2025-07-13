@@ -4,6 +4,7 @@ import de.mediathekview.mlib.daten.Resolution;
 
 import java.util.Collection;
 import java.util.EnumMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
@@ -19,23 +20,26 @@ public class ArdVideoInfoDto {
   private final Map<Resolution, String> videoUrls;
   private final Map<Resolution, String> videoUrlsAD;
   private final Map<Resolution, String> videoUrlsDGS;
+  private final Map<Resolution, String> videoUrlsOV;
   
-  private Optional<Set<String>> subtitleUrl;
+  private Set<String> subtitleUrl;
 
   public ArdVideoInfoDto() {
     videoUrls = new EnumMap<>(Resolution.class);
     videoUrlsAD = new EnumMap<>(Resolution.class);
     videoUrlsDGS = new EnumMap<>(Resolution.class);
-    subtitleUrl = Optional.empty();
+    videoUrlsOV = new EnumMap<>(Resolution.class);
+    subtitleUrl = new HashSet<String>();
   }
 
   public Resolution getDefaultQuality() {
     if (videoUrls.containsKey(Resolution.NORMAL) || 
         videoUrlsAD.containsKey(Resolution.NORMAL) ||
-        videoUrlsDGS.containsKey(Resolution.NORMAL)) {
+        videoUrlsDGS.containsKey(Resolution.NORMAL) ||
+        videoUrlsOV.containsKey(Resolution.NORMAL)) {
       return Resolution.NORMAL;
     }
-    return Stream.of(videoUrls.keySet(), videoUrlsAD.keySet(), videoUrlsDGS.keySet())
+    return Stream.of(videoUrls.keySet(), videoUrlsAD.keySet(), videoUrlsDGS.keySet(), videoUrlsOV.keySet())
         .flatMap(Set<Resolution>::stream)
         .findFirst()
         .orElse(Resolution.SMALL);
@@ -48,19 +52,21 @@ public class ArdVideoInfoDto {
       return videoUrlsAD.get(getDefaultQuality());
     } else if (videoUrlsDGS.containsKey(getDefaultQuality())) {
       return videoUrlsDGS.get(getDefaultQuality());
+    } else if (videoUrlsOV.containsKey(getDefaultQuality())) {
+      return videoUrlsOV.get(getDefaultQuality());
     }
-    return Stream.of(videoUrls.values(), videoUrlsAD.values(), videoUrlsDGS.values())
+    return Stream.of(videoUrls.values(), videoUrlsAD.values(), videoUrlsDGS.values(), videoUrlsOV.values())
         .flatMap(Collection<String>::stream)
         .findFirst()
         .orElse(null);
     
   }
 
-  public Optional<Set<String>> getSubtitleUrl() {
+  public Set<String> getSubtitleUrl() {
     return subtitleUrl;
   }
 
-  public void setSubtitleUrl(final Optional<Set<String>> subtitleUrl) {
+  public void setSubtitleUrl(final Set<String> subtitleUrl) {
     this.subtitleUrl = subtitleUrl;
   }
 
@@ -107,6 +113,20 @@ public class ArdVideoInfoDto {
   public void putAllDGS(Map<Resolution, String> entries) {
     for (Entry<Resolution, String> e : entries.entrySet()) {
       putDGS(e.getKey(), e.getValue());
+    }
+  }
+  
+  public Map<Resolution, String> getVideoUrlsOV() {
+    return videoUrlsOV;
+  }
+
+  public String putOV(final Resolution key, final String value) {
+    return videoUrlsOV.put(key, value);
+  }
+  
+  public void putAllOV(Map<Resolution, String> entries) {
+    for (Entry<Resolution, String> e : entries.entrySet()) {
+      putOV(e.getKey(), e.getValue());
     }
   }
 }

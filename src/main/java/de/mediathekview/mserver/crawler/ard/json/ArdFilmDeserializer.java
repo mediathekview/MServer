@@ -166,15 +166,15 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
     final JsonObject itemObject = widgets.get(0).getAsJsonObject();
 
     final Optional<String> topic = parseTopic(itemObject);
+    Optional<String> titleOriginal = JsonUtils.getAttributeAsString(itemObject, ATTRIBUTE_TITLE);
     final Optional<String> title = parseTitle(itemObject);
-    final Optional<String> description =
-        JsonUtils.getAttributeAsString(itemObject, ATTRIBUTE_SYNOPSIS);
+    final Optional<String> description = JsonUtils.getAttributeAsString(itemObject, ATTRIBUTE_SYNOPSIS);
     final Optional<LocalDateTime> date = parseDate(itemObject);
     final Optional<Duration> duration = parseDuration(itemObject);
     //final Sender sender = determinePartner(itemObject);
     final Optional<String> partner = parsePartner(itemObject);
     final Sender sender = ArdConstants.PARTNER_TO_SENDER.get(partner.orElse(""));
-    final Optional<ArdVideoInfoDto> videoInfo = parseVideos(itemObject, title.orElse(""));
+    final Optional<ArdVideoInfoDto> videoInfo = parseVideos(itemObject, titleOriginal.orElse(""));
 
     if (title.isEmpty() || topic.isEmpty() || videoInfo.isEmpty()) {
       return films;
@@ -204,6 +204,24 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
       parseRelatedFilms(filmDto, widgets.get(1).getAsJsonObject());
     }
     films.add(filmDto);
+    // OV - long term this should go into Film as "OV"
+    if (!videoInfo.get().getVideoUrlsOV().isEmpty()) {
+      ArdVideoInfoDto allVideoUrlsOV = new ArdVideoInfoDto();
+      allVideoUrlsOV.putAll(videoInfo.get().getVideoUrlsOV());
+      allVideoUrlsOV.setSubtitleUrl(videoInfo.get().getSubtitleUrl());
+      final ArdFilmDto filmDtoOV =
+          new ArdFilmDto(
+              createFilm(
+                  sender,
+                  topic.get(),
+                  title.get() + " (Originalversion)",
+                  description.orElse(null),
+                  date.orElse(null),
+                  duration.orElse(null),
+                  allVideoUrlsOV));
+      films.add(filmDtoOV);
+    }
+    
     return films;
   }
   
@@ -228,7 +246,7 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
   private Optional<String> parseTitle(final JsonObject playerPageObject) {
     Optional<String> title = JsonUtils.getAttributeAsString(playerPageObject, ATTRIBUTE_TITLE);
     if (title.isPresent()) {
-      String[] replaceWords = {" - Hörfassung", " (mit Gebärdensprache)", " mit Gebärdensprache"," (mit Audiodeskription)", "Audiodeskription"};
+      String[] replaceWords = {" - Hörfassung", " (mit Gebärdensprache)", " mit Gebärdensprache"," (mit Audiodeskription)", "Audiodeskription", " - (Originalversion)", " (OV)"};
       String cleanTitle = title.get().trim();
       for (String replaceWord : replaceWords) {
         cleanTitle = cleanTitle.replace(replaceWord, "");
@@ -299,8 +317,8 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
     
     film.setGeoLocations(GeoLocationGuesser.getGeoLocations(Sender.ARD, videoInfo.getDefaultVideoUrl()));
     
-    if (videoInfo.getSubtitleUrl().isPresent()) {
-      for (String subtitleUrl : videoInfo.getSubtitleUrl().get()) {
+    if (!videoInfo.getSubtitleUrl().isEmpty()) {
+      for (String subtitleUrl : videoInfo.getSubtitleUrl()) {
         try {
           film.addSubtitle(new URL(subtitleUrl));
         } catch (final MalformedURLException ex) {
@@ -357,40 +375,39 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
   private Optional<ArdVideoInfoDto> parseVideos(final JsonObject playerPageObject, final String title) {
     ArdVideoInfoDto allVideoUrls = new ArdVideoInfoDto();
     //
-    final Optional<Map<Resolution, String>> videoInfoStandard = parseVideoUrls(playerPageObject, MARKER_VIDEO_CATEGORY_MAIN, MARKER_VIDEO_STANDARD, MARKER_VIDEO_MP4, MARKER_VIDEO_DE);
-    final Optional<Map<Resolution, String>> videoInfoAdaptive = parseVideoUrls(playerPageObject, MARKER_VIDEO_CATEGORY_MAIN, MARKER_VIDEO_STANDARD, MARKER_VIDEO_CATEGORY_MPEG, MARKER_VIDEO_DE);
-    final Optional<Map<Resolution, String>> videoInfoAD = parseVideoUrls(playerPageObject, MARKER_VIDEO_CATEGORY_MAIN, MARKER_VIDEO_AD, MARKER_VIDEO_MP4, MARKER_VIDEO_DE);
-    final Optional<Map<Resolution, String>> videoInfoDGS = parseVideoUrls(playerPageObject, MARKER_VIDEO_DGS, MARKER_VIDEO_STANDARD, MARKER_VIDEO_MP4, MARKER_VIDEO_DE);
-    final Optional<Map<Resolution, String>> videoInfoOV = parseVideoUrls(playerPageObject, MARKER_VIDEO_CATEGORY_MAIN, MARKER_VIDEO_STANDARD, MARKER_VIDEO_MP4, MARKER_VIDEO_OV);
-    final Optional<Set<String>> subtitles = prepareSubtitleUrl(playerPageObject);
-    //
-    // OV is a single film but also included in the standard film
-    if ((title.toUpperCase().contains("(OV)") || title.toUpperCase().contains("(ORIGINALVERSION)")) && videoInfoOV.isPresent()) {
-      allVideoUrls.putAll(videoInfoOV.get());
-      return Optional.of(allVideoUrls);
-    }
-    //
-    if (subtitles.isPresent()) {
-      allVideoUrls.setSubtitleUrl(subtitles);
-    }
-    if (videoInfoAD.isPresent()) {
-      allVideoUrls.putAllAD(videoInfoAD.get());
-    }
-    if (videoInfoDGS.isPresent()) {
-      allVideoUrls.putAllDGS(videoInfoDGS.get());
-    }
-    // Sometimes we have DGS & standard
-    if (videoInfoStandard.isPresent() && !(videoInfoDGS.isPresent() && title.contains("Gebärdensprache"))) {
-      allVideoUrls.putAll(videoInfoStandard.get());
-    } else if (videoInfoAdaptive.isPresent() && !(videoInfoDGS.isPresent() && title.contains("Gebärdensprache"))) {
+    Optional<Map<Resolution, String>> videoInfoStandard = parseVideoUrls(playerPageObject, MARKER_VIDEO_CATEGORY_MAIN, MARKER_VIDEO_STANDARD, MARKER_VIDEO_MP4, MARKER_VIDEO_DE);
+    Optional<Map<Resolution, String>> videoInfoAdaptive = parseVideoUrls(playerPageObject, MARKER_VIDEO_CATEGORY_MAIN, MARKER_VIDEO_STANDARD, MARKER_VIDEO_CATEGORY_MPEG, MARKER_VIDEO_DE);
+    Optional<Map<Resolution, String>> videoInfoAD = parseVideoUrls(playerPageObject, MARKER_VIDEO_CATEGORY_MAIN, MARKER_VIDEO_AD, MARKER_VIDEO_MP4, MARKER_VIDEO_DE);
+    Optional<Map<Resolution, String>> videoInfoDGS = parseVideoUrls(playerPageObject, MARKER_VIDEO_DGS, MARKER_VIDEO_STANDARD, MARKER_VIDEO_MP4, MARKER_VIDEO_DE);
+    Optional<Map<Resolution, String>> videoInfoOV = parseVideoUrls(playerPageObject, MARKER_VIDEO_CATEGORY_MAIN, MARKER_VIDEO_STANDARD, MARKER_VIDEO_MP4, MARKER_VIDEO_OV);
+    Optional<Set<String>> subtitles = prepareSubtitleUrl(playerPageObject);
+    // mainly funk
+    if (videoInfoStandard.isEmpty() && videoInfoAD.isEmpty() && videoInfoDGS.isEmpty() && videoInfoOV.isEmpty() && videoInfoAdaptive.isPresent()) {
       ArdVideoInfoDto fallbackM3UUrl = new ArdVideoInfoDto();
       fallbackM3UUrl.putAll(videoInfoAdaptive.get());
       Optional<Map<Resolution, String>> fallback = fallbackToM3U(Optional.of(fallbackM3UUrl));
-      if (fallback.isPresent()) {
-        allVideoUrls.putAll(fallback.get());
-      }
+      videoInfoStandard = fallback;
     }
-    if (allVideoUrls.getVideoUrls().isEmpty() && allVideoUrls.getVideoUrlsAD().isEmpty() && allVideoUrls.getVideoUrlsDGS().isEmpty() ) {
+    // flaws - missing proper video marker - mainly tagesschau
+    if ((title.contains(" - (Originalversion)") || title.contains(" (OV)")) && videoInfoOV.isEmpty()) {
+      videoInfoOV = parseVideoUrls(playerPageObject, MARKER_VIDEO_CATEGORY_MAIN, MARKER_VIDEO_STANDARD, MARKER_VIDEO_MP4, "*");
+    }
+    if ((title.contains(" (mit Gebärdensprache)") || title.contains(" mit Gebärdensprache")) && videoInfoStandard.isPresent() && videoInfoDGS.isEmpty()) {
+      videoInfoDGS = videoInfoStandard;
+      videoInfoStandard = Optional.empty();
+    }
+    if ((title.contains("- Hörfassung") || title.contains("(mit Audiodeskription)")) && videoInfoStandard.isPresent() && videoInfoAD.isEmpty()) {
+      videoInfoAD = videoInfoStandard;
+      videoInfoStandard = Optional.empty();
+    }
+    
+    videoInfoStandard.ifPresent(allVideoUrls::putAll);
+    videoInfoAD.ifPresent(allVideoUrls::putAllAD);
+    videoInfoDGS.ifPresent(allVideoUrls::putAllDGS);
+    videoInfoOV.ifPresent(allVideoUrls::putAllOV);
+    subtitles.ifPresent(allVideoUrls::setSubtitleUrl);
+    
+    if (allVideoUrls.getVideoUrls().isEmpty() && allVideoUrls.getVideoUrlsAD().isEmpty() && allVideoUrls.getVideoUrlsDGS().isEmpty() && allVideoUrls.getVideoUrlsOV().isEmpty() ) {
       return Optional.empty();
     }    
     return Optional.of(allVideoUrls);
@@ -442,7 +459,8 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
               Optional<String> resh = JsonUtils.getElementValueAsString(video, ATTRIBUTE_RESOLUTION_H);
               Optional<String> url = JsonUtils.getElementValueAsString(video, ATTRIBUTE_URL);
               Optional<String> languageCode = JsonUtils.getElementValueAsString(audios.get().getAsJsonArray().get(0), ATTRIBUTE_ADUIO_LANG);
-              if (url.isPresent() && resh.isPresent() && kind.isPresent() && kind.get().equalsIgnoreCase(aduioType) && languageCode.orElse("").equalsIgnoreCase(language)) {
+              if (url.isPresent() && resh.isPresent() && kind.isPresent() && kind.get().equalsIgnoreCase(aduioType) && 
+                  (languageCode.orElse("").equalsIgnoreCase(language) || (language.equalsIgnoreCase("*") && !languageCode.orElse("").equalsIgnoreCase("deu")))) {
                 videoInfo.put(Integer.parseInt(resh.get()), UrlUtils.removeParameters(url.get()));
               }
             }
