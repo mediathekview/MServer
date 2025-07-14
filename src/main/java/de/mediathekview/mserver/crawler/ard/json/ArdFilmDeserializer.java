@@ -190,20 +190,24 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
     }
     
     // add film to ARD
-    final ArdFilmDto filmDto =
-        new ArdFilmDto(
-            createFilm(
-                sender,
-                topic.get(),
-                title.get(),
-                description.orElse(null),
-                date.orElse(null),
-                duration.orElse(null),
-                videoInfo.get()));
-    if (widgets.size() > 1) {
-      parseRelatedFilms(filmDto, widgets.get(1).getAsJsonObject());
+    if (!videoInfo.get().getVideoUrls().isEmpty() || 
+        !videoInfo.get().getVideoUrlsAD().isEmpty() ||
+        !videoInfo.get().getVideoUrlsDGS().isEmpty()) {
+      final ArdFilmDto filmDto =
+          new ArdFilmDto(
+              createFilm(
+                  sender,
+                  topic.get(),
+                  title.get(),
+                  description.orElse(null),
+                  date.orElse(null),
+                  duration.orElse(null),
+                  videoInfo.get()));
+      if (widgets.size() > 1) {
+        parseRelatedFilms(filmDto, widgets.get(1).getAsJsonObject());
+      }
+      films.add(filmDto);
     }
-    films.add(filmDto);
     // OV - long term this should go into Film as "OV"
     if (!videoInfo.get().getVideoUrlsOV().isEmpty()) {
       ArdVideoInfoDto allVideoUrlsOV = new ArdVideoInfoDto();
@@ -460,7 +464,7 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
               Optional<String> url = JsonUtils.getElementValueAsString(video, ATTRIBUTE_URL);
               Optional<String> languageCode = JsonUtils.getElementValueAsString(audios.get().getAsJsonArray().get(0), ATTRIBUTE_ADUIO_LANG);
               if (url.isPresent() && resh.isPresent() && kind.isPresent() && kind.get().equalsIgnoreCase(aduioType) && 
-                  (languageCode.orElse("").equalsIgnoreCase(language) || (language.equalsIgnoreCase("*") && !languageCode.orElse("").equalsIgnoreCase("deu")))) {
+                  (languageCode.orElse("").equalsIgnoreCase(language) || (language.equalsIgnoreCase("*") && !languageCode.orElse("").equalsIgnoreCase("deu") && !languageCode.orElse("").equalsIgnoreCase("ov")))) {
                 videoInfo.put(Integer.parseInt(resh.get()), UrlUtils.removeParameters(url.get()));
               }
             }
