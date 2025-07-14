@@ -166,7 +166,7 @@ public class KikaApiFilmTask extends AbstractJsonRestTask<Film, KikaApiVideoInfo
 	  for (Map.Entry<Resolution,String> element : aResponseObj.getVideoUrls().entrySet()) {
       try {
         String url = element.getValue();
-        if (Resolution.HD.equals(element.getKey())) {
+        if (Resolution.HD.equals(element.getKey()) && !url.contains("wdrmedien")) {
           url = ardUrlOptimizer.optimizeHdUrl(url);
           url = zdfVideoUrlOptimizer.getOptimizedUrlHd(url);
         }
