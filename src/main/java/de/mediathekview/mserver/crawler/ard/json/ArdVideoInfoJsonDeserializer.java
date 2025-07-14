@@ -49,7 +49,7 @@ public class ArdVideoInfoJsonDeserializer implements JsonDeserializer<ArdVideoIn
     if (subtitleElement != null && !subtitleElement.isJsonNull()) {
       Set<String> singleUrl = new HashSet<>();
       singleUrl.add(subtitleElement.getAsString());
-      videoInfo.setSubtitleUrl(Optional.of(singleUrl));
+      videoInfo.setSubtitleUrl(singleUrl);
     }
 
     final Map<Resolution, URL> resolutionUrlMap =

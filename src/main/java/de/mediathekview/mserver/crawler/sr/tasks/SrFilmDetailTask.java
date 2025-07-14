@@ -150,8 +150,8 @@ public class SrFilmDetailTask extends AbstractDocumentTask<Film, SrTopicUrlDTO> 
         description.ifPresent(film::setBeschreibung);
 
         final ArdVideoInfoDto videoInfo = videoInfoOptional.get();
-        if (videoInfo.getSubtitleUrl().isPresent()) {
-          for (String url : videoInfo.getSubtitleUrl().get()) {
+        if (!videoInfo.getSubtitleUrl().isEmpty()) {
+          for (String url : videoInfo.getSubtitleUrl()) {
             try {
               film.addSubtitle(new URL(addMissingProtocol(url)));
             } catch (Exception e) {
