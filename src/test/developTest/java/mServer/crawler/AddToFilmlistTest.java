@@ -541,6 +541,24 @@ public class AddToFilmlistTest {
     assertEquals(Const.TAGESSCHAU24, testFilmArd24.arr[DatenFilm.FILM_SENDER]);
   }
 
+  @Test
+  public void testZdfReplaceAdDeutWithAudiodescription() {
+    final DatenFilm testFilm1 = createTestFilm(Const.ZDF, "Filme ZDF", "Film1(deu-ad)", FILM_NAME_ONLINE);
+    final DatenFilm testFilm2 = createTestFilm(Const.ZDF_NEO, "Filme Neo", "Film2(deu-ad)", FILM_NAME_ONLINE);
+    final DatenFilm testFilm3 = createTestFilm(Const.ARD, "Filme ARD", "Film3(deu-ad)", FILM_NAME_ONLINE);
+    listToAdd.add(testFilm1);
+    listToAdd.add(testFilm2);
+    listToAdd.add(testFilm3);
+
+    AddToFilmlist target =new AddToFilmlist(list, listToAdd);
+    target.addOldList();
+
+    assertEquals(list.size(),5);
+    assertEquals("Film1 (Audiodeskription)", testFilm1.arr[DatenFilm.FILM_TITEL]);
+    assertEquals("Film2 (Audiodeskription)", testFilm2.arr[DatenFilm.FILM_TITEL]);
+    assertEquals("Film3 (Audiodeskription)", testFilm3.arr[DatenFilm.FILM_TITEL]);
+  }
+
   private static DatenFilm createTestFilm(String sender, String topic, String title,
       String filmUrl) {
     DatenFilm film = new DatenFilm(sender, topic, "url", title, baseUrl + filmUrl, "", "", "", 12,
