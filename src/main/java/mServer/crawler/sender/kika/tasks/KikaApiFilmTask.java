@@ -120,8 +120,10 @@ public class KikaApiFilmTask extends AbstractJsonRestTask<DatenFilm, KikaApiVide
     }
     if (videoUrls.containsKey(Resolution.HD)) {
       String url = videoUrls.get(Resolution.HD);
-      url = ardUrlOptimizer.optimizeHdUrl(url);
-      url = zdfVideoUrlOptimizer.getOptimizedUrlHd(url);
+      if (!videoUrls.get(Resolution.HD).contains("wdrmedien")) {
+        url = ardUrlOptimizer.optimizeHdUrl(url);
+        url = zdfVideoUrlOptimizer.getOptimizedUrlHd(url);
+      }
       CrawlerTool.addUrlHd(aFilm, url);
     }
     //
