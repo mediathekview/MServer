@@ -20,7 +20,7 @@ import de.mediathekview.mserver.crawler.arte.ArteCrawler;
 import de.mediathekview.mserver.crawler.arte.ArteCrawler_EN;
 import de.mediathekview.mserver.crawler.arte.ArteCrawler_ES;
 import de.mediathekview.mserver.crawler.arte.ArteCrawler_FR;
-import de.mediathekview.mserver.crawler.arte.ArtetCrawler_IT;
+import de.mediathekview.mserver.crawler.arte.ArteCrawler_IT;
 import de.mediathekview.mserver.crawler.arte.ArteCrawler_PL;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.IgnoreFilmFilter;
@@ -509,7 +509,7 @@ public class CrawlerManager extends AbstractManager {
         new ArteCrawler_PL(forkJoinPool, messageListeners, progressListeners, rootConfig));
     crawlerMap.put(
         Sender.ARTE_IT,
-        new ArtetCrawler_IT(forkJoinPool, messageListeners, progressListeners, rootConfig));
+        new ArteCrawler_IT(forkJoinPool, messageListeners, progressListeners, rootConfig));
     crawlerMap.put(
         Sender.ARTE_ES,
         new ArteCrawler_ES(forkJoinPool, messageListeners, progressListeners, rootConfig));

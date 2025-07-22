@@ -158,7 +158,7 @@ senderConfigurations:
   ORF:
     maximumRequestsPerSecond: 10.0
   ARTE_DE:
-    maximumUrlsPerTask: 5
+    maximumUrlsPerTask: 25
     maximumSubpages: 100
   ARTE_FR:
     maximumUrlsPerTask: 25

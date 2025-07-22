@@ -8,9 +8,9 @@ import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
 import java.util.Collection;
 import java.util.concurrent.ForkJoinPool;
 
-public class ArtetCrawler_IT extends ArteCrawler {
+public class ArteCrawler_IT extends ArteCrawler {
 
-  public ArtetCrawler_IT(
+  public ArteCrawler_IT(
       final ForkJoinPool aForkJoinPool,
       final Collection<MessageListener> aMessageListeners,
       final Collection<SenderProgressListener> aProgressListeners,
