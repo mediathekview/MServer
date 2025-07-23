@@ -1,0 +1,401 @@
+{
+    "meta": {
+        "videos": {
+            "totalCount": 14151,
+            "limit": 100,
+            "href": "https:\/\/api.arte.tv\/api\/opa\/v3\/videos?language=de&limit=100&page=79&sort=-creationDate",
+            "pages": 142,
+            "page": 79,
+            "links": {
+                "first": {
+                    "href": "https:\/\/api.arte.tv\/api\/opa\/v3\/videos?language=de&limit=100&page=1&sort=-creationDate"
+                },
+                "next": {
+                    "href": "https:\/\/api.arte.tv\/api\/opa\/v3\/videos?language=de&limit=100&page=80&sort=-creationDate"
+                },
+                "previous": {
+                    "href": "https:\/\/api.arte.tv\/api\/opa\/v3\/videos?language=de&limit=100&page=78&sort=-creationDate"
+                }
+            }
+        }
+    },
+    "videos": [
+        {
+            "firstBroadcastDate": null,
+            "id": "118149-011-A_SHOW_ARTE_NEXT_DE_de",
+            "programId": "118149-011-A",
+            "mainReassembly": true,
+            "reassembly": "A",
+            "channel": "DE",
+            "language": "de",
+            "kind": "SHOW",
+            "catalogType": "STANDALONE",
+            "programType": "INTERNET",
+            "programFamily": "PROGRAM",
+            "platform": "ARTE_NEXT",
+            "platformLabel": "ARTE",
+            "title": "\"Dahomey\" - Interview mit Mati Diop",
+            "subtitle": "Goldener Bär der Berlinale für \"Dahomey\"",
+            "originalTitle": "Berlinale 2024",
+            "originalLanguage": {
+                "arteCode": "FRA",
+                "label": "Französisch",
+                "iso6391Code": "fr"
+            },
+            "tags": [],
+            "twitterAccount": null,
+            "twitterHashTag": null,
+            "durationSeconds": 238,
+            "shortDescription": "In Dahomey greift die Regisseurin Mati Diop viele grundlegende Fragen auf, vor allem die der Rückgabe von Kunstwerken, die westliche Kolonialtruppen in Afrika erbeutet haben, in dem Fall die Franzosen in Benin, aber indirekt auch die der Kolonisation und Dekolonisation, die bis heute nicht geregelt ist. Mit Poesie und Kraft beleuchtet die Dokumentation diese prägende Epoche.",
+            "shortDescriptionRich": "<p>In <i>Dahomey<\/i> greift die Regisseurin Mati Diop viele grundlegende Fragen auf, vor allem die der Rückgabe von Kunstwerken, die westliche Kolonialtruppen in Afrika erbeutet haben, in dem Fall die Franzosen in Benin, aber indirekt auch die der Kolonisation und Dekolonisation, die bis heute nicht geregelt ist. Mit Poesie und Kraft beleuchtet die Dokumentation diese prägende Epoche.<\/p>",
+            "fullDescription": null,
+            "fullDescriptionRich": null,
+            "teaserText": "Dahomey von Mati Diop ist ein filmischer Zauberspruch zur Rückgabe kolonialer Raubgüter an Afrika.Goldener Bär der Berlinale für \"Dahomey\"",
+            "teaserTextRich": "<p><i>Dahomey<\/i> von Mati Diop ist ein filmischer Zauberspruch zur Rückgabe kolonialer Raubgüter an Afrika.Goldener Bär der Berlinale für \"Dahomey\"<\/p>",
+            "headerText": null,
+            "headerTextRich": null,
+            "producer": "ARTE G.E.I.E PRODUCTIONS EXECUTIVES",
+            "productionYear": 2024,
+            "shootingDate": null,
+            "allowEmbed": true,
+            "adult": 0,
+            "legalBan": "NONE",
+            "mainImage": {
+                "creationDate": "2012-08-24T22:00:00Z",
+                "lastModified": "2024-02-26T09:13:45Z",
+                "width": 940,
+                "height": 530,
+                "keyframe": false,
+                "alternateResolutions": [],
+                "type": "DEFAULT",
+                "name": "118149-011-A_4269706.jpg",
+                "extension": "jpg",
+                "caption": "arte",
+                "url": "https:\/\/api-cdn.arte.tv\/img\/v2\/image\/upvCLeLavfXtq24duSQCeZ\/940x530",
+                "imageId": "4269706",
+                "programId": "118149-011-A",
+                "language": "de",
+                "copyright": null,
+                "blurImage": "https:\/\/api-cdn.arte.tv\/img\/v2\/image\/upvCLeLavfXtq24duSQCeZ\/80x45?blur=true",
+                "kind": "internet"
+            },
+            "parents": [
+                "RC-024969",
+                "RC-024915",
+                "118149-011-A"
+            ],
+            "collections": [
+                {
+                    "kind": "TOPIC",
+                    "catalogType": "TOPIC",
+                    "collectionId": "RC-024969",
+                    "order": 2
+                },
+                {
+                    "kind": "TOPIC",
+                    "catalogType": "TOPIC",
+                    "collectionId": "RC-024915",
+                    "order": 2
+                }
+            ],
+            "programmingId": 4388888,
+            "videoRightsBegin": "2024-02-22T16:10:00Z",
+            "videoRightsEnd": "2028-02-23T23:00:00Z",
+            "mainProgramming": true,
+            "mainChannel": true,
+            "geoblockingZone": "EUR_DE_FR",
+            "geoblocking": {
+                "code": "EUR_DE_FR",
+                "label": "Verfügbar in den deutsch- und französischsprachigen Ländern Europas",
+                "inclusion": [],
+                "exclusion": []
+            },
+            "partners": [],
+            "director": null,
+            "casting": [],
+            "crew": [],
+            "chapters": [],
+            "chaptersSpriteUrl": null,
+            "caseCode": 998,
+            "case": "HORS CASE",
+            "genrePresseCode": 0,
+            "genrePresse": "Andere",
+            "tracking": {
+                "tablet": {
+                    "ANDROID": "https:\/\/www.arte.tv\/pa\/api\/multimedia\/v1\/118149-011\/A\/de\/ARTE_NEXT\/TABLET\/ANDROID\/arte.gif"
+                },
+                "mobile": {
+                    "ANDROID": "https:\/\/www.arte.tv\/pa\/api\/multimedia\/v1\/118149-011\/A\/de\/ARTE_NEXT\/MOBILE\/ANDROID\/arte.gif"
+                },
+                "download": {
+                    "ANDROID": "https:\/\/www.arte.tv\/pa\/api\/multimedia\/v1\/118149-011\/A\/de\/ARTE_NEXT\/DOWNLOAD\/ANDROID\/arte.gif"
+                }
+            },
+            "mainAudioVersion": "VOF-STA",
+            "audioVersions": [
+                "VOF-STA",
+                "VOF"
+            ],
+            "permalink": "https:\/\/www.arte.tv\/de\/videos\/118149-011-A\/permalink\/",
+            "infolink": "https:\/\/www.arte.tv\/de\/videos\/118149-011-A\/dahomey-interview-mit-mati-diop\/",
+            "availableScreens": [
+                "desktop",
+                "mobile",
+                "tv"
+            ],
+            "oEmbed": "https:\/\/api.arte.tv\/api\/player\/v1\/oembed\/de\/118149-011-A?platform=ARTE_NEXT",
+            "categories": [
+                {
+                    "order": 5,
+                    "code": "ACC",
+                    "name": "Aktuelles vom Film",
+                    "url": null,
+                    "slug": "aktuelles-vom-film"
+                }
+            ],
+            "category": {
+                "order": 2,
+                "code": "CIN",
+                "name": "Kino",
+                "url": "https:\/\/www.arte.tv\/de\/videos\/kino\/",
+                "slug": "kino"
+            },
+            "subcategory": {
+                "order": 5,
+                "code": "ACC",
+                "name": "Rund um den Film",
+                "url": "https:\/\/www.arte.tv\/de\/videos\/kino\/rund-um-den-film\/",
+                "slug": "rund-um-den-film"
+            },
+            "views": 1,
+            "thesaurus": [
+                {
+                    "code": 5153,
+                    "label": "Interview",
+                    "parents": [
+                        1,
+                        990,
+                        5902,
+                        5153
+                    ]
+                },
+                {
+                    "code": 13188,
+                    "label": "Berlinale",
+                    "parents": [
+                        1,
+                        613,
+                        701,
+                        735,
+                        4949,
+                        13188
+                    ]
+                },
+                {
+                    "code": 345,
+                    "label": "Berlin",
+                    "parents": [
+                        1,
+                        2,
+                        333,
+                        386,
+                        341,
+                        13014,
+                        345
+                    ]
+                }
+            ],
+            "postroll": "https:\/\/api.arte.tv\/api\/player\/v1\/recommendedPostroll\/de\/118149-011-A",
+            "mainPlatform": true,
+            "imageColor": {
+                "code": "COLOR",
+                "label": "Farbfilm"
+            },
+            "arteSchedulingDay": null,
+            "deletedAt": null,
+            "productionCountries": [
+                {
+                    "arteCode": "GER",
+                    "isoAlpha2Code": "DE",
+                    "label": "Deutschland"
+                }
+            ],
+            "url": "https:\/\/www.arte.tv\/de\/videos\/118149-011-A\/dahomey-interview-mit-mati-diop\/",
+            "clusters": [],
+            "illico": false,
+            "season": 0,
+            "episode": 0,
+            "totalEpisodes": 0,
+            "mainCrossPlatform": true,
+            "kindLabel": "PROGRAMM",
+            "videoLibrary": true,
+            "broadcastBegin": null,
+            "broadcastBeginRounded": null,
+            "viewsPeriod": 1,
+            "markings": [],
+            "webLinks": [],
+            "warning": null,
+            "livestreamRights": true,
+            "eStat": {
+                "streamName": "\"Dahomey\" - Interview mit Mati Diop",
+                "streamDuration": 238,
+                "streamGenre": "2_filme",
+                "level1": "CIN_kino",
+                "level2": "PROGRAMME_WEB",
+                "level3": "de",
+                "level4": "ACC_rund-um-den-film",
+                "level5": "118149-011-A",
+                "newLevel1": "SHOW",
+                "newLevel2": null,
+                "newLevel11": "998_hors-case",
+                "mediaChannel": "950",
+                "mediaContentId": "118149-011-A",
+                "mediaDiffMode": "TVOD"
+            },
+            "mediametrie": {
+                "type": "content",
+                "assetid": "118149-011-A_0",
+                "program": "998_hors-case",
+                "title": "dahomey-interview-mit-mati-diop",
+                "length": 238,
+                "islivestn": "n",
+                "cli_md": "TVOD",
+                "cli_ch": 950,
+                "cli_cn": "118149-011-A",
+                "nol_p0": "p0,de",
+                "nol_p1": "p1,PROGRAMME_WEB",
+                "nol_p2": "p2,SHOW",
+                "nol_p13": "p13,n"
+            },
+            "adtech": {
+                "kvprogramid": "118149-011-A",
+                "kvvty": "ARTE_NEXT",
+                "kvcategory": "CIN",
+                "kvsubcategory": "ACC",
+                "kvwebonly": true,
+                "kvbroadcast": false,
+                "kvduration": 238,
+                "kvcaseprogram": "998_hors-case",
+                "kvvideoisolang": "de"
+            },
+            "agf": {
+                "type": "content",
+                "assetid": "118149-011-A",
+                "program": "998_hors-case",
+                "title": "dahomey-interview-mit-mati-diop",
+                "length": 238,
+                "nol_c2": "p2,Y",
+                "nol_c7": "p7,118149-011-A",
+                "nol_c8": "p8,238",
+                "nol_c9": "p9,dahomey-interview-mit-mati-diop",
+                "nol_c10": "p10,ARTE",
+                "nol_c12": "p12,Content",
+                "nol_c15": "p15,118149-011-A",
+                "nol_c18": "p18,N"
+            },
+            "offlineAvailability": true,
+            "genre": {
+                "code": 2,
+                "label": "Filme"
+            },
+            "audioLanguages": [
+                {
+                    "arteCode": "FRA",
+                    "iso6392Code": "fra",
+                    "iso6391Code": "fr",
+                    "label": "Französisch",
+                    "version": "VOF",
+                    "audioDescription": false
+                }
+            ],
+            "subtitles": [
+                {
+                    "arteCode": "ALL",
+                    "version": "VO-ALL",
+                    "iso6392Code": "deu",
+                    "iso6391Code": "de",
+                    "label": "Deutsch",
+                    "closedCaptioning": false,
+                    "burned": false,
+                    "filename": "118149-011-A-VO-ALL"
+                }
+            ],
+            "versions": [
+                {
+                    "code": 14,
+                    "audioCode": "VOF-STA",
+                    "audioLabel": "Französisch - UT deutsch",
+                    "audioShortLabel": "OmU",
+                    "audioLanguage": "fr",
+                    "subtitleLanguage": "de",
+                    "closedCaptioning": false,
+                    "audioDescription": false
+                },
+                {
+                    "code": 4,
+                    "audioCode": "VOF",
+                    "audioLabel": "Französisch",
+                    "audioShortLabel": "FR",
+                    "audioLanguage": "fr",
+                    "subtitleLanguage": "und",
+                    "closedCaptioning": false,
+                    "audioDescription": false
+                }
+            ],
+            "origins": [
+                {
+                    "order": 1,
+                    "label": "ARTE"
+                }
+            ],
+            "availableImages": [
+                "DEFAULT",
+                "POSTER_LANDSCAPE",
+                "POSTER",
+                "PHOTO_LANDSCAPE",
+                "PHOTO_SQUARE"
+            ],
+            "allowThirdPlayer": true,
+            "externalIds": [],
+            "broadcastType": null,
+            "clearVoice": false,
+            "ancestors": [
+                {
+                    "programId": "RC-024969",
+                    "order": 2,
+                    "kind": "TOPIC",
+                    "catalogType": "TOPIC",
+                    "ancestors": [
+                        {
+                            "programId": "RC-024915",
+                            "order": 21,
+                            "kind": "TOPIC",
+                            "catalogType": "TOPIC",
+                            "ancestors": []
+                        }
+                    ]
+                },
+                {
+                    "programId": "RC-024915",
+                    "order": 2,
+                    "kind": "TOPIC",
+                    "catalogType": "TOPIC",
+                    "ancestors": []
+                }
+            ],
+            "mainPlatformCode": null,
+            "arteClub": false,
+            "previewRightsBegin": "2024-02-22T16:10:00Z",
+            "creationDate": "2024-02-22T16:05:03Z",
+            "lastModified": "2025-06-11T17:48:48Z",
+            "ageRating": 0,
+            "imageReference": "upvCLeLavfXtq24duSQCeZ",
+            "programmingType": "MANUAL",
+            "links": {
+                "programs": {
+                    "href": "https:\/\/api.arte.tv\/api\/opa\/v3\/programs\/de\/118149-011-A"
+                }
+            }
+        }
+    ]
+}
