@@ -50,10 +50,7 @@ public class ArteVideoInfoTask
     if (aResponseObj.getNextPage().isEmpty()) {
       return;
     }
-    int maxPages = crawler.getCrawlerConfig().getMaximumSubpages();
-    if (maxPages > 99) {
-      maxPages = 100;
-    }
+    int maxPages = Math.min(100, crawler.getCrawlerConfig().getMaximumSubpages());
     if (aResponseObj.getNextPage().get().contains("age="+maxPages)) {
       log.debug("stop at page url {} due to limit {}", aResponseObj.getNextPage().get(), maxPages);
       return;
@@ -74,7 +71,9 @@ public class ArteVideoInfoTask
   
   @Override
   protected void postProcessing(PagedElementListDTO<ArteVideoInfoDto> aResponseObj, TopicUrlDTO aDTO) {
-    //postProcessingNextPage(aResponseObj, aDTO);
+    if (ArteConstants.USE_SAME_THREAD) {
+      postProcessingNextPage(aResponseObj, aDTO);
+    }
     postProcessingElements(aResponseObj.getElements(), aDTO);
     nextPageTask.ifPresent(paginationResults -> postProcessingElements(paginationResults.join(), aDTO));
 
@@ -89,6 +88,6 @@ public class ArteVideoInfoTask
   @Override
   protected void handleHttpError(TopicUrlDTO dto, URI url, Response response) {
     crawler.printErrorMessage();
-    log.fatal("A HTTP error {} occurred when getting REST information from: \"{}\".", response.getStatus(), url);
+    log.fatal("A HTTP error {} occurred when getting REST VideoInfo information from: \"{}\".", response.getStatus(), url);
   }
 }

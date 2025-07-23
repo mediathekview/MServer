@@ -19,10 +19,11 @@ maximumRequestsPerSecond: 999.0
 senderIncluded:
   #- ARD
   - ARTE_DE
-  #- ARTE_FR
-  #- ARTE_PL
-  #- ARTE_IT
-  #- ARTE_ES
+  - ARTE_FR
+  - ARTE_PL
+  - ARTE_IT
+  - ARTE_ES
+  - ARTE_EN
   #- DREISAT
   #- FUNK
   #- KIKA

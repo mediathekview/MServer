@@ -62,6 +62,7 @@ public class ArteVideoLinkTask
   @Override
   protected void handleHttpError(ArteVideoInfoDto dto, URI url, Response response) {
     crawler.printErrorMessage();
-    log.fatal("A HTTP error {} occurred when getting REST information from: \"{}\".", response.getStatus(), url);
+    log.fatal("A HTTP error {} occurred when getting REST VideoLink information from: \"{}\".", response.getStatus(), url);
+    crawler.incrementAndGetErrorCount();
   }
 }

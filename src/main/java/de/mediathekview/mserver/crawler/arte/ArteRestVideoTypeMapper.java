@@ -54,6 +54,8 @@ public class ArteRestVideoTypeMapper {
 
   private static Optional<ArteVideoType> mapSpanish(String code) {
     switch (code) {
+      case "VE[ESP]":
+        return Optional.of(ArteVideoType.DEFAULT);
       case "VE[ESP]-STE[ESP]":
       case "VO-STE[ESP]":
       case "VOA-STE[ESP]":
