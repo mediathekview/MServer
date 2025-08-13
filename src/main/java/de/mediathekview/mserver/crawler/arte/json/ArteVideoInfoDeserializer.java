@@ -76,7 +76,9 @@ public class ArteVideoInfoDeserializer implements JsonDeserializer<PagedElementL
     final PagedElementListDTO<ArteVideoInfoDto> videoUrls = new PagedElementListDTO<>();
     //
     Optional<String> nextPage = JsonUtils.getElementValueAsString(json, TAG_NEXT_PAGE_NEXT);
-    if (nextPage.isPresent()) {
+    Optional<Integer> nextPagePages = JsonUtils.getElementValueAsInteger(json, TAG_NEXT_PAGE_PAGES);
+    Optional<Integer> nextPagePageIndex = JsonUtils.getElementValueAsInteger(json, TAG_NEXT_PAGE_PAGE);
+    if (nextPage.isPresent() && nextPagePages.isPresent() && nextPagePageIndex.isPresent() && nextPagePageIndex.get() < nextPagePages.get()) {
       videoUrls.setNextPage(nextPage);
     }
     //
@@ -94,7 +96,7 @@ public class ArteVideoInfoDeserializer implements JsonDeserializer<PagedElementL
         !INCLUDE_KIND.contains(JsonUtils.getElementValueAsString(arrayElement, TAG_KIND).orElse("").toUpperCase())) {
       return Optional.empty();
     }
-    //
+    // 
     List<ArteSubtitleLinkDto> arteRestSubtitleLinkDto = new ArrayList<>();
     if (arrayElement.getAsJsonObject().has(TAG_SUBTITLES) &&
         arrayElement.getAsJsonObject().get(TAG_SUBTITLES).isJsonArray()) {

@@ -4,7 +4,7 @@
             "totalCount": 14131,
             "limit": 100,
             "href": "https:\/\/api.arte.tv\/api\/opa\/v3\/videos?language=de&limit=100&page=1&sort=-creationDate",
-            "pages": 142,
+            "pages": 1,
             "page": 1,
             "links": {
                 "first": {

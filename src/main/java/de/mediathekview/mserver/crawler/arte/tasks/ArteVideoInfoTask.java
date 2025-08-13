@@ -71,9 +71,7 @@ public class ArteVideoInfoTask
   
   @Override
   protected void postProcessing(PagedElementListDTO<ArteVideoInfoDto> aResponseObj, TopicUrlDTO aDTO) {
-    if (ArteConstants.USE_SAME_THREAD) {
-      postProcessingNextPage(aResponseObj, aDTO);
-    }
+    postProcessingNextPage(aResponseObj, aDTO);
     postProcessingElements(aResponseObj.getElements(), aDTO);
     nextPageTask.ifPresent(paginationResults -> postProcessingElements(paginationResults.join(), aDTO));
 

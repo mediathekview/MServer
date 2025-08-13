@@ -63,9 +63,6 @@ public class ArteRestVideoTypeMapper {
       case "VOF-STE[ESP]":
         return Optional.of(ArteVideoType.ORIGINAL_WITH_SUBTITLE);
       default:
-        if (code.contains("ESP")) {
-          LOG.debug("add spanish: {}", code);
-        }
         return Optional.empty();
     }
   }
@@ -81,9 +78,6 @@ public class ArteRestVideoTypeMapper {
       case "VOF-STE[ANG]":
         return Optional.of(ArteVideoType.ORIGINAL_WITH_SUBTITLE);
       default:
-        if (code.contains("ANG")) {
-          LOG.debug("add english: {}", code);
-        }
         return Optional.empty();
     }
   }

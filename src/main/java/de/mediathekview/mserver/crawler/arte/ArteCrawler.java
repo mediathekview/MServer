@@ -54,11 +54,7 @@ public class ArteCrawler extends AbstractCrawler {
     try {
       final ArteVideoInfoTask aArteRestVideoInfoTask;
       // DO NOT overload - maximumUrlsPerTask used to reduce threads to 4
-      if (ArteConstants.USE_SAME_THREAD) {
-        aArteRestVideoInfoTask = new ArteVideoInfoTask(this, createVideosQueue());
-      } else {
-        aArteRestVideoInfoTask = new ArteVideoInfoTask(this, createAllVideosQueue());
-      }
+      aArteRestVideoInfoTask = new ArteVideoInfoTask(this, createVideosQueue());
       final Queue<ArteVideoInfoDto> videos = new ConcurrentLinkedQueue<>();
       videos.addAll(aArteRestVideoInfoTask.fork().join());
       //
@@ -83,22 +79,16 @@ public class ArteCrawler extends AbstractCrawler {
     }
     return null;
   }
-
-  private Queue<TopicUrlDTO> createAllVideosQueue() {
-    int maxPages = getMaxPagesForOverview();
-    final Queue<TopicUrlDTO> root = new ConcurrentLinkedQueue<>();
-    for(int pages = 1; pages < maxPages; pages++) {
-      String rootUrl = String.format(ArteConstants.VIDEOS_URL,pages, getLanguage().toString().toLowerCase());
-      root.add(new TopicUrlDTO("all videos " + pages,rootUrl));
-    }
-    return root;
-  }
   
   private Queue<TopicUrlDTO> createVideosQueue() {
     int maxPages = getMaxPagesForOverview();
     final Queue<TopicUrlDTO> root = new ConcurrentLinkedQueue<>();
-    String rootUrl = String.format(ArteConstants.VIDEOS_URL,1, getLanguage().toString().toLowerCase());
-    root.add(new TopicUrlDTO("all videos",rootUrl));
+    String rootUrl = String.format(ArteConstants.VIDEOS_URL, 1, getLanguage().toString().toLowerCase());
+    root.add(new TopicUrlDTO("all videos1",rootUrl));
+    if (maxPages >= 100) {
+      String rootUrl2 = String.format(ArteConstants.VIDEOS_URL_ALT, 1, getLanguage().toString().toLowerCase());
+      root.add(new TopicUrlDTO("all videos2",rootUrl2));
+    }
     return root;
   }
   
@@ -124,3 +114,5 @@ public class ArteCrawler extends AbstractCrawler {
   }
 
 }
+
+  
