@@ -159,23 +159,17 @@ senderConfigurations:
   ORF:
     maximumRequestsPerSecond: 10.0
   ARTE_DE:
-    maximumUrlsPerTask: 25
-    maximumSubpages: 100
+    maximumSubpages: 200
   ARTE_FR:
-    maximumUrlsPerTask: 25
-    maximumSubpages: 100
+    maximumSubpages: 200
   ARTE_EN:
-    maximumUrlsPerTask: 25
-    maximumSubpages: 100
+    maximumSubpages: 200
   ARTE_PL:
-    maximumUrlsPerTask: 25
-    maximumSubpages: 100
+    maximumSubpages: 200
   ARTE_IT:
-    maximumUrlsPerTask: 25
-    maximumSubpages: 100
+    maximumSubpages: 200
   ARTE_ES:
-    maximumUrlsPerTask: 25
-    maximumSubpages: 100
+    maximumSubpages: 200
   KIKA:
     maximumSubpages: 2
     maximumRequestsPerSecond: 8.0

@@ -60,7 +60,7 @@ public class ArteVideoInfoTask
     nextPageLinks.add(new TopicUrlDTO(aResponseObj.getNextPage().get(), aResponseObj.getNextPage().get()));
     nextPageTask = Optional.of(createNewOwnInstance(nextPageLinks));
     nextPageTask.get().fork();
-    log.debug("started paging to url {} for {}", aResponseObj.getNextPage().get(), aDTO.getUrl());
+    //log.debug("started paging to url {} for {}", aResponseObj.getNextPage().get(), aDTO.getUrl());
   }
   
   protected void postProcessingElements(Set<ArteVideoInfoDto> elements, TopicUrlDTO aDTO) {
