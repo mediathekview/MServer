@@ -67,7 +67,8 @@ public class PhoenixSendungOverviewDeserializer implements JsonDeserializer<Opti
       for (final JsonElement itemElement : itemArray) {
 
         final Optional<String> htmlUrl = JsonUtils.getAttributeAsString(itemElement.getAsJsonObject(), ATTRIBUTE_LINK);
-        if (htmlUrl.isPresent() && !htmlUrl.get().isEmpty()) {
+        final Optional<String> hasVideo = JsonUtils.getElementValueAsString(itemElement, "inhalt_video");
+        if (htmlUrl.isPresent() && !htmlUrl.get().isEmpty() && (hasVideo.orElse("true").equalsIgnoreCase("true"))) {
           items.add(extractIdFromHtmlUrl(htmlUrl.get()));
         }
       }
