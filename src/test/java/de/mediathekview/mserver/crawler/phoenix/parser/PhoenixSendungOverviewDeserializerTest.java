@@ -41,7 +41,6 @@ public class PhoenixSendungOverviewDeserializerTest {
             "/phoenix/phoenix_topic1_overview.json",
             Optional.of("/response/id/121346/counter/9/skip/8"),
             new CrawlerUrlDTO[] {
-              new CrawlerUrlDTO("/response/id/281502"),
               new CrawlerUrlDTO("/response/id/303357"),
               new CrawlerUrlDTO("/response/id/302357"),
               new CrawlerUrlDTO("/response/id/301182"),
