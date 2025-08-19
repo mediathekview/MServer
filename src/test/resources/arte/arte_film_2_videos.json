@@ -1,0 +1,425 @@
+{
+    "meta": {
+        "videos": {
+            "totalCount": 14151,
+            "limit": 100,
+            "href": "https:\/\/api.arte.tv\/api\/opa\/v3\/videos?language=de&limit=100&page=60&sort=-creationDate",
+            "pages": 1,
+            "page": 1,
+            "links": {
+                "first": {
+                    "href": "https:\/\/api.arte.tv\/api\/opa\/v3\/videos?language=de&limit=100&page=1&sort=-creationDate"
+                },
+                "next": {
+                    "href": "https:\/\/api.arte.tv\/api\/opa\/v3\/videos?language=de&limit=100&page=61&sort=-creationDate"
+                },
+                "previous": {
+                    "href": "https:\/\/api.arte.tv\/api\/opa\/v3\/videos?language=de&limit=100&page=59&sort=-creationDate"
+                }
+            }
+        }
+    },
+    "videos": [
+        {
+            "firstBroadcastDate": null,
+            "id": "100934-001-A_SHOW_ARTE_NEXT_DE_de",
+            "programId": "100934-001-A",
+            "mainReassembly": true,
+            "reassembly": "A",
+            "channel": "DE",
+            "language": "de",
+            "kind": "SHOW",
+            "catalogType": "STANDALONE",
+            "programType": "INTERNET",
+            "programFamily": "PROGRAM",
+            "platform": "ARTE_NEXT",
+            "platformLabel": "ARTE",
+            "title": "In Therapie - Eine Serie als Mosaik",
+            "subtitle": "Staffel 1",
+            "originalTitle": "En thérapie - Une série chorale",
+            "originalLanguage": {
+                "arteCode": "FRA",
+                "label": "Französisch",
+                "iso6391Code": "fr"
+            },
+            "tags": [],
+            "twitterAccount": null,
+            "twitterHashTag": null,
+            "durationSeconds": 182,
+            "shortDescription": "Das Erfolgsduo Eric Toledano und Olivier Nakache (\"Ziemlich beste Freunde\") erzählt, wie es das Team der Serie \"In Therapie\" zusammengestellt hat.",
+            "shortDescriptionRich": "Das Erfolgsduo Eric Toledano und Olivier Nakache (\"Ziemlich beste Freunde\") erzählt, wie es das Team der Serie \"In Therapie\" zusammengestellt hat.",
+            "fullDescription": null,
+            "fullDescriptionRich": null,
+            "teaserText": "\"Es gibt nur selten so viele Hauptrollen. Jeder Schauspieler, jeder Patient, hat seine Handlung.\"",
+            "teaserTextRich": "<p>\"Es gibt nur selten so viele Hauptrollen. Jeder Schauspieler, jeder Patient, hat seine Handlung.\"<\/p>",
+            "headerText": null,
+            "headerTextRich": null,
+            "producer": "ARTE FRANCE DEVELOPPEMENT",
+            "productionYear": 2020,
+            "shootingDate": null,
+            "allowEmbed": true,
+            "adult": 0,
+            "legalBan": "NONE",
+            "mainImage": {
+                "creationDate": "2021-01-21T10:37:36Z",
+                "lastModified": "2024-09-20T10:13:44Z",
+                "width": 940,
+                "height": 530,
+                "keyframe": false,
+                "alternateResolutions": [],
+                "type": "DEFAULT",
+                "name": "100934-001-A_3245263.jpg",
+                "extension": "jpg",
+                "caption": "Éric Toledano und Olivier Nakache",
+                "url": "https:\/\/api-cdn.arte.tv\/img\/v2\/image\/RethqrAxL44kUVrde9eDtH\/940x530",
+                "imageId": "3245263",
+                "programId": "100934-001-A",
+                "language": "de",
+                "copyright": "©Carole Bethuel - Les Films du Poisson",
+                "blurImage": "https:\/\/api-cdn.arte.tv\/img\/v2\/image\/RethqrAxL44kUVrde9eDtH\/80x45?blur=true",
+                "kind": "internet"
+            },
+            "parents": [
+                "RC-020595",
+                "100934-001-A"
+            ],
+            "collections": [
+                {
+                    "kind": "TOPIC",
+                    "catalogType": null,
+                    "collectionId": "RC-020595",
+                    "order": 1
+                }
+            ],
+            "programmingId": 4582820,
+            "videoRightsBegin": "2024-09-20T10:00:00Z",
+            "videoRightsEnd": "2025-09-19T21:59:00Z",
+            "mainProgramming": true,
+            "mainChannel": true,
+            "geoblockingZone": "EUR_DE_FR",
+            "geoblocking": {
+                "code": "EUR_DE_FR",
+                "label": "Verfügbar in den deutsch- und französischsprachigen Ländern Europas",
+                "inclusion": [],
+                "exclusion": []
+            },
+            "partners": [],
+            "director": "Paul Frère",
+            "casting": [],
+            "crew": [
+                {
+                    "name": "Paul Frère",
+                    "activity": "Regie",
+                    "activityCode": "REA",
+                    "characterName": null
+                },
+                {
+                    "name": "Ten Cinéma",
+                    "activity": "Produktion",
+                    "activityCode": "PRD",
+                    "characterName": null
+                },
+                {
+                    "name": "Les films du Poisson",
+                    "activity": "Produktion",
+                    "activityCode": "PRD",
+                    "characterName": null
+                },
+                {
+                    "name": "ARTE",
+                    "activity": "Koproduktion",
+                    "activityCode": "CPD",
+                    "characterName": null
+                },
+                {
+                    "name": "Les films du Poisson",
+                    "activity": "Koproduktion",
+                    "activityCode": "CPD",
+                    "characterName": null
+                },
+                {
+                    "name": "Julie Renault",
+                    "activity": "Schnitt",
+                    "activityCode": "MON",
+                    "characterName": null
+                }
+            ],
+            "chapters": [],
+            "chaptersSpriteUrl": null,
+            "caseCode": 998,
+            "case": "HORS CASE",
+            "genrePresseCode": 0,
+            "genrePresse": "Andere",
+            "tracking": {
+                "tablet": {
+                    "ANDROID": "https:\/\/www.arte.tv\/pa\/api\/multimedia\/v1\/100934-001\/A\/de\/ARTE_NEXT\/TABLET\/ANDROID\/arte.gif"
+                },
+                "mobile": {
+                    "ANDROID": "https:\/\/www.arte.tv\/pa\/api\/multimedia\/v1\/100934-001\/A\/de\/ARTE_NEXT\/MOBILE\/ANDROID\/arte.gif"
+                },
+                "download": {
+                    "ANDROID": "https:\/\/www.arte.tv\/pa\/api\/multimedia\/v1\/100934-001\/A\/de\/ARTE_NEXT\/DOWNLOAD\/ANDROID\/arte.gif"
+                }
+            },
+            "mainAudioVersion": "VOF-STA",
+            "audioVersions": [
+                "VOF-STA",
+                "VOF"
+            ],
+            "permalink": "https:\/\/www.arte.tv\/de\/videos\/100934-001-A\/permalink\/",
+            "infolink": "https:\/\/www.arte.tv\/de\/videos\/100934-001-A\/in-therapie-eine-serie-als-mosaik\/",
+            "availableScreens": [
+                "desktop",
+                "mobile",
+                "tv"
+            ],
+            "oEmbed": "https:\/\/api.arte.tv\/api\/player\/v1\/oembed\/de\/100934-001-A?platform=ARTE_NEXT",
+            "categories": [
+                {
+                    "order": 1,
+                    "code": "FLM",
+                    "name": "Filme",
+                    "url": null,
+                    "slug": "filme"
+                }
+            ],
+            "category": {
+                "order": 3,
+                "code": "SER",
+                "name": "Fernsehfilme und Serien",
+                "url": "https:\/\/www.arte.tv\/de\/videos\/fernsehfilme-und-serien\/",
+                "slug": "fernsehfilme-und-serien"
+            },
+            "subcategory": {
+                "order": 1,
+                "code": "SES",
+                "name": "Serien",
+                "url": "https:\/\/www.arte.tv\/de\/videos\/fernsehfilme-und-serien\/serien\/",
+                "slug": "serien"
+            },
+            "views": 69,
+            "thesaurus": [
+                {
+                    "code": 2633,
+                    "label": "Attentat",
+                    "parents": [
+                        1,
+                        2610,
+                        2629,
+                        2633
+                    ]
+                },
+                {
+                    "code": 12482,
+                    "label": "Making-of",
+                    "parents": [
+                        1,
+                        613,
+                        631,
+                        4946,
+                        12622,
+                        12482
+                    ]
+                },
+                {
+                    "code": 5166,
+                    "label": "Fernsehserie",
+                    "parents": [
+                        1,
+                        990,
+                        1069,
+                        5139,
+                        1090,
+                        12726,
+                        5166
+                    ]
+                },
+                {
+                    "code": 1764,
+                    "label": "Psychotherapie",
+                    "parents": [
+                        1,
+                        1432,
+                        13275,
+                        7746,
+                        1744,
+                        1763,
+                        1764
+                    ]
+                }
+            ],
+            "postroll": "https:\/\/api.arte.tv\/api\/player\/v1\/recommendedPostroll\/de\/100934-001-A",
+            "mainPlatform": true,
+            "imageColor": null,
+            "arteSchedulingDay": null,
+            "deletedAt": null,
+            "productionCountries": [
+                {
+                    "arteCode": "FRA",
+                    "isoAlpha2Code": "FR",
+                    "label": "Frankreich"
+                }
+            ],
+            "url": "https:\/\/www.arte.tv\/de\/videos\/100934-001-A\/in-therapie-eine-serie-als-mosaik\/",
+            "clusters": [],
+            "illico": false,
+            "season": 0,
+            "episode": 0,
+            "totalEpisodes": 0,
+            "mainCrossPlatform": true,
+            "kindLabel": "PROGRAMM",
+            "videoLibrary": true,
+            "broadcastBegin": null,
+            "broadcastBeginRounded": null,
+            "viewsPeriod": 69,
+            "markings": [],
+            "webLinks": [],
+            "warning": null,
+            "livestreamRights": true,
+            "eStat": {
+                "streamName": "In Therapie - Eine Serie als Mosaik",
+                "streamDuration": 182,
+                "streamGenre": "nr",
+                "level1": "SER_fernsehfilme-und-serien",
+                "level2": "PROGRAMME_WEB",
+                "level3": "de",
+                "level4": "SES_serien",
+                "level5": "100934-001-A",
+                "newLevel1": "SHOW",
+                "newLevel2": null,
+                "newLevel11": "998_hors-case",
+                "mediaChannel": "950",
+                "mediaContentId": "100934-001-A",
+                "mediaDiffMode": "TVOD"
+            },
+            "mediametrie": {
+                "type": "content",
+                "assetid": "100934-001-A_0",
+                "program": "998_hors-case",
+                "title": "in-therapie-eine-serie-als-mosaik",
+                "length": 182,
+                "islivestn": "n",
+                "cli_md": "TVOD",
+                "cli_ch": 950,
+                "cli_cn": "100934-001-A",
+                "nol_p0": "p0,de",
+                "nol_p1": "p1,PROGRAMME_WEB",
+                "nol_p2": "p2,SHOW",
+                "nol_p13": "p13,n"
+            },
+            "adtech": {
+                "kvprogramid": "100934-001-A",
+                "kvvty": "ARTE_NEXT",
+                "kvcategory": "SER",
+                "kvsubcategory": "SES",
+                "kvwebonly": true,
+                "kvbroadcast": false,
+                "kvduration": 182,
+                "kvcaseprogram": "998_hors-case",
+                "kvvideoisolang": "de"
+            },
+            "agf": {
+                "type": "content",
+                "assetid": "100934-001-A",
+                "program": "998_hors-case",
+                "title": "in-therapie-eine-serie-als-mosaik",
+                "length": 182,
+                "nol_c2": "p2,Y",
+                "nol_c7": "p7,100934-001-A",
+                "nol_c8": "p8,182",
+                "nol_c9": "p9,in-therapie-eine-serie-als-mosaik",
+                "nol_c10": "p10,ARTE",
+                "nol_c12": "p12,Content",
+                "nol_c15": "p15,100934-001-A",
+                "nol_c18": "p18,N"
+            },
+            "offlineAvailability": true,
+            "genre": null,
+            "audioLanguages": [
+                {
+                    "arteCode": "FRA",
+                    "iso6392Code": "fra",
+                    "iso6391Code": "fr",
+                    "label": "Französisch",
+                    "version": "VOF",
+                    "audioDescription": false
+                }
+            ],
+            "subtitles": [
+                {
+                    "arteCode": "ALL",
+                    "version": "VO-ALL",
+                    "iso6392Code": "deu",
+                    "iso6391Code": "de",
+                    "label": "Deutsch",
+                    "closedCaptioning": false,
+                    "burned": false,
+                    "filename": "100934-001-A-VO-ALL"
+                }
+            ],
+            "versions": [
+                {
+                    "code": 14,
+                    "audioCode": "VOF-STA",
+                    "audioLabel": "Französisch - UT deutsch",
+                    "audioShortLabel": "OmU",
+                    "audioLanguage": "fr",
+                    "subtitleLanguage": "de",
+                    "closedCaptioning": false,
+                    "audioDescription": false
+                },
+                {
+                    "code": 4,
+                    "audioCode": "VOF",
+                    "audioLabel": "Französisch",
+                    "audioShortLabel": "FR",
+                    "audioLanguage": "fr",
+                    "subtitleLanguage": "und",
+                    "closedCaptioning": false,
+                    "audioDescription": false
+                }
+            ],
+            "origins": [
+                {
+                    "order": 1,
+                    "label": "ARTE"
+                }
+            ],
+            "availableImages": [
+                "DEFAULT"
+            ],
+            "allowThirdPlayer": true,
+            "externalIds": [],
+            "broadcastType": null,
+            "clearVoice": true,
+            "ancestors": [
+                {
+                    "programId": "RC-020595",
+                    "order": 1,
+                    "kind": "TOPIC",
+                    "ancestors": [
+                        {
+                            "programId": "RC-022353",
+                            "order": 1,
+                            "kind": "TOPIC",
+                            "ancestors": []
+                        }
+                    ]
+                }
+            ],
+            "mainPlatformCode": null,
+            "arteClub": false,
+            "previewRightsBegin": "2024-09-20T10:00:00Z",
+            "creationDate": "2024-09-20T08:43:33Z",
+            "lastModified": "2024-09-20T10:13:44Z",
+            "ageRating": 0,
+            "imageReference": "RethqrAxL44kUVrde9eDtH",
+            "programmingType": "MANUAL",
+            "links": {
+                "programs": {
+                    "href": "https:\/\/api.arte.tv\/api\/opa\/v3\/programs\/de\/100934-001-A"
+                }
+            }
+        }
+    ]
+}

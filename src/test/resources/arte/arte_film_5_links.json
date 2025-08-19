@@ -1,0 +1,70 @@
+{
+  "videoStreams": [
+    {
+      "programId": "118149-011-A",
+      "url": "http:\/\/arteptweb-a.akamaihd.net\/am\/ptweb\/118000\/118100\/118149-011-A_EQ_0_VOF-STA_08639450_MP4-1500_AMM-PTWEB-80922104532920_2GTWLF2DJs.mp4",
+      "quality": "EQ",
+      "audioSlot": 1,
+      "audioCode": "VOF-STA",
+      "audioLabel": "Franz\u00f6sisch - UT deutsch",
+      "audioShortLabel": "OmU",
+      "width": 720,
+      "height": 406
+    },
+    {
+      "programId": "118149-011-A",
+      "url": "http:\/\/arteptweb-a.akamaihd.net\/am\/ptweb\/118000\/118100\/118149-011-A_HQ_0_VOF_08639441_MP4-800_AMM-PTWEB-60681882369117_2GTVHF2DHM.mp4",
+      "quality": "HQ",
+      "audioSlot": 2,
+      "audioCode": "VOF",
+      "audioLabel": "Franz\u00f6sisch",
+      "audioShortLabel": "FR",
+      "width": 640,
+      "height": 360
+    },
+    {
+      "programId": "118149-011-A",
+      "url": "http:\/\/arteptweb-a.akamaihd.net\/am\/ptweb\/118000\/118100\/118149-011-A_EQ_0_VOF_08639440_MP4-1500_AMM-PTWEB-60681882369117_2GTVGF2DHM.mp4",
+      "quality": "EQ",
+      "audioSlot": 2,
+      "audioCode": "VOF",
+      "audioLabel": "Franz\u00f6sisch",
+      "audioShortLabel": "FR",
+      "width": 720,
+      "height": 406
+    },
+    {
+      "programId": "118149-011-A",
+      "url": "http:\/\/arteptweb-a.akamaihd.net\/am\/ptweb\/118000\/118100\/118149-011-A_HQ_0_VOF-STA_08639436_MP4-800_AMM-PTWEB-80922104532920_2GTUnF2DDw.mp4",
+      "quality": "HQ",
+      "audioSlot": 1,
+      "audioCode": "VOF-STA",
+      "audioLabel": "Franz\u00f6sisch - UT deutsch",
+      "audioShortLabel": "OmU",
+      "width": 640,
+      "height": 360
+    },
+    {
+      "programId": "118149-011-A",
+      "url": "http:\/\/arteptweb-a.akamaihd.net\/am\/ptweb\/118000\/118100\/118149-011-A_SQ_0_VOF_08639443_MP4-2200_AMM-PTWEB-60681882369117_2GTUBF2D9N.mp4",
+      "quality": "SQ",
+      "audioSlot": 2,
+      "audioCode": "VOF",
+      "audioLabel": "Franz\u00f6sisch",
+      "audioShortLabel": "FR",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "programId": "118149-011-A",
+      "url": "http:\/\/arteptweb-a.akamaihd.net\/am\/ptweb\/118000\/118100\/118149-011-A_SQ_0_VOF-STA_08639438_MP4-2200_AMM-PTWEB-80922104532920_2GTUAF2D9J.mp4",
+      "quality": "SQ",
+      "audioSlot": 1,
+      "audioCode": "VOF-STA",
+      "audioLabel": "Franz\u00f6sisch - UT deutsch",
+      "audioShortLabel": "OmU",
+      "width": 1280,
+      "height": 720
+    }
+  ]
+}
