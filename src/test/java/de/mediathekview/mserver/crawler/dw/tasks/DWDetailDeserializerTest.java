@@ -95,7 +95,7 @@ public class DWDetailDeserializerTest extends DwTaskTestBase {
           },
           {
             "/dw/dw_film_detail_five_video_urls.json",
-            "Energiezukunft? Schwimmende Windkraftanlagen",
+            "Energiezukunft? Schwimmende Windkraftanlagen 2022-11-12",
             "Projekt Zukunft",
             "https://p.dw.com/p/4JNwb",
             Duration.ofSeconds(385),
