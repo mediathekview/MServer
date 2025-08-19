@@ -25,8 +25,10 @@ public class ZdfPubFormDeserializer extends ZdfTopicBaseClass
 
     for (JsonElement element : nodes) {
       JsonObject node = element.getAsJsonObject();
-      final Optional<String> sender =
-          JsonUtils.getElementValueAsString(node.getAsJsonObject("contentOwner"), "title");
+      Optional<String> sender = Optional.empty();
+      if (!node.get("contentOwner").isJsonNull()) {
+        sender = JsonUtils.getElementValueAsString(node.getAsJsonObject("contentOwner"), "title");
+      }
       final Optional<String> topic = JsonUtils.getElementValueAsString(node, "title");
       final Optional<String> countSeasons = JsonUtils.getElementValueAsString(node, "countSeasons");
       if (ZdfConstants.PARTNER_TO_SENDER.containsKey(sender.orElse("ZDF"))) {
