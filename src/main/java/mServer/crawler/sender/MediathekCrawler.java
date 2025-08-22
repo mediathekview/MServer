@@ -9,6 +9,7 @@ import java.util.concurrent.ForkJoinWorkerThread;
 import java.util.concurrent.RecursiveTask;
 import java.util.concurrent.TimeUnit;
 import mServer.crawler.FilmeSuchen;
+import mServer.crawler.RunSender;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -19,7 +20,7 @@ public abstract class MediathekCrawler extends MediathekReader {
 
   protected final ForkJoinPool forkJoinPool;
 
-  public MediathekCrawler(FilmeSuchen aMSearchFilmeSuchen, String aSendername, int aSenderMaxThread, int aSenderWartenSeiteLaden, int aStartPrio) {
+  protected MediathekCrawler(FilmeSuchen aMSearchFilmeSuchen, String aSendername, int aSenderMaxThread, int aSenderWartenSeiteLaden, int aStartPrio) {
     super(aMSearchFilmeSuchen, aSendername, aSenderMaxThread, aSenderWartenSeiteLaden, aStartPrio);
 
     forkJoinPool = createForkJoinPool(aSendername);
@@ -61,13 +62,20 @@ public abstract class MediathekCrawler extends MediathekReader {
 
     Log.sysLog(getSendername() + ": Filme einsortieren..." + films.size());
     if (films.isEmpty()) {
-      LOG.fatal(getSendername() + ": no films found!");
+      LOG.fatal("{}: no films found!", getSendername());
     }
 
     films.forEach(film -> {
       if (!Config.getStop()) {
-        prepareFilm(film);
-        addFilm(film);
+        try {
+          prepareFilm(film);
+          addFilm(film);
+        } catch (Exception e) {
+          final String index = film.getIndexAddOld();
+          Log.errorLog(974513456, e, index);
+          LOG.error("{}: Error while processing film: {}: {}", getSendername(), index, e);
+          FilmeSuchen.listeSenderLaufen.inc(film.arr[DatenFilm.FILM_SENDER], RunSender.Count.FEHLER);
+        }
       }
     });
   }
