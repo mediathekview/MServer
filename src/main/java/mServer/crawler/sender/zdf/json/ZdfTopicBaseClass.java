@@ -3,6 +3,7 @@ package mServer.crawler.sender.zdf.json;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import de.mediathekview.mlib.tool.Log;
 import mServer.crawler.sender.base.JsonUtils;
 import mServer.crawler.sender.base.UrlUtils;
 import mServer.crawler.sender.zdf.ZdfConstants;
@@ -16,7 +17,6 @@ import java.util.*;
 
 public class ZdfTopicBaseClass {
   private static final String PLACEHOLDER_PLAYER_ID = "{playerId}";
-  // todo check if this is the correct player id
   private static final String PLAYER_ID = "android_native_5";
 
   private static final Logger LOG = LogManager.getLogger(ZdfTopicBaseClass.class);
@@ -55,14 +55,18 @@ public class ZdfTopicBaseClass {
     }
 
     if (title.isPresent()) {
-
-      return createFilm(
-          ZdfConstants.PARTNER_TO_SENDER.get(sender.orElse("EMPTY")),
-          title.get(),
-          description,
-          website,
-          time,
-          downloadUrls);
+      String senderValue = sender.orElse("EMPTY");
+      if (ZdfConstants.PARTNER_TO_SENDER.containsKey(senderValue)) {
+        return createFilm(
+                ZdfConstants.PARTNER_TO_SENDER.get(senderValue),
+                title.get(),
+                description,
+                website,
+                time,
+                downloadUrls);
+      } else {
+        Log.sysLog("ZDF: unsupported sender: " + senderValue + " for title " + title.get());
+      }
     } else {
       LOG.error("ZdfTopicSeasonDeserializer: no title found");
     }
