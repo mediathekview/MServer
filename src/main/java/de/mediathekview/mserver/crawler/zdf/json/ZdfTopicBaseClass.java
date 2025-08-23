@@ -57,14 +57,16 @@ public class ZdfTopicBaseClass {
     }
 
     if (title.isPresent()) {
-
-      return createFilm(
-          ZdfConstants.PARTNER_TO_SENDER.get(sender.orElse("EMPTY")),
-          title.get(),
-          description,
-          website,
-          time,
-          downloadUrls);
+      String senderValue = sender.orElse("EMPTY");
+      if (ZdfConstants.PARTNER_TO_SENDER.containsKey(senderValue)) {
+        return createFilm(
+            ZdfConstants.PARTNER_TO_SENDER.get(senderValue),
+            title.get(),
+            description,
+            website,
+            time,
+            downloadUrls);
+      }
     } else {
       LOG.error("ZdfTopicSeasonDeserializer: no title found");
     }
