@@ -319,17 +319,23 @@ public abstract class MediathekReader extends Thread {
   private void setGeo(DatenFilm film) {
     switch (film.arr[DatenFilm.FILM_SENDER]) {
       case Const.ARD:
+      case Const.ARD_ALPHA:
       case Const.BR:
       case Const.HR:
       case Const.MDR:
       case Const.NDR:
+      case Const.ONE:
       case Const.RBB:
+      case Const.RBTV:
       case Const.SR:
       case Const.SWR:
+      case Const.TAGESSCHAU24:
       case Const.WDR:
         processArd(film);
         break;
 
+      case Const.ZDF_INFO:
+      case Const.ZDF_NEO:
       case Const.ZDF_TIVI:
       case Const.DREISAT:
         processZdfPart(film);
