@@ -1,6 +1,5 @@
 package de.mediathekview.mlib.tool;
 
-import de.mediathekview.mlib.tool.MVHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 

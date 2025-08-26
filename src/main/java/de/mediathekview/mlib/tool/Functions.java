@@ -35,31 +35,6 @@ public class Functions {
 	
 	private static final String RBVERSION = "version";
 
-    public static String textLaenge(int max, String text, boolean mitte, boolean addVorne) {
-        if (text.length() > max) {
-            if (mitte) {
-                text = text.substring(0, 25) + " .... " + text.substring(text.length() - (max - 31));
-            } else {
-                text = text.substring(0, max - 1);
-            }
-        }
-        while (text.length() < max) {
-            if (addVorne) {
-                text = ' ' + text;
-            } else {
-                text = text + ' ';
-            }
-        }
-        return text;
-    }
-
-    public static String minTextLaenge(int max, String text) {
-        while (text.length() < max) {
-            text = text + ' ';
-        }
-        return text;
-    }
-
     public enum OperatingSystemType {
 
         UNKNOWN(""), WIN32("Windows"), WIN64("Windows"), LINUX("Linux"), MAC("Mac");
