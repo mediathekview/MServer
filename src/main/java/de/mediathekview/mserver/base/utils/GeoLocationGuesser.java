@@ -23,9 +23,14 @@ public class GeoLocationGuesser {
       case MDR:
       case BR:
       case RBB:
+      case RBTV:
+      case ONE:
+      case ARD_ALPHA:
         return getGeoLocationsArd(aUrl);
 
       case ZDF:
+      case ZDF_INFO:
+      case ZDF_NEO:
       case ZDF_TIVI:
       case DREISAT:
         return getGeoLocationsZdfPart(aUrl);
