@@ -41,6 +41,7 @@ public class OrfOnEpisodeDeserializer implements JsonDeserializer<OrfOnVideoInfo
   private static final String TAG_VIDEO_QUALITY = "quality";
   private static final String TAG_VIDEO_FALLBACK = "sources";
   private static final String TAG_VIDEO_FALLBACK_URL = "src";
+  private static final String TAG_DRM_PROTECTED = "is_drm_protected";
 
   private static final String[] TAG_SUBTITLE_SECTION = {"_embedded", "subtitle"};
   private static final String TAG_SUBTITLE_TTML = "ttml_url";
@@ -88,6 +89,7 @@ public class OrfOnEpisodeDeserializer implements JsonDeserializer<OrfOnVideoInfo
             JsonUtils.getElementValueAsString(jsonElement, TAG_TITLE_WITH_DATE),
             JsonUtils.getElementValueAsString(jsonElement, TAG_TOPIC),
             JsonUtils.getElementValueAsString(jsonElement, TAG_TOPIC_ARCHIVE),
+            JsonUtils.getElementValueAsString(jsonElement, TAG_DRM_PROTECTED),
             parseAiredDate(JsonUtils.getElementValueAsString(jsonElement, TAG_AIRED)),
             parseDuration(JsonUtils.getElementValueAsString(jsonElement, TAG_DURATION)),
             JsonUtils.getElementValueAsString(jsonElement, TAG_DESCRIPTION),
