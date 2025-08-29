@@ -95,7 +95,9 @@ public class ArdTopicPageTask extends ArdTaskBase<ArdFilmInfoDto, CrawlerUrlDTO>
     // bergauf bergab
     TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL2JyLmRlL2Jyb2FkY2FzdFNlcmllcy9icm9hZGNhc3RTZXJpZXM6L2JyZGUvZmVybnNlaGVuL2JheWVyaXNjaGVzLWZlcm5zZWhlbi9zZW5kdW5nZW4vYmVyZ2F1Zi1iZXJnYWI");
     // HIP
-    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL25kci5kZS80NzQ0");    
+    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL25kci5kZS80NzQ0");
+    // Nordstory
+    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL25kci5kZS8xNDk1");
   }
 
   public ArdTopicPageTask(MediathekReader aCrawler,
