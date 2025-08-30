@@ -17,7 +17,6 @@ import org.apache.logging.log4j.Logger;
 import java.lang.reflect.Type;
 import java.net.URI;
 import java.util.Optional;
-import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 // <T, R, D extends CrawlerUrlDTO> extends AbstractRestTask<T, D>
@@ -41,7 +40,7 @@ public class KikaApiTopicTask extends AbstractJsonRestTask<KikaApiFilmDto, KikaA
 
   @Override
   protected Type getType() {
-    return new TypeToken<Set<KikaApiTopicDto>>() {
+    return new TypeToken<KikaApiTopicDto>() {
     }.getType();
   }
 
@@ -66,7 +65,7 @@ public class KikaApiTopicTask extends AbstractJsonRestTask<KikaApiFilmDto, KikaA
       subpageCrawler = Optional.empty();
     }
     for (KikaApiFilmDto aFilm : aResponseObj.getElements()) {
-      if (!aFilm.getTopic().isPresent()) {
+      if (aFilm.getTopic().isEmpty()) {
         aFilm.setTopic(Optional.of(aDTO.getTopic()));
       }
       taskResults.add(aFilm);
