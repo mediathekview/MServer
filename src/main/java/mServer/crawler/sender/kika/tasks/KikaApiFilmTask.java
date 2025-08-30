@@ -54,7 +54,7 @@ public class KikaApiFilmTask extends AbstractJsonRestTask<DatenFilm, KikaApiVide
 
   @Override
   protected Type getType() {
-    return new TypeToken<Set<KikaApiVideoInfoDto>>() {
+    return new TypeToken<KikaApiVideoInfoDto>() {
     }.getType();
   }
 

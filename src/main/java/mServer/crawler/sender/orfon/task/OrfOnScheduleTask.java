@@ -5,12 +5,10 @@ import com.google.gson.reflect.TypeToken;
 import mServer.crawler.sender.MediathekReader;
 import mServer.crawler.sender.base.AbstractRecursivConverterTask;
 import mServer.crawler.sender.base.PagedElementListDTO;
-import mServer.crawler.sender.base.TopicUrlDTO;
 import mServer.crawler.sender.orfon.OrfOnBreadCrumsUrlDTO;
 import mServer.crawler.sender.orfon.json.OrfOnScheduleDeserializer;
 
 import java.lang.reflect.Type;
-import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 // <T, R, D extends CrawlerUrlDTO> extends AbstractRestTask<T, D>
@@ -29,7 +27,7 @@ public class OrfOnScheduleTask extends OrfOnPagedTask {
 
   @Override
   protected Type getType() {
-    return new TypeToken<Set<TopicUrlDTO>>() {}.getType();
+     return new TypeToken<PagedElementListDTO<OrfOnBreadCrumsUrlDTO>>() {}.getType();
   }
 
   @Override
