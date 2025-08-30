@@ -62,6 +62,11 @@ public class OrfOnEpisodeTask extends AbstractJsonRestTask<Film, OrfOnVideoInfoD
       crawler.incrementAndGetErrorCount();
       return;
     }
+    if (aResponseObj.getDrmProtected().orElse("false").equalsIgnoreCase("true")) {
+      LOG.warn("Ignore DRM Protected {}", aDTO);
+      crawler.incrementAndGetErrorCount();
+      return;
+    }
     if (aResponseObj.getDuration().isEmpty()) {
       LOG.warn("Missing duration for {}", aDTO);
     }
