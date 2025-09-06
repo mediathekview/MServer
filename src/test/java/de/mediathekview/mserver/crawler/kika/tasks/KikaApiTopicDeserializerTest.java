@@ -13,13 +13,12 @@ import java.lang.reflect.Type;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Set;
 import java.util.stream.Stream;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-public class KikaApiTopicDeserializerTest {
+class KikaApiTopicDeserializerTest {
 
   @ParameterizedTest
   @MethodSource("getDeserializeBrandTestArgumentSource")
@@ -29,17 +28,17 @@ public class KikaApiTopicDeserializerTest {
       final boolean hasSubpage,
       final boolean hasError)
       throws URISyntaxException, IOException {
-    final Type KikaApiTopicDtoType = new TypeToken<KikaApiTopicDto>() {}.getType();
+    final Type kikaApiTopicDtoType = new TypeToken<KikaApiTopicDto>() {}.getType();
     //
     final Gson gson =
         new GsonBuilder()
-            .registerTypeAdapter(KikaApiTopicDtoType, new KikaApiTopicPageDeserializer())
+            .registerTypeAdapter(kikaApiTopicDtoType, new KikaApiTopicPageDeserializer())
             .create();
     //
     final KikaApiTopicDto aKikaApiTopicDto =
         gson.fromJson(
             Files.newBufferedReader(Paths.get(getClass().getResource(jsonFile).toURI())),
-            KikaApiTopicDtoType);
+            kikaApiTopicDtoType);
     //
     assertEquals(numberOfExpectedRecords, aKikaApiTopicDto.getElements().size());
     // has subpages

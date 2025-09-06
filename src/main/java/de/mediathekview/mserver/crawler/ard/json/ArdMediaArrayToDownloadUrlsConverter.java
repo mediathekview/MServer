@@ -15,10 +15,11 @@ import org.apache.logging.log4j.Logger;
 
 import jakarta.annotation.Nullable;
 import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 public class ArdMediaArrayToDownloadUrlsConverter {
@@ -58,7 +59,7 @@ public class ArdMediaArrayToDownloadUrlsConverter {
             url ->
                 url.getFileType().isPresent()
                     && url.getFileType().get().equalsIgnoreCase(aFileType))
-        .collect(Collectors.toList());
+        .toList();
   }
 
   private static Optional<Resolution> getQuality(final String qualityAsText) {
@@ -105,7 +106,7 @@ public class ArdMediaArrayToDownloadUrlsConverter {
 
       urls = filterUrls(aUrls, "m3u8");
       if (!urls.isEmpty()) {
-        ardUrlInfo = urls.get(0);
+        ardUrlInfo = urls.getFirst();
       } else {
         ardUrlInfo = aUrls.iterator().next();
       }
@@ -155,10 +156,10 @@ public class ArdMediaArrayToDownloadUrlsConverter {
     switch (aResolution) {
       case SMALL:
         // the first url is the best
-        return aUrls.get(0);
+        return aUrls.getFirst();
       case NORMAL:
         // the last url is the best
-        return aUrls.get(aUrls.size() - 1);
+        return aUrls.getLast();
       case HD:
         ArdFilmUrlInfoDto relevantInfo = null;
 
@@ -217,9 +218,7 @@ public class ArdMediaArrayToDownloadUrlsConverter {
           info.setResolution(Integer.parseInt(width), Integer.parseInt(height));
         }
 
-        if (!urls.containsKey(quality)) {
-          urls.put(quality, new LinkedHashSet<>());
-        }
+        urls.computeIfAbsent(quality, k -> new LinkedHashSet<>());
         urls.get(quality).add(info);
       }
     }
@@ -278,8 +277,8 @@ public class ArdMediaArrayToDownloadUrlsConverter {
 
     if (relevantInfo != null) {
       try {
-        return Optional.of(new URL(relevantInfo.getUrl()));
-      } catch (final MalformedURLException malformedUrlException) {
+        return Optional.of(new URI(relevantInfo.getUrl()).toURL());
+      } catch (final MalformedURLException | URISyntaxException malformedUrlException) {
         LOG.error("A download URL is defect.", malformedUrlException);
         crawler.printMessage(ServerMessages.DEBUG_INVALID_URL, crawler.getSender().getName(), relevantInfo.getUrl());
       }
@@ -292,8 +291,8 @@ public class ArdMediaArrayToDownloadUrlsConverter {
     final String url = determineUrl(entry.getKey(), entry.getValue());
     if (!url.isEmpty()) {
       try {
-        return Optional.of(new URL(optimizeUrl(entry.getKey(), url)));
-      } catch (final MalformedURLException malformedUrlException) {
+        return Optional.of(new URI(optimizeUrl(entry.getKey(), url)).toURL());
+      } catch (final MalformedURLException | URISyntaxException malformedUrlException) {
         LOG.error("A download URL is defect.", malformedUrlException);
         crawler.printMessage(ServerMessages.DEBUG_INVALID_URL, crawler.getSender().getName(), url);
       }

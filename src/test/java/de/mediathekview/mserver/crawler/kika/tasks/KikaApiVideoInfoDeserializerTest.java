@@ -13,17 +13,16 @@ import java.lang.reflect.Type;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Set;
 import java.util.stream.Stream;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-public class KikaApiVideoInfoDeserializerTest {
+class KikaApiVideoInfoDeserializerTest {
 
   @ParameterizedTest
   @MethodSource("getDeserializeBrandTestArgumentSource")
-  public void testDeserializeBrand(
+  void testDeserializeBrand(
       final String jsonFile, final int numberOfExpectedRecords, final boolean hasError)
       throws URISyntaxException, IOException {
     final Type kikaApiVideoInfoDtoType = new TypeToken<KikaApiVideoInfoDto>() {}.getType();
