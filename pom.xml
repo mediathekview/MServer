@@ -339,7 +339,7 @@
         <artifactId>maven-javadoc-plugin</artifactId>
         <version>${maven-javadoc-plugin.version}</version>
         <configuration>
-          <additionalOptions>--enable-preview --source ${maven.compiler.target}</additionalOptions>
+          <additionalOptions>--source ${maven.compiler.target}</additionalOptions>
         </configuration>
         <executions>
           <execution>
@@ -367,9 +367,6 @@
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
         <version>${maven-compiler-plugin.version}</version>
-        <configuration>
-          <compilerArgs>--enable-preview</compilerArgs>
-        </configuration>
       </plugin>
       <plugin>
         <artifactId>maven-surefire-plugin</artifactId>
@@ -378,7 +375,6 @@
           <parallel>classes</parallel>
           <useUnlimitedThreads>true</useUnlimitedThreads>
           <perCoreThreadCount>true</perCoreThreadCount>
-          <argLine>--enable-preview</argLine>
         </configuration>
       </plugin>
       <plugin>
