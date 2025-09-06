@@ -22,7 +22,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
       - name: Build and test with Maven
-        run: ./mvnw -B clean build verify
+        run: ./mvnw -B clean verify
       - name: SonarCloud Scan
         run: ./mvnw -B sonar:sonar -Dsonar.projectKey=mediathekview_MServer -Dsonar.organization=mediathekview -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml -Dsonar.junit.reportPaths=target/surefire-reports
         env:
