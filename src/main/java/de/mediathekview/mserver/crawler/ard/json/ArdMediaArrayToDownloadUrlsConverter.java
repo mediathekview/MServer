@@ -13,7 +13,7 @@ import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.annotation.Nullable;
+import jakarta.annotation.Nullable;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.*;

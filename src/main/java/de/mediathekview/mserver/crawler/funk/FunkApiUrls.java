@@ -5,7 +5,7 @@ import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nullable;
+import jakarta.annotation.Nullable;
 import java.util.Optional;
 import java.util.Queue;
 

@@ -14,7 +14,7 @@ import jakarta.ws.rs.client.WebTarget;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.annotation.Nullable;
+import jakarta.annotation.Nullable;
 import java.lang.reflect.Type;
 import java.net.MalformedURLException;
 import java.net.URL;

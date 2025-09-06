@@ -1,5 +1,6 @@
 package de.mediathekview.mserver.crawler.funk;
 
+import com.google.gson.reflect.TypeToken;
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mserver.crawler.funk.json.FunkChannelDeserializer;
 import de.mediathekview.mserver.crawler.funk.tasks.FunkChannelsRestTask;
@@ -84,7 +85,9 @@ class FunkChannelsRestTaskTest extends FunkTaskTestBase {
     return new FunkChannelsRestTask(
             crawler,
             new FunkRestEndpoint<>(
-                FunkApiUrls.CHANNELS, new FunkChannelDeserializer(Optional.of(crawler))),
+                FunkApiUrls.CHANNELS,
+                new FunkChannelDeserializer(Optional.of(crawler)),
+                new TypeToken<FunkChannelDTO>() {}.getType()),
             createCrawlerUrlDto(aRequestUrl))
         .invoke();
   }

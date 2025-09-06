@@ -14,7 +14,7 @@ import de.mediathekview.mserver.crawler.ard.ArdFilmInfoDto;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import org.apache.logging.log4j.LogManager;
 
-import javax.annotation.Nullable;
+import jakarta.annotation.Nullable;
 
 import java.lang.reflect.Type;
 import java.net.MalformedURLException;

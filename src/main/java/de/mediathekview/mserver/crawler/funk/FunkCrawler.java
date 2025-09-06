@@ -1,5 +1,6 @@
 package de.mediathekview.mserver.crawler.funk;
 
+import com.google.gson.reflect.TypeToken;
 import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mlib.messages.listener.MessageListener;
@@ -83,7 +84,7 @@ public class FunkCrawler extends AbstractCrawler {
         new FunkRestTask<>(
             this,
             new FunkRestEndpoint<>(
-                FunkApiUrls.VIDEOS_BY_CHANNEL, new FunkVideoDeserializer(this)),
+                FunkApiUrls.VIDEOS_BY_CHANNEL, new FunkVideoDeserializer(this), new TypeToken<FilmInfoDto>() {}.getType()),
             funkVideosByChannelUrls));
   }
 
@@ -92,7 +93,7 @@ public class FunkCrawler extends AbstractCrawler {
         new FunkRestTask<>(
             this,
             new FunkRestEndpoint<>(
-                FunkApiUrls.VIDEOS, new FunkVideoDeserializer(this))));
+                FunkApiUrls.VIDEOS, new FunkVideoDeserializer(this), new TypeToken<FilmInfoDto>() {}.getType())));
   }
 
   private ForkJoinTask<Set<FunkChannelDTO>> createChannelTask() {
@@ -100,7 +101,7 @@ public class FunkCrawler extends AbstractCrawler {
         new FunkChannelsRestTask(
             this,
             new FunkRestEndpoint<>(
-                FunkApiUrls.CHANNELS, new FunkChannelDeserializer(Optional.of(this)))));
+                FunkApiUrls.CHANNELS, new FunkChannelDeserializer(Optional.of(this)), new TypeToken<FunkChannelDTO>() {}.getType())));
   }
 
   @NotNull

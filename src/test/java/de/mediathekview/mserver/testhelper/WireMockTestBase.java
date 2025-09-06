@@ -8,7 +8,7 @@ import org.jetbrains.annotations.NotNull;
 import org.junit.After;
 import org.junit.Before;
 
-import javax.annotation.Nullable;
+import jakarta.annotation.Nullable;
 import java.util.Optional;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;

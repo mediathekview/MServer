@@ -14,7 +14,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.glassfish.jersey.internal.util.collection.MultivaluedStringMap;
 
-import javax.annotation.Nullable;
+import jakarta.annotation.Nullable;
 import jakarta.ws.rs.client.Entity;
 import jakarta.ws.rs.client.Invocation;
 import jakarta.ws.rs.core.MultivaluedHashMap;

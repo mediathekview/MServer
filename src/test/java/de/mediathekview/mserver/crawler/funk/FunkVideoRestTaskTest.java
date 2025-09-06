@@ -1,5 +1,6 @@
 package de.mediathekview.mserver.crawler.funk;
 
+import com.google.gson.reflect.TypeToken;
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mserver.crawler.basic.FilmInfoDto;
 import de.mediathekview.mserver.crawler.funk.json.FunkVideoDeserializer;
@@ -77,7 +78,7 @@ class FunkVideoRestTaskTest extends FunkTaskTestBase {
     final FunkCrawler crawler = createCrawler();
     return new FunkRestTask<>(
             crawler,
-            new FunkRestEndpoint<>(FunkApiUrls.VIDEOS, new FunkVideoDeserializer(crawler)),
+            new FunkRestEndpoint<>(FunkApiUrls.VIDEOS, new FunkVideoDeserializer(crawler), new TypeToken<FilmInfoDto>() {}.getType()),
             createCrawlerUrlDto(aRequestUrl))
         .invoke();
   }

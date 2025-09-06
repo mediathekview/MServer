@@ -1,27 +1,33 @@
 package de.mediathekview.mserver.crawler.funk.tasks;
 
 import com.google.gson.JsonDeserializer;
-import de.mediathekview.mserver.crawler.basic.PagedElementListDTO;
 import de.mediathekview.mserver.crawler.funk.FunkApiUrls;
 
+import java.lang.reflect.Type;
 import java.util.Objects;
 
 public class FunkRestEndpoint<T> {
   private final FunkApiUrls endpointUrl;
-  private final JsonDeserializer<PagedElementListDTO<T>> deserializer;
+  private final JsonDeserializer<T> deserializer;
+  private final Type elementType;
 
   public FunkRestEndpoint(
-      final FunkApiUrls endpointUrl, final JsonDeserializer<PagedElementListDTO<T>> deserializer) {
+      final FunkApiUrls endpointUrl, final JsonDeserializer<T> deserializer, final Type elementType) {
     this.endpointUrl = endpointUrl;
     this.deserializer = deserializer;
+    this.elementType = elementType;
   }
 
   public FunkApiUrls getEndpointUrl() {
     return endpointUrl;
   }
 
-  public JsonDeserializer<PagedElementListDTO<T>> getDeserializer() {
+  public JsonDeserializer<T> getDeserializer() {
     return deserializer;
+  }
+
+  public Type getElementType() {
+    return elementType;
   }
 
   @Override

@@ -26,7 +26,7 @@ public class KikaApiVideoInfoDeserializerTest {
   public void testDeserializeBrand(
       final String jsonFile, final int numberOfExpectedRecords, final boolean hasError)
       throws URISyntaxException, IOException {
-    final Type kikaApiVideoInfoDtoType = new TypeToken<Set<KikaApiVideoInfoDto>>() {}.getType();
+    final Type kikaApiVideoInfoDtoType = new TypeToken<KikaApiVideoInfoDto>() {}.getType();
     //
     final Gson gson =
         new GsonBuilder()

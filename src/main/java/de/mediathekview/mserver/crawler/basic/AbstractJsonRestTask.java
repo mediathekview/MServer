@@ -3,7 +3,7 @@ package de.mediathekview.mserver.crawler.basic;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import javax.annotation.Nullable;
+import jakarta.annotation.Nullable;
 import jakarta.ws.rs.client.Invocation.Builder;
 import jakarta.ws.rs.client.WebTarget;
 import jakarta.ws.rs.core.Response;

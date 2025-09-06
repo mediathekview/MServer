@@ -1,7 +1,6 @@
 package de.mediathekview.mserver.crawler.funk.tasks;
 
 import com.google.gson.JsonDeserializer;
-import com.google.gson.reflect.TypeToken;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractJsonRestTask;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
@@ -9,13 +8,13 @@ import de.mediathekview.mserver.crawler.basic.PagedElementListDTO;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.annotation.Nullable;
+import jakarta.annotation.Nullable;
 import jakarta.ws.rs.core.Response;
+
 import java.lang.reflect.Type;
 import java.net.URI;
 import java.util.Optional;
 import java.util.Queue;
-import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class FunkRestTask<T>
@@ -47,13 +46,13 @@ public class FunkRestTask<T>
   }
 
   @Override
-  protected JsonDeserializer<PagedElementListDTO<T>> getParser(final CrawlerUrlDTO aDTO) {
+  protected JsonDeserializer<T> getParser(final CrawlerUrlDTO aDTO) {
     return restEndpoint.getDeserializer();
   }
 
   @Override
   protected Type getType() {
-    return new TypeToken<Set<T>>() {}.getType();
+    return restEndpoint.getElementType();
   }
 
   @Override

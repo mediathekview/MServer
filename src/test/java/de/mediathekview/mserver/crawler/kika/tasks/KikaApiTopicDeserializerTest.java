@@ -29,7 +29,7 @@ public class KikaApiTopicDeserializerTest {
       final boolean hasSubpage,
       final boolean hasError)
       throws URISyntaxException, IOException {
-    final Type KikaApiTopicDtoType = new TypeToken<Set<KikaApiTopicDto>>() {}.getType();
+    final Type KikaApiTopicDtoType = new TypeToken<KikaApiTopicDto>() {}.getType();
     //
     final Gson gson =
         new GsonBuilder()
