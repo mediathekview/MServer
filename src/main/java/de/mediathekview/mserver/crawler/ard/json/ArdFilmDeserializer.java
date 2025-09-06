@@ -14,10 +14,12 @@ import de.mediathekview.mserver.crawler.ard.ArdFilmInfoDto;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import org.apache.logging.log4j.LogManager;
 
-import javax.annotation.Nullable;
+import jakarta.annotation.Nullable;
 
 import java.lang.reflect.Type;
 import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -39,7 +41,7 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
   private static final String ELEMENT_SHOW = "show";
   private static final String ELEMENT_TEASERS = "teasers";
   private static final String ELEMENT_WIDGETS = "widgets";
-  private static final String[] ELEMENT_SUBTITLES = {"mediaCollection","embedded","subtitles"};
+  private static final String[] ELEMENT_SUBTITLES = {ELEMENT_MEDIA_COLLECTION,ELEMENT_EMBEDDED,"subtitles"};
   private static final String ELEMENT_SOURCES = "sources";
   private static final String ELEMENT_STREAMS = "streams";
   private static final String ELEMENT_MEDIA = "media";
@@ -171,7 +173,6 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
     final Optional<String> description = JsonUtils.getAttributeAsString(itemObject, ATTRIBUTE_SYNOPSIS);
     final Optional<LocalDateTime> date = parseDate(itemObject);
     final Optional<Duration> duration = parseDuration(itemObject);
-    //final Sender sender = determinePartner(itemObject);
     final Optional<String> partner = parsePartner(itemObject);
     final Sender sender = ArdConstants.PARTNER_TO_SENDER.get(partner.orElse(""));
     final Optional<ArdVideoInfoDto> videoInfo = parseVideos(itemObject, titleOriginal.orElse(""));
@@ -234,13 +235,13 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
       String m3uUrl = m3u.get().getVideoUrls().values().toArray(new String[1])[0];
       Map<Resolution, URL> resolutionUrlMapFromM3U;
       try {
-        resolutionUrlMapFromM3U = videoDeserializer.loadM3U8(new URL(m3uUrl));
-        if (resolutionUrlMapFromM3U.size() > 0) {
+        resolutionUrlMapFromM3U = videoDeserializer.loadM3U8(new URI(m3uUrl).toURL());
+        if (!resolutionUrlMapFromM3U.isEmpty()) {
           Map<Resolution, String> newUrls = new EnumMap<>(Resolution.class);
           resolutionUrlMapFromM3U.forEach((key, value) -> newUrls.put(key, value.toString()));
           return Optional.of(newUrls);
         }
-      } catch (MalformedURLException e) {
+      } catch (MalformedURLException | URISyntaxException e) {
         LOG.error("Could not convert {} to url", m3uUrl, e );
       }
     }
@@ -324,8 +325,8 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
     if (!videoInfo.getSubtitleUrl().isEmpty()) {
       for (String subtitleUrl : videoInfo.getSubtitleUrl()) {
         try {
-          film.addSubtitle(new URL(subtitleUrl));
-        } catch (final MalformedURLException ex) {
+          film.addSubtitle(new URI(subtitleUrl).toURL());
+        } catch (final MalformedURLException | URISyntaxException ex) {
           LOG.error(
               "{}, {}, {} Invalid subtitle url: {}",
               topic,
@@ -425,9 +426,7 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
     Map<Resolution, String> videoInfo = new EnumMap<>(Resolution.class);
     for (Map.Entry<Integer, String> entry : urls.get().entrySet()) {
       Resolution resolution = ArdConstants.getResolutionFromWidth(entry.getKey());
-      if(!videoInfo.containsKey(resolution)) {
-        videoInfo.put(resolution, entry.getValue());
-      }
+      videoInfo.computeIfAbsent(resolution, k -> entry.getValue());
     }
     // issue if we do not have normal res
     // TODO: FIXME

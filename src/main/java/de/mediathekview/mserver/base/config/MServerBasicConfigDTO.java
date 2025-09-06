@@ -1,6 +1,6 @@
 package de.mediathekview.mserver.base.config;
 
-import javax.annotation.Nullable;
+import jakarta.annotation.Nullable;
 import java.util.Objects;
 
 /**

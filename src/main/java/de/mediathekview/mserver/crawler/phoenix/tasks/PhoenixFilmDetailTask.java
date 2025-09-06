@@ -14,10 +14,11 @@ import jakarta.ws.rs.client.WebTarget;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.annotation.Nullable;
+import jakarta.annotation.Nullable;
 import java.lang.reflect.Type;
 import java.net.MalformedURLException;
-import java.net.URL;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Optional;
 import java.util.Queue;
 import java.util.Set;
@@ -80,8 +81,8 @@ public class PhoenixFilmDetailTask extends ZdfTaskBase<Film, CrawlerUrlDTO> {
           film.setTitel(filmDetailDto.getTitle());
           if (filmDetailDto.getWebsite().isPresent()) {
             try {
-              film.setWebsite(new URL(filmDetailDto.getWebsite().get()));
-            } catch (MalformedURLException e) {
+              film.setWebsite(new URI(filmDetailDto.getWebsite().get()).toURL());
+            } catch (MalformedURLException | URISyntaxException e) {
               LOG.error("invalid url: ", e);
             }
           }

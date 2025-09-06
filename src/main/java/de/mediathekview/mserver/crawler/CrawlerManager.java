@@ -22,20 +22,16 @@ import de.mediathekview.mserver.crawler.basic.IgnoreFilmFilter;
 import de.mediathekview.mserver.crawler.basic.TimeoutTask;
 import de.mediathekview.mserver.crawler.dreisat.DreiSatCrawler;
 import de.mediathekview.mserver.crawler.dw.DwCrawler;
-import de.mediathekview.mserver.crawler.funk.FunkCrawler;
 import de.mediathekview.mserver.crawler.kika.KikaApiCrawler;
 import de.mediathekview.mserver.crawler.orfon.OrfOnCrawler;
 import de.mediathekview.mserver.crawler.phoenix.PhoenixCrawler;
 import de.mediathekview.mserver.crawler.sr.SrCrawler;
 import de.mediathekview.mserver.crawler.srf.SrfCrawler;
 import de.mediathekview.mserver.crawler.zdf.ZdfCrawler;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.jetbrains.annotations.NotNull;
-
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.net.URL;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -43,7 +39,9 @@ import java.time.LocalDateTime;
 import java.util.*;
 import java.util.Map.Entry;
 import java.util.concurrent.*;
-import java.util.stream.Collectors;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.jetbrains.annotations.NotNull;
 
 /** A manager to control the crawler. */
 public class CrawlerManager extends AbstractManager {
@@ -350,7 +348,7 @@ public class CrawlerManager extends AbstractManager {
     final List<FilmlistFormats> missingSavePathFormats =
         config.getFilmlistSaveFormats().stream()
             .filter(f -> !config.getFilmlistSavePaths().containsKey(f))
-            .collect(Collectors.toList());
+            .toList();
     missingSavePathFormats.forEach(
         f -> printMessage(ServerMessages.NO_FILMLIST_SAVE_PATH_FOR_FORMAT_CONFIGURED, f.name()));
     return missingSavePathFormats.isEmpty();
@@ -456,8 +454,8 @@ public class CrawlerManager extends AbstractManager {
       final FilmlistFormats aFormat, final String aFilmlistLocation) throws IOException {
     try {
       filmlistManager.addAllMessageListener(messageListeners);
-      return filmlistManager.importList(aFormat, new URL(aFilmlistLocation));
-    } catch (final MalformedURLException malformedURLException) {
+      return filmlistManager.importList(aFormat, new URI(aFilmlistLocation).toURL());
+    } catch (final MalformedURLException | URISyntaxException malformedURLException) {
       printMessage(ServerMessages.FILMLIST_IMPORT_URL_INVALID, aFilmlistLocation);
     }
     return Optional.empty();
@@ -512,15 +510,10 @@ public class CrawlerManager extends AbstractManager {
         Sender.DREISAT,
         new DreiSatCrawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
     crawlerMap.put(
-        Sender.FUNK,
-        new FunkCrawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
-    crawlerMap.put(
         Sender.KIKA,
         new KikaApiCrawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
     crawlerMap.put(
         Sender.DW, new DwCrawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
-    //crawlerMap.put(
-    //    Sender.ORF, new OrfCrawler(forkJoinPool, messageListeners, progressListeners, rootConfig));      
     crawlerMap.put(
         Sender.ORF, new OrfOnCrawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
     crawlerMap.put(

@@ -8,7 +8,7 @@ import de.mediathekview.mserver.crawler.basic.PagedElementListDTO;
 import de.mediathekview.mserver.crawler.phoenix.parser.PhoenixSendungOverviewDeserializer;
 import de.mediathekview.mserver.crawler.zdf.tasks.ZdfTaskBase;
 
-import javax.annotation.Nullable;
+import jakarta.annotation.Nullable;
 import jakarta.ws.rs.client.WebTarget;
 import java.lang.reflect.Type;
 import java.util.Collection;

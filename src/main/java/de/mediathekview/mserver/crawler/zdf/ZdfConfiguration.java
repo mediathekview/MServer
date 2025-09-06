@@ -1,6 +1,6 @@
 package de.mediathekview.mserver.crawler.zdf;
 
-import javax.annotation.Nullable;
+import jakarta.annotation.Nullable;
 import java.util.Optional;
 
 public class ZdfConfiguration {
