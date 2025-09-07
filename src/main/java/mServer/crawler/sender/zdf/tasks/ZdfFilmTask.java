@@ -43,7 +43,7 @@ public class ZdfFilmTask extends ZdfTaskBase<DatenFilm, ZdfFilmDto> {
   }
 
   private static DatenFilm createFilm(final ZdfFilmDto zdfFilmDto, final DownloadDto downloadDto, String aLanguage) {
-    String title = updateTitle(aLanguage, zdfFilmDto.getTitle());
+    String title = updateTitle(aLanguage, zdfFilmDto.getTitle(), zdfFilmDto.getVideoType());
 
     LocalDateTime time = zdfFilmDto.getTime();
 
@@ -82,7 +82,6 @@ public class ZdfFilmTask extends ZdfTaskBase<DatenFilm, ZdfFilmDto> {
   private void addFilm(final ZdfFilmDto zdfFilmDto, final DownloadDto downloadDto) {
 
     for (final String language : downloadDto.getLanguages().stream().sorted().toList()) {
-// todo deu-ad bei audiodescription passt nicht im title
       DownloadDtoFilmConverter.getOptimizedUrls(
               downloadDto.getDownloadUrls(language), Optional.of(optimizer));
 
@@ -116,7 +115,7 @@ public class ZdfFilmTask extends ZdfTaskBase<DatenFilm, ZdfFilmDto> {
     geoLocation.ifPresent(geoLocations -> filmWithLanguage.arr[DatenFilm.FILM_GEO] = geoLocations.getDescription());
   }
 
-  private static String updateTitle(final String aLanguage, final String aTitle) {
+  private static String updateTitle(final String aLanguage, final String aTitle, String videoType) {
     String title = aTitle;
     switch (aLanguage) {
       case ZdfConstants.LANGUAGE_GERMAN:
@@ -135,6 +134,10 @@ public class ZdfFilmTask extends ZdfTaskBase<DatenFilm, ZdfFilmDto> {
         break;
       default:
         title += "(" + aLanguage + ")";
+    }
+
+    if ("DGS".equalsIgnoreCase(videoType)) {
+      title += " (Gebärdensprache)";
     }
 
     return title;
