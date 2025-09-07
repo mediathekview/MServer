@@ -1,0 +1,262 @@
+{
+  "data": {
+    "smartCollectionByCanonical": {
+      "id": "b579fb2e-bd2c-4774-aa52-3a05bbcb2927",
+      "seasons": {
+        "nodes": [
+          {
+            "id": "c0794b11-3c2f-40f0-acad-da53844f9f2e",
+            "title": "Staffel 1",
+            "number": 1,
+            "countEpisodes": 6,
+            "episodes": {
+              "nodes": [
+                {
+                  "id": "4f655346-cda0-4902-b898-95d415669140",
+                  "canonical": "terra-x-unter-dinos-lusotitan-old-grande-die-insel-der-giganten-doku-100",
+                  "title": "Die Insel der Giganten",
+                  "subtitle": null,
+                  "contentType": "EPISODE",
+                  "sharingUrl": "https://www.zdf.de/video/dokus/terra-x-unter-dinos-geheimnisse-der-urzeit-dokureihe-100/terra-x-unter-dinos-lusotitan-old-grande-die-insel-der-giganten-doku-100",
+                  "editorialDate": "2025-08-20T04:00:00.000000+00:00",
+                  "contentOwner": {
+                    "title": "ZDF",
+                    "__typename": "ContentOwner"
+                  },
+                  "availability": {
+                    "fskBlocked": false,
+                    "vod": {
+                      "visibleTo": "2030-08-20T21:59:00.000000+00:00",
+                      "visibleFrom": "2025-08-20T09:30:00.000000+00:00",
+                      "endDate": null,
+                      "fsk": "none",
+                      "__typename": "VideoAvailabilityVod"
+                    },
+                    "__typename": "VideoAvailability"
+                  },
+                  "teaser": {
+                    "title": "Die Insel der Giganten",
+                    "imageWithoutLogo": {
+                      "altText": "Lusotitan Old Grande: Die Rekonstruktion des Dinosauriers im Portrait auf schwarzem Grund",
+                      "title": "Hero Insel der Giganten",
+                      "caption": "Lusotitan Old Grande",
+                      "layouts": {
+                        "dim1140X120": "https://www.zdf.de/assets/hero-unter-dinos-insel-giganten-100~1140x120?cb=1755763463557",
+                        "dim1140X240": "https://www.zdf.de/assets/hero-unter-dinos-insel-giganten-100~1140x240?cb=1755763463557",
+                        "dim1200X480": "https://www.zdf.de/assets/hero-unter-dinos-insel-giganten-100~1200x480?cb=1755763463557",
+                        "dim1280X720": "https://www.zdf.de/assets/hero-unter-dinos-insel-giganten-100~1280x720?cb=1755763463557",
+                        "dim1280Xauto": "https://www.zdf.de/assets/hero-unter-dinos-insel-giganten-100~1280xauto?cb=1755763463557",
+                        "dim1300X650": "https://www.zdf.de/assets/hero-unter-dinos-insel-giganten-100~1300x650?cb=1755763463557",
+                        "dim1440X576": null,
+                        "dim1500X300": "https://www.zdf.de/assets/hero-unter-dinos-insel-giganten-100~1500x300?cb=1755763463557",
+                        "dim1500X600": "https://www.zdf.de/assets/hero-unter-dinos-insel-giganten-100~1500x600?cb=1755763463557",
+                        "dim1500X800": "https://www.zdf.de/assets/hero-unter-dinos-insel-giganten-100~1500x800?cb=1755763463557",
+                        "dim1800X720": "https://www.zdf.de/assets/hero-unter-dinos-insel-giganten-100~1800x720?cb=1755763463557",
+                        "dim1900X200": "https://www.zdf.de/assets/hero-unter-dinos-insel-giganten-100~1900x200?cb=1755763463557",
+                        "dim1900X400": "https://www.zdf.de/assets/hero-unter-dinos-insel-giganten-100~1900x400?cb=1755763463557",
+                        "dim1900X570": "https://www.zdf.de/assets/hero-unter-dinos-insel-giganten-100~1900x570?cb=1755763463557",
+                        "dim1920X1080": "https://www.zdf.de/assets/hero-unter-dinos-insel-giganten-100~1920x1080?cb=1755763463557",
+                        "dim225X400": "https://www.zdf.de/assets/hero-unter-dinos-insel-giganten-100~225x400?cb=1755763463557",
+                        "dim240X270": "https://www.zdf.de/assets/hero-unter-dinos-insel-giganten-100~240x270?cb=1755763463557",
+                        "dim276X155": "https://www.zdf.de/assets/hero-unter-dinos-insel-giganten-100~276x155?cb=1755763463557",
+                        "dim276X311": "https://www.zdf.de/assets/hero-unter-dinos-insel-giganten-100~276x311?cb=1755763463557",
+                        "dim314X314": "https://www.zdf.de/assets/hero-unter-dinos-insel-giganten-100~314x314?cb=1755763463557",
+                        "dim380X170": "https://www.zdf.de/assets/hero-unter-dinos-insel-giganten-100~380x170?cb=1755763463557",
+                        "dim384X216": "https://www.zdf.de/assets/hero-unter-dinos-insel-giganten-100~384x216?cb=1755763463557",
+                        "dim384Xauto": "https://www.zdf.de/assets/hero-unter-dinos-insel-giganten-100~384xauto?cb=1755763463557",
+                        "dim405X720": "https://www.zdf.de/assets/hero-unter-dinos-insel-giganten-100~405x720?cb=1755763463557",
+                        "dim640X720": "https://www.zdf.de/assets/hero-unter-dinos-insel-giganten-100~640x720?cb=1755763463557",
+                        "dim760X340": "https://www.zdf.de/assets/hero-unter-dinos-insel-giganten-100~760x340?cb=1755763463557",
+                        "dim768X432": "https://www.zdf.de/assets/hero-unter-dinos-insel-giganten-100~768x432?cb=1755763463557",
+                        "dim768Xauto": "https://www.zdf.de/assets/hero-unter-dinos-insel-giganten-100~768xauto?cb=1755763463557",
+                        "dim840X140": "https://www.zdf.de/assets/hero-unter-dinos-insel-giganten-100~840x140?cb=1755763463557",
+                        "dim840X280": "https://www.zdf.de/assets/hero-unter-dinos-insel-giganten-100~840x280?cb=1755763463557",
+                        "dim840X360": "https://www.zdf.de/assets/hero-unter-dinos-insel-giganten-100~840x360?cb=1755763463557",
+                        "dim860X344": "https://www.zdf.de/assets/hero-unter-dinos-insel-giganten-100~860x344?cb=1755763463557",
+                        "dim936X520": "https://www.zdf.de/assets/hero-unter-dinos-insel-giganten-100~936x520?cb=1755763463557",
+                        "imageType": "teaser_image_without_logo",
+                        "original": "https://www.zdf.de/assets/hero-unter-dinos-insel-giganten-100~original?cb=1755763463557",
+                        "__typename": "ImageLayout"
+                      },
+                      "__typename": "VideoTeaserImageWithoutLogo"
+                    },
+                    "description": "Die Knochen des Lusotitan Old Grande erzählen die Geschichte eines alten, aber ehrgeizigen Bullen, der sich aufmacht, eine Partnerin zu finden, und bereit ist, dafür alles zu riskieren.",
+                    "__typename": "VideoTeaser"
+                  },
+                  "episodeInfo": {
+                    "seasonNumber": 1,
+                    "episodeNumber": 4,
+                    "__typename": "VideoEpisodeInfo"
+                  },
+                  "structuralMetadata": {
+                    "isChildrenContent": false,
+                    "__typename": "VideoStructuralMetadata"
+                  },
+                  "streamingOptions": {
+                    "ad": true,
+                    "dgs": true,
+                    "fsk": "FSK 6",
+                    "ks": false,
+                    "ov": false,
+                    "uhd": false,
+                    "ut": true,
+                    "__typename": "VideoStreamingOptions"
+                  },
+                  "currentMedia": {
+                    "nodes": [
+                      {
+                        "ptmdTemplate": "/tmd/2/{playerId}/vod/ptmd/mediathek/250914_dk_dinos_insel_giganten_tex_dgs/2?caption_source=250914_dk_dinos_insel_giganten_tex%2F5",
+                        "vodMediaType": "DGS",
+                        "duration": 2605,
+                        "downloadAllowed": false,
+                        "streamAnchorTags": {
+                          "nodes": [],
+                          "__typename": "StreamAnchorTagsConnection"
+                        },
+                        "geoLocation": "DACH",
+                        "__typename": "VodMedia"
+                      },
+                      {
+                        "ptmdTemplate": "/tmd/2/{playerId}/vod/ptmd/mediathek/250914_dk_dinos_insel_giganten_tex/5",
+                        "vodMediaType": "DEFAULT",
+                        "duration": 2605,
+                        "downloadAllowed": false,
+                        "streamAnchorTags": {
+                          "nodes": [],
+                          "__typename": "StreamAnchorTagsConnection"
+                        },
+                        "geoLocation": "DACH",
+                        "__typename": "VodMedia"
+                      }
+                    ],
+                    "__typename": "VideoCurrentMediaConnection"
+                  },
+                  "scheduledMedia": null,
+                  "smartCollection": {
+                    "canonical": "terra-x-unter-dinos-geheimnisse-der-urzeit-dokureihe-100",
+                    "__typename": "SeasonSeriesSmartCollection"
+                  },
+                  "embeddingPossible": true,
+                  "longInfoText": {
+                    "items": [
+                      {
+                        "profile": "http://zdf.de/rels/content/copytext-content-aggregator",
+                        "paragraph": [
+                          {
+                            "text": "Vor 150 Millionen Jahren herrschte der pflanzenfressende Riese, den die Forschenden wegen seines Alters Old Grande taufen, über die Region – damals noch eine Insel. Seine Knochen erzählen die Geschichte eines alten, aber ehrgeizigen Bullen, der sich aufmacht, eine Partnerin zu finden, und bereit ist, dafür alles zu riskieren. Old Grande muss sich bei seinem Kampf um die Gunst eines Weibchens einem jungen Rivalen stellen – mit Folgen: Francisco Ortega kann an fossilen Fußspuren ablesen, wie sich Old Grande nach dem Kampf mit einem verletzten Bein fortbewegte. Doch der Titan gibt nicht so leicht auf, auch wenn der Heilungsprozess dauert und die Paarungszeit knapp ist.",
+                            "style": "paragraph",
+                            "profile": "http://zdf.de/rels/content/paragraph-content-aggregator"
+                          },
+                          {
+                            "text": " ",
+                            "style": "paragraph",
+                            "profile": "http://zdf.de/rels/content/paragraph-content-aggregator"
+                          },
+                          {
+                            "text": "<strong>Über den Lusotitan</strong>",
+                            "style": "paragraph",
+                            "profile": "http://zdf.de/rels/content/paragraph-content-aggregator"
+                          },
+                          {
+                            "text": "<strong>Steckbrief:</strong> Der Riese aus der Jurazeit war elf Meter hoch, 25 Meter lang, über 30 Tonnen schwer und eng mit dem Brachiosaurus verwandt. Seine hohlen Knochen senkten nicht nur sein Gewicht, sie ermöglichten auch, dass Sauerstoff im ganzen Körper verteilt werden konnte. Diese Hochleistungsatmung könnte auch beim Umwerben von Weibchen geholfen haben: Forscher halten es für möglich, dass Lusotitan mit bunten Luftsäcken beindruckte wie heute ein Fregattvogel oder besondere Töne zur Werbung erzeugte. Die Saurier konnten eine Maximalgeschwindigkeit von acht Kilometer pro Stunde erreichen. Lusotitan ist einer der größten jemals in Europa gefundenen Dinosaurier. Lusotitan-Fossilien wurden bisher nur einzeln gefunden – bis kürzlich drei nahe beieinander liegende Exemplare entdeckt wurden. Das deutet darauf hin, dass die Art meist einzelgängerisch lebte und nur zu bestimmten Anlässen wie der Balz zusammenkam.",
+                            "style": "paragraph",
+                            "profile": "http://zdf.de/rels/content/paragraph-content-aggregator"
+                          },
+                          {
+                            "text": "<strong>Ernährung:</strong> Die Pflanzenfresser ernährten sich von frischen nadelartigen Blätter in den Wipfeln der Nadelbäume. Mit ihren Zähne bissen sie diese ab und verschluckten sie unzerkaut.",
+                            "style": "paragraph",
+                            "profile": "http://zdf.de/rels/content/paragraph-content-aggregator"
+                          },
+                          {
+                            "text": "<strong>Zeitliche Einordung:</strong> Der Lusotitan lebte vor etwa 150 Millionen Jahren, in der Mitte des Spätjuras.",
+                            "style": "paragraph",
+                            "profile": "http://zdf.de/rels/content/paragraph-content-aggregator"
+                          },
+                          {
+                            "text": "<strong>Fundstelle und Lebensraum:</strong> Lusotitan durchstreifte das alte Portugal vor 150 Millionen Jahren, als Teile Portugals noch eine Insel waren.",
+                            "style": "paragraph",
+                            "profile": "http://zdf.de/rels/content/paragraph-content-aggregator"
+                          },
+                          {
+                            "text": "<strong>Unter Dinos – Geheimnisse der Urzeit: Lusotitan Old Grande - Die Insel der Giganten</strong><br/>Streamen ab 20. August 2025<br/>TV-Erstausstrahlung ZDF am 14. September 2025, 19:30 Uhr<br/><br/><strong>Film von </strong>Stephen Cooter, Owen Gower, Tom Hewitson<br/><strong>Deutsche Fassung:</strong> Ruth Omphalius<br/><br/><strong>Redaktion TV</strong> Katharina Kolvenbach<br/><strong>Redaktion Online</strong> Michael Büsselberg<br/><br/><strong>Alle Folgen </strong><a href=\"https://www.zdf.de/dokus/terra-x-unter-dinos-geheimnisse-der-urzeit-dokureihe-100\" >Unter Dinos - Geheimnisse der Urzeit</a>",
+                            "style": "paragraph",
+                            "profile": "http://zdf.de/rels/content/paragraph-content-aggregator"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "tracking": {
+                    "piano": {
+                      "page": {
+                        "page_external_id": "4f655346-cda0-4902-b898-95d415669140",
+                        "page_sophora_id": "terra-x-unter-dinos-lusotitan-old-grande-die-insel-der-giganten-doku-100",
+                        "page_type": "Video",
+                        "publication_timestamp": "2025-09-03T10:51:42.239+00:00",
+                        "page_title": "Die Insel der Giganten",
+                        "page_seotitle": "Unter Dinos: Lusotitan - Die Insel der Giganten | Terra X Doku"
+                      },
+                      "click": {
+                        "page_external_id": "4f655346-cda0-4902-b898-95d415669140",
+                        "onsitead_type": "Self promotion",
+                        "onsitead_advertiser": "ZDF",
+                        "target_title": "Unter Dinos - Geheimnisse der Urzeit",
+                        "target_type": "season_series",
+                        "target_section": "Dokumentation"
+                      },
+                      "video": {
+                        "av_external_id": "4f655346-cda0-4902-b898-95d415669140",
+                        "av_content_id": "terra-x-unter-dinos-lusotitan-old-grande-die-insel-der-giganten-doku-100",
+                        "av_section": "Dokumentation",
+                        "av_contentfamily": null,
+                        "av_title": "Die Insel der Giganten",
+                        "av_smart_collection_id": "b579fb2e-bd2c-4774-aa52-3a05bbcb2927",
+                        "av_show": "Unter Dinos - Geheimnisse der Urzeit",
+                        "av_content_type": "Video",
+                        "av_type": "episode",
+                        "av_content_duration": 2605000,
+                        "av_ischildrencontent": false,
+                        "av_broadcaster": "ZDF",
+                        "av_broadcastdetail": null,
+                        "av_episode_no": 4,
+                        "av_genre": "Wissen",
+                        "av_publication_timestamp": null
+                      }
+                    },
+                    "zdf": {
+                      "view": "//tracksrv.zdf.de/event?eventType=view&trackingId={trackingId}&appId={appId}{&abGroup,loggedIn,subprofile,userGender,userAge,channelId,userSegmentId}&assetId=4f655346-cda0-4902-b898-95d415669140",
+                      "click": "//tracksrv.zdf.de/event?eventType=click&trackingId={trackingId}&appId={appId}{&clickedTeaserPosition,clickedClusterPosition,clickedTeaserPage,clickedTeaserPageSize,clickedTeaserTotalSize,clusterId,configuration,recoModel,recoId,uiSegment,uiSubSegment,abGroup,loggedIn,subprofile,userGender,userAge,channelId,userSegmentId,element,searchQuery,searchDymQuery,searchVoiceInput,searchFilterSpeech,searchFilterFsk,searchFilterChannel}&assetId={assetId}&targetAssetId=4f655346-cda0-4902-b898-95d415669140",
+                      "config": {
+                        "playerTrackingRateInSeconds": 60
+                      },
+                      "pause": "//tracksrv.zdf.de/event?eventType=pause&trackingId={trackingId}&appId={appId}&currentPosition={currentPosition}&duration={duration}{&abGroup,videoAssetId,userAge,userGender,userSegmentId,loggedIn,subprofile,playbackRate,channelId}&assetId=4f655346-cda0-4902-b898-95d415669140",
+                      "play": "//tracksrv.zdf.de/event?eventType=play&trackingId={trackingId}&appId={appId}&currentPosition={currentPosition}&duration={duration}{&abGroup,videoAssetId,userAge,userGender,userSegmentId,loggedIn,subprofile,playbackRate,channelId}&assetId=4f655346-cda0-4902-b898-95d415669140",
+                      "autoplay": "//tracksrv.zdf.de/event?eventType=autoplay&trackingId={trackingId}&appId={appId}{&clickedTeaserPosition,clickedClusterPosition,clickedTeaserPage,clickedTeaserPageSize,clickedTeaserTotalSize,clusterId,configuration,recoModel,recoId,uiSegment,uiSubSegment,abGroup,loggedIn,subprofile,userGender,userAge,channelId,targetChannelId,userSegmentId,element,searchQuery,searchDymQuery,searchVoiceInput,searchFilterSpeech,searchFilterFsk,searchFilterChannel}&assetId={assetId}&targetAssetId=4f655346-cda0-4902-b898-95d415669140"
+                    },
+                    "__typename": "VideoTracking"
+                  },
+                  "__typename": "Video"
+                }
+              ],
+              "pageInfo": {
+                "hasNextPage": false,
+                "endCursor": "WyJmZTlmZTc5ZDU1IiwiMjAyNS0wOC0yMFQwNDowMDowMC4wMDAwMDArMDA6MDAiLCJkNjJjZjI0ZC0yMGJlLTQ0YWItODM4NS02YmYyNTNlZDRhOGQiXQ==",
+                "startCursor": "WyJmZTlmZTc5ZDU1IiwiMjAyNS0wOC0yMFQwNDowMDowMC4wMDAwMDArMDA6MDAiLCI0ZjY1NTM0Ni1jZGEwLTQ5MDItYjg5OC05NWQ0MTU2NjkxNDAiXQ==",
+                "__typename": "PageInfo"
+              },
+              "__typename": "VideosConnection"
+            },
+            "__typename": "Season"
+          }
+        ],
+        "pageInfo": {
+          "hasNextPage": false,
+          "endCursor": "WyI2OTEyOTNhY2FmIiwxLCJjMDc5NGIxMS0zYzJmLTQwZjAtYWNhZC1kYTUzODQ0ZjlmMmUiXQ==",
+          "__typename": "PageInfo"
+        },
+        "__typename": "SeasonsConnection"
+      },
+      "__typename": "SeasonSeriesSmartCollection"
+    }
+  }
+}

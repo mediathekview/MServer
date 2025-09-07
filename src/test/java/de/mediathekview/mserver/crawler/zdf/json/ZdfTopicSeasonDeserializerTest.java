@@ -45,6 +45,36 @@ class ZdfTopicSeasonDeserializerTest {
                 "default",
                 "https://api.zdf.de/tmd/2/android_native_5/vod/ptmd/mediathek/240101_2015_sendung_trs/8")));
   }
+
+  @Test
+  void deserializeJsonWithDgs() {
+    final JsonObject json = JsonFileReader.readJson("/zdf/zdf_topic_page_with_dgs.json");
+    final PagedElementListDTO<ZdfFilmDto> actual = target.deserialize(json, null, null);
+
+    assertEquals(Optional.empty(), actual.getNextPage());
+    assertEquals(2, actual.getElements().size());
+    assertThat(
+            actual.getElements(),
+            Matchers.containsInAnyOrder(
+                    new ZdfFilmDto(
+                            Sender.ZDF,
+                            "Die Insel der Giganten (S01/E04)",
+                            "Die Knochen des Lusotitan Old Grande erzählen die Geschichte eines alten, aber ehrgeizigen Bullen, der sich aufmacht, eine Partnerin zu finden, und bereit ist, dafür alles zu riskieren.",
+                            "https://www.zdf.de/video/dokus/terra-x-unter-dinos-geheimnisse-der-urzeit-dokureihe-100/terra-x-unter-dinos-lusotitan-old-grande-die-insel-der-giganten-doku-100",
+                            LocalDateTime.of(2025, 8, 20, 4, 0, 0),
+                            "dgs",
+                            "https://api.zdf.de/tmd/2/android_native_5/vod/ptmd/mediathek/250914_dk_dinos_insel_giganten_tex_dgs/2?caption_source=250914_dk_dinos_insel_giganten_tex%2F5"),
+                    new ZdfFilmDto(
+                            Sender.ZDF,
+                            "Die Insel der Giganten (S01/E04)",
+                            "Die Knochen des Lusotitan Old Grande erzählen die Geschichte eines alten, aber ehrgeizigen Bullen, der sich aufmacht, eine Partnerin zu finden, und bereit ist, dafür alles zu riskieren.",
+                            "https://www.zdf.de/video/dokus/terra-x-unter-dinos-geheimnisse-der-urzeit-dokureihe-100/terra-x-unter-dinos-lusotitan-old-grande-die-insel-der-giganten-doku-100",
+                            LocalDateTime.of(2025, 8, 20, 4, 0, 0),
+                            "default",
+                            "https://api.zdf.de/tmd/2/android_native_5/vod/ptmd/mediathek/250914_dk_dinos_insel_giganten_tex/5")));
+  }
+
+
   @Test
   void deserializeZdfNeo() {
     final JsonObject json = JsonFileReader.readJson("/zdf/zdf_topic_page_neo.json");
