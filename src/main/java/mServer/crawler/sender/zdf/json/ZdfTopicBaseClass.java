@@ -140,6 +140,14 @@ public class ZdfTopicBaseClass {
 
   private Optional<String> parseSender(JsonObject episodeObject) {
 
+    if (episodeObject.has("contentOwner") && !episodeObject.get("contentOwner").isJsonNull()) {
+      final JsonObject contentOwner = episodeObject.getAsJsonObject("contentOwner");
+      final Optional<String> details = JsonUtils.getAttributeAsString(contentOwner, "details");
+      if (details.isPresent()) {
+        return details;
+      }
+    }
+
     if (!episodeObject.has("tracking")) {
       return Optional.empty();
     }
