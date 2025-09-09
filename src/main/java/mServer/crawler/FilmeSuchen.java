@@ -30,7 +30,6 @@ import mServer.crawler.sender.ard.ArdCrawler;
 import mServer.crawler.sender.arte.MediathekArte;
 import mServer.crawler.sender.dreisat.DreiSatCrawler;
 import mServer.crawler.sender.dw.DwCrawler;
-import mServer.crawler.sender.funk.FunkCrawler;
 import mServer.crawler.sender.kika.KikaApiCrawler;
 import mServer.crawler.sender.orfon.OrfOnCrawler;
 import mServer.crawler.sender.phoenix.PhoenixCrawler;
@@ -79,7 +78,7 @@ public class FilmeSuchen {
     //Reader laden Spaltenweises Laden
     List<String> crawlerList = Arrays.asList(MserverDaten.system[MserverKonstanten.SYSTEM_CRAWLER_LIST_NR].split(","));  
     if (MserverDaten.system[MserverKonstanten.SYSTEM_CRAWLER_LIST_NR].isEmpty()) {
-      crawlerList = new ArrayList<>(Arrays.asList("ARD","ZDF","ARTE","DW","KIKA","FUNK","3SAT","SR","SRF","SRFPOD","ORF","PHONIX"));
+      crawlerList = new ArrayList<>(Arrays.asList("ARD","ZDF","ARTE","DW","KIKA","3SAT","SR","SRF","SRFPOD","ORF","PHONIX"));
     }
     
     if (crawlerList.contains("ARD")) {
@@ -96,9 +95,6 @@ public class FilmeSuchen {
     }
     if (crawlerList.contains("KIKA")) {
       mediathekListe.add(new KikaApiCrawler(this, 0));
-    }
-    if (crawlerList.contains("FUNK")) {
-      mediathekListe.add(new FunkCrawler(this, 0));
     }
     if (crawlerList.contains("3SAT")) {
       mediathekListe.add(new DreiSatCrawler(this, 1));
