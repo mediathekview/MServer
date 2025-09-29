@@ -27,6 +27,7 @@ public final class DreisatConstants {
   public static final Map<String, String> PARTNER_TO_SENDER = new HashMap<>();
   static {
     PARTNER_TO_SENDER.put("3sat", Const.DREISAT);
+    PARTNER_TO_SENDER.put("3Sat", Const.DREISAT);
   }
 
   private DreisatConstants() {

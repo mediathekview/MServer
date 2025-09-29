@@ -18,5 +18,6 @@ public final class PhoenixConstants {
   public static final Map<String, String> PARTNER_TO_SENDER = new HashMap<>();
   static {
     PARTNER_TO_SENDER.put("Phoenix", Const.PHOENIX);
+    PARTNER_TO_SENDER.put("PHOENIX", Const.PHOENIX);
   }
 }

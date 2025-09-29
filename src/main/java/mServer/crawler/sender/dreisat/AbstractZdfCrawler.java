@@ -54,7 +54,7 @@ public abstract class AbstractZdfCrawler extends MediathekCrawler {
         meldungAddMax(shows.size());
       }
 
-      return new ZdfFilmDetailTask(this, getApiUrlBase(), new ConcurrentLinkedQueue<>(shows), configuration.getVideoAuthKey(), DreisatConstants.PARTNER_TO_SENDER);
+      return new ZdfFilmDetailTask(this, getApiUrlBase(), new ConcurrentLinkedQueue<>(shows), configuration.getVideoAuthKey(), DreisatConstants.PARTNER_TO_SENDER, getSendername());
     } catch (final InterruptedException ex) {
       LOG.debug("{} crawler interrupted.", getSendername(), ex);
       Thread.currentThread().interrupt();

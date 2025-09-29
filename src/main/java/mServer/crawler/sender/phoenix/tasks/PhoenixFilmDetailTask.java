@@ -1,6 +1,7 @@
 package mServer.crawler.sender.phoenix.tasks;
 
 import com.google.gson.reflect.TypeToken;
+import de.mediathekview.mlib.Const;
 import de.mediathekview.mlib.daten.DatenFilm;
 import jakarta.ws.rs.client.WebTarget;
 import mServer.crawler.sender.MediathekReader;
@@ -56,7 +57,7 @@ public class PhoenixFilmDetailTask extends ZdfTaskBase<DatenFilm, CrawlerUrlDTO>
                             this.filmDetailHost,
                             filmDetailDto.getBaseName())));
     final ZdfFilmDetailTask zdfFilmDetailTask =
-            new ZdfFilmDetailTask(this.crawler, "", shows, Optional.empty(), PhoenixConstants.PARTNER_TO_SENDER);
+            new ZdfFilmDetailTask(this.crawler, "", shows, Optional.empty(), PhoenixConstants.PARTNER_TO_SENDER, Const.PHOENIX);
     final Set<DatenFilm> films = zdfFilmDetailTask.invoke();
     films.forEach(
             film -> {

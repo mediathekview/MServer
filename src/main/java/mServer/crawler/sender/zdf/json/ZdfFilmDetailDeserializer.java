@@ -1,7 +1,6 @@
 package mServer.crawler.sender.zdf.json;
 
 import com.google.gson.*;
-import de.mediathekview.mlib.Const;
 import mServer.crawler.sender.base.JsonUtils;
 import mServer.crawler.sender.base.UrlUtils;
 import mServer.crawler.sender.zdf.ZdfFilmDtoOld;
@@ -59,10 +58,12 @@ public class ZdfFilmDetailDeserializer implements JsonDeserializer<Optional<ZdfF
 
   private final String apiUrlBase;
   private final Map<String, String> partnerToSender;
+  private final String defaultSender;
 
-  public ZdfFilmDetailDeserializer(final String apiUrlBase, Map<String, String> partnerToSender) {
+  public ZdfFilmDetailDeserializer(final String apiUrlBase, Map<String, String> partnerToSender, String defaultSender) {
     this.apiUrlBase = apiUrlBase;
     this.partnerToSender = partnerToSender;
+    this.defaultSender = defaultSender;
   }
 
   @Override
@@ -107,7 +108,7 @@ public class ZdfFilmDetailDeserializer implements JsonDeserializer<Optional<ZdfF
     final Map<String, String> downloadUrl = parseDownloadUrls(mainVideoTarget);
 
     if (title.isPresent() && downloadUrl.containsKey(DOWNLOAD_URL_DEFAULT)) {
-      return Optional.of(new ZdfFilmDtoOld(partnerToSender.get(tvService.orElse(Const.ZDF)), downloadUrl.get(DOWNLOAD_URL_DEFAULT), topic, title.get(), description, website, time, duration, downloadUrl.get(DOWNLOAD_URL_DGS)));
+      return Optional.of(new ZdfFilmDtoOld(partnerToSender.get(tvService.orElse(defaultSender)), downloadUrl.get(DOWNLOAD_URL_DEFAULT), topic, title.get(), description, website, time, duration, downloadUrl.get(DOWNLOAD_URL_DGS)));
     } else {
       LOG.error("ZdfFilmDetailDeserializer: no title or url found");
     }
