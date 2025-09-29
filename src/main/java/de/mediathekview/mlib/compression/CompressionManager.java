@@ -12,6 +12,7 @@ import org.apache.commons.compress.compressors.bzip2.BZip2CompressorInputStream;
 import org.apache.commons.compress.compressors.bzip2.BZip2CompressorOutputStream;
 import org.apache.commons.compress.compressors.xz.XZCompressorInputStream;
 import org.apache.commons.compress.compressors.xz.XZCompressorOutputStream;
+import org.tukaani.xz.LZMA2Options;
 
 /** A util class to work with compressed files. */
 public class CompressionManager {
@@ -32,7 +33,7 @@ public class CompressionManager {
       final CompressionType aCompressionType, final OutputStream aOutputStream) throws IOException {
     switch (aCompressionType) {
       case XZ:
-        return new XZCompressorOutputStream(new BufferedOutputStream(aOutputStream, 512000), 9);
+        return XZCompressorOutputStream.builder().setOutputStream(new BufferedOutputStream(aOutputStream, 512000)).setLzma2Options(new LZMA2Options(9)).get();
       case GZIP:
         return new MediathekviewGZIPOutputStrean(new BufferedOutputStream(aOutputStream, 512000));
       case BZIP:
