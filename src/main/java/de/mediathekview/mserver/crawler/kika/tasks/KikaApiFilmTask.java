@@ -149,7 +149,7 @@ public class KikaApiFilmTask extends AbstractJsonRestTask<Film, KikaApiVideoInfo
 	if (aResponseObj.hasSubtitle()) {
       for (String subtitleUrlAsString : aResponseObj.getSubtitle()) {
         try {
-          urls.add(new URL(UrlUtils.addProtocolIfMissing(subtitleUrlAsString, UrlUtils.PROTOCOL_HTTPS)));
+          urls.add(URI.create(UrlUtils.addProtocolIfMissing(subtitleUrlAsString, UrlUtils.PROTOCOL_HTTPS)).toURL());
         } catch (MalformedURLException e) {
           LOG.error("Invalid subtitle url {} for {} error {}", subtitleUrlAsString, aDTO.getUrl(), e);
         }
@@ -184,7 +184,7 @@ public class KikaApiFilmTask extends AbstractJsonRestTask<Film, KikaApiVideoInfo
 	Optional<URL> rs = Optional.empty();
 	if (aDTO.getWebsite().isPresent()) {
       try {
-        rs = Optional.of(new URL(aDTO.getWebsite().get()));
+        rs = Optional.of(URI.create(aDTO.getWebsite().get()).toURL());
       } catch (MalformedURLException e) {
         LOG.error("Invalid website url {} for {} error {}", aDTO.getWebsite().get(), aDTO.getUrl(), e);
       }

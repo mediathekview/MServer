@@ -3,7 +3,7 @@ package de.mediathekview.mlib.daten;
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 
 import java.net.MalformedURLException;
-import java.net.URL;
+import java.net.URI;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
@@ -21,11 +21,11 @@ class FilmlistMergeTest {
             "TestThema",
             LocalDateTime.parse("2017-01-01T23:55:00"),
             Duration.of(10, ChronoUnit.MINUTES));
-    testFilm1.setWebsite(new URL("http://www.example.org/"));
+    testFilm1.setWebsite(URI.create("http://www.example.org/").toURL());
     testFilm1.setBeschreibung("Test beschreibung.");
-    testFilm1.addUrl(Resolution.SMALL, new FilmUrl(new URL("http://example.org/klein.mp4"), 42L));
-    testFilm1.addUrl(Resolution.NORMAL, new FilmUrl(new URL("http://example.org/Test.mp4"), 42L));
-    testFilm1.addUrl(Resolution.HD, new FilmUrl(new URL("http://example.org/hd.mp4"), 42L));
+    testFilm1.addUrl(Resolution.SMALL, new FilmUrl(URI.create("http://example.org/klein.mp4").toURL(), 42L));
+    testFilm1.addUrl(Resolution.NORMAL, new FilmUrl(URI.create("http://example.org/Test.mp4").toURL(), 42L));
+    testFilm1.addUrl(Resolution.HD, new FilmUrl(URI.create("http://example.org/hd.mp4").toURL(), 42L));
     return testFilm1;
   }
 
@@ -38,11 +38,11 @@ class FilmlistMergeTest {
             "TestThema",
             LocalDateTime.parse("2017-01-01T23:55:00"),
             Duration.of(10, ChronoUnit.MINUTES));
-    testFilm2.setWebsite(new URL("http://www.example.org/2"));
+    testFilm2.setWebsite(URI.create("http://www.example.org/2").toURL());
     testFilm2.setBeschreibung("Test beschreibung.");
-    testFilm2.addUrl(Resolution.SMALL, new FilmUrl(new URL("http://example.org/klein2.mp4"), 42L));
-    testFilm2.addUrl(Resolution.NORMAL, new FilmUrl(new URL("http://example.org/Test2.mp4"), 42L));
-    testFilm2.addUrl(Resolution.HD, new FilmUrl(new URL("http://example.org/hd2.mp4"), 42L));
+    testFilm2.addUrl(Resolution.SMALL, new FilmUrl(URI.create("http://example.org/klein2.mp4").toURL(), 42L));
+    testFilm2.addUrl(Resolution.NORMAL, new FilmUrl(URI.create("http://example.org/Test2.mp4").toURL(), 42L));
+    testFilm2.addUrl(Resolution.HD, new FilmUrl(URI.create("http://example.org/hd2.mp4").toURL(), 42L));
     return testFilm2;
   }
 
@@ -55,11 +55,11 @@ class FilmlistMergeTest {
             "TestThema2",
             LocalDateTime.parse("2017-01-01T23:55:00"),
             Duration.of(10, ChronoUnit.MINUTES));
-    testFilm3.setWebsite(new URL("http://www.example.org/"));
+    testFilm3.setWebsite(URI.create("http://www.example.org/").toURL());
     testFilm3.setBeschreibung("Test beschreibung.");
-    testFilm3.addUrl(Resolution.SMALL, new FilmUrl(new URL("http://example.org/klein.mp4"), 42L));
-    testFilm3.addUrl(Resolution.NORMAL, new FilmUrl(new URL("http://example.org/Test.mp4"), 42L));
-    testFilm3.addUrl(Resolution.HD, new FilmUrl(new URL("http://example.org/hd.mp4"), 42L));
+    testFilm3.addUrl(Resolution.SMALL, new FilmUrl(URI.create("http://example.org/klein.mp4").toURL(), 42L));
+    testFilm3.addUrl(Resolution.NORMAL, new FilmUrl(URI.create("http://example.org/Test.mp4").toURL(), 42L));
+    testFilm3.addUrl(Resolution.HD, new FilmUrl(URI.create("http://example.org/hd.mp4").toURL(), 42L));
     return testFilm3;
   }
 

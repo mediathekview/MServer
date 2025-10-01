@@ -11,6 +11,7 @@ package de.mediathekview.mserver.base.config;
 import org.apache.commons.lang3.StringUtils;
 
 import java.net.MalformedURLException;
+import java.net.URI;
 import java.net.URL;
 import java.util.Optional;
 
@@ -24,7 +25,7 @@ public enum CrawlerUrlType {
   CrawlerUrlType(final String urlText) {
     try {
       if (StringUtils.isNotEmpty(urlText)) {
-        defaultUrl = new URL(urlText);
+        defaultUrl = URI.create(urlText).toURL();
       }
     } catch (final MalformedURLException e) {
       defaultUrl = null;

@@ -3,7 +3,7 @@ package de.mediathekview.mlib.daten;
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 
 import java.net.MalformedURLException;
-import java.net.URL;
+import java.net.URI;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
@@ -22,11 +22,11 @@ class FilmEqualsTest {
             "TestThema",
             LocalDateTime.parse("2017-01-01T23:55:00"),
             Duration.of(10, ChronoUnit.MINUTES));
-    testFilm1.setWebsite(new URL("http://www.example.org/"));
+    testFilm1.setWebsite(URI.create("http://www.example.org/").toURL());
     testFilm1.setBeschreibung("Test beschreibung.");
-    testFilm1.addUrl(Resolution.SMALL, new FilmUrl(new URL("http://example.org/klein.mp4"), 42L));
-    testFilm1.addUrl(Resolution.NORMAL, new FilmUrl(new URL("http://example.org/Test.mp4"), 42L));
-    testFilm1.addUrl(Resolution.HD, new FilmUrl(new URL("http://example.org/hd.mp4"), 42L));
+    testFilm1.addUrl(Resolution.SMALL, new FilmUrl(URI.create("http://example.org/klein.mp4").toURL(), 42L));
+    testFilm1.addUrl(Resolution.NORMAL, new FilmUrl(URI.create("http://example.org/Test.mp4").toURL(), 42L));
+    testFilm1.addUrl(Resolution.HD, new FilmUrl(URI.create("http://example.org/hd.mp4").toURL(), 42L));
     return testFilm1;
   }
 
@@ -163,7 +163,7 @@ class FilmEqualsTest {
             testFilm1.getThema(),
             testFilm1.getTime(),
             testFilm1.getDuration());
-    testFilm2.setWebsite(new URL("http://localhost/"));
+    testFilm2.setWebsite(URI.create("http://localhost/").toURL());
     testFilm2.setBeschreibung(testFilm1.getBeschreibung());
     testFilm1.getUrls().forEach(testFilm2::addUrl);
 

@@ -21,7 +21,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.lang.reflect.Type;
 import java.net.MalformedURLException;
-import java.net.URL;
+import java.net.URI;
 import java.util.*;
 
 public class ZdfFilmDetailTask extends ZdfTaskBase<Film, CrawlerUrlDTO> {
@@ -192,7 +192,7 @@ public class ZdfFilmDetailTask extends ZdfTaskBase<Film, CrawlerUrlDTO> {
   private static void setSubtitle(DownloadDto downloadDto, Film filmWithLanguage, String language) throws MalformedURLException {
     final Optional<String> subtitleUrl = downloadDto.getSubTitleUrl(language);
     if (subtitleUrl.isPresent()) {
-      filmWithLanguage.addSubtitle(new URL(subtitleUrl.get()));
+      filmWithLanguage.addSubtitle(URI.create(subtitleUrl.get()).toURL());
     }
   }
 

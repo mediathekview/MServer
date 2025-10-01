@@ -11,7 +11,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.lang.reflect.Type;
 import java.net.MalformedURLException;
-import java.net.URL;
+import java.net.URI;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -177,7 +177,7 @@ public class ZdfFilmDetailDeserializer implements JsonDeserializer<Optional<ZdfF
               aDuration.orElse(Duration.ZERO));
 
       if (aWebsite.isPresent()) {
-        film.setWebsite(new URL(aWebsite.get()));
+        film.setWebsite(URI.create(aWebsite.get()).toURL());
       }
       aDescription.ifPresent(film::setBeschreibung);
 

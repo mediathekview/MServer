@@ -14,7 +14,7 @@ import de.mediathekview.mlib.filmlisten.reader.FilmlistOldFormatReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.net.URL;
+import java.net.URI;
 import java.nio.file.Path;
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -72,12 +72,12 @@ class FilmlistOldFormatReaderTest {
       completeMatchExpected.setBeschreibung("description");
       completeMatchExpected.setDuration(Duration.ofMinutes(28).plusSeconds(45));
       completeMatchExpected.setTime(LocalDateTime.of(2023, 5, 30, 22, 15, 0));
-      completeMatchExpected.setWebsite(new URL("https://host.de/something/website.html"));
-      completeMatchExpected.addUrl(Resolution.NORMAL, new FilmUrl(new URL("https://some.host.de/normal.mp4"), 405L));
-      completeMatchExpected.addUrl(Resolution.SMALL, new FilmUrl(new URL("https://some.host.de/small.mp4"), 0L));
-      completeMatchExpected.addUrl(Resolution.HD, new FilmUrl(new URL("https://some.host.de/hd.mp4"), 0L));
+      completeMatchExpected.setWebsite(URI.create("https://host.de/something/website.html").toURL());
+      completeMatchExpected.addUrl(Resolution.NORMAL, new FilmUrl(URI.create("https://some.host.de/normal.mp4").toURL(), 405L));
+      completeMatchExpected.addUrl(Resolution.SMALL, new FilmUrl(URI.create("https://some.host.de/small.mp4").toURL(), 0L));
+      completeMatchExpected.addUrl(Resolution.HD, new FilmUrl(URI.create("https://some.host.de/hd.mp4").toURL(), 0L));
       completeMatchExpected.addGeolocation(GeoLocations.GEO_DE_AT_CH);
-      completeMatchExpected.addSubtitle(new URL("https://host.de/23/05/230502_2215_sendung_37g/4/subtitle.xml"));
+      completeMatchExpected.addSubtitle(URI.create("https://host.de/23/05/230502_2215_sendung_37g/4/subtitle.xml").toURL());
       expected.add(completeMatchExpected);
       // 2 element
       completeMatchExpected = new Film();
@@ -87,12 +87,12 @@ class FilmlistOldFormatReaderTest {
       completeMatchExpected.setBeschreibung("description \"37°\" with quotes");
       completeMatchExpected.setDuration(Duration.ofMinutes(28).plusSeconds(41));
       completeMatchExpected.setTime(LocalDateTime.of(2023, 5, 16, 22, 15, 0));
-      completeMatchExpected.setWebsite(new URL("https://host.de/something/website.html"));
-      completeMatchExpected.addUrl(Resolution.NORMAL, new FilmUrl(new URL("https://some.host.de/normal.mp4"), 405L));
-      completeMatchExpected.addUrl(Resolution.SMALL, new FilmUrl(new URL("https://some.host.de/small.mp4"), 0L));
-      completeMatchExpected.addUrl(Resolution.HD, new FilmUrl(new URL("https://some.host.de/hd.mp4"), 0L));
+      completeMatchExpected.setWebsite(URI.create("https://host.de/something/website.html").toURL());
+      completeMatchExpected.addUrl(Resolution.NORMAL, new FilmUrl(URI.create("https://some.host.de/normal.mp4").toURL(), 405L));
+      completeMatchExpected.addUrl(Resolution.SMALL, new FilmUrl(URI.create("https://some.host.de/small.mp4").toURL(), 0L));
+      completeMatchExpected.addUrl(Resolution.HD, new FilmUrl(URI.create("https://some.host.de/hd.mp4").toURL(), 0L));
       completeMatchExpected.addGeolocation(GeoLocations.GEO_DE_AT_CH);
-      completeMatchExpected.addSubtitle(new URL("https://host.de/23/05/230502_2215_sendung_37g/4/subtitle.xml"));
+      completeMatchExpected.addSubtitle(URI.create("https://host.de/23/05/230502_2215_sendung_37g/4/subtitle.xml").toURL());
       expected.add(completeMatchExpected);
       // 3,4,5 element > broken
       // 
@@ -104,12 +104,12 @@ class FilmlistOldFormatReaderTest {
       completeMatchExpected.setBeschreibung("description");
       completeMatchExpected.setDuration(Duration.ofMinutes(28).plusSeconds(42));
       completeMatchExpected.setTime(LocalDateTime.of(2022, 10, 11, 22, 15, 0));
-      completeMatchExpected.setWebsite(new URL("https://host.de/something/website.html"));
-      completeMatchExpected.addUrl(Resolution.NORMAL, new FilmUrl(new URL("https://some.host.de/normal.mp4"), 416L));
-      completeMatchExpected.addUrl(Resolution.SMALL, new FilmUrl(new URL("https://some.host.de/small.mp4"), 0L));
-      completeMatchExpected.addUrl(Resolution.HD, new FilmUrl(new URL("https://some.host.de/hd.mp4"), 0L));
+      completeMatchExpected.setWebsite(URI.create("https://host.de/something/website.html").toURL());
+      completeMatchExpected.addUrl(Resolution.NORMAL, new FilmUrl(URI.create("https://some.host.de/normal.mp4").toURL(), 416L));
+      completeMatchExpected.addUrl(Resolution.SMALL, new FilmUrl(URI.create("https://some.host.de/small.mp4").toURL(), 0L));
+      completeMatchExpected.addUrl(Resolution.HD, new FilmUrl(URI.create("https://some.host.de/hd.mp4").toURL(), 0L));
       completeMatchExpected.addGeolocation(GeoLocations.GEO_DE_AT_CH);
-      completeMatchExpected.addSubtitle(new URL("https://host.de/23/05/230502_2215_sendung_37g/4/subtitle.xml"));
+      completeMatchExpected.addSubtitle(URI.create("https://host.de/23/05/230502_2215_sendung_37g/4/subtitle.xml").toURL());
       expected.add(completeMatchExpected);
       // 6 element DATE
       completeMatchExpected = new Film();
@@ -119,12 +119,12 @@ class FilmlistOldFormatReaderTest {
       completeMatchExpected.setBeschreibung("description");
       completeMatchExpected.setDuration(Duration.ofMinutes(28).plusSeconds(42));
       completeMatchExpected.setTime(LocalDateTime.of(1970, 1, 1, 22, 15, 0));
-      completeMatchExpected.setWebsite(new URL("https://host.de/something/website.html"));
-      completeMatchExpected.addUrl(Resolution.NORMAL, new FilmUrl(new URL("https://some.host.de/normal.mp4"), 416L));
-      completeMatchExpected.addUrl(Resolution.SMALL, new FilmUrl(new URL("https://some.host.de/small.mp4"), 0L));
-      completeMatchExpected.addUrl(Resolution.HD, new FilmUrl(new URL("https://some.host.de/hd.mp4"), 0L));
+      completeMatchExpected.setWebsite(URI.create("https://host.de/something/website.html").toURL());
+      completeMatchExpected.addUrl(Resolution.NORMAL, new FilmUrl(URI.create("https://some.host.de/normal.mp4").toURL(), 416L));
+      completeMatchExpected.addUrl(Resolution.SMALL, new FilmUrl(URI.create("https://some.host.de/small.mp4").toURL(), 0L));
+      completeMatchExpected.addUrl(Resolution.HD, new FilmUrl(URI.create("https://some.host.de/hd.mp4").toURL(), 0L));
       completeMatchExpected.addGeolocation(GeoLocations.GEO_DE_AT_CH);
-      completeMatchExpected.addSubtitle(new URL("https://host.de/23/05/230502_2215_sendung_37g/4/subtitle.xml"));
+      completeMatchExpected.addSubtitle(URI.create("https://host.de/23/05/230502_2215_sendung_37g/4/subtitle.xml").toURL());
       expected.add(completeMatchExpected);
       // 7 element TIME
       completeMatchExpected = new Film();
@@ -134,12 +134,12 @@ class FilmlistOldFormatReaderTest {
       completeMatchExpected.setBeschreibung("description");
       completeMatchExpected.setDuration(Duration.ofMinutes(28).plusSeconds(42));
       completeMatchExpected.setTime(LocalDateTime.of(2022, 10, 11, 0, 0, 0));
-      completeMatchExpected.setWebsite(new URL("https://host.de/something/website.html"));
-      completeMatchExpected.addUrl(Resolution.NORMAL, new FilmUrl(new URL("https://some.host.de/normal.mp4"), 416L));
-      completeMatchExpected.addUrl(Resolution.SMALL, new FilmUrl(new URL("https://some.host.de/small.mp4"), 0L));
-      completeMatchExpected.addUrl(Resolution.HD, new FilmUrl(new URL("https://some.host.de/hd.mp4"), 0L));
+      completeMatchExpected.setWebsite(URI.create("https://host.de/something/website.html").toURL());
+      completeMatchExpected.addUrl(Resolution.NORMAL, new FilmUrl(URI.create("https://some.host.de/normal.mp4").toURL(), 416L));
+      completeMatchExpected.addUrl(Resolution.SMALL, new FilmUrl(URI.create("https://some.host.de/small.mp4").toURL(), 0L));
+      completeMatchExpected.addUrl(Resolution.HD, new FilmUrl(URI.create("https://some.host.de/hd.mp4").toURL(), 0L));
       completeMatchExpected.addGeolocation(GeoLocations.GEO_DE_AT_CH);
-      completeMatchExpected.addSubtitle(new URL("https://host.de/23/05/230502_2215_sendung_37g/4/subtitle.xml"));
+      completeMatchExpected.addSubtitle(URI.create("https://host.de/23/05/230502_2215_sendung_37g/4/subtitle.xml").toURL());
       expected.add(completeMatchExpected);
       // 8 element DURATIN
       completeMatchExpected = new Film();
@@ -149,12 +149,12 @@ class FilmlistOldFormatReaderTest {
       completeMatchExpected.setBeschreibung("description");
       completeMatchExpected.setDuration(Duration.ZERO);
       completeMatchExpected.setTime(LocalDateTime.of(2022, 10, 11, 22, 15, 0));
-      completeMatchExpected.setWebsite(new URL("https://host.de/something/website.html"));
-      completeMatchExpected.addUrl(Resolution.NORMAL, new FilmUrl(new URL("https://some.host.de/normal.mp4"), 416L));
-      completeMatchExpected.addUrl(Resolution.SMALL, new FilmUrl(new URL("https://some.host.de/small.mp4"), 0L));
-      completeMatchExpected.addUrl(Resolution.HD, new FilmUrl(new URL("https://some.host.de/hd.mp4"), 0L));
+      completeMatchExpected.setWebsite(URI.create("https://host.de/something/website.html").toURL());
+      completeMatchExpected.addUrl(Resolution.NORMAL, new FilmUrl(URI.create("https://some.host.de/normal.mp4").toURL(), 416L));
+      completeMatchExpected.addUrl(Resolution.SMALL, new FilmUrl(URI.create("https://some.host.de/small.mp4").toURL(), 0L));
+      completeMatchExpected.addUrl(Resolution.HD, new FilmUrl(URI.create("https://some.host.de/hd.mp4").toURL(), 0L));
       completeMatchExpected.addGeolocation(GeoLocations.GEO_DE_AT_CH);
-      completeMatchExpected.addSubtitle(new URL("https://host.de/23/05/230502_2215_sendung_37g/4/subtitle.xml"));
+      completeMatchExpected.addSubtitle(URI.create("https://host.de/23/05/230502_2215_sendung_37g/4/subtitle.xml").toURL());
       expected.add(completeMatchExpected); 
       // 9 element SIZE
       completeMatchExpected = new Film();
@@ -164,12 +164,12 @@ class FilmlistOldFormatReaderTest {
       completeMatchExpected.setBeschreibung("description");
       completeMatchExpected.setDuration(Duration.ofMinutes(28).plusSeconds(42));
       completeMatchExpected.setTime(LocalDateTime.of(2022, 10, 11, 22, 15, 0));
-      completeMatchExpected.setWebsite(new URL("https://host.de/something/website.html"));
-      completeMatchExpected.addUrl(Resolution.NORMAL, new FilmUrl(new URL("https://some.host.de/normal.mp4"), 0L));
-      completeMatchExpected.addUrl(Resolution.SMALL, new FilmUrl(new URL("https://some.host.de/small.mp4"), 0L));
-      completeMatchExpected.addUrl(Resolution.HD, new FilmUrl(new URL("https://some.host.de/hd.mp4"), 0L));
+      completeMatchExpected.setWebsite(URI.create("https://host.de/something/website.html").toURL());
+      completeMatchExpected.addUrl(Resolution.NORMAL, new FilmUrl(URI.create("https://some.host.de/normal.mp4").toURL(), 0L));
+      completeMatchExpected.addUrl(Resolution.SMALL, new FilmUrl(URI.create("https://some.host.de/small.mp4").toURL(), 0L));
+      completeMatchExpected.addUrl(Resolution.HD, new FilmUrl(URI.create("https://some.host.de/hd.mp4").toURL(), 0L));
       completeMatchExpected.addGeolocation(GeoLocations.GEO_DE_AT_CH);
-      completeMatchExpected.addSubtitle(new URL("https://host.de/23/05/230502_2215_sendung_37g/4/subtitle.xml"));
+      completeMatchExpected.addSubtitle(URI.create("https://host.de/23/05/230502_2215_sendung_37g/4/subtitle.xml").toURL());
       expected.add(completeMatchExpected);
       // 10 element broken normal url
       // 11 element website
@@ -180,12 +180,12 @@ class FilmlistOldFormatReaderTest {
       completeMatchExpected.setBeschreibung("description");
       completeMatchExpected.setDuration(Duration.ofMinutes(28).plusSeconds(42));
       completeMatchExpected.setTime(LocalDateTime.of(2022, 10, 11, 22, 15, 0));
-      //completeMatchExpected.setWebsite(new URL("https://host.de/something/website.html"));
-      completeMatchExpected.addUrl(Resolution.NORMAL, new FilmUrl(new URL("https://some.host.de/normal.mp4"), 0L));
-      completeMatchExpected.addUrl(Resolution.SMALL, new FilmUrl(new URL("https://some.host.de/small.mp4"), 0L));
-      completeMatchExpected.addUrl(Resolution.HD, new FilmUrl(new URL("https://some.host.de/hd.mp4"), 0L));
+      //completeMatchExpected.setWebsite(URI.create("https://host.de/something/website.html"));
+      completeMatchExpected.addUrl(Resolution.NORMAL, new FilmUrl(URI.create("https://some.host.de/normal.mp4").toURL(), 0L));
+      completeMatchExpected.addUrl(Resolution.SMALL, new FilmUrl(URI.create("https://some.host.de/small.mp4").toURL(), 0L));
+      completeMatchExpected.addUrl(Resolution.HD, new FilmUrl(URI.create("https://some.host.de/hd.mp4").toURL(), 0L));
       completeMatchExpected.addGeolocation(GeoLocations.GEO_DE_AT_CH);
-      completeMatchExpected.addSubtitle(new URL("https://host.de/23/05/230502_2215_sendung_37g/4/subtitle.xml"));
+      completeMatchExpected.addSubtitle(URI.create("https://host.de/23/05/230502_2215_sendung_37g/4/subtitle.xml").toURL());
       expected.add(completeMatchExpected);
       // 12 element subtitel
       completeMatchExpected = new Film();
@@ -195,12 +195,12 @@ class FilmlistOldFormatReaderTest {
       completeMatchExpected.setBeschreibung("description");
       completeMatchExpected.setDuration(Duration.ofMinutes(28).plusSeconds(42));
       completeMatchExpected.setTime(LocalDateTime.of(2022, 10, 11, 22, 15, 0));
-      completeMatchExpected.setWebsite(new URL("https://host.de/something/website.html"));
-      completeMatchExpected.addUrl(Resolution.NORMAL, new FilmUrl(new URL("https://some.host.de/normal.mp4"), 0L));
-      completeMatchExpected.addUrl(Resolution.SMALL, new FilmUrl(new URL("https://some.host.de/small.mp4"), 0L));
-      completeMatchExpected.addUrl(Resolution.HD, new FilmUrl(new URL("https://some.host.de/hd.mp4"), 0L));
+      completeMatchExpected.setWebsite(URI.create("https://host.de/something/website.html").toURL());
+      completeMatchExpected.addUrl(Resolution.NORMAL, new FilmUrl(URI.create("https://some.host.de/normal.mp4").toURL(), 0L));
+      completeMatchExpected.addUrl(Resolution.SMALL, new FilmUrl(URI.create("https://some.host.de/small.mp4").toURL(), 0L));
+      completeMatchExpected.addUrl(Resolution.HD, new FilmUrl(URI.create("https://some.host.de/hd.mp4").toURL(), 0L));
       completeMatchExpected.addGeolocation(GeoLocations.GEO_DE_AT_CH);
-      //completeMatchExpected.addSubtitle(new URL("https://host.de/23/05/230502_2215_sendung_37g/4/subtitle.xml"));
+      //completeMatchExpected.addSubtitle(URI.create("https://host.de/23/05/230502_2215_sendung_37g/4/subtitle.xml"));
       expected.add(completeMatchExpected);
       // 13 element small
       completeMatchExpected = new Film();
@@ -210,12 +210,12 @@ class FilmlistOldFormatReaderTest {
       completeMatchExpected.setBeschreibung("description");
       completeMatchExpected.setDuration(Duration.ofMinutes(28).plusSeconds(42));
       completeMatchExpected.setTime(LocalDateTime.of(2022, 10, 11, 22, 15, 0));
-      completeMatchExpected.setWebsite(new URL("https://host.de/something/website.html"));
-      completeMatchExpected.addUrl(Resolution.NORMAL, new FilmUrl(new URL("https://some.host.de/normal.mp4"), 0L));
-      //completeMatchExpected.addUrl(Resolution.SMALL, new FilmUrl(new URL("https://some.host.de/small.mp4"), 0L));
-      completeMatchExpected.addUrl(Resolution.HD, new FilmUrl(new URL("https://some.host.de/hd.mp4"), 0L));
+      completeMatchExpected.setWebsite(URI.create("https://host.de/something/website.html").toURL());
+      completeMatchExpected.addUrl(Resolution.NORMAL, new FilmUrl(URI.create("https://some.host.de/normal.mp4").toURL(), 0L));
+      //completeMatchExpected.addUrl(Resolution.SMALL, new FilmUrl(URI.create("https://some.host.de/small.mp4"), 0L));
+      completeMatchExpected.addUrl(Resolution.HD, new FilmUrl(URI.create("https://some.host.de/hd.mp4").toURL(), 0L));
       completeMatchExpected.addGeolocation(GeoLocations.GEO_DE_AT_CH);
-      completeMatchExpected.addSubtitle(new URL("https://host.de/23/05/230502_2215_sendung_37g/4/subtitle.xml"));
+      completeMatchExpected.addSubtitle(URI.create("https://host.de/23/05/230502_2215_sendung_37g/4/subtitle.xml").toURL());
       expected.add(completeMatchExpected);
       // 14 element hd
       completeMatchExpected = new Film();
@@ -225,12 +225,12 @@ class FilmlistOldFormatReaderTest {
       completeMatchExpected.setBeschreibung("description");
       completeMatchExpected.setDuration(Duration.ofMinutes(28).plusSeconds(42));
       completeMatchExpected.setTime(LocalDateTime.of(2022, 10, 11, 22, 15, 0));
-      completeMatchExpected.setWebsite(new URL("https://host.de/something/website.html"));
-      completeMatchExpected.addUrl(Resolution.NORMAL, new FilmUrl(new URL("https://some.host.de/normal.mp4"), 0L));
-      completeMatchExpected.addUrl(Resolution.SMALL, new FilmUrl(new URL("https://some.host.de/small.mp4"), 0L));
-      //completeMatchExpected.addUrl(Resolution.HD, new FilmUrl(new URL("https://some.host.de/hd.mp4"), 0L));
+      completeMatchExpected.setWebsite(URI.create("https://host.de/something/website.html").toURL());
+      completeMatchExpected.addUrl(Resolution.NORMAL, new FilmUrl(URI.create("https://some.host.de/normal.mp4").toURL(), 0L));
+      completeMatchExpected.addUrl(Resolution.SMALL, new FilmUrl(URI.create("https://some.host.de/small.mp4").toURL(), 0L));
+      //completeMatchExpected.addUrl(Resolution.HD, new FilmUrl(URI.create("https://some.host.de/hd.mp4"), 0L));
       completeMatchExpected.addGeolocation(GeoLocations.GEO_DE_AT_CH);
-      completeMatchExpected.addSubtitle(new URL("https://host.de/23/05/230502_2215_sendung_37g/4/subtitle.xml"));
+      completeMatchExpected.addSubtitle(URI.create("https://host.de/23/05/230502_2215_sendung_37g/4/subtitle.xml").toURL());
       expected.add(completeMatchExpected);
       // 15 element geo
       completeMatchExpected = new Film();
@@ -240,12 +240,12 @@ class FilmlistOldFormatReaderTest {
       completeMatchExpected.setBeschreibung("description");
       completeMatchExpected.setDuration(Duration.ofMinutes(28).plusSeconds(42));
       completeMatchExpected.setTime(LocalDateTime.of(2022, 10, 11, 22, 15, 0));
-      completeMatchExpected.setWebsite(new URL("https://host.de/something/website.html"));
-      completeMatchExpected.addUrl(Resolution.NORMAL, new FilmUrl(new URL("https://some.host.de/normal.mp4"), 0L));
-      completeMatchExpected.addUrl(Resolution.SMALL, new FilmUrl(new URL("https://some.host.de/small.mp4"), 0L));
-      completeMatchExpected.addUrl(Resolution.HD, new FilmUrl(new URL("https://some.host.de/hd.mp4"), 0L));
+      completeMatchExpected.setWebsite(URI.create("https://host.de/something/website.html").toURL());
+      completeMatchExpected.addUrl(Resolution.NORMAL, new FilmUrl(URI.create("https://some.host.de/normal.mp4").toURL(), 0L));
+      completeMatchExpected.addUrl(Resolution.SMALL, new FilmUrl(URI.create("https://some.host.de/small.mp4").toURL(), 0L));
+      completeMatchExpected.addUrl(Resolution.HD, new FilmUrl(URI.create("https://some.host.de/hd.mp4").toURL(), 0L));
       //completeMatchExpected.addGeolocation(GeoLocations.GEO_DE_AT_CH);
-      completeMatchExpected.addSubtitle(new URL("https://host.de/23/05/230502_2215_sendung_37g/4/subtitle.xml"));
+      completeMatchExpected.addSubtitle(URI.create("https://host.de/23/05/230502_2215_sendung_37g/4/subtitle.xml").toURL());
       expected.add(completeMatchExpected);
       // 16 element neu
       completeMatchExpected = new Film();
@@ -255,12 +255,12 @@ class FilmlistOldFormatReaderTest {
       completeMatchExpected.setBeschreibung("description");
       completeMatchExpected.setDuration(Duration.ofMinutes(28).plusSeconds(42));
       completeMatchExpected.setTime(LocalDateTime.of(2022, 10, 11, 22, 15, 0));
-      completeMatchExpected.setWebsite(new URL("https://host.de/something/website.html"));
-      completeMatchExpected.addUrl(Resolution.NORMAL, new FilmUrl(new URL("https://some.host.de/normal.mp4"), 0L));
-      completeMatchExpected.addUrl(Resolution.SMALL, new FilmUrl(new URL("https://some.host.de/small.mp4"), 0L));
-      completeMatchExpected.addUrl(Resolution.HD, new FilmUrl(new URL("https://some.host.de/hd.mp4"), 0L));
+      completeMatchExpected.setWebsite(URI.create("https://host.de/something/website.html").toURL());
+      completeMatchExpected.addUrl(Resolution.NORMAL, new FilmUrl(URI.create("https://some.host.de/normal.mp4").toURL(), 0L));
+      completeMatchExpected.addUrl(Resolution.SMALL, new FilmUrl(URI.create("https://some.host.de/small.mp4").toURL(), 0L));
+      completeMatchExpected.addUrl(Resolution.HD, new FilmUrl(URI.create("https://some.host.de/hd.mp4").toURL(), 0L));
       completeMatchExpected.addGeolocation(GeoLocations.GEO_DE_AT_CH);
-      completeMatchExpected.addSubtitle(new URL("https://host.de/23/05/230502_2215_sendung_37g/4/subtitle.xml"));
+      completeMatchExpected.addSubtitle(URI.create("https://host.de/23/05/230502_2215_sendung_37g/4/subtitle.xml").toURL());
       expected.add(completeMatchExpected);
       //
     } catch (Exception e) {

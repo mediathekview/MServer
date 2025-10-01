@@ -13,7 +13,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.lang.reflect.Type;
 import java.net.MalformedURLException;
-import java.net.URL;
+import java.net.URI;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -92,7 +92,7 @@ public class ArteFilmDeserializer implements JsonDeserializer<Optional<Film>> {
       film.setBeschreibung(beschreibung);
 
       try {
-        film.setWebsite(new URL(urlWeb));
+        film.setWebsite(URI.create(urlWeb).toURL());
       } catch (MalformedURLException e) {
         LOG.error("Invalid url: {}", urlWeb);
       }

@@ -14,6 +14,7 @@ import org.apache.logging.log4j.Logger;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.net.MalformedURLException;
+import java.net.URI;
 import java.net.URL;
 import java.util.EnumMap;
 import java.util.HashSet;
@@ -120,7 +121,7 @@ public class ArdVideoInfoJsonDeserializer implements JsonDeserializer<ArdVideoIn
                 if (UrlUtils.getProtocol(videoUrl).isEmpty()) {
                   videoUrl = baseUrl + videoUrl;
                 }
-                urls.put(resolution.get(), new URL(videoUrl));
+                urls.put(resolution.get(), URI.create(videoUrl).toURL());
               } catch (final MalformedURLException malformedURLException) {
                 LOG.error(
                     "ArdVideoInfoJsonDeserializer: invalid url {}",

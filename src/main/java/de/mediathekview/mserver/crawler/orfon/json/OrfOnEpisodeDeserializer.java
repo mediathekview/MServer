@@ -13,6 +13,7 @@ import de.mediathekview.mserver.crawler.orfon.OrfOnVideoInfoDTO;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.net.MalformedURLException;
+import java.net.URI;
 import java.net.URL;
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -136,7 +137,7 @@ public class OrfOnEpisodeDeserializer implements JsonDeserializer<OrfOnVideoInfo
     Optional<URL> sub = Optional.empty();
     if (text.isPresent()) {
       try {
-        sub =  Optional.of(new URL(text.get()));
+        sub = Optional.of(URI.create(text.get()).toURL());
       } catch (Exception e) {
         LOG.error("parseSubtitle failed for string {} exception {}", text.get(), e);
       }
@@ -160,8 +161,8 @@ public class OrfOnEpisodeDeserializer implements JsonDeserializer<OrfOnVideoInfo
   
   private Optional<URL> toURL(String aString) {
     try {
-      return Optional.of(new URL(aString));
-    } catch (MalformedURLException e) {
+      return Optional.of(URI.create(aString).toURL());
+    } catch (Exception e) {
       LOG.debug("error converting {} to URL {}", aString, e);
     }
     return Optional.empty();
@@ -279,7 +280,7 @@ public class OrfOnEpisodeDeserializer implements JsonDeserializer<OrfOnVideoInfo
     Optional<URL> result = Optional.empty();
     if (text.isPresent()) {
       try {
-        result = Optional.of(new URL(text.get()));
+        result = Optional.of(URI.create(text.get()).toURL());
       } catch (Exception e) {
         LOG.error("parseWebsite failed for string {} exception {}", text.get(), e);
       }

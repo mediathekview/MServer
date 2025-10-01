@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
+import java.net.URI;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.time.DateTimeException;
@@ -232,9 +233,10 @@ public class FilmlistOldFormatReader extends AbstractFilmlistReader {
         final String[] splittedUrlText = targetUrl.split(URL_SPLITTERATOR);
         if (splittedUrlText.length == 2) {
           final int lengthOfOld = Integer.parseInt(splittedUrlText[0]);
-          return Optional.of(new URL(urlNromal.toString().substring(0, lengthOfOld) + splittedUrlText[1]));
+          return Optional.of(
+              URI.create(urlNromal.toString().substring(0, lengthOfOld) + splittedUrlText[1]).toURL());
         }
-        return Optional.of(new URL(targetUrl));
+        return Optional.of(URI.create(targetUrl).toURL());
       } catch (Exception e) {
         LOG.warn("Error rebuildUrl format string {} on line {} throws {}", targetUrl, debug, e );
       }
@@ -315,7 +317,7 @@ public class FilmlistOldFormatReader extends AbstractFilmlistReader {
   private URL readRecord09Url(String in) {
     if (!in.isBlank()) {
       try {
-        return new URL(in); 
+        return URI.create(in).toURL();
       } catch (final MalformedURLException e) {
         LOG.warn("Error readRecord09Url format string {} on line {} throws {}", in, debug, e );
       }
@@ -326,7 +328,7 @@ public class FilmlistOldFormatReader extends AbstractFilmlistReader {
   private URL readRecord10Website(String in) {
     if (!in.isBlank() && in.startsWith("http")) {
       try {
-        return new URL(in); 
+        return URI.create(in).toURL();
       } catch (final MalformedURLException e) {
         LOG.warn("Error readRecord10Website format string {} on line {} throws {}", in, debug, e );
       }
@@ -337,7 +339,7 @@ public class FilmlistOldFormatReader extends AbstractFilmlistReader {
   private URL readRecord11Untertitel(String in) {
     if (!in.isBlank() && in.startsWith("http")) {
       try {
-        return new URL(in);
+        return URI.create(in).toURL();
       } catch (final MalformedURLException e) {
         LOG.warn("Error readRecord11Untertitel format string {} on line {} throws {}", in, debug, e );
       }

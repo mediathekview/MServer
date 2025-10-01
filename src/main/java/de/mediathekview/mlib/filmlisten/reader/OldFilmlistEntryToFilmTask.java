@@ -5,6 +5,7 @@ import static java.time.format.FormatStyle.MEDIUM;
 
 import de.mediathekview.mlib.daten.*;
 import java.net.MalformedURLException;
+import java.net.URI;
 import java.net.URL;
 import java.time.DateTimeException;
 import java.time.Duration;
@@ -95,7 +96,7 @@ public class OldFilmlistEntryToFilmTask implements Callable<Film> {
     final String urlNormalText = entrySplits.get(9).trim();
     Optional<URL> oprionalUrlNormal = Optional.empty();
     try {
-      oprionalUrlNormal = Optional.of(new URL(StringEscapeUtils.unescapeJava(urlNormalText)));
+      oprionalUrlNormal = Optional.of(URI.create(StringEscapeUtils.unescapeJava(urlNormalText)).toURL());
     } catch (MalformedURLException e) {
       LOG.warn(format("MalformedURLException video url %s for %s %s %s %s", urlNormalText, film.getSender(),
           film.getThema(), film.getTitel(), e));
@@ -136,7 +137,7 @@ public class OldFilmlistEntryToFilmTask implements Callable<Film> {
     final String websiteUrlText = entrySplits.get(10).trim();
     if (!websiteUrlText.isBlank()) {
       try {
-        urlWebseite = Optional.of(new URL(StringEscapeUtils.unescapeJava(websiteUrlText)));
+        urlWebseite = Optional.of(URI.create(StringEscapeUtils.unescapeJava(websiteUrlText)).toURL());
       } catch (final MalformedURLException malformedURLException) {
         LOG.warn(format("The website URL \"%s\" can't be parsed for %s %s %s %s", websiteUrlText, film.getSender(),
             film.getThema(), film.getTitel(), malformedURLException));
@@ -155,7 +156,7 @@ public class OldFilmlistEntryToFilmTask implements Callable<Film> {
     try {
       if (!urlTextUntertitel.isEmpty()
           && urlTextUntertitel.toLowerCase().startsWith("http")) {
-        film.addSubtitle(new URL(urlTextUntertitel));
+        film.addSubtitle(URI.create(urlTextUntertitel).toURL());
       }
     } catch (MalformedURLException exception) {
       LOG.warn(format("Invalid subtitle url %s for %s %s %s", urlTextUntertitel, film.getSender(), film.getThema(),
@@ -269,7 +270,7 @@ public class OldFilmlistEntryToFilmTask implements Callable<Film> {
       final int lengthOfOld = Integer.parseInt(splittedUrlText[0]);
 
       final String newUrl = aUrlNormal.toString().substring(0, lengthOfOld) + splittedUrlText[1];
-      filmUrl = new FilmUrl(new URL(newUrl), aGroesse);
+      filmUrl = new FilmUrl(URI.create(newUrl).toURL(), aGroesse);
     }
     return filmUrl;
   }

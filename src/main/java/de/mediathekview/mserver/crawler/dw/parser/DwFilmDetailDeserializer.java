@@ -13,6 +13,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.lang.reflect.Type;
 import java.net.MalformedURLException;
+import java.net.URI;
 import java.net.URL;
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -136,7 +137,7 @@ public class DwFilmDetailDeserializer implements JsonDeserializer<Optional<Film>
     final Optional<String> websiteString = JsonUtils.getAttributeAsString(jsonObject, ELEMENT_LINK);
     if (websiteString.isPresent()) {
       try {
-        websiteUrl = Optional.of(new URL(websiteString.get()));
+        websiteUrl = Optional.of(URI.create(websiteString.get()).toURL());
       } catch (Exception e) {
         LOG.error("Error getWebsite for video {} on value '{}'", videoid, websiteString.get());
       }

@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.URI;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -27,7 +28,7 @@ public class IgnoreFilmFilter {
   public IgnoreFilmFilter(String configFileNameAndPath) {
     try {
       if (configFileNameAndPath.toLowerCase().startsWith("http")) {
-        ignoreFilmTitles = read(new URL(configFileNameAndPath));
+        ignoreFilmTitles = read(URI.create(configFileNameAndPath).toURL());
       } else {
         ignoreFilmTitles = read(configFileNameAndPath);
       }

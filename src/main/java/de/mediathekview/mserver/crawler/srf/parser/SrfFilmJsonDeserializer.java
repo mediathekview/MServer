@@ -16,6 +16,7 @@ import org.apache.logging.log4j.LogManager;
 
 import java.lang.reflect.Type;
 import java.net.MalformedURLException;
+import java.net.URI;
 import java.net.URL;
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -58,7 +59,7 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
   private static void addSubtitle(final String aSubtitleUrl, final Film aFilm) {
     if (!aSubtitleUrl.isEmpty()) {
       try {
-        aFilm.addSubtitle(new URL(aSubtitleUrl));
+        aFilm.addSubtitle(URI.create(aSubtitleUrl).toURL());
       } catch (final MalformedURLException ex) {
         LOG.error(String.format("A subtitle URL \"%s\" isn't valid.", aSubtitleUrl), ex);
       }
@@ -89,7 +90,7 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
             SrfConstants.WEBSITE_URL, replaceCharForUrl(aTheme), replaceCharForUrl(aTitle), aId);
 
     try {
-      return Optional.of(new URL(url));
+      return Optional.of(URI.create(url).toURL());
     } catch (final MalformedURLException ex) {
       LOG.error(String.format("The website url \"%s\" isn't valid.", url), ex);
     }

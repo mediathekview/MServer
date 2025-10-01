@@ -14,6 +14,7 @@ import org.apache.logging.log4j.Logger;
 import jakarta.ws.rs.client.WebTarget;
 import java.lang.reflect.Type;
 import java.net.MalformedURLException;
+import java.net.URI;
 import java.net.URL;
 import java.util.List;
 import java.util.Optional;
@@ -82,7 +83,7 @@ public class ArdFilmDetailTask extends ArdTaskBase<Film, ArdFilmInfoDto> {
   private Optional<URL> getWebsiteUrl(final ArdFilmInfoDto aDTO) {
     final String url = String.format(ArdConstants.WEBSITE_URL, aDTO.getId());
     try {
-      return Optional.of(new URL(url));
+      return Optional.of(URI.create(url).toURL());
     } catch (final MalformedURLException e) {
       LOG.error(e);
     }

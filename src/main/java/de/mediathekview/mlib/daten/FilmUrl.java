@@ -3,6 +3,7 @@ package de.mediathekview.mlib.daten;
 import java.io.Serial;
 import java.io.Serializable;
 import java.net.MalformedURLException;
+import java.net.URI;
 import java.net.URL;
 import java.util.Objects;
 import org.apache.logging.log4j.LogManager;
@@ -43,7 +44,7 @@ public class FilmUrl implements Serializable {
 
   @NotNull
   private static URL buildURL(final String url) throws MalformedURLException {
-    return new URL(url.startsWith(NO_PROTOCOL) ? HTTPS_PROTOCOL_PREFIX + url : url);
+    return URI.create(url.startsWith(NO_PROTOCOL) ? HTTPS_PROTOCOL_PREFIX + url : url).toURL();
   }
 
   @Override
@@ -91,8 +92,8 @@ public class FilmUrl implements Serializable {
       final String urlAsText = aUrl.toString();
       try {
         newUrl =
-            new URL(
-                urlAsText.replace(URL_START_NRODL, URL_START_RODL).replace(URL_HTTPS, URL_HTTP));
+            URI.create(
+                urlAsText.replace(URL_START_NRODL, URL_START_RODL).replace(URL_HTTPS, URL_HTTP)).toURL();
       } catch (final MalformedURLException aMalformedURLException) {
         LOG.fatal("Can't replace the nrodl in these URL: {}", aUrl, aMalformedURLException);
         newUrl = aUrl;

@@ -3,7 +3,7 @@ package de.mediathekview.mlib.daten;
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 
 import java.net.MalformedURLException;
-import java.net.URL;
+import java.net.URI;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
@@ -43,56 +43,56 @@ class FilmlistTest {
   private Film createTestFilm1() throws MalformedURLException {
     final Film testFilm1 = new Film(UUID.randomUUID(), Sender.ARD, "TestTitel", "TestThema",
         LocalDateTime.parse("2017-01-01T23:55:00"), Duration.of(10, ChronoUnit.MINUTES));
-    testFilm1.setWebsite(new URL("http://www.example.org/"));
+    testFilm1.setWebsite(URI.create("http://www.example.org/").toURL());
     testFilm1.setBeschreibung("Test beschreibung.");
-    testFilm1.addUrl(Resolution.SMALL, new FilmUrl(new URL("http://example.org/klein.mp4"), 42L));
-    testFilm1.addUrl(Resolution.NORMAL, new FilmUrl(new URL("http://example.org/Test.mp4"), 42L));
-    testFilm1.addUrl(Resolution.HD, new FilmUrl(new URL("http://example.org/hd.mp4"), 42L));
+    testFilm1.addUrl(Resolution.SMALL, new FilmUrl(URI.create("http://example.org/klein.mp4").toURL(), 42L));
+    testFilm1.addUrl(Resolution.NORMAL, new FilmUrl(URI.create("http://example.org/Test.mp4").toURL(), 42L));
+    testFilm1.addUrl(Resolution.HD, new FilmUrl(URI.create("http://example.org/hd.mp4").toURL(), 42L));
     return testFilm1;
   }
 
   private Film createTestFilm2() throws MalformedURLException {
     final Film testFilm2 = new Film(UUID.randomUUID(), Sender.ARD, "TestTitel", "TestThema",
         LocalDateTime.parse("2017-01-01T23:55:00"), Duration.of(10, ChronoUnit.MINUTES));
-    testFilm2.setWebsite(new URL("http://www.example.org/2"));
+    testFilm2.setWebsite(URI.create("http://www.example.org/2").toURL());
     testFilm2.setBeschreibung("Test beschreibung.");
-    testFilm2.addUrl(Resolution.SMALL, new FilmUrl(new URL("http://example.org/klein2.mp4"), 42L));
-    testFilm2.addUrl(Resolution.NORMAL, new FilmUrl(new URL("http://example.org/Test2.mp4"), 42L));
-    testFilm2.addUrl(Resolution.HD, new FilmUrl(new URL("http://example.org/hd2.mp4"), 42L));
+    testFilm2.addUrl(Resolution.SMALL, new FilmUrl(URI.create("http://example.org/klein2.mp4").toURL(), 42L));
+    testFilm2.addUrl(Resolution.NORMAL, new FilmUrl(URI.create("http://example.org/Test2.mp4").toURL(), 42L));
+    testFilm2.addUrl(Resolution.HD, new FilmUrl(URI.create("http://example.org/hd2.mp4").toURL(), 42L));
     return testFilm2;
   }
 
   private Livestream createTestLivestream1() throws MalformedURLException {
     final Livestream testLivestream1 = new Livestream(UUID.randomUUID(), Sender.ZDF, "Livestream 1",
         "Livestream", LocalDateTime.now());
-    testLivestream1.setWebsite(new URL("https://zdf.de"));
-    testLivestream1.addUrl(Resolution.HD, new URL("http://example.org/hd.mp4"));
+    testLivestream1.setWebsite(URI.create("https://zdf.de").toURL());
+    testLivestream1.addUrl(Resolution.HD, URI.create("http://example.org/hd.mp4").toURL());
     return testLivestream1;
   }
 
   private Livestream createTestLivestream2() throws MalformedURLException {
     final Livestream testLivestream2 = new Livestream(UUID.randomUUID(), Sender.ZDF, "Livestream 2",
         "Livestream", LocalDateTime.now());
-    testLivestream2.setWebsite(new URL("https://zdf.de"));
-    testLivestream2.addUrl(Resolution.NORMAL, new URL("http://example.org/normal.mp4"));
+    testLivestream2.setWebsite(URI.create("https://zdf.de").toURL());
+    testLivestream2.addUrl(Resolution.NORMAL, URI.create("http://example.org/normal.mp4").toURL());
     return testLivestream2;
   }
 
   private Podcast createTestPodcast1() throws MalformedURLException {
     final Podcast testPodcast1 = new Podcast(UUID.randomUUID(), Sender.BR, "Podcast 1", "Thema 1",
         LocalDateTime.parse("2017-01-01T23:55:00"), Duration.of(10, ChronoUnit.MINUTES));
-    testPodcast1.setWebsite(new URL("http://www.example.org/2"));
+    testPodcast1.setWebsite(URI.create("http://www.example.org/2").toURL());
     testPodcast1.addUrl(Resolution.NORMAL,
-        new FilmUrl(new URL("http://example.org/normal.mp3"), 42l));
+        new FilmUrl(URI.create("http://example.org/normal.mp3").toURL(), 42l));
     return testPodcast1;
   }
 
   private Podcast createTestPodcast2() throws MalformedURLException {
     final Podcast testPodcast2 = new Podcast(UUID.randomUUID(), Sender.BR, "Podcast 2", "Thema 1",
         LocalDateTime.parse("2017-01-01T23:55:00"), Duration.of(10, ChronoUnit.MINUTES));
-    testPodcast2.setWebsite(new URL("http://www.example.org/2"));
+    testPodcast2.setWebsite(URI.create("http://www.example.org/2").toURL());
     testPodcast2.addUrl(Resolution.NORMAL,
-        new FilmUrl(new URL("http://example.org/normal.mp3"), 42l));
+        new FilmUrl(URI.create("http://example.org/normal.mp3").toURL(), 42l));
     return testPodcast2;
   }
 
