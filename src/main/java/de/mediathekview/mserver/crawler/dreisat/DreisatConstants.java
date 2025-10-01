@@ -22,6 +22,7 @@ public final class DreisatConstants {
 
   static {
     PARTNER_TO_SENDER.put("3sat", Sender.DREISAT);
+    PARTNER_TO_SENDER.put("EMPTY", Sender.DREISAT);
   }
   
   private DreisatConstants() {}
