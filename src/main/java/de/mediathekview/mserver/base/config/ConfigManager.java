@@ -1,6 +1,9 @@
-package de.mediathekview.mlib.config;
+package de.mediathekview.mserver.base.config;
 
 import com.yacl4j.core.ConfigurationBuilder;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -8,6 +11,7 @@ import java.nio.file.Paths;
 /** A manager to load configurations. */
 public abstract class ConfigManager<T extends ConfigDTO> {
   private T config;
+  private static final Logger LOG = LogManager.getLogger(ConfigManager.class);
 
   protected abstract String getConfigFileName();
 
@@ -36,7 +40,7 @@ public abstract class ConfigManager<T extends ConfigDTO> {
   protected void initializeConfigAfterRead(final T config) {
     // Do something after the configuration is read
   }
-  
+
   /*
    * check if the given file exists in FS or
    * try to read a resource from filesystem
@@ -45,7 +49,7 @@ public abstract class ConfigManager<T extends ConfigDTO> {
     try {
       if (new java.io.File(resourceName).exists()) {
         return resourceName;
-      } else {       
+      } else {
         ClassLoader classLoader = getClass().getClassLoader();
         URL resourceUrl = classLoader.getResource(resourceName);
         if (resourceUrl != null) {
@@ -53,7 +57,9 @@ public abstract class ConfigManager<T extends ConfigDTO> {
           return resourcePath.toString();
         }
       }
-    } catch(Exception e) {}
+    } catch(Exception e) {
+      LOG.debug(e);
+    }
     return null;
   }
 }

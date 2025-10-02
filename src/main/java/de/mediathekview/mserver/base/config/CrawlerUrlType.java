@@ -16,9 +16,7 @@ import java.net.URL;
 import java.util.Optional;
 
 public enum CrawlerUrlType {
-  FUNK_WEBSITE("https://www.funk.net"),
-  FUNK_API_URL("https://www.funk.net/api/v4.0/"),
-  NEXX_CLOUD_API_URL("https://api.nexx.cloud/v3/741");
+  ;
 
   private URL defaultUrl;
 

@@ -1,4 +1,5 @@
-package de.mediathekview.mlib.config;
+package de.mediathekview.mserver.base.config;
+
 
 public class TestConfigDTO implements ConfigDTO {
 

@@ -1,4 +1,4 @@
-package de.mediathekview.mlib.config;
+package de.mediathekview.mserver.base.config;
 
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 
@@ -8,6 +8,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.Arrays;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -23,7 +24,7 @@ import org.junit.jupiter.api.TestMethodOrder;
 class ConfigManagerTest {
   private static final String TEST_CONFIG_FILE_NAME = "MlibTestConfig.yaml";
 
-  class TestConfigManager extends ConfigManager<TestConfigDTO> {
+  static class TestConfigManager extends ConfigManager<TestConfigDTO> {
 
     private TestConfigManager() {
       super();
