@@ -1,4 +1,4 @@
-package de.mediathekview.mlib.tool;
+package de.mediathekview.mserver.base.utils;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;

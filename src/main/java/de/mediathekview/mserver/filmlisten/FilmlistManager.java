@@ -10,7 +10,7 @@ import de.mediathekview.mserver.filmlisten.writer.FilmlistOldFormatWriter;
 import de.mediathekview.mserver.filmlisten.writer.FilmlistWriter;
 import de.mediathekview.mserver.base.messages.LibMessages;
 import de.mediathekview.mserver.base.messages.MessageCreator;
-import de.mediathekview.mlib.tool.MVHttpClient;
+import de.mediathekview.mserver.base.utils.MVHttpClient;
 import java.io.BufferedInputStream;
 import java.io.BufferedWriter;
 import java.io.IOException;

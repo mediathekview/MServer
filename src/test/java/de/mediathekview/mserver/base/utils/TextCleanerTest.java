@@ -1,8 +1,7 @@
-package de.mediathekview.mlib.tool;
+package de.mediathekview.mserver.base.utils;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import de.mediathekview.mlib.tool.TextCleaner;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 

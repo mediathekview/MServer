@@ -15,7 +15,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import de.mediathekview.mlib.daten.Film;
-import de.mediathekview.mlib.tool.MVHttpClient;
+import de.mediathekview.mserver.base.utils.MVHttpClient;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -87,7 +87,7 @@ public class IgnoreFilmFilter {
     List<String> listOfTitles = new ArrayList<>();
     String line = "";
     while ((line = is.readLine()) != null) {
-      if (line.trim().length() > 0) {
+      if (!line.trim().isEmpty()) {
         listOfTitles.add(line.trim());
       }
     }

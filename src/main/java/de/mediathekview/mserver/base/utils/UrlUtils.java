@@ -1,6 +1,5 @@
 package de.mediathekview.mserver.base.utils;
 
-import de.mediathekview.mlib.tool.MVHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
@@ -249,7 +248,7 @@ public final class UrlUtils {
   // https://my.domain.com?key1=abc&key2=
   // https://my.domain.com?key1=abc&key2
   // https://my.domain.com?key1=ab=c&key2=def
-  private static Map<String, String> getUrlParameters(final String aUrl) throws UrlParseException {
+  private static Map<String, String> getUrlParameters(final String aUrl) {
     final Map<String, String> parameters = new HashMap<>();
     final int indexParameterStart = aUrl.indexOf('?');
     if (indexParameterStart > 0) {

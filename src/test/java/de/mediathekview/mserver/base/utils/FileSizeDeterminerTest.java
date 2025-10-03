@@ -1,4 +1,4 @@
-package de.mediathekview.mlib.tool;
+package de.mediathekview.mserver.base.utils;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.options;

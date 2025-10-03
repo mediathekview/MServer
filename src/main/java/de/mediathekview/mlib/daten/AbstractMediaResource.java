@@ -1,6 +1,6 @@
 package de.mediathekview.mlib.daten;
 
-import de.mediathekview.mlib.tool.TextCleaner;
+import de.mediathekview.mserver.base.utils.TextCleaner;
 import java.io.Serializable;
 import java.net.URL;
 import java.time.LocalDateTime;

@@ -1,4 +1,4 @@
-package de.mediathekview.mlib.tool;
+package de.mediathekview.mserver.base.utils;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

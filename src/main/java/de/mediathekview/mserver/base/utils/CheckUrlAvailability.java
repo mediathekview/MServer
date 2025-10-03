@@ -12,8 +12,7 @@ import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.Filmlist;
 import de.mediathekview.mlib.daten.Resolution;
 import de.mediathekview.mlib.daten.Sender;
-import de.mediathekview.mlib.tool.FileSizeDeterminer;
-import de.mediathekview.mlib.tool.FileSizeDeterminer.RespoonseInfo;
+import de.mediathekview.mserver.base.utils.FileSizeDeterminer.RespoonseInfo;
 
 
 public class CheckUrlAvailability {

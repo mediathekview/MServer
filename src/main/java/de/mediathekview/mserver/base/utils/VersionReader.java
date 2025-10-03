@@ -1,4 +1,4 @@
-package de.mediathekview.mlib.tool;
+package de.mediathekview.mserver.base.utils;
 
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
