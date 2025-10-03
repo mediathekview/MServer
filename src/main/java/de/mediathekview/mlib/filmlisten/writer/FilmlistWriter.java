@@ -5,7 +5,7 @@ import com.google.gson.GsonBuilder;
 import de.mediathekview.mlib.daten.Filmlist;
 import de.mediathekview.mlib.daten.GsonDurationAdapter;
 import de.mediathekview.mlib.daten.GsonLocalDateTimeAdapter;
-import de.mediathekview.mlib.messages.listener.MessageListener;
+import de.mediathekview.mserver.base.messages.listener.MessageListener;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.OutputStream;

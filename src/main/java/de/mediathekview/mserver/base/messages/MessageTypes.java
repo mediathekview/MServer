@@ -1,4 +1,4 @@
-package de.mediathekview.mlib.messages;
+package de.mediathekview.mserver.base.messages;
 
 /** All available message types. */
 public enum MessageTypes {

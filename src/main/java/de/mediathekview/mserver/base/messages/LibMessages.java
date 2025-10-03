@@ -1,4 +1,4 @@
-package de.mediathekview.mlib.messages;
+package de.mediathekview.mserver.base.messages;
 
 public enum LibMessages implements Message
 {

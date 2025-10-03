@@ -2,7 +2,7 @@ package de.mediathekview.mserver.crawler.ard.json;
 
 import com.google.gson.JsonElement;
 import de.mediathekview.mlib.daten.Resolution;
-import de.mediathekview.mlib.messages.listener.MessageListener;
+import de.mediathekview.mserver.base.messages.listener.MessageListener;
 import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.crawler.ard.ArdCrawler;
 import de.mediathekview.mserver.progress.listeners.SenderProgressListener;

@@ -1,10 +1,10 @@
 package de.mediathekview.mserver.crawler;
 
 import de.mediathekview.mlib.filmlisten.FilmlistFormats;
-import de.mediathekview.mlib.messages.Message;
-import de.mediathekview.mlib.messages.MessageTypes;
-import de.mediathekview.mlib.messages.MessageUtil;
-import de.mediathekview.mlib.messages.listener.MessageListener;
+import de.mediathekview.mserver.base.messages.Message;
+import de.mediathekview.mserver.base.messages.MessageTypes;
+import de.mediathekview.mserver.base.messages.MessageUtil;
+import de.mediathekview.mserver.base.messages.listener.MessageListener;
 import de.mediathekview.mserver.base.config.ImportFilmlistConfiguration;
 import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.testhelper.FileReader;

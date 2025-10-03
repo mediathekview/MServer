@@ -1,7 +1,7 @@
-package de.mediathekview.mlib.messages.listener;
+package de.mediathekview.mserver.base.messages.listener;
 
-import de.mediathekview.mlib.messages.Message;
-import de.mediathekview.mlib.messages.MessageUtil;
+import de.mediathekview.mserver.base.messages.Message;
+import de.mediathekview.mserver.base.messages.MessageUtil;
 import java.util.Locale;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

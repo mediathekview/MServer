@@ -1,7 +1,7 @@
 package de.mediathekview.mserver.base.progress;
 
-import de.mediathekview.mlib.messages.Message;
-import de.mediathekview.mlib.messages.listener.MessageListener;
+import de.mediathekview.mserver.base.messages.Message;
+import de.mediathekview.mserver.base.messages.listener.MessageListener;
 import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
 
 import java.util.ArrayList;

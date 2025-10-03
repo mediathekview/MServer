@@ -1,4 +1,4 @@
-package de.mediathekview.mlib.messages;
+package de.mediathekview.mserver.base.messages;
 
 import java.util.Locale;
 import java.util.MissingResourceException;

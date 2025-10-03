@@ -1,7 +1,7 @@
 package de.mediathekview.mserver.ui.config;
 
-import de.mediathekview.mlib.messages.listener.LogMessageListener;
-import de.mediathekview.mlib.messages.listener.MessageListener;
+import de.mediathekview.mserver.base.messages.listener.LogMessageListener;
+import de.mediathekview.mserver.base.messages.listener.MessageListener;
 import de.mediathekview.mserver.base.config.Log4JConfigurationFactory;
 import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.base.config.MServerLogSettingsDTO;

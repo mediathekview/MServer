@@ -1,7 +1,7 @@
 package de.mediathekview.mserver.progress.listeners;
 
 import de.mediathekview.mlib.daten.Sender;
-import de.mediathekview.mlib.messages.MessageUtil;
+import de.mediathekview.mserver.base.messages.MessageUtil;
 import de.mediathekview.mlib.progress.Progress;
 import de.mediathekview.mserver.base.messages.ServerMessages;
 import org.apache.commons.lang3.time.DurationFormatUtils;

@@ -1,6 +1,6 @@
-package de.mediathekview.mlib.messages;
+package de.mediathekview.mserver.base.messages;
 
-import de.mediathekview.mlib.messages.listener.MessageListener;
+import de.mediathekview.mserver.base.messages.listener.MessageListener;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.concurrent.ConcurrentHashMap;

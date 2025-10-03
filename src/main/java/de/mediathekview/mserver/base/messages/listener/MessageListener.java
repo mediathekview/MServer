@@ -1,5 +1,5 @@
-package de.mediathekview.mlib.messages.listener;
-import de.mediathekview.mlib.messages.Message;
+package de.mediathekview.mserver.base.messages.listener;
+import de.mediathekview.mserver.base.messages.Message;
 
 /**
  * Defines a listener which consumes messages.
