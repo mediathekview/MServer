@@ -1,6 +1,6 @@
 package de.mediathekview.mserver.crawler.zdf.tasks;
 
-import de.mediathekview.mlib.daten.Sender;
+import de.mediathekview.mserver.daten.Sender;
 import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.crawler.zdf.ZdfConfiguration;
@@ -78,7 +78,7 @@ public class ZdfIndexPageTaskTest {
   }
 
   @Test
-  public void test() throws Exception {
+  public void test() {
     when(crawler.getCrawlerConfig())
         .thenReturn(
             new MServerConfigManager("MServer-JUnit-Config.yaml").getSenderConfig(Sender.ZDF));

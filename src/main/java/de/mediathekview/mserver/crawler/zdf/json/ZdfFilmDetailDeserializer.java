@@ -1,8 +1,8 @@
 package de.mediathekview.mserver.crawler.zdf.json;
 
 import com.google.gson.*;
-import de.mediathekview.mlib.daten.Film;
-import de.mediathekview.mlib.daten.Sender;
+import de.mediathekview.mserver.daten.Film;
+import de.mediathekview.mserver.daten.Sender;
 import de.mediathekview.mserver.base.utils.JsonUtils;
 import de.mediathekview.mserver.base.utils.UrlUtils;
 import de.mediathekview.mserver.crawler.zdf.ZdfFilmDtoOld;

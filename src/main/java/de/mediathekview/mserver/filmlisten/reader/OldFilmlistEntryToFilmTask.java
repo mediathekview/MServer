@@ -3,7 +3,6 @@ package de.mediathekview.mserver.filmlisten.reader;
 import static java.lang.String.format;
 import static java.time.format.FormatStyle.MEDIUM;
 
-import de.mediathekview.mlib.daten.*;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
@@ -19,6 +18,8 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import java.util.function.Function;
+
+import de.mediathekview.mserver.daten.*;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.text.StringEscapeUtils;
 import org.apache.logging.log4j.LogManager;

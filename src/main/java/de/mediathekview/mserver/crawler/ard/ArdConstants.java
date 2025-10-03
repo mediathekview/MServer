@@ -3,8 +3,8 @@ package de.mediathekview.mserver.crawler.ard;
 import java.util.HashMap;
 import java.util.Map;
 
-import de.mediathekview.mlib.daten.Resolution;
-import de.mediathekview.mlib.daten.Sender;
+import de.mediathekview.mserver.daten.Resolution;
+import de.mediathekview.mserver.daten.Sender;
 
 public class ArdConstants {
 

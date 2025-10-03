@@ -1,6 +1,6 @@
 package de.mediathekview.mserver.crawler.ard;
 
-import de.mediathekview.mlib.daten.Film;
+import de.mediathekview.mserver.daten.Film;
 
 import java.util.HashSet;
 import java.util.Set;

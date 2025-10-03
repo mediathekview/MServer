@@ -1,6 +1,6 @@
 package de.mediathekview.mserver.crawler;
 
-import de.mediathekview.mlib.daten.Filmlist;
+import de.mediathekview.mserver.daten.Filmlist;
 import de.mediathekview.mserver.filmlisten.FilmlistManager;
 import org.junit.Test;
 

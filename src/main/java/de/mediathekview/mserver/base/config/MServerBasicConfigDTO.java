@@ -4,7 +4,7 @@ import jakarta.annotation.Nullable;
 import java.util.Objects;
 
 /**
- * The basic configs which can be set for all {@link de.mediathekview.mlib.daten.Sender} and can be
+ * The basic configs which can be set for all {@link de.mediathekview.mserver.daten.Sender} and can be
  * overwritten for particular one.
  */
 public class MServerBasicConfigDTO {

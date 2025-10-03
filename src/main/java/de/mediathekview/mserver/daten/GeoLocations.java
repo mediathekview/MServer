@@ -1,4 +1,4 @@
-package de.mediathekview.mlib.daten;
+package de.mediathekview.mserver.daten;
 
 import java.util.Optional;
 import org.apache.commons.lang3.StringUtils;

@@ -1,7 +1,6 @@
 package de.mediathekview.mserver.crawler.sr.tasks;
 
 import de.mediathekview.mserver.base.HtmlConsts;
-import de.mediathekview.mserver.base.utils.UrlParseException;
 import de.mediathekview.mserver.base.utils.UrlUtils;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.sr.SrConstants;
@@ -78,16 +77,12 @@ public class SrTopicsOverviewPageTask implements Callable<Queue<SrTopicUrlDTO>> 
     final Elements links = aDocument.select(SHOW_PAGE_URL_SELECTOR);
     links.forEach(
         element -> {
-          try {
             final Optional<String> subpage =
                 UrlUtils.getUrlParameterValue(
                     element.attr(HtmlConsts.ATTRIBUTE_HREF), URL_PARAMETER_SUBPAGE);
             if (subpage.isPresent()) {
               results.add(SrConstants.URL_OVERVIEW_PAGE + subpage.get());
             }
-          } catch (final UrlParseException ex) {
-            LOG.fatal(ex);
-          }
         });
 
     return results;
@@ -99,16 +94,12 @@ public class SrTopicsOverviewPageTask implements Callable<Queue<SrTopicUrlDTO>> 
     final Elements links = aDocument.select(SHOW_LINK_SELECTOR);
     links.forEach(
         element -> {
-          try {
             final Optional<String> showShort =
                 UrlUtils.getUrlParameterValue(
                     element.attr(HtmlConsts.ATTRIBUTE_HREF), URL_PARAMETER_SHOW_SHORTNAME);
             if (showShort.isPresent()) {
               results.add(createDto(element.text(), showShort.get()));
             }
-          } catch (final UrlParseException ex) {
-            LOG.fatal(ex);
-          }
         });
 
     return results;

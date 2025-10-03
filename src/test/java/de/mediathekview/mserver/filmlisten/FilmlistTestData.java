@@ -1,6 +1,7 @@
 package de.mediathekview.mserver.filmlisten;
 
-import de.mediathekview.mlib.daten.*;
+import de.mediathekview.mserver.daten.*;
+
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.time.Duration;

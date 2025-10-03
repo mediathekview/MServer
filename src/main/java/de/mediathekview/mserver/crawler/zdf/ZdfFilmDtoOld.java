@@ -1,6 +1,6 @@
 package de.mediathekview.mserver.crawler.zdf;
 
-import de.mediathekview.mlib.daten.Film;
+import de.mediathekview.mserver.daten.Film;
 
 import java.util.Objects;
 import java.util.Optional;

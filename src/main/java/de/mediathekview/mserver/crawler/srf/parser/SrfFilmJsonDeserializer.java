@@ -1,11 +1,10 @@
 package de.mediathekview.mserver.crawler.srf.parser;
 
 import com.google.gson.*;
-import de.mediathekview.mlib.daten.Film;
-import de.mediathekview.mlib.daten.FilmUrl;
-import de.mediathekview.mlib.daten.Resolution;
-import de.mediathekview.mlib.daten.Sender;
-import de.mediathekview.mserver.base.utils.UrlParseException;
+import de.mediathekview.mserver.daten.Film;
+import de.mediathekview.mserver.daten.FilmUrl;
+import de.mediathekview.mserver.daten.Resolution;
+import de.mediathekview.mserver.daten.Sender;
 import de.mediathekview.mserver.base.utils.UrlUtils;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.M3U8Constants;
@@ -124,20 +123,15 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
   }
 
   private static String extractSubtitleFromVideoUrl(String videoUrl) {
-    try {
-      Optional<String> subtitleBaseUrl = UrlUtils.getUrlParameterValue(videoUrl, "webvttbaseurl");
-      Optional<String> caption = UrlUtils.getUrlParameterValue(videoUrl, "caption");
+    Optional<String> subtitleBaseUrl = UrlUtils.getUrlParameterValue(videoUrl, "webvttbaseurl");
+    Optional<String> caption = UrlUtils.getUrlParameterValue(videoUrl, "caption");
 
-      if (subtitleBaseUrl.isPresent() && caption.isPresent()) {
-        String subtitleUrl =
-            String.format(
-                "%s/%s", subtitleBaseUrl.get(), convertVideoCaptionToSubtitleFile(caption.get()));
+    if (subtitleBaseUrl.isPresent() && caption.isPresent()) {
+      String subtitleUrl =
+          String.format(
+              "%s/%s", subtitleBaseUrl.get(), convertVideoCaptionToSubtitleFile(caption.get()));
 
-        return UrlUtils.addProtocolIfMissing(subtitleUrl, UrlUtils.PROTOCOL_HTTPS);
-      }
-
-    } catch (UrlParseException e) {
-      LOG.error("SRF: error parsing subtitleUrl", e);
+      return UrlUtils.addProtocolIfMissing(subtitleUrl, UrlUtils.PROTOCOL_HTTPS);
     }
 
     return "";

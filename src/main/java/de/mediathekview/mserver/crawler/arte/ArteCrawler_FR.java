@@ -2,7 +2,7 @@ package de.mediathekview.mserver.crawler.arte;
 
 import java.util.Collection;
 import java.util.concurrent.ForkJoinPool;
-import de.mediathekview.mlib.daten.Sender;
+import de.mediathekview.mserver.daten.Sender;
 import de.mediathekview.mserver.base.messages.listener.MessageListener;
 import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.progress.listeners.SenderProgressListener;

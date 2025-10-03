@@ -1,6 +1,6 @@
 package de.mediathekview.mserver.crawler.arte.tasks;
 
-import de.mediathekview.mlib.daten.Sender;
+import de.mediathekview.mserver.daten.Sender;
 import de.mediathekview.mserver.crawler.basic.TopicUrlDTO;
 import org.junit.Test;
 

@@ -1,6 +1,6 @@
 package de.mediathekview.mserver.testhelper;
 
-import de.mediathekview.mlib.daten.*;
+import de.mediathekview.mserver.daten.*;
 import org.hamcrest.Matchers;
 
 import java.net.URL;

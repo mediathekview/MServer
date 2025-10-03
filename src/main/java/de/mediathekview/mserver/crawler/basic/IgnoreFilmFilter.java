@@ -14,7 +14,7 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import de.mediathekview.mlib.daten.Film;
+import de.mediathekview.mserver.daten.Film;
 import de.mediathekview.mserver.base.utils.MVHttpClient;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;

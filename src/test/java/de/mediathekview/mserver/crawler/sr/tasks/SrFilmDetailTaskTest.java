@@ -1,8 +1,8 @@
 package de.mediathekview.mserver.crawler.sr.tasks;
 
-import de.mediathekview.mlib.daten.Film;
-import de.mediathekview.mlib.daten.GeoLocations;
-import de.mediathekview.mlib.daten.Sender;
+import de.mediathekview.mserver.daten.Film;
+import de.mediathekview.mserver.daten.GeoLocations;
+import de.mediathekview.mserver.daten.Sender;
 import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.crawler.sr.SrCrawler;
 import de.mediathekview.mserver.testhelper.AssertFilm;
@@ -14,7 +14,6 @@ import org.junit.runners.Parameterized;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Arrays;
@@ -116,7 +115,7 @@ public class SrFilmDetailTaskTest extends SrTaskTestBase {
   }
 
   @Test
-  public void test() throws IOException {
+  public void test() {
     jsoupConnection =
         JsoupMock.mockWithTextModifications(requestUrl, filmPageFile, this::fixupAllWireMockUrls);
     final SrCrawler crawler = createCrawler();

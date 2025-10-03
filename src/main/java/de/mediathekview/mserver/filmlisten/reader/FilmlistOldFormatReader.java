@@ -4,12 +4,12 @@ import static java.time.format.FormatStyle.MEDIUM;
 
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
-import de.mediathekview.mlib.daten.Film;
-import de.mediathekview.mlib.daten.FilmUrl;
-import de.mediathekview.mlib.daten.Filmlist;
-import de.mediathekview.mlib.daten.GeoLocations;
-import de.mediathekview.mlib.daten.Resolution;
-import de.mediathekview.mlib.daten.Sender;
+import de.mediathekview.mserver.daten.Film;
+import de.mediathekview.mserver.daten.FilmUrl;
+import de.mediathekview.mserver.daten.Filmlist;
+import de.mediathekview.mserver.daten.GeoLocations;
+import de.mediathekview.mserver.daten.Resolution;
+import de.mediathekview.mserver.daten.Sender;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;

@@ -1,4 +1,4 @@
-package de.mediathekview.mlib.daten;
+package de.mediathekview.mserver.daten;
 
 import de.mediathekview.mserver.base.utils.TextCleaner;
 import java.io.Serializable;

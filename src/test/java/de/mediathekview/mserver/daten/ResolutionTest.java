@@ -7,7 +7,7 @@
  *
  * (c) 2017 by Sascha Wiegandt
  */
-package de.mediathekview.mlib.daten;
+package de.mediathekview.mserver.daten;
 
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;

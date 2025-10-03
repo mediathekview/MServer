@@ -1,4 +1,4 @@
-package de.mediathekview.mlib.daten;
+package de.mediathekview.mserver.daten;
 
 import java.net.URL;
 import java.time.Duration;

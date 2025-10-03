@@ -1,7 +1,7 @@
 package de.mediathekview.mserver.crawler.ard.tasks;
 
 import com.google.gson.reflect.TypeToken;
-import de.mediathekview.mlib.daten.Film;
+import de.mediathekview.mserver.daten.Film;
 import de.mediathekview.mserver.crawler.ard.ArdConstants;
 import de.mediathekview.mserver.crawler.ard.ArdFilmDto;
 import de.mediathekview.mserver.crawler.ard.ArdFilmInfoDto;

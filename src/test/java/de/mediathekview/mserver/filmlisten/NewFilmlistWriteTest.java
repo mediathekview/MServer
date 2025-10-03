@@ -2,7 +2,7 @@ package de.mediathekview.mserver.filmlisten;
 
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 
-import de.mediathekview.mlib.daten.Filmlist;
+import de.mediathekview.mserver.daten.Filmlist;
 
 import java.io.IOException;
 import java.nio.file.Files;

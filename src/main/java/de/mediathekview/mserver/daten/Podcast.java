@@ -1,4 +1,4 @@
-package de.mediathekview.mlib.daten;
+package de.mediathekview.mserver.daten;
 
 import java.time.Duration;
 import java.time.LocalDateTime;

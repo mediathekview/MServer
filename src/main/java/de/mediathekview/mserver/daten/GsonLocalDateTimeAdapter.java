@@ -1,4 +1,4 @@
-package de.mediathekview.mlib.daten;
+package de.mediathekview.mserver.daten;
 
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;

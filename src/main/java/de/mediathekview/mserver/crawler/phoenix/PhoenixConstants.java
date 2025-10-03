@@ -3,7 +3,7 @@ package de.mediathekview.mserver.crawler.phoenix;
 import java.util.HashMap;
 import java.util.Map;
 
-import de.mediathekview.mlib.daten.Sender;
+import de.mediathekview.mserver.daten.Sender;
 
 public final class PhoenixConstants {
   private PhoenixConstants() {}

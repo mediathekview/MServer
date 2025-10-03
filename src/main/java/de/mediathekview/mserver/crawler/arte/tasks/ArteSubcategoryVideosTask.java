@@ -2,7 +2,6 @@ package de.mediathekview.mserver.crawler.arte.tasks;
 
 import com.google.gson.reflect.TypeToken;
 
-import de.mediathekview.mserver.base.utils.UrlParseException;
 import de.mediathekview.mserver.base.utils.UrlUtils;
 import de.mediathekview.mserver.crawler.arte.ArteConstants;
 import de.mediathekview.mserver.crawler.arte.ArteFilmUrlDto;
@@ -58,7 +57,7 @@ public class ArteSubcategoryVideosTask extends ArteTaskBase<ArteFilmUrlDto, Topi
         if (urlParameterPage.isPresent()) {
           nextPageId = Integer.parseInt(urlParameterPage.get());
         }
-      } catch (UrlParseException|NumberFormatException e) {
+      } catch (NumberFormatException e) {
         LOG.error("Failed to parse page from url {} error {}",aDTO.getUrl(), e.getMessage());
       }
       if (result.getUrls().size() == ArteConstants.SUBCATEGORY_LIMIT 

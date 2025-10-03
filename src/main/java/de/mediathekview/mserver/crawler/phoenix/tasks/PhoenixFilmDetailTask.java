@@ -1,7 +1,7 @@
 package de.mediathekview.mserver.crawler.phoenix.tasks;
 
 import com.google.gson.reflect.TypeToken;
-import de.mediathekview.mlib.daten.Film;
+import de.mediathekview.mserver.daten.Film;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractRecursiveConverterTask;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
