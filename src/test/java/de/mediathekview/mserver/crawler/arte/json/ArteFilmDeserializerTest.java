@@ -1,10 +1,10 @@
 package de.mediathekview.mserver.crawler.arte.json;
 
 import com.google.gson.JsonElement;
-import de.mediathekview.mlib.daten.Film;
-import de.mediathekview.mlib.daten.GeoLocations;
-import de.mediathekview.mlib.daten.Sender;
-import de.mediathekview.mlib.messages.listener.MessageListener;
+import de.mediathekview.mserver.daten.Film;
+import de.mediathekview.mserver.daten.GeoLocations;
+import de.mediathekview.mserver.daten.Sender;
+import de.mediathekview.mserver.base.messages.listener.MessageListener;
 import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.crawler.arte.ArteCrawler;
 import de.mediathekview.mserver.progress.listeners.SenderProgressListener;

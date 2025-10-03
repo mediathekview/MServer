@@ -3,7 +3,7 @@ package de.mediathekview.mserver.crawler.zdf;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-import de.mediathekview.mlib.messages.listener.MessageListener;
+import de.mediathekview.mserver.base.messages.listener.MessageListener;
 import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
 import de.mediathekview.mserver.testhelper.WireMockTestBase;

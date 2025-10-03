@@ -1,11 +1,11 @@
 package de.mediathekview.mserver.crawler;
 
-import de.mediathekview.mlib.daten.Film;
-import de.mediathekview.mlib.daten.Filmlist;
-import de.mediathekview.mlib.daten.Sender;
-import de.mediathekview.mlib.filmlisten.FilmlistFormats;
-import de.mediathekview.mlib.filmlisten.FilmlistManager;
-import de.mediathekview.mlib.progress.ProgressListener;
+import de.mediathekview.mserver.daten.Film;
+import de.mediathekview.mserver.daten.Filmlist;
+import de.mediathekview.mserver.daten.Sender;
+import de.mediathekview.mserver.filmlisten.FilmlistFormats;
+import de.mediathekview.mserver.filmlisten.FilmlistManager;
+import de.mediathekview.mserver.base.progress.ProgressListener;
 import de.mediathekview.mserver.base.config.ImportFilmlistConfiguration;
 import de.mediathekview.mserver.base.config.MServerConfigDTO;
 import de.mediathekview.mserver.base.config.MServerConfigManager;

@@ -1,10 +1,10 @@
 package de.mediathekview.mserver.crawler;
 
-import de.mediathekview.mlib.filmlisten.FilmlistFormats;
-import de.mediathekview.mlib.messages.Message;
-import de.mediathekview.mlib.messages.MessageTypes;
-import de.mediathekview.mlib.messages.MessageUtil;
-import de.mediathekview.mlib.messages.listener.MessageListener;
+import de.mediathekview.mserver.filmlisten.FilmlistFormats;
+import de.mediathekview.mserver.base.messages.Message;
+import de.mediathekview.mserver.base.messages.MessageTypes;
+import de.mediathekview.mserver.base.messages.MessageUtil;
+import de.mediathekview.mserver.base.messages.listener.MessageListener;
 import de.mediathekview.mserver.base.config.ImportFilmlistConfiguration;
 import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.testhelper.FileReader;
@@ -32,7 +32,7 @@ import java.util.Date;
 import java.util.stream.Stream;
 
 
-public class CrawlerManagerLivestreamTest implements MessageListener {
+class CrawlerManagerLivestreamTest implements MessageListener {
 
   private static final Logger LOG = LogManager.getLogger(CrawlerManagerLivestreamTest.class);
   private static final String TEMP_FOLDER_NAME_PATTERN = "MSERVER_TEST_%d";
@@ -55,7 +55,7 @@ public class CrawlerManagerLivestreamTest implements MessageListener {
   @ParameterizedTest
   @Execution(ExecutionMode.SAME_THREAD)
   @MethodSource("getTestArgumentForFilmlistsInDifferentFormats")
-  public void testSaveAndImport(final FilmlistFormats format, final String filmlistPath,final String livestreamPath,  final int expectedInitialSize, final int expectedAfterImport) {
+  void testSaveAndImport(final FilmlistFormats format, final String filmlistPath,final String livestreamPath,  final int expectedInitialSize, final int expectedAfterImport) {
     CrawlerManager crawlerManagerForEachRun = createEmptyCrawlerManager();
     final Path filmListFilePath = FileReader.getPath(filmlistPath);
     final Path livestreamFilmListFilePath = FileReader.getPath(livestreamPath);
@@ -78,7 +78,7 @@ public class CrawlerManagerLivestreamTest implements MessageListener {
   }
 
   @AfterAll
-  public static void deleteTempFiles() throws IOException {
+  static void deleteTempFiles() throws IOException {
     Files.walk(testFileFolderPath)
         .sorted(Comparator.reverseOrder())
         .map(Path::toFile)
@@ -86,7 +86,7 @@ public class CrawlerManagerLivestreamTest implements MessageListener {
   }
 
   @BeforeAll
-  public static void initTestData() throws Exception {
+  static void initTestData() throws Exception {
     testFileFolderPath = Files.createTempDirectory(formatWithDate(TEMP_FOLDER_NAME_PATTERN));
     Files.createDirectory(testFileFolderPath.resolve("filmlists"));
   }

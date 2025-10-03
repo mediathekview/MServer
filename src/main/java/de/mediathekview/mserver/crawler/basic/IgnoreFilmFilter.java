@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.URI;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -13,8 +14,8 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import de.mediathekview.mlib.daten.Film;
-import de.mediathekview.mlib.tool.MVHttpClient;
+import de.mediathekview.mserver.daten.Film;
+import de.mediathekview.mserver.base.utils.MVHttpClient;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -27,7 +28,7 @@ public class IgnoreFilmFilter {
   public IgnoreFilmFilter(String configFileNameAndPath) {
     try {
       if (configFileNameAndPath.toLowerCase().startsWith("http")) {
-        ignoreFilmTitles = read(new URL(configFileNameAndPath));
+        ignoreFilmTitles = read(URI.create(configFileNameAndPath).toURL());
       } else {
         ignoreFilmTitles = read(configFileNameAndPath);
       }
@@ -86,7 +87,7 @@ public class IgnoreFilmFilter {
     List<String> listOfTitles = new ArrayList<>();
     String line = "";
     while ((line = is.readLine()) != null) {
-      if (line.trim().length() > 0) {
+      if (!line.trim().isEmpty()) {
         listOfTitles.add(line.trim());
       }
     }

@@ -1,13 +1,13 @@
 package de.mediathekview.mserver.base;
 
-import de.mediathekview.mlib.daten.Sender;
+import de.mediathekview.mserver.daten.Sender;
 import de.mediathekview.mserver.base.config.MServerBasicConfigDTO;
 import de.mediathekview.mserver.base.config.MServerConfigManager;
 import org.junit.Before;
 import org.junit.Test;
 
-import static de.mediathekview.mlib.daten.Sender.ARD;
-import static de.mediathekview.mlib.daten.Sender.BR;
+import static de.mediathekview.mserver.daten.Sender.ARD;
+import static de.mediathekview.mserver.daten.Sender.BR;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class SenderConfigUsesServerConfigForDefaultTest {

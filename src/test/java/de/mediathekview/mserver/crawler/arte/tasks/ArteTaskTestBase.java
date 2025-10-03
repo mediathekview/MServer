@@ -1,6 +1,6 @@
 package de.mediathekview.mserver.crawler.arte.tasks;
 
-import de.mediathekview.mlib.messages.listener.MessageListener;
+import de.mediathekview.mserver.base.messages.listener.MessageListener;
 import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.crawler.arte.ArteCrawler;
 import de.mediathekview.mserver.progress.listeners.SenderProgressListener;

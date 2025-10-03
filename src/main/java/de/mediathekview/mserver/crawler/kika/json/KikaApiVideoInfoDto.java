@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
-import de.mediathekview.mlib.daten.Resolution;
+import de.mediathekview.mserver.daten.Resolution;
 
 
 public class KikaApiVideoInfoDto {

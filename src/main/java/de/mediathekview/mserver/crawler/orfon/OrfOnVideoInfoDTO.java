@@ -8,9 +8,9 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
-import de.mediathekview.mlib.daten.FilmUrl;
-import de.mediathekview.mlib.daten.GeoLocations;
-import de.mediathekview.mlib.daten.Resolution;
+import de.mediathekview.mserver.daten.FilmUrl;
+import de.mediathekview.mserver.daten.GeoLocations;
+import de.mediathekview.mserver.daten.Resolution;
 
 
 public class OrfOnVideoInfoDTO {

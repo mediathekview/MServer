@@ -1,6 +1,6 @@
 package de.mediathekview.mserver.crawler.arte.tasks;
 
-import de.mediathekview.mlib.daten.Sender;
+import de.mediathekview.mserver.daten.Sender;
 import de.mediathekview.mserver.crawler.arte.ArteFilmUrlDto;
 import de.mediathekview.mserver.crawler.arte.ArteLanguage;
 import de.mediathekview.mserver.crawler.basic.TopicUrlDTO;

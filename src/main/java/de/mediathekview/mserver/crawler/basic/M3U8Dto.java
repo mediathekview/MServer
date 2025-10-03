@@ -1,6 +1,6 @@
 package de.mediathekview.mserver.crawler.basic;
 
-import de.mediathekview.mlib.daten.Resolution;
+import de.mediathekview.mserver.daten.Resolution;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

@@ -2,7 +2,7 @@ package de.mediathekview.mserver.crawler.kika.json;
 
 import com.google.gson.*;
 
-import de.mediathekview.mlib.daten.Resolution;
+import de.mediathekview.mserver.daten.Resolution;
 import de.mediathekview.mserver.base.utils.JsonUtils;
 import de.mediathekview.mserver.base.utils.UrlUtils;
 

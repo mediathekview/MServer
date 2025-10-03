@@ -1,6 +1,6 @@
 package de.mediathekview.mserver.crawler.arte.tasks;
 
-import de.mediathekview.mlib.daten.Resolution;
+import de.mediathekview.mserver.daten.Resolution;
 
 import java.time.Duration;
 import java.util.EnumMap;

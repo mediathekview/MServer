@@ -25,10 +25,10 @@ import org.apache.logging.log4j.Logger;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.reflect.TypeToken;
 import jakarta.ws.rs.core.Response;
-import de.mediathekview.mlib.daten.Film;
-import de.mediathekview.mlib.daten.FilmUrl;
-import de.mediathekview.mlib.daten.GeoLocations;
-import de.mediathekview.mlib.daten.Resolution;
+import de.mediathekview.mserver.daten.Film;
+import de.mediathekview.mserver.daten.FilmUrl;
+import de.mediathekview.mserver.daten.GeoLocations;
+import de.mediathekview.mserver.daten.Resolution;
 import de.mediathekview.mserver.base.utils.UrlUtils;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractJsonRestTask;
@@ -149,7 +149,7 @@ public class KikaApiFilmTask extends AbstractJsonRestTask<Film, KikaApiVideoInfo
 	if (aResponseObj.hasSubtitle()) {
       for (String subtitleUrlAsString : aResponseObj.getSubtitle()) {
         try {
-          urls.add(new URL(UrlUtils.addProtocolIfMissing(subtitleUrlAsString, UrlUtils.PROTOCOL_HTTPS)));
+          urls.add(URI.create(UrlUtils.addProtocolIfMissing(subtitleUrlAsString, UrlUtils.PROTOCOL_HTTPS)).toURL());
         } catch (MalformedURLException e) {
           LOG.error("Invalid subtitle url {} for {} error {}", subtitleUrlAsString, aDTO.getUrl(), e);
         }
@@ -184,7 +184,7 @@ public class KikaApiFilmTask extends AbstractJsonRestTask<Film, KikaApiVideoInfo
 	Optional<URL> rs = Optional.empty();
 	if (aDTO.getWebsite().isPresent()) {
       try {
-        rs = Optional.of(new URL(aDTO.getWebsite().get()));
+        rs = Optional.of(URI.create(aDTO.getWebsite().get()).toURL());
       } catch (MalformedURLException e) {
         LOG.error("Invalid website url {} for {} error {}", aDTO.getWebsite().get(), aDTO.getUrl(), e);
       }

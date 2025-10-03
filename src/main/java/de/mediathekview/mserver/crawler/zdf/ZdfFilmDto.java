@@ -1,6 +1,6 @@
 package de.mediathekview.mserver.crawler.zdf;
 
-import de.mediathekview.mlib.daten.Sender;
+import de.mediathekview.mserver.daten.Sender;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 
 import java.time.LocalDateTime;

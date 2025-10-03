@@ -3,7 +3,7 @@ package de.mediathekview.mserver.crawler.ard.json;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
-import de.mediathekview.mlib.daten.Resolution;
+import de.mediathekview.mserver.daten.Resolution;
 import de.mediathekview.mserver.base.utils.UrlUtils;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.M3U8Dto;
@@ -14,6 +14,7 @@ import org.apache.logging.log4j.Logger;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.net.MalformedURLException;
+import java.net.URI;
 import java.net.URL;
 import java.util.EnumMap;
 import java.util.HashSet;
@@ -120,7 +121,7 @@ public class ArdVideoInfoJsonDeserializer implements JsonDeserializer<ArdVideoIn
                 if (UrlUtils.getProtocol(videoUrl).isEmpty()) {
                   videoUrl = baseUrl + videoUrl;
                 }
-                urls.put(resolution.get(), new URL(videoUrl));
+                urls.put(resolution.get(), URI.create(videoUrl).toURL());
               } catch (final MalformedURLException malformedURLException) {
                 LOG.error(
                     "ArdVideoInfoJsonDeserializer: invalid url {}",

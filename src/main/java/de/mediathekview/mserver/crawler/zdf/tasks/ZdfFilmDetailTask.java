@@ -1,11 +1,11 @@
 package de.mediathekview.mserver.crawler.zdf.tasks;
 
 import com.google.gson.reflect.TypeToken;
-import de.mediathekview.mlib.daten.Film;
-import de.mediathekview.mlib.daten.FilmUrl;
-import de.mediathekview.mlib.daten.GeoLocations;
-import de.mediathekview.mlib.daten.Resolution;
-import de.mediathekview.mlib.daten.Sender;
+import de.mediathekview.mserver.daten.Film;
+import de.mediathekview.mserver.daten.FilmUrl;
+import de.mediathekview.mserver.daten.GeoLocations;
+import de.mediathekview.mserver.daten.Resolution;
+import de.mediathekview.mserver.daten.Sender;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractRecursiveConverterTask;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
@@ -21,7 +21,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.lang.reflect.Type;
 import java.net.MalformedURLException;
-import java.net.URL;
+import java.net.URI;
 import java.util.*;
 
 public class ZdfFilmDetailTask extends ZdfTaskBase<Film, CrawlerUrlDTO> {
@@ -192,7 +192,7 @@ public class ZdfFilmDetailTask extends ZdfTaskBase<Film, CrawlerUrlDTO> {
   private static void setSubtitle(DownloadDto downloadDto, Film filmWithLanguage, String language) throws MalformedURLException {
     final Optional<String> subtitleUrl = downloadDto.getSubTitleUrl(language);
     if (subtitleUrl.isPresent()) {
-      filmWithLanguage.addSubtitle(new URL(subtitleUrl.get()));
+      filmWithLanguage.addSubtitle(URI.create(subtitleUrl.get()).toURL());
     }
   }
 

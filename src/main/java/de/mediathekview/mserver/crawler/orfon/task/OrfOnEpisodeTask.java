@@ -13,8 +13,8 @@ import org.apache.logging.log4j.Logger;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.reflect.TypeToken;
 
-import de.mediathekview.mlib.daten.Film;
-import de.mediathekview.mlib.daten.Sender;
+import de.mediathekview.mserver.daten.Film;
+import de.mediathekview.mserver.daten.Sender;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractJsonRestTask;
 import de.mediathekview.mserver.crawler.basic.AbstractRecursiveConverterTask;

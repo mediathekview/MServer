@@ -1,6 +1,6 @@
 package de.mediathekview.mserver.crawler.arte.json;
 
-import de.mediathekview.mlib.daten.Sender;
+import de.mediathekview.mserver.daten.Sender;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

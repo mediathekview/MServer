@@ -1,8 +1,8 @@
 package de.mediathekview.mserver.crawler.arte.json;
 
 import com.google.gson.JsonElement;
-import de.mediathekview.mlib.daten.Resolution;
-import de.mediathekview.mlib.daten.Sender;
+import de.mediathekview.mserver.daten.Resolution;
+import de.mediathekview.mserver.daten.Sender;
 import de.mediathekview.mserver.crawler.arte.tasks.ArteVideoDetailDTO;
 import de.mediathekview.mserver.testhelper.JsonFileReader;
 import org.junit.Test;

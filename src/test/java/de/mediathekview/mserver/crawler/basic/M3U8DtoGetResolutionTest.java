@@ -1,6 +1,6 @@
 package de.mediathekview.mserver.crawler.basic;
 
-import de.mediathekview.mlib.daten.Resolution;
+import de.mediathekview.mserver.daten.Resolution;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;

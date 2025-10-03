@@ -1,7 +1,7 @@
 package de.mediathekview.mserver.crawler.srf.parser;
 
 import com.google.gson.JsonElement;
-import de.mediathekview.mlib.daten.Film;
+import de.mediathekview.mserver.daten.Film;
 import de.mediathekview.mserver.crawler.srf.tasks.SrfTaskTestBase;
 import de.mediathekview.mserver.testhelper.JsonFileReader;
 import org.junit.Test;
