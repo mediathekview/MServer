@@ -1,4 +1,4 @@
-package de.mediathekview.mlib.filmlisten.reader;
+package de.mediathekview.mserver.filmlisten.reader;
 
 import static java.lang.String.format;
 import static java.time.format.FormatStyle.MEDIUM;

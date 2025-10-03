@@ -1,4 +1,4 @@
-package de.mediathekview.mlib.filmlisten.reader;
+package de.mediathekview.mserver.filmlisten.reader;
 
 import static java.time.format.FormatStyle.MEDIUM;
 
@@ -243,10 +243,6 @@ public class FilmlistOldFormatReader extends AbstractFilmlistReader {
     }
     return Optional.empty();
   }
-  
-  
-  
-  ////////////////////////////////////////////////////////////
 
   private String readRecord01Sender(String in, String sender) {
     if (!in.isBlank()) {

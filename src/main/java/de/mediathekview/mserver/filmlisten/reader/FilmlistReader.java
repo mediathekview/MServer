@@ -1,4 +1,4 @@
-package de.mediathekview.mlib.filmlisten.reader;
+package de.mediathekview.mserver.filmlisten.reader;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

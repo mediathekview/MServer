@@ -1,4 +1,4 @@
-package de.mediathekview.mlib.filmlisten.reader;
+package de.mediathekview.mserver.filmlisten.reader;
 
 class OldFilmlistImportException extends Exception {
   OldFilmlistImportException(final String text, final Throwable cause) {

@@ -1,4 +1,4 @@
-package de.mediathekview.mlib.filmlisten.writer;
+package de.mediathekview.mserver.filmlisten.writer;
 
 import static java.time.format.FormatStyle.MEDIUM;
 import static java.time.format.FormatStyle.SHORT;
@@ -61,21 +61,21 @@ public class FilmlistOldFormatWriter extends AbstractFilmlistWriter {
             cnt++;
           }
           if (aFilm instanceof Film pFilm && pFilm.getAudioDescriptions().size() > 0) {
-            Film AD = new Film(pFilm);
-            if (!AD.getTitel().toLowerCase().contains("audiodeskription")) {
-              AD.setTitel(AD.getTitel() + " (Audiodeskription)");
+            Film filmAd = new Film(pFilm);
+            if (!filmAd.getTitel().toLowerCase().contains("audiodeskription")) {
+              filmAd.setTitel(filmAd.getTitel() + " (Audiodeskription)");
             }
-            AD.setUrls(AD.getAudioDescriptions());
-            writeRecord(AD, jsonWriter);
+            filmAd.setUrls(filmAd.getAudioDescriptions());
+            writeRecord(filmAd, jsonWriter);
             cnt++;
           }
           if (aFilm instanceof Film pFilm && pFilm.getSignLanguages().size() > 0) {
-            Film GS = new Film(pFilm);
-            if (!GS.getTitel().toLowerCase().contains("gebärdensprache")) {
-              GS.setTitel(GS.getTitel() + " (Gebärdensprache)");
+            Film filmGbs = new Film(pFilm);
+            if (!filmGbs.getTitel().toLowerCase().contains("gebärdensprache")) {
+              filmGbs.setTitel(filmGbs.getTitel() + " (Gebärdensprache)");
             }
-            GS.setUrls(GS.getSignLanguages());
-            writeRecord(GS, jsonWriter);
+            filmGbs.setUrls(filmGbs.getSignLanguages());
+            writeRecord(filmGbs, jsonWriter);
             cnt++;
           }
         } catch (IOException e) {

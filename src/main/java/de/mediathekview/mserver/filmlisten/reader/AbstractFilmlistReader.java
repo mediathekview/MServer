@@ -1,4 +1,4 @@
-package de.mediathekview.mlib.filmlisten.reader;
+package de.mediathekview.mserver.filmlisten.reader;
 
 import de.mediathekview.mlib.daten.Filmlist;
 import de.mediathekview.mserver.base.messages.MessageCreator;
