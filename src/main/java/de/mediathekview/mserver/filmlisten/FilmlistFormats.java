@@ -1,6 +1,6 @@
 package de.mediathekview.mserver.filmlisten;
 
-import de.mediathekview.mlib.compression.CompressionType;
+import de.mediathekview.mserver.base.compression.CompressionType;
 import java.util.Optional;
 
 public enum FilmlistFormats {

@@ -1,4 +1,4 @@
-package de.mediathekview.mlib.compression;
+package de.mediathekview.mserver.base.compression;
 
 import java.io.IOException;
 import java.io.OutputStream;

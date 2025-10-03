@@ -1,7 +1,7 @@
 package de.mediathekview.mserver.filmlisten;
 
-import de.mediathekview.mlib.compression.CompressionManager;
-import de.mediathekview.mlib.compression.CompressionType;
+import de.mediathekview.mserver.base.compression.CompressionManager;
+import de.mediathekview.mserver.base.compression.CompressionType;
 import de.mediathekview.mlib.daten.Filmlist;
 import de.mediathekview.mserver.filmlisten.reader.FilmlistOldFormatReader;
 import de.mediathekview.mserver.filmlisten.reader.FilmlistReader;

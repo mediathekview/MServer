@@ -1,4 +1,4 @@
-package de.mediathekview.mlib.compression;
+package de.mediathekview.mserver.base.compression;
 
 public enum CompressionType {
   XZ(".xz"),
