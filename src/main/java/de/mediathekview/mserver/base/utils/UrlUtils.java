@@ -1,9 +1,5 @@
 package de.mediathekview.mserver.base.utils;
 
-import okhttp3.Request;
-import okhttp3.Response;
-
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -94,31 +90,6 @@ public final class UrlUtils {
 
     newUrlBuilder.append(String.format(PARAMETER_PATTERN, aParameter, aValue));
     return newUrlBuilder.toString();
-  }
-
-  /**
-   * checks whether an url exists. uses head request to check.
-   *
-   * @param aUrl the url to check
-   * @return true if url exists else false.
-   */
-  @Deprecated
-  public static boolean existsUrl(final String aUrl) {
-    boolean result = false;
-
-    try {
-      final Request request = new Request.Builder().head().url(aUrl).build();
-      try (final Response response =
-          MVHttpClient.getInstance().getReducedTimeOutClient().newCall(request).execute()) {
-        if (response.isSuccessful()) {
-          result = true;
-        }
-      } catch (final IOException ignored) {
-      }
-    } catch (final Exception ignored) {
-    }
-
-    return result;
   }
 
   /**
@@ -232,7 +203,7 @@ public final class UrlUtils {
    * @throws UrlParseException Will be thrown if the given URL isn't valid.
    */
   public static Optional<String> getUrlParameterValue(
-      final String aUrl, final String aParameterName) throws UrlParseException {
+      final String aUrl, final String aParameterName) {
     if (aUrl != null) {
       final Map<String, String> parameters = getUrlParameters(aUrl);
       if (parameters.containsKey(aParameterName)) {
