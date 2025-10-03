@@ -84,7 +84,7 @@ class FilmlistMergeTest {
             testFilm3.getDuration());
     testFilm4.setWebsite(testFilm3.getWebsite().orElse(null));
     testFilm4.setBeschreibung(testFilm3.getBeschreibung());
-    testFilm3.getUrls().forEach((key, value) -> testFilm4.addUrl(key, value));
+    testFilm3.getUrls().forEach(testFilm4::addUrl);
 
     final Filmlist testFilmlist2 = new Filmlist();
     testFilmlist2.add(testFilm1);
@@ -176,7 +176,7 @@ class FilmlistMergeTest {
             testFilm3.getDuration());
     testFilm4.setWebsite(testFilm3.getWebsite().orElse(null));
     testFilm4.setBeschreibung(testFilm3.getBeschreibung());
-    testFilm3.getUrls().forEach((key, value) -> testFilm4.addUrl(key, value));
+    testFilm3.getUrls().forEach(testFilm4::addUrl);
 
     final Filmlist testFilmlist2 = new Filmlist();
     testFilmlist2.add(testFilm1);
