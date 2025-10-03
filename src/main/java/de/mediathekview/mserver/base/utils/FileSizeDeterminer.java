@@ -32,20 +32,19 @@ public class FileSizeDeterminer {
     client = b.build();
   }
 
-  public RespoonseInfo getRequestInfo(final String url) {
+  public ResponseInfo getRequestInfo(final String url) {
     return getRequestInfo(url, RequestType.HEAD);
   }
 
-  public RespoonseInfo getRequestInfo(final String url, final RequestType requestType) {
+  private ResponseInfo getRequestInfo(final String url, final RequestType requestType) {
       try (final Response response =
           client.newCall(createRequestBuilderForRequestType(url, requestType).build()).execute()) {
-        RespoonseInfo respoonseInfo = new RespoonseInfo(
+        return new ResponseInfo(
             parseContentLength(response.header(CONTENT_LENGTH)),
             response.code(),
             response.header(CONTENT_TYPE, ""),
             response.request().url().encodedPath()
             );
-        return respoonseInfo;
       } catch (final IOException ioException) {
         LOG.error(
             "Something went wrong determining the file size of \"{}\" with {} request.",
@@ -104,33 +103,7 @@ public class FileSizeDeterminer {
       return -1L;
     }
   }
-  
-  public class RespoonseInfo {
-    private Long size;
-    private int code;
-    private String contentType;
-    private String path;
-    
-    public RespoonseInfo(Long size, int code, String contentType, String path) {
-      super();
-      this.size = size;
-      this.code = code;
-      this.contentType = contentType;
-      this.path = path;
-    }
-    
-    public Long getSize() {
-      return size;
-    }
-    public int getCode() {
-      return code;
-    }
-    public String getContentType() {
-      return contentType;
-    }
-    public String getPath() {
-      return path;
-    }    
-  }
 
+  public record ResponseInfo(Long size, int code, String contentType, String path) {
+  }
 }

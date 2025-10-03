@@ -182,10 +182,10 @@ public class Film extends Podcast {
   }
   
   private static Map<Integer, Film> buildIndexTitelThemaSenderDuration(Filmlist aList) {
-    Map<Integer, Film> index = new HashMap<>(aList.getFilms().size());
-    aList.getFilms().values().forEach( entry -> {
-      index.put(Objects.hash(entry.getSenderName(),entry.getTitel(), entry.getThema(), entry.getDuration()), entry);
-    });
+    Map<Integer, Film> index = HashMap.newHashMap(aList.getFilms().size());
+    aList.getFilms().values().forEach( entry ->
+      index.put(Objects.hash(entry.getSenderName(),entry.getTitel(), entry.getThema(), entry.getDuration()), entry)
+    );
     return index;
   }
   public static boolean containsFilm(Filmlist athis, Film film) {

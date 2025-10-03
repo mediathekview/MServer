@@ -14,6 +14,7 @@ import de.mediathekview.mserver.daten.Resolution;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalTime;
 import java.time.ZoneId;
@@ -22,6 +23,9 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 import java.util.Locale;
+import java.util.Optional;
+import java.util.concurrent.atomic.AtomicInteger;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -37,17 +41,20 @@ public class FilmlistOldFormatWriter extends AbstractFilmlistWriter {
   private static final char GEO_SPLITTERATOR = '-';
   private static final DateTimeFormatter DATE_TIME_FORMAT =
       DateTimeFormatter.ofLocalizedDateTime(MEDIUM, SHORT).withLocale(Locale.GERMANY);
+
+  private static final String META_HEADER_VERSION = "4";
+  private static final String META_HEADER_VERSION_LONG = "MSearch [Vers.: 4.0.1]";
+
   private String sender = "";
   private String thema = "";
-  private int cnt = 0;
-  
+
   @Override
   public boolean write(Filmlist filmlist, OutputStream outputStream) throws IOException {
     long start = System.currentTimeMillis();
     // these must be reset otherwise we may have old values in here
     this.sender = "";
     this.thema = "";
-    this.cnt = 0;
+    AtomicInteger cnt = new AtomicInteger();
     try {
       LOG.info("start writting data");
       JsonWriter jsonWriter = new JsonWriter(new OutputStreamWriter(outputStream,StandardCharsets.UTF_8));
@@ -56,27 +63,27 @@ public class FilmlistOldFormatWriter extends AbstractFilmlistWriter {
       writeColumnHeader(jsonWriter);
       filmlist.getSorted(MediaResourceComperators.DEFAULT_COMPERATOR.getComparator()).forEach(aFilm -> {
         try {
-          if (aFilm.getUrls().size() > 0) {
+          if (!aFilm.getUrls().isEmpty()) {
             writeRecord(aFilm, jsonWriter);
-            cnt++;
+            cnt.getAndIncrement();
           }
-          if (aFilm instanceof Film pFilm && pFilm.getAudioDescriptions().size() > 0) {
+          if (aFilm instanceof Film pFilm && !pFilm.getAudioDescriptions().isEmpty()) {
             Film filmAd = new Film(pFilm);
             if (!filmAd.getTitel().toLowerCase().contains("audiodeskription")) {
               filmAd.setTitel(filmAd.getTitel() + " (Audiodeskription)");
             }
             filmAd.setUrls(filmAd.getAudioDescriptions());
             writeRecord(filmAd, jsonWriter);
-            cnt++;
+            cnt.getAndIncrement();
           }
-          if (aFilm instanceof Film pFilm && pFilm.getSignLanguages().size() > 0) {
+          if (aFilm instanceof Film pFilm && !pFilm.getSignLanguages().isEmpty()) {
             Film filmGbs = new Film(pFilm);
             if (!filmGbs.getTitel().toLowerCase().contains("gebärdensprache")) {
               filmGbs.setTitel(filmGbs.getTitel() + " (Gebärdensprache)");
             }
             filmGbs.setUrls(filmGbs.getSignLanguages());
             writeRecord(filmGbs, jsonWriter);
-            cnt++;
+            cnt.getAndIncrement();
           }
         } catch (IOException e) {
           LOG.error(e);
@@ -96,8 +103,8 @@ public class FilmlistOldFormatWriter extends AbstractFilmlistWriter {
     jsonWriter.name("Filmliste").beginArray();
     jsonWriter.value(writeMetaHeader01CreationDate(list));
     jsonWriter.value(writeMetaHeader02CreationDateUTC(list));
-    jsonWriter.value(writeMetaHeader03Version(list));
-    jsonWriter.value(writeMetaHeader04VErsionLong(list));
+    jsonWriter.value(META_HEADER_VERSION);
+    jsonWriter.value(META_HEADER_VERSION_LONG);
     jsonWriter.value(writeMetaHeader05Id(list));
     jsonWriter.endArray();
     
@@ -109,14 +116,6 @@ public class FilmlistOldFormatWriter extends AbstractFilmlistWriter {
 
   private String writeMetaHeader02CreationDateUTC(Filmlist in) {
     return DATE_TIME_FORMAT.format(in.getCreationDate().atZone(ZoneOffset.UTC));    
-  }
-
-  private String writeMetaHeader03Version(Filmlist in) {
-    return "4";
-  }
-
-  private String writeMetaHeader04VErsionLong(Filmlist in) {
-    return "MSearch [Vers.: 4.0.1]";
   }
 
   private String writeMetaHeader05Id(Filmlist in) {
@@ -162,13 +161,13 @@ public class FilmlistOldFormatWriter extends AbstractFilmlistWriter {
     jsonWriter.value(writeRecord09UrlNormal(film));
     jsonWriter.value(writeRecord10Website(film));
     jsonWriter.value(writeRecord11Untertitel(film));
-    jsonWriter.value(writeRecord12UrlRTMP(film));
+    jsonWriter.value(""); // UrlRTMP
     jsonWriter.value(writeRecord13UrlKlein(film));
-    jsonWriter.value(writeRecord14UrlKleinRTMP(film));
+    jsonWriter.value(""); // UrlRTMP Klein
     jsonWriter.value(writeRecord15UrlHD(film));
-    jsonWriter.value(writeRecord16UrlHdRTMP(film));
+    jsonWriter.value(""); // UrlRTMP HD
     jsonWriter.value(writeRecord17DatumL(film));
-    jsonWriter.value(writeRecord18UrlHistory(film));
+    jsonWriter.value(""); // Url History
     jsonWriter.value(writeRecord19Geo(film));
     jsonWriter.value(writeRecord20Neu(film));
     jsonWriter.endArray();
@@ -229,8 +228,9 @@ public class FilmlistOldFormatWriter extends AbstractFilmlistWriter {
   }
 
   private String writeRecord10Website(AbstractMediaResource<?> in) {
-    if (in.getWebsite().isPresent()) {
-      return in.getWebsite().get().toString();
+    final Optional<URL> website = in.getWebsite();
+    if (website.isPresent()) {
+      return website.get().toString();
     }
     return "";
   }
@@ -242,18 +242,10 @@ public class FilmlistOldFormatWriter extends AbstractFilmlistWriter {
     return "";
   }
 
-  private String writeRecord12UrlRTMP(AbstractMediaResource<?> in) {
-    return "";
-  }
-
   private String writeRecord13UrlKlein(AbstractMediaResource<?> in) {
     if ((in instanceof Podcast pIn) && in.getUrl(Resolution.SMALL) != null && pIn.getUrl(Resolution.NORMAL) != null) {
       return reduceUrl(pIn.getUrl(Resolution.NORMAL).getUrl().toString(), pIn.getUrl(Resolution.SMALL).getUrl().toString());
     }
-    return "";
-  }
-
-  private String writeRecord14UrlKleinRTMP(AbstractMediaResource<?> in) {
     return "";
   }
 
@@ -264,17 +256,9 @@ public class FilmlistOldFormatWriter extends AbstractFilmlistWriter {
     return "";
   }
 
-  private String writeRecord16UrlHdRTMP(AbstractMediaResource<?> in) {
-    return "";
-  }
-
   private String writeRecord17DatumL(AbstractMediaResource<?> in) {
     final ZonedDateTime zonedDateTime = in.getTime().atZone(ZONE_ID);
     return zonedDateTime.toEpochSecond()+"";
-  }
-
-  private String writeRecord18UrlHistory(AbstractMediaResource<?> in) {
-    return "";
   }
 
   private String writeRecord19Geo(AbstractMediaResource<?> in) {

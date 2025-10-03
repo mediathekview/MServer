@@ -37,17 +37,17 @@ class FileSizeDeterminerTest {
 
   @Test
   void testGetFileSize() {
-    AssertionsForClassTypes.assertThat(getClassUnderTest().getRequestInfo(wireMockServer.baseUrl() + TEST_FILE_URL).getSize()).isEqualTo(5643L);
+    AssertionsForClassTypes.assertThat(getClassUnderTest().getRequestInfo(wireMockServer.baseUrl() + TEST_FILE_URL).size()).isEqualTo(5643L);
   }
   
   @Test
   void testGetStatusCode() {
-    AssertionsForClassTypes.assertThat(getClassUnderTest().getRequestInfo(wireMockServer.baseUrl() + TEST_FILE_URL).getCode()).isEqualTo(200);
+    AssertionsForClassTypes.assertThat(getClassUnderTest().getRequestInfo(wireMockServer.baseUrl() + TEST_FILE_URL).code()).isEqualTo(200);
   }
   
   @Test
   void testGetContentType() {
-    AssertionsForClassTypes.assertThat(getClassUnderTest().getRequestInfo(wireMockServer.baseUrl() + TEST_FILE_URL).getContentType()).isEqualTo("text/html");
+    AssertionsForClassTypes.assertThat(getClassUnderTest().getRequestInfo(wireMockServer.baseUrl() + TEST_FILE_URL).contentType()).isEqualTo("text/html");
   }
 
   private FileSizeDeterminer getClassUnderTest() {

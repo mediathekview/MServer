@@ -1,7 +1,7 @@
 package de.mediathekview.mserver.daten;
 
 import java.util.Optional;
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Strings;
 
 /**
  * The available GEO locations.
@@ -18,7 +18,7 @@ public enum GeoLocations {
   GEO_DE_AT_CH_FR("DE-AT-CH-FR", "EUR_DE_FR");
 
   private final String description;
-  private String[] alternatives;
+  private final String[] alternatives;
 
   GeoLocations(final String aDescription, final String... aAlternatives) {
     description = aDescription;
@@ -34,7 +34,7 @@ public enum GeoLocations {
   public static Optional<GeoLocations> find(final String aTerm) {
     for (final GeoLocations geoLoc : GeoLocations.values()) {
       if (geoLoc.getDescription().equalsIgnoreCase(aTerm)
-          || StringUtils.equalsAnyIgnoreCase(aTerm, geoLoc.alternatives)) {
+          || Strings.CI.equalsAny(aTerm, geoLoc.alternatives)) {
         return Optional.of(geoLoc);
       }
     }

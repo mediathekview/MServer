@@ -12,7 +12,7 @@ import de.mediathekview.mserver.daten.Film;
 import de.mediathekview.mserver.daten.Filmlist;
 import de.mediathekview.mserver.daten.Resolution;
 import de.mediathekview.mserver.daten.Sender;
-import de.mediathekview.mserver.base.utils.FileSizeDeterminer.RespoonseInfo;
+import de.mediathekview.mserver.base.utils.FileSizeDeterminer.ResponseInfo;
 
 
 public class CheckUrlAvailability {
@@ -57,7 +57,7 @@ public class CheckUrlAvailability {
     }
     
     String normalUrl = pFilm.getUrl(Resolution.NORMAL).getUrl().toString();
-    RespoonseInfo ri = fsd.getRequestInfo(normalUrl);
+    ResponseInfo ri = fsd.getRequestInfo(normalUrl);
 
     if (pFilm.getThema().equalsIgnoreCase("Livestream")) {
       // do not remove livestreams
@@ -66,20 +66,20 @@ public class CheckUrlAvailability {
       LOG.debug("Film response (null): {} # {} # {} # {} ", normalUrl, pFilm.getSender(), pFilm.getThema(), pFilm.getTitel());
       removedCounter.incrementAndGet();
       return false;
-    } else if (!(ri.getCode() >= 200 && ri.getCode() < 300)) {
-      LOG.debug("Film response ({}): {} # {} # {} # {} ", ri.getCode(), normalUrl, pFilm.getSender(), pFilm.getThema(), pFilm.getTitel());
+    } else if (!(ri.code() >= 200 && ri.code() < 300)) {
+      LOG.debug("Film response ({}): {} # {} # {} # {} ", ri.code(), normalUrl, pFilm.getSender(), pFilm.getThema(), pFilm.getTitel());
       removedCounter.incrementAndGet();
       return false;
-    } else if (ri.getContentType().equalsIgnoreCase("text/html")) {
-      LOG.debug("Film content type({}): {} # {} # {} # {} ", ri.getContentType(), normalUrl, pFilm.getSender(), pFilm.getThema(), pFilm.getTitel());
+    } else if (ri.contentType().equalsIgnoreCase("text/html")) {
+      LOG.debug("Film content type({}): {} # {} # {} # {} ", ri.contentType(), normalUrl, pFilm.getSender(), pFilm.getThema(), pFilm.getTitel());
       removedCounter.incrementAndGet();
       return false;
-    } else if (ri.getSize() < minFileSize && !normalUrl.endsWith("m3u8")) {
-      LOG.debug("Film small ({}): {} # {} # {} # {} ", ri.getSize() , normalUrl, pFilm.getSender(), pFilm.getThema(), pFilm.getTitel());
+    } else if (ri.size() < minFileSize && !normalUrl.endsWith("m3u8")) {
+      LOG.debug("Film small ({}): {} # {} # {} # {} ", ri.size() , normalUrl, pFilm.getSender(), pFilm.getThema(), pFilm.getTitel());
       removedCounter.incrementAndGet();
       return false;
-    }  else if (removedVideo(pFilm, ri.getPath())) {
-      LOG.debug("Film url ({}): {} # {} # {} # {} ", ri.getPath(), normalUrl, pFilm.getSender(), pFilm.getThema(), pFilm.getTitel());
+    }  else if (removedVideo(pFilm, ri.path())) {
+      LOG.debug("Film url ({}): {} # {} # {} # {} ", ri.path(), normalUrl, pFilm.getSender(), pFilm.getThema(), pFilm.getTitel());
       removedCounter.incrementAndGet();
       return false;
     }

@@ -59,14 +59,7 @@ public class FilmlistOldFormatReader extends AbstractFilmlistReader {
       headerColumns(jsonReader);
       while (jsonReader.peek() != JsonToken.END_OBJECT) 
       {
-        try {
-          readRecrod(jsonReader).ifPresent(filmlist::add);
-        } catch (Exception e) {
-          if (!recoverParser(jsonReader)) {
-            LOG.error("error after {} sec on element {} of {} elements", ((System.currentTimeMillis()-start)/1000), cnt, filmlist.getFilms().size());
-            throw(e);
-          }
-        }
+        readRecordWithRecover(jsonReader, filmlist, start);
       }
     } catch (IOException e) {
       LOG.error(e);
@@ -76,7 +69,18 @@ public class FilmlistOldFormatReader extends AbstractFilmlistReader {
     return Optional.of(filmlist);
     
   }
-  
+
+  private void readRecordWithRecover(JsonReader jsonReader, Filmlist filmlist, long start) throws IOException {
+    try {
+      readRecord(jsonReader).ifPresent(filmlist::add);
+    } catch (Exception e) {
+      if (!recoverParser(jsonReader)) {
+        LOG.error("error after {} sec on element {} of {} elements", ((System.currentTimeMillis()- start)/1000), cnt, filmlist.getFilms().size());
+        throw(e);
+      }
+    }
+  }
+
   private boolean recoverParser(JsonReader jsonReader) {
     int maxTry = 25;
     try {
@@ -154,7 +158,7 @@ public class FilmlistOldFormatReader extends AbstractFilmlistReader {
     jsonReader.endArray();
   }
   
-  private Optional<Film> readRecrod(JsonReader jsonReader) throws IOException {
+  private Optional<Film> readRecord(JsonReader jsonReader) throws IOException {
     cnt++;
     //
     Film f = new Film();
@@ -163,14 +167,19 @@ public class FilmlistOldFormatReader extends AbstractFilmlistReader {
     jsonReader.nextName();
     jsonReader.beginArray();
     sender = readRecord01Sender(jsonReader.nextString(), sender);
-    f.setSender(Sender.getSenderByName(sender).get());
+    final Optional<Sender> senderOptional = Sender.getSenderByName(this.sender);
+    if (senderOptional.isPresent()) {
+      f.setSender(senderOptional.get());
+    } else {
+      LOG.warn("no sender found for {}", sender);
+    }
     //
     thema = readRecord02Thema(jsonReader.nextString(), thema);
     f.setThemaRaw(thema);
     //
     String titel = readRecord03Titel(jsonReader.nextString());
     f.setTitelRaw(titel);
-    debug = sender + thema + titel;
+    debug = this.sender + thema + titel;
     //
     f.setTime(readRecord04Datum(jsonReader.nextString()).atTime(readRecord05Zeit(jsonReader.nextString())));
     //
