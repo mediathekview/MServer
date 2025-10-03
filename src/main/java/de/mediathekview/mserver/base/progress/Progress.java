@@ -1,4 +1,4 @@
-package de.mediathekview.mlib.progress;
+package de.mediathekview.mserver.base.progress;
 
 import java.time.Duration;
 import java.time.LocalDateTime;

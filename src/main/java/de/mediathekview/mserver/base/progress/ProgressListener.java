@@ -1,4 +1,4 @@
-package de.mediathekview.mlib.progress;
+package de.mediathekview.mserver.base.progress;
 /**
  * A abstract listener for listeners which get progress updates.
  */

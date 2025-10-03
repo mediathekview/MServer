@@ -5,7 +5,7 @@ import de.mediathekview.mlib.daten.Filmlist;
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mlib.filmlisten.FilmlistFormats;
 import de.mediathekview.mlib.filmlisten.FilmlistManager;
-import de.mediathekview.mlib.progress.ProgressListener;
+import de.mediathekview.mserver.base.progress.ProgressListener;
 import de.mediathekview.mserver.base.config.ImportFilmlistConfiguration;
 import de.mediathekview.mserver.base.config.MServerConfigDTO;
 import de.mediathekview.mserver.base.config.MServerConfigManager;

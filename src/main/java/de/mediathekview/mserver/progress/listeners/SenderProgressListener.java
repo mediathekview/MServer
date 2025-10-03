@@ -1,7 +1,7 @@
 package de.mediathekview.mserver.progress.listeners;
 
 import de.mediathekview.mlib.daten.Sender;
-import de.mediathekview.mlib.progress.Progress;
+import de.mediathekview.mserver.base.progress.Progress;
 
 /**
  * A abstract Sender specific listener for listeners which get progress updates.

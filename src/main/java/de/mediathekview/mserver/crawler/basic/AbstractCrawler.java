@@ -4,7 +4,7 @@ import de.mediathekview.mlib.daten.Film;
 import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mserver.base.messages.Message;
 import de.mediathekview.mserver.base.messages.listener.MessageListener;
-import de.mediathekview.mlib.progress.Progress;
+import de.mediathekview.mserver.base.progress.Progress;
 import de.mediathekview.mserver.base.config.MServerBasicConfigDTO;
 import de.mediathekview.mserver.base.config.MServerConfigDTO;
 import de.mediathekview.mserver.base.config.MServerConfigManager;
