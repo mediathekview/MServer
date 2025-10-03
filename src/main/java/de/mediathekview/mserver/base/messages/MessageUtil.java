@@ -13,7 +13,7 @@ public final class MessageUtil
 {
     private static final Logger LOG = LogManager.getLogger(MessageUtil.class);
     private static final String DEFAULT_BUNDLE_NAME = "MediathekView_Messages";
-    private static final String MLIB_BUNDLE_NAME = "MLib_Messages";
+    private static final String FILM_LIST_BUNDLE_NAME = "MLib_Messages";
     private static final String MESSAGE_NOT_IN_BUNDLE_ERROR_TEXT_TEMPLATE =
             "Tried to load the message with the key \"%s\" from the resource bundle \"%s\" but the bundle doesn't contains a message with this key.";
     private static MessageUtil instance;
@@ -40,7 +40,7 @@ public final class MessageUtil
             if (!resourceBundle.containsKey(aMessage.getMessageKey()))
             {
                 // Try shared lib Bundle.
-                resourceBundle = ResourceBundle.getBundle(MLIB_BUNDLE_NAME, aLocale);
+                resourceBundle = ResourceBundle.getBundle(FILM_LIST_BUNDLE_NAME, aLocale);
             }
             return resourceBundle.getString(aMessage.getMessageKey());
         }

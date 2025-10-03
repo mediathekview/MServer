@@ -1,7 +1,7 @@
 package de.mediathekview.mserver.filmlisten.writer;
 
 import de.mediathekview.mserver.daten.Filmlist;
-import de.mediathekview.mserver.base.messages.LibMessages;
+import de.mediathekview.mserver.filmlisten.FilmListMessages;
 import de.mediathekview.mserver.base.messages.MessageCreator;
 import de.mediathekview.mserver.base.messages.listener.MessageListener;
 import java.io.BufferedOutputStream;
@@ -31,7 +31,7 @@ public abstract class AbstractFilmlistWriter extends MessageCreator {
       return write(filmlist, fos);
     } catch (final IOException ioException) {
       LOG.debug("Something went wrong on writing the film list.", ioException);
-      publishMessage(LibMessages.FILMLIST_WRITE_ERROR, savePath.toAbsolutePath().toString());
+      publishMessage(FilmListMessages.FILMLIST_WRITE_ERROR, savePath.toAbsolutePath().toString());
       return false;
     }
   }

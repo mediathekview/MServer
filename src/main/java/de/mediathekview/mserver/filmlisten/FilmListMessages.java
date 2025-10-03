@@ -1,6 +1,9 @@
-package de.mediathekview.mserver.base.messages;
+package de.mediathekview.mserver.filmlisten;
 
-public enum LibMessages implements Message
+import de.mediathekview.mserver.base.messages.Message;
+import de.mediathekview.mserver.base.messages.MessageTypes;
+
+public enum FilmListMessages implements Message
 {
     FILMLIST_WRITE_ERROR("filmlistWriteError", MessageTypes.FATAL_ERROR),
     FILMLIST_COMPRESS_ERROR("filmlistCompressError", MessageTypes.FATAL_ERROR),
@@ -11,10 +14,10 @@ public enum LibMessages implements Message
     FILMLIST_IMPORT_STARTED("filmlistImportStarted", MessageTypes.INFO),
     FILMLIST_IMPORT_FINISHED("filmlistImportFinished", MessageTypes.INFO);
 
-    private String messageKey;
-    private MessageTypes messageType;
+    private final String messageKey;
+    private final MessageTypes messageType;
 
-    LibMessages(final String aMessageKey, final MessageTypes aMessageType)
+    FilmListMessages(final String aMessageKey, final MessageTypes aMessageType)
     {
         messageKey = aMessageKey;
         messageType = aMessageType;

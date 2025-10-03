@@ -8,7 +8,6 @@ import de.mediathekview.mserver.filmlisten.reader.FilmlistReader;
 import de.mediathekview.mserver.filmlisten.writer.AbstractFilmlistWriter;
 import de.mediathekview.mserver.filmlisten.writer.FilmlistOldFormatWriter;
 import de.mediathekview.mserver.filmlisten.writer.FilmlistWriter;
-import de.mediathekview.mserver.base.messages.LibMessages;
 import de.mediathekview.mserver.base.messages.MessageCreator;
 import de.mediathekview.mserver.base.utils.MVHttpClient;
 import java.io.BufferedInputStream;
@@ -48,7 +47,7 @@ public class FilmlistManager extends MessageCreator {
 
   private Optional<Filmlist> importList(
       final FilmlistFormats aFormat, final InputStream aInputStream) throws IOException {
-    publishMessage(LibMessages.FILMLIST_IMPORT_STARTED);
+    publishMessage(FilmListMessages.FILMLIST_IMPORT_STARTED);
     final InputStream input = decompressInputStreamIfFormatNeedsTo(aFormat, aInputStream);
 
     try {
@@ -58,7 +57,7 @@ public class FilmlistManager extends MessageCreator {
         return new FilmlistReader().read(input);
       }
     } finally {
-      publishMessage(LibMessages.FILMLIST_IMPORT_FINISHED);
+      publishMessage(FilmListMessages.FILMLIST_IMPORT_FINISHED);
     }
   }
 
@@ -102,7 +101,7 @@ public class FilmlistManager extends MessageCreator {
   public boolean save(
       final FilmlistFormats aFormat, final Filmlist aFilmlist, final Path aSavePath) {
     try {
-      publishMessage(LibMessages.FILMLIST_WRITE_STARTED, aSavePath);
+      publishMessage(FilmListMessages.FILMLIST_WRITE_STARTED, aSavePath);
       if (aFormat.isOldFormat()) {
         final FilmlistOldFormatWriter filmlistOldFormatWriter = new FilmlistOldFormatWriter();
         filmlistOldFormatWriter.addAllMessageListener(messageListeners);
@@ -113,7 +112,7 @@ public class FilmlistManager extends MessageCreator {
         return save(filmlistWriter, aFormat, aFilmlist, aSavePath);
       }
     } finally {
-      publishMessage(LibMessages.FILMLIST_WRITE_FINISHED, aSavePath);
+      publishMessage(FilmListMessages.FILMLIST_WRITE_FINISHED, aSavePath);
     }
   }
 
@@ -126,7 +125,7 @@ public class FilmlistManager extends MessageCreator {
         return true;
       } catch (final IOException ioException) {
         publishMessage(
-            LibMessages.FILMLIST_COMPRESS_ERROR, aTargetPath.toAbsolutePath().toString());
+            FilmListMessages.FILMLIST_COMPRESS_ERROR, aTargetPath.toAbsolutePath().toString());
       }
     }
     return false;
@@ -175,7 +174,7 @@ public class FilmlistManager extends MessageCreator {
       try {
         Files.deleteIfExists(tempPath);
       } catch (final IOException ioException) {
-        LOG.error(String.format("Can't delete temp file \"%s\".", tempPath.toString()));
+        LOG.error(String.format("Can't delete temp file \"%s\".", tempPath));
       }
     }
   }
