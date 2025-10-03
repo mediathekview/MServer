@@ -1,4 +1,4 @@
-package de.mediathekview.mlib.filmlisten;
+package de.mediathekview.mserver.filmlisten;
 
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 

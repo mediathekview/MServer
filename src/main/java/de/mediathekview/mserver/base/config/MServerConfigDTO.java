@@ -1,7 +1,7 @@
 package de.mediathekview.mserver.base.config;
 
 import de.mediathekview.mlib.daten.Sender;
-import de.mediathekview.mlib.filmlisten.FilmlistFormats;
+import de.mediathekview.mserver.filmlisten.FilmlistFormats;
 
 import java.net.URL;
 import java.util.*;

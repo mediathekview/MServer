@@ -1,6 +1,6 @@
 package de.mediathekview.mserver.crawler;
 
-import de.mediathekview.mlib.filmlisten.FilmlistFormats;
+import de.mediathekview.mserver.filmlisten.FilmlistFormats;
 import de.mediathekview.mserver.base.messages.Message;
 import de.mediathekview.mserver.base.messages.MessageTypes;
 import de.mediathekview.mserver.base.messages.MessageUtil;
@@ -31,11 +31,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 @RunWith(Parameterized.class)
 public class CrawlerManagerTest implements MessageListener {
 
-  private Logger LOG;
+  private final Logger logger;
   private static final String TEMP_FOLDER_NAME_PATTERN = "MSERVER_TEST_%d";
   private static Path testFileFolderPath;
 
-  private final CrawlerManager CRAWLER_MANAGER;
+  private final CrawlerManager crawlerManager;
   private final String filmlistPath;
   private final FilmlistFormats format;
   private final int expectedSize;
@@ -44,8 +44,8 @@ public class CrawlerManagerTest implements MessageListener {
     filmlistPath = aFilmlistPath;
     expectedSize = aExpectedSize;
     format = aFormat;
-    CRAWLER_MANAGER = new CrawlerManager(new MServerConfigManager(MServerConfigManager.DEFAULT_CONFIG_FILE));
-    LOG = LogManager.getLogger(CrawlerManagerTest.class);
+    crawlerManager = new CrawlerManager(new MServerConfigManager(MServerConfigManager.DEFAULT_CONFIG_FILE));
+    logger = LogManager.getLogger(CrawlerManagerTest.class);
   }
 
   @Parameterized.Parameters(name = "Test {index} Filmlist for {0} with {1}")
@@ -86,7 +86,7 @@ public class CrawlerManagerTest implements MessageListener {
     if (MessageTypes.FATAL_ERROR.equals(aMessage.getMessageType())) {
       Assert.fail(String.format(MessageUtil.getInstance().loadMessageText(aMessage), aParameters));
     } else {
-      LOG.info(
+      logger.info(
           String.format(
               "%s: %s",
               aMessage.getMessageType().name(),
@@ -97,11 +97,11 @@ public class CrawlerManagerTest implements MessageListener {
   @Test
   public void testSaveAndImport() {
     final Path filmListFilePath = FileReader.getPath(filmlistPath);
-    synchronized (CRAWLER_MANAGER) {
-      CRAWLER_MANAGER.addMessageListener(this);
-      CRAWLER_MANAGER.importFilmlist(new ImportFilmlistConfiguration(true, filmListFilePath.toAbsolutePath().toString(), format, false, false));
-      assertThat(CRAWLER_MANAGER.getFilmlist().getFilms()).hasSize(expectedSize);
-      CRAWLER_MANAGER.saveFilmlist(testFileFolderPath.resolve(filmlistPath), format);
+    synchronized (crawlerManager) {
+      crawlerManager.addMessageListener(this);
+      crawlerManager.importFilmlist(new ImportFilmlistConfiguration(true, filmListFilePath.toAbsolutePath().toString(), format, false, false));
+      assertThat(crawlerManager.getFilmlist().getFilms()).hasSize(expectedSize);
+      crawlerManager.saveFilmlist(testFileFolderPath.resolve(filmlistPath), format);
       assertThat(testFileFolderPath.resolve(filmlistPath)).exists();
     }
   }

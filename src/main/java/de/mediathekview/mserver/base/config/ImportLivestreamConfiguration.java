@@ -2,7 +2,7 @@ package de.mediathekview.mserver.base.config;
 
 import java.util.Objects;
 
-import de.mediathekview.mlib.filmlisten.FilmlistFormats;
+import de.mediathekview.mserver.filmlisten.FilmlistFormats;
 
 public class ImportLivestreamConfiguration {
   private final Boolean active;

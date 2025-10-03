@@ -2,7 +2,7 @@ package de.mediathekview.mserver.base.config;
 
 import java.util.EnumMap;
 import java.util.Map;
-import de.mediathekview.mlib.filmlisten.FilmlistFormats;
+import de.mediathekview.mserver.filmlisten.FilmlistFormats;
 
 public class MServerCopySettings {
 

@@ -1,6 +1,6 @@
 package de.mediathekview.mserver.crawler;
 
-import de.mediathekview.mlib.filmlisten.FilmlistFormats;
+import de.mediathekview.mserver.filmlisten.FilmlistFormats;
 import de.mediathekview.mserver.base.messages.Message;
 import de.mediathekview.mserver.base.messages.MessageTypes;
 import de.mediathekview.mserver.base.messages.MessageUtil;
@@ -32,9 +32,9 @@ import java.util.Date;
 import java.util.stream.Stream;
 
 
-public class CrawlerManagerImportFilmlistsTest implements MessageListener {
+class CrawlerManagerImportFilmlistsTest implements MessageListener {
 
-  private Logger LOG;
+  private Logger logger;
   private static final String TEMP_FOLDER_NAME_PATTERN = "MSERVER_TEST_%d";
   private static Path testFileFolderPath;
 
@@ -88,12 +88,12 @@ public class CrawlerManagerImportFilmlistsTest implements MessageListener {
 
   public CrawlerManager createEmptyCrawlerManager() {
     CrawlerManager cm = new CrawlerManager(new MServerConfigManager(MServerConfigManager.DEFAULT_CONFIG_FILE));
-    LOG = LogManager.getLogger(CrawlerManagerImportFilmlistsTest.class);
+    logger = LogManager.getLogger(CrawlerManagerImportFilmlistsTest.class);
     return cm;
   }
 
   @AfterAll
-  public static void deleteTempFiles() throws IOException {
+  static void deleteTempFiles() throws IOException {
     Files.walk(testFileFolderPath)
         .sorted(Comparator.reverseOrder())
         .map(Path::toFile)
@@ -101,7 +101,7 @@ public class CrawlerManagerImportFilmlistsTest implements MessageListener {
   }
 
   @BeforeAll
-  public static void initTestData() throws Exception {
+  static void initTestData() throws Exception {
     testFileFolderPath = Files.createTempDirectory(formatWithDate(TEMP_FOLDER_NAME_PATTERN));
     Files.createDirectory(testFileFolderPath.resolve("filmlists"));
   }
@@ -115,7 +115,7 @@ public class CrawlerManagerImportFilmlistsTest implements MessageListener {
     if (MessageTypes.FATAL_ERROR.equals(aMessage.getMessageType())) {
       fail(String.format(MessageUtil.getInstance().loadMessageText(aMessage), aParameters));
     } else {
-      LOG.info(
+      logger.info(
           String.format(
               "%s: %s",
               aMessage.getMessageType().name(),

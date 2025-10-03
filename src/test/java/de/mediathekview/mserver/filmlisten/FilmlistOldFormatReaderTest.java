@@ -1,4 +1,4 @@
-package de.mediathekview.mlib.filmlisten;
+package de.mediathekview.mserver.filmlisten;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertIterableEquals;
@@ -10,7 +10,7 @@ import de.mediathekview.mlib.daten.Filmlist;
 import de.mediathekview.mlib.daten.GeoLocations;
 import de.mediathekview.mlib.daten.Resolution;
 import de.mediathekview.mlib.daten.Sender;
-import de.mediathekview.mlib.filmlisten.reader.FilmlistOldFormatReader;
+import de.mediathekview.mserver.filmlisten.reader.FilmlistOldFormatReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;

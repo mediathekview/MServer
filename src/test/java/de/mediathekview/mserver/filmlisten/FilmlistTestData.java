@@ -1,4 +1,4 @@
-package de.mediathekview.mlib.filmlisten;
+package de.mediathekview.mserver.filmlisten;
 
 import de.mediathekview.mlib.daten.*;
 import java.net.MalformedURLException;

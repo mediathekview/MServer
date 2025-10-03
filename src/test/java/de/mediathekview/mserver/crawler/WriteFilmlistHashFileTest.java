@@ -1,7 +1,7 @@
 package de.mediathekview.mserver.crawler;
 
 import de.mediathekview.mlib.daten.Filmlist;
-import de.mediathekview.mlib.filmlisten.FilmlistManager;
+import de.mediathekview.mserver.filmlisten.FilmlistManager;
 import org.junit.Test;
 
 import java.io.IOException;
