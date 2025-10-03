@@ -5,7 +5,6 @@ import com.google.gson.GsonBuilder;
 import de.mediathekview.mserver.daten.Filmlist;
 import de.mediathekview.mserver.daten.GsonDurationAdapter;
 import de.mediathekview.mserver.daten.GsonLocalDateTimeAdapter;
-import de.mediathekview.mserver.base.messages.listener.MessageListener;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -18,10 +17,6 @@ public class FilmlistWriter extends AbstractFilmlistWriter {
 
   public FilmlistWriter() {
     super();
-  }
-
-  public FilmlistWriter(final MessageListener... listeners) {
-    super(listeners);
   }
 
   @Override

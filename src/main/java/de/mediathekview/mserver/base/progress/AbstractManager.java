@@ -16,11 +16,6 @@ public abstract class AbstractManager {
     messageListeners = new ArrayList<>();
   }
 
-  public boolean addSenderProgressListener(
-      final SenderProgressListener aCrawlerSenderProgressListener) {
-    return progressListeners.add(aCrawlerSenderProgressListener);
-  }
-
   public boolean addMessageListener(final MessageListener aMessageListener) {
     return messageListeners.add(aMessageListener);
   }
@@ -35,10 +30,5 @@ public abstract class AbstractManager {
 
   protected void printMessage(final Message aMessage, final Object... args) {
     messageListeners.parallelStream().forEach(l -> l.consumeMessage(aMessage, args));
-  }
-
-  public boolean removeSenderProgressListener(
-      final SenderProgressListener aSenderProgressListener) {
-    return progressListeners.remove(aSenderProgressListener);
   }
 }

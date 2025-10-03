@@ -27,10 +27,6 @@ public class LogMessageListener implements MessageListener {
     locale = aLocale;
   }
 
-  public LogMessageListener(final String aBundleName) {
-    this(aBundleName, null);
-  }
-
   @Override
   public void consumeMessage(final Message aMessage, final Object... args) {
     final String messageText;
