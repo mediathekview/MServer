@@ -200,7 +200,6 @@ public final class UrlUtils {
    * @param aUrl the url
    * @param aParameterName the name of the url parameter
    * @return the parameter value
-   * @throws UrlParseException Will be thrown if the given URL isn't valid.
    */
   public static Optional<String> getUrlParameterValue(
       final String aUrl, final String aParameterName) {
