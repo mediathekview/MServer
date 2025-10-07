@@ -7,6 +7,7 @@ import de.mediathekview.mserver.daten.Resolution;
 import de.mediathekview.mserver.daten.Sender;
 import de.mediathekview.mserver.base.utils.JsonUtils;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
+import de.mediathekview.mserver.crawler.dw.DwConstants;
 import de.mediathekview.mserver.crawler.dw.DwVideoDto;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -128,7 +129,10 @@ public class DwFilmDetailDeserializer implements JsonDeserializer<Optional<Film>
     final JsonArray jsonObjectMainContentSources =
         jsonObjectMainContent.get(ELEMENT_MAINCONTENT_SOURCES).getAsJsonArray();
     getVideos(title.get(), jsonObjectMainContentSources).ifPresent(film::addAllUrls);
-    //
+    // Euromaxx always has the same title and we do not get the subtitle
+    if (DwConstants.REGULAR_TOPICS.contains(film.getThema())) {
+      film.setTitel(film.getTitel() + " " + film.getTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));  
+    }
     return Optional.of(film);
   }
 
