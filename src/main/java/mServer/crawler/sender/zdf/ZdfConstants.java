@@ -85,6 +85,7 @@ public final class ZdfConstants {
     SPECIAL_COLLECTION_IDS.put("pub-form-10004", "Filme");
     SPECIAL_COLLECTION_IDS.put("pub-form-10003", "Dokus");
     SPECIAL_COLLECTION_IDS.put("pub-form-10010", "Serien");
+    SPECIAL_COLLECTION_IDS.put("genre-10290", "Sport");
   }
 
   private ZdfConstants() {}
