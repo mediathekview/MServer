@@ -40,7 +40,7 @@ public class ArteVideoLinkTask
 
   @Override
   protected Type getType() {
-    return new TypeToken<PagedElementListDTO<ArteVideoLinkDto>>() {}.getType();
+    return new TypeToken<List<ArteVideoLinkDto>>() {}.getType();
   }
 
   protected void postProcessingElements(List<ArteVideoLinkDto> elements, ArteVideoInfoDto aDTO) {

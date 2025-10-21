@@ -15,14 +15,14 @@ import java.util.Optional;
 import java.util.Queue;
 import java.util.UUID;
 
+import de.mediathekview.mserver.daten.Film;
+import de.mediathekview.mserver.daten.FilmUrl;
+import de.mediathekview.mserver.daten.GeoLocations;
+import de.mediathekview.mserver.daten.Resolution;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 
-import de.mediathekview.mlib.daten.Film;
-import de.mediathekview.mlib.daten.FilmUrl;
-import de.mediathekview.mlib.daten.GeoLocations;
-import de.mediathekview.mlib.daten.Resolution;
 import de.mediathekview.mserver.crawler.arte.ArteVideoType;
 import de.mediathekview.mserver.crawler.arte.ArteRestVideoTypeMapper;
 import de.mediathekview.mserver.crawler.arte.json.ArteVideoInfoDto;

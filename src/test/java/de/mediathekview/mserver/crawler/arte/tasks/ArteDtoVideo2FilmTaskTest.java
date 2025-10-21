@@ -1,12 +1,8 @@
 package de.mediathekview.mserver.crawler.arte.tasks;
 
-import de.mediathekview.mlib.daten.Film;
-import de.mediathekview.mlib.daten.FilmUrl;
-import de.mediathekview.mlib.daten.GeoLocations;
-import de.mediathekview.mlib.daten.Resolution;
-import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mserver.crawler.arte.json.ArteVideoInfoDto;
 import de.mediathekview.mserver.crawler.basic.TopicUrlDTO;
+import de.mediathekview.mserver.daten.*;
 import de.mediathekview.mserver.testhelper.WireMockTestBase;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -39,7 +35,7 @@ public class ArteDtoVideo2FilmTaskTest extends WireMockTestBase {
   public static Collection<Object[]> data() {
     Film film1 = new Film(
         UUID.randomUUID(), 
-        Sender.ARTE_DE, 
+        Sender.ARTE_DE,
         "Re: Der Traum vom Paradies - Nur die Liebe zählt",
         "Aktuelles und Gesellschaft - Reportagen und Recherchen",
         LocalDateTime.of(2024,04,26,19,42,32),
