@@ -1,6 +1,6 @@
 package de.mediathekview.mserver.crawler.sr.tasks;
 
-import de.mediathekview.mlib.daten.Film;
+import de.mediathekview.mserver.daten.Film;
 import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.crawler.sr.SrCrawler;
 import de.mediathekview.mserver.testhelper.JsoupMock;
@@ -11,7 +11,6 @@ import org.junit.runners.Parameterized;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Set;
@@ -78,7 +77,7 @@ public class SrFilmDetailTaskNoFilmTest extends SrTaskTestBase {
   }
 
   @Test
-  public void test() throws IOException {
+  public void test() {
     jsoupConnection = JsoupMock.mock(requestUrl, filmPageFile);
     SrCrawler crawler = createCrawler();
     crawler.setConnection(jsoupConnection);

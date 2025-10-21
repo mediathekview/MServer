@@ -1,11 +1,10 @@
 package de.mediathekview.mserver.crawler.srf.parser;
 
 import com.google.gson.*;
-import de.mediathekview.mlib.daten.Film;
-import de.mediathekview.mlib.daten.FilmUrl;
-import de.mediathekview.mlib.daten.Resolution;
-import de.mediathekview.mlib.daten.Sender;
-import de.mediathekview.mserver.base.utils.UrlParseException;
+import de.mediathekview.mserver.daten.Film;
+import de.mediathekview.mserver.daten.FilmUrl;
+import de.mediathekview.mserver.daten.Resolution;
+import de.mediathekview.mserver.daten.Sender;
 import de.mediathekview.mserver.base.utils.UrlUtils;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.M3U8Constants;
@@ -16,6 +15,7 @@ import org.apache.logging.log4j.LogManager;
 
 import java.lang.reflect.Type;
 import java.net.MalformedURLException;
+import java.net.URI;
 import java.net.URL;
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -58,7 +58,7 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
   private static void addSubtitle(final String aSubtitleUrl, final Film aFilm) {
     if (!aSubtitleUrl.isEmpty()) {
       try {
-        aFilm.addSubtitle(new URL(aSubtitleUrl));
+        aFilm.addSubtitle(URI.create(aSubtitleUrl).toURL());
       } catch (final MalformedURLException ex) {
         LOG.error(String.format("A subtitle URL \"%s\" isn't valid.", aSubtitleUrl), ex);
       }
@@ -89,7 +89,7 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
             SrfConstants.WEBSITE_URL, replaceCharForUrl(aTheme), replaceCharForUrl(aTitle), aId);
 
     try {
-      return Optional.of(new URL(url));
+      return Optional.of(URI.create(url).toURL());
     } catch (final MalformedURLException ex) {
       LOG.error(String.format("The website url \"%s\" isn't valid.", url), ex);
     }
@@ -123,20 +123,15 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
   }
 
   private static String extractSubtitleFromVideoUrl(String videoUrl) {
-    try {
-      Optional<String> subtitleBaseUrl = UrlUtils.getUrlParameterValue(videoUrl, "webvttbaseurl");
-      Optional<String> caption = UrlUtils.getUrlParameterValue(videoUrl, "caption");
+    Optional<String> subtitleBaseUrl = UrlUtils.getUrlParameterValue(videoUrl, "webvttbaseurl");
+    Optional<String> caption = UrlUtils.getUrlParameterValue(videoUrl, "caption");
 
-      if (subtitleBaseUrl.isPresent() && caption.isPresent()) {
-        String subtitleUrl =
-            String.format(
-                "%s/%s", subtitleBaseUrl.get(), convertVideoCaptionToSubtitleFile(caption.get()));
+    if (subtitleBaseUrl.isPresent() && caption.isPresent()) {
+      String subtitleUrl =
+          String.format(
+              "%s/%s", subtitleBaseUrl.get(), convertVideoCaptionToSubtitleFile(caption.get()));
 
-        return UrlUtils.addProtocolIfMissing(subtitleUrl, UrlUtils.PROTOCOL_HTTPS);
-      }
-
-    } catch (UrlParseException e) {
-      LOG.error("SRF: error parsing subtitleUrl", e);
+      return UrlUtils.addProtocolIfMissing(subtitleUrl, UrlUtils.PROTOCOL_HTTPS);
     }
 
     return "";

@@ -1,7 +1,6 @@
 package de.mediathekview.mserver.base.config;
 
-import de.mediathekview.mlib.config.ConfigManager;
-import de.mediathekview.mlib.daten.Sender;
+import de.mediathekview.mserver.daten.Sender;
 import org.apache.commons.lang3.StringUtils;
 
 /** A {@link ConfigManager} for {@link MServerConfigDTO}. */

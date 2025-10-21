@@ -1,7 +1,7 @@
 package de.mediathekview.mserver.base.uploader;
 
-import de.mediathekview.mlib.messages.listener.MessageListener;
-import de.mediathekview.mlib.progress.ProgressListener;
+import de.mediathekview.mserver.base.messages.listener.MessageListener;
+import de.mediathekview.mserver.base.progress.ProgressListener;
 
 import java.nio.file.Path;
 import java.util.ArrayList;

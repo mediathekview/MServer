@@ -4,8 +4,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
-import de.mediathekview.mlib.daten.Film;
-import de.mediathekview.mlib.daten.Sender;
+import de.mediathekview.mserver.daten.Film;
+import de.mediathekview.mserver.daten.Sender;
 import de.mediathekview.mserver.testhelper.WireMockTestBase;
 
 import static org.hamcrest.CoreMatchers.equalTo;

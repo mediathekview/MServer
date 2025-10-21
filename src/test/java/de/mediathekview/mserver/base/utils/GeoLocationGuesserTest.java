@@ -1,7 +1,7 @@
 package de.mediathekview.mserver.base.utils;
 
-import de.mediathekview.mlib.daten.GeoLocations;
-import de.mediathekview.mlib.daten.Sender;
+import de.mediathekview.mserver.daten.GeoLocations;
+import de.mediathekview.mserver.daten.Sender;
 import junit.framework.TestCase;
 import org.hamcrest.Matchers;
 import org.junit.Test;

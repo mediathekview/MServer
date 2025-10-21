@@ -1,7 +1,7 @@
 package de.mediathekview.mserver.crawler.zdf.json;
 
-import de.mediathekview.mlib.daten.GeoLocations;
-import de.mediathekview.mlib.daten.Resolution;
+import de.mediathekview.mserver.daten.GeoLocations;
+import de.mediathekview.mserver.daten.Resolution;
 
 import java.time.Duration;
 import java.util.*;

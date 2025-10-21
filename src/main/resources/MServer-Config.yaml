@@ -169,9 +169,8 @@ senderConfigurations:
     maximumSubpages: 0
 
 # configure string variables
-crawlerApiParams:
-  FUNK_REQUEST_TOKEN: 137782e774d7cadc93dcbffbbde0ce9c
-  
+#crawlerApiParams:
+
 #### COPY ####
 copySettings:
   # En- / disables FTP

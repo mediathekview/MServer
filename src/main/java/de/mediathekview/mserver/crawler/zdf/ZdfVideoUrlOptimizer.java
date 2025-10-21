@@ -1,6 +1,6 @@
 package de.mediathekview.mserver.crawler.zdf;
 
-import de.mediathekview.mlib.daten.FilmUrl;
+import de.mediathekview.mserver.daten.FilmUrl;
 import de.mediathekview.mserver.base.utils.UrlUtils;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 

@@ -2,7 +2,7 @@
 
 This document describes how to create a crawler.
 
-1. Check if the Sender of this new crawler is already in `Mlib/de.mediathekview.mlib.daten.Sender`
+1. Check if the Sender of this new crawler is already in `de.mediathekview.mserver.daten.Sender`
 
   - If not create an entry for it ;)
 
@@ -12,7 +12,7 @@ This document describes how to create a crawler.
 
 3. Create a crawler class these class has to extend from `de.mediathekview.mserver.crawler.basic.AbstractCrawler`.
 
-    1. Method `getSender` should just return the entry of `Mlib/de.mediathekview.mlib.daten.Sender` for the Sender which this crawler is for.
+    1. Method `getSender` should just return the entry of `de.mediathekview.mserver.daten.Sender` for the Sender which this crawler is for.
 
     2. `createCrawlerTask` is the method where the "magic" happens. In this method you have to create a `RecursiveTask` which gathers a `Set` of `Film`. For more details see the topic "Best practices for gathering films".
 

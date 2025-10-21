@@ -18,7 +18,7 @@ import java.util.Queue;
 
 public abstract class ZdfTaskBase<T, D extends CrawlerUrlDTO> extends AbstractRestTask<T, D> {
   private static final Logger LOG = LogManager.getLogger(ZdfTaskBase.class);
-  private final GsonBuilder gsonBuilder;
+  private final transient GsonBuilder gsonBuilder;
 
   protected ZdfTaskBase(
       final AbstractCrawler aCrawler, final Queue<D> aUrlToCrawlDtos, final String authKey) {
@@ -68,6 +68,6 @@ public abstract class ZdfTaskBase<T, D extends CrawlerUrlDTO> extends AbstractRe
           request.header(
               ZdfConstants.HEADER_AUTHENTIFICATION, AUTHORIZATION_BEARER + authKey.get());
     }
-    return request.header(HEADER_ACCEPT_ENCODING, ENCODING_GZIP).get();
+    return request.header(HEADER_ACCEPT_ENCODING, ENCODING_GZIP).header("zdf-app-id", "ffw-mt-web-6b266f6f").header("Content-Type", "application/json").get();
   }
 }

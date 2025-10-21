@@ -1,16 +1,16 @@
 package de.mediathekview.mserver.crawler.zdf.tasks;
 
 import com.google.gson.reflect.TypeToken;
-import de.mediathekview.mlib.daten.Film;
-import de.mediathekview.mlib.daten.FilmUrl;
-import de.mediathekview.mlib.daten.GeoLocations;
-import de.mediathekview.mlib.daten.Resolution;
-import de.mediathekview.mlib.daten.Sender;
+import de.mediathekview.mserver.daten.Film;
+import de.mediathekview.mserver.daten.FilmUrl;
+import de.mediathekview.mserver.daten.GeoLocations;
+import de.mediathekview.mserver.daten.Resolution;
+import de.mediathekview.mserver.daten.Sender;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractRecursiveConverterTask;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.zdf.ZdfConstants;
-import de.mediathekview.mserver.crawler.zdf.ZdfFilmDto;
+import de.mediathekview.mserver.crawler.zdf.ZdfFilmDtoOld;
 import de.mediathekview.mserver.crawler.zdf.ZdfVideoUrlOptimizer;
 import de.mediathekview.mserver.crawler.zdf.json.DownloadDto;
 import de.mediathekview.mserver.crawler.zdf.json.ZdfDownloadDtoDeserializer;
@@ -21,14 +21,14 @@ import org.apache.logging.log4j.Logger;
 
 import java.lang.reflect.Type;
 import java.net.MalformedURLException;
-import java.net.URL;
+import java.net.URI;
 import java.util.*;
 
 public class ZdfFilmDetailTask extends ZdfTaskBase<Film, CrawlerUrlDTO> {
   private static final Logger LOG = LogManager.getLogger(ZdfFilmDetailTask.class);
 
   private static final Type OPTIONAL_FILM_TYPE_TOKEN =
-      new TypeToken<Optional<ZdfFilmDto>>() {}.getType();
+      new TypeToken<Optional<ZdfFilmDtoOld>>() {}.getType();
   private static final Type OPTIONAL_DOWNLOAD_DTO_TYPE_TOKEN =
       new TypeToken<Optional<DownloadDto>>() {}.getType();
 
@@ -88,7 +88,7 @@ public class ZdfFilmDetailTask extends ZdfTaskBase<Film, CrawlerUrlDTO> {
 
   @Override
   protected void processRestTarget(final CrawlerUrlDTO aDto, final WebTarget aTarget) {
-    final Optional<ZdfFilmDto> film = deserializeOptional(aTarget, OPTIONAL_FILM_TYPE_TOKEN);
+    final Optional<ZdfFilmDtoOld> film = deserializeOptional(aTarget, OPTIONAL_FILM_TYPE_TOKEN);
     if (film.isPresent()) {
       if (film.get().getUrl().isPresent()) {
         final Optional<DownloadDto> downloadDtoOptional =
@@ -192,7 +192,7 @@ public class ZdfFilmDetailTask extends ZdfTaskBase<Film, CrawlerUrlDTO> {
   private static void setSubtitle(DownloadDto downloadDto, Film filmWithLanguage, String language) throws MalformedURLException {
     final Optional<String> subtitleUrl = downloadDto.getSubTitleUrl(language);
     if (subtitleUrl.isPresent()) {
-      filmWithLanguage.addSubtitle(new URL(subtitleUrl.get()));
+      filmWithLanguage.addSubtitle(URI.create(subtitleUrl.get()).toURL());
     }
   }
 

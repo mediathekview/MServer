@@ -1,8 +1,8 @@
 package de.mediathekview.mserver.crawler.dw.tasks;
 
 import com.google.gson.JsonElement;
-import de.mediathekview.mlib.daten.Film;
-import de.mediathekview.mlib.daten.Resolution;
+import de.mediathekview.mserver.daten.Film;
+import de.mediathekview.mserver.daten.Resolution;
 import de.mediathekview.mserver.crawler.dw.parser.DwFilmDetailDeserializer;
 import de.mediathekview.mserver.testhelper.AssertFilm;
 import de.mediathekview.mserver.testhelper.JsonFileReader;
@@ -13,7 +13,6 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 import org.mockito.MockitoAnnotations;
 
-import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Arrays;
@@ -115,7 +114,7 @@ public class DWDetailDeserializerTest extends DwTaskTestBase {
   }
 
   @Test
-  public void test() throws IOException {
+  public void test() {
     final JsonElement jsonElement = JsonFileReader.readJson(responseAsFile);
     final DwFilmDetailDeserializer target = new DwFilmDetailDeserializer(createCrawler());
     final Optional<Film> actual = target.deserialize(jsonElement, null, null);

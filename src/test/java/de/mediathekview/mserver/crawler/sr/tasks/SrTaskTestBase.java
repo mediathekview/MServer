@@ -1,6 +1,6 @@
 package de.mediathekview.mserver.crawler.sr.tasks;
 
-import de.mediathekview.mlib.messages.listener.MessageListener;
+import de.mediathekview.mserver.base.messages.listener.MessageListener;
 import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.crawler.sr.SrCrawler;
 import de.mediathekview.mserver.crawler.sr.SrTopicUrlDTO;
