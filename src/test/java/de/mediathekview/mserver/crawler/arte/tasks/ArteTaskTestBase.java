@@ -18,6 +18,4 @@ public class ArteTaskTestBase {
     final Collection<SenderProgressListener> fortschritte = new ArrayList<>();
     return new ArteCrawler(forkJoinPool, nachrichten, fortschritte, rootConfig);
   }
-  
-  public ArteTaskTestBase(){}
 }

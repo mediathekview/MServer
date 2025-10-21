@@ -8,12 +8,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Queue;
-import java.util.UUID;
+import java.util.*;
 
 import de.mediathekview.mserver.daten.Film;
 import de.mediathekview.mserver.daten.FilmUrl;
@@ -56,8 +51,6 @@ public class ArteDtoVideo2FilmTask extends AbstractRecursiveConverterTask<Film, 
   protected void processElement(ArteVideoInfoDto aElement) {
     parse(aElement);
   }
-  
-  ///////////////////////////////////////////////////////////////////////////
   
   protected void parse(ArteVideoInfoDto aElement) {
     Map<Resolution, FilmUrl> videoUrls = buildVideoUrls(aElement, ArteVideoType.DEFAULT);
@@ -179,7 +172,7 @@ public class ArteDtoVideo2FilmTask extends AbstractRecursiveConverterTask<Film, 
   }
   
   protected Map<Resolution, FilmUrl> buildVideoUrls(ArteVideoInfoDto aElement, ArteVideoType type) {
-    Map<Resolution, FilmUrl> urls  = new HashMap<>();
+    Map<Resolution, FilmUrl> urls = new EnumMap<>(Resolution.class);
     Map<Resolution, String> rawUrls = builRawVideoUrls(aElement, type);
     rawUrls.forEach( (resolution, rawUrl) -> {
       try {
@@ -192,7 +185,7 @@ public class ArteDtoVideo2FilmTask extends AbstractRecursiveConverterTask<Film, 
   }
   
   protected Map<Resolution, String> builRawVideoUrls(ArteVideoInfoDto aElement, ArteVideoType type) {
-    final Map<Resolution, String> urls = new HashMap<>();
+    final Map<Resolution, String> urls = new EnumMap<>(Resolution.class);
     aElement.getVideoLinks().forEach( entry -> {
       Optional<ArteVideoType> audioTypeCode = ArteRestVideoTypeMapper.map(crawler.getSender(), entry.getAudioCode().get());
       if (audioTypeCode.isPresent() && audioTypeCode.get().equals(type)) {

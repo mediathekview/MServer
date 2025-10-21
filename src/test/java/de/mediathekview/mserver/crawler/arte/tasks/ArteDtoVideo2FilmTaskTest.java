@@ -9,6 +9,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
 import java.net.MalformedURLException;
+import java.net.URI;
 import java.net.URL;
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -266,7 +267,6 @@ public class ArteDtoVideo2FilmTaskTest extends WireMockTestBase {
 
     assertThat(actualFilms.size(), is(expectedFilms.length));
     for (int i = 0; i < expectedFilms.length; i++) {
-      //assertFilm(actualFilms.toArray(new Film[0])[i], expectedFilms[i]);
       String title = expectedFilms[i].getTitel();
       assertFilm(actualFilms.stream().filter(film -> title.equalsIgnoreCase(film.getTitel())).findAny().get(), expectedFilms[i]);
     }
@@ -310,7 +310,7 @@ public class ArteDtoVideo2FilmTaskTest extends WireMockTestBase {
 
   public static URL toUrl(String url) {
     try {
-      return new URL(url);
+      return URI.create(url).toURL();
     } catch (MalformedURLException e) {
       // unit test - no exception needed
     }

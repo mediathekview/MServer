@@ -23,13 +23,11 @@ import de.mediathekview.mserver.crawler.basic.PagedElementListDTO;
 import de.mediathekview.mserver.crawler.basic.TopicUrlDTO;
 import jakarta.ws.rs.core.Response;
 
-//return T Class from this task, desirialisation of class R , D , Reasearch in this url
-
 public class ArteVideoInfoTask
     extends AbstractJsonRestTask<ArteVideoInfoDto, PagedElementListDTO<ArteVideoInfoDto>, TopicUrlDTO> {
   private static final long serialVersionUID = 1L;
   protected final transient Logger log = LogManager.getLogger(this.getClass());
-  protected Optional<AbstractRecursiveConverterTask<ArteVideoInfoDto, TopicUrlDTO>> nextPageTask = Optional.empty();
+  protected transient Optional<AbstractRecursiveConverterTask<ArteVideoInfoDto, TopicUrlDTO>> nextPageTask = Optional.empty();
 
   
   public ArteVideoInfoTask(AbstractCrawler crawler, Queue<TopicUrlDTO> urlToCrawlDTOs) {
@@ -46,7 +44,7 @@ public class ArteVideoInfoTask
     return new TypeToken<PagedElementListDTO<ArteVideoInfoDto>>() {}.getType();
   }
 
-  protected void postProcessingNextPage(PagedElementListDTO<ArteVideoInfoDto> aResponseObj, TopicUrlDTO aDTO) {
+  protected void postProcessingNextPage(PagedElementListDTO<ArteVideoInfoDto> aResponseObj) {
     if (aResponseObj.getNextPage().isEmpty()) {
       return;
     }
@@ -60,10 +58,9 @@ public class ArteVideoInfoTask
     nextPageLinks.add(new TopicUrlDTO(aResponseObj.getNextPage().get(), aResponseObj.getNextPage().get()));
     nextPageTask = Optional.of(createNewOwnInstance(nextPageLinks));
     nextPageTask.get().fork();
-    //log.debug("started paging to url {} for {}", aResponseObj.getNextPage().get(), aDTO.getUrl());
   }
   
-  protected void postProcessingElements(Set<ArteVideoInfoDto> elements, TopicUrlDTO aDTO) {
+  protected void postProcessingElements(Set<ArteVideoInfoDto> elements) {
     for (ArteVideoInfoDto element : elements)  {
       taskResults.add(element);
     }
@@ -71,9 +68,9 @@ public class ArteVideoInfoTask
   
   @Override
   protected void postProcessing(PagedElementListDTO<ArteVideoInfoDto> aResponseObj, TopicUrlDTO aDTO) {
-    postProcessingNextPage(aResponseObj, aDTO);
-    postProcessingElements(aResponseObj.getElements(), aDTO);
-    nextPageTask.ifPresent(paginationResults -> postProcessingElements(paginationResults.join(), aDTO));
+    postProcessingNextPage(aResponseObj);
+    postProcessingElements(aResponseObj.getElements());
+    nextPageTask.ifPresent(paginationResults -> postProcessingElements(paginationResults.join()));
 
   }
 

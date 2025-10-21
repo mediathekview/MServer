@@ -95,7 +95,7 @@ public class ArteCrawler extends AbstractCrawler {
   private int getMaxPagesForOverview() {
     final int naturalLimit = Math.min(100, getCrawlerConfig().getMaximumSubpages());
     String rootUrl = String.format(ArteConstants.VIDEOS_URL, 1, getLanguage().toString().toLowerCase());
-    String path[] = {"meta", "videos", "pages"};
+    String[] path = {"meta", "videos", "pages"};
     try {
       final Map<String, String> headers = Map.of(
           "Accept", "application/json",
