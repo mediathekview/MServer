@@ -1,0 +1,372 @@
+{
+    "meta": {
+        "videos": {
+            "totalCount": 14151,
+            "limit": 100,
+            "href": "https:\/\/api.arte.tv\/api\/opa\/v3\/videos?language=de&limit=100&page=44&sort=-creationDate",
+            "pages": 1,
+            "page": 1,
+            "links": {
+                "first": {
+                    "href": "https:\/\/api.arte.tv\/api\/opa\/v3\/videos?language=de&limit=100&page=1&sort=-creationDate"
+                },
+                "next": {
+                    "href": "https:\/\/api.arte.tv\/api\/opa\/v3\/videos?language=de&limit=100&page=45&sort=-creationDate"
+                },
+                "previous": {
+                    "href": "https:\/\/api.arte.tv\/api\/opa\/v3\/videos?language=de&limit=100&page=43&sort=-creationDate"
+                }
+            }
+        }
+    },
+    "videos": [
+        {
+            "firstBroadcastDate": null,
+            "id": "120718-011-A_SHOW_ARTE_NEXT_DE_de",
+            "programId": "120718-011-A",
+            "mainReassembly": true,
+            "reassembly": "C",
+            "channel": "DE",
+            "language": "de",
+            "kind": "SHOW",
+            "catalogType": "SUB_EVENT",
+            "programType": "INTERNET",
+            "programFamily": "PROGRAM",
+            "platform": "ARTE_NEXT",
+            "platformLabel": "ARTE",
+            "title": "Melenas",
+            "subtitle": "Bilbao BBK Live Festival 2024",
+            "originalTitle": "Bilbao BBK Live Festival 2024 (11\/20)",
+            "originalLanguage": {
+                "arteCode": "MUS",
+                "label": "musikalisch",
+                "iso6391Code": ""
+            },
+            "tags": [],
+            "twitterAccount": null,
+            "twitterHashTag": null,
+            "durationSeconds": 1532,
+            "shortDescription": "Das spanische Quartett Melenas bringt Krautrock mit Pop-Einflüssen auf die Bühne des Bilbao BBK Live und stellt bei dieser Gelegenheit sein drittes Album Ahora vor.",
+            "shortDescriptionRich": "<p>Das spanische Quartett Melenas bringt Krautrock mit Pop-Einflüssen auf die Bühne des Bilbao BBK Live und stellt bei dieser Gelegenheit sein drittes Album <em>Ahora<\/em> vor.<\/p>",
+            "fullDescription": "Die aus Pamplona stammende Band Melenas bündelt die Talente von Oihana (Gitarre und Vocals), María (Synthesizer), Leire (Bass) und Lauri (Schlagzeug). Die vier Musikerinnen erschaffen ein musikalisches Universum, das sich zwischen Krautrock, Indie-Pop und Shoegaze bewegt. Eine ebenso faszinierende wie stimulierende Verbindung, die an Grauzone (die das Quartett übrigens gecovert hat), NEU!, Stereolab oder Kraftwerk erinnert.\n\nDie drei Melenas haben auf der Bühne des BBK Songs aus ihren bisherigen Alben Melenas (2017), Dias Raros (2020) und Ahora (2023) im Gepäck. Mit Dias Raros gewann die Band 2021 die Music Moves Europe Talent Awards und wurde damit weit über die iberischen Grenzen hinaus bekannt.\n\nAlso, auf zum Bilbao BBK Live, um die Stars von morgen kennen zu lernen. Nicht nur die Liebhaber von Reverbs kommen voll auf ihre Kosten.\n\nAufzeichnung vom 12. Juli 2024 beim Bilbao BBK Live Festival, Spanien.\n\nFoto © David Recio",
+            "fullDescriptionRich": "<p>Die aus Pamplona stammende Band Melenas bündelt die Talente von Oihana (Gitarre und Vocals), María (Synthesizer), Leire (Bass) und Lauri (Schlagzeug). Die vier Musikerinnen erschaffen ein musikalisches Universum, das sich zwischen Krautrock, Indie-Pop und Shoegaze bewegt. Eine ebenso faszinierende wie stimulierende Verbindung, die an Grauzone (die das Quartett übrigens gecovert hat), NEU!, Stereolab oder Kraftwerk erinnert.<br \/><br \/>Die drei Melenas haben auf der Bühne des BBK Songs aus ihren bisherigen Alben <em>Melenas<\/em> (2017), <em>Dias Raros<\/em> (2020) und <em>Ahora<\/em> (2023) im Gepäck. Mit <em>Dias Raros<\/em> gewann die Band 2021 die Music Moves Europe Talent Awards und wurde damit weit über die iberischen Grenzen hinaus bekannt.<br \/><br \/>Also, auf zum Bilbao BBK Live, um die Stars von morgen kennen zu lernen. Nicht nur die Liebhaber von Reverbs kommen voll auf ihre Kosten.<br \/><br \/><strong>Aufzeichnung vom 12. Juli 2024 beim Bilbao BBK Live Festival, Spanien.<br \/><br \/><\/strong><em>Foto © David Recio<\/em><\/p>",
+            "teaserText": "Der poppige Krautrock von Melenas schlägt das Bilbao BBK Live in seinen Bann.",
+            "teaserTextRich": "<p>Der poppige Krautrock von Melenas schlägt das Bilbao BBK Live in seinen Bann.<\/p>",
+            "headerText": null,
+            "headerTextRich": null,
+            "producer": null,
+            "productionYear": 2024,
+            "shootingDate": null,
+            "allowEmbed": true,
+            "adult": 0,
+            "legalBan": "NONE",
+            "mainImage": {
+                "creationDate": "2012-08-24T22:00:00Z",
+                "lastModified": "2025-03-19T11:49:43Z",
+                "width": 940,
+                "height": 530,
+                "keyframe": false,
+                "alternateResolutions": [],
+                "type": "PHOTO_LANDSCAPE",
+                "name": "120718-011-_4377850.jpg",
+                "extension": "jpg",
+                "caption": "Bilbao BBK Live Festival 2024",
+                "url": "https:\/\/api-cdn.arte.tv\/img\/v2\/image\/fwWnC4EYUiGGshxLiKhWbU\/940x530",
+                "imageId": "4377850",
+                "programId": "120718-011-A",
+                "language": "de",
+                "copyright": null,
+                "blurImage": "https:\/\/api-cdn.arte.tv\/img\/v2\/image\/fwWnC4EYUiGGshxLiKhWbU\/80x45?blur=true",
+                "kind": "internet"
+            },
+            "parents": [
+                "RC-025554",
+                "120718-011-A"
+            ],
+            "collections": [
+                {
+                    "kind": "EVENT",
+                    "catalogType": "EVENT",
+                    "collectionId": "RC-025554",
+                    "order": 16
+                }
+            ],
+            "programmingId": 4688724,
+            "videoRightsBegin": "2024-12-19T12:00:00Z",
+            "videoRightsEnd": "2026-07-12T21:59:00Z",
+            "mainProgramming": true,
+            "mainChannel": true,
+            "geoblockingZone": "ALL",
+            "geoblocking": {
+                "code": "ALL",
+                "label": "Weltweit verfügbar",
+                "inclusion": [],
+                "exclusion": []
+            },
+            "partners": [],
+            "director": null,
+            "casting": [],
+            "crew": [],
+            "chapters": [],
+            "chaptersSpriteUrl": null,
+            "caseCode": 998,
+            "case": "HORS CASE",
+            "genrePresseCode": 0,
+            "genrePresse": "Andere",
+            "tracking": {
+                "tablet": {
+                    "ANDROID": "https:\/\/www.arte.tv\/pa\/api\/multimedia\/v1\/120718-011\/C\/de\/ARTE_NEXT\/TABLET\/ANDROID\/arte.gif"
+                },
+                "mobile": {
+                    "ANDROID": "https:\/\/www.arte.tv\/pa\/api\/multimedia\/v1\/120718-011\/C\/de\/ARTE_NEXT\/MOBILE\/ANDROID\/arte.gif"
+                },
+                "download": {
+                    "ANDROID": "https:\/\/www.arte.tv\/pa\/api\/multimedia\/v1\/120718-011\/C\/de\/ARTE_NEXT\/DOWNLOAD\/ANDROID\/arte.gif"
+                }
+            },
+            "mainAudioVersion": "VO",
+            "audioVersions": [
+                "VO"
+            ],
+            "permalink": "https:\/\/www.arte.tv\/de\/videos\/120718-011-A\/permalink\/",
+            "infolink": "https:\/\/www.arte.tv\/de\/videos\/120718-011-A\/melenas\/",
+            "availableScreens": [
+                "desktop",
+                "mobile",
+                "tv"
+            ],
+            "oEmbed": "https:\/\/api.arte.tv\/api\/player\/v1\/oembed\/de\/120718-011-A?platform=ARTE_NEXT",
+            "categories": [
+                {
+                    "order": 1,
+                    "code": "MUA",
+                    "name": "Pop & Rock",
+                    "url": null,
+                    "slug": "pop-rock"
+                }
+            ],
+            "category": {
+                "order": 5,
+                "code": "ARS",
+                "name": "ARTE Concert",
+                "url": "https:\/\/www.arte.tv\/de\/arte-concert\/",
+                "slug": "arte-concert"
+            },
+            "subcategory": {
+                "order": 1,
+                "code": "MUA",
+                "name": "Pop & Rock",
+                "url": "https:\/\/www.arte.tv\/de\/p\/pop-rock",
+                "slug": "pop-rock"
+            },
+            "views": 17,
+            "thesaurus": [
+                {
+                    "code": 943,
+                    "label": "Musikfestival",
+                    "parents": [
+                        1,
+                        613,
+                        701,
+                        735,
+                        943
+                    ]
+                },
+                {
+                    "code": 12441,
+                    "label": "Rock",
+                    "parents": [
+                        1,
+                        613,
+                        936,
+                        4979,
+                        984,
+                        12441
+                    ]
+                },
+                {
+                    "code": 12442,
+                    "label": "Popmusik",
+                    "parents": [
+                        1,
+                        613,
+                        936,
+                        4979,
+                        984,
+                        12442
+                    ]
+                },
+                {
+                    "code": 453,
+                    "label": "Spanien",
+                    "parents": [
+                        1,
+                        2,
+                        333,
+                        449,
+                        453
+                    ]
+                }
+            ],
+            "postroll": "https:\/\/api.arte.tv\/api\/player\/v1\/recommendedPostroll\/de\/120718-011-A",
+            "mainPlatform": true,
+            "imageColor": null,
+            "arteSchedulingDay": null,
+            "deletedAt": null,
+            "productionCountries": [
+                {
+                    "arteCode": "FRA",
+                    "isoAlpha2Code": "FR",
+                    "label": "Frankreich"
+                }
+            ],
+            "url": "https:\/\/www.arte.tv\/de\/videos\/120718-011-A\/melenas\/",
+            "clusters": [],
+            "illico": false,
+            "season": 0,
+            "episode": 3,
+            "totalEpisodes": 0,
+            "mainCrossPlatform": true,
+            "kindLabel": "PROGRAMM",
+            "videoLibrary": true,
+            "broadcastBegin": null,
+            "broadcastBeginRounded": null,
+            "viewsPeriod": 17,
+            "markings": [],
+            "webLinks": [],
+            "warning": null,
+            "livestreamRights": true,
+            "eStat": {
+                "streamName": "Melenas",
+                "streamDuration": 1532,
+                "streamGenre": "5_buehne-und-konzert",
+                "level1": "ARS_arte-concert",
+                "level2": "PROGRAMME_WEB",
+                "level3": "de",
+                "level4": "MUA_pop-rock",
+                "level5": "120718-011-A",
+                "newLevel1": "SHOW",
+                "newLevel2": null,
+                "newLevel11": "998_hors-case",
+                "mediaChannel": "950",
+                "mediaContentId": "120718-011-A",
+                "mediaDiffMode": "TVOD"
+            },
+            "mediametrie": {
+                "type": "content",
+                "assetid": "120718-011-A_3",
+                "program": "998_hors-case",
+                "title": "melenas",
+                "length": 1532,
+                "islivestn": "n",
+                "cli_md": "TVOD",
+                "cli_ch": 950,
+                "cli_cn": "120718-011-A",
+                "nol_p0": "p0,de",
+                "nol_p1": "p1,PROGRAMME_WEB",
+                "nol_p2": "p2,SHOW",
+                "nol_p13": "p13,n"
+            },
+            "adtech": {
+                "kvprogramid": "120718-011-A",
+                "kvvty": "ARTE_NEXT",
+                "kvcategory": "ARS",
+                "kvsubcategory": "MUA",
+                "kvwebonly": true,
+                "kvbroadcast": false,
+                "kvduration": 1532,
+                "kvcaseprogram": "998_hors-case",
+                "kvvideoisolang": "de"
+            },
+            "agf": {
+                "type": "content",
+                "assetid": "120718-011-A",
+                "program": "998_hors-case",
+                "title": "melenas",
+                "length": 1532,
+                "nol_c2": "p2,Y",
+                "nol_c7": "p7,120718-011-A",
+                "nol_c8": "p8,1532",
+                "nol_c9": "p9,melenas",
+                "nol_c10": "p10,ARTE",
+                "nol_c12": "p12,Content",
+                "nol_c15": "p15,120718-011-A",
+                "nol_c18": "p18,N"
+            },
+            "offlineAvailability": true,
+            "genre": {
+                "code": 5,
+                "label": "Bühne und Konzert"
+            },
+            "audioLanguages": [
+                {
+                    "arteCode": "MUS",
+                    "iso6392Code": "und",
+                    "iso6391Code": "",
+                    "label": "musikalisch",
+                    "version": "VO",
+                    "audioDescription": false
+                }
+            ],
+            "subtitles": [],
+            "versions": [
+                {
+                    "code": 3,
+                    "audioCode": "VO",
+                    "audioLabel": "Originalfassung",
+                    "audioShortLabel": "OV",
+                    "audioLanguage": "und",
+                    "subtitleLanguage": "und",
+                    "closedCaptioning": false,
+                    "audioDescription": false
+                }
+            ],
+            "origins": [
+                {
+                    "order": 1,
+                    "label": "ARTE F"
+                }
+            ],
+            "availableImages": [
+                "POSTER",
+                "PHOTO_LANDSCAPE",
+                "PHOTO_SQUARE",
+                "POSTER_LANDSCAPE"
+            ],
+            "allowThirdPlayer": true,
+            "externalIds": [],
+            "broadcastType": null,
+            "clearVoice": false,
+            "ancestors": [
+                {
+                    "programId": "RC-025554",
+                    "order": 16,
+                    "kind": "EVENT",
+                    "catalogType": "EVENT",
+                    "ancestors": [
+                        {
+                            "programId": "RC-014710",
+                            "order": 17,
+                            "kind": "EVENT",
+                            "catalogType": "EVENT",
+                            "ancestors": []
+                        }
+                    ]
+                }
+            ],
+            "mainPlatformCode": null,
+            "arteClub": false,
+            "previewRightsBegin": "2024-12-19T12:00:00Z",
+            "creationDate": "2024-12-19T10:59:48Z",
+            "lastModified": "2025-06-22T18:02:30Z",
+            "ageRating": 0,
+            "imageReference": "fwWnC4EYUiGGshxLiKhWbU",
+            "programmingType": "MANUAL",
+            "links": {
+                "programs": {
+                    "href": "https:\/\/api.arte.tv\/api\/opa\/v3\/programs\/de\/120718-011-A"
+                }
+            }
+        }
+    ]
+}

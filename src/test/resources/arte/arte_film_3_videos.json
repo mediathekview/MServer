@@ -1,0 +1,453 @@
+
+{
+    "meta": {
+        "videos": {
+            "totalCount": 14151,
+            "limit": 100,
+            "href": "https:\/\/api.arte.tv\/api\/opa\/v3\/videos?language=de&limit=100&page=26&sort=-creationDate",
+            "pages": 1,
+            "page": 1,
+            "links": {
+                "first": {
+                    "href": "https:\/\/api.arte.tv\/api\/opa\/v3\/videos?language=de&limit=100&page=1&sort=-creationDate"
+                },
+                "next": {
+                    "href": "https:\/\/api.arte.tv\/api\/opa\/v3\/videos?language=de&limit=100&page=27&sort=-creationDate"
+                },
+                "previous": {
+                    "href": "https:\/\/api.arte.tv\/api\/opa\/v3\/videos?language=de&limit=100&page=25&sort=-creationDate"
+                }
+            }
+        }
+    },
+    "videos": [
+        {
+            "firstBroadcastDate": "2018-12-03T08:26:55Z",
+            "id": "078702-021-A_SHOW_ARTE_NEXT_DE_de",
+            "programId": "078702-021-A",
+            "mainReassembly": true,
+            "reassembly": "A",
+            "channel": "DE",
+            "language": "de",
+            "kind": "SHOW",
+            "catalogType": "SHOW",
+            "programType": "BROADCAST",
+            "programFamily": "PROGRAM",
+            "platform": "ARTE_NEXT",
+            "platformLabel": "ARTE",
+            "title": "GEO Reportage",
+            "subtitle": "Gitarren und Flamenco in Granada",
+            "originalTitle": "",
+            "originalLanguage": {
+                "arteCode": "ALL",
+                "label": "Deutsch",
+                "iso6391Code": "de"
+            },
+            "tags": [],
+            "twitterAccount": null,
+            "twitterHashTag": null,
+            "durationSeconds": 3139,
+            "shortDescription": "Gitarrenmusik, Instrumentenbau und Flamenco sind bedeutende Teile der andalusischen Kultur. So wie die zwölfjährige Claudia Calle möchten viele junge Menschen im Süden Spaniens durch die Musik berühmt werden: als Tänzer, Musiker oder Instrumentenbauer. Àlvaro Pérez spielt seit seinem sechsten Lebensjahr Gitarre. Er kauft seine Instrumente bei Francisco Manuel Díaz ...",
+            "shortDescriptionRich": "Gitarrenmusik, Instrumentenbau und Flamenco sind bedeutende Teile der andalusischen Kultur. So wie die zwölfjährige Claudia Calle möchten viele junge Menschen im Süden Spaniens durch die Musik berühmt werden: als Tänzer, Musiker oder Instrumentenbauer. Àlvaro Pérez spielt seit seinem sechsten Lebensjahr Gitarre. Er kauft seine Instrumente bei Francisco Manuel Díaz ...",
+            "fullDescription": "Àlvaro Pérez, genannt El Martinete, lebt in Granada. Der zum Zeitpunkt der Aufnahmearbeiten 23-Jährige spielt seit seinem sechsten Lebensjahr Gitarre, hat bereits einige Nachwuchswettbewerbe gewonnen und plant gerade seine nächsten Karriereschritte: ein Konzert im ältesten Flamenco-Verein Spaniens und den Kauf einer neuen Flamenco-Gitarre. Die bestellt er bei Francisco Manuel Díaz, der seit 1976 in einer kleinen Straße unterhalb der Alhambra Gitarren baut, repariert und verkauft.\nAuch die 12-jährige Claudia Calle ist von der Musik der Stadt begeistert. Besonders hat es ihr der Flamenco angetan, der in ganz Andalusien noch ein lebendiger Teil der Kultur ist. Claudia tanzt seit ihrem vierten Lebensjahr. Unter Anleitung ihrer Lehrerin Lucía Guarnido, die jahrelang in weltberühmten Ensembles auftrat, und zum Gitarrenspiel von Àlvaro Pérez lernt sie die verschiedenen Flamenco-Stile. Weil sie so ehrgeizig und begabt ist, hat die 12-Jährige in ihrer Tanzschule schon einige Klassen übersprungen. Mindestens viermal in der Woche trainiert sie und übt nebenbei mit Àlvaro das Repertoire für den Auftritt im Flamenco-Verein, bei dem sie tanzen wird.\nDass sich Granada zu einem Zentrum des Gitarrenbaus und der Gitarrenmusik entwickelt hat, ist kein Zufall: Die Mauren, die hier über 700 Jahre herrschten, brachten im 8. Jahrhundert den Vorläufer der Gitarre, die arabische Oud, auf die Iberische Halbinsel. Die Reportage begleitet Claudia Calle und Àlvaro Pérez auf ihrem Weg zum Auftritt in der „Peña La Platería“, dem ältesten Flamenco-Verein der Stadt.",
+            "fullDescriptionRich": "Àlvaro Pérez, genannt El Martinete, lebt in Granada. Der zum Zeitpunkt der Aufnahmearbeiten 23-Jährige spielt seit seinem sechsten Lebensjahr Gitarre, hat bereits einige Nachwuchswettbewerbe gewonnen und plant gerade seine nächsten Karriereschritte: ein Konzert im ältesten Flamenco-Verein Spaniens und den Kauf einer neuen Flamenco-Gitarre. Die bestellt er bei Francisco Manuel Díaz, der seit 1976 in einer kleinen Straße unterhalb der Alhambra Gitarren baut, repariert und verkauft.<br>Auch die 12-jährige Claudia Calle ist von der Musik der Stadt begeistert. Besonders hat es ihr der Flamenco angetan, der in ganz Andalusien noch ein lebendiger Teil der Kultur ist. Claudia tanzt seit ihrem vierten Lebensjahr. Unter Anleitung ihrer Lehrerin Lucía Guarnido, die jahrelang in weltberühmten Ensembles auftrat, und zum Gitarrenspiel von Àlvaro Pérez lernt sie die verschiedenen Flamenco-Stile. Weil sie so ehrgeizig und begabt ist, hat die 12-Jährige in ihrer Tanzschule schon einige Klassen übersprungen. Mindestens viermal in der Woche trainiert sie und übt nebenbei mit Àlvaro das Repertoire für den Auftritt im Flamenco-Verein, bei dem sie tanzen wird.<br>Dass sich Granada zu einem Zentrum des Gitarrenbaus und der Gitarrenmusik entwickelt hat, ist kein Zufall: Die Mauren, die hier über 700 Jahre herrschten, brachten im 8. Jahrhundert den Vorläufer der Gitarre, die arabische Oud, auf die Iberische Halbinsel. Die Reportage begleitet Claudia Calle und Àlvaro Pérez auf ihrem Weg zum Auftritt in der „Peña La Platería“, dem ältesten Flamenco-Verein der Stadt.",
+            "teaserText": "Gitarrenmusik, Instrumentenbau und Flamenco sind bedeutende Teile der andalusischen Kultur.",
+            "teaserTextRich": "Gitarrenmusik, Instrumentenbau und Flamenco sind bedeutende Teile der andalusischen Kultur.",
+            "headerText": "Reportage von Stefan Richts (D 2018, 53 Min)",
+            "headerTextRich": "Reportage von Stefan Richts (D 2018, 53 Min)",
+            "producer": "MEDIENKONTOR POTSDAM",
+            "productionYear": 2018,
+            "shootingDate": null,
+            "allowEmbed": true,
+            "adult": 0,
+            "legalBan": "NONE",
+            "mainImage": {
+                "creationDate": "2018-11-09T13:53:24Z",
+                "lastModified": "2024-12-18T06:19:44Z",
+                "width": 940,
+                "height": 530,
+                "keyframe": false,
+                "alternateResolutions": [],
+                "type": "DEFAULT",
+                "name": "078702-021-A_2574226.JPG",
+                "extension": "JPG",
+                "caption": "Francisco Manuel Díaz (li.) mit der neuen Flamenco-Gitarre für den Nachwuchsgitarristen Alvaro Pérez (re.).",
+                "url": "https:\/\/api-cdn.arte.tv\/img\/v2\/image\/UabYRkEuGmVNXVY3CXoTzM\/940x530",
+                "imageId": "2574226",
+                "programId": "078702-021-A",
+                "language": "de",
+                "copyright": "",
+                "blurImage": "https:\/\/api-cdn.arte.tv\/img\/v2\/image\/UabYRkEuGmVNXVY3CXoTzM\/80x45?blur=true",
+                "kind": "internet"
+            },
+            "parents": [
+                "RC-014120",
+                "078702-021-A"
+            ],
+            "collections": [
+                {
+                    "kind": "MAGAZINE",
+                    "catalogType": "MAGAZINE",
+                    "collectionId": "RC-014120",
+                    "order": 19
+                }
+            ],
+            "programmingId": 4769997,
+            "videoRightsBegin": "2025-05-17T03:00:00Z",
+            "videoRightsEnd": "2025-06-23T03:00:00Z",
+            "mainProgramming": true,
+            "mainChannel": true,
+            "geoblockingZone": "ALL",
+            "geoblocking": {
+                "code": "ALL",
+                "label": "Weltweit verfügbar",
+                "inclusion": [],
+                "exclusion": []
+            },
+            "partners": [],
+            "director": "Stefan Richts",
+            "casting": [],
+            "crew": [
+                {
+                    "name": "Stefan Richts",
+                    "activity": "Regie",
+                    "activityCode": "REA",
+                    "characterName": null
+                }
+            ],
+            "chapters": [],
+            "chaptersSpriteUrl": null,
+            "caseCode": 605,
+            "case": "GEO REPORTAGE",
+            "genrePresseCode": 13,
+            "genrePresse": "Reportage",
+            "tracking": {
+                "tablet": {
+                    "ANDROID": "https:\/\/www.arte.tv\/pa\/api\/multimedia\/v1\/078702-021\/A\/de\/ARTE_NEXT\/TABLET\/ANDROID\/arte.gif"
+                },
+                "mobile": {
+                    "ANDROID": "https:\/\/www.arte.tv\/pa\/api\/multimedia\/v1\/078702-021\/A\/de\/ARTE_NEXT\/MOBILE\/ANDROID\/arte.gif"
+                },
+                "download": {
+                    "ANDROID": "https:\/\/www.arte.tv\/pa\/api\/multimedia\/v1\/078702-021\/A\/de\/ARTE_NEXT\/DOWNLOAD\/ANDROID\/arte.gif"
+                }
+            },
+            "mainAudioVersion": "VOA",
+            "audioVersions": [
+                "VOA",
+                "VOA-STMA",
+                "VF",
+                "VF-STMF"
+            ],
+            "permalink": "https:\/\/www.arte.tv\/de\/videos\/078702-021-A\/permalink\/",
+            "infolink": "https:\/\/www.arte.tv\/de\/videos\/078702-021-A\/geo-reportage\/",
+            "availableScreens": [
+                "desktop",
+                "mobile",
+                "tv"
+            ],
+            "oEmbed": "https:\/\/api.arte.tv\/api\/player\/v1\/oembed\/de\/078702-021-A?platform=ARTE_NEXT",
+            "categories": [
+                {
+                    "order": 6,
+                    "code": "DEC",
+                    "name": "Entdeckung",
+                    "url": null,
+                    "slug": "entdeckung"
+                }
+            ],
+            "category": {
+                "order": 7,
+                "code": "DEC",
+                "name": "Entdeckung der Welt",
+                "url": "https:\/\/www.arte.tv\/de\/videos\/entdeckung-der-welt\/",
+                "slug": "entdeckung-der-welt"
+            },
+            "subcategory": {
+                "order": 4,
+                "code": "VIA",
+                "name": "Leben anderswo",
+                "url": "https:\/\/www.arte.tv\/de\/videos\/entdeckung-der-welt\/leben-anderswo\/",
+                "slug": "leben-anderswo"
+            },
+            "views": 265,
+            "thesaurus": [
+                {
+                    "code": 1789,
+                    "label": "Handwerk",
+                    "parents": [
+                        1,
+                        1784,
+                        1789
+                    ]
+                },
+                {
+                    "code": 4958,
+                    "label": "lateinamerikanischer Tanz",
+                    "parents": [
+                        1,
+                        613,
+                        12686,
+                        680,
+                        4958
+                    ]
+                },
+                {
+                    "code": 13151,
+                    "label": "Flamenco (Musik)",
+                    "parents": [
+                        1,
+                        613,
+                        936,
+                        4979,
+                        988,
+                        13138,
+                        13151
+                    ]
+                },
+                {
+                    "code": 5008,
+                    "label": "Guitarre",
+                    "parents": [
+                        1,
+                        613,
+                        936,
+                        947,
+                        5003,
+                        5008
+                    ]
+                },
+                {
+                    "code": 453,
+                    "label": "Spanien",
+                    "parents": [
+                        1,
+                        2,
+                        333,
+                        449,
+                        453
+                    ]
+                }
+            ],
+            "postroll": "https:\/\/api.arte.tv\/api\/player\/v1\/recommendedPostroll\/de\/078702-021-A",
+            "mainPlatform": true,
+            "imageColor": {
+                "code": "COLORIZED",
+                "label": "Kolorieren"
+            },
+            "arteSchedulingDay": "2025-05-24",
+            "deletedAt": null,
+            "productionCountries": [
+                {
+                    "arteCode": "GER",
+                    "isoAlpha2Code": "DE",
+                    "label": "Deutschland"
+                }
+            ],
+            "url": "https:\/\/www.arte.tv\/de\/videos\/078702-021-A\/geo-reportage\/",
+            "clusters": [],
+            "illico": true,
+            "season": 0,
+            "episode": 0,
+            "totalEpisodes": 0,
+            "mainCrossPlatform": true,
+            "kindLabel": "PROGRAMM",
+            "videoLibrary": true,
+            "broadcastBegin": "2025-05-24T06:53:58Z",
+            "broadcastBeginRounded": null,
+            "viewsPeriod": 265,
+            "markings": [],
+            "webLinks": [],
+            "warning": null,
+            "livestreamRights": true,
+            "eStat": {
+                "streamName": "GEO Reportage",
+                "streamDuration": 3139,
+                "streamGenre": "1_dokus-und-reportagen",
+                "level1": "DEC_entdeckung-der-welt",
+                "level2": "PROGRAMME_ANTENNE",
+                "level3": "de",
+                "level4": "VIA_leben-anderswo",
+                "level5": "078702-021-A",
+                "newLevel1": "SHOW",
+                "newLevel2": null,
+                "newLevel11": "605_geo-reportage",
+                "mediaChannel": "850",
+                "mediaContentId": "078702-021-A",
+                "mediaDiffMode": "TVOD"
+            },
+            "mediametrie": {
+                "type": "content",
+                "assetid": "078702-021-A_0",
+                "program": "605_geo-reportage",
+                "title": "geo-reportage",
+                "length": 3139,
+                "islivestn": "n",
+                "cli_md": "TVOD",
+                "cli_ch": 850,
+                "cli_cn": "078702-021-A",
+                "nol_p0": "p0,de",
+                "nol_p1": "p1,PROGRAMME_ANTENNE",
+                "nol_p2": "p2,SHOW",
+                "nol_p13": "p13,n"
+            },
+            "adtech": {
+                "kvprogramid": "078702-021-A",
+                "kvvty": "ARTE_NEXT",
+                "kvcategory": "DEC",
+                "kvsubcategory": "VIA",
+                "kvwebonly": false,
+                "kvbroadcast": true,
+                "kvduration": 3139,
+                "kvcaseprogram": "605_geo-reportage",
+                "kvvideoisolang": "de"
+            },
+            "agf": {
+                "type": "content",
+                "assetid": "078702-021-A",
+                "program": "605_geo-reportage",
+                "title": "geo-reportage",
+                "length": 3139,
+                "nol_c2": "p2,N",
+                "nol_c7": "p7,078702-021-A",
+                "nol_c8": "p8,3139",
+                "nol_c9": "p9,geo-reportage",
+                "nol_c10": "p10,ARTE",
+                "nol_c12": "p12,Content",
+                "nol_c15": "p15,078702-021-A",
+                "nol_c18": "p18,N"
+            },
+            "offlineAvailability": true,
+            "genre": {
+                "code": 1,
+                "label": "Dokus und Reportagen"
+            },
+            "audioLanguages": [
+                {
+                    "arteCode": "ALL",
+                    "iso6392Code": "deu",
+                    "iso6391Code": "de",
+                    "label": "Deutsch",
+                    "version": "VOA",
+                    "audioDescription": false
+                },
+                {
+                    "arteCode": "FRA",
+                    "iso6392Code": "fra",
+                    "iso6391Code": "fr",
+                    "label": "Französisch",
+                    "version": "VF",
+                    "audioDescription": false
+                }
+            ],
+            "subtitles": [
+                {
+                    "arteCode": "MAL",
+                    "version": "VA-MAL",
+                    "iso6392Code": "und",
+                    "iso6391Code": "",
+                    "label": "für Hörgeschädigte",
+                    "closedCaptioning": true,
+                    "burned": false,
+                    "filename": "078702-021-A-VA-MAL.stl"
+                },
+                {
+                    "arteCode": "MAL",
+                    "version": "VF-MAL",
+                    "iso6392Code": "und",
+                    "iso6391Code": "",
+                    "label": "für Hörgeschädigte",
+                    "closedCaptioning": true,
+                    "burned": false,
+                    "filename": "078702-021-A-VF-MAL.stl"
+                }
+            ],
+            "versions": [
+                {
+                    "code": 6,
+                    "audioCode": "VOA",
+                    "audioLabel": "Deutsch",
+                    "audioShortLabel": "DE",
+                    "audioLanguage": "de",
+                    "subtitleLanguage": "und",
+                    "closedCaptioning": false,
+                    "audioDescription": false
+                },
+                {
+                    "code": 22,
+                    "audioCode": "VOA-STMA",
+                    "audioLabel": "Deutsch (Hörgeschädigte)",
+                    "audioShortLabel": "UT",
+                    "audioLanguage": "de",
+                    "subtitleLanguage": "de",
+                    "closedCaptioning": true,
+                    "audioDescription": false
+                },
+                {
+                    "code": 5,
+                    "audioCode": "VF",
+                    "audioLabel": "Französisch",
+                    "audioShortLabel": "FR",
+                    "audioLanguage": "fr",
+                    "subtitleLanguage": "und",
+                    "closedCaptioning": false,
+                    "audioDescription": false
+                },
+                {
+                    "code": 32,
+                    "audioCode": "VF-STMF",
+                    "audioLabel": "Französisch (Hörgeschädigte)",
+                    "audioShortLabel": "UT (frz.)",
+                    "audioLanguage": "fr",
+                    "subtitleLanguage": "fr",
+                    "closedCaptioning": true,
+                    "audioDescription": false
+                }
+            ],
+            "origins": [
+                {
+                    "order": 1,
+                    "label": "ARTE"
+                }
+            ],
+            "availableImages": [
+                "DEFAULT"
+            ],
+            "allowThirdPlayer": true,
+            "externalIds": [
+                {
+                    "type": "ISAN",
+                    "id": "0000-0002-75E3-01E5-7-0000-0000-G"
+                },
+                {
+                    "type": "PLURIMEDIA",
+                    "id": "140672525"
+                }
+            ],
+            "broadcastType": null,
+            "clearVoice": true,
+            "ancestors": [
+                {
+                    "programId": "RC-014120",
+                    "order": 19,
+                    "kind": "MAGAZINE",
+                    "catalogType": "MAGAZINE",
+                    "ancestors": []
+                }
+            ],
+            "mainPlatformCode": null,
+            "arteClub": false,
+            "previewRightsBegin": "2025-05-17T03:00:00Z",
+            "creationDate": "2025-03-12T07:04:06Z",
+            "lastModified": "2025-06-19T17:22:10Z",
+            "ageRating": 0,
+            "imageReference": "UabYRkEuGmVNXVY3CXoTzM",
+            "programmingType": "AUTO",
+            "links": {
+                "programs": {
+                    "href": "https:\/\/api.arte.tv\/api\/opa\/v3\/programs\/de\/078702-021-A"
+                }
+            }
+        }
+    ]
+}

@@ -18,21 +18,21 @@ maximumRequestsPerSecond: 999.0
 # If set only these Sender will be crawled all other will be ignored.
 senderIncluded:
   #- ARD
-  #- ARTE_DE
-  #- ARGE_FR
-  #- ARTE_EN
-  #- ARTE_PL
-  #- ARTE_IT
-  #- ARTE_ES
+  - ARTE_DE
+  - ARTE_FR
+  - ARTE_PL
+  - ARTE_IT
+  - ARTE_ES
+  - ARTE_EN
   #- DREISAT
   #- FUNK
   #- KIKA
   # - DW
-  # - ORF
+  #- ORF
   #- PHOENIX
   #- SRF
   #- SR
-  - ZDF
+  #- ZDF
   
 #SRF,SR,PHONIX,ORF,KIKA,DW,3SAT<
 
@@ -130,7 +130,7 @@ maximumCrawlDurationInMinutes: 120
 
 # Enables the topics search
 # maximumSubpages limits the depth of the topics search
-topicsSearchEnabled: false
+topicsSearchEnabled: true
 
 # The maximum amount of sub pages to be crawled.<br>
 # Example: If a Sendung overview side has 10 pages with videos for this Sendung and
@@ -159,19 +159,17 @@ senderConfigurations:
   ORF:
     maximumRequestsPerSecond: 10.0
   ARTE_DE:
-    maximumUrlsPerTask: 1
-    maximumDaysForSendungVerpasstSectionFuture: 0
-    maximumRequestsPerSecond: 2.0
+    maximumSubpages: 200
   ARTE_FR:
-    maximumDaysForSendungVerpasstSectionFuture: 0
-    # The maximum amount of URLs to be processed per task.
-    #        maximumUrlsPerTask: 25
-    # The maximum duration in minutes a crawler may run.
-    #          maximumCrawlDurationInMinutes: 30
-    # The maximum amount of sub pages to be crawled.<br>
-    # Example: If a Sendung overview side has 10 pages with videos for this Sendung and
-    # the amount set by this is 5 then the crawler crawls pages 1 to 5.
-  #          maximumSubpages: 3
+    maximumSubpages: 200
+  ARTE_EN:
+    maximumSubpages: 200
+  ARTE_PL:
+    maximumSubpages: 200
+  ARTE_IT:
+    maximumSubpages: 200
+  ARTE_ES:
+    maximumSubpages: 200
   KIKA:
     maximumSubpages: 2
     maximumRequestsPerSecond: 8.0

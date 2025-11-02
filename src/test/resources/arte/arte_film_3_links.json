@@ -1,0 +1,136 @@
+{
+  "videoStreams": [
+    {
+      "programId": "078702-021-A",
+      "url": "http:\/\/arteptweb-a.akamaihd.net\/am\/ptweb\/078000\/078700\/078702-021-A_EQ_0_VOA-STMA_09963597_MP4-1500_AMM-PTWEB-100983826679341_2ZSvaYr7Zw.mp4",
+      "quality": "EQ",
+      "audioSlot": 2,
+      "audioCode": "VOA-STMA",
+      "audioLabel": "Deutsch (H\u00f6rgesch\u00e4digte)",
+      "audioShortLabel": "UT",
+      "width": 720,
+      "height": 406
+    },
+    {
+      "programId": "078702-021-A",
+      "url": "http:\/\/arteptweb-a.akamaihd.net\/am\/ptweb\/078000\/078700\/078702-021-A_EQ_0_VOA_09963593_MP4-1500_AMM-PTWEB-80803096529234_2ZSvZYr7Zv.mp4",
+      "quality": "EQ",
+      "audioSlot": 1,
+      "audioCode": "VOA",
+      "audioLabel": "Deutsch",
+      "audioShortLabel": "DE",
+      "width": 720,
+      "height": 406
+    },
+    {
+      "programId": "078702-021-A",
+      "url": "http:\/\/arteptweb-a.akamaihd.net\/am\/ptweb\/078000\/078700\/078702-021-A_HQ_0_VOA-STMA_09963599_MP4-800_AMM-PTWEB-100983826679341_2ZSvbYr7Zw.mp4",
+      "quality": "HQ",
+      "audioSlot": 2,
+      "audioCode": "VOA-STMA",
+      "audioLabel": "Deutsch (H\u00f6rgesch\u00e4digte)",
+      "audioShortLabel": "UT",
+      "width": 640,
+      "height": 360
+    },
+    {
+      "programId": "078702-021-A",
+      "url": "http:\/\/arteptweb-a.akamaihd.net\/am\/ptweb\/078000\/078700\/078702-021-A_HQ_0_VF-STMF_09963591_MP4-800_AMM-PTWEB-100984120615166_2ZSvYYr7Zv.mp4",
+      "quality": "HQ",
+      "audioSlot": 4,
+      "audioCode": "VF-STMF",
+      "audioLabel": "Franz\u00f6sisch (H\u00f6rgesch\u00e4digte)",
+      "audioShortLabel": "UT (frz.)",
+      "width": 640,
+      "height": 360
+    },
+    {
+      "programId": "078702-021-A",
+      "url": "http:\/\/arteptweb-a.akamaihd.net\/am\/ptweb\/078000\/078700\/078702-021-A_EQ_0_VF-STMF_09963589_MP4-1500_AMM-PTWEB-100984120615166_2ZSv4Yr7Px.mp4",
+      "quality": "EQ",
+      "audioSlot": 4,
+      "audioCode": "VF-STMF",
+      "audioLabel": "Franz\u00f6sisch (H\u00f6rgesch\u00e4digte)",
+      "audioShortLabel": "UT (frz.)",
+      "width": 720,
+      "height": 406
+    },
+    {
+      "programId": "078702-021-A",
+      "url": "http:\/\/arteptweb-a.akamaihd.net\/am\/ptweb\/078000\/078700\/078702-021-A_SQ_0_VOA_09963592_MP4-2200_AMM-PTWEB-80803096529234_2ZSu6Yr7Bo.mp4",
+      "quality": "SQ",
+      "audioSlot": 1,
+      "audioCode": "VOA",
+      "audioLabel": "Deutsch",
+      "audioShortLabel": "DE",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "programId": "078702-021-A",
+      "url": "http:\/\/arteptweb-a.akamaihd.net\/am\/ptweb\/078000\/078700\/078702-021-A_HQ_0_VOA_09963595_MP4-800_AMM-PTWEB-80803096529234_2ZSv7Yr7Pz.mp4",
+      "quality": "HQ",
+      "audioSlot": 1,
+      "audioCode": "VOA",
+      "audioLabel": "Deutsch",
+      "audioShortLabel": "DE",
+      "width": 640,
+      "height": 360
+    },
+    {
+      "programId": "078702-021-A",
+      "url": "http:\/\/arteptweb-a.akamaihd.net\/am\/ptweb\/078000\/078700\/078702-021-A_EQ_0_VF_09963584_MP4-1500_AMM-PTWEB-80803207522630_2ZSuhYr7Hb.mp4",
+      "quality": "EQ",
+      "audioSlot": 3,
+      "audioCode": "VF",
+      "audioLabel": "Franz\u00f6sisch",
+      "audioShortLabel": "FR",
+      "width": 720,
+      "height": 406
+    },
+    {
+      "programId": "078702-021-A",
+      "url": "http:\/\/arteptweb-a.akamaihd.net\/am\/ptweb\/078000\/078700\/078702-021-A_HQ_0_VF_09963586_MP4-800_AMM-PTWEB-80803207522630_2ZSuiYr7Hb.mp4",
+      "quality": "HQ",
+      "audioSlot": 3,
+      "audioCode": "VF",
+      "audioLabel": "Franz\u00f6sisch",
+      "audioShortLabel": "FR",
+      "width": 640,
+      "height": 360
+    },
+    {
+      "programId": "078702-021-A",
+      "url": "http:\/\/arteptweb-a.akamaihd.net\/am\/ptweb\/078000\/078700\/078702-021-A_SQ_0_VOA-STMA_09963596_MP4-2200_AMM-PTWEB-100983826679341_2ZSm8Yr6mB.mp4",
+      "quality": "SQ",
+      "audioSlot": 2,
+      "audioCode": "VOA-STMA",
+      "audioLabel": "Deutsch (H\u00f6rgesch\u00e4digte)",
+      "audioShortLabel": "UT",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "programId": "078702-021-A",
+      "url": "http:\/\/arteptweb-a.akamaihd.net\/am\/ptweb\/078000\/078700\/078702-021-A_SQ_0_VF_09963583_MP4-2200_AMM-PTWEB-80803207522630_2ZSm6Yr6m5.mp4",
+      "quality": "SQ",
+      "audioSlot": 3,
+      "audioCode": "VF",
+      "audioLabel": "Franz\u00f6sisch",
+      "audioShortLabel": "FR",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "programId": "078702-021-A",
+      "url": "http:\/\/arteptweb-a.akamaihd.net\/am\/ptweb\/078000\/078700\/078702-021-A_SQ_0_VF-STMF_09963588_MP4-2200_AMM-PTWEB-100984120615166_2ZSm7Yr6mA.mp4",
+      "quality": "SQ",
+      "audioSlot": 4,
+      "audioCode": "VF-STMF",
+      "audioLabel": "Franz\u00f6sisch (H\u00f6rgesch\u00e4digte)",
+      "audioShortLabel": "UT (frz.)",
+      "width": 1280,
+      "height": 720
+    }
+  ]
+}

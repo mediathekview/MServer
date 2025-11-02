@@ -28,8 +28,4 @@ public class ArteCrawler_PL extends ArteCrawler {
     return ArteLanguage.PL;
   }
 
-  @Override
-  protected boolean isDayEntriesEnabled() {
-    return false;
-  }
 }

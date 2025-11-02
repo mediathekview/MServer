@@ -1,0 +1,88 @@
+package de.mediathekview.mserver.crawler.arte.tasks;
+
+import java.lang.reflect.Type;
+import java.net.URI;
+import java.util.Optional;
+import java.util.Queue;
+import java.util.Set;
+import java.util.concurrent.ConcurrentLinkedQueue;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import com.google.gson.JsonDeserializer;
+import com.google.gson.reflect.TypeToken;
+
+import de.mediathekview.mserver.crawler.arte.ArteConstants;
+import de.mediathekview.mserver.crawler.arte.json.ArteVideoInfoDeserializer;
+import de.mediathekview.mserver.crawler.arte.json.ArteVideoInfoDto;
+import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
+import de.mediathekview.mserver.crawler.basic.AbstractJsonRestTask;
+import de.mediathekview.mserver.crawler.basic.AbstractRecursiveConverterTask;
+import de.mediathekview.mserver.crawler.basic.PagedElementListDTO;
+import de.mediathekview.mserver.crawler.basic.TopicUrlDTO;
+import jakarta.ws.rs.core.Response;
+
+public class ArteVideoInfoTask
+    extends AbstractJsonRestTask<ArteVideoInfoDto, PagedElementListDTO<ArteVideoInfoDto>, TopicUrlDTO> {
+  private static final long serialVersionUID = 1L;
+  protected final transient Logger log = LogManager.getLogger(this.getClass());
+  protected transient Optional<AbstractRecursiveConverterTask<ArteVideoInfoDto, TopicUrlDTO>> nextPageTask = Optional.empty();
+
+  
+  public ArteVideoInfoTask(AbstractCrawler crawler, Queue<TopicUrlDTO> urlToCrawlDTOs) {
+    super(crawler, urlToCrawlDTOs, ArteConstants.API_TOKEN);
+  }
+  
+  @Override
+  protected JsonDeserializer<PagedElementListDTO<ArteVideoInfoDto>> getParser(TopicUrlDTO aDTO) {
+    return new ArteVideoInfoDeserializer();
+  }
+
+  @Override
+  protected Type getType() {
+    return new TypeToken<PagedElementListDTO<ArteVideoInfoDto>>() {}.getType();
+  }
+
+  protected void postProcessingNextPage(PagedElementListDTO<ArteVideoInfoDto> aResponseObj) {
+    if (aResponseObj.getNextPage().isEmpty()) {
+      return;
+    }
+    int maxPages = Math.min(100, crawler.getCrawlerConfig().getMaximumSubpages());
+    if (aResponseObj.getNextPage().get().contains("age="+maxPages)) {
+      log.debug("stop at page url {} due to limit {}", aResponseObj.getNextPage().get(), maxPages);
+      return;
+    }
+    
+    final Queue<TopicUrlDTO> nextPageLinks = new ConcurrentLinkedQueue<>();
+    nextPageLinks.add(new TopicUrlDTO(aResponseObj.getNextPage().get(), aResponseObj.getNextPage().get()));
+    nextPageTask = Optional.of(createNewOwnInstance(nextPageLinks));
+    nextPageTask.get().fork();
+  }
+  
+  protected void postProcessingElements(Set<ArteVideoInfoDto> elements) {
+    for (ArteVideoInfoDto element : elements)  {
+      taskResults.add(element);
+    }
+  }
+  
+  @Override
+  protected void postProcessing(PagedElementListDTO<ArteVideoInfoDto> aResponseObj, TopicUrlDTO aDTO) {
+    postProcessingNextPage(aResponseObj);
+    postProcessingElements(aResponseObj.getElements());
+    nextPageTask.ifPresent(paginationResults -> postProcessingElements(paginationResults.join()));
+
+  }
+
+  @Override
+  protected AbstractRecursiveConverterTask<ArteVideoInfoDto, TopicUrlDTO> createNewOwnInstance(
+      Queue<TopicUrlDTO> aElementsToProcess) {
+    return new ArteVideoInfoTask(crawler, aElementsToProcess);
+  }
+
+  @Override
+  protected void handleHttpError(TopicUrlDTO dto, URI url, Response response) {
+    crawler.printErrorMessage();
+    log.fatal("A HTTP error {} occurred when getting REST VideoInfo information from: \"{}\".", response.getStatus(), url);
+  }
+}

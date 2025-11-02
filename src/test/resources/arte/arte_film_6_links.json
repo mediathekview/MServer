@@ -1,0 +1,37 @@
+{
+  "videoStreams": [
+    {
+      "programId": "118208-012-A",
+      "url": "http:\/\/arteconcert-a.akamaihd.net\/am\/concert\/118000\/118200\/118208-012-A_SQ_0_VO_09745389_MP4-2200_AMM-CONCERT-NEXT-60691964320037_2WM3mKa4Rc.mp4",
+      "quality": "SQ",
+      "audioSlot": 1,
+      "audioCode": "VO",
+      "audioLabel": "Originalfassung",
+      "audioShortLabel": "OV",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "programId": "118208-012-A",
+      "url": "http:\/\/arteconcert-a.akamaihd.net\/am\/concert\/118000\/118200\/118208-012-A_HQ_0_VO_09745388_MP4-800_AMM-CONCERT-NEXT-60691964320037_2WM3YKa4Lb.mp4",
+      "quality": "HQ",
+      "audioSlot": 1,
+      "audioCode": "VO",
+      "audioLabel": "Originalfassung",
+      "audioShortLabel": "OV",
+      "width": 640,
+      "height": 360
+    },
+    {
+      "programId": "118208-012-A",
+      "url": "http:\/\/arteconcert-a.akamaihd.net\/am\/concert\/118000\/118200\/118208-012-A_EQ_0_VO_09745386_MP4-1500_AMM-CONCERT-NEXT-60691964320037_2WM2pKa4I8.mp4",
+      "quality": "EQ",
+      "audioSlot": 1,
+      "audioCode": "VO",
+      "audioLabel": "Originalfassung",
+      "audioShortLabel": "OV",
+      "width": 720,
+      "height": 406
+    }
+  ]
+}
