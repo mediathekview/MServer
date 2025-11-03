@@ -98,6 +98,8 @@ public class ArdTopicPageTask extends ArdTaskBase<ArdFilmInfoDto, CrawlerUrlDTO>
     TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL25kci5kZS80NzQ0");
     // Nordstory
     TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL25kci5kZS8xNDk1");
+     // LA-WM 2025
+    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL3Nwb3J0c2NoYXUuZGUvc3BvcnRzY2hhdS1sZWljaHRhdGhsZXRpay13bS0yMDI1");
   }
 
   public ArdTopicPageTask(MediathekReader aCrawler,
