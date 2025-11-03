@@ -34,7 +34,8 @@ public class ArdCrawler extends MediathekCrawler {
           // Sturm der Liebe
           "Y3JpZDovL2Rhc2Vyc3RlLmRlL3N0dXJtIGRlciBsaWViZQ",
           // in aller freundschaft -die jungen ärzte
-          "Y3JpZDovL21kci5kZS9zZW5kZXJlaWhlbi9zdGFmZmVsc2VyaWUtaW4tYWxsZXItZnJldW5kc2NoYWZ0LWRpZS1qdW5nZW4tYWVyenRl"
+          "Y3JpZDovL21kci5kZS9zZW5kZXJlaWhlbi9zdGFmZmVsc2VyaWUtaW4tYWxsZXItZnJldW5kc2NoYWZ0LWRpZS1qdW5nZW4tYWVyenRl",
+          "Y3JpZDovL3Nwb3J0c2NoYXUuZGUvc3BvcnRzY2hhdS1sZWljaHRhdGhsZXRpay13bS0yMDI1"
   };
 
   public ArdCrawler(FilmeSuchen ssearch, int startPrio) {
