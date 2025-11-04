@@ -35,7 +35,8 @@ public class ArdCrawler extends MediathekCrawler {
           "Y3JpZDovL2Rhc2Vyc3RlLmRlL3N0dXJtIGRlciBsaWViZQ",
           // in aller freundschaft -die jungen ärzte
           "Y3JpZDovL21kci5kZS9zZW5kZXJlaWhlbi9zdGFmZmVsc2VyaWUtaW4tYWxsZXItZnJldW5kc2NoYWZ0LWRpZS1qdW5nZW4tYWVyenRl",
-          "Y3JpZDovL3Nwb3J0c2NoYXUuZGUvc3BvcnRzY2hhdS1sZWljaHRhdGhsZXRpay13bS0yMDI1"
+          "Y3JpZDovL21kci5kZS9zZW5kZXJlaWhlbi8wNGVkZmFlOS1hYTBlLTQ4MjEtYTk4Mi0yNmRiZDdjZjEyZTY",
+          "Y3JpZDovL2JyLmRlL2Jyb2FkY2FzdFNlcmllcy9icm9hZGNhc3RTZXJpZXM6L2JyZGUvZmVybnNlaGVuL2JheWVyaXNjaGVzLWZlcm5zZWhlbi9zZW5kdW5nZW4vc3BpZWxmaWxtZS1pbS1icg"
   };
 
   public ArdCrawler(FilmeSuchen ssearch, int startPrio) {
