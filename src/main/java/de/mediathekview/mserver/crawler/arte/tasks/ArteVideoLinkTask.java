@@ -27,7 +27,7 @@ public class ArteVideoLinkTask
 
   
   public ArteVideoLinkTask(AbstractCrawler crawler, Queue<ArteVideoInfoDto> videoInfo) {
-    super(crawler, videoInfo, ArteConstants.API_TOKEN);
+    super(crawler, videoInfo, null);
   }
   
   @Override
