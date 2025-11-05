@@ -27,7 +27,7 @@ import de.mediathekview.mlib.filmesuchen.ListenerFilmeLadenEvent;
 import de.mediathekview.mlib.tool.Log;
 import mServer.crawler.sender.*;
 import mServer.crawler.sender.ard.ArdCrawler;
-import mServer.crawler.sender.arte.MediathekArte;
+import mServer.crawler.sender.arte.*;
 import mServer.crawler.sender.dreisat.DreiSatCrawler;
 import mServer.crawler.sender.dw.DwCrawler;
 import mServer.crawler.sender.kika.KikaApiCrawler;
@@ -88,7 +88,12 @@ public class FilmeSuchen {
       mediathekListe.add(new ZdfCrawler(this, 0));
     }
     if (crawlerList.contains("ARTE")) {
-      mediathekListe.add(new MediathekArte(this, 0));
+      mediathekListe.add(new ArteCrawler(this, 0));
+      mediathekListe.add(new ArteCrawler_FR(this, 0));
+      mediathekListe.add(new ArteCrawler_EN(this, 1));
+      mediathekListe.add(new ArteCrawler_ES(this, 1));
+      mediathekListe.add(new ArteCrawler_PL(this, 1));
+      mediathekListe.add(new ArteCrawler_IT(this, 1));
     }
     if (crawlerList.contains("DW")) {
       mediathekListe.add(new DwCrawler(this, 0));
@@ -97,7 +102,7 @@ public class FilmeSuchen {
       mediathekListe.add(new KikaApiCrawler(this, 0));
     }
     if (crawlerList.contains("3SAT")) {
-      mediathekListe.add(new DreiSatCrawler(this, 1));
+      mediathekListe.add(new DreiSatCrawler(this, 0));
     }
     if (crawlerList.contains("SR")) {
       mediathekListe.add(new SrCrawler(this, 1));
@@ -112,7 +117,7 @@ public class FilmeSuchen {
       mediathekListe.add(new OrfOnCrawler(this, 1));
     }
     if (crawlerList.contains("PHONIX")) {
-      mediathekListe.add(new PhoenixCrawler(this, 1));
+      mediathekListe.add(new PhoenixCrawler(this, 0));
     }
   
   }
