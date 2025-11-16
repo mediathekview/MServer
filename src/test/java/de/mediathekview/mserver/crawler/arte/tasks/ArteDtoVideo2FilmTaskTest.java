@@ -1,12 +1,12 @@
 package de.mediathekview.mserver.crawler.arte.tasks;
 
-import de.mediathekview.mlib.daten.Film;
-import de.mediathekview.mlib.daten.FilmUrl;
-import de.mediathekview.mlib.daten.GeoLocations;
-import de.mediathekview.mlib.daten.Resolution;
-import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mserver.crawler.arte.json.ArteVideoInfoDto;
 import de.mediathekview.mserver.crawler.basic.TopicUrlDTO;
+import de.mediathekview.mserver.daten.Film;
+import de.mediathekview.mserver.daten.FilmUrl;
+import de.mediathekview.mserver.daten.GeoLocations;
+import de.mediathekview.mserver.daten.Resolution;
+import de.mediathekview.mserver.daten.Sender;
 import de.mediathekview.mserver.testhelper.WireMockTestBase;
 import org.junit.Test;
 import org.junit.runner.RunWith;

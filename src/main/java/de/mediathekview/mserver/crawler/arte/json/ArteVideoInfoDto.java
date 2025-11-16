@@ -4,9 +4,9 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-import de.mediathekview.mlib.daten.Sender;
 import de.mediathekview.mserver.crawler.arte.ArteConstants;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
+import de.mediathekview.mserver.daten.Sender;
 
 public class ArteVideoInfoDto extends CrawlerUrlDTO {
   private Optional<String> firstBroadcastDate;

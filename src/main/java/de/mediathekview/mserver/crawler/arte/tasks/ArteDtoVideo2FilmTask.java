@@ -18,15 +18,15 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 
-import de.mediathekview.mlib.daten.Film;
-import de.mediathekview.mlib.daten.FilmUrl;
-import de.mediathekview.mlib.daten.GeoLocations;
-import de.mediathekview.mlib.daten.Resolution;
 import de.mediathekview.mserver.crawler.arte.ArteVideoType;
 import de.mediathekview.mserver.crawler.arte.ArteRestVideoTypeMapper;
 import de.mediathekview.mserver.crawler.arte.json.ArteVideoInfoDto;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractRecursiveConverterTask;
+import de.mediathekview.mserver.daten.Film;
+import de.mediathekview.mserver.daten.FilmUrl;
+import de.mediathekview.mserver.daten.GeoLocations;
+import de.mediathekview.mserver.daten.Resolution;
 
 
 public class ArteDtoVideo2FilmTask extends AbstractRecursiveConverterTask<Film, ArteVideoInfoDto> {
