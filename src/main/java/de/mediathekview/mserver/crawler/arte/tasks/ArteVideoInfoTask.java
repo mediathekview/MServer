@@ -30,10 +30,12 @@ public class ArteVideoInfoTask
   private static final long serialVersionUID = 1L;
   protected final transient Logger log = LogManager.getLogger(this.getClass());
   protected Optional<AbstractRecursiveConverterTask<ArteVideoInfoDto, TopicUrlDTO>> nextPageTask = Optional.empty();
+  protected int maxSubpages;
 
   
-  public ArteVideoInfoTask(AbstractCrawler crawler, Queue<TopicUrlDTO> urlToCrawlDTOs) {
+  public ArteVideoInfoTask(AbstractCrawler crawler, Queue<TopicUrlDTO> urlToCrawlDTOs, int maxSubpages) {
     super(crawler, urlToCrawlDTOs, ArteConstants.API_TOKEN);
+    this.maxSubpages = maxSubpages;
   }
   
   @Override
@@ -50,9 +52,8 @@ public class ArteVideoInfoTask
     if (aResponseObj.getNextPage().isEmpty()) {
       return;
     }
-    int maxPages = Math.min(100, crawler.getCrawlerConfig().getMaximumSubpages());
-    if (aResponseObj.getNextPage().get().contains("age="+maxPages)) {
-      log.debug("stop at page url {} due to limit {}", aResponseObj.getNextPage().get(), maxPages);
+    if (aResponseObj.getNextPage().get().contains("page="+maxSubpages+"&")) {
+      log.debug("stop at page url {} due to limit {}", aResponseObj.getNextPage().get(), maxSubpages);
       return;
     }
     
@@ -80,7 +81,7 @@ public class ArteVideoInfoTask
   @Override
   protected AbstractRecursiveConverterTask<ArteVideoInfoDto, TopicUrlDTO> createNewOwnInstance(
       Queue<TopicUrlDTO> aElementsToProcess) {
-    return new ArteVideoInfoTask(crawler, aElementsToProcess);
+    return new ArteVideoInfoTask(crawler, aElementsToProcess, maxSubpages);
   }
 
   @Override
