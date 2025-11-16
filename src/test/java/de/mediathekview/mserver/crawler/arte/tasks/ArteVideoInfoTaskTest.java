@@ -57,7 +57,7 @@ public class ArteVideoInfoTaskTest extends WireMockTestBase {
     for (String url : requestUrl) {
       input.add(new TopicUrlDTO("",getWireMockBaseUrlSafe() + url));
     }
-    return new ArteVideoInfoTask(ArteTaskTestBase.createCrawler(), input).invoke();
+    return new ArteVideoInfoTask(ArteTaskTestBase.createCrawler(), input, 1).invoke();
   }
   
   private List<List<Optional<String>>> generateExpectedResult() {
