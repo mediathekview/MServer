@@ -61,10 +61,10 @@ public class ArteDtoVideo2FilmTask extends AbstractRecursiveConverterTask<Film, 
   
   protected void parse(ArteVideoInfoDto aElement) {
     Map<Resolution, FilmUrl> videoUrls = buildVideoUrls(aElement, ArteVideoType.DEFAULT);
-    Map<Resolution, FilmUrl> videoSubs = buildVideoUrls(aElement, ArteVideoType.AUDIO_DESCRIPTION);
+    Map<Resolution, FilmUrl> videoAD = buildVideoUrls(aElement, ArteVideoType.AUDIO_DESCRIPTION);
     if (videoUrls.size() > 0) {
       Film film = buildFilmBody(aElement);
-      addFilm(buildFilmBody(aElement), film.getTitel(), videoUrls, videoSubs);
+      addFilm(buildFilmBody(aElement), film.getTitel(), videoUrls, videoAD);
     }
     //
     Map<Resolution, FilmUrl> originalVersion = buildVideoUrls(aElement, ArteVideoType.ORIGINAL);
@@ -75,6 +75,12 @@ public class ArteDtoVideo2FilmTask extends AbstractRecursiveConverterTask<Film, 
     } else if (originalVersionSubs.size() > 0) { // es gibt nur FR und FR mit UT dann nehmen wir FR mit UT
       Film film = buildFilmBody(aElement);
       addFilm(buildFilmBody(aElement), film.getTitel()+ " (Originalversion mit Untertitel)", originalVersionSubs, null);
+    }
+    // ARTE provides subs as a new video
+    Map<Resolution, FilmUrl> videoSub = buildVideoUrls(aElement, ArteVideoType.SUBTITLE_INCLUDED);
+    if (videoSub.size() > 0) {
+      Film film = buildFilmBody(aElement);
+      addFilm(buildFilmBody(aElement), film.getTitel()+ " (mit Untertitel)", videoSub, null);
     }
   }
   
@@ -94,7 +100,7 @@ public class ArteDtoVideo2FilmTask extends AbstractRecursiveConverterTask<Film, 
   protected Film buildFilmBody(ArteVideoInfoDto aElement) {
     Film film = new Film(
         UUID.randomUUID(),
-        crawler.getSender(),
+        aElement.getSender(),
         buildTitle(aElement),
         buildTopic(aElement),
         buildAired(aElement),
