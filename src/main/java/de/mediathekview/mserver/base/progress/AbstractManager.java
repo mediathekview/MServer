@@ -1,7 +1,7 @@
 package de.mediathekview.mserver.base.progress;
 
-import de.mediathekview.mlib.messages.Message;
-import de.mediathekview.mlib.messages.listener.MessageListener;
+import de.mediathekview.mserver.base.messages.Message;
+import de.mediathekview.mserver.base.messages.listener.MessageListener;
 import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
 
 import java.util.ArrayList;
@@ -14,11 +14,6 @@ public abstract class AbstractManager {
   protected AbstractManager() {
     progressListeners = new ArrayList<>();
     messageListeners = new ArrayList<>();
-  }
-
-  public boolean addSenderProgressListener(
-      final SenderProgressListener aCrawlerSenderProgressListener) {
-    return progressListeners.add(aCrawlerSenderProgressListener);
   }
 
   public boolean addMessageListener(final MessageListener aMessageListener) {
@@ -35,10 +30,5 @@ public abstract class AbstractManager {
 
   protected void printMessage(final Message aMessage, final Object... args) {
     messageListeners.parallelStream().forEach(l -> l.consumeMessage(aMessage, args));
-  }
-
-  public boolean removeSenderProgressListener(
-      final SenderProgressListener aSenderProgressListener) {
-    return progressListeners.remove(aSenderProgressListener);
   }
 }

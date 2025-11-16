@@ -1,17 +1,17 @@
 package de.mediathekview.mserver.crawler.zdf.json;
 
 import com.google.gson.*;
-import de.mediathekview.mlib.daten.Film;
-import de.mediathekview.mlib.daten.Sender;
+import de.mediathekview.mserver.daten.Film;
+import de.mediathekview.mserver.daten.Sender;
 import de.mediathekview.mserver.base.utils.JsonUtils;
 import de.mediathekview.mserver.base.utils.UrlUtils;
-import de.mediathekview.mserver.crawler.zdf.ZdfFilmDto;
+import de.mediathekview.mserver.crawler.zdf.ZdfFilmDtoOld;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.lang.reflect.Type;
 import java.net.MalformedURLException;
-import java.net.URL;
+import java.net.URI;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -22,7 +22,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
-public class ZdfFilmDetailDeserializer implements JsonDeserializer<Optional<ZdfFilmDto>> {
+public class ZdfFilmDetailDeserializer implements JsonDeserializer<Optional<ZdfFilmDtoOld>> {
 
   private static final Logger LOG = LogManager.getLogger(ZdfFilmDetailDeserializer.class);
 
@@ -72,7 +72,7 @@ public class ZdfFilmDetailDeserializer implements JsonDeserializer<Optional<ZdfF
   }
 
   @Override
-  public Optional<ZdfFilmDto> deserialize(
+  public Optional<ZdfFilmDtoOld> deserialize(
       final JsonElement aJsonObject, final Type aType, final JsonDeserializationContext aContext) {
     final JsonObject rootNode = aJsonObject.getAsJsonObject();
     JsonObject programItemTarget = null;
@@ -112,7 +112,7 @@ public class ZdfFilmDetailDeserializer implements JsonDeserializer<Optional<ZdfF
     if (title.isPresent()) {
       final Optional<Film> film =
           createFilm(partner2Sender.get(tvService.orElse("EMPTY")), topic, title.get(), description, website, time, duration);
-      return Optional.of(new ZdfFilmDto(film, downloadUrl.get(DOWNLOAD_URL_DEFAULT), downloadUrl.get(DOWNLOAD_URL_DGS)));
+      return Optional.of(new ZdfFilmDtoOld(film, downloadUrl.get(DOWNLOAD_URL_DEFAULT), downloadUrl.get(DOWNLOAD_URL_DGS)));
     } else {
       LOG.error("ZdfFilmDetailDeserializer: no title found");
     }
@@ -177,7 +177,7 @@ public class ZdfFilmDetailDeserializer implements JsonDeserializer<Optional<ZdfF
               aDuration.orElse(Duration.ZERO));
 
       if (aWebsite.isPresent()) {
-        film.setWebsite(new URL(aWebsite.get()));
+        film.setWebsite(URI.create(aWebsite.get()).toURL());
       }
       aDescription.ifPresent(film::setBeschreibung);
 

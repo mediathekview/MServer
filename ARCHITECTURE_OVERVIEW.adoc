@@ -88,10 +88,6 @@ Starts all configured crawlers, collects the results and start the filmlist writ
 
 Contains basic logic needed in every crawler like the work splitting.
 
-=== MLib
-
-An internal library which contains the model objects of MediathekView.
-
 === Crawler
 
 The heart of MServer crawlers for the public broadcaster media libraries.

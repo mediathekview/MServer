@@ -2,9 +2,9 @@ package de.mediathekview.mserver.crawler.sr.tasks;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import de.mediathekview.mlib.daten.Film;
-import de.mediathekview.mlib.daten.FilmUrl;
-import de.mediathekview.mlib.daten.Resolution;
+import de.mediathekview.mserver.daten.Film;
+import de.mediathekview.mserver.daten.FilmUrl;
+import de.mediathekview.mserver.daten.Resolution;
 import de.mediathekview.mserver.base.utils.DateUtils;
 import de.mediathekview.mserver.base.utils.HtmlDocumentUtils;
 import de.mediathekview.mserver.crawler.ard.json.ArdVideoInfoDto;
@@ -20,7 +20,7 @@ import org.jsoup.select.Elements;
 
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
-import java.net.URL;
+import java.net.URI;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -146,14 +146,14 @@ public class SrFilmDetailTask extends AbstractDocumentTask<Film, SrTopicUrlDTO> 
                 time.orElse(LocalDateTime.now()),
                 duration.orElse(Duration.ZERO));
 
-        film.setWebsite(new URL(aUrlDTO.getUrl()));
+        film.setWebsite(URI.create(aUrlDTO.getUrl()).toURL());
         description.ifPresent(film::setBeschreibung);
 
         final ArdVideoInfoDto videoInfo = videoInfoOptional.get();
-        if (videoInfo.getSubtitleUrl().isPresent()) {
-          for (String url : videoInfo.getSubtitleUrl().get()) {
+        if (!videoInfo.getSubtitleUrl().isEmpty()) {
+          for (String url : videoInfo.getSubtitleUrl()) {
             try {
-              film.addSubtitle(new URL(addMissingProtocol(url)));
+              film.addSubtitle(URI.create(addMissingProtocol(url)).toURL());
             } catch (Exception e) {
               LOG.error("invalid subtitle url {} {}", url, e);
             }
@@ -226,7 +226,7 @@ public class SrFilmDetailTask extends AbstractDocumentTask<Film, SrTopicUrlDTO> 
 
       try {
         final ArdVideoInfoDto dto =
-            gson.fromJson(new InputStreamReader(new URL(url).openStream()), ArdVideoInfoDto.class);
+            gson.fromJson(new InputStreamReader(URI.create(url).toURL().openStream()), ArdVideoInfoDto.class);
         if (dto.getVideoUrls().size() > 0) {
           return Optional.of(dto);
         }

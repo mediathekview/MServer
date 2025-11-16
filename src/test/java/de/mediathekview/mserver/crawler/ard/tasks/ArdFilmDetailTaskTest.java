@@ -1,8 +1,8 @@
 package de.mediathekview.mserver.crawler.ard.tasks;
 
-import de.mediathekview.mlib.daten.Film;
-import de.mediathekview.mlib.daten.GeoLocations;
-import de.mediathekview.mlib.daten.Sender;
+import de.mediathekview.mserver.daten.Film;
+import de.mediathekview.mserver.daten.GeoLocations;
+import de.mediathekview.mserver.daten.Sender;
 import de.mediathekview.mserver.crawler.ard.ArdFilmInfoDto;
 import de.mediathekview.mserver.testhelper.AssertFilm;
 import org.junit.Test;
@@ -16,7 +16,6 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Optional;
 import java.util.Queue;
 import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;

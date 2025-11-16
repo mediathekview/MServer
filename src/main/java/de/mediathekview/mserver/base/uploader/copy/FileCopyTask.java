@@ -1,6 +1,6 @@
 package de.mediathekview.mserver.base.uploader.copy;
 
-import de.mediathekview.mlib.messages.Message;
+import de.mediathekview.mserver.base.messages.Message;
 import de.mediathekview.mserver.base.messages.ServerMessages;
 import de.mediathekview.mserver.base.uploader.UploadTask;
 import org.apache.logging.log4j.LogManager;

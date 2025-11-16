@@ -23,8 +23,6 @@ import de.mediathekview.mserver.crawler.basic.PagedElementListDTO;
 import de.mediathekview.mserver.crawler.basic.TopicUrlDTO;
 import jakarta.ws.rs.core.Response;
 
-//return T Class from this task, desirialisation of class R , D , Reasearch in this url
-
 public class ArteVideoInfoTask
     extends AbstractJsonRestTask<ArteVideoInfoDto, PagedElementListDTO<ArteVideoInfoDto>, TopicUrlDTO> {
   private static final long serialVersionUID = 1L;

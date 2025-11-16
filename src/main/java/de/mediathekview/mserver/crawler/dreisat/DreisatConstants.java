@@ -3,7 +3,7 @@ package de.mediathekview.mserver.crawler.dreisat;
 import java.util.HashMap;
 import java.util.Map;
 
-import de.mediathekview.mlib.daten.Sender;
+import de.mediathekview.mserver.daten.Sender;
 
 public final class DreisatConstants {
 
@@ -22,6 +22,7 @@ public final class DreisatConstants {
 
   static {
     PARTNER_TO_SENDER.put("3sat", Sender.DREISAT);
+    PARTNER_TO_SENDER.put("EMPTY", Sender.DREISAT);
   }
   
   private DreisatConstants() {}

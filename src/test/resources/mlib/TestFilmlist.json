@@ -1,0 +1,7 @@
+{
+"Filmliste": ["20.10.2019, 20:04","20.10.2019, 20:04","0.0.0"," [Vers.: 0.0.0 ]","5f330449-c9d2-4b67-89b4-75373b38b9f8"],
+"Filmliste": ["Sender","Thema","Titel","Datum","Zeit","Dauer","Größe [MB]","Beschreibung","Url","Website","Url Untertitel","Url RTMP","Url Klein","Url RTMP Klein","Url HD","Url RTMP HD","DatumL","Url History","Geo","neu"],
+"X": ["ARD","TestThema","TestTitel","01.01.2017","23:55:00","00:10:00","42","Test beschreibung.","http://example.org/Test.mp4","http://www.example.org/","","","19|klein.mp4","","19|hd.mp4","","1483311300","","","false"],
+"X": ["","","TestTitel","01.01.2017","23:55:00","00:10:00","42","Test beschreibung.","http://example.org/Test2.mp4","http://www.example.org/2","","","19|klein2.mp4","","19|hd2.mp4","","1483311300","","","false"],
+"X": ["BR","TestThema2","TestTitel","01.01.2017","23:55:00","00:10:00","42","Test beschreibung.","http://example.org/Test.mp4","http://www.example.org/","","","19|klein.mp4","","19|hd.mp4","","1483311300","","","false"]
+}

@@ -4,10 +4,10 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import com.google.gson.JsonObject;
-import de.mediathekview.mlib.daten.Film;
-import de.mediathekview.mlib.daten.Sender;
+import de.mediathekview.mserver.daten.Film;
+import de.mediathekview.mserver.daten.Sender;
 import de.mediathekview.mserver.crawler.zdf.ZdfConstants;
-import de.mediathekview.mserver.crawler.zdf.ZdfFilmDto;
+import de.mediathekview.mserver.crawler.zdf.ZdfFilmDtoOld;
 import de.mediathekview.mserver.testhelper.AssertFilm;
 import de.mediathekview.mserver.testhelper.JsonFileReader;
 import java.time.Duration;
@@ -181,7 +181,7 @@ public class ZdfFilmDetailDeserializerTest {
     final ZdfFilmDetailDeserializer target =
         new ZdfFilmDetailDeserializer(ZdfConstants.URL_API_BASE, createPartnerMap());
 
-    final Optional<ZdfFilmDto> actual = target.deserialize(json, Film.class, null);
+    final Optional<ZdfFilmDtoOld> actual = target.deserialize(json, Film.class, null);
 
     assertThat(actual.isPresent(), equalTo(true));
 

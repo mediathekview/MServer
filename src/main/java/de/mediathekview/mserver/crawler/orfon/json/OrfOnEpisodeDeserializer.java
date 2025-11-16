@@ -2,9 +2,9 @@ package de.mediathekview.mserver.crawler.orfon.json;
 
 import com.google.gson.*;
 
-import de.mediathekview.mlib.daten.FilmUrl;
-import de.mediathekview.mlib.daten.GeoLocations;
-import de.mediathekview.mlib.daten.Resolution;
+import de.mediathekview.mserver.daten.FilmUrl;
+import de.mediathekview.mserver.daten.GeoLocations;
+import de.mediathekview.mserver.daten.Resolution;
 import de.mediathekview.mserver.base.utils.JsonUtils;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.orfon.OrfOnConstants;
@@ -13,6 +13,7 @@ import de.mediathekview.mserver.crawler.orfon.OrfOnVideoInfoDTO;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.net.MalformedURLException;
+import java.net.URI;
 import java.net.URL;
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -51,6 +52,7 @@ public class OrfOnEpisodeDeserializer implements JsonDeserializer<OrfOnVideoInfo
   private static final String TAG_VIDEO_QUALITY = "quality";
   private static final String TAG_VIDEO_FALLBACK = "sources";
   private static final String TAG_VIDEO_FALLBACK_URL = "src";
+  private static final String TAG_DRM_PROTECTED = "is_drm_protected";
   
   private static final String[] TAG_SUBTITLE_SECTION = {"_embedded", "subtitle"};
   private static final String TAG_SUBTITLE_SMI = "sami_url";
@@ -78,6 +80,7 @@ public class OrfOnEpisodeDeserializer implements JsonDeserializer<OrfOnVideoInfo
         JsonUtils.getElementValueAsString(jsonElement, TAG_TITLE_WITH_DATE),
         JsonUtils.getElementValueAsString(jsonElement, TAG_TOPIC),
         JsonUtils.getElementValueAsString(jsonElement, TAG_TOPIC_ARCHIVE),
+        JsonUtils.getElementValueAsString(jsonElement, TAG_DRM_PROTECTED),
         parseAiredDate(JsonUtils.getElementValueAsString(jsonElement, TAG_AIRED)),
         parseDuration(JsonUtils.getElementValueAsString(jsonElement, TAG_DURATION)),
         JsonUtils.getElementValueAsString(jsonElement, TAG_DESCRIPTION),
@@ -134,7 +137,7 @@ public class OrfOnEpisodeDeserializer implements JsonDeserializer<OrfOnVideoInfo
     Optional<URL> sub = Optional.empty();
     if (text.isPresent()) {
       try {
-        sub =  Optional.of(new URL(text.get()));
+        sub = Optional.of(URI.create(text.get()).toURL());
       } catch (Exception e) {
         LOG.error("parseSubtitle failed for string {} exception {}", text.get(), e);
       }
@@ -158,8 +161,8 @@ public class OrfOnEpisodeDeserializer implements JsonDeserializer<OrfOnVideoInfo
   
   private Optional<URL> toURL(String aString) {
     try {
-      return Optional.of(new URL(aString));
-    } catch (MalformedURLException e) {
+      return Optional.of(URI.create(aString).toURL());
+    } catch (Exception e) {
       LOG.debug("error converting {} to URL {}", aString, e);
     }
     return Optional.empty();
@@ -195,14 +198,19 @@ public class OrfOnEpisodeDeserializer implements JsonDeserializer<OrfOnVideoInfo
         if (codecs.isPresent() && codecs.get().isJsonArray()) {
           for (JsonElement singleVideo : codecs.get().getAsJsonArray()) {
             Optional<String> tgtUrl = JsonUtils.getElementValueAsString(singleVideo, TAG_VIDEO_FALLBACK_URL);
+            Optional<String> quality = JsonUtils.getElementValueAsString(singleVideo, "quality_key");
             if (tgtUrl.isPresent() && !tgtUrl.get().contains("/Jugendschutz") && !tgtUrl.get().contains("/no_drm_support") && !tgtUrl.get().contains("/schwarzung")) {
               try {
-                urls.put(Resolution.NORMAL, new FilmUrl(tgtUrl.get(), 0L));
+                if (OrfOnEpisodeDeserializer.getQuality(quality.get()).isPresent()) {
+                  urls.put(OrfOnEpisodeDeserializer.getQuality(quality.get()).get(), new FilmUrl(tgtUrl.get(), 0L));
+                }
               } catch (MalformedURLException e) {
                 LOG.warn("invalid video url {} error {}", tgtUrl, e );
               }
-              return Optional.of(urls);
             }
+          }
+          if (!urls.isEmpty()) {
+            return Optional.of(urls);
           }
         }
       }
@@ -272,7 +280,7 @@ public class OrfOnEpisodeDeserializer implements JsonDeserializer<OrfOnVideoInfo
     Optional<URL> result = Optional.empty();
     if (text.isPresent()) {
       try {
-        result = Optional.of(new URL(text.get()));
+        result = Optional.of(URI.create(text.get()).toURL());
       } catch (Exception e) {
         LOG.error("parseWebsite failed for string {} exception {}", text.get(), e);
       }

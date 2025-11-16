@@ -52,11 +52,13 @@ public class SrfTopicOverviewTask extends ArdTaskBase<CrawlerUrlDTO, TopicUrlDTO
   protected void processRestTarget(final TopicUrlDTO aDTO, final WebTarget aTarget) {
     final PagedElementListDTO<CrawlerUrlDTO> results =
         deserialize(aTarget, PAGED_ELEMENT_LIST_URL_TYPE_TOKEN, aDTO);
-    taskResults.addAll(results.getElements());
+    if (results != null) {
+      taskResults.addAll(results.getElements());
 
-    final Optional<String> nextPageId = results.getNextPage();
-    if (nextPageId.isPresent() && pageNumber < crawler.getCrawlerConfig().getMaximumSubpages()) {
-      processNextPage(aDTO.getTopic(), nextPageId.get());
+      final Optional<String> nextPageId = results.getNextPage();
+      if (nextPageId.isPresent() && pageNumber < crawler.getCrawlerConfig().getMaximumSubpages()) {
+        processNextPage(aDTO.getTopic(), nextPageId.get());
+      }
     }
   }
 

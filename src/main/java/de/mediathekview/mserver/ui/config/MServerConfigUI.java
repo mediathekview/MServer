@@ -1,7 +1,7 @@
 package de.mediathekview.mserver.ui.config;
 
-import de.mediathekview.mlib.messages.listener.LogMessageListener;
-import de.mediathekview.mlib.messages.listener.MessageListener;
+import de.mediathekview.mserver.base.messages.listener.LogMessageListener;
+import de.mediathekview.mserver.base.messages.listener.MessageListener;
 import de.mediathekview.mserver.base.config.Log4JConfigurationFactory;
 import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.base.config.MServerLogSettingsDTO;
@@ -15,6 +15,7 @@ import org.apache.logging.log4j.Logger;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
+import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Files;
@@ -108,7 +109,7 @@ public final class MServerConfigUI {
         URL fileUrl;
         try {
           // get a copy of this file to use it as configuration file
-          fileUrl = new URL(configFileName);
+          fileUrl = URI.create(configFileName).toURL();
           String filename = Paths.get(fileUrl.getPath()).getFileName().toString();
           MServerConfigUI.getRemoteFileToLocal(configFileName, filename);
           configFileName = filename;
@@ -141,7 +142,7 @@ public final class MServerConfigUI {
   
   public static void getRemoteFileToLocal(String source, String target) {
     try {
-        URL fileUrl = new URL(source);
+        URL fileUrl = URI.create(source).toURL();
         try (InputStream in = fileUrl.openStream()) {
             Path outputPath = Path.of(target);
             Files.copy(in, outputPath, StandardCopyOption.REPLACE_EXISTING);

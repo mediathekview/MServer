@@ -8,9 +8,9 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
-import de.mediathekview.mlib.daten.FilmUrl;
-import de.mediathekview.mlib.daten.GeoLocations;
-import de.mediathekview.mlib.daten.Resolution;
+import de.mediathekview.mserver.daten.FilmUrl;
+import de.mediathekview.mserver.daten.GeoLocations;
+import de.mediathekview.mserver.daten.Resolution;
 
 
 public class OrfOnVideoInfoDTO {
@@ -20,6 +20,7 @@ public class OrfOnVideoInfoDTO {
   private Optional<String> titleWithDate;
   private Optional<String> topic;
   private Optional<String> topicForArchive;
+  private Optional<String> drmProtected;
   private Optional<LocalDateTime> aired;
   private Optional<Duration> duration;
   private Optional<String> description;
@@ -36,6 +37,7 @@ public class OrfOnVideoInfoDTO {
       Optional<String> titleWithDate, 
       Optional<String> topic,
       Optional<String> topicForArchive,
+      Optional<String> drmProtected,
       Optional<LocalDateTime> aired, 
       Optional<Duration> duration, 
       Optional<String> description, 
@@ -51,6 +53,7 @@ public class OrfOnVideoInfoDTO {
     this.titleWithDate = titleWithDate;
     this.topic = topic;
     this.topicForArchive = topicForArchive;
+    this.drmProtected = drmProtected;
     this.aired = aired;
     this.duration = duration;
     this.description = description;
@@ -78,6 +81,9 @@ public class OrfOnVideoInfoDTO {
   }
   public Optional<String> getTopicForArchive() {
     return topicForArchive;
+  }
+  public Optional<String> getDrmProtected() {
+    return drmProtected;
   }
   public Optional<LocalDateTime> getAired() {
     return aired;

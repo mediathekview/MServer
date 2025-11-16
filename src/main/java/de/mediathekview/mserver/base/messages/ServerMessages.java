@@ -1,8 +1,5 @@
 package de.mediathekview.mserver.base.messages;
 
-import de.mediathekview.mlib.messages.Message;
-import de.mediathekview.mlib.messages.MessageTypes;
-
 /** The server messages. */
 public enum ServerMessages implements Message {
   CRAWLER_START("crawlerStart", MessageTypes.INFO),

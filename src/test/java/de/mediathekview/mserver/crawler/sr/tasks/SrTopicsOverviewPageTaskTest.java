@@ -1,6 +1,6 @@
 package de.mediathekview.mserver.crawler.sr.tasks;
 
-import de.mediathekview.mlib.daten.Sender;
+import de.mediathekview.mserver.daten.Sender;
 import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.crawler.sr.SrConstants;

@@ -1,19 +1,18 @@
 package de.mediathekview.mserver.crawler.zdf;
 
-import de.mediathekview.mlib.messages.listener.MessageListener;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
+
+import de.mediathekview.mserver.base.messages.listener.MessageListener;
 import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
 import de.mediathekview.mserver.testhelper.WireMockTestBase;
-import org.junit.Before;
-import org.junit.Test;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
 import java.util.concurrent.ForkJoinPool;
-
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.MatcherAssert.assertThat;
+import org.junit.Before;
+import org.junit.Test;
 
 public class ZdfVideoUrlOptimizerTest extends WireMockTestBase {
 
