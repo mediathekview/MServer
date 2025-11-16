@@ -193,6 +193,7 @@ public abstract class AbstractCrawler implements Callable<Set<Film>> {
    * @return size of the response in KB or -1 in case we could not determine the size.
    */
   public long determineFileSizeInKB(String url) {
+    getRateLimiter().acquire();
     return getConnection().determineFileSize(url) / 1024;
   }
 
