@@ -36,7 +36,17 @@ public class ArdCrawler extends MediathekCrawler {
           // in aller freundschaft -die jungen ärzte
           "Y3JpZDovL21kci5kZS9zZW5kZXJlaWhlbi9zdGFmZmVsc2VyaWUtaW4tYWxsZXItZnJldW5kc2NoYWZ0LWRpZS1qdW5nZW4tYWVyenRl",
           "Y3JpZDovL21kci5kZS9zZW5kZXJlaWhlbi8wNGVkZmFlOS1hYTBlLTQ4MjEtYTk4Mi0yNmRiZDdjZjEyZTY",
-          "Y3JpZDovL2JyLmRlL2Jyb2FkY2FzdFNlcmllcy9icm9hZGNhc3RTZXJpZXM6L2JyZGUvZmVybnNlaGVuL2JheWVyaXNjaGVzLWZlcm5zZWhlbi9zZW5kdW5nZW4vc3BpZWxmaWxtZS1pbS1icg"
+          "Y3JpZDovL2JyLmRlL2Jyb2FkY2FzdFNlcmllcy9icm9hZGNhc3RTZXJpZXM6L2JyZGUvZmVybnNlaGVuL2JheWVyaXNjaGVzLWZlcm5zZWhlbi9zZW5kdW5nZW4vc3BpZWxmaWxtZS1pbS1icg",
+          // wann kommst du meine wunden...
+          "Y3JpZDovL3N3ci5kZS9zZGIvc3RJZC8xNjY3",
+          // oldhenry
+          "Y3JpZDovL2Rhc2Vyc3RlLmRlL29sZC1oZW5yeQ",
+          // don camillo
+          "Y3JpZDovL2JyLmRlL2Jyb2FkY2FzdFNlcmllcy9GMjAxN1dPMDA5MzU1QTBfc2luZ2xlc2hvdw",
+          "Y3JpZDovL2JyLmRlL2Jyb2FkY2FzdFNlcmllcy9GMjAxN1dPMDA5Mzk0QTFfc2luZ2xlc2hvdw",
+          "Y3JpZDovL2JyLmRlL2Jyb2FkY2FzdFNlcmllcy9GMjAxN1dPMDA5Mzk3QTFfc2luZ2xlc2hvdw",
+          "Y3JpZDovL2JyLmRlL2Jyb2FkY2FzdFNlcmllcy9GMjAxN1dPMDA5MjMwQTBfc2luZ2xlc2hvdw",
+          "Y3JpZDovL2JyLmRlL2Jyb2FkY2FzdFNlcmllcy9GMjAxN1dPMDA5Mzg3QTFfc2luZ2xlc2hvdw"
   };
 
   public ArdCrawler(FilmeSuchen ssearch, int startPrio) {
