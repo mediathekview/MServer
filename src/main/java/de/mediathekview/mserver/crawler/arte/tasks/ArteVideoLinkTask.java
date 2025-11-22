@@ -18,7 +18,10 @@ import de.mediathekview.mserver.crawler.arte.json.ArteVideoLinkDto;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractJsonRestTask;
 import de.mediathekview.mserver.crawler.basic.AbstractRecursiveConverterTask;
+import de.mediathekview.mserver.crawler.basic.PagedElementListDTO;
 import jakarta.ws.rs.core.Response;
+
+//return T Class from this task, desirialisation of class R , D , Reasearch in this url
 
 public class ArteVideoLinkTask
     extends AbstractJsonRestTask<ArteVideoInfoDto, List<ArteVideoLinkDto>, ArteVideoInfoDto> {
@@ -27,7 +30,7 @@ public class ArteVideoLinkTask
 
   
   public ArteVideoLinkTask(AbstractCrawler crawler, Queue<ArteVideoInfoDto> videoInfo) {
-    super(crawler, videoInfo, null);
+    super(crawler, videoInfo, ArteConstants.API_TOKEN);
   }
   
   @Override

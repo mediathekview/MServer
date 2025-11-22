@@ -27,11 +27,13 @@ public class ArteVideoInfoTask
     extends AbstractJsonRestTask<ArteVideoInfoDto, PagedElementListDTO<ArteVideoInfoDto>, TopicUrlDTO> {
   private static final long serialVersionUID = 1L;
   protected final transient Logger log = LogManager.getLogger(this.getClass());
-  protected transient Optional<AbstractRecursiveConverterTask<ArteVideoInfoDto, TopicUrlDTO>> nextPageTask = Optional.empty();
+  protected Optional<AbstractRecursiveConverterTask<ArteVideoInfoDto, TopicUrlDTO>> nextPageTask = Optional.empty();
+  protected int maxSubpages;
 
   
-  public ArteVideoInfoTask(AbstractCrawler crawler, Queue<TopicUrlDTO> urlToCrawlDTOs) {
+  public ArteVideoInfoTask(AbstractCrawler crawler, Queue<TopicUrlDTO> urlToCrawlDTOs, int maxSubpages) {
     super(crawler, urlToCrawlDTOs, ArteConstants.API_TOKEN);
+    this.maxSubpages = maxSubpages;
   }
   
   @Override
@@ -44,13 +46,12 @@ public class ArteVideoInfoTask
     return new TypeToken<PagedElementListDTO<ArteVideoInfoDto>>() {}.getType();
   }
 
-  protected void postProcessingNextPage(PagedElementListDTO<ArteVideoInfoDto> aResponseObj) {
+  protected void postProcessingNextPage(PagedElementListDTO<ArteVideoInfoDto> aResponseObj, TopicUrlDTO aDTO) {
     if (aResponseObj.getNextPage().isEmpty()) {
       return;
     }
-    int maxPages = Math.min(100, crawler.getCrawlerConfig().getMaximumSubpages());
-    if (aResponseObj.getNextPage().get().contains("age="+maxPages)) {
-      log.debug("stop at page url {} due to limit {}", aResponseObj.getNextPage().get(), maxPages);
+    if (aResponseObj.getNextPage().get().contains("page="+maxSubpages+"&")) {
+      log.debug("stop at page url {} due to limit {}", aResponseObj.getNextPage().get(), maxSubpages);
       return;
     }
     
@@ -58,9 +59,10 @@ public class ArteVideoInfoTask
     nextPageLinks.add(new TopicUrlDTO(aResponseObj.getNextPage().get(), aResponseObj.getNextPage().get()));
     nextPageTask = Optional.of(createNewOwnInstance(nextPageLinks));
     nextPageTask.get().fork();
+    //log.debug("started paging to url {} for {}", aResponseObj.getNextPage().get(), aDTO.getUrl());
   }
   
-  protected void postProcessingElements(Set<ArteVideoInfoDto> elements) {
+  protected void postProcessingElements(Set<ArteVideoInfoDto> elements, TopicUrlDTO aDTO) {
     for (ArteVideoInfoDto element : elements)  {
       taskResults.add(element);
     }
@@ -68,16 +70,16 @@ public class ArteVideoInfoTask
   
   @Override
   protected void postProcessing(PagedElementListDTO<ArteVideoInfoDto> aResponseObj, TopicUrlDTO aDTO) {
-    postProcessingNextPage(aResponseObj);
-    postProcessingElements(aResponseObj.getElements());
-    nextPageTask.ifPresent(paginationResults -> postProcessingElements(paginationResults.join()));
+    postProcessingNextPage(aResponseObj, aDTO);
+    postProcessingElements(aResponseObj.getElements(), aDTO);
+    nextPageTask.ifPresent(paginationResults -> postProcessingElements(paginationResults.join(), aDTO));
 
   }
 
   @Override
   protected AbstractRecursiveConverterTask<ArteVideoInfoDto, TopicUrlDTO> createNewOwnInstance(
       Queue<TopicUrlDTO> aElementsToProcess) {
-    return new ArteVideoInfoTask(crawler, aElementsToProcess);
+    return new ArteVideoInfoTask(crawler, aElementsToProcess, maxSubpages);
   }
 
   @Override

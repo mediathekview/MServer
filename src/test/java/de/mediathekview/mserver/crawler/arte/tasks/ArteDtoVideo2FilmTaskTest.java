@@ -2,14 +2,17 @@ package de.mediathekview.mserver.crawler.arte.tasks;
 
 import de.mediathekview.mserver.crawler.arte.json.ArteVideoInfoDto;
 import de.mediathekview.mserver.crawler.basic.TopicUrlDTO;
-import de.mediathekview.mserver.daten.*;
+import de.mediathekview.mserver.daten.Film;
+import de.mediathekview.mserver.daten.FilmUrl;
+import de.mediathekview.mserver.daten.GeoLocations;
+import de.mediathekview.mserver.daten.Resolution;
+import de.mediathekview.mserver.daten.Sender;
 import de.mediathekview.mserver.testhelper.WireMockTestBase;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
 import java.net.MalformedURLException;
-import java.net.URI;
 import java.net.URL;
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -36,7 +39,7 @@ public class ArteDtoVideo2FilmTaskTest extends WireMockTestBase {
   public static Collection<Object[]> data() {
     Film film1 = new Film(
         UUID.randomUUID(), 
-        Sender.ARTE_DE,
+        Sender.ARTE_DE, 
         "Re: Der Traum vom Paradies - Nur die Liebe zählt",
         "Aktuelles und Gesellschaft - Reportagen und Recherchen",
         LocalDateTime.of(2024,04,26,19,42,32),
@@ -48,6 +51,22 @@ public class ArteDtoVideo2FilmTaskTest extends WireMockTestBase {
         "SMALL","https://arteptweb-a.akamaihd.net/am/ptweb/111000/111700/111749-020-A_HQ_0_VOA_08815961_MP4-800_AMM-PTWEB-80922086414600_2J3AeShPD8.mp4",
         "NORMAL", "https://arteptweb-a.akamaihd.net/am/ptweb/111000/111700/111749-020-A_EQ_0_VOA_08815960_MP4-1500_AMM-PTWEB-80922086414600_2J3ApShPGZ.mp4",
         "HD", "https://arteptweb-a.akamaihd.net/am/ptweb/111000/111700/111749-020-A_SQ_0_VOA_08815959_MP4-2200_AMM-PTWEB-80922086414600_2J39OShOv6.mp4"
+    ));
+
+    Film film1a = new Film(
+        UUID.randomUUID(), 
+        Sender.ARTE_DE, 
+        "Re: Der Traum vom Paradies - Nur die Liebe zählt (mit Untertitel)",
+        "Aktuelles und Gesellschaft - Reportagen und Recherchen",
+        LocalDateTime.of(2024,04,26,19,42,32),
+        Duration.parse("PT30M18S"));
+    film1a.setBeschreibung("Seit über fünf Jahren lebt eine Gruppe von Aussteigern auf der Kanareninsel La Gomera in wechselnder Besetzung ein alternatives Lebensmodell. Ein Leben abseits bürgerlicher Konventionen, mit offenen Partnerschaften, dominiert vom Grundgedanken der Liebe als Lebenshaltung.");
+    film1a.setGeoLocations(Arrays.asList(GeoLocations.GEO_DE_AT_CH_EU));
+    film1a.setWebsite(toUrl("https://www.arte.tv/de/videos/111749-020-A/re-der-traum-vom-paradies-nur-die-liebe-zaehlt/"));
+    film1a.setUrls(toResolutionMap(
+        "SMALL","https://arteptweb-a.akamaihd.net/am/ptweb/111000/111700/111749-020-A_HQ_0_VOA-STMA_08815966_MP4-800_AMM-PTWEB-101162502546818_2J3ArShPGa.mp4",
+        "NORMAL", "https://arteptweb-a.akamaihd.net/am/ptweb/111000/111700/111749-020-A_EQ_0_VOA-STMA_08815965_MP4-1500_AMM-PTWEB-101162502546818_2J3AqShPGZ.mp4",
+        "HD", "https://arteptweb-a.akamaihd.net/am/ptweb/111000/111700/111749-020-A_SQ_0_VOA-STMA_08815964_MP4-2200_AMM-PTWEB-101162502546818_2J39jShP0S.mp4"
     ));
     //
     Film film2 = new Film(
@@ -80,6 +99,21 @@ public class ArteDtoVideo2FilmTaskTest extends WireMockTestBase {
         "SMALL","https://arteptweb-a.akamaihd.net/am/ptweb/078000/078700/078702-021-A_HQ_0_VOA_09963595_MP4-800_AMM-PTWEB-80803096529234_2ZSv7Yr7Pz.mp4",
         "NORMAL", "https://arteptweb-a.akamaihd.net/am/ptweb/078000/078700/078702-021-A_EQ_0_VOA_09963593_MP4-1500_AMM-PTWEB-80803096529234_2ZSvZYr7Zv.mp4",
         "HD", "https://arteptweb-a.akamaihd.net/am/ptweb/078000/078700/078702-021-A_SQ_0_VOA_09963592_MP4-2200_AMM-PTWEB-80803096529234_2ZSu6Yr7Bo.mp4"
+    ));
+    Film film3a = new Film(
+        UUID.randomUUID(), 
+        Sender.ARTE_DE, 
+        "GEO Reportage - Gitarren und Flamenco in Granada (mit Untertitel)",
+        "Entdeckung der Welt - Leben anderswo",
+        LocalDateTime.of(2025,05,24,8,53,58),
+        Duration.parse("PT52M19S"));
+    film3a.setBeschreibung("Gitarrenmusik, Instrumentenbau und Flamenco sind bedeutende Teile der andalusischen Kultur. So wie die zwölfjährige Claudia Calle möchten viele junge Menschen im Süden Spaniens durch die Musik berühmt werden: als Tänzer, Musiker oder Instrumentenbauer. Àlvaro Pérez spielt seit seinem sechsten Lebensjahr Gitarre. Er kauft seine Instrumente bei Francisco Manuel Díaz ...");
+    film3a.setGeoLocations(Arrays.asList(GeoLocations.GEO_NONE));
+    film3a.setWebsite(toUrl("https://www.arte.tv/de/videos/078702-021-A/geo-reportage/"));
+    film3a.setUrls(toResolutionMap(
+        "SMALL","https://arteptweb-a.akamaihd.net/am/ptweb/078000/078700/078702-021-A_HQ_0_VOA-STMA_09963599_MP4-800_AMM-PTWEB-100983826679341_2ZSvbYr7Zw.mp4",
+        "NORMAL", "https://arteptweb-a.akamaihd.net/am/ptweb/078000/078700/078702-021-A_EQ_0_VOA-STMA_09963597_MP4-1500_AMM-PTWEB-100983826679341_2ZSvaYr7Zw.mp4",
+        "HD", "https://arteptweb-a.akamaihd.net/am/ptweb/078000/078700/078702-021-A_SQ_0_VOA-STMA_09963596_MP4-2200_AMM-PTWEB-100983826679341_2ZSm8Yr6mB.mp4"
     ));
     //
     Film film4 = new Film(
@@ -161,6 +195,21 @@ public class ArteDtoVideo2FilmTaskTest extends WireMockTestBase {
         "NORMAL", "https://arteptweb-a.akamaihd.net/am/ptweb/114000/114500/114555-002-A_EQ_0_VOA-STF_08791492_MP4-1500_AMM-PTWEB-101144248555256_2IhVCS5ySP.mp4",
         "HD", "https://arteptweb-a.akamaihd.net/am/ptweb/114000/114500/114555-002-A_SQ_0_VOA-STF_08791495_MP4-2200_AMM-PTWEB-101144248555256_2IhSTS5yKB.mp4"
     ));
+    Film film7c = new Film(
+        UUID.randomUUID(), 
+        Sender.ARTE_DE, 
+        "Salon Spitz (mit Untertitel)",
+        "Kino - Kurzfilme",
+        LocalDateTime.of(2024,04,14,01,13,07),
+        Duration.parse("PT8M30S"));
+    film7c.setBeschreibung("Berlin, 1923: Minna betritt auf Einladung ihrer Freundin Edith das erste Mal einen Frauenliteratursalon. Eingeschüchtert von den anderen Frauen hat sie nicht den Mut, selbst die Bühne zu betreten. Als wäre das nicht schon aufregend genug, dringt auch noch Lars, ein selbsternannter Dichter, in die Intimsphäre des Abends ein ...");
+    film7c.setGeoLocations(Arrays.asList(GeoLocations.GEO_DE_FR));
+    film7c.setWebsite(toUrl("https://www.arte.tv/de/videos/114555-002-A/salon-spitz/"));
+    film7c.setUrls(toResolutionMap(
+        "SMALL","https://arteptweb-a.akamaihd.net/am/ptweb/114000/114500/114555-002-A_HQ_0_VOA-STMA_08791489_MP4-800_AMM-PTWEB-101144331538914_2IhUGS5yQO.mp4",
+        "NORMAL", "https://arteptweb-a.akamaihd.net/am/ptweb/114000/114500/114555-002-A_EQ_0_VOA-STMA_08791488_MP4-1500_AMM-PTWEB-101144331538914_2IhUFS5yQL.mp4",
+        "HD", "https://arteptweb-a.akamaihd.net/am/ptweb/114000/114500/114555-002-A_SQ_0_VOA-STMA_08791491_MP4-2200_AMM-PTWEB-101144331538914_2IhSSS5yKA.mp4"
+    ));
     //
     Film film8a = new Film(
         UUID.randomUUID(), 
@@ -192,16 +241,31 @@ public class ArteDtoVideo2FilmTaskTest extends WireMockTestBase {
         "NORMAL", "https://arteptweb-a.akamaihd.net/am/ptweb/118000/118900/118963-000-A_EQ_0_VO_09253366_MP4-1500_AMM-PTWEB-80923512472000_2PIgh10g7F6.mp4",
         "HD", "https://arteptweb-a.akamaihd.net/am/ptweb/118000/118900/118963-000-A_SQ_0_VO_09253369_MP4-2200_AMM-PTWEB-80923512472000_2PIgi10g7F6.mp4"
     ));
+    Film film8c = new Film(
+        UUID.randomUUID(), 
+        Sender.ARTE_DE, 
+        "Kenia: Die Mücken schlagen zurück - ARTE Reportage (mit Untertitel)",
+        "Aktuelles und Gesellschaft - Reportagen und Recherchen",
+        LocalDateTime.of(2024,9,27,12,00,00),
+        Duration.parse("PT12M21S"));
+    film8c.setBeschreibung("Alte und neue die Malaria übertragende Mücken entwickelten neue Überlebens- und Angriffs-Strategien. An den Folgen ihrer Stiche sterben zurzeit über 600.000 Menschen pro Jahr. In Kenia scheinen die Wissenschaftler ihren Kampf gegen sie zu verlieren.");
+    film8c.setGeoLocations(Arrays.asList(GeoLocations.GEO_NONE));
+    film8c.setWebsite(toUrl("https://www.arte.tv/de/videos/118963-000-A/kenia-die-muecken-schlagen-zurueck/"));
+    film8c.setUrls(toResolutionMap(
+        "SMALL","https://arteptweb-a.akamaihd.net/am/ptweb/118000/118900/118963-000-A_HQ_0_VA-STMA_09273186_MP4-800_AMM-PTWEB-101164513616247_2PXE215ktL3.mp4",
+        "NORMAL", "https://arteptweb-a.akamaihd.net/am/ptweb/118000/118900/118963-000-A_EQ_0_VA-STMA_09273185_MP4-1500_AMM-PTWEB-101164513616247_2PXE715ktOH.mp4",
+        "HD", "https://arteptweb-a.akamaihd.net/am/ptweb/118000/118900/118963-000-A_SQ_0_VA-STMA_09273188_MP4-2200_AMM-PTWEB-101164513616247_2PXE415ktL4.mp4"
+    ));
     //
     return Arrays.asList(new Object[][] {
       { "/arte/arte_film_1", 
-        new Film[] {film1}
+        new Film[] {film1, film1a}
       },
       { "/arte/arte_film_2", 
         new Film[] {film2}
       },
       { "/arte/arte_film_3", 
-        new Film[] {film3}
+        new Film[] {film3, film3a}
       },
       { "/arte/arte_film_4", 
         new Film[] {film4}
@@ -213,10 +277,10 @@ public class ArteDtoVideo2FilmTaskTest extends WireMockTestBase {
         new Film[] {film6}
       },
       { "/arte/arte_film_7", 
-        new Film[] {film7a, film7b}
+        new Film[] {film7a, film7b, film7c}
       },
       { "/arte/arte_film_8", 
-        new Film[] {film8a, film8b }
+        new Film[] {film8a, film8b, film8c }
       }
     });
   }
@@ -231,7 +295,7 @@ public class ArteDtoVideo2FilmTaskTest extends WireMockTestBase {
   private Set<ArteVideoInfoDto> executeArteVideoInfoTask() {
     Queue<TopicUrlDTO> input = new ConcurrentLinkedQueue<>();
     input.add(new TopicUrlDTO("", getVideoInfoUrl()));
-    return new ArteVideoInfoTask(ArteTaskTestBase.createCrawler(), input).invoke();
+    return new ArteVideoInfoTask(ArteTaskTestBase.createCrawler(), input, 1).invoke();
   }
 
   private Set<ArteVideoInfoDto> executeArteVideoLinkTask(ArteVideoInfoDto info) {
@@ -267,6 +331,7 @@ public class ArteDtoVideo2FilmTaskTest extends WireMockTestBase {
 
     assertThat(actualFilms.size(), is(expectedFilms.length));
     for (int i = 0; i < expectedFilms.length; i++) {
+      //assertFilm(actualFilms.toArray(new Film[0])[i], expectedFilms[i]);
       String title = expectedFilms[i].getTitel();
       assertFilm(actualFilms.stream().filter(film -> title.equalsIgnoreCase(film.getTitel())).findAny().get(), expectedFilms[i]);
     }
@@ -310,7 +375,7 @@ public class ArteDtoVideo2FilmTaskTest extends WireMockTestBase {
 
   public static URL toUrl(String url) {
     try {
-      return URI.create(url).toURL();
+      return new URL(url);
     } catch (MalformedURLException e) {
       // unit test - no exception needed
     }

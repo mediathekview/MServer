@@ -8,12 +8,12 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Queue;
+import java.util.UUID;
 
-import de.mediathekview.mserver.daten.Film;
-import de.mediathekview.mserver.daten.FilmUrl;
-import de.mediathekview.mserver.daten.GeoLocations;
-import de.mediathekview.mserver.daten.Resolution;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -23,6 +23,10 @@ import de.mediathekview.mserver.crawler.arte.ArteRestVideoTypeMapper;
 import de.mediathekview.mserver.crawler.arte.json.ArteVideoInfoDto;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractRecursiveConverterTask;
+import de.mediathekview.mserver.daten.Film;
+import de.mediathekview.mserver.daten.FilmUrl;
+import de.mediathekview.mserver.daten.GeoLocations;
+import de.mediathekview.mserver.daten.Resolution;
 
 
 public class ArteDtoVideo2FilmTask extends AbstractRecursiveConverterTask<Film, ArteVideoInfoDto> {
@@ -52,12 +56,14 @@ public class ArteDtoVideo2FilmTask extends AbstractRecursiveConverterTask<Film, 
     parse(aElement);
   }
   
+  ///////////////////////////////////////////////////////////////////////////
+  
   protected void parse(ArteVideoInfoDto aElement) {
     Map<Resolution, FilmUrl> videoUrls = buildVideoUrls(aElement, ArteVideoType.DEFAULT);
-    Map<Resolution, FilmUrl> videoSubs = buildVideoUrls(aElement, ArteVideoType.AUDIO_DESCRIPTION);
+    Map<Resolution, FilmUrl> videoAD = buildVideoUrls(aElement, ArteVideoType.AUDIO_DESCRIPTION);
     if (videoUrls.size() > 0) {
       Film film = buildFilmBody(aElement);
-      addFilm(buildFilmBody(aElement), film.getTitel(), videoUrls, videoSubs);
+      addFilm(buildFilmBody(aElement), film.getTitel(), videoUrls, videoAD);
     }
     //
     Map<Resolution, FilmUrl> originalVersion = buildVideoUrls(aElement, ArteVideoType.ORIGINAL);
@@ -68,6 +74,12 @@ public class ArteDtoVideo2FilmTask extends AbstractRecursiveConverterTask<Film, 
     } else if (originalVersionSubs.size() > 0) { // es gibt nur FR und FR mit UT dann nehmen wir FR mit UT
       Film film = buildFilmBody(aElement);
       addFilm(buildFilmBody(aElement), film.getTitel()+ " (Originalversion mit Untertitel)", originalVersionSubs, null);
+    }
+    // ARTE provides subs as a new video
+    Map<Resolution, FilmUrl> videoSub = buildVideoUrls(aElement, ArteVideoType.SUBTITLE_INCLUDED);
+    if (videoSub.size() > 0) {
+      Film film = buildFilmBody(aElement);
+      addFilm(buildFilmBody(aElement), film.getTitel()+ " (mit Untertitel)", videoSub, null);
     }
   }
   
@@ -87,7 +99,7 @@ public class ArteDtoVideo2FilmTask extends AbstractRecursiveConverterTask<Film, 
   protected Film buildFilmBody(ArteVideoInfoDto aElement) {
     Film film = new Film(
         UUID.randomUUID(),
-        crawler.getSender(),
+        aElement.getSender(),
         buildTitle(aElement),
         buildTopic(aElement),
         buildAired(aElement),
@@ -172,7 +184,7 @@ public class ArteDtoVideo2FilmTask extends AbstractRecursiveConverterTask<Film, 
   }
   
   protected Map<Resolution, FilmUrl> buildVideoUrls(ArteVideoInfoDto aElement, ArteVideoType type) {
-    Map<Resolution, FilmUrl> urls = new EnumMap<>(Resolution.class);
+    Map<Resolution, FilmUrl> urls  = new HashMap<>();
     Map<Resolution, String> rawUrls = builRawVideoUrls(aElement, type);
     rawUrls.forEach( (resolution, rawUrl) -> {
       try {
@@ -185,7 +197,7 @@ public class ArteDtoVideo2FilmTask extends AbstractRecursiveConverterTask<Film, 
   }
   
   protected Map<Resolution, String> builRawVideoUrls(ArteVideoInfoDto aElement, ArteVideoType type) {
-    final Map<Resolution, String> urls = new EnumMap<>(Resolution.class);
+    final Map<Resolution, String> urls = new HashMap<>();
     aElement.getVideoLinks().forEach( entry -> {
       Optional<ArteVideoType> audioTypeCode = ArteRestVideoTypeMapper.map(crawler.getSender(), entry.getAudioCode().get());
       if (audioTypeCode.isPresent() && audioTypeCode.get().equals(type)) {

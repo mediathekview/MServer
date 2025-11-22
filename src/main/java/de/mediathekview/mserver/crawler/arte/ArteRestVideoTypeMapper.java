@@ -1,9 +1,10 @@
 package de.mediathekview.mserver.crawler.arte;
 
-import de.mediathekview.mserver.daten.Resolution;
-import de.mediathekview.mserver.daten.Sender;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import de.mediathekview.mserver.daten.Resolution;
+import de.mediathekview.mserver.daten.Sender;
 
 import java.util.Optional;
 

@@ -52,9 +52,16 @@ public class ArteCrawler extends AbstractCrawler {
   protected RecursiveTask<Set<Film>> createCrawlerTask() {
 
     try {
+      final Queue<TopicUrlDTO> videoUrls = new ConcurrentLinkedQueue<>();
+      /*
+      for (String lang : new String[]{ "en", "es", "fr", "it", "pl", "de" }) {
+        videoUrls.addAll(createVideosQueue(lang));
+      }*/
+      videoUrls.addAll(createVideosQueue(getLanguage().toString().toLowerCase()));
+      
       final ArteVideoInfoTask aArteRestVideoInfoTask;
       // DO NOT overload - maximumUrlsPerTask used to reduce threads to 4
-      aArteRestVideoInfoTask = new ArteVideoInfoTask(this, createVideosQueue());
+      aArteRestVideoInfoTask = new ArteVideoInfoTask(this, videoUrls, getMaxPagesForOverview(getLanguage().toString().toLowerCase()));
       final Queue<ArteVideoInfoDto> videos = new ConcurrentLinkedQueue<>();
       videos.addAll(aArteRestVideoInfoTask.fork().join());
       //
@@ -80,23 +87,29 @@ public class ArteCrawler extends AbstractCrawler {
     return null;
   }
   
-  private Queue<TopicUrlDTO> createVideosQueue() {
-    int maxPages = getMaxPagesForOverview();
+  private Queue<TopicUrlDTO> createVideosQueue(String lang) {
     final Queue<TopicUrlDTO> root = new ConcurrentLinkedQueue<>();
-    String rootUrl = String.format(ArteConstants.VIDEOS_URL, 1, getLanguage().toString().toLowerCase());
-    root.add(new TopicUrlDTO("all videos1",rootUrl));
-    if (maxPages >= 100) {
-      String rootUrl2 = String.format(ArteConstants.VIDEOS_URL_ALT, 1, getLanguage().toString().toLowerCase());
-      root.add(new TopicUrlDTO("all videos2",rootUrl2));
-    }
+    String rootUrl = String.format(ArteConstants.VIDEOS_URL, 1, lang);
+    root.add(new TopicUrlDTO("all videos sorted up",rootUrl));
+    String rootUrl2 = String.format(ArteConstants.VIDEOS_URL_ALT, 1, lang);
+    root.add(new TopicUrlDTO("all videos sorted down",rootUrl2));
     return root;
   }
   
-  private int getMaxPagesForOverview() {
-    final int naturalLimit = Math.min(100, getCrawlerConfig().getMaximumSubpages());
-    String rootUrl = String.format(ArteConstants.VIDEOS_URL, 1, getLanguage().toString().toLowerCase());
-    String[] path = {"meta", "videos", "pages"};
+  private int getMaxPagesForOverview(String lang) {
+    final int maxAvailablePages = getNumberOfAvailablePages(lang);
+    final int configuredMaxPages = getCrawlerConfig().getMaximumSubpages();
+    if (configuredMaxPages > maxAvailablePages) {
+      return Math.min(ArteConstants.MAX_POSSIBLE_SUBPAGES, maxAvailablePages / 2);
+    } else {
+      return Math.min(ArteConstants.MAX_POSSIBLE_SUBPAGES, configuredMaxPages / 2); 
+    }
+  }
+  
+  private int getNumberOfAvailablePages(String lang) {
     try {
+      String rootUrl = String.format(ArteConstants.VIDEOS_URL, 1, lang);
+      String path[] = {"meta", "videos", "pages"};
       final Map<String, String> headers = Map.of(
           "Accept", "application/json",
           "Content-Type", "application/json",
@@ -105,12 +118,12 @@ public class ArteCrawler extends AbstractCrawler {
       JsonElement element = getConnection().requestBodyAsJsonElement(rootUrl, headers);
       Optional<Integer> pages = JsonUtils.getElementValueAsInteger(element, path);
       if (pages.isPresent()) {
-        return Math.min(pages.get(), naturalLimit);
+        return pages.get();
       }
     } catch (IOException e) {
       LOG.error("getMaxPagesForOverview", e);
     }
-    return naturalLimit;
+    return ArteConstants.MAX_POSSIBLE_SUBPAGES;
   }
 
 }

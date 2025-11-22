@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import de.mediathekview.mserver.crawler.arte.ArteConstants;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
+import de.mediathekview.mserver.daten.Sender;
 
 public class ArteVideoInfoDto extends CrawlerUrlDTO {
   private Optional<String> firstBroadcastDate;
@@ -179,6 +180,18 @@ public class ArteVideoInfoDto extends CrawlerUrlDTO {
   public void setSubtitleLinks(List<ArteSubtitleLinkDto> subtitleLinks) {
     this.subtitleLinks = subtitleLinks;
   }
+  
+  public Sender getSender() {
+    return switch (getLanguage().get()) {
+        case "de" -> Sender.ARTE_DE;
+        case "en" -> Sender.ARTE_EN;
+        case "fr" -> Sender.ARTE_FR;
+        case "es" -> Sender.ARTE_ES;
+        case "it" -> Sender.ARTE_IT;
+        case "pl" -> Sender.ARTE_PL;
+        default -> Sender.ARTE_DE;
+    };
+}
     
   @Override
   public boolean equals(Object o) {
