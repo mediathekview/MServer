@@ -38,7 +38,6 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
   private String filmlistImportLocation;
   private MServerLogSettingsDTO logSettings;
   private Map<CrawlerUrlType, URL> crawlerURLs;
-  private Map<CrawlerApiParam, String> crawlerApiParams;
 
   public MServerConfigDTO() {
     super();
@@ -103,16 +102,8 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
     return crawlerURLs;
   }
 
-  public Map<CrawlerApiParam, String> getCrawlerApiParams() {
-    return crawlerApiParams;
-  }
-
   public void setCrawlerURLs(final Map<CrawlerUrlType, URL> crawlerURLs) {
     this.crawlerURLs = crawlerURLs;
-  }
-
-  public void setCrawlerApiParams(final Map<CrawlerApiParam, String> pCrawlerApiParams) {
-    crawlerApiParams = pCrawlerApiParams;
   }
 
   public Map<FilmlistFormats, String> getFilmlistDiffSavePaths() {
@@ -224,13 +215,6 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
     return urlType.getDefaultUrl();
   }
 
-  public Optional<String> getCrawlerApiParam(final CrawlerApiParam apiParam) {
-    if (crawlerApiParams.containsKey(apiParam)) {
-      return Optional.of(crawlerApiParams.get(apiParam));
-    }
-    return Optional.empty();
-  }
-
   public Boolean getWriteFilmlistHashFileEnabled() {
     return writeFilmlistHashFileEnabled;
   }
@@ -340,10 +324,6 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
 
   public void putCrawlerUrl(final CrawlerUrlType key, final URL value) {
     crawlerURLs.put(key, value);
-  }
-
-  public String putCrawlerApiParam(final CrawlerApiParam key, final String value) {
-    return crawlerApiParams.put(key, value);
   }
 
 }

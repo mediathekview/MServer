@@ -184,10 +184,6 @@ senderConfigurations:
   PHOENIX:
     maximumSubpages: 500
 
-
-# configure string variables
-#crawlerApiParams:
-
 #### COPY ####
 copySettings:
   # En- / disables FTP

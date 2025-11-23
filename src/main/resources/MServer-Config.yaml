@@ -168,9 +168,6 @@ senderConfigurations:
   DW:
     maximumSubpages: 0
 
-# configure string variables
-#crawlerApiParams:
-
 #### COPY ####
 copySettings:
   # En- / disables FTP
