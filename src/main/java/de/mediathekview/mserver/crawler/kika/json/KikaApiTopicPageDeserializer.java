@@ -99,13 +99,20 @@ public class KikaApiTopicPageDeserializer implements JsonDeserializer<KikaApiTop
     }
     return aFilm;
   }
-  
+
   protected Optional<String> reconstructWebsite(Optional<String> oTeaserImageUrl, Optional<String> oSophoraId) {
     String base = KikaApiConstants.WEBSITE;
+    // host wegschneiden
     int start = oTeaserImageUrl.get().indexOf("/", "https://".length()+1);
-    int stop = oTeaserImageUrl.get().indexOf("/", start+1);
+    // letzter Teil wegschneiden (das Bild vom teaserimage)
+    int stop = oTeaserImageUrl.get().lastIndexOf("/");
+    // neue url mit host und mittelteil
     base += oTeaserImageUrl.get().substring(start, stop);
-    base += "/videos/" + oSophoraId.get() + ".html";
+    // sophora hinzufÃ¼gen
+    base += "/" + oSophoraId.get();
+    // fix
+    base = base.replace("/sendungen/bilder/","/videos/");
+    base = base.replace("/bilder/","/videos/");
     return Optional.of(base);
   }
 }

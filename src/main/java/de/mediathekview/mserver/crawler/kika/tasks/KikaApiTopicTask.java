@@ -4,7 +4,6 @@ import java.lang.reflect.Type;
 import java.net.URI;
 import java.util.Optional;
 import java.util.Queue;
-import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import org.apache.logging.log4j.LogManager;
@@ -41,7 +40,7 @@ public class KikaApiTopicTask extends AbstractJsonRestTask<KikaApiFilmDto, KikaA
 
   @Override
   protected Type getType() {
-    return new TypeToken<Set<KikaApiTopicDto>>() {}.getType();
+    return new TypeToken<KikaApiTopicDto>() {}.getType();
   }
 
   @Override
