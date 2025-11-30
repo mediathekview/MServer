@@ -27,7 +27,7 @@ public final class ZdfConstants {
   public static final String URL_LETTER_PAGE_VARIABLES =
       "{\"staticGridClusterPageSize\":6,\"staticGridClusterOffset\":0,\"canonical\":\"sendungen-100\",\"endCursor\":%s,\"tabIndex\":%d,\"itemsFilter\":{\"teaserUsageNotIn\":[\"TIVI_HBBTV_ONLY\"]}}";
   public static final String URL_LETTER_PAGE_EXTENSIONS =
-      "{\"persistedQuery\":{\"version\":1,\"sha256Hash\":\"7d33167e7700ba57779f48b28b5d485c8ada0a1d5dfbdc8a261b7bd62ca28ba7\"}}";
+      "{\"persistedQuery\":{\"version\":1,\"sha256Hash\":\"63848395d2f977dbf99ce30172c8d80038a54615574295eee6f8704c5e6fcbee\"}}";
 
   public static final String URL_TOPIC_PAGE = URL_API_BASE + "/graphql?operationName=seasonByCanonical&" +
           "variables=%s&" +
