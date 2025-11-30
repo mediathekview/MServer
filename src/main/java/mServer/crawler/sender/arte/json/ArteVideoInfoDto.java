@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+import de.mediathekview.mlib.Const;
 import mServer.crawler.sender.arte.ArteConstants;
 import mServer.crawler.sender.base.CrawlerUrlDTO;
 
@@ -179,7 +180,19 @@ public class ArteVideoInfoDto extends CrawlerUrlDTO {
   public void setSubtitleLinks(List<ArteSubtitleLinkDto> subtitleLinks) {
     this.subtitleLinks = subtitleLinks;
   }
-    
+
+  public String getSender() {
+    return switch (getLanguage().orElse("")) {
+      case "de" -> Const.ARTE_DE;
+      case "en" -> Const.ARTE_EN;
+      case "fr" -> Const.ARTE_FR;
+      case "es" -> Const.ARTE_ES;
+      case "it" -> Const.ARTE_IT;
+      case "pl" -> Const.ARTE_PL;
+      default -> Const.ARTE_DE;
+    };
+  }
+
   @Override
   public boolean equals(Object o) {
       if (this == o) return true;
