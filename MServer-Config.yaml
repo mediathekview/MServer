@@ -159,17 +159,17 @@ senderConfigurations:
   ORF:
     maximumRequestsPerSecond: 10.0
   ARTE_DE:
-    maximumSubpages: 200
+    maximumSubpages: 8
   ARTE_FR:
-    maximumSubpages: 200
+    maximumSubpages: 8
   ARTE_EN:
-    maximumSubpages: 200
+    maximumSubpages: 6
   ARTE_PL:
-    maximumSubpages: 200
+    maximumSubpages: 6
   ARTE_IT:
-    maximumSubpages: 200
+    maximumSubpages: 6
   ARTE_ES:
-    maximumSubpages: 200
+    maximumSubpages: 6
   KIKA:
     maximumSubpages: 2
     maximumRequestsPerSecond: 8.0
@@ -183,6 +183,8 @@ senderConfigurations:
     maximumDaysForSendungVerpasstSection: 60
   PHOENIX:
     maximumSubpages: 500
+  SRF:
+    maximumSubpages: 1
 
 #### COPY ####
 copySettings:
