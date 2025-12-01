@@ -7,6 +7,7 @@ import de.mediathekview.mserver.crawler.srf.SrfConstants;
 import de.mediathekview.mserver.crawler.srf.parser.SrfTopicDeserializer;
 
 import jakarta.ws.rs.client.WebTarget;
+
 import java.lang.reflect.Type;
 import java.util.Optional;
 import java.util.Queue;
@@ -67,7 +68,9 @@ public class SrfTopicOverviewTask extends ArdTaskBase<CrawlerUrlDTO, TopicUrlDTO
     urlDtos.add(
         new TopicUrlDTO(
             aTopic,
-            String.format(SrfConstants.SHOW_OVERVIEW_NEXT_PAGE_URL, baseUrl, aTopic, aNextPageId)));
+            aNextPageId
+        )
+    );
     final Set<CrawlerUrlDTO> results = createNewOwnInstance(urlDtos, pageNumber + 1).invoke();
     taskResults.addAll(results);
   }
