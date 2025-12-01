@@ -15,6 +15,7 @@ import java.util.Optional;
 public class SrfTopicDeserializer implements JsonDeserializer<PagedElementListDTO<CrawlerUrlDTO>> {
 
   private static final String ELEMENT_DATA = "data";
+  private static final String ELEMENT_MEDIALIST = "mediaList";
   private static final String ATTRIBUTE_ID = "urn";
   private static final String ATTRIBUTE_NEXT = "next";
 
@@ -23,22 +24,19 @@ public class SrfTopicDeserializer implements JsonDeserializer<PagedElementListDT
       JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) {
     final PagedElementListDTO<CrawlerUrlDTO> results = new PagedElementListDTO<>();
 
-    if (!jsonElement.getAsJsonObject().has(ELEMENT_DATA)
-        || !jsonElement.getAsJsonObject().get(ELEMENT_DATA).getAsJsonObject().has(ELEMENT_DATA)
-        || !jsonElement
-            .getAsJsonObject()
-            .get(ELEMENT_DATA)
-            .getAsJsonObject()
-            .get(ELEMENT_DATA)
-            .isJsonArray()) {
-      return results;
+    if (jsonElement.getAsJsonObject().has(ELEMENT_DATA) && jsonElement.getAsJsonObject().get(ELEMENT_DATA).getAsJsonObject().has(ELEMENT_DATA)) {
+      results.setNextPage(parseNextPage(jsonElement.getAsJsonObject().get(ELEMENT_DATA).getAsJsonObject()));
+      results.addElements(parseEpisodeElement(jsonElement.getAsJsonObject().get(ELEMENT_DATA).getAsJsonObject().getAsJsonArray(ELEMENT_DATA)).getElements());
+    } else if (jsonElement.getAsJsonObject().has(ELEMENT_MEDIALIST)) {
+      results.setNextPage(parseNextPage(jsonElement.getAsJsonObject()));
+      results.addElements(parseEpisodeElement(jsonElement.getAsJsonObject().getAsJsonArray(ELEMENT_MEDIALIST)).getElements());
     }
+    return results;
+  }
+  
 
-    final JsonObject dataObject = jsonElement.getAsJsonObject().get(ELEMENT_DATA).getAsJsonObject();
-
-    results.setNextPage(parseNextPage(dataObject));
-
-    final JsonArray data = dataObject.getAsJsonArray(ELEMENT_DATA);
+  private PagedElementListDTO<CrawlerUrlDTO> parseEpisodeElement(JsonArray data) {
+    final PagedElementListDTO<CrawlerUrlDTO> results = new PagedElementListDTO<>();
     data.forEach(
         entry -> {
           final Optional<String> id =
@@ -49,7 +47,6 @@ public class SrfTopicDeserializer implements JsonDeserializer<PagedElementListDT
                   results.addElement(
                       new CrawlerUrlDTO(String.format(SrfConstants.SHOW_DETAIL_PAGE_URL, s))));
         });
-
     return results;
   }
 
@@ -59,7 +56,6 @@ public class SrfTopicDeserializer implements JsonDeserializer<PagedElementListDT
     if (next.isPresent() && !next.get().isEmpty()) {
       return next;
     }
-
     return Optional.empty();
   }
 }

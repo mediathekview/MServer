@@ -37,7 +37,7 @@ public class SrfTopicsDeserializer implements JsonDeserializer<Set<TopicUrlDTO>>
           id.ifPresent(
               s ->
                   results.add(
-                      new TopicUrlDTO(s, String.format(SrfConstants.SHOW_OVERVIEW_PAGE_URL, SrfConstants.BASE_URL, s))));
+                      new TopicUrlDTO(s, String.format(SrfConstants.SHOW_OVERVIEW_PAGE_URL, s))));
         });
 
     return results;

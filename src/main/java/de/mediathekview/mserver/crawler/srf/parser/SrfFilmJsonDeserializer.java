@@ -39,6 +39,7 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
   private static final String ATTRIBUTE_QUALITY = "quality";
   private static final String ATTRIBUTE_TITLE = "title";
   private static final String ATTRIBUTE_URL = "url";
+  private static final String ATTRIBUTE_URN =  "urn";
 
   private static final String ELEMENT_CHAPTER_LIST = "chapterList";
   private static final String ELEMENT_EPISODE = "episode";
@@ -82,12 +83,17 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
   }
 
   private static Optional<URL> buildWebsiteUrl(
-      final String aId, final String aTitle, final String aTheme) {
-
-    final String url =
+      final String aId, final String aUrn, final String aTitle, final String aTheme) {
+    String url = "";
+    if (aUrn == "") {
+      url =
         String.format(
             SrfConstants.WEBSITE_URL, replaceCharForUrl(aTheme), replaceCharForUrl(aTitle), aId);
-
+    } else {
+      url =
+        String.format(
+            SrfConstants.WEBSITE_URL_WITH_URN, replaceCharForUrl(aTheme), replaceCharForUrl(aTitle), aUrn);
+    }
     try {
       return Optional.of(URI.create(url).toURL());
     } catch (final MalformedURLException ex) {
@@ -105,6 +111,15 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
         .replace(',', '-')
         .replace(":", "")
         .replace("\"", "")
+        .replace("|", "")
+        .replace("#", "")
+        .replace("?", "")
+        .replace("%", "")
+        .replace("&", "")
+        .replace("`", "")
+        .replace("«", "")
+        .replace("»", "")
+        .replace(" ", "")
         .replace("--", "-");
   }
 
@@ -250,7 +265,7 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
             episodeData.publishDate,
             chapterList.duration);
     film.setBeschreibung(chapterList.description);
-    film.setWebsite(buildWebsiteUrl(chapterList.id, episodeData.title, theme).orElse(null));
+    film.setWebsite(buildWebsiteUrl(chapterList.id, chapterList.urn, episodeData.title, theme).orElse(null));
     addUrls(videoUrls, film, isAudioDescription);
     addSubtitle(chapterList.subtitleUrl, film);
     
@@ -301,6 +316,10 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
     final JsonObject chapterListEntry = chapterListArray.get(0).getAsJsonObject();
     if (chapterListEntry.has(ATTRIBUTE_ID)) {
       result.id = chapterListEntry.get(ATTRIBUTE_ID).getAsString();
+    }
+    
+    if (chapterListEntry.has(ATTRIBUTE_URN)) {
+      result.urn = chapterListEntry.get(ATTRIBUTE_URN).getAsString();
     }
 
     if (chapterListEntry.has(ATTRIBUTE_DURATION)) {
@@ -406,5 +425,6 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
     String description = "";
     String videoUrl = "";
     String subtitleUrl = "";
+    String urn = "";
   }
 }

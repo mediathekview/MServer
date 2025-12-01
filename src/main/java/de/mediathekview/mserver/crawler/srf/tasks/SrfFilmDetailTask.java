@@ -22,7 +22,7 @@ import java.util.Optional;
 import java.util.Queue;
 
 public class SrfFilmDetailTask extends AbstractRestTask<Film, CrawlerUrlDTO> {
-
+  private static final long serialVersionUID = 7984235678468580128L;
   private static final Logger LOG = LogManager.getLogger(SrfFilmDetailTask.class);
 
   public SrfFilmDetailTask(
@@ -79,6 +79,8 @@ public class SrfFilmDetailTask extends AbstractRestTask<Film, CrawlerUrlDTO> {
           crawler.incrementAndGetErrorCount();
         }
         crawler.updateProgress();
+      } else {
+        crawler.incrementAndGetErrorCount();
       }
     } catch (final JsonSyntaxException e) {
       LOG.error("SrfFilmDetailTask: Error reading url {}", uri, e);

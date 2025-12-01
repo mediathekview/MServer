@@ -47,9 +47,8 @@ public class SrfTopicsOverviewTask extends ArdTaskBase<TopicUrlDTO, CrawlerUrlDT
             SrfConstants.ID_SHOW_SPORT_CLIP,
             String.format(
                 SrfConstants.SHOW_OVERVIEW_PAGE_URL,
-                SrfConstants.BASE_URL,
-                SrfConstants.ID_SHOW_SPORT_CLIP)));
-
+                SrfConstants.ID_SHOW_SPORT_CLIP))
+        );
     return shows;
   }
 }
