@@ -22,7 +22,7 @@ import mServer.crawler.sender.arte.json.ArteVideoLinkDto;
 import jakarta.ws.rs.core.Response;
 
 public class ArteVideoLinkTask
-    extends AbstractJsonRestTask<ArteVideoInfoDto, List<ArteVideoLinkDto>, ArteVideoInfoDto> {
+    extends ArteRateLimitedJsonRestTask<ArteVideoInfoDto, List<ArteVideoLinkDto>, ArteVideoInfoDto> {
   private static final long serialVersionUID = 1L;
   protected final transient Logger log = LogManager.getLogger(this.getClass());
 

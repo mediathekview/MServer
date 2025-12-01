@@ -25,7 +25,7 @@ import mServer.crawler.sender.arte.json.ArteVideoInfoDto;
 import jakarta.ws.rs.core.Response;
 
 public class ArteVideoInfoTask
-    extends AbstractJsonRestTask<ArteVideoInfoDto, PagedElementListDTO<ArteVideoInfoDto>, TopicUrlDTO> {
+    extends ArteRateLimitedJsonRestTask<ArteVideoInfoDto, PagedElementListDTO<ArteVideoInfoDto>, TopicUrlDTO> {
   private static final long serialVersionUID = 1L;
   protected final transient Logger log = LogManager.getLogger(this.getClass());
   protected transient Optional<AbstractRecursivConverterTask<ArteVideoInfoDto, TopicUrlDTO>> nextPageTask = Optional.empty();
