@@ -2,7 +2,10 @@ package mServer.crawler.sender.arte.tasks;
 
 import de.mediathekview.mlib.Config;
 import de.mediathekview.mlib.daten.DatenFilm;
+import de.mediathekview.mlib.tool.Log;
 import mServer.crawler.CrawlerTool;
+import mServer.crawler.FilmeSuchen;
+import mServer.crawler.RunSender;
 import mServer.crawler.sender.MediathekReader;
 import mServer.crawler.sender.arte.ArteRestVideoTypeMapper;
 import mServer.crawler.sender.arte.ArteVideoType;
@@ -90,23 +93,29 @@ public class ArteDtoVideo2FilmTask extends AbstractRecursivConverterTask<DatenFi
     String date = localDateTime.format(DATE_FORMAT);
     String time = localDateTime.format(TIME_FORMAT);
 
-    DatenFilm film = new DatenFilm(sender, buildTopic(videoInfo), buildWebsite(videoInfo), buildTitle(videoInfo) + titleSuffix,
-            video.get(Qualities.NORMAL), "" /*urlRtmp*/,
-            date, time, buildDuration(videoInfo).getSeconds(), buildDescription(videoInfo));
-    if (video.containsKey(Qualities.HD)) {
-      CrawlerTool.addUrlHd(film, video.get(Qualities.HD));
-    }
-    if (video.containsKey(Qualities.SMALL)) {
-      CrawlerTool.addUrlKlein(film, video.get(Qualities.SMALL));
-    }
+    String url = video.containsKey(Qualities.NORMAL) ? video.get(Qualities.NORMAL) : video.get(Qualities.HD);
+    try {
+      DatenFilm film = new DatenFilm(sender, buildTopic(videoInfo), buildWebsite(videoInfo), buildTitle(videoInfo) + titleSuffix,
+              url, "" /*urlRtmp*/,
+              date, time, buildDuration(videoInfo).getSeconds(), buildDescription(videoInfo));
+      if (video.containsKey(Qualities.HD)) {
+        CrawlerTool.addUrlHd(film, video.get(Qualities.HD));
+      }
+      if (video.containsKey(Qualities.SMALL)) {
+        CrawlerTool.addUrlKlein(film, video.get(Qualities.SMALL));
+      }
 
-    final GeoLocations geoLocations = buildGeoLocation(videoInfo);
-    if (geoLocations != GeoLocations.GEO_NONE) {
-      film.arr[DatenFilm.FILM_GEO] = geoLocations.getDescription();
-    }
+      final GeoLocations geoLocations = buildGeoLocation(videoInfo);
+      if (geoLocations != GeoLocations.GEO_NONE) {
+        film.arr[DatenFilm.FILM_GEO] = geoLocations.getDescription();
+      }
 
-    if (!taskResults.add(film)) {
-      log.info("Duplicate {}", film);
+      if (!taskResults.add(film)) {
+        log.info("Duplicate {}", film);
+      }
+    } catch(Exception e) {
+      FilmeSuchen.listeSenderLaufen.inc(sender, RunSender.Count.FEHLER);
+      Log.errorLog(637846873, e, "exception creating film " + videoInfo.getTitle() + " (" + titleSuffix + ")");
     }
   }
 
