@@ -102,6 +102,10 @@ public class ArdTopicPageTask extends ArdTaskBase<ArdFilmInfoDto, CrawlerUrlDTO>
     TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL21kci5kZS9zZW5kZXJlaWhlbi8wNGVkZmFlOS1hYTBlLTQ4MjEtYTk4Mi0yNmRiZDdjZjEyZTY");
     // BR Filme Serien
     TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL2JyLmRlL2Jyb2FkY2FzdFNlcmllcy9icm9hZGNhc3RTZXJpZXM6L2JyZGUvZmVybnNlaGVuL2JheWVyaXNjaGVzLWZlcm5zZWhlbi9zZW5kdW5nZW4vc3BpZWxmaWxtZS1pbS1icg");
+    // hubert ohne staller
+    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL2JyLmRlL2Jyb2FkY2FzdFNlcmllcy9ici1odWJlcnQtb2huZS1zdGFsbGVy");
+    // lohnt sich das
+    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL2JyLmRlL2Jyb2FkY2FzdFNlcmllcy9mYzkyMWQxMC1iY2VjLTQxZmYtOWY3ZC05ODI0YzM0ZDY1MmY");
   }
 
   public ArdTopicPageTask(MediathekReader aCrawler,
