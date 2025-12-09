@@ -106,6 +106,8 @@ public class ArdTopicPageTask extends ArdTaskBase<ArdFilmInfoDto, CrawlerUrlDTO>
     TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL2JyLmRlL2Jyb2FkY2FzdFNlcmllcy9ici1odWJlcnQtb2huZS1zdGFsbGVy");
     // lohnt sich das
     TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL2JyLmRlL2Jyb2FkY2FzdFNlcmllcy9mYzkyMWQxMC1iY2VjLTQxZmYtOWY3ZC05ODI0YzM0ZDY1MmY");
+    // Morden im Norden
+    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL25kci5kZS80OTU1");
   }
 
   public ArdTopicPageTask(MediathekReader aCrawler,
