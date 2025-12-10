@@ -1,40 +1,61 @@
 package mServer.crawler.sender.arte;
 
 import de.mediathekview.mlib.Const;
+import mServer.crawler.sender.base.Qualities;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.Optional;
 
-public class ArteVideoTypeMapper {
+public class ArteRestVideoTypeMapper {
 
-  private static final Logger LOG = LogManager.getLogger(ArteVideoTypeMapper.class);
+  private static final Logger LOG = LogManager.getLogger(ArteRestVideoTypeMapper.class);
 
-  private ArteVideoTypeMapper() {
+  private ArteRestVideoTypeMapper() {}
+  
+  public static Optional<Qualities> mapQuality(String quality) {
+    switch (quality) {
+      case "EQ":
+        return Optional.of(Qualities.NORMAL);
+      case "HQ":
+        return Optional.of(Qualities.SMALL);
+      case "SQ":
+        return Optional.of(Qualities.HD);
+      case "MQ":
+        return Optional.empty();
+      case "XQ":
+        return Optional.empty();
+      default:
+        LOG.debug("unknown quality: {}", quality);
+        return Optional.empty();
+    }
   }
 
   public static Optional<ArteVideoType> map(String sender, String code) {
     switch (sender) {
       case Const.ARTE_DE:
         return mapGerman(code);
-      case MediathekArte.ARTE_EN:
+      case Const.ARTE_EN:
         return mapEnglish(code);
-      case MediathekArte.ARTE_ES:
+      case Const.ARTE_ES:
         return mapSpanish(code);
       case Const.ARTE_FR:
         return mapFrench(code);
-      case MediathekArte.ARTE_IT:
+      case Const.ARTE_IT:
         return mapItalian(code);
-      case MediathekArte.ARTE_PL:
+      case Const.ARTE_PL:
         return mapPolish(code);
       default:
         LOG.debug("unknown sender: {}", sender);
         return Optional.empty();
     }
   }
+  
 
   private static Optional<ArteVideoType> mapSpanish(String code) {
     switch (code) {
+      case "VE[ESP]":
+        return Optional.of(ArteVideoType.DEFAULT);
       case "VE[ESP]-STE[ESP]":
       case "VO-STE[ESP]":
       case "VOA-STE[ESP]":
@@ -42,9 +63,6 @@ public class ArteVideoTypeMapper {
       case "VOF-STE[ESP]":
         return Optional.of(ArteVideoType.ORIGINAL_WITH_SUBTITLE);
       default:
-        if (code.contains("ESP")) {
-          LOG.debug("add spanish: {}", code);
-        }
         return Optional.empty();
     }
   }
@@ -60,9 +78,6 @@ public class ArteVideoTypeMapper {
       case "VOF-STE[ANG]":
         return Optional.of(ArteVideoType.ORIGINAL_WITH_SUBTITLE);
       default:
-        if (code.contains("ANG")) {
-          LOG.debug("add english: {}", code);
-        }
         return Optional.empty();
     }
   }
