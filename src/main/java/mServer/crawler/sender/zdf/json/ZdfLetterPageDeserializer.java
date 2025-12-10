@@ -30,6 +30,10 @@ public class ZdfLetterPageDeserializer implements JsonDeserializer<PagedElementL
     JsonArray nodes = content.getAsJsonArray("nodes");
 
     for (JsonElement element : nodes) {
+      if (element == null || element.isJsonNull()) {
+        continue;
+      }
+
       JsonObject node = element.getAsJsonObject();
       final Optional<String> sender =
           JsonUtils.getElementValueAsString(node.getAsJsonObject("contentOwner"), "title");
