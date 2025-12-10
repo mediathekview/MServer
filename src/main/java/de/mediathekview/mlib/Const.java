@@ -44,7 +44,11 @@ public class Const {
     public static final String ARD = "ARD";
      public static final String ARD_ALPHA = "ARD-alpha";
     public static final String ARTE_DE = "ARTE.DE";
+    public static final String ARTE_EN = "ARTE.EN";
+    public static final String ARTE_ES = "ARTE.ES";
     public static final String ARTE_FR = "ARTE.FR";
+    public static final String ARTE_IT = "ARTE.IT";
+    public static final String ARTE_PL = "ARTE.PL";
     public static final String BR = "BR";
     public static final String DW = "DW";
     public static final String HR = "HR";
