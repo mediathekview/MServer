@@ -57,12 +57,13 @@ public class ArdCrawler extends AbstractCrawler {
 
   @Override
   protected RecursiveTask<Set<Film>> createCrawlerTask() {
-
+    ConcurrentLinkedQueue<CrawlerUrlDTO> test = new ConcurrentLinkedQueue<>();
     try {
       final ForkJoinTask<Set<ArdFilmInfoDto>> dayTask =
           forkJoinPool.submit(new ArdDayPageTask(this, createDayUrlsToCrawl()));
 
       final Set<ArdFilmInfoDto> shows = dayTask.get();
+      shows.clear();
       printMessage(
           ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), shows.size());
 
@@ -74,8 +75,18 @@ public class ArdCrawler extends AbstractCrawler {
           senderTopicUrls.addAll(senderTopicTask.get());
         }
         LOG.debug("sender topic tasks: {}", senderTopicUrls.size());
+        final ArdTopicGroupsTask groupsToAsset = new ArdTopicGroupsTask(this, new ConcurrentLinkedQueue<>(senderTopicUrls));
+        final Set<CrawlerUrlDTO> assitUrls = new HashSet<>();
+        assitUrls.addAll(forkJoinPool.submit(groupsToAsset).get());
+        LOG.debug("sender group assit tasks: {}", assitUrls.size());
+        
+        //test.add(new CrawlerUrlDTO("https://api.ardmediathek.de/page-gateway/widgets/swr/asset/Y3JpZDovL3N3ci5kZS8yNDEwMzY1MA?pageNumber=0&pageSize=48&embedded=true&seasoned=false&seasonNumber=&withAudiodescription=false&withOriginalWithSubtitle=false&withOriginalversion=false&single=false"));
+        test.add(new CrawlerUrlDTO("https://api.ardmediathek.de/page-gateway/widgets/wdr/asset/Y3JpZDovL3dkci5kZS93ZXN0cG9s?pageNumber=0&pageSize=48&embedded=true&seasoned=false&seasonNumber=&withAudiodescription=false&withOriginalWithSubtitle=false&withOriginalversion=false&single=false"));
+        
         final ArdTopicPageTask topicTask =
-            new ArdTopicPageTask(this, new ConcurrentLinkedQueue<>(senderTopicUrls));
+            new ArdTopicPageTask(this, new ConcurrentLinkedQueue<>(assitUrls));
+            //new ArdTopicPageTask(this, new ConcurrentLinkedQueue<>(test));
+              
         final int showsCountBefore = shows.size();
         shows.addAll(forkJoinPool.submit(topicTask).get());
         LOG.debug(
@@ -113,14 +124,14 @@ public class ArdCrawler extends AbstractCrawler {
   }
 
   private ForkJoinTask<Set<CrawlerUrlDTO>> getTopicEntriesBySender(final String sender) throws ExecutionException, InterruptedException {
-     Set<CrawlerUrlDTO> senderTopics = forkJoinPool.submit(
-        new ArdTopicsTask(this, sender, createTopicsOverviewUrl(sender))).get();
+     Set<CrawlerUrlDTO> senderSingleLetterUrls = forkJoinPool.submit(
+        new ArdTopicsTask(this, sender, CreateLetterUrlQuery(sender))).get();
 
-    LOG.debug("topics task result {}", senderTopics.size());
-     return forkJoinPool.submit(new ArdTopicsLetterTask(this, sender, new ConcurrentLinkedQueue<>(senderTopics)));
+     LOG.debug("topics task result {}", senderSingleLetterUrls.size());
+     return forkJoinPool.submit(new ArdTopicsLetterTask(this, sender, new ConcurrentLinkedQueue<>(senderSingleLetterUrls)));
   }
 
-  private Queue<CrawlerUrlDTO> createTopicsOverviewUrl(final String client) {
+  private Queue<CrawlerUrlDTO> CreateLetterUrlQuery(final String client) {
     final Queue<CrawlerUrlDTO> urls = new ConcurrentLinkedQueue<>();
 
     final String url = String.format(ArdConstants.TOPICS_URL, client);

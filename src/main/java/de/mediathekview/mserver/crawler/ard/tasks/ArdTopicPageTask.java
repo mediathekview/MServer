@@ -78,7 +78,9 @@ public class ArdTopicPageTask extends ArdTaskBase<ArdFilmInfoDto, CrawlerUrlDTO>
                     .getUri()
                     .getRawQuery()
                     .replaceAll(
-                        URL_PAGE_NUMBER_REPLACE_REGEX, PAGE_NUMBER_URL_ENCODED + newPageNumber))
+                        URL_PAGE_NUMBER_REPLACE_REGEX, PAGE_NUMBER_URL_ENCODED + newPageNumber)
+                    .replaceAll(
+                        "pageNumber=\\d+", "pageNumber=" + newPageNumber))
             .build()
             .toString()
         : aTarget.queryParam(PAGE_NUMBER, newPageNumber).getUri().toString();
