@@ -6,7 +6,6 @@ import de.mediathekview.mserver.base.messages.Message;
 import de.mediathekview.mserver.base.messages.listener.MessageListener;
 import de.mediathekview.mserver.base.progress.Progress;
 import de.mediathekview.mserver.base.utils.FilmDBService;
-import de.mediathekview.mserver.base.utils.GPDataSourceProvider;
 import de.mediathekview.mserver.base.config.MServerBasicConfigDTO;
 import de.mediathekview.mserver.base.config.MServerConfigDTO;
 import de.mediathekview.mserver.base.config.MServerConfigManager;
@@ -72,7 +71,7 @@ public abstract class AbstractCrawler implements Callable<Set<Film>> {
         rootConfig.getSenderConfig(getSender()).getSocketTimeoutInSeconds(), 
         runtimeConfig.getMaximumCpuThreads());
     rateLimiter = RateLimiter.create(rootConfig.getSenderConfig(getSender()).getMaximumRequestsPerSecond());
-    filmDBService = new FilmDBService(GPDataSourceProvider.get(), forkJoinPool, 200);
+    filmDBService = new FilmDBService(forkJoinPool, 200);
     films = ConcurrentHashMap.newKeySet();
   }
 

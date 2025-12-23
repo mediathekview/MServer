@@ -13,6 +13,7 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
   private final String filmlistHashFilePath;
   private final Boolean writeFilmlistIdFileEnabled;
   private final String filmlistIdFilePath;
+  private final MServerDBConfig mServerDBConfig;
   /** ignore certain film by title **/
   private String ignoreFilmlistPath;
   /** add livestreams from external list **/
@@ -48,6 +49,7 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
     filmlistSavePaths = new EnumMap<>(FilmlistFormats.class);
     filmlistDiffSavePaths = new EnumMap<>(FilmlistFormats.class);
     copySettings = new MServerCopySettings();
+    mServerDBConfig = new MServerDBConfig();
     logSettings = new MServerLogSettingsDTO();
     crawlerURLs = new EnumMap<>(CrawlerUrlType.class);
 
@@ -242,7 +244,11 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
   public List<ImportFilmlistConfiguration> getImportFilmlistConfigurations() {
     return importFilmlistConfigurations;
   }
- 
+  
+  public MServerDBConfig getMServerDBConfig() {
+    return mServerDBConfig;
+  }
+  
   /**
    * Loads the {@link Sender} specific configuration and if it not exist creates one.
    *
@@ -286,7 +292,8 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
         && Objects.equals(getFilmlistIdFilePath(), that.getFilmlistIdFilePath())
         && Objects.equals(getIgnoreFilmslistPath(), that.getIgnoreFilmslistPath())
         && Objects.equals(getImportLivestreamConfiguration(), that.getImportLivestreamConfiguration())
-        && Objects.equals(getImportFilmlistConfigurations(), that.getImportFilmlistConfigurations());
+        && Objects.equals(getImportFilmlistConfigurations(), that.getImportFilmlistConfigurations())
+        && Objects.equals(getMServerDBConfig(), that.getMServerDBConfig());
   }
 
   @Override
@@ -313,7 +320,8 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
         getFilmlistIdFilePath(),
         getIgnoreFilmslistPath(),
         getImportLivestreamConfiguration(),
-        getImportFilmlistConfigurations());
+        getImportFilmlistConfigurations(),
+        getMServerDBConfig());
   }
 
   public void initializeSenderConfigurations() {

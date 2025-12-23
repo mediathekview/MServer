@@ -16,7 +16,6 @@ import de.mediathekview.mserver.base.uploader.copy.FileCopyTarget;
 import de.mediathekview.mserver.base.uploader.copy.FileCopyTask;
 import de.mediathekview.mserver.base.utils.CheckUrlAvailability;
 import de.mediathekview.mserver.base.utils.FilmDBService;
-import de.mediathekview.mserver.base.utils.GPDataSourceProvider;
 import de.mediathekview.mserver.crawler.ard.ArdCrawler;
 import de.mediathekview.mserver.crawler.arte.ArteCrawler;
 import de.mediathekview.mserver.crawler.arte.ArteCrawler_EN;
@@ -46,7 +45,6 @@ import java.time.LocalDateTime;
 import java.util.*;
 import java.util.Map.Entry;
 import java.util.concurrent.*;
-import javax.sql.DataSource;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
@@ -97,8 +95,7 @@ public class CrawlerManager extends AbstractManager {
   }
   
   public void storeFilmsToDB() {
-    DataSource ds = GPDataSourceProvider.get();
-    FilmDBService filmDBService = new FilmDBService(ds, executorService, 200);
+    FilmDBService filmDBService = new FilmDBService(executorService, 200);
     try { 
       filmDBService.saveAll(filmlist);
     } catch (Exception e) {

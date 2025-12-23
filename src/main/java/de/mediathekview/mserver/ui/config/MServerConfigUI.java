@@ -2,6 +2,7 @@ package de.mediathekview.mserver.ui.config;
 
 import de.mediathekview.mserver.base.messages.listener.LogMessageListener;
 import de.mediathekview.mserver.base.messages.listener.MessageListener;
+import de.mediathekview.mserver.base.utils.PostgreSQLDataSourceProvider;
 import de.mediathekview.mserver.base.config.Log4JConfigurationFactory;
 import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.base.config.MServerLogSettingsDTO;
@@ -113,6 +114,8 @@ public final class MServerConfigUI {
     new Log4JConfigurationFactory(aMServerConfigManager.getConfig().getLogSettings());
     LOG = LogManager.getLogger(MServerConfigUI.class);
     logMessageListener = new LogMessageListener();
+    //
+    new PostgreSQLDataSourceProvider(aMServerConfigManager); // init singleton
     //
     manager = new CrawlerManager(aMServerConfigManager);
     final MServerLogSettingsDTO logSettings = aMServerConfigManager.getConfig().getLogSettings();

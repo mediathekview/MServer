@@ -188,6 +188,12 @@ copySettings:
     # JSON_COMPRESSED: /var/www/mediathekview/filmlisten/filmliste_diff.json.xz
     OLD_JSON_COMPRESSED_XZ: copyTarget/filmliste_old_diff.json.xz
 
+mServerDBConfig:
+    active: false
+    url: "url"
+    username: "username"
+    password: "password"
+  
 #### Logging ####
 logSettings:
   # The log level for the console.

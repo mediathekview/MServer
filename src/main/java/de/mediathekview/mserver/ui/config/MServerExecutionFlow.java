@@ -9,7 +9,6 @@ import org.apache.logging.log4j.Logger;
 
 import de.mediathekview.mserver.base.utils.CheckUrlAvailability;
 import de.mediathekview.mserver.base.utils.FilmDBService;
-import de.mediathekview.mserver.base.utils.GPDataSourceProvider;
 import de.mediathekview.mserver.crawler.CrawlerManager;
 import de.mediathekview.mserver.daten.Filmlist;
 import de.mediathekview.mserver.ui.config.MServerCommandLine.CMDARG;
@@ -65,7 +64,7 @@ public class MServerExecutionFlow {
   
   void exportFilmListFromDB() {
     try {
-      FilmDBService filmDBService = new FilmDBService(GPDataSourceProvider.get(), manager.getExecutorService(), 2000);
+      FilmDBService filmDBService = new FilmDBService(manager.getExecutorService(), 2000);
       Optional<Filmlist> dbFilmlist = filmDBService.readFilmlistFromDB();
       dbFilmlist.ifPresent(filmlist -> manager.getFilmlist().addAllFilms(filmlist.getFilms().values()));
       //
@@ -83,7 +82,7 @@ public class MServerExecutionFlow {
   }
   void importFilmlistIntoDB() {
     manager.importFilmlist();
-    FilmDBService filmDBService = new FilmDBService(GPDataSourceProvider.get(), manager.getExecutorService(), 2000);
+    FilmDBService filmDBService = new FilmDBService(manager.getExecutorService(), 2000);
     HashSet<String> allVideoUrls = filmDBService.getAllVideoUrls();
     LOG.debug("allVideoUrls loaded {} entries", allVideoUrls.size());
     manager.getFilmlist().getFilms().entrySet().parallelStream()
@@ -106,7 +105,7 @@ public class MServerExecutionFlow {
     manager.stop();
   }
   void checkAvailability() {
-    FilmDBService filmDBService = new FilmDBService(GPDataSourceProvider.get(), manager.getExecutorService(), 2000);
+    FilmDBService filmDBService = new FilmDBService(manager.getExecutorService(), 2000);
     String condition = "where last_url_check IS NULL OR last_url_check < NOW() - INTERVAL '1 DAY'";
     Optional<Filmlist> dbFilmlist = filmDBService.readFilmlistFromDB(condition);
     dbFilmlist.ifPresent(filmlist -> manager.getFilmlist().addAllFilms(filmlist.getFilms().values()));

@@ -45,8 +45,8 @@ public class FilmDBService {
   private final ExecutorService executorService;
   private final int batchSize;
 
-  public FilmDBService(DataSource dataSource, ExecutorService executorService, int batchSize) {
-    this.dataSource = dataSource;
+  public FilmDBService(ExecutorService executorService, int batchSize) {
+    this.dataSource = PostgreSQLDataSourceProvider.get();
     this.executorService = executorService;
     this.batchSize = batchSize;
 
@@ -136,6 +136,9 @@ public class FilmDBService {
   /////////////////////////////////////////////////////////////////////////////////////////
   
   public <T> List<T> filterNewVideos(List<T> videos, Function<T, String> idExtractor) {
+    if(!PostgreSQLDataSourceProvider.isEnabled()) {
+      return videos;
+    }
     try {
       List<Future<List<T>>> futures = new ArrayList<>();
       
@@ -184,6 +187,7 @@ public class FilmDBService {
       LOG.debug("Filtered {} (in {} out {})",(videos.size()-result.size()), videos.size(), result.size());
       return result;
     } catch (Exception e) {
+      LOG.error("{}", e);
       return videos;
     }
   }
@@ -223,6 +227,9 @@ public class FilmDBService {
    * Speichert alle Filme einer Filmlist parallel in der DB.
    */
   public void saveAll(Filmlist filmlist) throws Exception {
+    if(!PostgreSQLDataSourceProvider.isEnabled()) {
+      return;
+    }
     // Map in List konvertieren
     List<Film> films = new ArrayList<>(filmlist.getFilms().values());
     films = makeUniqueIds(films);
