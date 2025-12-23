@@ -7,6 +7,8 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import de.mediathekview.mserver.base.utils.UrlUtils;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
+import de.mediathekview.mserver.crawler.basic.TopicUrlDTO;
+
 import java.lang.reflect.Type;
 import java.util.Optional;
 
@@ -61,14 +63,14 @@ public class ZdfDayPageDeserializer implements JsonDeserializer<ZdfDayPageDto> {
         final JsonArray resultsArray = resultsElement.getAsJsonArray();
         resultsArray.forEach(
             result -> {
-              final Optional<CrawlerUrlDTO> dto = parseSearchEntry(result.getAsJsonObject());
+              final Optional<TopicUrlDTO> dto = parseSearchEntry(result.getAsJsonObject());
               dto.ifPresent(aDayPageDto::addEntry);
             });
       }
     }
   }
 
-  private Optional<CrawlerUrlDTO> parseSearchEntry(final JsonObject aResultObject) {
+  private Optional<TopicUrlDTO> parseSearchEntry(final JsonObject aResultObject) {
     if (!aResultObject.has(JSON_ELEMENT_TARGET)) {
       return Optional.empty();
     }
@@ -85,10 +87,17 @@ public class ZdfDayPageDeserializer implements JsonDeserializer<ZdfDayPageDto> {
 
     if (target.has(JSON_ATTRIBUTE_CANONICAL)) {
       String canonical = target.get(JSON_ATTRIBUTE_CANONICAL).getAsString();
-
+      String id = aResultObject.get("id").getAsString().replace("SCMS_", "");
       canonical = UrlUtils.addDomainIfMissing(canonical, apiUrlBase);
+      if(id.contains("video_artede") 
+        || id.contains("video-ard")
+        || id.contains("video-kika")
+        || id.contains("video_phoenix")
+      ) {
+        return Optional.empty();
+      }
 
-      final CrawlerUrlDTO dto = new CrawlerUrlDTO(canonical);
+      final TopicUrlDTO dto = new TopicUrlDTO(id, canonical);
       return Optional.of(dto);
     }
 

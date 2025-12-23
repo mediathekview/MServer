@@ -18,6 +18,7 @@ import org.jetbrains.annotations.NotNull;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayDeque;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Map;
@@ -48,23 +49,21 @@ public abstract class AbstractZdfCrawler extends AbstractCrawler {
 
     try {
       Set<CrawlerUrlDTO> shows = new HashSet<>();
-
+      Queue<CrawlerUrlDTO> showsFiltered = new ArrayDeque<>();
       final ZdfConfiguration configuration = loadConfiguration();
       if (configuration.getSearchAuthKey().isPresent()
           && configuration.getVideoAuthKey().isPresent()) {
-
         shows = new HashSet<>(getDaysEntries(configuration));
-
         if (Boolean.TRUE.equals(crawlerConfig.getTopicsSearchEnabled())) {
           shows.addAll(getTopicsEntries());
         }
-
-        getAndSetMaxCount(shows.size());
+        showsFiltered = this.filterExistingFilms(shows, v-> v.getUrl().substring(v.getUrl().lastIndexOf("/")+1).replace(".json", "") );
+        getAndSetMaxCount(showsFiltered.size());
       }
       return new ZdfFilmDetailTask(
           this,
           getApiUrlBase(),
-          new ConcurrentLinkedQueue<>(shows),
+          new ConcurrentLinkedQueue<>(showsFiltered),
           configuration.getVideoAuthKey().orElse(null),
           partner2Sender);
     } catch (final InterruptedException ex) {

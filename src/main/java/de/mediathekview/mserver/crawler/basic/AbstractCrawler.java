@@ -5,6 +5,8 @@ import de.mediathekview.mserver.daten.Sender;
 import de.mediathekview.mserver.base.messages.Message;
 import de.mediathekview.mserver.base.messages.listener.MessageListener;
 import de.mediathekview.mserver.base.progress.Progress;
+import de.mediathekview.mserver.base.utils.FilmDBService;
+import de.mediathekview.mserver.base.utils.GPDataSourceProvider;
 import de.mediathekview.mserver.base.config.MServerBasicConfigDTO;
 import de.mediathekview.mserver.base.config.MServerConfigDTO;
 import de.mediathekview.mserver.base.config.MServerConfigManager;
@@ -20,13 +22,17 @@ import com.google.common.util.concurrent.RateLimiter;
 import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Queue;
 import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.RecursiveTask;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.function.Function;
 
 /** A basic crawler task. */
 public abstract class AbstractCrawler implements Callable<Set<Film>> {
@@ -44,6 +50,7 @@ public abstract class AbstractCrawler implements Callable<Set<Film>> {
   private LocalDateTime startTime;
   protected JsoupConnection jsoupConnection;
   protected RateLimiter rateLimiter;
+  protected FilmDBService filmDBService;
 
   protected AbstractCrawler(
       final ForkJoinPool aForkJoinPool,
@@ -65,10 +72,19 @@ public abstract class AbstractCrawler implements Callable<Set<Film>> {
         rootConfig.getSenderConfig(getSender()).getSocketTimeoutInSeconds(), 
         runtimeConfig.getMaximumCpuThreads());
     rateLimiter = RateLimiter.create(rootConfig.getSenderConfig(getSender()).getMaximumRequestsPerSecond());
-    
+    filmDBService = new FilmDBService(GPDataSourceProvider.get(), forkJoinPool, 200);
     films = ConcurrentHashMap.newKeySet();
   }
 
+  public <T> Queue<T> filterExistingFilms(Collection<T> input, Function<T, String> idExtractor) {
+    return new ArrayDeque<>(
+        filmDBService.filterNewVideos(
+                    new ArrayList<>(input),
+                    idExtractor
+            )
+    );
+  }
+    
   @Override
   public Set<Film> call() {
     final TimeoutTask timeoutRunner =

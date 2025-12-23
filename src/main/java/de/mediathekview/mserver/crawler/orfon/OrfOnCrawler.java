@@ -75,7 +75,9 @@ public class OrfOnCrawler extends AbstractCrawler {
         getAndSetMaxCount(allVideos.size());
       }
       //
-      return new OrfOnEpisodeTask(this, new ConcurrentLinkedQueue<>(allVideos));
+      Queue<OrfOnBreadCrumsUrlDTO> allVideosFiltered = this.filterExistingFilms(allVideos, v-> v.getUrl().substring(v.getUrl().lastIndexOf("/")+1));
+      //
+      return new OrfOnEpisodeTask(this, new ConcurrentLinkedQueue<>(allVideosFiltered));
     } catch (final Exception ex) {
       LOG.fatal("Exception in ORFON crawler.", ex);
       Thread.currentThread().interrupt();

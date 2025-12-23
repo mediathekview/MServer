@@ -4,6 +4,7 @@ package de.mediathekview.mserver.crawler.dw.tasks;
 import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.basic.PagedElementListDTO;
+import de.mediathekview.mserver.crawler.basic.TopicUrlDTO;
 import de.mediathekview.mserver.crawler.dw.parser.DWSendungOverviewDeserializer;
 import de.mediathekview.mserver.testhelper.JsonFileReader;
 import org.junit.Before;
@@ -76,7 +77,7 @@ public class DWOverviewDeserializerTest extends DwTaskTestBase {
   public void test() throws IOException {
     final JsonElement jsonElement = JsonFileReader.readJson(responseAsFile);
     final DWSendungOverviewDeserializer target = new DWSendungOverviewDeserializer();
-    final Optional<PagedElementListDTO<CrawlerUrlDTO>> actual = target.deserialize(jsonElement, null, null);
+    final Optional<PagedElementListDTO<TopicUrlDTO>> actual = target.deserialize(jsonElement, null, null);
     //
     assertThat(actual.isPresent(), equalTo(true));
     assertThat(actual.get().getNextPage().isPresent(), equalTo(hasNext));

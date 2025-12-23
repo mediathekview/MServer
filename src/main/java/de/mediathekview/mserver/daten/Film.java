@@ -147,6 +147,26 @@ public class Film extends Podcast {
     return !subtitles.isEmpty();
   }
   
+  public Optional<FilmUrl> getDefaultUrl() {
+    Optional<FilmUrl> defaultFilmUrl = super.getDefaultUrl();
+    if (defaultFilmUrl.isPresent()) {
+      return defaultFilmUrl;
+    }
+    if (audioDescriptions.containsKey(Resolution.NORMAL)) {
+      return Optional.of(audioDescriptions.get(Resolution.NORMAL));
+    }
+    if(!audioDescriptions.isEmpty()) {
+      return audioDescriptions.values().stream().findFirst();
+    }
+    if (signLanguages.containsKey(Resolution.NORMAL)) {
+      return Optional.of(signLanguages.get(Resolution.NORMAL));
+    }
+    if(!signLanguages.isEmpty()) {
+      return signLanguages.values().stream().findFirst();
+    }
+    return Optional.empty();
+  }
+  
   public static void addAllToFilmlist(final Filmlist source,final Filmlist target) {
     target.addAllFilms(source.getFilms().values());
     target.addAllLivestreams(source.getLivestreams().values());

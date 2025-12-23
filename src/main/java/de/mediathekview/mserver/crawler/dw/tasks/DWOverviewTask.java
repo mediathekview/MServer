@@ -5,6 +5,7 @@ import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractRecursiveConverterTask;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.basic.PagedElementListDTO;
+import de.mediathekview.mserver.crawler.basic.TopicUrlDTO;
 import de.mediathekview.mserver.crawler.dw.DWTaskBase;
 import de.mediathekview.mserver.crawler.dw.parser.DWSendungOverviewDeserializer;
 import jakarta.ws.rs.client.WebTarget;
@@ -14,7 +15,7 @@ import java.util.Optional;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-public class DWOverviewTask extends DWTaskBase<CrawlerUrlDTO, CrawlerUrlDTO> {
+public class DWOverviewTask extends DWTaskBase<TopicUrlDTO, CrawlerUrlDTO> {
 
   private static final Type OPTIONAL_OVERVIEW_DTO_TYPE_TOKEN =
       new TypeToken<Optional<PagedElementListDTO<CrawlerUrlDTO>>>() {}.getType();
@@ -33,7 +34,7 @@ public class DWOverviewTask extends DWTaskBase<CrawlerUrlDTO, CrawlerUrlDTO> {
 
   @Override
   protected void processRestTarget(final CrawlerUrlDTO aDTO, final WebTarget aTarget) {
-    final Optional<PagedElementListDTO<CrawlerUrlDTO>> overviewDtoOptional =
+    final Optional<PagedElementListDTO<TopicUrlDTO>> overviewDtoOptional =
         deserializeOptional(aTarget, OPTIONAL_OVERVIEW_DTO_TYPE_TOKEN);
     if (overviewDtoOptional.isEmpty()) {
       crawler.incrementAndGetErrorCount();
@@ -41,7 +42,7 @@ public class DWOverviewTask extends DWTaskBase<CrawlerUrlDTO, CrawlerUrlDTO> {
       return;
     }
 
-    final PagedElementListDTO<CrawlerUrlDTO> overviewDto = overviewDtoOptional.get();
+    final PagedElementListDTO<TopicUrlDTO> overviewDto = overviewDtoOptional.get();
     addResults(overviewDto.getElements());
 
     final Optional<String> optionalNextPage = overviewDto.getNextPage();
@@ -55,14 +56,14 @@ public class DWOverviewTask extends DWTaskBase<CrawlerUrlDTO, CrawlerUrlDTO> {
     }
   }
 
-  private void addResults(final Collection<CrawlerUrlDTO> aUrls) {
-    for (final CrawlerUrlDTO url : aUrls) {
-      taskResults.add(new CrawlerUrlDTO(url.getUrl()));
+  private void addResults(final Collection<TopicUrlDTO> aUrls) {
+    for (final TopicUrlDTO url : aUrls) {
+      taskResults.add(new TopicUrlDTO(url.getTopic(),url.getUrl()));
     }
   }
 
   @Override
-  protected AbstractRecursiveConverterTask<CrawlerUrlDTO, CrawlerUrlDTO> createNewOwnInstance(
+  protected AbstractRecursiveConverterTask<TopicUrlDTO, CrawlerUrlDTO> createNewOwnInstance(
       final Queue<CrawlerUrlDTO> aElementsToProcess) {
     return new DWOverviewTask(crawler, aElementsToProcess, subpage + 1);
   }

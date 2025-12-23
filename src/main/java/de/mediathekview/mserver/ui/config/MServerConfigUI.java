@@ -8,6 +8,8 @@ import de.mediathekview.mserver.base.config.MServerLogSettingsDTO;
 import de.mediathekview.mserver.base.messages.ServerMessages;
 import de.mediathekview.mserver.crawler.CrawlerManager;
 import de.mediathekview.mserver.progress.listeners.ProgressLogMessageListener;
+import de.mediathekview.mserver.ui.config.MServerCommandLine.CMDARG;
+
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -24,14 +26,15 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public final class MServerConfigUI {
   // logger setup in start
   private Logger LOG = null;
   private static final String CONFIG_FILE_NAME = "MServer-Config.yaml";
-  private static final String ARGUMENT_GCONF = "-gconf";
   private LogMessageListener logMessageListener;
   private CrawlerManager manager;
+  private MServerExecutionFlow execution;
 
   public MServerConfigUI() {
     super();
@@ -64,19 +67,22 @@ public final class MServerConfigUI {
           configFilePath.toAbsolutePath().toString());
     }
   }
-
-  private boolean interpretProgramArguments(final String[] aProgramAgruments) {
-    if (aProgramAgruments != null && aProgramAgruments.length > 0) {
-      if (aProgramAgruments.length > 1) {
-        logMessageListener.consumeMessage(ServerMessages.UI_TO_MANY_ARGUMENTS);
-      }
-
-      if (ARGUMENT_GCONF.equals(aProgramAgruments[0])) {
-        generateDefaultConfiguration();
+  
+  private String generateCustomsConfiguration(String sourcefile) {
+    String configFileName = sourcefile;
+    if (configFileName.startsWith("http")) {
+      URL fileUrl;
+      try {
+        // get a copy of this file to use it as configuration file
+        fileUrl = URI.create(configFileName).toURL();
+        String filename = Paths.get(fileUrl.getPath()).getFileName().toString();
+        MServerConfigUI.getRemoteFileToLocal(configFileName, filename);
+        configFileName = filename;
+      } catch (MalformedURLException e) {
+        e.printStackTrace();
       }
     }
-
-    return true;
+    return configFileName;
   }
 
   private boolean logLevelInfoOrLower(final Level configLevel) {
@@ -85,59 +91,41 @@ public final class MServerConfigUI {
         || Level.ALL.equals(configLevel);
   }
 
-  void start() {
-    try {
-      manager.start();
-      manager.importFilmlist();
-      manager.importLivestreamFilmlist();
-    } finally {
-      manager.filterFilmlist();
-      manager.saveFilmlist();
-      manager.saveDifferenceFilmlist();
-      manager.writeHashFile();
-      manager.writeIdFile();
-      manager.copyFilmlist();
-      manager.stop();
-    }
-  }
+
 
   void start(final String[] aProgramAgruments) {
-    MServerConfigManager aMServerConfigManager = null;
-    if (aProgramAgruments.length > 0 && !ARGUMENT_GCONF.equals(aProgramAgruments[0])) {
-      String configFileName = aProgramAgruments[0];
-      if (configFileName.startsWith("http")) {
-        URL fileUrl;
-        try {
-          // get a copy of this file to use it as configuration file
-          fileUrl = URI.create(configFileName).toURL();
-          String filename = Paths.get(fileUrl.getPath()).getFileName().toString();
-          MServerConfigUI.getRemoteFileToLocal(configFileName, filename);
-          configFileName = filename;
-        } catch (MalformedURLException e) {
-          e.printStackTrace();
-        }
-      }
-      aMServerConfigManager = new MServerConfigManager(configFileName);
-    } else {
-      aMServerConfigManager = new MServerConfigManager(MServerConfigManager.DEFAULT_CONFIG_FILE);
+    if (!MServerCommandLine.validateArgs(aProgramAgruments)) {
+      MServerCommandLine.print();
+      return;
     }
+    Map<CMDARG,String> cmd = MServerCommandLine.parseArgs(aProgramAgruments);
+    // config
+    String configFileName = MServerConfigManager.DEFAULT_CONFIG_FILE;
+    if (cmd.containsKey(CMDARG.gconf)) {
+      generateDefaultConfiguration();
+    }
+    if (cmd.containsKey(CMDARG.config)) {
+      configFileName = generateCustomsConfiguration(cmd.get(CMDARG.config));
+    }
+    final MServerConfigManager aMServerConfigManager = new MServerConfigManager(configFileName);
     // here we set the correct configManager for all log4logger
     // logsettings are stored static in our factory
     new Log4JConfigurationFactory(aMServerConfigManager.getConfig().getLogSettings());
     LOG = LogManager.getLogger(MServerConfigUI.class);
     logMessageListener = new LogMessageListener();
-    
-    if (interpretProgramArguments(aProgramAgruments)) {
-      manager = new CrawlerManager(aMServerConfigManager);
-      final MServerLogSettingsDTO logSettings = aMServerConfigManager.getConfig().getLogSettings();
-      logSettings.setLogActivateConsole(true);
-      final Level configLevel = logSettings.getLogLevelConsole();
-      if (configLevel == null || !logLevelInfoOrLower(configLevel)) {
-        logSettings.setLogLevelConsole(Level.INFO);
-      }
-      addListeners();
-      start();
+    //
+    manager = new CrawlerManager(aMServerConfigManager);
+    final MServerLogSettingsDTO logSettings = aMServerConfigManager.getConfig().getLogSettings();
+    logSettings.setLogActivateConsole(true);
+    final Level configLevel = logSettings.getLogLevelConsole();
+    if (configLevel == null || !logLevelInfoOrLower(configLevel)) {
+      logSettings.setLogLevelConsole(Level.INFO);
     }
+    addListeners(); // REQUIRES MANAGER!!!
+    //
+    execution = new MServerExecutionFlow(manager, cmd);
+    execution.start();
+
   }
   
   public static void getRemoteFileToLocal(String source, String target) {
@@ -151,4 +139,6 @@ public final class MServerConfigUI {
         e.printStackTrace(); // we do not have a logger yet
     }
   }
+
+
 }

@@ -110,8 +110,14 @@ public class ZdfFilmDetailDeserializer implements JsonDeserializer<Optional<ZdfF
     final Map<String, String> downloadUrl = parseDownloadUrls(mainVideoTarget);
     
     if (title.isPresent()) {
+      final Optional<String> id = JsonUtils.getElementValueAsString(aJsonObject, "id");
+      final Optional<String> selfId = JsonUtils.getElementValueAsString(aJsonObject, "self");
+      if(id.isEmpty() && selfId.isEmpty()) {
+        System.out.println("check");
+      }
+      
       final Optional<Film> film =
-          createFilm(partner2Sender.get(tvService.orElse("EMPTY")), topic, title.get(), description, website, time, duration);
+          createFilm(id.orElse(selfId.get()), partner2Sender.get(tvService.orElse("EMPTY")), topic, title.get(), description, website, time, duration);
       return Optional.of(new ZdfFilmDtoOld(film, downloadUrl.get(DOWNLOAD_URL_DEFAULT), downloadUrl.get(DOWNLOAD_URL_DGS)));
     } else {
       LOG.error("ZdfFilmDetailDeserializer: no title found");
@@ -158,6 +164,7 @@ public class ZdfFilmDetailDeserializer implements JsonDeserializer<Optional<ZdfF
   }
 
   private Optional<Film> createFilm(
+      final String id,
       final Sender sender,
       final Optional<String> aTopic,
       final String aTitle,
@@ -175,7 +182,7 @@ public class ZdfFilmDetailDeserializer implements JsonDeserializer<Optional<ZdfF
               aTopic.orElse(aTitle),
               aTime.orElse(LocalDateTime.now()),
               aDuration.orElse(Duration.ZERO));
-
+      film.setId(id);
       if (aWebsite.isPresent()) {
         film.setWebsite(URI.create(aWebsite.get()).toURL());
       }

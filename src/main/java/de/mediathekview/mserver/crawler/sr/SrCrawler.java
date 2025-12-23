@@ -54,11 +54,13 @@ public class SrCrawler extends AbstractCrawler {
         filmDtos.addAll(forkJoinPool.submit(archiveTask).get());
       }
 
+      final Queue<SrTopicUrlDTO> filmDtosFiltered = this.filterExistingFilms(filmDtos, v->v.getUrl().substring(v.getUrl().lastIndexOf("id=")+3));
+      
       printMessage(
-              ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), filmDtos.size());
-      getAndSetMaxCount(filmDtos.size());
+              ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), filmDtosFiltered.size());
+      getAndSetMaxCount(filmDtosFiltered.size());
 
-      return new SrFilmDetailTask(this, filmDtos);
+      return new SrFilmDetailTask(this, filmDtosFiltered);
     } catch (final InterruptedException ex) {
       LOG.debug("{} crawler interrupted.", getSender().getName(), ex);
       Thread.currentThread().interrupt();

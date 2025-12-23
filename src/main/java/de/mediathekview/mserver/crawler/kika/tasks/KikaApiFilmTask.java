@@ -112,6 +112,7 @@ public class KikaApiFilmTask extends AbstractJsonRestTask<Film, KikaApiVideoInfo
     if (aDTO.getDescription().isPresent()) {
       aFilm.setBeschreibung(aDTO.getDescription().get());
     }
+    aFilm.setId(aDTO.getId().get());
     getGeo(aDTO).ifPresent(aFilm::setGeoLocations);
     getWebsite(aDTO).ifPresent(aFilm::setWebsite);
     aFilm.setUrls(getVideoUrls(aResponseObj, aDTO));

@@ -19,12 +19,14 @@ public abstract class AbstractMediaResource<T extends Serializable> implements S
   private String thema;
   private String beschreibung;
   private URL website;
+  private String id;
 
   /** DON'T USE! - ONLY FOR GSON! */
   AbstractMediaResource() {
     geoLocations = new ArrayList<>();
     urls = new EnumMap<>(Resolution.class);
     uuid = null;
+    id = null;
     sender = null;
     time = null;
     website = null;
@@ -40,6 +42,7 @@ public abstract class AbstractMediaResource<T extends Serializable> implements S
     geoLocations = new ArrayList<>();
     urls = new EnumMap<>(Resolution.class);
     uuid = aUuid;
+    id = null;
     if (aSender == null) {
       throw new IllegalArgumentException("The sender can't be null!");
     }
@@ -63,6 +66,7 @@ public abstract class AbstractMediaResource<T extends Serializable> implements S
     time = copyObj.time;
     beschreibung = copyObj.beschreibung;
     website = copyObj.website;
+    id = copyObj.id;
   }
 
   public AbstractMediaResource<T> merge(final AbstractMediaResource<T> objToMergeWith) {
@@ -139,13 +143,20 @@ public abstract class AbstractMediaResource<T extends Serializable> implements S
     beschreibung = aBeschreibung;
   }
   
+  public String getId() {
+    return id;
+  }
+  
+  public void setId(String id) {
+    this.id = id;
+  }
+  
   public Optional<T> getDefaultUrl() {
     if (urls.containsKey(Resolution.NORMAL)) {
       return Optional.of(getUrl(Resolution.NORMAL));
     }
-    final Iterator<Entry<Resolution, T>> entryIterator = urls.entrySet().iterator();
-    if (entryIterator.hasNext()) {
-      return Optional.of(entryIterator.next().getValue());
+    if(!urls.isEmpty()) {
+      return urls.values().stream().findFirst();
     }
     return Optional.empty();
   }

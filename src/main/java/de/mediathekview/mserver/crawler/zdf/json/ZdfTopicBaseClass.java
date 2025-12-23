@@ -40,6 +40,8 @@ public class ZdfTopicBaseClass {
     final Optional<LocalDateTime> time = parseDate(episodeObject);
     final Optional<String> description =
         JsonUtils.getAttributeAsString(episodeObject.getAsJsonObject("teaser"), "description");
+    final Optional<String> id = JsonUtils.getAttributeAsString(episodeObject, "id");
+    final Optional<String> canonical = JsonUtils.getAttributeAsString(episodeObject, "canonical");
     final Optional<String> sender = parseSender(episodeObject);
 
     // streamingoptions relevant, um zu erkennen ob uhd/dgs/ad/ov...?
@@ -65,7 +67,9 @@ public class ZdfTopicBaseClass {
             description,
             website,
             time,
-            downloadUrls);
+            downloadUrls,
+            id.get(),
+            canonical.get());
       }
     } else {
       LOG.error("ZdfTopicSeasonDeserializer: no title found");
@@ -172,7 +176,9 @@ public class ZdfTopicBaseClass {
       final Optional<String> aDescription,
       final Optional<String> aWebsite,
       final Optional<LocalDateTime> aTime,
-      final Map<String, String> downloadUrls) {
+      final Map<String, String> downloadUrls,
+      final String id,
+      final String canonical) {
 
     Set<ZdfFilmDto> films = new HashSet<>();
     if (!downloadUrls.isEmpty()) {
@@ -186,7 +192,9 @@ public class ZdfTopicBaseClass {
                       aWebsite.orElse(""),
                       aTime.orElse(LocalDateTime.now()),
                       key.toLowerCase(),
-                      url)));
+                      url,
+                      id,
+                      canonical)));
     } else {
       LOG.error("ZdfTopicSeasonDeserializer: no video found for {}: {}", sender, aTitle);
     }

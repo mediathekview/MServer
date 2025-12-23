@@ -81,11 +81,13 @@ public class ArdCrawler extends AbstractCrawler {
         LOG.debug(
             "ARD crawler found {} topics for all sub-sender.", shows.size() - showsCountBefore);
       }
-
+      //
+      final Queue<ArdFilmInfoDto> showsFiltered = this.filterExistingFilms(shows, ArdFilmInfoDto::getId);
+      //
       printMessage(
-          ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), shows.size());
-      getAndSetMaxCount(shows.size());
-      return new ArdFilmDetailTask(this, new ConcurrentLinkedQueue<>(shows));
+          ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), showsFiltered.size());
+      getAndSetMaxCount(showsFiltered.size());
+      return new ArdFilmDetailTask(this, new ConcurrentLinkedQueue<>(showsFiltered));
     } catch (final InterruptedException ex) {
       LOG.fatal("Exception in ARD crawler.", ex);
       Thread.currentThread().interrupt();

@@ -264,6 +264,7 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
             isAudioDescription ? theme.replace(TEXT_AUDIO_DESCRIPTION, "").trim() : theme,
             episodeData.publishDate,
             chapterList.duration);
+    film.setId(chapterList.urn);
     film.setBeschreibung(chapterList.description);
     film.setWebsite(buildWebsiteUrl(chapterList.id, chapterList.urn, episodeData.title, theme).orElse(null));
     addUrls(videoUrls, film, isAudioDescription);

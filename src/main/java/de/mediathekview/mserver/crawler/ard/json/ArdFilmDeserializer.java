@@ -168,6 +168,7 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
     final JsonObject itemObject = widgets.get(0).getAsJsonObject();
 
     final Optional<String> topic = parseTopic(itemObject);
+    Optional<String> id = JsonUtils.getAttributeAsString(itemObject, "id");
     Optional<String> titleOriginal = JsonUtils.getAttributeAsString(itemObject, ATTRIBUTE_TITLE);
     final Optional<String> title = parseTitle(itemObject);
     final Optional<String> description = JsonUtils.getAttributeAsString(itemObject, ATTRIBUTE_SYNOPSIS);
@@ -197,6 +198,7 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
       final ArdFilmDto filmDto =
           new ArdFilmDto(
               createFilm(
+                  id.get(),
                   sender,
                   topic.get(),
                   title.get(),
@@ -217,6 +219,7 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
       final ArdFilmDto filmDtoOV =
           new ArdFilmDto(
               createFilm(
+                  id.get(),
                   sender,
                   topic.get(),
                   title.get() + " (Originalversion)",
@@ -301,6 +304,7 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
   }
 
   private Film createFilm(
+      final String id,
       final Sender sender,
       final String topic,
       final String title,
@@ -319,7 +323,7 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
             duration == null ? Duration.ofSeconds(0) : duration);
 
     Optional.ofNullable(description).ifPresent(film::setBeschreibung);
-    
+    film.setId(id);
     film.setGeoLocations(GeoLocationGuesser.getGeoLocations(Sender.ARD, videoInfo.getDefaultVideoUrl()));
     
     if (!videoInfo.getSubtitleUrl().isEmpty()) {

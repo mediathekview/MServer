@@ -84,6 +84,7 @@ public class OrfOnEpisodeTask extends AbstractJsonRestTask<Film, OrfOnVideoInfoD
         aResponseObj.getAired().orElse(LocalDateTime.of(1970,1,1,00,00,00)),
         aResponseObj.getDuration().orElse(Duration.ofMinutes(0L))
         );
+    aResponseObj.getId().ifPresent(aFilm::setId);
     aResponseObj.getGeorestriction().ifPresent(aFilm::addAllGeoLocations);
     aResponseObj.getDescription().ifPresent(aFilm::setBeschreibung);
     aResponseObj.getVideoUrls().ifPresent(aFilm::setUrls);

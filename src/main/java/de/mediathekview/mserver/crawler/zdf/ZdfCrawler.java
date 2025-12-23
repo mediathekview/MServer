@@ -7,6 +7,7 @@ import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.base.messages.ServerMessages;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
+import de.mediathekview.mserver.crawler.basic.TopicUrlDTO;
 import de.mediathekview.mserver.crawler.zdf.tasks.*;
 import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
 
@@ -78,23 +79,25 @@ public class ZdfCrawler extends AbstractCrawler {
         ZdfTopicSeasonTask topicSeasonTask =
             new ZdfTopicSeasonTask(this, new ConcurrentLinkedQueue<>(topicUrls), AUTH_KEY);
         shows.addAll(forkJoinPool.submit(topicSeasonTask).get());
+        
+        final Queue<ZdfFilmDto> showsFiltered = this.filterExistingFilms(shows, ZdfFilmDto::getId);
 
         printMessage(
-            ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), shows.size());
+            ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), showsFiltered.size());
 
-        return new ZdfFilmTask(this, new ConcurrentLinkedQueue<>(shows), AUTH_KEY);
+        return new ZdfFilmTask(this, new ConcurrentLinkedQueue<>(showsFiltered), AUTH_KEY);
       } else {
         final ZdfConfiguration configuration = loadConfiguration();
         if (configuration.getSearchAuthKey().isPresent()
             && configuration.getVideoAuthKey().isPresent()) {
-          Set<CrawlerUrlDTO> shows = new HashSet<>(getDaysEntries(configuration));
+          Queue<CrawlerUrlDTO> shows = new ArrayDeque<>(getDaysEntries(configuration));
           printMessage(
                   ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), shows.size());
-
+          final Queue<CrawlerUrlDTO> showsFiltered = this.filterExistingFilms(shows, v-> ((TopicUrlDTO)v).getTopic());
           return new ZdfFilmDetailTask(
               this,
               getApiUrlBase(),
-              new ConcurrentLinkedQueue<>(shows),
+              new ConcurrentLinkedQueue<>(showsFiltered),
               configuration.getVideoAuthKey().orElse(""), ZdfConstants.PARTNER_TO_SENDER);
         }
       }

@@ -25,7 +25,7 @@ public class ArteVideoInfoTaskTest extends WireMockTestBase {
     List<List<Optional<String>>> expectedResult = generateExpectedResult();
     for(List<Optional<String>> entry : expectedResult) {
       Optional<ArteVideoInfoDto> act = result.stream()
-          .filter(item -> item.getId().get().equalsIgnoreCase(entry.get(0).get()))
+          .filter(item -> item.getId().equalsIgnoreCase(entry.get(0).get()))
           .findFirst();
       assertTrue(act.isPresent());
       assertEntry(act.get(), entry.toArray(new Optional[0]));

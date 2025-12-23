@@ -74,11 +74,13 @@ public class SrfCrawler extends AbstractCrawler {
         dtos.addAll(topicSearchUrls);
       }
       //
+      final Queue<CrawlerUrlDTO> topicsUrlsFiltered = this.filterExistingFilms(dtos, v-> v.getUrl().substring(v.getUrl().lastIndexOf("/")+1));
+      //
       printMessage(
-          ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), dtos.size());
-      getAndSetMaxCount(dtos.size());
+          ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), topicsUrlsFiltered.size());
+      getAndSetMaxCount(topicsUrlsFiltered.size());
 
-      return new SrfFilmDetailTask(this, new ConcurrentLinkedQueue<>(dtos));
+      return new SrfFilmDetailTask(this, new ConcurrentLinkedQueue<>(topicsUrlsFiltered));
 
     } catch (final InterruptedException ex) {
       LOG.debug("{} crawler interrupted.", getSender().getName(), ex);

@@ -36,6 +36,9 @@ public abstract class ZdfTaskBase<T, D extends CrawlerUrlDTO> extends AbstractRe
     final Response response = executeRequest(aTarget);
     if (response.getStatus() == 200) {
       final String jsonOutput = response.readEntity(String.class);
+      if(jsonOutput.length() == 0) {
+        return Optional.empty(); // PHONIX CONTENT-LENGTH 0
+      }
       return gson.fromJson(jsonOutput, aType);
     } else {
       LOG.error(
