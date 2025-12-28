@@ -41,12 +41,8 @@ public class ArdCrawler extends MediathekCrawler {
           "Y3JpZDovL3N3ci5kZS9zZGIvc3RJZC8xNjY3",
           // oldhenry
           "Y3JpZDovL2Rhc2Vyc3RlLmRlL29sZC1oZW5yeQ",
-          // don camillo
-          "Y3JpZDovL2JyLmRlL2Jyb2FkY2FzdFNlcmllcy9GMjAxN1dPMDA5MzU1QTBfc2luZ2xlc2hvdw",
-          "Y3JpZDovL2JyLmRlL2Jyb2FkY2FzdFNlcmllcy9GMjAxN1dPMDA5Mzk0QTFfc2luZ2xlc2hvdw",
-          "Y3JpZDovL2JyLmRlL2Jyb2FkY2FzdFNlcmllcy9GMjAxN1dPMDA5Mzk3QTFfc2luZ2xlc2hvdw",
-          "Y3JpZDovL2JyLmRlL2Jyb2FkY2FzdFNlcmllcy9GMjAxN1dPMDA5MjMwQTBfc2luZ2xlc2hvdw",
-          "Y3JpZDovL2JyLmRlL2Jyb2FkY2FzdFNlcmllcy9GMjAxN1dPMDA5Mzg3QTFfc2luZ2xlc2hvdw"
+          // evertyhing (bis 5.1.)
+          "Y3JpZDovL2Rhc2Vyc3RlLmRlL2V2ZXJ5dGhpbmctZXZlcnl3aGVyZS1hbGwtYXQtb25jZQ"
   };
 
   public ArdCrawler(FilmeSuchen ssearch, int startPrio) {
