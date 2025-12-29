@@ -93,7 +93,7 @@
     <wiremock.version>2.35.2</wiremock.version>
     <xz.version>1.10</xz.version>
     <yacl4j-core.version>0.9.2</yacl4j-core.version>
-    <docker-maven-plugin.version>0.40.2</docker-maven-plugin.version>
+    <docker-maven-plugin.version>0.48.0</docker-maven-plugin.version>
     <sortpom-maven-plugin.version>3.2.0</sortpom-maven-plugin.version>
   </properties>
 
@@ -500,16 +500,14 @@
       <build>
         <plugins>
           <!-- Build docker -->
-
           <plugin>
             <groupId>io.fabric8</groupId>
             <artifactId>docker-maven-plugin</artifactId>
             <version>${docker-maven-plugin.version}</version>
             <configuration>
-              <images>
+            <images>
                 <image>
                   <name>mediathekview/mserver:${project.version}</name>
-
                   <build>
                     <from>eclipse-temurin:${maven.compiler.target}</from>
                     <maintainer>Nicklas Wiegandt &lt;nicklas@wiegandt.eu&gt;</maintainer>
@@ -517,7 +515,7 @@
                       <descriptor>docker-assembly.xml</descriptor>
                     </assembly>
                     <env>
-                      <JAVA_OPTS>-Xmx4G</JAVA_OPTS>
+                      <JAVA_OPTS>-Xmx8G</JAVA_OPTS>
                       <MSERVER_OPTS>config.yaml</MSERVER_OPTS>
                     </env>
                     <entryPoint>

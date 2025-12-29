@@ -188,11 +188,11 @@ copySettings:
     # JSON_COMPRESSED: /var/www/mediathekview/filmlisten/filmliste_diff.json.xz
     OLD_JSON_COMPRESSED_XZ: copyTarget/filmliste_old_diff.json.xz
 
-mServerDBConfig:
-    active: false
-    url: "url"
-    username: "username"
-    password: "password"
+databaseConfig:
+  active: false
+  url: "jdbc:postgresql://postgresMV:5432/crawler"
+  username: "crawler"
+  password: "secret"
   
 #### Logging ####
 logSettings:

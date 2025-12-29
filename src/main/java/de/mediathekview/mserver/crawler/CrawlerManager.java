@@ -198,7 +198,9 @@ public class CrawlerManager extends AbstractManager {
   public void importFilmlist(final ImportFilmlistConfiguration importFilmlistConfiguration) {
     try {
       Optional<Filmlist> importedFilmlist;
-      if (importFilmlistConfiguration.getPath().startsWith(HTTP)) {
+      if (importFilmlistConfiguration.getPath().startsWith("jdbc")) {
+        importedFilmlist = importFilmlistFromDB();
+      } else if (importFilmlistConfiguration.getPath().startsWith(HTTP)) {
         importedFilmlist = importFilmListFromURl(importFilmlistConfiguration.getFormat(), importFilmlistConfiguration.getPath());
       } else {
         importedFilmlist = importFilmlistFromFile(importFilmlistConfiguration.getFormat(), importFilmlistConfiguration.getPath());
@@ -453,6 +455,12 @@ public class CrawlerManager extends AbstractManager {
     }
 
     return crawlerToRun;
+  }
+
+  private Optional<Filmlist> importFilmlistFromDB() throws IOException {
+    FilmDBService filmDBService = new FilmDBService(getExecutorService(), 2000);
+    Optional<Filmlist> dbFilmlist = filmDBService.readFilmlistFromDB();
+    return dbFilmlist;
   }
 
   private Optional<Filmlist> importFilmlistFromFile(

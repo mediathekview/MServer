@@ -242,6 +242,13 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
         if (!resolutionUrlMapFromM3U.isEmpty()) {
           Map<Resolution, String> newUrls = new EnumMap<>(Resolution.class);
           resolutionUrlMapFromM3U.forEach((key, value) -> newUrls.put(key, value.toString()));
+          //
+          // TODO: FIXME
+          if (!resolutionUrlMapFromM3U.containsKey(Resolution.NORMAL)) {
+            Resolution anyResolution = resolutionUrlMapFromM3U.keySet().stream().findFirst().get();
+            resolutionUrlMapFromM3U.put(Resolution.NORMAL, resolutionUrlMapFromM3U.get(anyResolution));
+            resolutionUrlMapFromM3U.remove(anyResolution);
+          }
           return Optional.of(newUrls);
         }
       } catch (MalformedURLException | URISyntaxException e) {

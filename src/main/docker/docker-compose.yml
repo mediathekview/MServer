@@ -1,0 +1,61 @@
+
+configs:
+  init_sql:
+    content: |
+      CREATE TABLE IF NOT EXISTS filme (
+          id TEXT PRIMARY KEY,          -- eindeutige Film-ID
+          data JSONB NOT NULL,          -- JSON-Daten des Films
+          created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+          last_update TIMESTAMPTZ NOT NULL DEFAULT now(),
+          last_url_check TIMESTAMPTZ NOT NULL DEFAULT now()
+      );
+      
+services:
+
+  postgresMV:
+    image: postgres:18
+    container_name: crawler-postgres
+    environment:
+      POSTGRES_DB: crawler
+      POSTGRES_USER: crawler
+      POSTGRES_PASSWORD: secret
+      TZ: Europe/Berlin
+    ports:
+      - "55432:5432"
+    volumes:
+      # Persistente Daten
+      - c:/tmp/pgdata:/var/lib/postgresql
+    configs:
+      - source: init_sql
+        target: /docker-entrypoint-initdb.d/init.sql
+    restart: unless-stopped
+
+  mserver-r1:
+    image: mediathekview/mserver:4.0.1-SNAPSHOT
+    environment:
+      MSERVER_OPTS: --config https://mediathekview.github.io/MVCrawlerConfig/config/MServer-Config-R1.yaml
+    volumes:
+      - c:/tmp/filmlists:/filmlists
+      - c:/tmp/logs:/logs
+      - c:/tmp/hist:/hist
+      - c:/tmp/config:/config
+      
+  mserver-r2:
+    image: mediathekview/mserver:4.0.1-SNAPSHOT
+    environment:
+      MSERVER_OPTS: --config https://mediathekview.github.io/MVCrawlerConfig/config/MServer-Config-R2.yaml
+    volumes:
+      - c:/tmp/filmlists:/filmlists
+      - c:/tmp/logs:/logs
+      - c:/tmp/hist:/hist
+      - c:/tmp/config:/config
+
+  mserver-checkUrls:
+    image: mediathekview/mserver:4.0.1-SNAPSHOT
+    environment:
+      MSERVER_OPTS: --config https://mediathekview.github.io/MVCrawlerConfig/config/MServer-Config-R2.yaml --flow checkAvailability
+    volumes:
+      - /volume1/docker/Projekt-mv2/filmlists:/filmlists
+      - /volume1/docker/Projekt-mv2/logs:/logs
+      - /volume1/docker/Projekt-mv2/hist:/hist
+      - /volume1/docker/Projekt-mv2/config:/config

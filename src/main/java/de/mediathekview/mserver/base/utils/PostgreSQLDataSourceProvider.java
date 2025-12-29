@@ -31,13 +31,13 @@ public final class PostgreSQLDataSourceProvider {
 
   private void init() {
     HikariConfig cfg = new HikariConfig();
-    enabled = aMServerConfigManager.getConfig().getMServerDBConfig().getActive();
+    enabled = aMServerConfigManager.getConfig().getDatabaseConfig().getActive();
     if(!enabled) {
       return;
     }
-    cfg.setJdbcUrl(aMServerConfigManager.getConfig().getMServerDBConfig().getUrl());
-    cfg.setUsername(aMServerConfigManager.getConfig().getMServerDBConfig().getUsername());
-    cfg.setPassword(aMServerConfigManager.getConfig().getMServerDBConfig().getPassword());
+    cfg.setJdbcUrl(aMServerConfigManager.getConfig().getDatabaseConfig().getUrl());
+    cfg.setUsername(aMServerConfigManager.getConfig().getDatabaseConfig().getUsername());
+    cfg.setPassword(aMServerConfigManager.getConfig().getDatabaseConfig().getPassword());
 
     // === Pool Sizing (wichtig!) ===
     cfg.setMaximumPoolSize(16); // Sweet Spot für 10k+/min

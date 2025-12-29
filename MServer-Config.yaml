@@ -1,5 +1,12 @@
 #### Server configurations ####
 
+# Film DB
+databaseConfig:
+  active: false
+  url: "jdbc:postgresql://localhost:55432/crawler"
+  username: "crawler"
+  password: "secret"
+
 # The maximum amount of cpu threads to be used.
 maximumCpuThreads: 10
 
@@ -18,20 +25,19 @@ maximumRequestsPerSecond: 999.0
 # If set only these Sender will be crawled all other will be ignored.
 senderIncluded:
   #- ARD
-  - ARTE_DE
-  - ARTE_FR
-  - ARTE_PL
-  - ARTE_IT
-  - ARTE_ES
-  - ARTE_EN
+  #- ARTE_DE
+  #- ARTE_FR
+  #- ARTE_PL
+  #- ARTE_IT
+  #- ARTE_ES
+  #- ARTE_EN
   #- DREISAT
-  #- FUNK
   #- KIKA
-  # - DW
+  #- DW
   #- ORF
   #- PHOENIX
   #- SRF
-  #- SR
+  - SR
   #- ZDF
   
 #SRF,SR,PHONIX,ORF,KIKA,DW,3SAT<
@@ -113,7 +119,17 @@ importFilmlistConfigurations :
       path: "https://verteiler1.mediathekview.de/filme-org.xz"
       format: OLD_JSON_COMPRESSED_XZ
       createDiff: true
-      checkImportListUrl: true    
+      checkImportListUrl: true
+    - active: false
+      path: "https://verteiler1.mediathekview.de/Filmliste-akt.xz"
+      format: OLD_JSON_COMPRESSED_XZ
+      createDiff: false
+      checkImportListUrl: false
+    - active: true
+      path: jdbc
+      format: OLD_JSON
+      createDiff: false
+      checkImportListUrl: false
 
 # film url is consider invalid if the size is below the minSize
 checkImportListUrlMinSize: 5012
@@ -171,7 +187,7 @@ senderConfigurations:
   ARTE_ES:
     maximumSubpages: 6
   KIKA:
-    maximumSubpages: 2
+    maximumSubpages: 4
     maximumRequestsPerSecond: 8.0
   ZDF:
     maximumDaysForSendungVerpasstSection: 21
@@ -205,6 +221,8 @@ copySettings:
     OLD_JSON: copyTarget/filmliste_old_diff.json
     # JSON_COMPRESSED: /var/www/mediathekview/filmlisten/filmliste_diff.json.xz
     OLD_JSON_COMPRESSED_XZ: copyTarget/filmliste_old_diff.json.xz
+
+
 
 #### Logging ####
 logSettings:

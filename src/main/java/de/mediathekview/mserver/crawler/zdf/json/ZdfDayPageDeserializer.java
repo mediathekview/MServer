@@ -5,15 +5,20 @@ import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+
+import de.mediathekview.mserver.base.utils.JsonUtils;
 import de.mediathekview.mserver.base.utils.UrlUtils;
-import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.basic.TopicUrlDTO;
+import de.mediathekview.mserver.crawler.zdf.ZdfConstants;
 
 import java.lang.reflect.Type;
 import java.util.Optional;
 
-public class ZdfDayPageDeserializer implements JsonDeserializer<ZdfDayPageDto> {
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
+public class ZdfDayPageDeserializer implements JsonDeserializer<ZdfDayPageDto> {
+  private static final Logger LOG = LogManager.getLogger(ZdfDayPageDeserializer.class);
   private static final String JSON_ELEMENT_ENTRIES = "http://zdf.de/rels/search/results";
   private static final String JSON_ELEMENT_MAIN_VIDEO_CONTENT = "mainVideoContent";
   private static final String JSON_ELEMENT_TARGET = "http://zdf.de/rels/target";
@@ -84,19 +89,15 @@ public class ZdfDayPageDeserializer implements JsonDeserializer<ZdfDayPageDto> {
     if (mainVideoTarget == null) {
       return Optional.empty();
     }
+    final Optional<String> tvService = JsonUtils.getElementValueAsString(target, "tvService");
+    if (tvService.isPresent() && !ZdfConstants.PARTNER_TO_SENDER.containsKey(tvService.orElse("ZDF"))) {
+      return Optional.empty();
+    }
 
     if (target.has(JSON_ATTRIBUTE_CANONICAL)) {
       String canonical = target.get(JSON_ATTRIBUTE_CANONICAL).getAsString();
       String id = aResultObject.get("id").getAsString().replace("SCMS_", "");
       canonical = UrlUtils.addDomainIfMissing(canonical, apiUrlBase);
-      if(id.contains("video_artede") 
-        || id.contains("video-ard")
-        || id.contains("video-kika")
-        || id.contains("video_phoenix")
-      ) {
-        return Optional.empty();
-      }
-
       final TopicUrlDTO dto = new TopicUrlDTO(id, canonical);
       return Optional.of(dto);
     }

@@ -59,9 +59,6 @@ public class CheckUrlAvailability {
       timeout.set(true);
       return true;
     }
-    if(pFilm.getDefaultUrl().isEmpty()) {
-      System.out.println("asdf");
-    }
     String normalUrl = pFilm.getDefaultUrl().get().getUrl().toString();
     ResponseInfo ri = fsd.getRequestInfo(normalUrl);
 

@@ -10,6 +10,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class FileCopyTask extends UploadTask<FileCopyTarget> {
   private static final Logger LOG = LogManager.getLogger(FileCopyTask.class);
@@ -25,10 +27,10 @@ public class FileCopyTask extends UploadTask<FileCopyTarget> {
   @Override
   protected void upload() {
     try {
-      if (Files.exists(uploadTarget.getTargetPath())) {
-        printMessage(
-            ServerMessages.FILE_COPY_TARGET_EXISTS,
-            uploadTarget.getTargetPath().toAbsolutePath().toString());
+      Path target = uploadTarget.getTargetPath();
+      if (Files.exists(target)) {
+        Path backup = backupExistingFile(target);
+        LOG.debug("CopyTask found existing file - rename existing file to {} before overwrite", backup.getFileName());
       }
       Files.copy(sourcePath, uploadTarget.getTargetPath(), StandardCopyOption.REPLACE_EXISTING);
     } catch (final IOException ioException) {
@@ -36,4 +38,25 @@ public class FileCopyTask extends UploadTask<FileCopyTarget> {
       printMessage(ServerMessages.FILE_COPY_ERROR);
     }
   }
+  
+  private Path backupExistingFile(Path target) throws IOException {
+    String fileName = target.getFileName().toString();
+    Path dir = target.getParent();
+
+    String date = LocalDate.now()
+        .format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+
+    Path backup = dir.resolve(fileName + "." + date);
+
+    int counter = 1;
+    while (Files.exists(backup)) {
+      backup = dir.resolve(fileName + "." + date + "." + counter);
+      counter++;
+    }
+
+    Files.move(target, backup);
+    
+    return backup;
+  }
+
 }

@@ -110,7 +110,10 @@ public class ZdfFilmDetailDeserializer implements JsonDeserializer<Optional<ZdfF
     final Map<String, String> downloadUrl = parseDownloadUrls(mainVideoTarget);
     
     if (title.isPresent()) {
-      final Optional<String> id = JsonUtils.getElementValueAsString(aJsonObject, "id");
+      Optional<String> id = JsonUtils.getElementValueAsString(aJsonObject, "externalId");
+      if (id.isPresent()) {
+        id = Optional.of(id.get().replace("SCMS_", ""));
+      }
       final Optional<String> selfId = JsonUtils.getElementValueAsString(aJsonObject, "self");
       if(id.isEmpty() && selfId.isEmpty()) {
         System.out.println("check");

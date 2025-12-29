@@ -3,21 +3,19 @@ package de.mediathekview.mserver.base.config;
 import java.util.Objects;
 
 public class MServerDBConfig {
-  private final Boolean active;
-  private final String url;
-  private final String username;
-  private final String password;
+  private boolean active;
+  private String url;
+  private String username;
+  private String password;
   
   public MServerDBConfig() {
-    super();
     active = true;
-    url = "jdbc:postgresql://OscarDS:55432/crawler";
+    url = "jdbc:postgresql://postgresMV:55432/crawler";
     username = "crawler";
     password = "secret";
   }
   
   public MServerDBConfig(Boolean active, String url, String username, String password) {
-    super();
     this.active = active;
     this.url = url;
     this.username = username;
@@ -37,6 +35,23 @@ public class MServerDBConfig {
   }
   public String getPassword() {
     return password;
+  }
+  
+
+  public void setActive(Boolean active) {
+    this.active = active;
+  }
+
+  public void setUrl(String url) {
+    this.url = url;
+  }
+
+  public void setUsername(String username) {
+    this.username = username;
+  }
+
+  public void setPassword(String password) {
+    this.password = password;
   }
 
   @Override

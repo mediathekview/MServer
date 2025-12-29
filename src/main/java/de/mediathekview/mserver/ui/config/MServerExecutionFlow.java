@@ -46,6 +46,8 @@ public class MServerExecutionFlow {
   void startCrawlerFlow() {
     try {
       manager.start();
+      manager.filterFilmlist();
+      manager.storeFilmsToDB();
       manager.importFilmlist();
       manager.importLivestreamFilmlist();
     } finally {
@@ -55,9 +57,6 @@ public class MServerExecutionFlow {
       manager.writeHashFile();
       manager.writeIdFile();
       manager.copyFilmlist();
-      //
-      manager.storeFilmsToDB();
-      //
       manager.stop();
     }
   }
@@ -87,11 +86,11 @@ public class MServerExecutionFlow {
     LOG.debug("allVideoUrls loaded {} entries", allVideoUrls.size());
     manager.getFilmlist().getFilms().entrySet().parallelStream()
       .forEach(entry -> {
-          if (allVideoUrls.contains(entry.getValue().getDefaultUrl().get().getUrl().toString())) {
+          if (allVideoUrls.contains(entry.getValue().getSender().name()+entry.getValue().getDefaultUrl().get().getUrl().toString())) {
             manager.getFilmlist().getFilms().remove(entry.getKey());
           }
       });
-    LOG.debug("removed to {} entries", manager.getFilmlist().getFilms().entrySet().size());
+    LOG.debug("reduced to {} entries", manager.getFilmlist().getFilms().entrySet().size());
     //manager.getFilmlist().getFilms().entrySet().removeIf(entry -> filmDBService.videoExistsByUrl(entry.getValue()));
     manager.getFilmlist().getFilms().entrySet().forEach(entry -> {
         var film = entry.getValue();

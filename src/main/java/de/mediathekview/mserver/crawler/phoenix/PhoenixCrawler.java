@@ -49,7 +49,7 @@ public class PhoenixCrawler extends AbstractCrawler {
       Queue<CrawlerUrlDTO> showsFiltered = this.filterExistingFilms(shows, v -> v.getUrl().substring(v.getUrl().lastIndexOf("/")+1));
       //
       printMessage(
-          ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), shows.size());
+          ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), showsFiltered.size());
       getAndSetMaxCount(showsFiltered.size());
 
       return new PhoenixFilmDetailTask(

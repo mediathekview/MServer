@@ -1,0 +1,18 @@
+# all docker command
+
+# run PG
+docker compose up -d postgresMV
+
+# cron 01 01 long run
+docker compose run -d --rm -e MSERVER_OPTS="--config /config/MServer-Config-R1.yaml" mserver-r1
+
+# cron 06-22 1,31 short run
+docker compose run -d --rm -e MSERVER_OPTS="--config /config/MServer-Config-R2.yaml" mserver-r2
+
+# cron 22 55 url check
+docker compose run -d --rm -e MSERVER_OPTS="--config /config/MServer-Config-R2.yaml --flow checkAvailability" mserver-checkUrls
+
+# on demand - do not run this unless you know what you are doing!
+docker compose run -d --rm -e MSERVER_OPTS="--config /config/MServer-Config-R2.yaml --flow importFilmlistIntoDB" mserver-r3
+
+

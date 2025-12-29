@@ -110,7 +110,8 @@ public class FilmDBService {
   }
 
   public Optional<Filmlist> readFilmlistFromDB(String where) {
-    LOG.debug("fetch data from DB");
+    long start = System.currentTimeMillis();
+    LOG.debug("import filmlist from DB");
     int readCounter = 0;
     Filmlist list = new Filmlist();
     try (Connection con = dataSource.getConnection();
@@ -124,7 +125,7 @@ public class FilmDBService {
              readCounter++;
          }
        }
-       LOG.debug("Filmlist read {} records and imported {} records", readCounter, list.getFilms().size());
+       LOG.debug("done reading in {} sec for {} elements resulting in {} elements", ((System.currentTimeMillis()-start)/1000), readCounter, list.getFilms().size());
        return Optional.of(list);
     } catch (Exception e) {
       LOG.error(e);
@@ -200,7 +201,8 @@ public class FilmDBService {
   public HashSet<String> getAllVideoUrls() {
     HashSet<String> allVideoUrls = new HashSet<String>();
     String sql = """
-        SELECT 
+        SELECT
+          data ->> 'sender' sender,
           data -> 'urls' -> 'SMALL' ->> 'url' aSmall,
           data -> 'urls' -> 'NORMAL' ->> 'url' aNormal,
           data -> 'urls' -> 'HD' ->> 'url' aHD
@@ -209,9 +211,9 @@ public class FilmDBService {
     try (Connection con = dataSource.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
       try (ResultSet rs = ps.executeQuery()) {
         while (rs.next()) {
-          allVideoUrls.add(rs.getString(1));
-          allVideoUrls.add(rs.getString(2));
-          allVideoUrls.add(rs.getString(3));
+          allVideoUrls.add(rs.getString(1)+rs.getString(2));
+          allVideoUrls.add(rs.getString(1)+rs.getString(3));
+          allVideoUrls.add(rs.getString(1)+rs.getString(4));
         }
       }
     } catch (SQLException e) {
