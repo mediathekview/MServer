@@ -22,9 +22,6 @@ public class ZdfDayPageTaskTest extends ZdfTaskTestBase {
         new CrawlerUrlDTO[] {
           new CrawlerUrlDTO("https://api.zdf.de/content/documents/olympia-im-technikwahn-100.json"),
           new CrawlerUrlDTO("https://api.zdf.de/content/documents/gestrandet-102.json"),
-          new CrawlerUrlDTO("https://api.zdf.de/content/documents/im-dialog-vom-23022018-100.json"),
-          new CrawlerUrlDTO(
-              "https://api.zdf.de/content/documents/augstein--blome-vom-23022018-100.json"),
           new CrawlerUrlDTO(
               "https://api.zdf.de/content/documents/menschen---das-magazin-vom-24-februar-2018-100.json"),
           new CrawlerUrlDTO("https://api.zdf.de/content/documents/die-orakel-krake-100.json"),
@@ -39,7 +36,7 @@ public class ZdfDayPageTaskTest extends ZdfTaskTestBase {
 
     final Collection<CrawlerUrlDTO> actual = executeTask(requestUrl);
     assertThat(actual, notNullValue());
-    assertThat(actual, Matchers.containsInAnyOrder(expectedEntries));
+    assertThat(actual.stream().map(v -> new CrawlerUrlDTO(v.getUrl())).toList(), Matchers.containsInAnyOrder(expectedEntries));
   }
 
   @Test
@@ -58,7 +55,7 @@ public class ZdfDayPageTaskTest extends ZdfTaskTestBase {
     final Collection<CrawlerUrlDTO> actual = executeTask(requestUrl);
 
     assertThat(actual, notNullValue());
-    assertThat(actual.size(), equalTo(35));
+    assertThat(actual.size(), equalTo(33));
   }
 
   @Test

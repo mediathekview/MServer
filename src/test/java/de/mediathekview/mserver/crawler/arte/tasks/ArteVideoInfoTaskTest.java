@@ -34,7 +34,7 @@ public class ArteVideoInfoTaskTest extends WireMockTestBase {
   }
   
   private void assertEntry(ArteVideoInfoDto act, Optional<String>[] expected) {
-    assertEquals(act.getId(), expected[0]);
+    assertEquals(act.getId(), expected[0].get());
     assertEquals(act.getKind(), expected[1]);
     assertEquals(act.getTitle(), expected[2]);
     assertEquals(act.getSubtitle(), expected[3]);

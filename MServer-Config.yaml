@@ -125,7 +125,7 @@ importFilmlistConfigurations :
       format: OLD_JSON_COMPRESSED_XZ
       createDiff: false
       checkImportListUrl: false
-    - active: true
+    - active: false
       path: jdbc
       format: OLD_JSON
       createDiff: false
