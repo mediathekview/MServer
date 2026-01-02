@@ -105,7 +105,7 @@ public class MServerExecutionFlow {
   }
   void checkAvailability() {
     FilmDBService filmDBService = new FilmDBService(manager.getExecutorService(), 2000);
-    String condition = "where last_url_check IS NULL OR last_url_check < NOW() - INTERVAL '1 DAY'";
+    String condition = "WHERE last_url_check < NOW() - INTERVAL '3' DAY LIMIT 400000";
     Optional<Filmlist> dbFilmlist = filmDBService.readFilmlistFromDB(condition);
     dbFilmlist.ifPresent(filmlist -> manager.getFilmlist().addAllFilms(filmlist.getFilms().values()));
     CheckUrlAvailability checkUrlAvailability = new CheckUrlAvailability(

@@ -10,7 +10,6 @@ import org.apache.logging.log4j.Logger;
 
 import de.mediathekview.mserver.daten.Film;
 import de.mediathekview.mserver.daten.Filmlist;
-import de.mediathekview.mserver.daten.Resolution;
 import de.mediathekview.mserver.daten.Sender;
 import de.mediathekview.mserver.base.utils.FileSizeDeterminer.ResponseInfo;
 

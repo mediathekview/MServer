@@ -142,20 +142,18 @@ public class FilmDBService {
     }
     try {
       List<Future<List<T>>> futures = new ArrayList<>();
-      
+      // sort to avoid deadlocks
       List<T> allVideos = videos.stream()
           .sorted(Comparator.comparing(idExtractor))
           .toList();
-
       for (int i = 0; i < allVideos.size(); i += batchSize) {
         int from = i;
         int to = Math.min(i + batchSize, allVideos.size());
         List<T> batch = allVideos.subList(from, to);
-
         futures.add(executorService.submit(() -> {
           List<T> newVideos = new ArrayList<>();
-
-          String sql = "UPDATE filme SET last_seen = now() WHERE id = ?";
+          // update every 7 days
+          String sql = "UPDATE filme SET last_seen = now() WHERE id = ? AND last_seen - last_update <= interval '7' DAY";
 
           try (Connection con = dataSource.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
 
@@ -266,12 +264,11 @@ public class FilmDBService {
     int successCounter = 0;
 
     String sql = """
-            INSERT INTO filme (id, data, created_at, last_update)
-            VALUES (?, ?::jsonb, now(), now())
+            INSERT INTO filme (id, data)
+            VALUES (?, ?::jsonb)
             ON CONFLICT (id) DO UPDATE
             SET data = EXCLUDED.data,
-                last_update = now(),
-                created_at = filme.created_at
+                last_update = now()
         """;
 
     try (Connection con = dataSource.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
