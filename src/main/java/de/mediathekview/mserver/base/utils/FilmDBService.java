@@ -155,7 +155,7 @@ public class FilmDBService {
         futures.add(executorService.submit(() -> {
           List<T> newVideos = new ArrayList<>();
 
-          String sql = "UPDATE filme SET last_update = now() WHERE id = ?";
+          String sql = "UPDATE filme SET last_seen = now() WHERE id = ?";
 
           try (Connection con = dataSource.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
 
