@@ -78,10 +78,11 @@ public abstract class AbstractCrawler implements Callable<Set<Film>> {
   public <T> Queue<T> filterExistingFilms(Collection<T> input, Function<T, String> idExtractor) {
     return new ArrayDeque<>(
         filmDBService.filterNewVideos(
+                    getSender(),
                     new ArrayList<>(input),
                     idExtractor
             )
-    );
+    ); 
   }
     
   @Override

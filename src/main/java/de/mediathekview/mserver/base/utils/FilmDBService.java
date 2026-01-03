@@ -7,6 +7,7 @@ import de.mediathekview.mserver.daten.Film;
 import de.mediathekview.mserver.daten.Filmlist;
 import de.mediathekview.mserver.daten.GsonDurationAdapter;
 import de.mediathekview.mserver.daten.GsonLocalDateTimeAdapter;
+import de.mediathekview.mserver.daten.Sender;
 
 import javax.sql.DataSource;
 
@@ -106,16 +107,16 @@ public class FilmDBService {
   /////////////////////////////////////////////////////////////////////////////////////////  
 
   public Optional<Filmlist> readFilmlistFromDB() {
-    return readFilmlistFromDB("");
+    return readFilmlistFromDB("", "");
   }
 
-  public Optional<Filmlist> readFilmlistFromDB(String where) {
+  public Optional<Filmlist> readFilmlistFromDB(String where, String limit) {
     long start = System.currentTimeMillis();
     LOG.debug("import filmlist from DB");
     int readCounter = 0;
     Filmlist list = new Filmlist();
     try (Connection con = dataSource.getConnection();
-        PreparedStatement ps = con.prepareStatement("SELECT data FROM filme " + where + " ORDER BY data ->> 'sender', data ->> 'thema', data ->> 'titel'");
+        PreparedStatement ps = con.prepareStatement("SELECT data FROM filme " + where + " ORDER BY data ->> 'sender', data ->> 'thema', data ->> 'titel' " + limit);
         ) {
        ps.setFetchSize(50000);
        try (ResultSet rs = ps.executeQuery()) {
@@ -136,7 +137,7 @@ public class FilmDBService {
   /////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////////////////////////////////////////////////////////////////
   
-  public <T> List<T> filterNewVideos(List<T> videos, Function<T, String> idExtractor) {
+  public <T> List<T> filterNewVideos(Sender sender, List<T> videos, Function<T, String> idExtractor) {
     if(!PostgreSQLDataSourceProvider.isEnabled()) {
       return videos;
     }
@@ -183,7 +184,7 @@ public class FilmDBService {
       for (Future<List<T>> f : futures) {
         result.addAll(f.get());
       }
-      LOG.debug("Filtered {} (in {} out {})",(videos.size()-result.size()), videos.size(), result.size());
+      LOG.debug("Filtered {} in {} (in {} vs out {})",(videos.size()-result.size()), sender.getName(), videos.size(), result.size());
       return result;
     } catch (Exception e) {
       LOG.error("{}", e);
