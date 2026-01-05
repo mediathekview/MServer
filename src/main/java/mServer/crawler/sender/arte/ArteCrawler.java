@@ -50,7 +50,7 @@ public class ArteCrawler extends MediathekCrawler {
 
       final ArteVideoInfoTask aArteRestVideoInfoTask;
       // DO NOT overload - maximumUrlsPerTask used to reduce threads to 4
-      aArteRestVideoInfoTask = new ArteVideoInfoTask(this, videoUrls);
+      aArteRestVideoInfoTask = new ArteVideoInfoTask(this, videoUrls, getMaxPagesForOverview(getLanguage().toString().toLowerCase()));
       final ConcurrentLinkedQueue<ArteVideoInfoDto> videos = new ConcurrentLinkedQueue<>();
       videos.addAll(aArteRestVideoInfoTask.fork().join());
       //
@@ -71,14 +71,11 @@ public class ArteCrawler extends MediathekCrawler {
   }
 
   private ConcurrentLinkedQueue<TopicUrlDTO> createVideosQueue(String language) {
-    int maxPages = getMaxPagesForOverview(language);
     final ConcurrentLinkedQueue<TopicUrlDTO> root = new ConcurrentLinkedQueue<>();
     String rootUrl = String.format(ArteConstants.VIDEOS_URL, 1, language);
-    root.add(new TopicUrlDTO("all videos1", rootUrl));
-    if (maxPages >= 100) {
-      String rootUrl2 = String.format(ArteConstants.VIDEOS_URL_ALT, 1, language);
-      root.add(new TopicUrlDTO("all videos2", rootUrl2));
-    }
+    root.add(new TopicUrlDTO("all videos sorted up", rootUrl));
+    String rootUrl2 = String.format(ArteConstants.VIDEOS_URL_ALT, 1, language);
+    root.add(new TopicUrlDTO("all videos sorted down", rootUrl2));
     return root;
   }
 
@@ -86,14 +83,13 @@ public class ArteCrawler extends MediathekCrawler {
     final int maxAvailablePages = getNumberOfAvailablePages(lang);
     final int configuredMaxPages = getMaximumSubpages();
     if (configuredMaxPages > maxAvailablePages) {
-      return Math.min(configuredMaxPages, maxAvailablePages / 2);
+      return Math.min(ArteConstants.MAX_POSSIBLE_SUBPAGES, maxAvailablePages / 2);
     } else {
-      return Math.min(configuredMaxPages, configuredMaxPages / 2);
+      return Math.min(ArteConstants.MAX_POSSIBLE_SUBPAGES, configuredMaxPages / 2);
     }
   }
 
   private int getNumberOfAvailablePages(String lang) {
-    final int naturalLimit = Math.min(100, getMaximumSubpages());
     try {
       String rootUrl = String.format(ArteConstants.VIDEOS_URL, 1, lang);
       String[] path= {"meta", "videos", "pages"};
@@ -110,14 +106,14 @@ public class ArteCrawler extends MediathekCrawler {
     } catch (IOException e) {
       LOG.error("getMaxPagesForOverview", e);
     }
-    return naturalLimit;
+    return ArteConstants.MAX_POSSIBLE_SUBPAGES;
   }
 
   private int getMaximumSubpages() {
     if (CrawlerTool.loadLongMax()) {
-      return 10;
+      return 30;
     } else {
-      return 1;
+      return 10;
     }
   }
 }

@@ -29,10 +29,11 @@ public class ArteVideoInfoTask
   private static final long serialVersionUID = 1L;
   protected final transient Logger log = LogManager.getLogger(this.getClass());
   protected transient Optional<AbstractRecursivConverterTask<ArteVideoInfoDto, TopicUrlDTO>> nextPageTask = Optional.empty();
-
+  protected int maxSubpages;
   
-  public ArteVideoInfoTask(MediathekReader crawler, ConcurrentLinkedQueue<TopicUrlDTO> urlToCrawlDTOs) {
+  public ArteVideoInfoTask(MediathekReader crawler, ConcurrentLinkedQueue<TopicUrlDTO> urlToCrawlDTOs, int maxSubpages) {
     super(crawler, urlToCrawlDTOs, Optional.of(ArteConstants.API_TOKEN));
+    this.maxSubpages = maxSubpages;
   }
   
   @Override
@@ -49,9 +50,8 @@ public class ArteVideoInfoTask
     if (aResponseObj.getNextPage().isEmpty()) {
       return;
     }
-    int maxPages = Math.min(100, getMaximumSubpages());
-    if (aResponseObj.getNextPage().get().contains("age="+maxPages)) {
-      log.debug("stop at page url {} due to limit {}", aResponseObj.getNextPage().get(), maxPages);
+    if (aResponseObj.getNextPage().get().contains("age="+maxSubpages)) {
+      log.debug("stop at page url {} due to limit {}", aResponseObj.getNextPage().get(), maxSubpages);
       return;
     }
     
@@ -59,14 +59,6 @@ public class ArteVideoInfoTask
     nextPageLinks.add(new TopicUrlDTO(aResponseObj.getNextPage().get(), aResponseObj.getNextPage().get()));
     nextPageTask = Optional.of(createNewOwnInstance(nextPageLinks));
     nextPageTask.get().fork();
-  }
-
-  private int getMaximumSubpages() {
-    if (CrawlerTool.loadLongMax()) {
-      return 10;
-    } else {
-      return 3;
-    }
   }
 
   protected void postProcessingElements(Set<ArteVideoInfoDto> elements) {
@@ -86,7 +78,7 @@ public class ArteVideoInfoTask
   @Override
   protected AbstractRecursivConverterTask<ArteVideoInfoDto, TopicUrlDTO> createNewOwnInstance(
       ConcurrentLinkedQueue<TopicUrlDTO> aElementsToProcess) {
-    return new ArteVideoInfoTask(crawler, aElementsToProcess);
+    return new ArteVideoInfoTask(crawler, aElementsToProcess, maxSubpages);
   }
 
   @Override
