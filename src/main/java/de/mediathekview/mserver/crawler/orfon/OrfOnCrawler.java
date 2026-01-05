@@ -3,6 +3,7 @@ package de.mediathekview.mserver.crawler.orfon;
 import de.mediathekview.mserver.daten.Film;
 import de.mediathekview.mserver.daten.Sender;
 import de.mediathekview.mserver.base.messages.listener.MessageListener;
+import de.mediathekview.mserver.base.utils.DateUtils;
 import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.base.messages.ServerMessages;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
@@ -17,10 +18,9 @@ import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Queue;
 import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -31,7 +31,6 @@ import java.util.concurrent.RecursiveTask;
 
 public class OrfOnCrawler extends AbstractCrawler {
   private static final Logger LOG = LogManager.getLogger(OrfOnCrawler.class);
-  private static final DateTimeFormatter DAY_PAGE_DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
   public OrfOnCrawler(
       final ForkJoinPool aForkJoinPool,
@@ -92,14 +91,15 @@ public class OrfOnCrawler extends AbstractCrawler {
     return dayTaskFilms;
   }
   
+  
+  
   private Queue<OrfOnBreadCrumsUrlDTO> createDayUrlsToCrawl() {
     final Queue<OrfOnBreadCrumsUrlDTO> dayUrlsToCrawl = new ConcurrentLinkedQueue<>();
-    final LocalDateTime now = LocalDateTime.now();
-    for (int i = 0; i <= crawlerConfig.getMaximumDaysForSendungVerpasstSection(); i++) {
-      final String day = now.minusDays(i).format(DAY_PAGE_DATE_FORMATTER);
-      final String url = OrfOnConstants.SCHEDULE + "/" + day;
-      dayUrlsToCrawl.offer(new OrfOnBreadCrumsUrlDTO(day,url));
-    }
+    final List<String> days = DateUtils.generateDaysToCrawl(crawlerConfig);
+    days.forEach( dateString -> {
+      final String url = OrfOnConstants.SCHEDULE + "/" + dateString;
+      dayUrlsToCrawl.offer(new OrfOnBreadCrumsUrlDTO(dateString, url));
+    });
     return dayUrlsToCrawl;
   }
   

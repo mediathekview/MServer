@@ -3,6 +3,7 @@ package de.mediathekview.mserver.crawler.srf;
 import de.mediathekview.mserver.daten.Film;
 import de.mediathekview.mserver.daten.Sender;
 import de.mediathekview.mserver.base.messages.listener.MessageListener;
+import de.mediathekview.mserver.base.utils.DateUtils;
 import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.base.messages.ServerMessages;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
@@ -15,11 +16,9 @@ import de.mediathekview.mserver.crawler.srf.tasks.SrfTopicsOverviewTask;
 import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Queue;
 import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -30,9 +29,6 @@ import java.util.concurrent.RecursiveTask;
 public class SrfCrawler extends AbstractCrawler {
 
   private static final Logger LOG = LogManager.getLogger(SrfCrawler.class);
-
-  private static final DateTimeFormatter ISO_DATE_FORMAT =
-      DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
   public SrfCrawler(
       final ForkJoinPool aForkJoinPool,
@@ -93,15 +89,11 @@ public class SrfCrawler extends AbstractCrawler {
 
   private Queue<CrawlerUrlDTO> createScheduleUrls() {
     final Queue<CrawlerUrlDTO> scheduleUrls = new ConcurrentLinkedQueue<>();
-    final LocalDateTime now = LocalDateTime.now();
-    for (int i = 0; i <= crawlerConfig.getMaximumDaysForSendungVerpasstSection(); i++) {
-      final String day = now.minusDays(i).format(ISO_DATE_FORMAT);
-      final String url = String.format(SrfConstants.SCHEDULE_PER_DAY, day);
+    final List<String> days = DateUtils.generateDaysToCrawl(crawlerConfig);
+    days.forEach( dateString -> {
+      final String url = String.format(SrfConstants.SCHEDULE_PER_DAY, dateString);
       scheduleUrls.offer(new CrawlerUrlDTO(url));
-    }
-    LOG.debug("SRF crawler for schedule {} to {}",
-            now.minusDays(crawlerConfig.getMaximumDaysForSendungVerpasstSection()).format(ISO_DATE_FORMAT),
-            now.minusDays(0).format(ISO_DATE_FORMAT));
+    });
     return scheduleUrls;
   }
   

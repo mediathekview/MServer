@@ -3,6 +3,7 @@ package de.mediathekview.mserver.crawler.zdf;
 import de.mediathekview.mserver.daten.Film;
 import de.mediathekview.mserver.daten.Sender;
 import de.mediathekview.mserver.base.messages.listener.MessageListener;
+import de.mediathekview.mserver.base.utils.DateUtils;
 import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.base.messages.ServerMessages;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
@@ -15,12 +16,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayDeque;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
@@ -113,21 +112,11 @@ public abstract class AbstractZdfCrawler extends AbstractCrawler {
 
   private Queue<CrawlerUrlDTO> getDayUrls() {
     final Queue<CrawlerUrlDTO> urls = new ConcurrentLinkedQueue<>();
-    for (int i = 0;
-        i
-            <= crawlerConfig.getMaximumDaysForSendungVerpasstSection()
-                + crawlerConfig.getMaximumDaysForSendungVerpasstSectionFuture();
-        i++) {
-
-      final LocalDateTime local =
-          LocalDateTime.now()
-              .plus(crawlerConfig.getMaximumDaysForSendungVerpasstSectionFuture(), ChronoUnit.DAYS)
-              .minus(i, ChronoUnit.DAYS);
-      final String date = local.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-      final String url = String.format(getUrlDay(), date, date);
+    final List<String> days = DateUtils.generateDaysToCrawl(crawlerConfig);
+    days.forEach( dateString -> {
+      final String url = String.format(getUrlDay(), dateString, dateString);
       urls.add(new CrawlerUrlDTO(url));
-    }
-
+    });
     return urls;
   }
 

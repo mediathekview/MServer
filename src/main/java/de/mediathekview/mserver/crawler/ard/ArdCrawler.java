@@ -3,6 +3,7 @@ package de.mediathekview.mserver.crawler.ard;
 import de.mediathekview.mserver.daten.Film;
 import de.mediathekview.mserver.daten.Sender;
 import de.mediathekview.mserver.base.messages.listener.MessageListener;
+import de.mediathekview.mserver.base.utils.DateUtils;
 import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.base.messages.ServerMessages;
 import de.mediathekview.mserver.crawler.ard.tasks.*;
@@ -12,10 +13,10 @@ import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Queue;
 import java.util.Set;
 import java.util.concurrent.*;
@@ -41,17 +42,13 @@ public class ArdCrawler extends AbstractCrawler {
 
   private Queue<CrawlerUrlDTO> createDayUrlsToCrawl() {
     final Queue<CrawlerUrlDTO> dayUrlsToCrawl = new ConcurrentLinkedQueue<>();
-
-    final LocalDateTime now = LocalDateTime.now();
-    for (int i = 0; i <= crawlerConfig.getMaximumDaysForSendungVerpasstSection(); i++) {
-      final String day = now.minusDays(i).format(DAY_PAGE_DATE_FORMATTER);
-
+    final List<String> days = DateUtils.generateDaysToCrawl(crawlerConfig);
+    days.forEach( dateString -> {
       for (final String client : ArdConstants.CLIENTS) {
-        final String url =
-            String.format(ArdConstants.DAY_PAGE_URL, day, client);
+        final String url = String.format(ArdConstants.DAY_PAGE_URL, dateString, client);
         dayUrlsToCrawl.offer(new CrawlerUrlDTO(url));
       }
-    }
+    });
     return dayUrlsToCrawl;
   }
 
