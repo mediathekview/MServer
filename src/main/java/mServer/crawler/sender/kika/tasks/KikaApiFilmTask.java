@@ -108,12 +108,16 @@ public class KikaApiFilmTask extends AbstractJsonRestTask<DatenFilm, KikaApiVide
         aDTO.getWebsite().orElse(""),
         aDTO.getTitle().get(),
         videoUrls.get(Resolution.NORMAL),
-        ((subs.isEmpty()) ? "" : subs.toArray()[0].toString()),
+        "",
         airedDate.get().format(DateTimeFormatter.ofPattern("dd.MM.yyyy")),
         airedDate.get().format(DateTimeFormatter.ofPattern("HH:mm:ss")),
         parseDuration(aDTO, aDTO.getDuration()).get().getSeconds(),
         aDTO.getDescription().orElse("")
      );
+    //
+    if (!subs.isEmpty()) {
+      CrawlerTool.addUrlSubtitle(aFilm, subs.toArray()[0].toString());
+    }
     //
     if (videoUrls.containsKey(Resolution.SMALL)) {
       CrawlerTool.addUrlKlein(aFilm, videoUrls.get(Resolution.SMALL));
