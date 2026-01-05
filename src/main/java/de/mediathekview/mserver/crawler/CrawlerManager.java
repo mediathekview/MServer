@@ -217,8 +217,9 @@ public class CrawlerManager extends AbstractManager {
       }
       //
       final Filmlist difflist = new Filmlist(UUID.randomUUID(), LocalDateTime.now());
-      importedFilmlist.ifPresent(value -> Film.addAllToFilmlist(Film.mergeTwoFilmlists(filmlist,value),difflist));
+      importedFilmlist.ifPresent(value -> Film.addAllToFilmlist(Film.mergeTwoFilmlists(filmlist,value), difflist));
       if (importFilmlistConfiguration.isCreateDiff()) {
+        difflist.getFilms().entrySet().removeIf(entry -> entry.getValue().getThema().equals("Livestream") && entry.getValue().getTitel().endsWith("Livestream") && entry.getValue().getTime().getHour() == 0);
         Film.addAllToFilmlist(difflist, differenceList);
       }
     } catch (final IOException ioException) {
