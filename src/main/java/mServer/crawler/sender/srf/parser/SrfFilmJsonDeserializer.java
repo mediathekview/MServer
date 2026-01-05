@@ -57,9 +57,24 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<DatenF
             replaceCharForUrl(aTheme), replaceCharForUrl(aTitle), aId);
   }
 
-  private static String replaceCharForUrl(String aValue) {
-    return aValue.toLowerCase().replace(' ', '-').replace('.', '-').replace(',', '-').replace(":", "").replace("\"", "")
-            .replace("--", "-");
+  private static String replaceCharForUrl(final String aValue) {
+    return aValue
+        .toLowerCase()
+        .replace(' ', '-')
+        .replace('.', '-')
+        .replace(',', '-')
+        .replace(":", "")
+        .replace("\"", "")
+        .replace("|", "")
+        .replace("#", "")
+        .replace("?", "")
+        .replace("%", "")
+        .replace("&", "")
+        .replace("`", "")
+        .replace("«", "")
+        .replace("»", "")
+        .replace(" ", "")
+        .replace("--", "-");
   }
 
   private static String parseShow(JsonObject aJsonObject) {
