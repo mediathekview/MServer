@@ -6,6 +6,7 @@ configs:
           id TEXT PRIMARY KEY,          -- eindeutige Film-ID
           data JSONB NOT NULL,          -- JSON-Daten des Films
           created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+          last_seen TIMESTAMPTZ NOT NULL DEFAULT now().
           last_update TIMESTAMPTZ NOT NULL DEFAULT now(),
           last_url_check TIMESTAMPTZ NOT NULL DEFAULT now()
       );
