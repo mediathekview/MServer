@@ -45,7 +45,8 @@ public class DwFilmDetailTask extends DWTaskBase<Film, CrawlerUrlDTO> {
     } catch (Exception e) {
       LOG.error("error processing {} ", aDTO.getUrl(), e);
     }
-    if (filmDetailDtoOptional.isEmpty()) {
+    // Optional can be null if response code is 200 and response body is empty
+    if (filmDetailDtoOptional == null|| filmDetailDtoOptional.isEmpty()) {
       crawler.incrementAndGetErrorCount();
       crawler.updateProgress();
       return;
