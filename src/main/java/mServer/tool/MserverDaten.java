@@ -77,6 +77,22 @@ public class MserverDaten {
     }
   }
 
+  public static double getArteRateLimit() {
+    String rateLimitValue = system[MserverKonstanten.SYSTEM_ARTE_RATELIMIT_NR];
+    if (rateLimitValue == null || rateLimitValue.trim().equals("")) {
+      return 6.0;
+    }
+
+    try {
+      double rateLimit = Double.parseDouble(system[MserverKonstanten.SYSTEM_ARTE_RATELIMIT_NR].trim());
+      MserverLog.systemMeldung("ARTE rate limit: " + Double.toString(rateLimit));
+      return rateLimit;
+    } catch (NumberFormatException ignored) {
+      MserverLog.fehlerMeldung(963487218, MserverDaten.class.getName(), new String[]{"ARTE rate limit falsch: ", system[MserverKonstanten.SYSTEM_ARTE_RATELIMIT_NR]});
+      return 6.0;
+    }
+  }
+
   public static void setBasisVerzeichnis(String b) {
     if (b.isEmpty()) {
       basisverzeichnis = getBasisVerzeichnis(b, true);

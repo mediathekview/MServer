@@ -8,7 +8,6 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 import de.mediathekview.mlib.tool.Log;
 import mServer.crawler.sender.MediathekReader;
-import mServer.crawler.sender.base.AbstractJsonRestTask;
 import mServer.crawler.sender.base.AbstractRecursivConverterTask;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -59,7 +58,7 @@ public class ArteVideoLinkTask
 
   @Override
   protected void handleHttpError(ArteVideoInfoDto dto, URI url, Response response) {
-    Log.errorLog(89723823, "http error: " + response.getStatus() + " " + url);
+    Log.logHttpError(url.toString(), response.getStatus());
     log.fatal("A HTTP error {} occurred when getting REST VideoLink information from: \"{}\".", response.getStatus(), url);
   }
 }

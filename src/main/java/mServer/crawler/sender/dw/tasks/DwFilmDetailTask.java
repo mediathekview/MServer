@@ -46,7 +46,8 @@ public class DwFilmDetailTask extends DWTaskBase<DatenFilm, CrawlerUrlDTO> {
     } catch (Exception e) {
       LOG.error("error processing {} ", aDTO.getUrl(), e);
     }
-    if (!filmDetailDtoOptional.isPresent()) {
+    // Optional can be null if response code is 200 and response body is empty
+    if (filmDetailDtoOptional == null|| filmDetailDtoOptional.isEmpty()) {
       FilmeSuchen.listeSenderLaufen.inc(crawler.getSendername(), RunSender.Count.FEHLER);
       FilmeSuchen.listeSenderLaufen.inc(crawler.getSendername(), RunSender.Count.FEHLVERSUCHE);
       return;

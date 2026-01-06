@@ -101,9 +101,11 @@ public class ArteCrawler extends MediathekCrawler {
       JsonElement element = jsoupConnection.requestBodyAsJsonElement(rootUrl, headers);
       Optional<Integer> pages = JsonUtils.getElementValueAsInteger(element, path);
       if (pages.isPresent()) {
+        Log.sysLog("ARTE."+ lang + ": number of pages: " + pages.get());
         return pages.get();
       }
     } catch (IOException e) {
+      Log.errorLog(45983790, e);
       LOG.error("getMaxPagesForOverview", e);
     }
     return ArteConstants.MAX_POSSIBLE_SUBPAGES;

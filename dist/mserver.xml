@@ -31,6 +31,7 @@
     <system-proxy-port></system-proxy-port>
     <system-debug>1</system-debug>
     <sr-rate-limit>1.0</sr-rate-limit>
+    <arte-rate-limit>6.0</arte-rate-limit>
 </system>
 
 

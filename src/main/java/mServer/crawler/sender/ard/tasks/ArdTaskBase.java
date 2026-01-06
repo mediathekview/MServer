@@ -62,7 +62,7 @@ public abstract class ArdTaskBase<T, D extends CrawlerUrlDTO> extends AbstractRe
                 + target.getUri().toString()
                 + " failed: "
                 + response.getStatus();
-        Log.errorLog(23646387, logText);
+        Log.logHttpError(target.getUri().toString(), response.getStatus());
         LOG.warn(logText);
       }
     } catch (ProcessingException e) {
