@@ -5,13 +5,14 @@ import jakarta.ws.rs.client.WebTarget;
 import mServer.crawler.sender.MediathekReader;
 import mServer.crawler.sender.base.AbstractJsonRestTask;
 import mServer.crawler.sender.base.CrawlerUrlDTO;
+import mServer.tool.MserverDaten;
 
 import java.util.Optional;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 public abstract class ArteRateLimitedJsonRestTask<T, R, D extends CrawlerUrlDTO> extends AbstractJsonRestTask<T, R, D> {
   private static final long serialVersionUID = 1L;
-  private static final RateLimiter rateLimiter = RateLimiter.create(6.0);
+  private static final RateLimiter rateLimiter = RateLimiter.create(MserverDaten.getArteRateLimit());
 
   protected ArteRateLimitedJsonRestTask(MediathekReader aCrawler, ConcurrentLinkedQueue<D> urlToCrawlDTOs, Optional<String> authKey) {
     super(aCrawler, urlToCrawlDTOs, authKey);
