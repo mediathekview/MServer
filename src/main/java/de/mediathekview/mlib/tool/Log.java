@@ -218,7 +218,12 @@ public class Log {
         fehlermeldung_(fehlerNummer, null, text);
     }
 
-//    public static synchronized void systemMeldung(String[] text) {
+    public static synchronized void logHttpError(String url, int statusCode) {
+        Exception e = new RuntimeException(String.valueOf(statusCode));
+        fehlermeldung_(110000000 + statusCode, e, new String[]{ String.format("error %d for URL: %s", statusCode, url)});
+    }
+
+    //    public static synchronized void systemMeldung(String[] text) {
 //        systemmeldung_(text);
 //    }
     public static synchronized void sysLog(String text) {

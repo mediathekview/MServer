@@ -83,7 +83,7 @@ public class ArteVideoInfoTask
 
   @Override
   protected void handleHttpError(TopicUrlDTO dto, URI url, Response response) {
-    Log.errorLog(45983789, "http error " + response.getStatus() + ": " + url);
+    Log.logHttpError(url.toString(), response.getStatus());
     log.fatal("A HTTP error {} occurred when getting REST VideoInfo information from: \"{}\".", response.getStatus(), url);
   }
 }
