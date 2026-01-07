@@ -44,6 +44,8 @@ public class DwFilmDetailTask extends DWTaskBase<Film, CrawlerUrlDTO> {
       filmDetailDtoOptional = deserializeOptional(aTarget, OPTIONAL_FILM_DETAIL_DTO_TYPE_TOKEN);
     } catch (Exception e) {
       LOG.error("error processing {} ", aDTO.getUrl(), e);
+      crawler.incrementAndGetErrorCount();
+      crawler.updateProgress();
     }
     // Optional can be null if response code is 200 and response body is empty
     if (filmDetailDtoOptional == null|| filmDetailDtoOptional.isEmpty()) {
@@ -51,8 +53,12 @@ public class DwFilmDetailTask extends DWTaskBase<Film, CrawlerUrlDTO> {
       crawler.updateProgress();
       return;
     }
-    this.taskResults.add(filmDetailDtoOptional.get());
-    crawler.incrementAndGetActualCount();
+    if (!this.taskResults.add(filmDetailDtoOptional.get())) {
+      crawler.incrementAndGetErrorCount();
+      LOG.warn("Entry was rejected because existing {}", filmDetailDtoOptional.get());
+    } else {
+      crawler.incrementAndGetActualCount();
+    }
     crawler.updateProgress();
   }
 }
