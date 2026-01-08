@@ -64,7 +64,7 @@ public class ZdfFilmTask extends ZdfTaskBase<DatenFilm, ZdfFilmDto> {
 
   @Override
   protected void processRestTarget(ZdfFilmDto aDTO, WebTarget aTarget) {
-    final Optional<DownloadDto> downloadDto = deserialize(aTarget, OPTIONAL_DOWNLOAD_DTO_TYPE_TOKEN);
+    final Optional<DownloadDto> downloadDto = deserializeOptional(aTarget, OPTIONAL_DOWNLOAD_DTO_TYPE_TOKEN);
     if (downloadDto.isPresent()) {
       addFilm(aDTO, downloadDto.get());
     } else {
