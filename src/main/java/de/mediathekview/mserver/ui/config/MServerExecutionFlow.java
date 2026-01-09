@@ -11,6 +11,7 @@ import de.mediathekview.mserver.base.utils.CheckUrlAvailability;
 import de.mediathekview.mserver.base.utils.FilmDBService;
 import de.mediathekview.mserver.crawler.CrawlerManager;
 import de.mediathekview.mserver.daten.Filmlist;
+import de.mediathekview.mserver.daten.Resolution;
 import de.mediathekview.mserver.ui.config.MServerCommandLine.CMDARG;
 
 public class MServerExecutionFlow {
@@ -63,7 +64,7 @@ public class MServerExecutionFlow {
   
   void exportFilmListFromDB() {
     try {
-      FilmDBService filmDBService = new FilmDBService(manager.getExecutorService(), 2000);
+      FilmDBService filmDBService = new FilmDBService(manager.getExecutorService(), 2000, -1);
       Optional<Filmlist> dbFilmlist = filmDBService.readFilmlistFromDB();
       dbFilmlist.ifPresent(filmlist -> manager.getFilmlist().addAllFilms(filmlist.getFilms().values()));
       //
@@ -81,12 +82,15 @@ public class MServerExecutionFlow {
   }
   void importFilmlistIntoDB() {
     manager.importFilmlist();
-    FilmDBService filmDBService = new FilmDBService(manager.getExecutorService(), 2000);
+    FilmDBService filmDBService = new FilmDBService(manager.getExecutorService(), 2000, -1);
     HashSet<String> allVideoUrls = filmDBService.getAllVideoUrls();
     LOG.debug("allVideoUrls loaded {} entries", allVideoUrls.size());
     manager.getFilmlist().getFilms().entrySet().parallelStream()
       .forEach(entry -> {
-          if (allVideoUrls.contains(entry.getValue().getSender().name()+entry.getValue().getDefaultUrl().get().getUrl().toString())) {
+          if (allVideoUrls.contains(entry.getValue().getSender().name()+entry.getValue().getDefaultUrl().get().getUrl().toString()) || 
+              (entry.getValue().getUrl(Resolution.SMALL) != null && allVideoUrls.contains(entry.getValue().getSender().name()+entry.getValue().getUrl(Resolution.SMALL).getUrl().toString())) ||
+              (entry.getValue().getUrl(Resolution.HD) != null && allVideoUrls.contains(entry.getValue().getSender().name()+entry.getValue().getUrl(Resolution.HD).getUrl().toString()))
+          ) {
             manager.getFilmlist().getFilms().remove(entry.getKey());
           }
       });
@@ -104,7 +108,10 @@ public class MServerExecutionFlow {
     manager.stop();
   }
   void checkAvailability() {
-    FilmDBService filmDBService = new FilmDBService(manager.getExecutorService(), 2000);
+    FilmDBService filmDBService = new FilmDBService(
+        manager.getExecutorService(), 
+        manager.getConfigManager().getConfig().getDatabaseConfig().getBatchSize(),
+        manager.getConfigManager().getConfig().getDatabaseConfig().getRefreshIntervalInDays());
     String condition = "WHERE last_url_check < NOW() - INTERVAL '3' DAY";
     String limit = " LIMIT 400000";
     Optional<Filmlist> dbFilmlist = filmDBService.readFilmlistFromDB(condition, limit);

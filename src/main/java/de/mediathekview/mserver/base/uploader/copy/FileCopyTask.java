@@ -32,7 +32,9 @@ public class FileCopyTask extends UploadTask<FileCopyTarget> {
         Path backup = backupExistingFile(target);
         LOG.debug("CopyTask found existing file - rename existing file to {} before overwrite", backup.getFileName());
       }
-      Files.copy(sourcePath, uploadTarget.getTargetPath(), StandardCopyOption.REPLACE_EXISTING);
+      Path tmpTarget = Files.createTempFile( uploadTarget.getTargetPath().getParent(), uploadTarget.getTargetPath().getFileName().toString(), ".tmp");
+      Files.copy(sourcePath, tmpTarget, StandardCopyOption.REPLACE_EXISTING);
+      Files.move(tmpTarget, target, StandardCopyOption.REPLACE_EXISTING, StandardCopyOption.ATOMIC_MOVE);
     } catch (final IOException ioException) {
       LOG.error("Something went wrong on copying the film list.", ioException);
       printMessage(ServerMessages.FILE_COPY_ERROR);

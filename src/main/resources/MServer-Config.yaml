@@ -193,6 +193,9 @@ databaseConfig:
   url: "jdbc:postgresql://postgresMV:5432/crawler"
   username: "crawler"
   password: "secret"
+  refreshIntervalInDays: 7
+  checkUrlIntervalInDays: 3
+  batchSize: 2000
   
 #### Logging ####
 logSettings:

@@ -7,21 +7,55 @@ public class MServerDBConfig {
   private String url;
   private String username;
   private String password;
+  private Integer refreshIntervalInDays;
+  private Integer checkUrlIntervalInDays;
+  private Integer batchSize;
   
   public MServerDBConfig() {
-    active = true;
+    active = false;
     url = "jdbc:postgresql://postgresMV:55432/crawler";
     username = "crawler";
     password = "secret";
+    refreshIntervalInDays = 7;
+    checkUrlIntervalInDays = 3;
+    batchSize = 2000;
   }
   
-  public MServerDBConfig(Boolean active, String url, String username, String password) {
+  public MServerDBConfig(Boolean active, String url, String username, String password, int refreshIntervalInDays, int checkUrlIntervalInDays, int batchSize ) {
     this.active = active;
     this.url = url;
     this.username = username;
     this.password = password;
+    this.refreshIntervalInDays = refreshIntervalInDays;
+    this.checkUrlIntervalInDays = checkUrlIntervalInDays;
+    this.batchSize = batchSize;
   }
 
+
+
+  public Integer getBatchSize() {
+    return batchSize;
+  }
+
+  public void setBatchSize(Integer batchSize) {
+    this.batchSize = batchSize;
+  }
+
+  public Integer getRefreshIntervalInDays() {
+    return refreshIntervalInDays;
+  }
+
+  public void setRefreshIntervalInDays(Integer refreshIntervalInDays) {
+    this.refreshIntervalInDays = refreshIntervalInDays;
+  }
+
+  public Integer getCheckUrlIntervalInDays() {
+    return checkUrlIntervalInDays;
+  }
+
+  public void setCheckUrlIntervalInDays(Integer checkUrlIntervalInDays) {
+    this.checkUrlIntervalInDays = checkUrlIntervalInDays;
+  }
 
 
   public Boolean getActive() {

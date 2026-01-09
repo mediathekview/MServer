@@ -13,7 +13,6 @@ import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
@@ -24,8 +23,6 @@ import java.util.concurrent.*;
 public class ArdCrawler extends AbstractCrawler {
 
   private static final Logger LOG = LogManager.getLogger(ArdCrawler.class);
-  private static final DateTimeFormatter DAY_PAGE_DATE_FORMATTER =
-      DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
   public ArdCrawler(
       final ForkJoinPool aForkJoinPool,

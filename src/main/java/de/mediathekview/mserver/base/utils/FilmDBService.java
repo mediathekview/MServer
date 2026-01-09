@@ -45,11 +45,13 @@ public class FilmDBService {
   private final Gson gson;
   private final ExecutorService executorService;
   private final int batchSize;
+  private final Integer refreshIntervalInDays;
 
-  public FilmDBService(ExecutorService executorService, int batchSize) {
+  public FilmDBService(ExecutorService executorService, int batchSize, int refreshIntervalInDays) {
     this.dataSource = PostgreSQLDataSourceProvider.get();
     this.executorService = executorService;
     this.batchSize = batchSize;
+    this.refreshIntervalInDays = refreshIntervalInDays;
 
     this.gson = new GsonBuilder().registerTypeAdapter(LocalDateTime.class, new GsonLocalDateTimeAdapter())
         .registerTypeAdapter(Duration.class, new GsonDurationAdapter()).create();
@@ -153,10 +155,14 @@ public class FilmDBService {
         List<T> batch = allVideos.subList(from, to);
         futures.add(executorService.submit(() -> {
           List<T> newVideos = new ArrayList<>();
-          // update every 7 days
-          String sql = "UPDATE filme SET last_seen = now() WHERE id = ? AND last_seen - last_update <= interval '7' DAY";
-
-          try (Connection con = dataSource.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
+          StringBuffer sql = new StringBuffer();
+          sql.append("UPDATE filme SET last_seen = now() ")
+          .append("WHERE id = ? AND (")
+          .append("( cast(created_at as date) = cast(last_update as date) and cast(created_at as date) <> cast(now() as date) )")
+          .append(" OR ")
+          .append("(last_seen - last_update <= interval '").append(refreshIntervalInDays).append("' DAY)")
+          .append(")");
+          try (Connection con = dataSource.getConnection(); PreparedStatement ps = con.prepareStatement(sql.toString())) {
 
             for (T video : batch) {
               String id = idExtractor.apply(video);

@@ -95,7 +95,7 @@ public class CrawlerManager extends AbstractManager {
   }
   
   public void storeFilmsToDB() {
-    FilmDBService filmDBService = new FilmDBService(executorService, 200);
+    FilmDBService filmDBService = new FilmDBService(executorService, getConfigManager().getConfig().getDatabaseConfig().getBatchSize(), getConfigManager().getConfig().getDatabaseConfig().getRefreshIntervalInDays());
     try { 
       filmDBService.saveAll(filmlist);
     } catch (Exception e) {
@@ -459,7 +459,7 @@ public class CrawlerManager extends AbstractManager {
   }
 
   private Optional<Filmlist> importFilmlistFromDB() throws IOException {
-    FilmDBService filmDBService = new FilmDBService(getExecutorService(), 2000);
+    FilmDBService filmDBService = new FilmDBService(getExecutorService(), getConfigManager().getConfig().getDatabaseConfig().getBatchSize(), getConfigManager().getConfig().getDatabaseConfig().getRefreshIntervalInDays());
     Optional<Filmlist> dbFilmlist = filmDBService.readFilmlistFromDB();
     return dbFilmlist;
   }

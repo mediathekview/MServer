@@ -71,7 +71,7 @@ public abstract class AbstractCrawler implements Callable<Set<Film>> {
         rootConfig.getSenderConfig(getSender()).getSocketTimeoutInSeconds(), 
         runtimeConfig.getMaximumCpuThreads());
     rateLimiter = RateLimiter.create(rootConfig.getSenderConfig(getSender()).getMaximumRequestsPerSecond());
-    filmDBService = new FilmDBService(forkJoinPool, 200);
+    filmDBService = new FilmDBService(forkJoinPool, getRuntimeConfig().getDatabaseConfig().getBatchSize(), getRuntimeConfig().getDatabaseConfig().getRefreshIntervalInDays());
     films = ConcurrentHashMap.newKeySet();
   }
 

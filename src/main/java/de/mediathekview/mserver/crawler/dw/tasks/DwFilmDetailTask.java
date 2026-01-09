@@ -4,7 +4,6 @@ import com.google.gson.reflect.TypeToken;
 import de.mediathekview.mserver.daten.Film;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractRecursiveConverterTask;
-import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.basic.TopicUrlDTO;
 import de.mediathekview.mserver.crawler.dw.DWTaskBase;
 import de.mediathekview.mserver.crawler.dw.parser.DwFilmDetailDeserializer;
@@ -46,7 +45,8 @@ public class DwFilmDetailTask extends DWTaskBase<Film, TopicUrlDTO> {
     } catch (Exception e) {
       LOG.error("error processing {} ", aDTO.getUrl(), e);
     }
-    if (filmDetailDtoOptional.isEmpty()) {
+    // Optional can be null if response code is 200 and response body is empty
+    if (filmDetailDtoOptional == null || filmDetailDtoOptional.isEmpty()) {
       crawler.incrementAndGetErrorCount();
       crawler.updateProgress();
       return;
