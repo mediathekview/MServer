@@ -74,7 +74,7 @@ public abstract class MediathekCrawler extends MediathekReader {
           final String index = film.getIndexAddOld();
           Log.errorLog(974513456, e, index);
           LOG.error("{}: Error while processing film: {}: {}", getSendername(), index, e);
-          FilmeSuchen.listeSenderLaufen.inc(film.arr[DatenFilm.FILM_SENDER], RunSender.Count.FEHLER);
+          FilmeSuchen.listeSenderLaufen.inc(getRunIdentifierBase()+"-"+film.arr[DatenFilm.FILM_SENDER], RunSender.Count.FEHLER);
         }
       }
     });

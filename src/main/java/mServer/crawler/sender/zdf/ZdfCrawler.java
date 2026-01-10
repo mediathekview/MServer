@@ -43,9 +43,9 @@ public class ZdfCrawler extends MediathekCrawler {
     // der MediathekReader ist erst fertig wenn nur noch ein Thread läuft
     // dann zusätzliche Sender, die der Crawler bearbeitet, beenden
     if (getThreads() <= 1) {
-      mlibFilmeSuchen.meldenFertig(Const.ZDF_TIVI);
-      mlibFilmeSuchen.meldenFertig(Const.ZDF_INFO);
-      mlibFilmeSuchen.meldenFertig(Const.ZDF_NEO);
+      mlibFilmeSuchen.meldenFertig(getRunIdentifierBase() + "-" + Const.ZDF_TIVI);
+      mlibFilmeSuchen.meldenFertig(getRunIdentifierBase() + "-" + Const.ZDF_INFO);
+      mlibFilmeSuchen.meldenFertig(getRunIdentifierBase() + "-" + Const.ZDF_NEO);
     }
 
     super.meldungThreadUndFertig();

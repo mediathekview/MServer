@@ -1,6 +1,5 @@
 package mServer.crawler.sender.base;
 
-import com.google.gson.JsonObject;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.RecursiveTask;
 import mServer.crawler.FilmeSuchen;
@@ -27,7 +26,7 @@ public abstract class AbstractUrlTask<T, D extends CrawlerUrlDTO>
 
   private static final long serialVersionUID = -4077156510484515410L;
 
-  public AbstractUrlTask(final MediathekReader aCrawler,
+  protected AbstractUrlTask(final MediathekReader aCrawler,
           final ConcurrentLinkedQueue<D> aUrlToCrawlDTOs) {
     super(aCrawler, aUrlToCrawlDTOs);
   }
@@ -55,10 +54,10 @@ public abstract class AbstractUrlTask<T, D extends CrawlerUrlDTO>
   }
 
   private void increment(final RunSender.Count count) {
-    FilmeSuchen.listeSenderLaufen.inc(this.crawler.getSendername(), count);
+    FilmeSuchen.listeSenderLaufen.inc(this.crawler.getRunIdentifier(), count);
   }
 
   private void increment(final RunSender.Count count, final long value) {
-    FilmeSuchen.listeSenderLaufen.inc(this.crawler.getSendername(), count, value);
+    FilmeSuchen.listeSenderLaufen.inc(this.crawler.getRunIdentifier(), count, value);
   }
 }

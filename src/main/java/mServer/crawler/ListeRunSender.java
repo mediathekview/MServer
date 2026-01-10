@@ -28,7 +28,7 @@ import java.util.concurrent.atomic.AtomicLong;
 public class ListeRunSender extends LinkedList<RunSender> {
 
     private final static String TRENNER = " | ";
-    private static final String SENDER = " Sender ";
+    private static final String SENDER = " Sender          ";
 
     public boolean listeFertig() {
         // liefert true wenn alle Sender fertig sind
@@ -151,7 +151,7 @@ public class ListeRunSender extends LinkedList<RunSender> {
 
     public void getTextSum(ArrayList<String> retArray) {
         //wird ausgeführt wenn Sender beendet ist
-        final String[] titel1 = {" Sender ", " [min] ", " [kB/s] ", "s/Seite", "Threads", "Wait"};
+        final String[] titel1 = {" Sender          ", " [min] ", " [kB/s] ", "s/Seite", "Threads", "Wait"};
         String zeile = "";
         String[] names = new String[titel1.length];
         for (int i = 0; i < titel1.length; ++i) {

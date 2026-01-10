@@ -48,8 +48,8 @@ public class DwFilmDetailTask extends DWTaskBase<DatenFilm, CrawlerUrlDTO> {
     }
     // Optional can be null if response code is 200 and response body is empty
     if (filmDetailDtoOptional == null|| filmDetailDtoOptional.isEmpty()) {
-      FilmeSuchen.listeSenderLaufen.inc(crawler.getSendername(), RunSender.Count.FEHLER);
-      FilmeSuchen.listeSenderLaufen.inc(crawler.getSendername(), RunSender.Count.FEHLVERSUCHE);
+      FilmeSuchen.listeSenderLaufen.inc(crawler.getRunIdentifier(), RunSender.Count.FEHLER);
+      FilmeSuchen.listeSenderLaufen.inc(crawler.getRunIdentifier(), RunSender.Count.FEHLVERSUCHE);
       return;
     }
     this.taskResults.add(filmDetailDtoOptional.get());
