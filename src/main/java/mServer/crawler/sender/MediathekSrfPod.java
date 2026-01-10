@@ -51,7 +51,7 @@ public class MediathekSrfPod extends MediathekReader implements Runnable {
         listeThemen.clear();
         meldungStart();
         GetUrl getUrlIo = new GetUrl(getWartenSeiteLaden());
-        seite = getUrlIo.getUri_Utf(SENDERNAME, addr1, seite, "");
+        seite = getUrlIo.getUri_Utf(getRunIdentifier(), SENDERNAME, addr1, seite, "");
         int pos = 0;
         int pos1;
         int pos2;
@@ -146,7 +146,7 @@ public class MediathekSrfPod extends MediathekReader implements Runnable {
             String[] keywords;
             try {
                 meldung(strUrlFeed);
-                seite = getUrl.getUri_Utf(SENDERNAME, strUrlFeed, seite, "Thema: " + thema);
+                seite = getUrl.getUri_Utf(getRunIdentifier(), SENDERNAME, strUrlFeed, seite, "Thema: " + thema);
                 if ((pos1 = seite.indexOf(MUSTER_THEMA_1)) != -1) {
                     pos1 = pos1 + MUSTER_THEMA_1.length();
                 }
