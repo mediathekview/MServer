@@ -13,6 +13,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 public abstract class ArteRateLimitedJsonRestTask<T, R, D extends CrawlerUrlDTO> extends AbstractJsonRestTask<T, R, D> {
   private static final long serialVersionUID = 1L;
   private static final RateLimiter rateLimiter = RateLimiter.create(MserverDaten.getArteRateLimit());
+  private static final RateLimiter opaApirateLimiter = RateLimiter.create(1.0);
 
   protected ArteRateLimitedJsonRestTask(MediathekReader aCrawler, ConcurrentLinkedQueue<D> urlToCrawlDTOs, Optional<String> authKey) {
     super(aCrawler, urlToCrawlDTOs, authKey);
@@ -20,7 +21,11 @@ public abstract class ArteRateLimitedJsonRestTask<T, R, D extends CrawlerUrlDTO>
 
   @Override
   protected void processRestTarget(final D aDTO, final WebTarget aTarget) {
-    rateLimiter.acquire();
+    if (aTarget.getUri().toString().contains("api.arte.tv/api/opa/")) {
+      opaApirateLimiter.acquire();
+    } else {
+      rateLimiter.acquire();
+    }
     super.processRestTarget(aDTO, aTarget);
   }
 }
