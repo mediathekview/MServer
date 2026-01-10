@@ -1,6 +1,7 @@
 package mServer.crawler.sender.arte;
 
 import de.mediathekview.mlib.Const;
+import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
 
 public class ArteCrawler_EN extends ArteCrawler {
@@ -14,4 +15,12 @@ public class ArteCrawler_EN extends ArteCrawler {
     return ArteLanguage.EN;
   }
 
+  @Override
+  protected int getMaximumSubpages() {
+    if (CrawlerTool.loadLongMax()) {
+      return 6;
+    } else {
+      return 2;
+    }
+  }
 }

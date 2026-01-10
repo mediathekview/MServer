@@ -89,7 +89,7 @@ public class FilmeSuchen {
     }
     if (crawlerList.contains("ARTE")) {
       mediathekListe.add(new ArteCrawler(this, 0));
-      mediathekListe.add(new ArteCrawler_FR(this, 0));
+      mediathekListe.add(new ArteCrawler_FR(this, 1));
       mediathekListe.add(new ArteCrawler_EN(this, 1));
       mediathekListe.add(new ArteCrawler_ES(this, 1));
       mediathekListe.add(new ArteCrawler_PL(this, 1));
