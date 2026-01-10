@@ -111,9 +111,9 @@ public class ArteCrawler extends MediathekCrawler {
     return ArteConstants.MAX_POSSIBLE_SUBPAGES;
   }
 
-  private int getMaximumSubpages() {
+  protected int getMaximumSubpages() {
     if (CrawlerTool.loadLongMax()) {
-      return 30;
+      return 20;
     } else {
       return 10;
     }
