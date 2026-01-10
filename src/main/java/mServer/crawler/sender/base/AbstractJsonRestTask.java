@@ -60,8 +60,8 @@ public abstract class AbstractJsonRestTask<T, R, D extends CrawlerUrlDTO>
       final R responseObj = gson.fromJson(jsonOutput, getType());
       postProcessing(responseObj, aDTO);
     } else {
-      FilmeSuchen.listeSenderLaufen.inc(crawler.getSendername(), RunSender.Count.FEHLER);
-      FilmeSuchen.listeSenderLaufen.inc(crawler.getSendername(), RunSender.Count.FEHLVERSUCHE);
+      FilmeSuchen.listeSenderLaufen.inc(crawler.getRunIdentifier(), RunSender.Count.FEHLER);
+      FilmeSuchen.listeSenderLaufen.inc(crawler.getRunIdentifier(), RunSender.Count.FEHLVERSUCHE);
       handleHttpError(aDTO, aTarget.getUri(), response);
     }
   }

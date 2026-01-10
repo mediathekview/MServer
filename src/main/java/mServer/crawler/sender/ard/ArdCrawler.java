@@ -54,20 +54,20 @@ public class ArdCrawler extends MediathekCrawler {
     // der MediathekReader ist erst fertig wenn nur noch ein Thread läuft
     // dann zusätzliche Sender, die der Crawler bearbeitet, beenden
     if (getThreads() <= 1) {
-      mlibFilmeSuchen.meldenFertig(Const.RBB);
-      mlibFilmeSuchen.meldenFertig(Const.SWR);
-      mlibFilmeSuchen.meldenFertig(Const.MDR);
-      mlibFilmeSuchen.meldenFertig(Const.NDR);
-      mlibFilmeSuchen.meldenFertig(Const.WDR);
-      mlibFilmeSuchen.meldenFertig(Const.HR);
-      mlibFilmeSuchen.meldenFertig(Const.BR);
-      mlibFilmeSuchen.meldenFertig(Const.RBTV);
-      mlibFilmeSuchen.meldenFertig(Const.ONE);
-      mlibFilmeSuchen.meldenFertig(Const.ARD_ALPHA);
-      mlibFilmeSuchen.meldenFertig("Funk.net");
-      mlibFilmeSuchen.meldenFertig(Const.TAGESSCHAU24);
-      mlibFilmeSuchen.meldenFertig(Const.SR);
-      mlibFilmeSuchen.meldenFertig(Const.PHOENIX);
+      mlibFilmeSuchen.meldenFertig(getRunIdentifierBase() + "-" + Const.RBB);
+      mlibFilmeSuchen.meldenFertig(getRunIdentifierBase() + "-" + Const.SWR);
+      mlibFilmeSuchen.meldenFertig(getRunIdentifierBase() + "-" + Const.MDR);
+      mlibFilmeSuchen.meldenFertig(getRunIdentifierBase() + "-" + Const.NDR);
+      mlibFilmeSuchen.meldenFertig(getRunIdentifierBase() + "-" + Const.WDR);
+      mlibFilmeSuchen.meldenFertig(getRunIdentifierBase() + "-" + Const.HR);
+      mlibFilmeSuchen.meldenFertig(getRunIdentifierBase() + "-" + Const.BR);
+      mlibFilmeSuchen.meldenFertig(getRunIdentifierBase() + "-" + Const.RBTV);
+      mlibFilmeSuchen.meldenFertig(getRunIdentifierBase() + "-" + Const.ONE);
+      mlibFilmeSuchen.meldenFertig(getRunIdentifierBase() + "-" + Const.ARD_ALPHA);
+      mlibFilmeSuchen.meldenFertig(getRunIdentifierBase() + "-" + "Funk.net");
+      mlibFilmeSuchen.meldenFertig(getRunIdentifierBase() + "-" + Const.TAGESSCHAU24);
+      mlibFilmeSuchen.meldenFertig(getRunIdentifierBase() + "-" + Const.SR);
+      mlibFilmeSuchen.meldenFertig(getRunIdentifierBase() + "-" + Const.PHOENIX);
     }
 
     super.meldungThreadUndFertig();

@@ -114,7 +114,7 @@ public class ArteDtoVideo2FilmTask extends AbstractRecursivConverterTask<DatenFi
         log.info("Duplicate {}", film);
       }
     } catch(Exception e) {
-      FilmeSuchen.listeSenderLaufen.inc(sender, RunSender.Count.FEHLER);
+      FilmeSuchen.listeSenderLaufen.inc(crawler.getRunIdentifierBase() + "-" + sender, RunSender.Count.FEHLER);
       Log.errorLog(637846873, e, "exception creating film " + videoInfo.getTitle() + " (" + titleSuffix + ")");
     }
   }

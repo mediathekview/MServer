@@ -49,8 +49,8 @@ public abstract class ZdfTaskBase<T, D extends CrawlerUrlDTO> extends AbstractRe
       final String jsonOutput = response.readEntity(String.class);
       return gson.fromJson(jsonOutput, aType);
     } else {
-      FilmeSuchen.listeSenderLaufen.inc(crawler.getSendername(), RunSender.Count.FEHLER);
-      FilmeSuchen.listeSenderLaufen.inc(crawler.getSendername(), RunSender.Count.FEHLVERSUCHE);
+      FilmeSuchen.listeSenderLaufen.inc(crawler.getRunIdentifier(), RunSender.Count.FEHLER);
+      FilmeSuchen.listeSenderLaufen.inc(crawler.getRunIdentifier(), RunSender.Count.FEHLVERSUCHE);
       LOG.error(
               "ZdfTaskBase: request of url {} failed: {}",
               aTarget.getUri(),
@@ -70,8 +70,8 @@ public abstract class ZdfTaskBase<T, D extends CrawlerUrlDTO> extends AbstractRe
       final String jsonOutput = response.readEntity(String.class);
       return gson.fromJson(jsonOutput, aType);
     } else {
-      FilmeSuchen.listeSenderLaufen.inc(crawler.getSendername(), RunSender.Count.FEHLER);
-      FilmeSuchen.listeSenderLaufen.inc(crawler.getSendername(), RunSender.Count.FEHLVERSUCHE);
+      FilmeSuchen.listeSenderLaufen.inc(crawler.getRunIdentifier(), RunSender.Count.FEHLER);
+      FilmeSuchen.listeSenderLaufen.inc(crawler.getRunIdentifier(), RunSender.Count.FEHLVERSUCHE);
       LOG.error(
               "ZdfTaskBase: request of url {} failed: {}",
               aTarget.getUri(),

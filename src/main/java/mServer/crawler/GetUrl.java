@@ -57,26 +57,19 @@ public class GetUrl {
     }
 
     @Deprecated
-    public MSStringBuilder getUri_Utf(String sender, String addr, MSStringBuilder seite, String meldung) {
-        return getUri(sender, addr, StandardCharsets.UTF_8, 1 /* versuche */, seite, meldung);
+    public MSStringBuilder getUri_Utf(String runIdentifier, String sender, String addr, MSStringBuilder seite, String meldung) {
+        return getUri(runIdentifier, sender, addr, StandardCharsets.UTF_8, 1 /* versuche */, seite, meldung);
     }
 
-    public MSStringBuilder getUri_Iso(String sender, String addr, MSStringBuilder seite, String meldung) {
-        return getUri(sender, addr, StandardCharsets.ISO_8859_1, 1 /* versuche */, seite, meldung);
+    public MSStringBuilder getUri_Iso(String runIdentifier, String sender, String addr, MSStringBuilder seite, String meldung) {
+        return getUri(runIdentifier, sender, addr, StandardCharsets.ISO_8859_1, 1 /* versuche */, seite, meldung);
     }
 
-    public MSStringBuilder getUri(String sender, String addr, Charset encoding, int maxVersuche, MSStringBuilder seite, String meldung) {
-        return getUri(sender, addr, encoding, maxVersuche, seite, meldung, "");
+    public MSStringBuilder getUri(String runIdentifier, String sender, String addr, Charset encoding, int maxVersuche, MSStringBuilder seite, String meldung) {
+        return getUri(runIdentifier, sender, addr, encoding, maxVersuche, seite, meldung, "");
     }
 
-    public MSStringBuilder getUriWithDelay(String sender, String addr, Charset encoding, int maxVersuche, MSStringBuilder seite, String meldung,
-            long delay, TimeUnit delayUnit) {
-        setDelay(delay, delayUnit);
-
-        return getUri(sender, addr, encoding, maxVersuche, seite, meldung);
-    }
-
-    public MSStringBuilder getUri(String sender, String addr, Charset encoding, int maxVersuche, MSStringBuilder seite, String meldung, String token) {
+    public MSStringBuilder getUri(String runIdentifier, String sender, String addr, Charset encoding, int maxVersuche, MSStringBuilder seite, String meldung, String token) {
         int aktVer = 0;
         boolean letzterVersuch;
 
@@ -96,7 +89,7 @@ public class GetUrl {
                     TimeUnit.MILLISECONDS.sleep(PAUSE);
                 }
                 letzterVersuch = (aktVer >= maxVersuche);
-                seite = getUriNew(sender, addr, seite, encoding, meldung, maxVersuche, letzterVersuch, token);
+                seite = getUriNew(runIdentifier, sender, addr, seite, encoding, meldung, maxVersuche, letzterVersuch, token);
                 if (seite.length() > 0) {
                     // und nix wie weiter
                     if (Config.debug && aktVer > 1) {
@@ -104,14 +97,14 @@ public class GetUrl {
                         Log.sysLog(text);
                     }
                     // nur dann zählen
-                    FilmeSuchen.listeSenderLaufen.inc(sender, RunSender.Count.ANZAHL);
+                    FilmeSuchen.listeSenderLaufen.inc(runIdentifier, RunSender.Count.ANZAHL);
                     return seite;
                 } else {
-                    FilmeSuchen.listeSenderLaufen.inc(sender, RunSender.Count.FEHLVERSUCHE);
-                    FilmeSuchen.listeSenderLaufen.inc(sender, RunSender.Count.WARTEZEIT_FEHLVERSUCHE, delayVal);
+                    FilmeSuchen.listeSenderLaufen.inc(runIdentifier, RunSender.Count.FEHLVERSUCHE);
+                    FilmeSuchen.listeSenderLaufen.inc(runIdentifier, RunSender.Count.WARTEZEIT_FEHLVERSUCHE, delayVal);
                     if (letzterVersuch) {
                         // dann wars leider nichts
-                        FilmeSuchen.listeSenderLaufen.inc(sender, RunSender.Count.FEHLER);
+                        FilmeSuchen.listeSenderLaufen.inc(runIdentifier, RunSender.Count.FEHLER);
                     }
                 }
             } catch (Exception ex) {
@@ -121,11 +114,11 @@ public class GetUrl {
         return seite;
     }
 
-    private void updateStatistics(final String sender, final long bytesWritten) {
-        FilmeSuchen.listeSenderLaufen.inc(sender, RunSender.Count.SUM_DATA_BYTE, bytesWritten);
-        FilmeSuchen.listeSenderLaufen.inc(sender, RunSender.Count.SUM_TRAFFIC_BYTE, bytesWritten);
+    private void updateStatistics(final String runIdentifier, final long bytesWritten) {
+        FilmeSuchen.listeSenderLaufen.inc(runIdentifier, RunSender.Count.SUM_DATA_BYTE, bytesWritten);
+        FilmeSuchen.listeSenderLaufen.inc(runIdentifier, RunSender.Count.SUM_TRAFFIC_BYTE, bytesWritten);
 
-        FilmeSuchen.listeSenderLaufen.inc(sender, RunSender.Count.SUM_TRAFFIC_LOADART_NIX, bytesWritten);
+        FilmeSuchen.listeSenderLaufen.inc(runIdentifier, RunSender.Count.SUM_TRAFFIC_LOADART_NIX, bytesWritten);
     }
 
     private long transferData(ResponseBody body, Charset encoding, MSStringBuilder seite) throws IOException {
@@ -165,7 +158,7 @@ public class GetUrl {
         return builder;
     }
 
-    private MSStringBuilder getUriNew(String sender, String addr, MSStringBuilder seite,
+    private MSStringBuilder getUriNew(String runIdentifier, String sender, String addr, MSStringBuilder seite,
             Charset encoding, String meldung, int versuch, boolean lVersuch,
             String token) {
 
@@ -192,7 +185,7 @@ public class GetUrl {
             Log.errorLog(973969801, ex, "");
         }
 
-        updateStatistics(sender, load);
+        updateStatistics(runIdentifier, load);
 
         return seite;
     }
