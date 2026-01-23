@@ -10,8 +10,10 @@ import de.mediathekview.mserver.base.utils.JsonUtils;
 import de.mediathekview.mserver.base.utils.UrlUtils;
 import de.mediathekview.mserver.crawler.basic.TopicUrlDTO;
 import de.mediathekview.mserver.crawler.zdf.ZdfConstants;
+import de.mediathekview.mserver.daten.Sender;
 
 import java.lang.reflect.Type;
+import java.util.Map;
 import java.util.Optional;
 
 import org.apache.logging.log4j.LogManager;
@@ -29,9 +31,10 @@ public class ZdfDayPageDeserializer implements JsonDeserializer<ZdfDayPageDto> {
   private static final String JSON_ATTRIBUTE_NEXT = "next";
 
   private final String apiUrlBase;
+  private final Map<String, Sender> partnerToSender;
 
-  public ZdfDayPageDeserializer(final String aApiUrlBase) {
-
+  public ZdfDayPageDeserializer(final String aApiUrlBase, final Map<String, Sender> partnerToSender) {
+    this.partnerToSender = partnerToSender;
     apiUrlBase = aApiUrlBase;
   }
 
@@ -90,7 +93,7 @@ public class ZdfDayPageDeserializer implements JsonDeserializer<ZdfDayPageDto> {
       return Optional.empty();
     }
     final Optional<String> tvService = JsonUtils.getElementValueAsString(target, "tvService");
-    if (tvService.isPresent() && !ZdfConstants.PARTNER_TO_SENDER.containsKey(tvService.orElse("ZDF"))) {
+    if (tvService.isPresent() && !partnerToSender.containsKey(tvService.orElse("ZDF"))) {
       return Optional.empty();
     }
 

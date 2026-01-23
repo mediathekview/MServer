@@ -1,6 +1,7 @@
 package de.mediathekview.mserver.ui.config;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -112,17 +113,23 @@ public class MServerExecutionFlow {
         manager.getExecutorService(), 
         manager.getConfigManager().getConfig().getDatabaseConfig().getBatchSize(),
         manager.getConfigManager().getConfig().getDatabaseConfig().getRefreshIntervalInDays());
-    String condition = "WHERE last_url_check < NOW() - INTERVAL '3' DAY";
+    int checkUrlIntervalInDays = manager.getConfigManager().getConfig().getDatabaseConfig().getCheckUrlIntervalInDays();
+    String condition = "WHERE last_url_check < NOW() - INTERVAL '"+checkUrlIntervalInDays+"' DAY";
     String limit = " LIMIT 400000";
     Optional<Filmlist> dbFilmlist = filmDBService.readFilmlistFromDB(condition, limit);
-    dbFilmlist.ifPresent(filmlist -> manager.getFilmlist().addAllFilms(filmlist.getFilms().values()));
+    if (dbFilmlist.isEmpty()) {
+      LOG.info("no Film found for checkAvailability");
+      return;
+    }
+    //dbFilmlist.ifPresent(filmlist -> manager.getFilmlist().addAllFilms(filmlist.getFilms().values()));
     CheckUrlAvailability checkUrlAvailability = new CheckUrlAvailability(
         manager.getConfigManager().getConfig().getCheckImportListUrlMinSize(),
         manager.getConfigManager().getConfig().getCheckImportListUrlTimeoutInSec(),
         manager.getConfigManager().getConfig().getMaximumCpuThreads());
-    Filmlist abonednedList = checkUrlAvailability.getAvailableFilmlist(dbFilmlist.get(), false);
-    filmDBService.deleteFilms(abonednedList.getFilms().values());
-    filmDBService.update("UPDATE filme SET last_url_check = NOW() " + condition);
+    Filmlist abandonedList = checkUrlAvailability.getAvailableFilmlist(dbFilmlist.get(), false);
+    filmDBService.deleteFilms(abandonedList.getFilms().values());
+    filmDBService.updateLastUrlCheck(List.copyOf(dbFilmlist.get().getFilms().values()));
+    //filmDBService.update("UPDATE filme SET last_url_check = NOW() " + condition);
     manager.stop();
   }
 }

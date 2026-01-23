@@ -67,11 +67,48 @@ public class FilmDBService {
   }
   
   /////////////////////////////////////////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////////////////////////////////////
+  
+  public void updateLastUrlCheck(List<Film> checked) {
+    try {
+      AtomicInteger updateCounter = new AtomicInteger(0);
+      List<Future<?>> futures = new ArrayList<>();
+      List<Film> allVideos = checked.stream()
+          .sorted(Comparator.comparing(Film::getId))
+          .toList();
+      for (int i = 0; i < allVideos.size(); i += batchSize) {
+        int from = i;
+        int to = Math.min(i + batchSize, allVideos.size());
+        List<Film> batch = allVideos.subList(from, to);
+        futures.add(executorService.submit(() -> {
+          String sql = "UPDATE filme SET last_url_check = NOW() WHERE id = ?";
+          try (Connection con = dataSource.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
+            for (Film video : batch) {
+              ps.setString(1, video.getId());
+              ps.addBatch();
+            }
+            int [] rs = ps.executeBatch();
+            for (int rsCode : rs) {
+              updateCounter.addAndGet(rsCode);
+            }
+          } catch (SQLException e) {
+            LOG.error(e);
+          }
+        }));
+      }
+      futures.forEach( f -> {try { f.get(); } catch(Exception e) { LOG.error("{}",e); }});
+      LOG.debug("updated lastUrlCheck {}", updateCounter.get());
+    } catch (Exception e) {
+      LOG.error(e);
+    }
+  }
+  
+  /////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////////////////////////////////////////////////////////////////  
   
   public void deleteFilms(Collection<Film> abandonedFilmlist) {
     try {
-      List<Future<List<Film>>> futures = new ArrayList<>();
+      List<Future<?>> futures = new ArrayList<>();
       List<Film> allVideos = abandonedFilmlist.stream()
           .sorted(Comparator.comparing(Film::getId))
           .toList();
@@ -80,7 +117,6 @@ public class FilmDBService {
         int to = Math.min(i + batchSize, allVideos.size());
         List<Film> batch = allVideos.subList(from, to);
         futures.add(executorService.submit(() -> {
-          List<Film> newVideos = new ArrayList<>();
           String sql = "DELETE FROM filme WHERE id = ?";
           try (Connection con = dataSource.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
             for (Film video : batch) {
@@ -91,13 +127,9 @@ public class FilmDBService {
           } catch (SQLException e) {
             LOG.error(e);
           }
-          return newVideos;
         }));
       }
-      List<Film> result = new ArrayList<>();
-      for (Future<List<Film>> f : futures) {
-        result.addAll(f.get());
-      }
+      futures.forEach( f -> {try { f.get(); } catch(Exception e) { LOG.error("{}",e); }});
       LOG.debug("deleted {}", abandonedFilmlist.size());
 
     } catch (Exception e) {
@@ -157,13 +189,10 @@ public class FilmDBService {
           List<T> newVideos = new ArrayList<>();
           StringBuffer sql = new StringBuffer();
           sql.append("UPDATE filme SET last_seen = now() ")
-          .append("WHERE id = ? AND (")
-          .append("( cast(created_at as date) = cast(last_update as date) and cast(created_at as date) <> cast(now() as date) )")
-          .append(" OR ")
-          .append("(last_seen - last_update <= interval '").append(refreshIntervalInDays).append("' DAY)")
-          .append(")");
+          .append("WHERE id = ? ")
+          .append("AND NOT( created_at::date = last_update::date and last_update::date <> CURRENT_DATE ) ")
+          .append("AND NOT( last_seen - last_update >= interval '").append(refreshIntervalInDays).append("' DAY)");
           try (Connection con = dataSource.getConnection(); PreparedStatement ps = con.prepareStatement(sql.toString())) {
-
             for (T video : batch) {
               String id = idExtractor.apply(video);
               if (id != null) {

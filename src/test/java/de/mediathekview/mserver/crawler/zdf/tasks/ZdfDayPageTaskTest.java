@@ -72,7 +72,7 @@ public class ZdfDayPageTaskTest extends ZdfTaskTestBase {
 
   private Set<CrawlerUrlDTO> executeTask(final String aRequestUrl) {
     return new ZdfDayPageTask(
-            createCrawler(), ZdfConstants.URL_API_BASE, createCrawlerUrlDto(aRequestUrl), null)
+            createCrawler(), ZdfConstants.URL_API_BASE, createCrawlerUrlDto(aRequestUrl), null, ZdfConstants.PARTNER_TO_SENDER)
         .invoke();
   }
 }

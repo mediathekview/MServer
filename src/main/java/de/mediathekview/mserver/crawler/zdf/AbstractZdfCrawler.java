@@ -91,7 +91,7 @@ public abstract class AbstractZdfCrawler extends AbstractCrawler {
       throws InterruptedException, ExecutionException {
     final ZdfDayPageTask dayTask =
         new ZdfDayPageTask(
-            this, getApiUrlBase(), getDayUrls(), configuration.getSearchAuthKey().orElse(null));
+            this, getApiUrlBase(), getDayUrls(), configuration.getSearchAuthKey().orElse(null), partner2Sender);
     final Set<CrawlerUrlDTO> shows = forkJoinPool.submit(dayTask).get();
 
     final Collection<? extends CrawlerUrlDTO> extraDaysEntries = getExtraDaysEntries();

@@ -6,6 +6,9 @@ databaseConfig:
   url: "jdbc:postgresql://localhost:55432/crawler"
   username: "crawler"
   password: "secret"
+  refreshIntervalInDays: 7
+  checkUrlIntervalInDays: 3
+  batchSize: 2000
 
 # The maximum amount of cpu threads to be used.
 maximumCpuThreads: 10
@@ -24,7 +27,7 @@ maximumRequestsPerSecond: 999.0
 
 # If set only these Sender will be crawled all other will be ignored.
 senderIncluded:
-  #- ARD
+  - ARD
   #- ARTE_DE
   #- ARTE_FR
   #- ARTE_PL
@@ -37,7 +40,7 @@ senderIncluded:
   #- ORF
   #- PHOENIX
   #- SRF
-  - SR
+  #- SR
   #- ZDF
   
 #SRF,SR,PHONIX,ORF,KIKA,DW,3SAT<
@@ -105,8 +108,8 @@ filmlistIdFilePath: target/filmlists/filmlist.id.xx
 
 # import additional filmlist sources
 importFilmlistConfigurations :
-    - active: false
-      path: "someCrawlerlist.json"
+    - active: true
+      path: "Filmliste-akt"
       format: OLD_JSON
       createDiff: false
       checkImportListUrl: false
@@ -157,7 +160,7 @@ maximumSubpages: 5
 maximumDaysForSendungVerpasstSection: 7
 
 # The maximum amount of days going to future will be crawled for the "Sendung Verpasst?" section.
-maximumDaysForSendungVerpasstSectionFuture: 0
+maximumDaysForSendungVerpasstSectionFuture: 3
 
 # The time in seconds before a socket connection should time out.
 socketTimeoutInSeconds: 60
@@ -167,11 +170,12 @@ socketTimeoutInSeconds: 60
 senderConfigurations:
   ARD:
     # Actually the ARD has a maximum of 6 days in the past
-    maximumDaysForSendungVerpasstSection: 1
+    maximumDaysForSendungVerpasstSection: 6
+    maximumDaysForSendungVerpasstSectionFuture: 6
     #2,4,8 ok
     maximumUrlsPerTask: 32
     #10,20,40 ok
-    maximumSubpages: 0
+    maximumSubpages: 40
   ORF:
     maximumRequestsPerSecond: 10.0
   ARTE_DE:
@@ -195,12 +199,13 @@ senderConfigurations:
   FUNK:
     maximumUrlsPerTask: 99
   DREISAT:
-    maximumSubpages: 5
-    maximumDaysForSendungVerpasstSection: 60
+    maximumSubpages: 15
+    maximumDaysForSendungVerpasstSection: 30
+    maximumDaysForSendungVerpasstSectionFuture: 20
   PHOENIX:
     maximumSubpages: 500
   SRF:
-    maximumSubpages: 1
+    maximumSubpages: 25
 
 #### COPY ####
 copySettings:
@@ -258,4 +263,4 @@ logSettings:
 
   # The pattern of the file name of the archived log files.
   # See: https://logging.apache.org/log4j/2.0/manual/appenders.html#RollingFileAppender
-  logFileRollingPattern: logs/${date:yyyy-MM}/server-%d{MM-dd-yyyy}-%i.log
+  logFileRollingPattern: logs/${date:yyyy-MM}/server-%d{MM-dd-yyyy-HH}-%i.log

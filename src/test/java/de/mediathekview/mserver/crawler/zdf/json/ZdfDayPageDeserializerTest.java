@@ -29,7 +29,7 @@ public class ZdfDayPageDeserializerTest {
       final String aJsonFile,
       final CrawlerUrlDTO[] aExpectedEntries,
       final Optional<String> aExpectedNextPageUrl) {
-    target = new ZdfDayPageDeserializer(ZdfConstants.URL_API_BASE);
+    target = new ZdfDayPageDeserializer(ZdfConstants.URL_API_BASE, ZdfConstants.PARTNER_TO_SENDER);
 
     jsonFile = aJsonFile;
     expectedEntries = aExpectedEntries;

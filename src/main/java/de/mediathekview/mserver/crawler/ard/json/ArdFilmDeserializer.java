@@ -11,6 +11,7 @@ import de.mediathekview.mserver.base.utils.UrlUtils;
 import de.mediathekview.mserver.crawler.ard.ArdConstants;
 import de.mediathekview.mserver.crawler.ard.ArdFilmDto;
 import de.mediathekview.mserver.crawler.ard.ArdFilmInfoDto;
+import de.mediathekview.mserver.crawler.ard.UrlOptimizer;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import org.apache.logging.log4j.LogManager;
 
@@ -27,6 +28,7 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
 
@@ -73,10 +75,12 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
 
   private final ArdVideoInfoJsonDeserializer videoDeserializer;
   private final AbstractCrawler crawler;
-
+  private final UrlOptimizer urlOptimizer;
+  
   public ArdFilmDeserializer(final AbstractCrawler crawler) {
     videoDeserializer = new ArdVideoInfoJsonDeserializer(crawler);
     this.crawler = crawler;
+    this.urlOptimizer = new UrlOptimizer(crawler);
   }
 
   private static Optional<JsonObject> getMediaCollectionObject(final JsonObject itemObject) {
@@ -416,7 +420,7 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
       videoInfoAD = videoInfoStandard;
       videoInfoStandard = Optional.empty();
     }
-    
+    videoInfoAdaptive.ifPresent(x -> allVideoUrls.setAdaptivUrl(x.entrySet().stream().findFirst().get().getValue()));
     videoInfoStandard.ifPresent(allVideoUrls::putAll);
     videoInfoAD.ifPresent(allVideoUrls::putAllAD);
     videoInfoDGS.ifPresent(allVideoUrls::putAllDGS);
@@ -425,9 +429,36 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
     
     if (allVideoUrls.getVideoUrls().isEmpty() && allVideoUrls.getVideoUrlsAD().isEmpty() && allVideoUrls.getVideoUrlsDGS().isEmpty() && allVideoUrls.getVideoUrlsOV().isEmpty() ) {
       return Optional.empty();
-    }    
+    }
+    if (videoInfoAdaptive.isPresent() && videoInfoStandard.isPresent() 
+        && videoInfoStandard.get().size() == 1) {
+      String m3u8 = videoInfoAdaptive.get().entrySet().stream().findFirst().get().getValue();
+      if (!m3u8.contains("funk") && !m3u8.contains("arte")) {
+        Map<Resolution, String> regenerated = urlOptimizer.buildFilmUrlFromAdaptive(
+            videoInfoAdaptive.get().entrySet().stream().findFirst().get().getValue(),
+            videoInfoStandard.get().entrySet().stream().findFirst().get().getValue());
+        if(regenerated.size() > videoInfoStandard.get().size()) {
+          videoInfoStandard = Optional.of(regenerated);
+          //good.incrementAndGet();
+        } else {
+          bad.incrementAndGet();
+          //LOG.debug("asdf {} / {}", good, bad);
+          
+        }
+      }
+      /*
+      Optional<Map<Integer, String>> tt = parseVideoUrlMap(playerPageObject, MARKER_VIDEO_CATEGORY_MAIN, MARKER_VIDEO_STANDARD, MARKER_VIDEO_MP4, MARKER_VIDEO_DE);
+      String a = videoInfoAdaptive.get().entrySet().stream().findFirst().get().getValue();
+      if(tt.isPresent() && !a.startsWith("https://funk") && !a.contains("arte") )
+        //UrlOptimizer.debug(a, tt.get());
+        urlOptimizer.debug2(a, videoInfoStandard.get());*/ 
+    }
+    
     return Optional.of(allVideoUrls);
   }
+  
+  static AtomicInteger good = new AtomicInteger(0);
+  static AtomicInteger bad = new AtomicInteger(0);
   
   private Optional<Map<Resolution, String>> parseVideoUrls(final JsonObject playerPageObject, String streamType, String aduioType, String mimeType, String language) {
     Optional<Map<Integer, String>> urls = parseVideoUrlMap(playerPageObject, streamType, aduioType, mimeType, language);

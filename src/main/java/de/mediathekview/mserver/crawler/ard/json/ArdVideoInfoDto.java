@@ -20,6 +20,7 @@ public class ArdVideoInfoDto {
   private final Map<Resolution, String> videoUrlsAD;
   private final Map<Resolution, String> videoUrlsDGS;
   private final Map<Resolution, String> videoUrlsOV;
+  private String adaptivUrl = null;
   
   private Set<String> subtitleUrl;
 
@@ -128,4 +129,14 @@ public class ArdVideoInfoDto {
       putOV(e.getKey(), e.getValue());
     }
   }
+
+  public String getAdaptivUrl() {
+    return adaptivUrl;
+  }
+
+  public void setAdaptivUrl(String adaptivUrl) {
+    this.adaptivUrl = adaptivUrl;
+  }
+  
+  
 }

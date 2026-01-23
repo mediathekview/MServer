@@ -138,7 +138,7 @@ public class ZdfCrawler extends AbstractCrawler {
           throws InterruptedException, ExecutionException {
     final ZdfDayPageTask dayTask =
             new ZdfDayPageTask(
-                    this, getApiUrlBase(), getDayUrls(), configuration.getSearchAuthKey().orElse(null));
+                    this, getApiUrlBase(), getDayUrls(), configuration.getSearchAuthKey().orElse(null), ZdfConstants.PARTNER_TO_SENDER);
     final Set<CrawlerUrlDTO> shows = forkJoinPool.submit(dayTask).get();
 
     printMessage(
