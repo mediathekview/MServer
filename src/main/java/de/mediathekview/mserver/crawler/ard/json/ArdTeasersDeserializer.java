@@ -56,21 +56,31 @@ abstract class ArdTeasersDeserializer {
   }
 
   private ArdFilmInfoDto createFilmInfo(final String id, final int numberOfClips) {
-    final String url = String.format(ArdConstants.ITEM_URL, id);
+    String refId = id;
+    if(id.contains(":")) {
+      refId = id.replace(":", "%3A");
+    }
+    
+    final String url = String.format(ArdConstants.ITEM_URL, refId);
+    
+    
+    
+    if (id.contains("a04c5a47-0801-40e5-b530-b7f9a4312be9:6898178275329995836") 
+        || id.contains("Y3JpZDovL25kci5kZS9wcm9wbGFuXzE5NjM4MTA5N19nYW56ZVNlbmR1bmc")
+        || id.contains("1TDLUvc8cVEtcSb9GGsOnt:6898178275329995836")
+        || id.contains("6b64fc2c-4bd7-47ae-af6c-680e65b53b89")
+        ) {
+      System.out.println("stop");
+    }
+      
     return new ArdFilmInfoDto(id, url, numberOfClips);
   }
   
   private boolean isRelevant(final JsonObject teaserObject) {
-    if (teaserObject.has(ELEMENT_PUBLICATION_SERVICE)) {
-      final JsonObject publicationService =
-              teaserObject.get(ELEMENT_PUBLICATION_SERVICE).getAsJsonObject();
-      final Optional<String> attributeAsString =
-              JsonUtils.getAttributeAsString(publicationService, ATTRIBUTE_PARTNER);
-      if (attributeAsString.isPresent()) {
-        return ArdConstants.PARTNER_TO_SENDER.get(attributeAsString.get()) != null;
-      }
+    Optional<String> partner = JsonUtils.getElementValueAsString(teaserObject, ELEMENT_PUBLICATION_SERVICE, ATTRIBUTE_PARTNER);
+    if (partner.isPresent()) {
+      return ArdConstants.PARTNER_TO_SENDER.get(partner.get()) != null;
     }
-
     return true;
   }
 }
