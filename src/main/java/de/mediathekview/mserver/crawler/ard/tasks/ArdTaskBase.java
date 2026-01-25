@@ -101,7 +101,6 @@ public abstract class ArdTaskBase<T, D extends CrawlerUrlDTO> extends AbstractRe
     }
 
     return request
-        .header("Accept-Encoding", "br, gzip, deflate, zstd")
         .header(HEADER_ACCEPT, APPLICATION_JSON)
         .header(HEADER_CONTENT_TYPE, APPLICATION_JSON)
         .get();

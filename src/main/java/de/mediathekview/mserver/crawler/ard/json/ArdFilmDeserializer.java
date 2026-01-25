@@ -210,9 +210,9 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
                   date.orElse(null),
                   duration.orElse(null),
                   videoInfo.get()));
-      if (widgets.size() > 1) {
-        parseRelatedFilms(filmDto, widgets.get(1).getAsJsonObject());
-      }
+      //if (widgets.size() > 1) {
+        //parseRelatedFilms(filmDto, widgets.get(1).getAsJsonObject());
+      //}
       films.add(filmDto);
     }
     // OV - long term this should go into Film as "OV"

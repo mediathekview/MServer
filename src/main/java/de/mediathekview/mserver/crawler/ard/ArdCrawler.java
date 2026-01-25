@@ -13,6 +13,7 @@ import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
@@ -40,8 +41,13 @@ public class ArdCrawler extends AbstractCrawler {
   private Queue<CrawlerUrlDTO> createDayUrlsToCrawl() {
     final Queue<CrawlerUrlDTO> dayUrlsToCrawl = new ConcurrentLinkedQueue<>();
     final List<String> days = DateUtils.generateDaysToCrawl(crawlerConfig);
+    // funk hat keine program übersicht
+    final String[] CLIENTS_WITHOUT_FUNK =  
+        Arrays.stream(ArdConstants.CLIENTS)
+              .filter(c -> !"funk".equals(c))
+              .toArray(String[]::new);
     days.forEach( dateString -> {
-      for (final String client : ArdConstants.CLIENTS) {
+      for (final String client : CLIENTS_WITHOUT_FUNK) {
         final String url = String.format(ArdConstants.DAY_PAGE_URL, dateString, client);
         dayUrlsToCrawl.offer(new CrawlerUrlDTO(url));
       }
@@ -57,7 +63,6 @@ public class ArdCrawler extends AbstractCrawler {
           forkJoinPool.submit(new ArdDayPageTask(this, createDayUrlsToCrawl()));
 
       final Set<ArdFilmInfoDto> shows = dayTask.get();
-      shows.clear();
       printMessage(
           ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), shows.size());
 
@@ -74,12 +79,8 @@ public class ArdCrawler extends AbstractCrawler {
         assitUrls.addAll(forkJoinPool.submit(groupsToAsset).get());
         LOG.debug("sender group assit tasks: {}", assitUrls.size());
         
-        //test.add(new CrawlerUrlDTO("https://api.ardmediathek.de/page-gateway/widgets/swr/asset/Y3JpZDovL3N3ci5kZS8yNDEwMzY1MA?pageNumber=0&pageSize=48&embedded=true&seasoned=false&seasonNumber=&withAudiodescription=false&withOriginalWithSubtitle=false&withOriginalversion=false&single=false"));
-        test.add(new CrawlerUrlDTO("https://api.ardmediathek.de/page-gateway/widgets/wdr/asset/Y3JpZDovL3dkci5kZS93ZXN0cG9s?pageNumber=0&pageSize=48&embedded=true&seasoned=false&seasonNumber=&withAudiodescription=false&withOriginalWithSubtitle=false&withOriginalversion=false&single=false"));
-        
         final ArdTopicPageTask topicTask =
             new ArdTopicPageTask(this, new ConcurrentLinkedQueue<>(assitUrls));
-            //new ArdTopicPageTask(this, new ConcurrentLinkedQueue<>(test));
               
         final int showsCountBefore = shows.size();
         shows.addAll(forkJoinPool.submit(topicTask).get());
