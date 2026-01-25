@@ -88,6 +88,7 @@ public class FilmDBService {
               ps.addBatch();
             }
             int [] rs = ps.executeBatch();
+            con.commit();
             for (int rsCode : rs) {
               updateCounter.addAndGet(rsCode);
             }
@@ -124,6 +125,7 @@ public class FilmDBService {
               ps.addBatch();
             }
             ps.executeBatch();
+            con.commit();
           } catch (SQLException e) {
             LOG.error(e);
           }
@@ -203,6 +205,7 @@ public class FilmDBService {
               }
             }
             int[] rs = ps.executeBatch();
+            con.commit();
             for (int rsIndex = 0; rsIndex < rs.length; rsIndex++) {
               if (rs[rsIndex] == 0) {
                 newVideos.add(batch.get(rsIndex));
@@ -220,6 +223,10 @@ public class FilmDBService {
         result.addAll(f.get());
       }
       LOG.debug("Filtered {} in {} (in {} vs out {})",(videos.size()-result.size()), sender.getName(), videos.size(), result.size());
+      // CARP films pro Nacht. Die filme werden dann am nächsten tag gefunden. TODO: für die nächste runde.
+      /* result = new ArrayList<>(result.subList(0, 200000));
+       * 
+       */
       return result;
     } catch (Exception e) {
       LOG.error("{}", e);
@@ -319,8 +326,8 @@ public class FilmDBService {
           LOG.error("saveBatch - Missing ID for film {}", film);
         }
       }
-
       ps.executeBatch();
+      con.commit();
     }
     return successCounter;
   }

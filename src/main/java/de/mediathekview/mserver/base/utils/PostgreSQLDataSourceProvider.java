@@ -39,19 +39,19 @@ public final class PostgreSQLDataSourceProvider {
     cfg.setUsername(aMServerConfigManager.getConfig().getDatabaseConfig().getUsername());
     cfg.setPassword(aMServerConfigManager.getConfig().getDatabaseConfig().getPassword());
 
-    // === Pool Sizing (wichtig!) ===
-    cfg.setMaximumPoolSize(16); // Sweet Spot für 10k+/min
+    // === Pool Sizing ===
+    cfg.setMaximumPoolSize(50);
     cfg.setMinimumIdle(4);
 
     // === Performance ===
-    cfg.setAutoCommit(true);
+    cfg.setAutoCommit(false);
     cfg.setConnectionTimeout(3000);
     cfg.setIdleTimeout(600_000);
     cfg.setMaxLifetime(1_800_000);
 
     // === PostgreSQL Optimierungen ===
-    cfg.addDataSourceProperty("reWriteBatchedInserts", "true");
     cfg.addDataSourceProperty("stringtype", "unspecified");
+    cfg.addDataSourceProperty("defaultRowFetchSize", "10000");
 
     // === Debug (optional) ===
     cfg.setPoolName("CrawlerPool");

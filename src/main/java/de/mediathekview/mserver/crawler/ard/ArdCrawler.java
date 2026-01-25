@@ -123,7 +123,7 @@ public class ArdCrawler extends AbstractCrawler {
      Set<CrawlerUrlDTO> senderSingleLetterUrls = forkJoinPool.submit(
         new ArdTopicsTask(this, sender, CreateLetterUrlQuery(sender))).get();
 
-     LOG.debug("topics task result {}", senderSingleLetterUrls.size());
+     //LOG.debug("topics task result {}", senderSingleLetterUrls.size());
      return forkJoinPool.submit(new ArdTopicsLetterTask(this, sender, new ConcurrentLinkedQueue<>(senderSingleLetterUrls)));
   }
 

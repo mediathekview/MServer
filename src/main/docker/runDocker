@@ -4,16 +4,16 @@
 docker compose up -d postgresMV
 
 # cron 01 01 long run
-docker compose run -d --rm -e MSERVER_OPTS="--config /config/MServer-Config-R1.yaml" mserver-r1
+docker compose run -d --rm -e MSERVER_OPTS="--config https://mediathekview.github.io/MVCrawlerConfig/config/MServer-Config-R1.yaml" mserver-r1
 
 # cron 06-22 1,31 short run
-docker compose run -d --rm -e MSERVER_OPTS="--config /config/MServer-Config-R2.yaml" mserver-r2
+docker compose run -d --rm -e MSERVER_OPTS="--config https://mediathekview.github.io/MVCrawlerConfig/config/MServer-Config-R2.yaml" mserver-r2
 
 # cron 22 55 url check
-docker compose run -d --rm -e MSERVER_OPTS="--config /config/MServer-Config-R2.yaml --flow checkAvailability" mserver-checkUrls
+docker compose run -d --rm -e MSERVER_OPTS="--config https://mediathekview.github.io/MVCrawlerConfig/config/MServer-Config-R2.yaml --flow checkAvailability" mserver-checkUrls
 
 # on demand - do not run this unless you know what you are doing!
-docker compose run -d --rm -e MSERVER_OPTS="--config /config/MServer-Config-R2.yaml --flow importFilmlistIntoDB" mserver-r3
+docker compose run -d --rm -e MSERVER_OPTS="--config https://mediathekview.github.io/MVCrawlerConfig/config/MServer-Config-R2.yaml --flow importFilmlistIntoDB" mserver-r3
 
 ## docker save -o mserver.tar mediathekview/mserver:4.0.1-SNAPSHOT
 ## docker load -i mserver.tar 
