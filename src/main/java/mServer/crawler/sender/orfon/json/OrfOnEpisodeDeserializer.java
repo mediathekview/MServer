@@ -103,13 +103,17 @@ public class OrfOnEpisodeDeserializer implements JsonDeserializer<OrfOnVideoInfo
   private Optional<Map<Qualities, String>> optimizeUrls(Optional<Map<Qualities, String>> urls) {
     if (urls.isPresent() && urls.get().size() == 1) {
       final Map<Qualities, String> urlMap = urls.get();
-      final String urlToOptimize = urlMap.get(Qualities.NORMAL);
-      urlMap.put(Qualities.SMALL, urlToOptimize.replace("QXA", "Q4A"));
-      urlMap.put(Qualities.NORMAL, urlToOptimize.replace("QXA", "Q6A"));
-      urlMap.put(Qualities.HD, urlToOptimize.replace("QXA", "Q8C"));
+      String urlToOptimize = urlMap.get(Qualities.NORMAL);
+      for (String s : List.of("QXA","QXB")) {
+        urlToOptimize = urlToOptimize.replace(s, "#Q#");  
+      }
+      urlMap.put(Qualities.SMALL, urlToOptimize.replace("#Q#", "Q4A"));
+      urlMap.put(Qualities.NORMAL, urlToOptimize.replace("#Q#", "Q6A"));
+      urlMap.put(Qualities.HD, urlToOptimize.replace("#Q#", "Q8C"));
     }
     return urls;
   }
+  
 
   private Optional<String> buildOrResolveSubs(JsonElement jsonElement) {
     Optional<String> subtitleSource = JsonUtils.getElementValueAsString(jsonElement, TAG_SUBTITLE);
@@ -185,7 +189,15 @@ public class OrfOnEpisodeDeserializer implements JsonDeserializer<OrfOnVideoInfo
         }
       }
     }
-    return parseVideoFromThumbnail(root);
+    Optional<Map<Qualities, String>> fallbackThumbnail = parseVideoFromThumbnail(root);
+    if (fallbackThumbnail.isPresent()) {
+      return fallbackThumbnail;
+    }
+    Optional<Map<Qualities, String>> fallbackGapless = parseVideoFromGapless(root);
+    if (fallbackGapless.isPresent()) {
+      return fallbackGapless;
+    }
+    return Optional.empty();
   }
   
   private Optional<Map<Qualities, String>> parseVideoFromThumbnail(JsonElement root) {
@@ -202,6 +214,28 @@ public class OrfOnEpisodeDeserializer implements JsonDeserializer<OrfOnVideoInfo
           String url = String.format("https://apasfiis.sf.apa.at/ipad/cms-worldwide_episodes/%s_%s_QXA.mp4/playlist.m3u8", id.get().getAsString(), secondId);
           urls.put(Qualities.NORMAL, url);
         }
+      }
+    } catch (Exception e) {
+      LOG.error("generateFallbackVideo {}", e);
+    }
+    if (urls.size() == 0) {
+      return Optional.empty();
+    }
+    return Optional.of(urls);
+  }
+
+  private Optional<Map<Qualities, String>> parseVideoFromGapless(JsonElement root) {
+    Map<Qualities, String> urls = new EnumMap<>(Qualities.class);
+    try {
+      Optional<JsonElement> gaplessSourceAT = JsonUtils.getElement(root, "gapless_sources_austria", "hls");
+      if (gaplessSourceAT.isPresent()) {
+        gaplessSourceAT.get().getAsJsonArray().forEach( e -> {
+          Optional<String> url = JsonUtils.getElementValueAsString(e, "src");
+          Optional<String> drm = JsonUtils.getElementValueAsString(e, "is_drm_protected");
+          if (url.isPresent() && drm.orElse("").equalsIgnoreCase("false")) {
+            urls.put(Qualities.NORMAL, url.get());
+          }
+        });
       }
     } catch (Exception e) {
       LOG.error("generateFallbackVideo {}", e);
