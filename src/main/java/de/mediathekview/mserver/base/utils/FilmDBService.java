@@ -224,9 +224,10 @@ public class FilmDBService {
       }
       LOG.debug("Filtered {} in {} (in {} vs out {})",(videos.size()-result.size()), sender.getName(), videos.size(), result.size());
       // CARP films pro Nacht. Die filme werden dann am nächsten tag gefunden. TODO: für die nächste runde.
-      /* result = new ArrayList<>(result.subList(0, 200000));
-       * 
-       */
+      if(result.size() > 100_000) {
+        LOG.debug("CARP - reduced number of films to 100000 in one job");
+      }
+      result = new ArrayList<>(result.subList(0, 100_000));
       return result;
     } catch (Exception e) {
       LOG.error("{}", e);

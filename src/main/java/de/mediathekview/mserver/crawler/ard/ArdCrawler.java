@@ -57,7 +57,6 @@ public class ArdCrawler extends AbstractCrawler {
 
   @Override
   protected RecursiveTask<Set<Film>> createCrawlerTask() {
-    ConcurrentLinkedQueue<CrawlerUrlDTO> test = new ConcurrentLinkedQueue<>();
     try {
       final ForkJoinTask<Set<ArdFilmInfoDto>> dayTask =
           forkJoinPool.submit(new ArdDayPageTask(this, createDayUrlsToCrawl()));
