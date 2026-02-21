@@ -248,10 +248,10 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
           resolutionUrlMapFromM3U.forEach((key, value) -> newUrls.put(key, value.toString()));
           //
           // TODO: FIXME
-          if (!resolutionUrlMapFromM3U.containsKey(Resolution.NORMAL)) {
-            Resolution anyResolution = resolutionUrlMapFromM3U.keySet().stream().findFirst().get();
-            resolutionUrlMapFromM3U.put(Resolution.NORMAL, resolutionUrlMapFromM3U.get(anyResolution));
-            resolutionUrlMapFromM3U.remove(anyResolution);
+          if (!newUrls.containsKey(Resolution.NORMAL)) {
+            Resolution anyResolution = newUrls.keySet().stream().findFirst().get();
+            newUrls.put(Resolution.NORMAL, newUrls.get(anyResolution));
+            newUrls.remove(anyResolution);
           }
           return Optional.of(newUrls);
         }
