@@ -5,6 +5,7 @@ import java.util.Map;
 
 import de.mediathekview.mserver.daten.Resolution;
 import de.mediathekview.mserver.daten.Sender;
+import org.apache.commons.lang3.ArrayUtils;
 
 public class ArdConstants {
 
@@ -23,24 +24,25 @@ public class ArdConstants {
 
   public static final String DEFAULT_CLIENT = "ard";
 
-  public static final String[] CLIENTS =
-      new String[] {
-        "daserste",
-        "br",
-        "hr",
-        "mdr",
-        "ndr",
-        "radiobremen",
-        "rbb",
-        "sr",
-        "swr",
-        "wdr",
-        "one",
-        "funk",
-        "alpha",
-        "tagesschau24",
-        "phoenix"
-      };
+  public static final String[] CLIENTS_DAY =
+          new String[] {
+                  "daserste",
+                  "br",
+                  "hr",
+                  "mdr",
+                  "ndr",
+                  "radiobremen",
+                  "rbb",
+                  "sr",
+                  "swr",
+                  "wdr",
+                  "one",
+                  "alpha",
+                  "tagesschau24",
+                  "phoenix"
+          };
+
+  public static final String[] CLIENTS = ArrayUtils.add(ArdConstants.CLIENTS_DAY, "funk");
 
   public static final Map<String, Sender> PARTNER_TO_SENDER = new HashMap<>();
 

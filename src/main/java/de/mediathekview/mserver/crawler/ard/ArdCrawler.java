@@ -46,7 +46,7 @@ public class ArdCrawler extends AbstractCrawler {
     for (int i = 0; i <= crawlerConfig.getMaximumDaysForSendungVerpasstSection(); i++) {
       final String day = now.minusDays(i).format(DAY_PAGE_DATE_FORMATTER);
 
-      for (final String client : ArdConstants.CLIENTS) {
+      for (final String client : ArdConstants.CLIENTS_DAY) {
         final String url =
             String.format(ArdConstants.DAY_PAGE_URL, day, client);
         dayUrlsToCrawl.offer(new CrawlerUrlDTO(url));
