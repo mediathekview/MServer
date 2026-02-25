@@ -58,7 +58,7 @@ public class SrCrawler extends AbstractCrawler {
               ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), filmDtos.size());
       getAndSetMaxCount(filmDtos.size());
 
-      return new SrFilmDetailTask(this, filmDtos);
+      return new SrFilmDetailTask(this, filmDtos, SrConstants.URL_BASE);
     } catch (final InterruptedException ex) {
       LOG.debug("{} crawler interrupted.", getSender().getName(), ex);
       Thread.currentThread().interrupt();

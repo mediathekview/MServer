@@ -7,6 +7,7 @@ import de.mediathekview.mserver.daten.FilmUrl;
 import de.mediathekview.mserver.daten.Resolution;
 import de.mediathekview.mserver.base.utils.DateUtils;
 import de.mediathekview.mserver.base.utils.HtmlDocumentUtils;
+import de.mediathekview.mserver.base.utils.UrlUtils;
 import de.mediathekview.mserver.crawler.ard.json.ArdVideoInfoDto;
 import de.mediathekview.mserver.crawler.ard.json.ArdVideoInfoJsonDeserializer;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
@@ -44,10 +45,14 @@ public class SrFilmDetailTask extends AbstractDocumentTask<Film, SrTopicUrlDTO> 
   private static final String VIDEO_DETAIL_ATTRIBUTE = "data-mediacollection-ardplayer";
   private static final String VIDEO_DETAIL_SELECTOR = "div[" + VIDEO_DETAIL_ATTRIBUTE + "]";
 
+  private final String baseUrl;
+
   public SrFilmDetailTask(
       final AbstractCrawler crawler,
-      final Queue<SrTopicUrlDTO> urlToCrawlDTOs) {
+      final Queue<SrTopicUrlDTO> urlToCrawlDTOs,
+      final String aBaseUrl) {
     super(crawler, urlToCrawlDTOs);
+    baseUrl = aBaseUrl;
   }
 
   private static Optional<String> parseDescription(final Document aDocument) {
@@ -185,7 +190,7 @@ public class SrFilmDetailTask extends AbstractDocumentTask<Film, SrTopicUrlDTO> 
   @Override
   protected AbstractUrlTask<Film, SrTopicUrlDTO> createNewOwnInstance(
       final Queue<SrTopicUrlDTO> aURLsToCrawl) {
-    return new SrFilmDetailTask(crawler, aURLsToCrawl);
+    return new SrFilmDetailTask(crawler, aURLsToCrawl, baseUrl);
   }
 
   /**
@@ -223,6 +228,7 @@ public class SrFilmDetailTask extends AbstractDocumentTask<Film, SrTopicUrlDTO> 
 
       String url = videoDetailUrl.get();
       url = addMissingProtocol(url);
+      url = UrlUtils.addDomainIfMissing(url, baseUrl);
 
       try {
         final ArdVideoInfoDto dto =

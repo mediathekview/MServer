@@ -1,28 +1,27 @@
 package de.mediathekview.mserver.crawler.sr.tasks;
 
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.MatcherAssert.assertThat;
+
+import de.mediathekview.mserver.base.webaccess.JsoupConnection;
+import de.mediathekview.mserver.crawler.sr.SrCrawler;
 import de.mediathekview.mserver.daten.Film;
 import de.mediathekview.mserver.daten.GeoLocations;
 import de.mediathekview.mserver.daten.Sender;
-import de.mediathekview.mserver.base.webaccess.JsoupConnection;
-import de.mediathekview.mserver.crawler.sr.SrCrawler;
 import de.mediathekview.mserver.testhelper.AssertFilm;
 import de.mediathekview.mserver.testhelper.JsoupMock;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-
-import java.time.Duration;
-import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Set;
-
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.hamcrest.MatcherAssert.assertThat;
 
 @RunWith(Parameterized.class)
 public class SrFilmDetailTaskTest extends SrTaskTestBase {
@@ -42,11 +41,6 @@ public class SrFilmDetailTaskTest extends SrTaskTestBase {
   private final String expectedUrlHd;
 
   @Mock JsoupConnection jsoupConnection;
-
-  @Before
-  public void setUp() {
-    MockitoAnnotations.openMocks(this);
-  }
 
   public SrFilmDetailTaskTest(
       final String aRequestUrl,
@@ -111,7 +105,27 @@ public class SrFilmDetailTaskTest extends SrTaskTestBase {
             "https://srstorage01-a.akamaihd.net/Video/FS/STH/Schengen_-_Wie_entstand_das_Europa_ohne_Grenzen_SENDEFASSUNG_L.mp4",
             "https://srstorage01-a.akamaihd.net/Video/FS/STH/Schengen_-_Wie_entstand_das_Europa_ohne_Grenzen_SENDEFASSUNG_P.mp4"
           },
+          {
+            "https://www.sr-mediathek.de/index.php?seite=7&id=77119",
+            "/sr/sr_film_page3_missing_host_in_url.html",
+            "/sr_player/mc.php?id=77119&tbl=&pnr=0&hd=0&devicetype=",
+            "/sr/sr_film_video_details2.json",
+            "SAARTHEMA",
+            "SAARTHEMA - Schengen",
+            LocalDateTime.of(2019, 8, 15, 0, 0, 0),
+            Duration.ofMinutes(43).plusSeconds(18),
+            "An jeder Grenze der Welt ist es ein Begriff: Schengen heißt eines der wichtigsten Visa, die es heute gibt. Am 14. Juni 1985 unterzeichneten die Vertreter der EG-Staaten Deutschland, Frankreich, Belgien, Niederlande und Luxemburg das Schengener-Abkommen, das im Laufe der Jahre von fast allen EU-Staaten ratifiziert wurde und uns in Europa offene Grenzen gebracht hat.",
+            "https://www.sr-mediathek.de/sr_player/ut.php?file=STH_20190815.xml",
+            "https://srstorage01-a.akamaihd.net/Video/FS/STH/Schengen_-_Wie_entstand_das_Europa_ohne_Grenzen_SENDEFASSUNG_M.mp4",
+            "https://srstorage01-a.akamaihd.net/Video/FS/STH/Schengen_-_Wie_entstand_das_Europa_ohne_Grenzen_SENDEFASSUNG_L.mp4",
+            "https://srstorage01-a.akamaihd.net/Video/FS/STH/Schengen_-_Wie_entstand_das_Europa_ohne_Grenzen_SENDEFASSUNG_P.mp4"
+          }
         });
+  }
+
+  @Before
+  public void setUp() {
+    MockitoAnnotations.openMocks(this);
   }
 
   @Test
@@ -147,6 +161,6 @@ public class SrFilmDetailTaskTest extends SrTaskTestBase {
 
   private Set<Film> executeTask(
       final SrCrawler crawler, final String aTheme, final String aRequestUrl) {
-    return new SrFilmDetailTask(crawler, createCrawlerUrlDto(aTheme, aRequestUrl)).invoke();
+    return new SrFilmDetailTask(crawler, createCrawlerUrlDto(aTheme, aRequestUrl), getWireMockBaseUrlSafe()).invoke();
   }
 }

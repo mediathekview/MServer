@@ -94,7 +94,7 @@ public class SrFilmDetailTaskNoFilmTest extends SrTaskTestBase {
 
   private Set<Film> executeTask(final SrCrawler crawler, final String aTheme, final String aRequestUrl) {
     return new SrFilmDetailTask(
-        crawler, createCrawlerUrlDto(aTheme, aRequestUrl))
+        crawler, createCrawlerUrlDto(aTheme, aRequestUrl), getWireMockBaseUrlSafe())
         .invoke();
   }
 }
