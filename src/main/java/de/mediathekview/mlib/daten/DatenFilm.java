@@ -103,7 +103,6 @@ public class DatenFilm implements Comparable<DatenFilm> {
     "+++Aus rechtlichen Gründen kann dieses Video nur innerhalb von Deutschland abgerufen werden.+++"
   };
   private static final long MAX_DAUER = 3600 * 99L;  /* Werte über 99 Stunden */
-  public static boolean[] spaltenAnzeigen = new boolean[MAX_ELEM];
   public final String[] arr = new String[]{
     "", "", "", "", "", "", "", "", "", "",
     "", "", "", "", "", "", "", "", "", "", "", "",
@@ -245,41 +244,6 @@ public class DatenFilm implements Comparable<DatenFilm> {
       return getUrlNormalHd();
     }
     return arr[DatenFilm.FILM_URL];
-  }
-
-  public String getUrlRtmpFuerAufloesung(String aufloesung) {
-    if (aufloesung.equals(AUFLOESUNG_KLEIN)) {
-      return getUrlFlvstreamerKlein();
-    }
-    if (aufloesung.equals(AUFLOESUNG_HD)) {
-      return getUrlFlvstreamerHd();
-    }
-    return getUrlFlvstreamer();
-  }
-
-  public String getDateigroesse(String url) {
-    if (url.equals(arr[DatenFilm.FILM_URL])) {
-      return arr[DatenFilm.FILM_GROESSE];
-    } else {
-      return FileSize.laengeString(url);
-    }
-  }
-
-  public void setUrlHistory() {
-    String u = getUrl();
-    if (u.equals(arr[DatenFilm.FILM_URL])) {
-      arr[DatenFilm.FILM_URL_HISTORY] = "";
-    } else {
-      arr[DatenFilm.FILM_URL_HISTORY] = u;
-    }
-  }
-
-  public String getUrlHistory() {
-    if (arr[DatenFilm.FILM_URL_HISTORY].isEmpty()) {
-      return arr[DatenFilm.FILM_URL];
-    } else {
-      return arr[DatenFilm.FILM_URL_HISTORY];
-    }
   }
 
   public String getIndex() {
