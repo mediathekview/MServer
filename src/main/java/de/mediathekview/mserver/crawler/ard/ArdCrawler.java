@@ -41,13 +41,8 @@ public class ArdCrawler extends AbstractCrawler {
   private Queue<CrawlerUrlDTO> createDayUrlsToCrawl() {
     final Queue<CrawlerUrlDTO> dayUrlsToCrawl = new ConcurrentLinkedQueue<>();
     final List<String> days = DateUtils.generateDaysToCrawl(crawlerConfig);
-    // funk hat keine program übersicht
-    final String[] CLIENTS_WITHOUT_FUNK =  
-        Arrays.stream(ArdConstants.CLIENTS)
-              .filter(c -> !"funk".equals(c))
-              .toArray(String[]::new);
     days.forEach( dateString -> {
-      for (final String client : CLIENTS_WITHOUT_FUNK) {
+      for (final String client : ArdConstants.CLIENTS_DAY) {
         final String url = String.format(ArdConstants.DAY_PAGE_URL, dateString, client);
         dayUrlsToCrawl.offer(new CrawlerUrlDTO(url));
       }
