@@ -1,5 +1,7 @@
 package mServer.crawler.sender.ard;
 
+import org.apache.commons.lang3.ArrayUtils;
+
 public class ArdConstants {
 
   public static final String API_URL = "https://api.ardmediathek.de";
@@ -17,24 +19,25 @@ public class ArdConstants {
 
   public static final String DEFAULT_CLIENT = "ard";
 
-  public static final String[] CLIENTS =
-      new String[] {
-          "daserste",
-          "br",
-          "hr",
-          "mdr",
-          "ndr",
-          "radiobremen",
-          "rbb",
-          "sr",
-          "swr",
-          "wdr",
-          "one",
-          "alpha",
-          "tagesschau24",
-          "funk",
-          "phoenix"
-      };
+  public static final String[] CLIENTS_DAY =
+          new String[] {
+                  "daserste",
+                  "br",
+                  "hr",
+                  "mdr",
+                  "ndr",
+                  "radiobremen",
+                  "rbb",
+                  "sr",
+                  "swr",
+                  "wdr",
+                  "one",
+                  "alpha",
+                  "tagesschau24",
+                  "phoenix"
+          };
+
+  public static final String[] CLIENTS = ArrayUtils.add(ArdConstants.CLIENTS_DAY, "funk");
 
   public static final String[] IGNORED_SENDER = new String[] {"zdf", "kika", "3sat", "arte"};
 

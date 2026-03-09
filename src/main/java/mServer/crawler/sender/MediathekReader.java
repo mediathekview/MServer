@@ -226,7 +226,6 @@ public abstract class MediathekReader extends Thread {
     setFileSize(film);
     upgradeUrl(film);
 
-    film.setUrlHistory();
     setGeo(film);
     if (mlibFilmeSuchen.listeFilmeNeu.addFilmVomSender(film)) {
       // dann ist er neu

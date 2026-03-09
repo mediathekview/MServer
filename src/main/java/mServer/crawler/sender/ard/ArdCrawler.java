@@ -94,7 +94,7 @@ public class ArdCrawler extends MediathekCrawler {
 
   private void addDayUrls(ConcurrentLinkedQueue<CrawlerUrlDTO> dayUrlsToCrawl, LocalDateTime day) {
     final String formattedDay = day.format(DAY_PAGE_DATE_FORMATTER);
-    for (String client : ArdConstants.CLIENTS) {
+    for (String client : ArdConstants.CLIENTS_DAY) {
       final String url = String.format(ArdConstants.DAY_PAGE_URL, formattedDay, client);
       dayUrlsToCrawl.offer(new CrawlerUrlDTO(url));
     }
