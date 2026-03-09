@@ -21,7 +21,7 @@ import java.util.concurrent.TimeUnit;
 public abstract class ArteRateLimitedJsonRestTask<T, R, D extends CrawlerUrlDTO> extends AbstractJsonRestTask<T, R, D> {
   private static final long serialVersionUID = 1L;
   private static final RateLimiter rateLimiter = RateLimiter.create(MserverDaten.getArteRateLimit());
-  private static final RateLimiter opaApirateLimiter = RateLimiter.create(0.3);
+  private static final RateLimiter opaApirateLimiter = RateLimiter.create(0.2);
 
   protected ArteRateLimitedJsonRestTask(MediathekReader aCrawler, ConcurrentLinkedQueue<D> urlToCrawlDTOs, Optional<String> authKey) {
     super(aCrawler, urlToCrawlDTOs, authKey);
