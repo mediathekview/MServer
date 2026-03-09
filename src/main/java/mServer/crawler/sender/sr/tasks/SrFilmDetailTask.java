@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import de.mediathekview.mlib.Const;
 import de.mediathekview.mlib.daten.DatenFilm;
 import de.mediathekview.mlib.tool.Log;
+import mServer.crawler.sender.base.*;
 import mServer.crawler.sender.sr.SrTopicUrlDTO;
 import org.apache.logging.log4j.LogManager;
 import org.jsoup.nodes.Document;
@@ -25,10 +26,6 @@ import mServer.crawler.CrawlerTool;
 import mServer.crawler.sender.MediathekReader;
 import mServer.crawler.sender.ard.json.ArdVideoInfoDto;
 import mServer.crawler.sender.ard.json.ArdVideoInfoJsonDeserializer;
-import mServer.crawler.sender.base.AbstractUrlTask;
-import mServer.crawler.sender.base.DateUtils;
-import mServer.crawler.sender.base.Qualities;
-import mServer.crawler.sender.base.HtmlDocumentUtils;
 
 public class SrFilmDetailTask extends SrRateLimitedDocumentTask<DatenFilm, SrTopicUrlDTO> {
 
@@ -51,10 +48,12 @@ public class SrFilmDetailTask extends SrRateLimitedDocumentTask<DatenFilm, SrTop
   private static final String DESCRIPTION_SELECTOR = "h1.background-title";
   private static final String VIDEO_DETAIL_ATTRIBUTE = "data-mediacollection-ardplayer";
   private static final String VIDEO_DETAIL_SELECTOR = "div[" + VIDEO_DETAIL_ATTRIBUTE + "]";
+  private final String baseUrl;
 
   public SrFilmDetailTask(
-          final MediathekReader aCrawler, final ConcurrentLinkedQueue<SrTopicUrlDTO> aUrlToCrawlDTOs) {
+          final MediathekReader aCrawler, final ConcurrentLinkedQueue<SrTopicUrlDTO> aUrlToCrawlDTOs, String baseUrl) {
     super(aCrawler, aUrlToCrawlDTOs);
+    this.baseUrl = baseUrl;
   }
 
   private static Optional<String> parseDescription(final Document aDocument) {
@@ -172,7 +171,7 @@ public class SrFilmDetailTask extends SrRateLimitedDocumentTask<DatenFilm, SrTop
   @Override
   protected AbstractUrlTask<DatenFilm, SrTopicUrlDTO> createNewOwnInstance(
           final ConcurrentLinkedQueue<SrTopicUrlDTO> aURLsToCrawl) {
-    return new SrFilmDetailTask(crawler, aURLsToCrawl);
+    return new SrFilmDetailTask(crawler, aURLsToCrawl, baseUrl);
   }
 
   /**
@@ -199,6 +198,7 @@ public class SrFilmDetailTask extends SrRateLimitedDocumentTask<DatenFilm, SrTop
 
       String url = videoDetailUrl.get();
       url = addMissingProtocol(url);
+      url = UrlUtils.addDomainIfMissing(url, baseUrl);
 
       try {
         final ArdVideoInfoDto dto

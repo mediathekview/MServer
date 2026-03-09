@@ -39,6 +39,6 @@ public class SrCrawler extends MediathekCrawler {
     } catch (InterruptedException | ExecutionException exception) {
       Log.errorLog(56146546, exception);
     }
-    return new SrFilmDetailTask(this, filmDtos);
+    return new SrFilmDetailTask(this, filmDtos, SrConstants.URL_BASE);
   }
 }
