@@ -103,7 +103,6 @@ public class DatenFilm implements Comparable<DatenFilm> {
     "+++Aus rechtlichen Gründen kann dieses Video nur innerhalb von Deutschland abgerufen werden.+++"
   };
   private static final long MAX_DAUER = 3600 * 99L;  /* Werte über 99 Stunden */
-  public static boolean[] spaltenAnzeigen = new boolean[MAX_ELEM];
   public final String[] arr = new String[]{
     "", "", "", "", "", "", "", "", "", "",
     "", "", "", "", "", "", "", "", "", "", "", "",
@@ -245,41 +244,6 @@ public class DatenFilm implements Comparable<DatenFilm> {
       return getUrlNormalHd();
     }
     return arr[DatenFilm.FILM_URL];
-  }
-
-  public String getUrlRtmpFuerAufloesung(String aufloesung) {
-    if (aufloesung.equals(AUFLOESUNG_KLEIN)) {
-      return getUrlFlvstreamerKlein();
-    }
-    if (aufloesung.equals(AUFLOESUNG_HD)) {
-      return getUrlFlvstreamerHd();
-    }
-    return getUrlFlvstreamer();
-  }
-
-  public String getDateigroesse(String url) {
-    if (url.equals(arr[DatenFilm.FILM_URL])) {
-      return arr[DatenFilm.FILM_GROESSE];
-    } else {
-      return FileSize.laengeString(url);
-    }
-  }
-
-  public void setUrlHistory() {
-    String u = getUrl();
-    if (u.equals(arr[DatenFilm.FILM_URL])) {
-      arr[DatenFilm.FILM_URL_HISTORY] = "";
-    } else {
-      arr[DatenFilm.FILM_URL_HISTORY] = u;
-    }
-  }
-
-  public String getUrlHistory() {
-    if (arr[DatenFilm.FILM_URL_HISTORY].isEmpty()) {
-      return arr[DatenFilm.FILM_URL];
-    } else {
-      return arr[DatenFilm.FILM_URL_HISTORY];
-    }
   }
 
   public String getIndex() {
@@ -502,46 +466,6 @@ public class DatenFilm implements Comparable<DatenFilm> {
       ret = arr[DatenFilm.FILM_URL];
     }
     return ret;
-  }
-
-  private String getUrlFlvstreamerKlein() {
-    // liefert die kleine flvstreamer URL
-    String ret;
-    if (!arr[DatenFilm.FILM_URL_RTMP_KLEIN].isEmpty()) {
-      // es gibt eine kleine RTMP
-      try {
-        int i = Integer.parseInt(arr[DatenFilm.FILM_URL_RTMP_KLEIN].substring(0, arr[DatenFilm.FILM_URL_RTMP_KLEIN].indexOf('|')));
-        return arr[DatenFilm.FILM_URL_RTMP].substring(0, i) + arr[DatenFilm.FILM_URL_RTMP_KLEIN].substring(arr[DatenFilm.FILM_URL_RTMP_KLEIN].indexOf('|') + 1);
-      } catch (Exception ignored) {
-      }
-    }
-    // es gibt keine kleine RTMP
-    if (!arr[DatenFilm.FILM_URL_RTMP].isEmpty()) {
-      // dann gibts keine kleine
-      ret = arr[DatenFilm.FILM_URL_RTMP];
-    } else {
-      // dann gibts überhaupt nur die normalen URLs
-      ret = getUrlNormalKlein();
-      // und jetzt noch "-r" davorsetzten wenn nötig
-      if (ret.startsWith(Const.RTMP_PRTOKOLL)) {
-        ret = Const.RTMP_FLVSTREAMER + ret;
-      }
-    }
-    return ret;
-  }
-
-  private String getUrlFlvstreamerHd() {
-    // liefert die HD flvstreamer URL
-    if (!arr[DatenFilm.FILM_URL_RTMP_HD].isEmpty()) {
-      // es gibt eine HD RTMP
-      try {
-        final int i = Integer.parseInt(arr[DatenFilm.FILM_URL_RTMP_HD].substring(0, arr[DatenFilm.FILM_URL_RTMP_HD].indexOf('|')));
-        return arr[DatenFilm.FILM_URL_RTMP].substring(0, i) + arr[DatenFilm.FILM_URL_RTMP_HD].substring(arr[DatenFilm.FILM_URL_RTMP_HD].indexOf('|') + 1);
-      } catch (Exception ignored) {
-      }
-    }
-    // es gibt keine HD RTMP
-    return getUrlFlvstreamer();
   }
 
   private void checkDatum(String datum, String fehlermeldung) {
