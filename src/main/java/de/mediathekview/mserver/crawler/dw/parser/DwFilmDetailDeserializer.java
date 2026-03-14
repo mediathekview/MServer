@@ -245,14 +245,8 @@ public class DwFilmDetailDeserializer implements JsonDeserializer<Optional<Film>
         videoListe.remove(Resolution.HD);
       }
     }
-    // TODO: add more resolutions etc - but for backwards compatibility - set to the current once
-    final Map<Resolution, FilmUrl> videoListeBackwardsCompat = new ConcurrentHashMap<>();
-    videoListeBackwardsCompat.put(Resolution.HD, videoListe.get(Resolution.WQHD));
-    videoListeBackwardsCompat.put(Resolution.NORMAL, videoListe.get(Resolution.NORMAL));
-    videoListeBackwardsCompat.put(Resolution.SMALL, videoListe.get(Resolution.SMALL));
-    
     if (videoListe.size() > 0) {
-      return Optional.of(videoListeBackwardsCompat);
+      return Optional.of(videoListe);
     }
     LOG.error("No video url for video: {}", videoid);
     return Optional.empty();

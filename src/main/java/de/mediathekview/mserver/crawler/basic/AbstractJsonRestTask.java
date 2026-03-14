@@ -77,6 +77,7 @@ public abstract class AbstractJsonRestTask<T, R, D extends CrawlerUrlDTO>
                   }
                   //log.debug("Too Many Requests - propsoal: {} waiting: {} ", proposalWaitMillis, waitMillis);
                   Thread.sleep(waitMillis);
+                  crawler.getRateLimiter().acquire();
                   continue;
               }
               handleHttpError(aDTO, aTarget.getUri(), response);

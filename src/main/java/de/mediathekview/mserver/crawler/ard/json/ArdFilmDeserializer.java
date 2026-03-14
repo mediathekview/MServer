@@ -210,9 +210,6 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
                   date.orElse(null),
                   duration.orElse(null),
                   videoInfo.get()));
-      //if (widgets.size() > 1) {
-        //parseRelatedFilms(filmDto, widgets.get(1).getAsJsonObject());
-      //}
       films.add(filmDto);
     }
     // OV - long term this should go into Film as "OV"
@@ -295,23 +292,6 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
     }
 
     return Optional.empty();
-  }
-
-  private void parseRelatedFilms(final ArdFilmDto filmDto, final JsonObject playerPageObject) {
-    if (playerPageObject.has(ELEMENT_TEASERS)) {
-      final JsonElement teasersElement = playerPageObject.get(ELEMENT_TEASERS);
-      if (teasersElement.isJsonArray()) {
-        for (final JsonElement teasersItemElement : teasersElement.getAsJsonArray()) {
-          final JsonObject teasersItemObject = teasersItemElement.getAsJsonObject();
-          final Optional<String> id =
-              JsonUtils.getAttributeAsString(teasersItemObject, ATTRIBUTE_ID);
-          if (id.isPresent()) {
-            final String url = String.format(ArdConstants.ITEM_URL, id.get());
-            filmDto.addRelatedFilm(new ArdFilmInfoDto(id.get(), url, 0));
-          }
-        }
-      }
-    }
   }
 
   private Film createFilm(
@@ -446,12 +426,6 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
           
         }
       }
-      /*
-      Optional<Map<Integer, String>> tt = parseVideoUrlMap(playerPageObject, MARKER_VIDEO_CATEGORY_MAIN, MARKER_VIDEO_STANDARD, MARKER_VIDEO_MP4, MARKER_VIDEO_DE);
-      String a = videoInfoAdaptive.get().entrySet().stream().findFirst().get().getValue();
-      if(tt.isPresent() && !a.startsWith("https://funk") && !a.contains("arte") )
-        //UrlOptimizer.debug(a, tt.get());
-        urlOptimizer.debug2(a, videoInfoStandard.get());*/ 
     }
     
     return Optional.of(allVideoUrls);

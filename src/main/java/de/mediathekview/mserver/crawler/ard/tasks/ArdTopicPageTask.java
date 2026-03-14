@@ -39,7 +39,6 @@ public class ArdTopicPageTask extends ArdTaskBase<ArdFilmInfoDto, CrawlerUrlDTO>
         && topicInfo.getFilmInfos() != null
         && !topicInfo.getFilmInfos().isEmpty()) {
       taskResults.addAll(topicInfo.getFilmInfos());
-      //LOG.debug("Found {} shows for a topic of ARD.", topicInfo.getFilmInfos().size());
 
       final Queue<CrawlerUrlDTO> subpages = createSubPageUrls(aTarget, topicInfo);
       if (!subpages.isEmpty()) {
@@ -65,7 +64,6 @@ public class ArdTopicPageTask extends ArdTaskBase<ArdFilmInfoDto, CrawlerUrlDTO>
         break;
       }
     }
-    //LOG.debug("Found {} subpage", subpages.size());
     return subpages;
   }
 
