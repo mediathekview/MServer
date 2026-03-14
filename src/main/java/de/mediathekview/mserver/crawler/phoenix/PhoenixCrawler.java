@@ -45,12 +45,15 @@ public class PhoenixCrawler extends AbstractCrawler {
 
     try {
       shows.addAll(getShows());
+      //
+      Queue<CrawlerUrlDTO> showsFiltered = this.filterExistingFilms(shows, v -> v.getUrl().substring(v.getUrl().lastIndexOf("/")+1));
+      //
       printMessage(
-          ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), shows.size());
-      getAndSetMaxCount(shows.size());
+          ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), showsFiltered.size());
+      getAndSetMaxCount(showsFiltered.size());
 
       return new PhoenixFilmDetailTask(
-          this, shows, null, PhoenixConstants.URL_BASE);
+          this, showsFiltered, null, PhoenixConstants.URL_BASE);
     } catch (final ExecutionException executionException) {
       LOG.fatal("Exception in Phönix crawler.", executionException);
     } catch (final InterruptedException interruptedException) {

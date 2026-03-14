@@ -34,7 +34,9 @@ class ZdfTopicSeasonDeserializerTest {
                 LocalDateTime.of(2024, 3, 31, 18, 15, 0),
        //         LocalDateTime.of(2024, 3, 31, 20, 15, 0),
                 "default",
-                "https://api.zdf.de/tmd/2/android_native_5/vod/ptmd/mediathek/240331_2015_sendung_trs/5"),
+                "https://api.zdf.de/tmd/2/android_native_5/vod/ptmd/mediathek/240331_2015_sendung_trs/5",
+                "",
+                ""),
             new ZdfFilmDto(
                 Sender.ZDF,
                 "Nusantara (S36/E03)",
@@ -43,7 +45,9 @@ class ZdfTopicSeasonDeserializerTest {
                 LocalDateTime.of(2024, 12, 2, 1, 45, 0),
 //                LocalDateTime.of(2024, 1, 1, 20, 15, 0),
                 "default",
-                "https://api.zdf.de/tmd/2/android_native_5/vod/ptmd/mediathek/240101_2015_sendung_trs/8")));
+                "https://api.zdf.de/tmd/2/android_native_5/vod/ptmd/mediathek/240101_2015_sendung_trs/8",
+                "",
+                "")));
   }
 
   @Test
@@ -63,7 +67,9 @@ class ZdfTopicSeasonDeserializerTest {
                             "https://www.zdf.de/video/dokus/terra-x-unter-dinos-geheimnisse-der-urzeit-dokureihe-100/terra-x-unter-dinos-lusotitan-old-grande-die-insel-der-giganten-doku-100",
                             LocalDateTime.of(2025, 8, 20, 4, 0, 0),
                             "dgs",
-                            "https://api.zdf.de/tmd/2/android_native_5/vod/ptmd/mediathek/250914_dk_dinos_insel_giganten_tex_dgs/2?caption_source=250914_dk_dinos_insel_giganten_tex%2F5"),
+                            "https://api.zdf.de/tmd/2/android_native_5/vod/ptmd/mediathek/250914_dk_dinos_insel_giganten_tex_dgs/2?caption_source=250914_dk_dinos_insel_giganten_tex%2F5",
+                            "",
+                            ""),
                     new ZdfFilmDto(
                             Sender.ZDF,
                             "Die Insel der Giganten (S01/E04)",
@@ -71,7 +77,9 @@ class ZdfTopicSeasonDeserializerTest {
                             "https://www.zdf.de/video/dokus/terra-x-unter-dinos-geheimnisse-der-urzeit-dokureihe-100/terra-x-unter-dinos-lusotitan-old-grande-die-insel-der-giganten-doku-100",
                             LocalDateTime.of(2025, 8, 20, 4, 0, 0),
                             "default",
-                            "https://api.zdf.de/tmd/2/android_native_5/vod/ptmd/mediathek/250914_dk_dinos_insel_giganten_tex/5")));
+                            "https://api.zdf.de/tmd/2/android_native_5/vod/ptmd/mediathek/250914_dk_dinos_insel_giganten_tex/5",
+                            "",
+                            "")));
   }
 
 

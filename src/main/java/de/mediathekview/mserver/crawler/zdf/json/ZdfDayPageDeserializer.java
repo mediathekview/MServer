@@ -5,13 +5,22 @@ import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+
+import de.mediathekview.mserver.base.utils.JsonUtils;
 import de.mediathekview.mserver.base.utils.UrlUtils;
-import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
+import de.mediathekview.mserver.crawler.basic.TopicUrlDTO;
+import de.mediathekview.mserver.crawler.zdf.ZdfConstants;
+import de.mediathekview.mserver.daten.Sender;
+
 import java.lang.reflect.Type;
+import java.util.Map;
 import java.util.Optional;
 
-public class ZdfDayPageDeserializer implements JsonDeserializer<ZdfDayPageDto> {
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
+public class ZdfDayPageDeserializer implements JsonDeserializer<ZdfDayPageDto> {
+  private static final Logger LOG = LogManager.getLogger(ZdfDayPageDeserializer.class);
   private static final String JSON_ELEMENT_ENTRIES = "http://zdf.de/rels/search/results";
   private static final String JSON_ELEMENT_MAIN_VIDEO_CONTENT = "mainVideoContent";
   private static final String JSON_ELEMENT_TARGET = "http://zdf.de/rels/target";
@@ -22,9 +31,10 @@ public class ZdfDayPageDeserializer implements JsonDeserializer<ZdfDayPageDto> {
   private static final String JSON_ATTRIBUTE_NEXT = "next";
 
   private final String apiUrlBase;
+  private final Map<String, Sender> partnerToSender;
 
-  public ZdfDayPageDeserializer(final String aApiUrlBase) {
-
+  public ZdfDayPageDeserializer(final String aApiUrlBase, final Map<String, Sender> partnerToSender) {
+    this.partnerToSender = partnerToSender;
     apiUrlBase = aApiUrlBase;
   }
 
@@ -61,14 +71,14 @@ public class ZdfDayPageDeserializer implements JsonDeserializer<ZdfDayPageDto> {
         final JsonArray resultsArray = resultsElement.getAsJsonArray();
         resultsArray.forEach(
             result -> {
-              final Optional<CrawlerUrlDTO> dto = parseSearchEntry(result.getAsJsonObject());
+              final Optional<TopicUrlDTO> dto = parseSearchEntry(result.getAsJsonObject());
               dto.ifPresent(aDayPageDto::addEntry);
             });
       }
     }
   }
 
-  private Optional<CrawlerUrlDTO> parseSearchEntry(final JsonObject aResultObject) {
+  private Optional<TopicUrlDTO> parseSearchEntry(final JsonObject aResultObject) {
     if (!aResultObject.has(JSON_ELEMENT_TARGET)) {
       return Optional.empty();
     }
@@ -82,13 +92,16 @@ public class ZdfDayPageDeserializer implements JsonDeserializer<ZdfDayPageDto> {
     if (mainVideoTarget == null) {
       return Optional.empty();
     }
+    final Optional<String> tvService = JsonUtils.getElementValueAsString(target, "tvService");
+    if (tvService.isPresent() && !partnerToSender.containsKey(tvService.orElse("ZDF"))) {
+      return Optional.empty();
+    }
 
     if (target.has(JSON_ATTRIBUTE_CANONICAL)) {
       String canonical = target.get(JSON_ATTRIBUTE_CANONICAL).getAsString();
-
+      String id = aResultObject.get("id").getAsString().replace("SCMS_", "");
       canonical = UrlUtils.addDomainIfMissing(canonical, apiUrlBase);
-
-      final CrawlerUrlDTO dto = new CrawlerUrlDTO(canonical);
+      final TopicUrlDTO dto = new TopicUrlDTO(id, canonical);
       return Optional.of(dto);
     }
 

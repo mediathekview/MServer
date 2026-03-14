@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.EnumMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Queue;
@@ -112,13 +113,19 @@ public class KikaApiFilmTask extends AbstractJsonRestTask<Film, KikaApiVideoInfo
     if (aDTO.getDescription().isPresent()) {
       aFilm.setBeschreibung(aDTO.getDescription().get());
     }
+    aFilm.setId(aDTO.getId().get());
     getGeo(aDTO).ifPresent(aFilm::setGeoLocations);
     getWebsite(aDTO).ifPresent(aFilm::setWebsite);
     aFilm.setUrls(getVideoUrls(aResponseObj, aDTO));
     aFilm.addAllSubtitleUrls(getSubtitle(aResponseObj, aDTO));
     //
-    
-    
+    if(aFilm.getDefaultUrl().isPresent() && (
+       aFilm.getDefaultUrl().get().getUrl().toString().contains("/dach/") ||
+       aFilm.getDefaultUrl().get().getUrl().toString().contains("/deChAt/"))
+       ) {
+      aFilm.setGeoLocations(List.of(GeoLocations.GEO_DE_AT_CH));
+    }
+    //
     if (!taskResults.add(aFilm)) {
       LOG.debug("Rejected duplicate {}",aFilm);
       crawler.incrementAndGetErrorCount();

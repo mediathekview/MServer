@@ -3,6 +3,7 @@ package de.mediathekview.mserver.crawler.ard;
 import de.mediathekview.mserver.daten.Film;
 import de.mediathekview.mserver.daten.Sender;
 import de.mediathekview.mserver.base.messages.listener.MessageListener;
+import de.mediathekview.mserver.base.utils.DateUtils;
 import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.base.messages.ServerMessages;
 import de.mediathekview.mserver.crawler.ard.tasks.*;
@@ -12,10 +13,10 @@ import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Queue;
 import java.util.Set;
 import java.util.concurrent.*;
@@ -23,8 +24,6 @@ import java.util.concurrent.*;
 public class ArdCrawler extends AbstractCrawler {
 
   private static final Logger LOG = LogManager.getLogger(ArdCrawler.class);
-  private static final DateTimeFormatter DAY_PAGE_DATE_FORMATTER =
-      DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
   public ArdCrawler(
       final ForkJoinPool aForkJoinPool,
@@ -41,23 +40,18 @@ public class ArdCrawler extends AbstractCrawler {
 
   private Queue<CrawlerUrlDTO> createDayUrlsToCrawl() {
     final Queue<CrawlerUrlDTO> dayUrlsToCrawl = new ConcurrentLinkedQueue<>();
-
-    final LocalDateTime now = LocalDateTime.now();
-    for (int i = 0; i <= crawlerConfig.getMaximumDaysForSendungVerpasstSection(); i++) {
-      final String day = now.minusDays(i).format(DAY_PAGE_DATE_FORMATTER);
-
+    final List<String> days = DateUtils.generateDaysToCrawl(crawlerConfig);
+    days.forEach( dateString -> {
       for (final String client : ArdConstants.CLIENTS_DAY) {
-        final String url =
-            String.format(ArdConstants.DAY_PAGE_URL, day, client);
+        final String url = String.format(ArdConstants.DAY_PAGE_URL, dateString, client);
         dayUrlsToCrawl.offer(new CrawlerUrlDTO(url));
       }
-    }
+    });
     return dayUrlsToCrawl;
   }
 
   @Override
   protected RecursiveTask<Set<Film>> createCrawlerTask() {
-
     try {
       final ForkJoinTask<Set<ArdFilmInfoDto>> dayTask =
           forkJoinPool.submit(new ArdDayPageTask(this, createDayUrlsToCrawl()));
@@ -74,18 +68,26 @@ public class ArdCrawler extends AbstractCrawler {
           senderTopicUrls.addAll(senderTopicTask.get());
         }
         LOG.debug("sender topic tasks: {}", senderTopicUrls.size());
+        final ArdTopicGroupsTask groupsToAsset = new ArdTopicGroupsTask(this, new ConcurrentLinkedQueue<>(senderTopicUrls));
+        final Set<CrawlerUrlDTO> assitUrls = new HashSet<>();
+        assitUrls.addAll(forkJoinPool.submit(groupsToAsset).get());
+        LOG.debug("sender group assit tasks: {}", assitUrls.size());
+        
         final ArdTopicPageTask topicTask =
-            new ArdTopicPageTask(this, new ConcurrentLinkedQueue<>(senderTopicUrls));
+            new ArdTopicPageTask(this, new ConcurrentLinkedQueue<>(assitUrls));
+              
         final int showsCountBefore = shows.size();
         shows.addAll(forkJoinPool.submit(topicTask).get());
         LOG.debug(
             "ARD crawler found {} topics for all sub-sender.", shows.size() - showsCountBefore);
       }
-
+      //
+      final Queue<ArdFilmInfoDto> showsFiltered = this.filterExistingFilms(shows, ArdFilmInfoDto::getId);
+      //
       printMessage(
-          ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), shows.size());
-      getAndSetMaxCount(shows.size());
-      return new ArdFilmDetailTask(this, new ConcurrentLinkedQueue<>(shows));
+          ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), showsFiltered.size());
+      getAndSetMaxCount(showsFiltered.size());
+      return new ArdFilmDetailTask(this, new ConcurrentLinkedQueue<>(showsFiltered));
     } catch (final InterruptedException ex) {
       LOG.fatal("Exception in ARD crawler.", ex);
       Thread.currentThread().interrupt();
@@ -113,14 +115,14 @@ public class ArdCrawler extends AbstractCrawler {
   }
 
   private ForkJoinTask<Set<CrawlerUrlDTO>> getTopicEntriesBySender(final String sender) throws ExecutionException, InterruptedException {
-     Set<CrawlerUrlDTO> senderTopics = forkJoinPool.submit(
-        new ArdTopicsTask(this, sender, createTopicsOverviewUrl(sender))).get();
+     Set<CrawlerUrlDTO> senderSingleLetterUrls = forkJoinPool.submit(
+        new ArdTopicsTask(this, sender, CreateLetterUrlQuery(sender))).get();
 
-    LOG.debug("topics task result {}", senderTopics.size());
-     return forkJoinPool.submit(new ArdTopicsLetterTask(this, sender, new ConcurrentLinkedQueue<>(senderTopics)));
+     //LOG.debug("topics task result {}", senderSingleLetterUrls.size());
+     return forkJoinPool.submit(new ArdTopicsLetterTask(this, sender, new ConcurrentLinkedQueue<>(senderSingleLetterUrls)));
   }
 
-  private Queue<CrawlerUrlDTO> createTopicsOverviewUrl(final String client) {
+  private Queue<CrawlerUrlDTO> CreateLetterUrlQuery(final String client) {
     final Queue<CrawlerUrlDTO> urls = new ConcurrentLinkedQueue<>();
 
     final String url = String.format(ArdConstants.TOPICS_URL, client);

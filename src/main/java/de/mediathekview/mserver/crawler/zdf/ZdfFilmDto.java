@@ -14,6 +14,8 @@ public class ZdfFilmDto extends CrawlerUrlDTO {
   private final LocalDateTime time;
   private final String videoType;
   private String topic;
+  private String id;
+  private String canonical;
 
   public ZdfFilmDto(
           Sender sender,
@@ -22,7 +24,9 @@ public class ZdfFilmDto extends CrawlerUrlDTO {
           String website,
           LocalDateTime time,
           String videoType,
-          String downloadUrl) {
+          String downloadUrl,
+          String id,
+          String canonical) {
     super(downloadUrl);
     this.topic = "";
     this.title = title;
@@ -31,6 +35,8 @@ public class ZdfFilmDto extends CrawlerUrlDTO {
     this.website = website;
     this.time = time;
     this.videoType = videoType;
+    this.id = id;
+    this.canonical = canonical;
   }
 
   public String getTitle() {
@@ -51,6 +57,14 @@ public class ZdfFilmDto extends CrawlerUrlDTO {
 
   public LocalDateTime getTime() {
     return time;
+  }
+  
+  public String getId() {
+    return id;
+  }
+  
+  public String getCanonical() {
+    return canonical;
   }
 
   @Override

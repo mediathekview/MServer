@@ -97,7 +97,9 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
     try {
       return Optional.of(URI.create(url).toURL());
     } catch (final MalformedURLException ex) {
-      LOG.error(String.format("The website url \"%s\" isn't valid.", url), ex);
+      LOG.debug("The website url {} isn't valid", url);
+      //LOG.error(String.format("The website url \"%s\" isn't valid.", url), ex);
+      
     }
 
     return Optional.empty();
@@ -106,7 +108,12 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
   private static String replaceCharForUrl(final String aValue) {
     return aValue
         .toLowerCase()
+        .replaceAll("\\p{C}", "")   // entfernt ALLE Control Char
         .replace(' ', '-')
+        .replace("ä", "ae")
+        .replace("ü", "ue")
+        .replace("ö", "oe")
+        .replace("ß", "ss")
         .replace('.', '-')
         .replace(',', '-')
         .replace(":", "")
@@ -120,9 +127,10 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
         .replace("«", "")
         .replace("»", "")
         .replace(" ", "")
+        .replace("--", "-")
         .replace("--", "-");
   }
-
+  
   private static String parseShow(final JsonObject aJsonObject) {
     if (aJsonObject.has(ELEMENT_SHOW)) {
       final JsonElement showElement = aJsonObject.get(ELEMENT_SHOW);
@@ -264,6 +272,7 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
             isAudioDescription ? theme.replace(TEXT_AUDIO_DESCRIPTION, "").trim() : theme,
             episodeData.publishDate,
             chapterList.duration);
+    film.setId(chapterList.urn);
     film.setBeschreibung(chapterList.description);
     film.setWebsite(buildWebsiteUrl(chapterList.id, chapterList.urn, episodeData.title, theme).orElse(null));
     addUrls(videoUrls, film, isAudioDescription);

@@ -11,6 +11,7 @@ import de.mediathekview.mserver.base.utils.UrlUtils;
 import de.mediathekview.mserver.crawler.ard.ArdConstants;
 import de.mediathekview.mserver.crawler.ard.ArdFilmDto;
 import de.mediathekview.mserver.crawler.ard.ArdFilmInfoDto;
+import de.mediathekview.mserver.crawler.ard.UrlOptimizer;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import org.apache.logging.log4j.LogManager;
 
@@ -27,6 +28,7 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
 
@@ -73,10 +75,12 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
 
   private final ArdVideoInfoJsonDeserializer videoDeserializer;
   private final AbstractCrawler crawler;
-
+  private final UrlOptimizer urlOptimizer;
+  
   public ArdFilmDeserializer(final AbstractCrawler crawler) {
     videoDeserializer = new ArdVideoInfoJsonDeserializer(crawler);
     this.crawler = crawler;
+    this.urlOptimizer = new UrlOptimizer(crawler);
   }
 
   private static Optional<JsonObject> getMediaCollectionObject(final JsonObject itemObject) {
@@ -168,6 +172,7 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
     final JsonObject itemObject = widgets.get(0).getAsJsonObject();
 
     final Optional<String> topic = parseTopic(itemObject);
+    Optional<String> id = JsonUtils.getAttributeAsString(itemObject, "id");
     Optional<String> titleOriginal = JsonUtils.getAttributeAsString(itemObject, ATTRIBUTE_TITLE);
     final Optional<String> title = parseTitle(itemObject);
     final Optional<String> description = JsonUtils.getAttributeAsString(itemObject, ATTRIBUTE_SYNOPSIS);
@@ -197,6 +202,7 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
       final ArdFilmDto filmDto =
           new ArdFilmDto(
               createFilm(
+                  id.get(),
                   sender,
                   topic.get(),
                   title.get(),
@@ -204,9 +210,6 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
                   date.orElse(null),
                   duration.orElse(null),
                   videoInfo.get()));
-      if (widgets.size() > 1) {
-        parseRelatedFilms(filmDto, widgets.get(1).getAsJsonObject());
-      }
       films.add(filmDto);
     }
     // OV - long term this should go into Film as "OV"
@@ -217,6 +220,7 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
       final ArdFilmDto filmDtoOV =
           new ArdFilmDto(
               createFilm(
+                  id.get(),
                   sender,
                   topic.get(),
                   title.get() + " (Originalversion)",
@@ -239,6 +243,13 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
         if (!resolutionUrlMapFromM3U.isEmpty()) {
           Map<Resolution, String> newUrls = new EnumMap<>(Resolution.class);
           resolutionUrlMapFromM3U.forEach((key, value) -> newUrls.put(key, value.toString()));
+          //
+          // TODO: FIXME
+          if (!newUrls.containsKey(Resolution.NORMAL)) {
+            Resolution anyResolution = newUrls.keySet().stream().findFirst().get();
+            newUrls.put(Resolution.NORMAL, newUrls.get(anyResolution));
+            newUrls.remove(anyResolution);
+          }
           return Optional.of(newUrls);
         }
       } catch (MalformedURLException | URISyntaxException e) {
@@ -283,24 +294,8 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
     return Optional.empty();
   }
 
-  private void parseRelatedFilms(final ArdFilmDto filmDto, final JsonObject playerPageObject) {
-    if (playerPageObject.has(ELEMENT_TEASERS)) {
-      final JsonElement teasersElement = playerPageObject.get(ELEMENT_TEASERS);
-      if (teasersElement.isJsonArray()) {
-        for (final JsonElement teasersItemElement : teasersElement.getAsJsonArray()) {
-          final JsonObject teasersItemObject = teasersItemElement.getAsJsonObject();
-          final Optional<String> id =
-              JsonUtils.getAttributeAsString(teasersItemObject, ATTRIBUTE_ID);
-          if (id.isPresent()) {
-            final String url = String.format(ArdConstants.ITEM_URL, id.get());
-            filmDto.addRelatedFilm(new ArdFilmInfoDto(id.get(), url, 0));
-          }
-        }
-      }
-    }
-  }
-
   private Film createFilm(
+      final String id,
       final Sender sender,
       final String topic,
       final String title,
@@ -319,7 +314,7 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
             duration == null ? Duration.ofSeconds(0) : duration);
 
     Optional.ofNullable(description).ifPresent(film::setBeschreibung);
-    
+    film.setId(id);
     film.setGeoLocations(GeoLocationGuesser.getGeoLocations(Sender.ARD, videoInfo.getDefaultVideoUrl()));
     
     if (!videoInfo.getSubtitleUrl().isEmpty()) {
@@ -405,7 +400,7 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
       videoInfoAD = videoInfoStandard;
       videoInfoStandard = Optional.empty();
     }
-    
+    videoInfoAdaptive.ifPresent(x -> allVideoUrls.setAdaptivUrl(x.entrySet().stream().findFirst().get().getValue()));
     videoInfoStandard.ifPresent(allVideoUrls::putAll);
     videoInfoAD.ifPresent(allVideoUrls::putAllAD);
     videoInfoDGS.ifPresent(allVideoUrls::putAllDGS);
@@ -414,9 +409,30 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
     
     if (allVideoUrls.getVideoUrls().isEmpty() && allVideoUrls.getVideoUrlsAD().isEmpty() && allVideoUrls.getVideoUrlsDGS().isEmpty() && allVideoUrls.getVideoUrlsOV().isEmpty() ) {
       return Optional.empty();
-    }    
+    }
+    if (videoInfoAdaptive.isPresent() && videoInfoStandard.isPresent() 
+        && videoInfoStandard.get().size() == 1) {
+      String m3u8 = videoInfoAdaptive.get().entrySet().stream().findFirst().get().getValue();
+      if (!m3u8.contains("funk") && !m3u8.contains("arte")) {
+        Map<Resolution, String> regenerated = urlOptimizer.buildFilmUrlFromAdaptive(
+            videoInfoAdaptive.get().entrySet().stream().findFirst().get().getValue(),
+            videoInfoStandard.get().entrySet().stream().findFirst().get().getValue());
+        if(regenerated.size() > videoInfoStandard.get().size()) {
+          videoInfoStandard = Optional.of(regenerated);
+          //good.incrementAndGet();
+        } else {
+          bad.incrementAndGet();
+          //LOG.debug("asdf {} / {}", good, bad);
+          
+        }
+      }
+    }
+    
     return Optional.of(allVideoUrls);
   }
+  
+  static AtomicInteger good = new AtomicInteger(0);
+  static AtomicInteger bad = new AtomicInteger(0);
   
   private Optional<Map<Resolution, String>> parseVideoUrls(final JsonObject playerPageObject, String streamType, String aduioType, String mimeType, String language) {
     Optional<Map<Integer, String>> urls = parseVideoUrlMap(playerPageObject, streamType, aduioType, mimeType, language);
