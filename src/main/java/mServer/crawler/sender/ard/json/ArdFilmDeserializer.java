@@ -146,7 +146,7 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
   private Optional<String> parseTitle(final JsonObject playerPageObject) {
     Optional<String> title = JsonUtils.getAttributeAsString(playerPageObject, ATTRIBUTE_TITLE);
     if (title.isPresent()) {
-      String[] replaceWords = {" - Hörfassung", " (mit Gebärdensprache)", " mit Gebärdensprache"," (mit Audiodeskription)", "Audiodeskription", " - (Originalversion)", " (OV)"};
+      String[] replaceWords = {" - Hörfassung", " (mit Gebärdensprache)", " mit Gebärdensprache"," (mit Audiodeskription)", "(Audiodeskription)", "Audiodeskription", " - (Originalversion)", " (OV)"};
       String cleanTitle = title.get().trim();
       for (String replaceWord : replaceWords) {
         cleanTitle = cleanTitle.replace(replaceWord, "");
