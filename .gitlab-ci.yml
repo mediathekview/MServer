@@ -5,9 +5,9 @@ variables:
 #image: maven:3.9-eclipse-temurin-8
 image: bellsoft/liberica-openjdk-debian:17
 
-cache:
-  paths:
-    - ./.m2
+# cache:
+#   paths:
+#     - ./.m2
 
 
 #default: 
