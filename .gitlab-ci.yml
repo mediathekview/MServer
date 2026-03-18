@@ -3,7 +3,8 @@ variables:
   TZ: Europe/Berlin
 
 #image: maven:3.9-eclipse-temurin-8
-image: bellsoft/liberica-openjdk-debian:17
+#image: bellsoft/liberica-openjdk-debian:17
+image: eclipse-temurin:17-jdk
 
 # cache:
 #   paths:
