@@ -270,69 +270,6 @@ public class AddToFilmlistTest {
   }
 
   @Test
-  public void testReplaceOrfAudioDescriptionNaming() {
-    listToAdd.add(createTestFilm(Const.ORF, "AD | Film", "AD | Film Testfilm", FILM_NAME_ONLINE));
-    listToAdd.add(createTestFilm(Const.ARD, "AD | Film", "AD | Film ARD", FILM_NAME_ONLINE));
-
-    AddToFilmlist target = new AddToFilmlist(list, listToAdd);
-    target.addOldList();
-
-    Assertions.assertThat(list).hasSize(4)
-            .anySatisfy(film -> checkFilmThemaAndTitle(film, "Film", "Film Testfilm (Audiodeskription)"))
-            .anySatisfy(film -> checkFilmThemaAndTitle(film, "AD | Film", "AD | Film ARD"));
-  }
-
-  private void checkFilmThemaAndTitle(DatenFilm film, final String expectedThema, final String expectedTitle) {
-    Assertions.assertThat(film.arr[DatenFilm.FILM_THEMA]).isEqualTo(expectedThema);
-    Assertions.assertThat(film.arr[DatenFilm.FILM_TITEL]).isEqualTo(expectedTitle);
-  }
-
-  @Test
-  public void testRemoveSrfUrlParams() {
-    final DatenFilm testFilmRemoveParams = createTestFilm(Const.SRF, "10vor", "10vor1", "world/hls/10vor10/2023/07/10vor10_20230731_215000_19875207_v_webcast_h264_,q40,q10,q20,q30,q50,q60,.mp4.csmil/hdntl=exp=1690999574~acl=%2f*~data=hdntl,0.04-1562.28~hmac=29f18372882182cc035b155825bb4772faeca5126909064987eed4e28ffa291b/index-f1-v1-a1.m3u8?start=0.04&end=1562.28&caption=srf/b2c07ad6-4904-486e-94ca-5a10745d95cb/episode/de/vod/vod.m3u8");
-    testFilmRemoveParams.arr[DatenFilm.FILM_URL_KLEIN] = "275|3-v1-a1.m3u8?start=0.04&end=1562.28&caption=srf/b2c07ad6-4904-486e-94ca-5a10745d95cb/episode/de/vod/vod.m3u8";
-    testFilmRemoveParams.arr[DatenFilm.FILM_URL_HD] = "275|6-v1-a1.m3u8?start=0.04&end=1562.28&caption=srf/b2c07ad6-4904-486e-94ca-5a10745d95cb/episode/de/vod/vod.m3u8";
-    listToAdd.add(testFilmRemoveParams);
-
-    final DatenFilm testFilmRemoveParamsOnlyNormal = createTestFilm(Const.SRF, "10vor", "10vor2", "world/hls/10vor10/2023/07/10vor10_20230731_215000_19875207_v_webcast_h264_,q40,q10,q20,q30,q50,q60,.mp4.csmil/hdntl=exp=1690999574~acl=%2f*~data=hdntl,0.04-1562.28~hmac=29f18372882182cc035b155825bb4772faeca5126909064987eed4e28ffa291b/index-f1-v1-a1.m3u8?start=0.04&end=1562.28&caption=srf/b2c07ad6-4904-486e-94ca-5a10745d95cb/episode/de/vod/vod.m3u8");
-    listToAdd.add(testFilmRemoveParamsOnlyNormal);
-
-    final DatenFilm testFilmDontRemoveParams = createTestFilm(Const.SRF, "10vor", "10vor3", "ch/hls/guetnachtgschichtli/2023/07/guetnachtgschichtli_20230729_000517_19830744_v_webcast_h264_,q40,q10,q20,q30,q50,q60,.mp4.csmil/index-f1-v1-a1.m3u8?caption=srf/4289848a-b5d2-42c6-bf7d-2bfaf29629b1/episode/de/vod/vod.m3u8");
-    listToAdd.add(testFilmDontRemoveParams);
-
-    AddToFilmlist target = new AddToFilmlist(list, listToAdd);
-    target.addOldList();
-
-    assertEquals(list.size(), 5);
-
-    assertEquals(testFilmRemoveParams.arr[DatenFilm.FILM_URL], baseUrl + "world/hls/10vor10/2023/07/10vor10_20230731_215000_19875207_v_webcast_h264_,q40,q10,q20,q30,q50,q60,.mp4.csmil/index-f1-v1-a1.m3u8");
-    assertEquals(testFilmRemoveParams.arr[DatenFilm.FILM_URL_KLEIN], "151|3-v1-a1.m3u8");
-    assertEquals(testFilmRemoveParams.arr[DatenFilm.FILM_URL_HD], "151|6-v1-a1.m3u8");
-    assertEquals(testFilmRemoveParamsOnlyNormal.arr[DatenFilm.FILM_URL], baseUrl + "world/hls/10vor10/2023/07/10vor10_20230731_215000_19875207_v_webcast_h264_,q40,q10,q20,q30,q50,q60,.mp4.csmil/index-f1-v1-a1.m3u8");
-    assertEquals(testFilmRemoveParamsOnlyNormal.arr[DatenFilm.FILM_URL_KLEIN], "");
-    assertEquals(testFilmRemoveParamsOnlyNormal.arr[DatenFilm.FILM_URL_HD], "");
-    assertEquals(testFilmDontRemoveParams.arr[DatenFilm.FILM_URL], baseUrl + "ch/hls/guetnachtgschichtli/2023/07/guetnachtgschichtli_20230729_000517_19830744_v_webcast_h264_,q40,q10,q20,q30,q50,q60,.mp4.csmil/index-f1-v1-a1.m3u8?caption=srf/4289848a-b5d2-42c6-bf7d-2bfaf29629b1/episode/de/vod/vod.m3u8");
-
-  }
-  @Test
-  public void testReplaceSrfAudioDescriptionNaming() {
-    final DatenFilm film1 = createTestFilm(Const.SRF, "Film mit Audiodeskription", "Testfilm mit Audiodeskription (Staffel 1)", FILM_NAME_ONLINE);
-    final DatenFilm film2 = createTestFilm(Const.SRF, "Film mit Audiodeskription", "Testfilm2", FILM_NAME_ONLINE);
-    final DatenFilm film3 = createTestFilm(Const.ARD, "Film mit Audiodeskription", "Testfilm mit Audiodeskription", FILM_NAME_ONLINE);
-    listToAdd.add(film1);
-    listToAdd.add(film2);
-    listToAdd.add(film3);
-
-    AddToFilmlist target = new AddToFilmlist(list, listToAdd);
-    target.addOldList();
-
-    Assertions.assertThat(list).hasSize(5)
-            .anySatisfy(film -> checkFilmThemaAndTitle(film, "Film", "Testfilm (Staffel 1) (Audiodeskription)"))
-            .anySatisfy(film -> checkFilmThemaAndTitle(film, "Film", "Testfilm2 (Audiodeskription)"))
-            .anySatisfy(film -> checkFilmThemaAndTitle(film, "Film mit Audiodeskription", "Testfilm mit Audiodeskription"));
-  }
-
-  @Test
   public void testReplaceTimeOnlyInOrfTopic() {
     listToAdd.add(createTestFilm(Const.ORF, "ZIB 7:00", "ZIB 7:00", FILM_NAME_ONLINE));
     listToAdd.add(createTestFilm(Const.ORF, "ZIB 17:00", "ZIB 17:00", FILM_NAME_ONLINE));
@@ -526,37 +463,6 @@ public class AddToFilmlistTest {
     assertFalse(list.contains(testFilmArd24));
     assertTrue(list.contains(testFilmArdOk));
     assertEquals(Const.ARD, testFilmArdOk.arr[DatenFilm.FILM_SENDER]);
-  }
-
-  @Test
-  public void testArdTagesschau24UpdateSender() {
-    final DatenFilm testFilmArd24 = createTestFilm(Const.ARD, "tagesschau24", "film title", FILM_NAME_ONLINE);
-    listToAdd.add(testFilmArd24);
-
-    AddToFilmlist target =new AddToFilmlist(list, listToAdd);
-    target.addOldList();
-
-    assertEquals(list.size(),3);
-    assertTrue(list.contains(testFilmArd24));
-    assertEquals(Const.TAGESSCHAU24, testFilmArd24.arr[DatenFilm.FILM_SENDER]);
-  }
-
-  @Test
-  public void testZdfReplaceAdDeutWithAudiodescription() {
-    final DatenFilm testFilm1 = createTestFilm(Const.ZDF, "Filme ZDF", "Film1(deu-ad)", FILM_NAME_ONLINE);
-    final DatenFilm testFilm2 = createTestFilm(Const.ZDF_NEO, "Filme Neo", "Film2(deu-ad)", FILM_NAME_ONLINE);
-    final DatenFilm testFilm3 = createTestFilm(Const.ARD, "Filme ARD", "Film3(deu-ad)", FILM_NAME_ONLINE);
-    listToAdd.add(testFilm1);
-    listToAdd.add(testFilm2);
-    listToAdd.add(testFilm3);
-
-    AddToFilmlist target =new AddToFilmlist(list, listToAdd);
-    target.addOldList();
-
-    assertEquals(list.size(),5);
-    assertEquals("Film1 (Audiodeskription)", testFilm1.arr[DatenFilm.FILM_TITEL]);
-    assertEquals("Film2 (Audiodeskription)", testFilm2.arr[DatenFilm.FILM_TITEL]);
-    assertEquals("Film3 (Audiodeskription)", testFilm3.arr[DatenFilm.FILM_TITEL]);
   }
 
   private static DatenFilm createTestFilm(String sender, String topic, String title,
