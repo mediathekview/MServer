@@ -152,7 +152,7 @@ public class AddToFilmlist {
                     && film.arr[DatenFilm.FILM_URL] != null
                     && film.arr[DatenFilm.FILM_URL].contains("progressive_geo"))
             .filter(film -> film.arr[DatenFilm.FILM_GEO] == null || film.arr[DatenFilm.FILM_GEO].isEmpty())
-            .collect(Collectors.toList());
+            .toList();
     Log.sysLog("NDR: set GEO=DE for " + list.size() + " entries with progressive_geo (out of " + list.size() + ").");
     if (!list.isEmpty()) {
       list.forEach(film -> film.arr[DatenFilm.FILM_GEO] = DatenFilm.GEO_DE);
@@ -498,7 +498,7 @@ public class AddToFilmlist {
 
     @NotNull
     private Request createOnlineCheckRequest(String url) {
-        Request.Builder builder = new Request.Builder().url(url);
+      Builder builder = new Builder().url(url);
       if (isM3u8File(url)) {
         // head request of m3u8 files always returns 405 => use get instead
         return builder.get().build();
