@@ -27,22 +27,6 @@ public class ArdCrawler extends MediathekCrawler {
           = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
   public static final String[] MISSING_TOPIC_IDS = new String[]{
-          // Dahoam is dahoam
-          "Y3JpZDovL2JyLmRlL2Jyb2FkY2FzdFNlcmllcy9icm9hZGNhc3RTZXJpZXM6L2JyZGUvZmVybnNlaGVuL2JheWVyaXNjaGVzLWZlcm5zZWhlbi9zZW5kdW5nZW4vZGFob2FtLWlzLWRhaG9hbQ",
-          // Rote Rosen
-          "Y3JpZDovL3dkci5kZS9vbmUvcm90ZXJvc2Vu",
-          // Sturm der Liebe
-          "Y3JpZDovL2Rhc2Vyc3RlLmRlL3N0dXJtIGRlciBsaWViZQ",
-          // in aller freundschaft -die jungen ärzte
-          "Y3JpZDovL21kci5kZS9zZW5kZXJlaWhlbi9zdGFmZmVsc2VyaWUtaW4tYWxsZXItZnJldW5kc2NoYWZ0LWRpZS1qdW5nZW4tYWVyenRl",
-          "Y3JpZDovL21kci5kZS9zZW5kZXJlaWhlbi8wNGVkZmFlOS1hYTBlLTQ4MjEtYTk4Mi0yNmRiZDdjZjEyZTY",
-          "Y3JpZDovL2JyLmRlL2Jyb2FkY2FzdFNlcmllcy9icm9hZGNhc3RTZXJpZXM6L2JyZGUvZmVybnNlaGVuL2JheWVyaXNjaGVzLWZlcm5zZWhlbi9zZW5kdW5nZW4vc3BpZWxmaWxtZS1pbS1icg",
-          // wann kommst du meine wunden...
-          "Y3JpZDovL3N3ci5kZS9zZGIvc3RJZC8xNjY3",
-          // oldhenry
-          "Y3JpZDovL2Rhc2Vyc3RlLmRlL29sZC1oZW5yeQ",
-          // evertyhing (bis 5.1.)
-          "Y3JpZDovL2Rhc2Vyc3RlLmRlL2V2ZXJ5dGhpbmctZXZlcnl3aGVyZS1hbGwtYXQtb25jZQ"
   };
 
   public ArdCrawler(FilmeSuchen ssearch, int startPrio) {
@@ -154,9 +138,15 @@ public class ArdCrawler extends MediathekCrawler {
     }
 
     Log.sysLog("ard mediathek topics: " + topics.size());
-    addAdditionalTopics(topics);
-    Log.sysLog("ard mediathek topics with additional: " + topics.size());
-    ConcurrentLinkedQueue<CrawlerUrlDTO> topicUrls = new ConcurrentLinkedQueue<>(topics);
+
+    final ArdTopicGroupsTask groupsToAsset = new ArdTopicGroupsTask(this, new ConcurrentLinkedQueue<>(topics));
+    final Set<CrawlerUrlDTO> assitUrls = new HashSet<>();
+    assitUrls.addAll(forkJoinPool.submit(groupsToAsset).get());
+    Log.sysLog("ard sender group assit tasks: " + assitUrls.size());
+    addAdditionalTopics(assitUrls);
+    Log.sysLog("ard mediathek assit tasks with additional: " + assitUrls.size());
+
+    ConcurrentLinkedQueue<CrawlerUrlDTO> topicUrls = new ConcurrentLinkedQueue<>(assitUrls);
 
     final ArdTopicPageTask topicTask = new ArdTopicPageTask(this, topicUrls);
     final Set<ArdFilmInfoDto> filmInfos = forkJoinPool.submit(topicTask).get();

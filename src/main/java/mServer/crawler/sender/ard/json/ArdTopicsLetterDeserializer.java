@@ -27,8 +27,6 @@ public class ArdTopicsLetterDeserializer implements JsonDeserializer<PaginationU
   private static final String ELEMENT_PUBLICATION_SERVICE = "publicationService";
   private static final String ATTRIBUTE_NAME = "name";
 
-  private static final String ATTRIBUTE_ID = "id";
-
   @Override
   public PaginationUrlDto deserialize(
           final JsonElement jsonElement, final Type type, final JsonDeserializationContext context) {
@@ -72,25 +70,10 @@ public class ArdTopicsLetterDeserializer implements JsonDeserializer<PaginationU
   private Set<CrawlerUrlDTO> parseTeaser(final JsonObject teaserObject) {
     final Set<CrawlerUrlDTO> results = new HashSet<>();
 
-    final Optional<String> id;
-
-    if (JsonUtils.checkTreePath(teaserObject, ELEMENT_LINKS, ELEMENT_TARGET)) {
-      final JsonObject targetObject =
-              teaserObject.get(ELEMENT_LINKS).getAsJsonObject().get(ELEMENT_TARGET).getAsJsonObject();
-      id = JsonUtils.getAttributeAsString(targetObject, ATTRIBUTE_ID);
-    } else {
-      id = JsonUtils.getAttributeAsString(teaserObject, ATTRIBUTE_ID);
+    final Optional<String> urlToGroup = JsonUtils.getElementValueAsString(teaserObject, ELEMENT_LINKS, ELEMENT_TARGET, "href");
+    if (isRelevant(teaserObject) && urlToGroup.isPresent()) {
+      results.add(new CrawlerUrlDTO(urlToGroup.get()));
     }
-
-    if (isRelevant(teaserObject)) {
-      id.ifPresent(
-              nonNullId ->
-                      results.add(
-                              new CrawlerUrlDTO(
-                                      String.format(
-                                              ArdConstants.TOPIC_URL, nonNullId, ArdConstants.TOPIC_PAGE_SIZE))));
-    }
-
     return results;
   }
 
