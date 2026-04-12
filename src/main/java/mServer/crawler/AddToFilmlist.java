@@ -142,7 +142,21 @@ public class AddToFilmlist {
     updateArdWebsite(listeEinsortieren);
     updateSenderTagesschau24(listeEinsortieren);
     updateFunkMissingHost(listeEinsortieren);
+    updateGeoForNdrProgressiveGeo(listeEinsortieren);
     removeSrfUrlParameter(listeEinsortieren);
+  }
+
+  private void updateGeoForNdrProgressiveGeo(ListeFilme listeEinsortieren) {
+    final List<DatenFilm> list = listeEinsortieren.parallelStream()
+            .filter(film -> film.arr[DatenFilm.FILM_SENDER].equals(Const.NDR)
+                    && film.arr[DatenFilm.FILM_URL] != null
+                    && film.arr[DatenFilm.FILM_URL].contains("progressive_geo"))
+            .filter(film -> film.arr[DatenFilm.FILM_GEO] == null || film.arr[DatenFilm.FILM_GEO].isEmpty())
+            .toList();
+    Log.sysLog("NDR: set GEO=DE for " + list.size() + " entries with progressive_geo (out of " + list.size() + ").");
+    if (!list.isEmpty()) {
+      list.forEach(film -> film.arr[DatenFilm.FILM_GEO] = DatenFilm.GEO_DE);
+    }
   }
 
   private boolean isArdUrlToRemove(final String url) {

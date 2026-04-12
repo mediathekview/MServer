@@ -56,6 +56,7 @@ public class AddToFilmlistTest {
 
         switch (request.getPath()) {
           case "/" + FILM_NAME_ONLINE:
+          case "/progressive_geo/" + FILM_NAME_ONLINE:
           case "/" + FILM_NAME_ONLINE2:
           case "/" + FILM_NAME_ARTE_EXTRAIT:
           case "/world/hls/10vor10/2023/07/10vor10_20230731_215000_19875207_v_webcast_h264_,q40,q10,q20,q30,q50,q60,.mp4.csmil/index-f1-v1-a1.m3u8":
@@ -557,6 +558,37 @@ public class AddToFilmlistTest {
     assertEquals("Film1 (Audiodeskription)", testFilm1.arr[DatenFilm.FILM_TITEL]);
     assertEquals("Film2 (Audiodeskription)", testFilm2.arr[DatenFilm.FILM_TITEL]);
     assertEquals("Film3 (Audiodeskription)", testFilm3.arr[DatenFilm.FILM_TITEL]);
+  }
+
+  @Test
+  public void testSetGeoForNdrProgressiveGeoWhenEmpty() {
+    final DatenFilm ndrFilm1 = createTestFilm(Const.NDR, "NDR Topic", "NDR Title", "progressive_geo/" + FILM_NAME_ONLINE);
+    final DatenFilm ndrFilm2 = createTestFilm(Const.NDR, "NDR Topic", "NDR Title 1", FILM_NAME_ONLINE);
+    listToAdd.add(ndrFilm1);
+    listToAdd.add(ndrFilm2);
+
+    AddToFilmlist target = new AddToFilmlist(list, listToAdd);
+    target.addOldList();
+
+    assertEquals(list.size(), 4);
+    // GEO should be set to DE
+    assertEquals(DatenFilm.GEO_DE, ndrFilm1.arr[DatenFilm.FILM_GEO]);
+    assertEquals("", ndrFilm2.arr[DatenFilm.FILM_GEO]);
+  }
+
+  @Test
+  public void testDoNotOverrideExistingGeoForNdrProgressiveGeo() {
+    final DatenFilm ndrFilm = createTestFilm(Const.NDR, "NDR Topic", "NDR Title", "progressive_geo/" + FILM_NAME_ONLINE);
+    // preset GEO to AT (should not be overridden)
+    ndrFilm.arr[DatenFilm.FILM_GEO] = DatenFilm.GEO_AT;
+    listToAdd.add(ndrFilm);
+
+    AddToFilmlist target = new AddToFilmlist(list, listToAdd);
+    target.addOldList();
+
+    assertEquals(list.size(), 3);
+    // GEO should remain AT
+    assertEquals(DatenFilm.GEO_AT, ndrFilm.arr[DatenFilm.FILM_GEO]);
   }
 
   private static DatenFilm createTestFilm(String sender, String topic, String title,
