@@ -34,80 +34,7 @@ public class ArdTopicPageTask extends ArdTaskBase<ArdFilmInfoDto, CrawlerUrlDTO>
   private static final Set<String> TOPICS_LOAD_ALL_PAGES = new HashSet<>();
 
   static {
-    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL3N3ci5kZS8yNDEwMzE1Ng");
-    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL3N3ci5kZS9zZGIvc3RJZC8xMzM3");
-    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL3N3ci5kZS9zZGIvc3RJZC8xMjY4");
-    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL3N3ci5kZS9zZGIvc3RJZC8xMzA1");
-    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL3N3ci5kZS8yNDEwMzIzNA");
-    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL3N3ci5kZS8yNDEwMzAzNA");
-    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL2JyLmRlL2Jyb2FkY2FzdFNlcmllcy8yOGEwMzU4Yi00N2ViLTQ0MDktOGFmZi02ZjVkMDE5NDA2NDc");
-    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL2JyLmRlL2Jyb2FkY2FzdFNlcmllcy8wYTNlMzRiYy01OWRhLTRjY2UtOTJlOS01MTAxMjAzZmMzMWM");
-    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL3dkci5kZS93ZHJyZXRybw");
-    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL3dkci5kZS93ZHJyZXRyb3NwZXppYWw");
-    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL3dkci5kZS93ZHJyZXRyb3Nwb3J0");
-    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL3NyLW9ubGluZS5kZS9SRVRSTy1BUw");
-    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL3NyLW9ubGluZS5kZS9SRVRSTy1EU0Q");
-    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL3NyLW9ubGluZS5kZS9SRVRSTy1IRA");
-    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL3NyLW9ubGluZS5kZS9SRVRSTy1JRA");
-    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL3NyLW9ubGluZS5kZS9SRVRSTy1XTQ");
-    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL3JiYi5kZS9ha3R1ZWxsZXMtbWFnYXppbg");
-    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL3JiYi5kZS9iZXJpY2h0ZS1kb2t1cy1yZXBvcnRhZ2Vu");
-    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL3JiYi5kZS9iZXJsaW4tc3RlbGx0LXZvcg");
-    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL3JiYi1vbmxpbmUuZGUvYmVybGluZXItYWJlbmRzY2hhdQ");
-    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL3JiYi5kZS9kYXMtcHJvZmls");
-    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL3JiYi5kZS9tb3NhaWs");
-    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL3JiYi5kZS93aWUtaWNoLWFuZ2VmYW5nZW4taGFiZQ");
-    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL25kci5kZS80NTkx");
-    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL25kci5kZS80NTg3");
-    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL2hyLW9ubGluZS8zODIyMDA5Nw");
-    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL2hyLW9ubGluZS8zODIyMDEzNQ");
-    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL2hyLW9ubGluZS8zODIyMDA5NQ");
-    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL2hyLW9ubGluZS8zODIyMDA5Ng");
-    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL3JhZGlvYnJlbWVuLmRlL2IwYTJlZWFlLWI2NjAtNDI5Yi05ZTE3LTM5YzlkZDhmNTc4Ng");
-    // Tatort
-    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL2Rhc2Vyc3RlLmRlL3RhdG9ydA");
-    // Filme im Ersten
-    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL2Rhc2Vyc3RlLmRlL2Zlcm5zZWhmaWxtZSBpbSBlcnN0ZW4");
-    // Sportschau
-    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL2Rhc2Vyc3RlLmRlL3Nwb3J0c2NoYXU");
-    // temporary load all => remove if old entries exists
-    // MDR in aller Freundschaft
-    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL21kci5kZS9zZW5kZXJlaWhlbi9zdGFmZmVsc2VyaWUtaW4tYWxsZXItZnJldW5kc2NoYWZ0");
-    // Verrückt nach Meer
-    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL2JyLmRlL2Jyb2FkY2FzdFNlcmllcy92ZXJydWVja3QtbmFjaC1tZWVy");
-    // Dahoam is dahoam
-    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL2JyLmRlL2Jyb2FkY2FzdFNlcmllcy9icm9hZGNhc3RTZXJpZXM6L2JyZGUvZmVybnNlaGVuL2JheWVyaXNjaGVzLWZlcm5zZWhlbi9zZW5kdW5nZW4vZGFob2FtLWlzLWRhaG9hbQ");
-    // Rote Rosen
-    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL3dkci5kZS9vbmUvcm90ZXJvc2Vu");
-    // Sturm der Liebe
-    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL2Rhc2Vyc3RlLmRlL3N0dXJtIGRlciBsaWViZQ");
-    // in aller freundschaft -die jungen ärzte
-    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL21kci5kZS9zZW5kZXJlaWhlbi9zdGFmZmVsc2VyaWUtaW4tYWxsZXItZnJldW5kc2NoYWZ0LWRpZS1qdW5nZW4tYWVyenRl");
-    // tokyo vice
-    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL2Rhc2Vyc3RlLmRlL3Rva3lvLXZpY2U");
-    // um Himmels willen
-    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL3dkci5kZS9VbSBIaW1tZWxzIFdpbGxlbiBPTkU");
-    // Rentnercops
-    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL2Rhc2Vyc3RlLmRlL3JlbnRuZXJjb3Bz");
-    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL3dkci5kZS9yZW50bmVyY29wcw");
-    // alles klara
-    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL21kci5kZS9zZW5kZXJlaWhlbi9zdGFmZmVsc2VyaWUtYWxsZXMta2xhcmE");
-    // bergauf bergab
-    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL2JyLmRlL2Jyb2FkY2FzdFNlcmllcy9icm9hZGNhc3RTZXJpZXM6L2JyZGUvZmVybnNlaGVuL2JheWVyaXNjaGVzLWZlcm5zZWhlbi9zZW5kdW5nZW4vYmVyZ2F1Zi1iZXJnYWI");
-    // HIP
-    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL25kci5kZS80NzQ0");
-    // Nordstory
-    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL25kci5kZS8xNDk1");
-     // Dr.Mertens
-    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL21kci5kZS9zZW5kZXJlaWhlbi8wNGVkZmFlOS1hYTBlLTQ4MjEtYTk4Mi0yNmRiZDdjZjEyZTY");
-    // BR Filme Serien
-    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL2JyLmRlL2Jyb2FkY2FzdFNlcmllcy9icm9hZGNhc3RTZXJpZXM6L2JyZGUvZmVybnNlaGVuL2JheWVyaXNjaGVzLWZlcm5zZWhlbi9zZW5kdW5nZW4vc3BpZWxmaWxtZS1pbS1icg");
-    // hubert ohne staller
-    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL2JyLmRlL2Jyb2FkY2FzdFNlcmllcy9ici1odWJlcnQtb2huZS1zdGFsbGVy");
-    // lohnt sich das
-    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL2JyLmRlL2Jyb2FkY2FzdFNlcmllcy9mYzkyMWQxMC1iY2VjLTQxZmYtOWY3ZC05ODI0YzM0ZDY1MmY");
-    // Morden im Norden
-    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL25kci5kZS80OTU1");
+    // example: TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL2Rhc2Vyc3RlLmRlL3Nwb3J0c2NoYXU");
   }
 
   public ArdTopicPageTask(MediathekReader aCrawler,
@@ -186,7 +113,9 @@ public class ArdTopicPageTask extends ArdTaskBase<ArdFilmInfoDto, CrawlerUrlDTO>
                             .getUri()
                             .getRawQuery()
                             .replaceAll(
-                                    URL_PAGE_NUMBER_REPLACE_REGEX, PAGE_NUMBER_URL_ENCODED + newPageNumber))
+                                    URL_PAGE_NUMBER_REPLACE_REGEX, PAGE_NUMBER_URL_ENCODED + newPageNumber)
+                            .replaceAll(
+                                    "pageNumber=\\d+", "pageNumber=" + newPageNumber))
             .build()
             .toString()
             : aTarget.queryParam(PAGE_NUMBER, newPageNumber).getUri().toString();

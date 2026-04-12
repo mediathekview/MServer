@@ -14,7 +14,7 @@ public class ArdConstants {
   public static final String TOPIC_URL = API_URL + "/page-gateway/widgets/ard/asset/%s?pageSize=%d";
   public static final String DAY_PAGE_URL = "https://programm-api.ard.de/program/api/program?day=%s&channelIds=%s&mode=channel";
 
-  public static final int TOPICS_COMPILATION_PAGE_SIZE = 200;
+  public static final int TOPICS_COMPILATION_PAGE_SIZE = 100;
   public static final int TOPIC_PAGE_SIZE = 50;
 
   public static final String DEFAULT_CLIENT = "ard";
