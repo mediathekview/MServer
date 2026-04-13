@@ -47,11 +47,13 @@ public class KikaApiCrawler extends AbstractCrawler {
       final Queue<KikaApiFilmDto> videos = new ConcurrentLinkedQueue<>();
       videos.addAll(aKikaApiTopicOverviewTask.fork().join());
       //
-      printMessage(ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), videos.size());
-      getAndSetMaxCount(videos.size());
+      final Queue<KikaApiFilmDto> videosFiltered = this.filterExistingFilms(videos, v -> v.getId().get() );
+      //
+      printMessage(ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), videosFiltered.size());
+      getAndSetMaxCount(videosFiltered.size());
       //
       // get all video urls for this episode
-      return new KikaApiFilmTask(this, videos);
+      return new KikaApiFilmTask(this, videosFiltered);
     } catch (final Exception ex) {
       LOG.fatal("Exception in KIKA crawler.", ex);
     }

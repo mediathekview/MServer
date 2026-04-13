@@ -8,11 +8,13 @@ import java.util.*;
 
 /** A POJO with the configs for MServer. */
 public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO {
+  private MServerDBConfig databaseConfig;
   private final MServerCopySettings copySettings;
   private final Boolean writeFilmlistHashFileEnabled;
   private final String filmlistHashFilePath;
   private final Boolean writeFilmlistIdFileEnabled;
   private final String filmlistIdFilePath;
+  
   /** ignore certain film by title **/
   private String ignoreFilmlistPath;
   /** add livestreams from external list **/
@@ -48,6 +50,7 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
     filmlistSavePaths = new EnumMap<>(FilmlistFormats.class);
     filmlistDiffSavePaths = new EnumMap<>(FilmlistFormats.class);
     copySettings = new MServerCopySettings();
+    databaseConfig = new MServerDBConfig();
     logSettings = new MServerLogSettingsDTO();
     crawlerURLs = new EnumMap<>(CrawlerUrlType.class);
 
@@ -242,7 +245,15 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
   public List<ImportFilmlistConfiguration> getImportFilmlistConfigurations() {
     return importFilmlistConfigurations;
   }
- 
+  
+  public MServerDBConfig getDatabaseConfig() {
+    return databaseConfig;
+  }
+
+  public void setDatabaseConfig(MServerDBConfig databaseConfig) {
+    this.databaseConfig = databaseConfig;
+  }
+  
   /**
    * Loads the {@link Sender} specific configuration and if it not exist creates one.
    *
@@ -286,7 +297,8 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
         && Objects.equals(getFilmlistIdFilePath(), that.getFilmlistIdFilePath())
         && Objects.equals(getIgnoreFilmslistPath(), that.getIgnoreFilmslistPath())
         && Objects.equals(getImportLivestreamConfiguration(), that.getImportLivestreamConfiguration())
-        && Objects.equals(getImportFilmlistConfigurations(), that.getImportFilmlistConfigurations());
+        && Objects.equals(getImportFilmlistConfigurations(), that.getImportFilmlistConfigurations())
+        && Objects.equals(getDatabaseConfig(), that.getDatabaseConfig());
   }
 
   @Override
@@ -313,7 +325,8 @@ public class MServerConfigDTO extends MServerBasicConfigDTO implements ConfigDTO
         getFilmlistIdFilePath(),
         getIgnoreFilmslistPath(),
         getImportLivestreamConfiguration(),
-        getImportFilmlistConfigurations());
+        getImportFilmlistConfigurations(),
+        getDatabaseConfig());
   }
 
   public void initializeSenderConfigurations() {

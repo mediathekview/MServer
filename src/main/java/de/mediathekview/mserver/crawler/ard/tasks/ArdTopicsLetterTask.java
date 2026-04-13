@@ -42,7 +42,7 @@ public class ArdTopicsLetterTask extends ArdTaskBase<CrawlerUrlDTO, CrawlerUrlDT
   @Override
   protected void processRestTarget(final CrawlerUrlDTO aDTO, final WebTarget aTarget) {
     final PaginationUrlDto results = deserialize(aTarget, PAGINATION_URL_DTO_TYPE_TOKEN, aDTO);
-    LOG.debug("Found {} shows for {}.", results.getUrls().size(), sender);
+    //LOG.debug("Found {} shows for {}.", results.getUrls().size(), sender);
     taskResults.addAll(results.getUrls());
 
     if (results.getActualPage() == 0 && results.getMaxPages() > 1) {

@@ -150,7 +150,7 @@ public class SrFilmDetailTask extends AbstractDocumentTask<Film, SrTopicUrlDTO> 
                 aUrlDTO.getTheme(),
                 time.orElse(LocalDateTime.now()),
                 duration.orElse(Duration.ZERO));
-
+        film.setId(aUrlDTO.getUrl().substring(aUrlDTO.getUrl().lastIndexOf("id=")+3));
         film.setWebsite(URI.create(aUrlDTO.getUrl()).toURL());
         description.ifPresent(film::setBeschreibung);
 

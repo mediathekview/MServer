@@ -7,6 +7,7 @@ import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.base.messages.ServerMessages;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
+import de.mediathekview.mserver.crawler.basic.TopicUrlDTO;
 import de.mediathekview.mserver.crawler.dw.tasks.DWOverviewTask;
 import de.mediathekview.mserver.crawler.dw.tasks.DwFilmDetailTask;
 import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
@@ -41,15 +42,14 @@ public class DwCrawler extends AbstractCrawler {
 
   @Override
   protected RecursiveTask<Set<Film>> createCrawlerTask() {
-    Queue<CrawlerUrlDTO> shows =new ConcurrentLinkedQueue<>();
+    Queue<TopicUrlDTO> shows = new ConcurrentLinkedQueue<>();
     try {
       shows.addAll(getShows());
+      Queue<TopicUrlDTO> showsFiltered = this.filterExistingFilms(shows, TopicUrlDTO::getTopic);
       printMessage(
-          ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), shows.size());
-      getAndSetMaxCount(shows.size());
-
-      return new DwFilmDetailTask(this,shows);
-      
+          ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), showsFiltered.size());
+      getAndSetMaxCount(showsFiltered.size());
+      return new DwFilmDetailTask(this,showsFiltered);
     } catch (final InterruptedException ex) {
       LOG.debug("{} crawler interrupted.", getSender().getName(), ex);
       Thread.currentThread().interrupt();
@@ -59,7 +59,7 @@ public class DwCrawler extends AbstractCrawler {
     return null;
   }
 
-  private Collection<CrawlerUrlDTO> getShows() throws ExecutionException, InterruptedException {
+  private Collection<TopicUrlDTO> getShows() throws ExecutionException, InterruptedException {
     final CrawlerUrlDTO url = new CrawlerUrlDTO(DwConstants.URL_BASE + DwConstants.URL_OVERVIEW);
 
     final Queue<CrawlerUrlDTO> startUrl = new ConcurrentLinkedQueue<>();

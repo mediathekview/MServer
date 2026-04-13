@@ -105,6 +105,7 @@ public class ArteDtoVideo2FilmTask extends AbstractRecursiveConverterTask<Film, 
         buildAired(aElement),
         buildDuration(aElement)
         );
+    film.setId(aElement.getId());
     film.addGeolocation(buildGeoLocation(aElement));
     film.setBeschreibung(buildDescription(aElement));
     film.setWebsite(buildWebsite(aElement));

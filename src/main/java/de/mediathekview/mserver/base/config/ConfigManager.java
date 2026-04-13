@@ -11,7 +11,7 @@ import java.nio.file.Paths;
 /** A manager to load configurations. */
 public abstract class ConfigManager<T extends ConfigDTO> {
   private T config;
-  private static final Logger LOG = LogManager.getLogger(ConfigManager.class);
+  //private static final Logger LOG = LogManager.getLogger(ConfigManager.class);
 
   protected abstract String getConfigFileName();
 
@@ -58,7 +58,8 @@ public abstract class ConfigManager<T extends ConfigDTO> {
         }
       }
     } catch(Exception e) {
-      LOG.debug(e);
+      //LOG.debug(e);
+      e.printStackTrace();
     }
     return null;
   }

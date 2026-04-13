@@ -45,7 +45,7 @@ public class ZdfFilmTask extends ZdfTaskBase<Film, ZdfFilmDto> {
             aFilm.getTopic(),
             aFilm.getTime(),
             downloadDto.getDuration().orElse(Duration.ZERO));
-
+    film.setId(aFilm.getId());
     film.setBeschreibung(aFilm.getDescription());
     film.setWebsite(URI.create(aFilm.getWebsite()).toURL());
 
@@ -78,7 +78,7 @@ public class ZdfFilmTask extends ZdfTaskBase<Film, ZdfFilmDto> {
             aFilm.getThema(),
             aFilm.getTime(),
             aFilm.getDuration());
-
+    film.setId(aFilm.getId());
     film.setBeschreibung(aFilm.getBeschreibung());
     film.setWebsite(aFilm.getWebsite().orElse(null));
 

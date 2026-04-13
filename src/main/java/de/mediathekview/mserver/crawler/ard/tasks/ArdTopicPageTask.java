@@ -39,7 +39,6 @@ public class ArdTopicPageTask extends ArdTaskBase<ArdFilmInfoDto, CrawlerUrlDTO>
         && topicInfo.getFilmInfos() != null
         && !topicInfo.getFilmInfos().isEmpty()) {
       taskResults.addAll(topicInfo.getFilmInfos());
-      LOG.debug("Found {} shows for a topic of ARD.", topicInfo.getFilmInfos().size());
 
       final Queue<CrawlerUrlDTO> subpages = createSubPageUrls(aTarget, topicInfo);
       if (!subpages.isEmpty()) {
@@ -65,7 +64,6 @@ public class ArdTopicPageTask extends ArdTaskBase<ArdFilmInfoDto, CrawlerUrlDTO>
         break;
       }
     }
-    LOG.debug("Found {} subpage", subpages.size());
     return subpages;
   }
 
@@ -78,7 +76,9 @@ public class ArdTopicPageTask extends ArdTaskBase<ArdFilmInfoDto, CrawlerUrlDTO>
                     .getUri()
                     .getRawQuery()
                     .replaceAll(
-                        URL_PAGE_NUMBER_REPLACE_REGEX, PAGE_NUMBER_URL_ENCODED + newPageNumber))
+                        URL_PAGE_NUMBER_REPLACE_REGEX, PAGE_NUMBER_URL_ENCODED + newPageNumber)
+                    .replaceAll(
+                        "pageNumber=\\d+", "pageNumber=" + newPageNumber))
             .build()
             .toString()
         : aTarget.queryParam(PAGE_NUMBER, newPageNumber).getUri().toString();

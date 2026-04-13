@@ -29,7 +29,7 @@ public class ZdfDayPageDeserializerTest {
       final String aJsonFile,
       final CrawlerUrlDTO[] aExpectedEntries,
       final Optional<String> aExpectedNextPageUrl) {
-    target = new ZdfDayPageDeserializer(ZdfConstants.URL_API_BASE);
+    target = new ZdfDayPageDeserializer(ZdfConstants.URL_API_BASE, ZdfConstants.PARTNER_TO_SENDER);
 
     jsonFile = aJsonFile;
     expectedEntries = aExpectedEntries;
@@ -46,10 +46,6 @@ public class ZdfDayPageDeserializerTest {
               new CrawlerUrlDTO(
                   "https://api.zdf.de/content/documents/olympia-im-technikwahn-100.json"),
               new CrawlerUrlDTO("https://api.zdf.de/content/documents/gestrandet-102.json"),
-              new CrawlerUrlDTO(
-                  "https://api.zdf.de/content/documents/im-dialog-vom-23022018-100.json"),
-              new CrawlerUrlDTO(
-                  "https://api.zdf.de/content/documents/augstein--blome-vom-23022018-100.json"),
               new CrawlerUrlDTO(
                   "https://api.zdf.de/content/documents/menschen---das-magazin-vom-24-februar-2018-100.json"),
               new CrawlerUrlDTO("https://api.zdf.de/content/documents/die-orakel-krake-100.json"),
@@ -112,6 +108,7 @@ public class ZdfDayPageDeserializerTest {
     assertThat(actual, notNullValue());
     assertThat(actual.getNextPageUrl(), equalTo(expectedNextPageUrl));
     assertThat(actual.getEntries().size(), equalTo(expectedEntries.length));
-    assertThat(actual.getEntries(), Matchers.containsInAnyOrder(expectedEntries));
+    actual.getEntries().stream().map(v->new CrawlerUrlDTO(v.getUrl())).toArray(CrawlerUrlDTO[]::new);
+    assertThat(actual.getEntries().stream().map(v->new CrawlerUrlDTO(v.getUrl())).toList(), Matchers.containsInAnyOrder(expectedEntries));
   }
 }

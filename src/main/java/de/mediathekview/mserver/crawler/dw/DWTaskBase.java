@@ -26,7 +26,7 @@ public abstract class DWTaskBase<T, D extends CrawlerUrlDTO> extends AbstractRes
   protected DWTaskBase(
       final AbstractCrawler aCrawler, final Queue<D> aUrlToCrawlDtos, final String authKey) {
     super(aCrawler, aUrlToCrawlDtos, authKey);
-    gsonBuilder = new GsonBuilder();aCrawler.getSender();
+    gsonBuilder = new GsonBuilder();
   }
 
   protected void registerJsonDeserializer(final Type aType, final Object aDeserializer) {
