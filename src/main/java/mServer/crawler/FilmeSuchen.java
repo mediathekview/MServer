@@ -111,7 +111,7 @@ public class FilmeSuchen {
       mediathekListe.add(new SrfCrawler(this, 1));
     }
     if (crawlerList.contains("SRFPOD")) {
-      mediathekListe.add(new MediathekSrfPod(this, 1));
+      mediathekListe.add(new MediathekDummySrfPod(this, 1));
     }
     if (crawlerList.contains("ORF")) {
       mediathekListe.add(new OrfOnCrawler(this, 1));
