@@ -3,6 +3,7 @@ package de.mediathekview.mserver.crawler.ard.json;
 import com.google.gson.*;
 import de.mediathekview.mserver.daten.Film;
 import de.mediathekview.mserver.daten.FilmUrl;
+import de.mediathekview.mserver.daten.GeoLocations;
 import de.mediathekview.mserver.daten.Resolution;
 import de.mediathekview.mserver.daten.Sender;
 import de.mediathekview.mserver.base.utils.GeoLocationGuesser;
@@ -10,7 +11,6 @@ import de.mediathekview.mserver.base.utils.JsonUtils;
 import de.mediathekview.mserver.base.utils.UrlUtils;
 import de.mediathekview.mserver.crawler.ard.ArdConstants;
 import de.mediathekview.mserver.crawler.ard.ArdFilmDto;
-import de.mediathekview.mserver.crawler.ard.ArdFilmInfoDto;
 import de.mediathekview.mserver.crawler.ard.UrlOptimizer;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import org.apache.logging.log4j.LogManager;
@@ -41,7 +41,6 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
   private static final String ELEMENT_MEDIA_COLLECTION = "mediaCollection";
   private static final String ELEMENT_PUBLICATION_SERVICE = "publicationService";
   private static final String ELEMENT_SHOW = "show";
-  private static final String ELEMENT_TEASERS = "teasers";
   private static final String ELEMENT_WIDGETS = "widgets";
   private static final String[] ELEMENT_SUBTITLES = {ELEMENT_MEDIA_COLLECTION,ELEMENT_EMBEDDED,"subtitles"};
   private static final String ELEMENT_SOURCES = "sources";
@@ -53,7 +52,6 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
   private static final String ATTRIBUTE_BROADCAST = "broadcastedOn";
   private static final String[] ATTRIBUTE_DURATION = {"meta","duration"};
   private static final String[] ATTRIBUTE_DURATION_SEC = {"meta","durationSeconds"};
-  private static final String ATTRIBUTE_ID = "id";
   private static final String ATTRIBUTE_NAME = "name";
   private static final String ATTRIBUTE_PARTNER = "partner";
   private static final String ATTRIBUTE_SYNOPSIS = "synopsis";
@@ -63,6 +61,7 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
   private static final String ATTRIBUTE_MIME = "mimeType";
   private static final String ATTRIBUTE_KIND = "kind";
   private static final String ATTRIBUTE_ADUIO_LANG = "languageCode";
+  private static final String ATTRIBUTE_GEO_BLOCKED = "isGeoBlocked";
 
   private static final String MARKER_VIDEO_MP4 = "video/mp4"; 
   private static final String MARKER_VIDEO_STANDARD = "standard";
@@ -179,6 +178,7 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
     final Optional<LocalDateTime> date = parseDate(itemObject);
     final Optional<Duration> duration = parseDuration(itemObject);
     final Optional<String> partner = parsePartner(itemObject);
+    final Optional<Boolean> geoBlocked = parseGeoBlocked(itemObject);
     final Sender sender = ArdConstants.PARTNER_TO_SENDER.get(partner.orElse(""));
     final Optional<ArdVideoInfoDto> videoInfo = parseVideos(itemObject, titleOriginal.orElse(""));
 
@@ -209,7 +209,8 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
                   description.orElse(null),
                   date.orElse(null),
                   duration.orElse(null),
-                  videoInfo.get()));
+                  videoInfo.get(),
+                  geoBlocked));
       films.add(filmDto);
     }
     // OV - long term this should go into Film as "OV"
@@ -227,7 +228,8 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
                   description.orElse(null),
                   date.orElse(null),
                   duration.orElse(null),
-                  allVideoUrlsOV));
+                  allVideoUrlsOV,
+                  geoBlocked));
       films.add(filmDtoOV);
     }
     
@@ -294,6 +296,19 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
     return Optional.empty();
   }
 
+  private Optional<Boolean> parseGeoBlocked(final JsonObject playerPageObject) {
+    final Optional<JsonObject> mediaCollectionObject = getMediaCollectionObject(playerPageObject);
+    if (mediaCollectionObject.isEmpty()) {
+      return Optional.empty();
+    }
+    final Optional<JsonElement> geoBlockedElement =
+        JsonUtils.getElement(mediaCollectionObject.get(), ATTRIBUTE_GEO_BLOCKED);
+    if (geoBlockedElement.isPresent() && geoBlockedElement.get().isJsonPrimitive()) {
+      return Optional.of(geoBlockedElement.get().getAsBoolean());
+    }
+    return Optional.empty();
+  }
+
   private Film createFilm(
       final String id,
       final Sender sender,
@@ -302,7 +317,8 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
       @Nullable final String description,
       @Nullable final LocalDateTime date,
       @Nullable final Duration duration,
-      final ArdVideoInfoDto videoInfo) {
+      final ArdVideoInfoDto videoInfo,
+      final Optional<Boolean> geoBlocked) {
 
     final Film film =
         new Film(
@@ -315,8 +331,18 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
 
     Optional.ofNullable(description).ifPresent(film::setBeschreibung);
     film.setId(id);
-    film.setGeoLocations(GeoLocationGuesser.getGeoLocations(Sender.ARD, videoInfo.getDefaultVideoUrl()));
-    
+
+    // Set GeoLocations based on isGeoBlocked flag
+    if (geoBlocked.isPresent()) {
+      if (geoBlocked.get()) {
+        film.addGeolocation(GeoLocations.GEO_DE);
+      } else {
+        film.addGeolocation(GeoLocations.GEO_NONE);
+      }
+    } else {
+      film.setGeoLocations(GeoLocationGuesser.getGeoLocations(Sender.ARD, videoInfo.getDefaultVideoUrl()));
+    }
+
     if (!videoInfo.getSubtitleUrl().isEmpty()) {
       for (String subtitleUrl : videoInfo.getSubtitleUrl()) {
         try {
