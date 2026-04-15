@@ -51,7 +51,7 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
   private static final String ELEMENT_SHOW = "show";
   private static final String ELEMENT_TEASERS = "teasers";
   private static final String ELEMENT_WIDGETS = "widgets";
-  private static final String[] ELEMENT_SUBTITLES = {"mediaCollection","embedded","subtitles"};
+  private static final String[] ELEMENT_SUBTITLES = {ELEMENT_MEDIA_COLLECTION,ELEMENT_EMBEDDED,"subtitles"};
   private static final String ELEMENT_SOURCES = "sources";
   private static final String ELEMENT_STREAMS = "streams";
   private static final String ELEMENT_MEDIA = "media";
@@ -71,6 +71,7 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
   private static final String ATTRIBUTE_MIME = "mimeType";
   private static final String ATTRIBUTE_KIND = "kind";
   private static final String ATTRIBUTE_ADUIO_LANG = "languageCode";
+  private static final String ATTRIBUTE_GEO_BLOCKED = "isGeoBlocked";
 
   private static final String MARKER_VIDEO_MP4 = "video/mp4"; 
   private static final String MARKER_VIDEO_STANDARD = "standard";
@@ -229,6 +230,7 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
     final Optional<LocalDateTime> date = parseDate(itemObject);
     final Optional<Duration> duration = parseDuration(itemObject);
     final Optional<String> partner = parsePartner(itemObject);
+    final Optional<Boolean> geoBlocked = parseGeoBlocked(itemObject);
     Optional<Map<Qualities, String>> videoInfoStandard = parseVideoUrls(itemObject, MARKER_VIDEO_CATEGORY_MAIN, MARKER_VIDEO_STANDARD, MARKER_VIDEO_MP4, MARKER_VIDEO_DE);
     Optional<Map<Qualities, String>> videoInfoAdaptive = parseVideoUrls(itemObject, MARKER_VIDEO_CATEGORY_MAIN, MARKER_VIDEO_STANDARD, MARKER_VIDEO_CATEGORY_MPEG, MARKER_VIDEO_DE);
     Optional<Map<Qualities, String>> videoInfoAD = parseVideoUrls(itemObject, MARKER_VIDEO_CATEGORY_MAIN, MARKER_VIDEO_AD, MARKER_VIDEO_MP4, MARKER_VIDEO_DE);
@@ -276,7 +278,8 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
               date,
               duration,
               videoInfoStandard.get(),
-              subtitles));
+              subtitles,
+              geoBlocked.orElse(false)));
       films.add(filmDto);
       if (widgets.size() > 1) {
         parseRelatedFilms(filmDto, widgets.get(1).getAsJsonObject());
@@ -295,7 +298,8 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
           date,
           duration,
           vid,
-          subtitles));
+          subtitles,
+          geoBlocked.orElse(false)));
       films.add(filmDto);
     }
     //
@@ -311,7 +315,8 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
               date,
               duration,
               videoInfoAD.get(),
-              subtitles));
+              subtitles,
+              geoBlocked.orElse(false)));
       films.add(filmDto);
     }
     //
@@ -327,11 +332,25 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
               date,
               duration,
               videoInfoDGS.get(),
-              subtitles));
+              subtitles,
+              geoBlocked.orElse(false)));
       films.add(filmDto);
     }
 
     return films;
+  }
+
+  private Optional<Boolean> parseGeoBlocked(final JsonObject playerPageObject) {
+    final Optional<JsonObject> mediaCollectionObject = getMediaCollectionObject(playerPageObject);
+    if (mediaCollectionObject.isEmpty()) {
+      return Optional.empty();
+    }
+    final Optional<JsonElement> geoBlockedElement =
+            JsonUtils.getElement(mediaCollectionObject.get(), ATTRIBUTE_GEO_BLOCKED);
+    if (geoBlockedElement.isPresent() && geoBlockedElement.get().isJsonPrimitive()) {
+      return Optional.of(geoBlockedElement.get().getAsBoolean());
+    }
+    return Optional.empty();
   }
 
   private Optional<String> parsePartner(JsonObject playerPageObject) {
@@ -379,7 +398,8 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
       final Optional<LocalDateTime> date,
       final Optional<Duration> duration,
       final Map<Qualities, String> videoUrls,
-      final Optional<String> sub) {
+      final Optional<String> sub,
+      final boolean geoBlocking) {
 
     LocalDateTime time = date.orElse(LocalDateTime.now());
 
@@ -396,6 +416,9 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
     }
     if (sub.isPresent()) {
       CrawlerTool.addUrlSubtitle(film, sub.get());
+    }
+    if (geoBlocking) {
+      film.arr[DatenFilm.FILM_GEO] = DatenFilm.GEO_DE;
     }
 
     return film;
