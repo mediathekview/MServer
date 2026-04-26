@@ -127,7 +127,7 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<Film>>
         .replace("«", "")
         .replace("»", "")
         .replace(" ", "")
-        .replace("--", "-")
+        .replace("–", "-")
         .replace("--", "-");
   }
   
