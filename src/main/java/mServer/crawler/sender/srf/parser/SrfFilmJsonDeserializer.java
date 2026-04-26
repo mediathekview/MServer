@@ -61,6 +61,10 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<DatenF
     return aValue
         .toLowerCase()
         .replace(' ', '-')
+        .replace("ä", "ae")
+        .replace("ü", "ue")
+        .replace("ö", "oe")
+        .replace("ß", "ss")
         .replace('.', '-')
         .replace(',', '-')
         .replace(":", "")
@@ -74,6 +78,7 @@ public class SrfFilmJsonDeserializer implements JsonDeserializer<Optional<DatenF
         .replace("«", "")
         .replace("»", "")
         .replace(" ", "")
+        .replace("–", "-")
         .replace("--", "-");
   }
 
