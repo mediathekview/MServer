@@ -16,6 +16,7 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
@@ -41,6 +42,7 @@ public class FilmlistOldFormatWriter extends AbstractFilmlistWriter {
   private static final char GEO_SPLITTERATOR = '-';
   private static final DateTimeFormatter DATE_TIME_FORMAT =
       DateTimeFormatter.ofLocalizedDateTime(MEDIUM, SHORT).withLocale(Locale.GERMANY);
+  private static final LocalDateTime EMPTY_DATE_TIME= LocalDateTime.of(1970, 1, 1, 00, 00, 00);
 
   private static final String META_HEADER_VERSION = "4";
   private static final String META_HEADER_VERSION_LONG = "MSearch [Vers.: 4.0.1]";
@@ -91,7 +93,7 @@ public class FilmlistOldFormatWriter extends AbstractFilmlistWriter {
       });
       jsonWriter.endObject();
       jsonWriter.flush();
-      LOG.info("done writting in {} sec reading {} elements resulting in {} elements", ((System.currentTimeMillis()-start)/1000), cnt, filmlist.getFilms().size());
+      LOG.info("done writting in {} sec reading {} elements resulting in {} elements", ((System.currentTimeMillis()-start)/1000), filmlist.getFilms().size(), cnt );
     } catch (IOException e) {
       LOG.error(e);
       return false;
@@ -196,10 +198,16 @@ public class FilmlistOldFormatWriter extends AbstractFilmlistWriter {
   }
 
   private String writeRecord04Datum(AbstractMediaResource<?> in) {
+    if(in.getTime().isEqual(EMPTY_DATE_TIME)) {
+      return "";
+    }
     return in.getTime().format(DATE_FORMATTER);
   }
 
   private String writeRecord05Zeit(AbstractMediaResource<?> in) {
+    if(in.getTime().isEqual(EMPTY_DATE_TIME)) {
+      return "";
+    }
     return in.getTime().format(TIME_FORMATTER);
   }
       
@@ -211,7 +219,7 @@ public class FilmlistOldFormatWriter extends AbstractFilmlistWriter {
   }
 
   private String writeRecord07Groesse(AbstractMediaResource<?> in) {
-    if ((in instanceof Podcast pIn) && pIn.getUrl(Resolution.NORMAL) != null)
+    if ((in instanceof Podcast pIn) && pIn.getUrl(Resolution.NORMAL) != null && pIn.getUrl(Resolution.NORMAL).getFileSize() != 0)
       return (pIn.getUrl(Resolution.NORMAL).getFileSize()/1024) + "";
     return "";
   }

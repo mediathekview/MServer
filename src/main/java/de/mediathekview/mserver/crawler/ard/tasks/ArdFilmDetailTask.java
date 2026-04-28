@@ -57,7 +57,7 @@ public class ArdFilmDetailTask extends ArdTaskBase<Film, ArdFilmInfoDto> {
           taskResults.add(result);
 
           if (aDTO.getNumberOfClips() > 1) {
-            processRelatedFilms(filmDto.getRelatedFilms());
+            //processRelatedFilms(filmDto.getRelatedFilms());
           }
         }
         crawler.incrementAndGetActualCount();
@@ -83,7 +83,7 @@ public class ArdFilmDetailTask extends ArdTaskBase<Film, ArdFilmInfoDto> {
   private Optional<URL> getWebsiteUrl(final ArdFilmInfoDto aDTO) {
     final String url = String.format(ArdConstants.WEBSITE_URL, aDTO.getId());
     try {
-      return Optional.of(URI.create(url).toURL());
+      return Optional.of(new URL(url));
     } catch (final MalformedURLException e) {
       LOG.error(e);
     }

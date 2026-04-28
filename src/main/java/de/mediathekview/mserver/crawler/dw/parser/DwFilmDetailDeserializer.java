@@ -119,6 +119,7 @@ public class DwFilmDetailDeserializer implements JsonDeserializer<Optional<Film>
             topic.get(),
             getAiredDate(thisPageUrl.get(), jsonObject),
             getDuration(thisPageUrl.get(), jsonObjectMainContent));
+    film.setId(videoId.get());
     //
     final Optional<String> description = JsonUtils.getAttributeAsString(jsonObject, ELEMENT_TEASER);
     description.ifPresent(film::setBeschreibung);

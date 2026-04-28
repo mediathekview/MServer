@@ -3,6 +3,7 @@ package de.mediathekview.mserver.crawler.zdf;
 import de.mediathekview.mserver.daten.Film;
 import de.mediathekview.mserver.daten.Sender;
 import de.mediathekview.mserver.base.messages.listener.MessageListener;
+import de.mediathekview.mserver.base.utils.DateUtils;
 import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.base.messages.ServerMessages;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
@@ -15,11 +16,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
+import java.util.ArrayDeque;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
@@ -48,23 +48,21 @@ public abstract class AbstractZdfCrawler extends AbstractCrawler {
 
     try {
       Set<CrawlerUrlDTO> shows = new HashSet<>();
-
+      Queue<CrawlerUrlDTO> showsFiltered = new ArrayDeque<>();
       final ZdfConfiguration configuration = loadConfiguration();
       if (configuration.getSearchAuthKey().isPresent()
           && configuration.getVideoAuthKey().isPresent()) {
-
         shows = new HashSet<>(getDaysEntries(configuration));
-
         if (Boolean.TRUE.equals(crawlerConfig.getTopicsSearchEnabled())) {
           shows.addAll(getTopicsEntries());
         }
-
-        getAndSetMaxCount(shows.size());
+        showsFiltered = this.filterExistingFilms(shows, v-> v.getUrl().substring(v.getUrl().lastIndexOf("/")+1).replace(".json", "") );
+        getAndSetMaxCount(showsFiltered.size());
       }
       return new ZdfFilmDetailTask(
           this,
           getApiUrlBase(),
-          new ConcurrentLinkedQueue<>(shows),
+          new ConcurrentLinkedQueue<>(showsFiltered),
           configuration.getVideoAuthKey().orElse(null),
           partner2Sender);
     } catch (final InterruptedException ex) {
@@ -93,7 +91,7 @@ public abstract class AbstractZdfCrawler extends AbstractCrawler {
       throws InterruptedException, ExecutionException {
     final ZdfDayPageTask dayTask =
         new ZdfDayPageTask(
-            this, getApiUrlBase(), getDayUrls(), configuration.getSearchAuthKey().orElse(null));
+            this, getApiUrlBase(), getDayUrls(), configuration.getSearchAuthKey().orElse(null), partner2Sender);
     final Set<CrawlerUrlDTO> shows = forkJoinPool.submit(dayTask).get();
 
     final Collection<? extends CrawlerUrlDTO> extraDaysEntries = getExtraDaysEntries();
@@ -114,21 +112,11 @@ public abstract class AbstractZdfCrawler extends AbstractCrawler {
 
   private Queue<CrawlerUrlDTO> getDayUrls() {
     final Queue<CrawlerUrlDTO> urls = new ConcurrentLinkedQueue<>();
-    for (int i = 0;
-        i
-            <= crawlerConfig.getMaximumDaysForSendungVerpasstSection()
-                + crawlerConfig.getMaximumDaysForSendungVerpasstSectionFuture();
-        i++) {
-
-      final LocalDateTime local =
-          LocalDateTime.now()
-              .plus(crawlerConfig.getMaximumDaysForSendungVerpasstSectionFuture(), ChronoUnit.DAYS)
-              .minus(i, ChronoUnit.DAYS);
-      final String date = local.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-      final String url = String.format(getUrlDay(), date, date);
+    final List<String> days = DateUtils.generateDaysToCrawl(crawlerConfig);
+    days.forEach( dateString -> {
+      final String url = String.format(getUrlDay(), dateString, dateString);
       urls.add(new CrawlerUrlDTO(url));
-    }
-
+    });
     return urls;
   }
 

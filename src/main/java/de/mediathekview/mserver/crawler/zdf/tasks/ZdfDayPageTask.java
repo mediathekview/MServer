@@ -5,24 +5,29 @@ import de.mediathekview.mserver.crawler.basic.AbstractRecursiveConverterTask;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.zdf.json.ZdfDayPageDeserializer;
 import de.mediathekview.mserver.crawler.zdf.json.ZdfDayPageDto;
-
+import de.mediathekview.mserver.daten.Sender;
 import jakarta.annotation.Nullable;
 import jakarta.ws.rs.client.WebTarget;
+
+import java.util.Map;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class ZdfDayPageTask extends ZdfTaskBase<CrawlerUrlDTO, CrawlerUrlDTO> {
 
   private final String apiUrlBase;
+  private final Map<String, Sender> partnerToSender;
 
   public ZdfDayPageTask(
       final AbstractCrawler crawler,
       final String apiUrlBase,
       final Queue<CrawlerUrlDTO> urlToCrawlDTOs,
-      @Nullable final String authKey) {
+      @Nullable final String authKey,
+      Map<String, Sender> partnerToSender) {
     super(crawler, urlToCrawlDTOs, authKey);
     this.apiUrlBase = apiUrlBase;
-    registerJsonDeserializer(ZdfDayPageDto.class, new ZdfDayPageDeserializer(this.apiUrlBase));
+    this.partnerToSender = partnerToSender;
+    registerJsonDeserializer(ZdfDayPageDto.class, new ZdfDayPageDeserializer(this.apiUrlBase, partnerToSender));
   }
 
   @Override
@@ -37,7 +42,7 @@ public class ZdfDayPageTask extends ZdfTaskBase<CrawlerUrlDTO, CrawlerUrlDTO> {
   @Override
   protected AbstractRecursiveConverterTask<CrawlerUrlDTO, CrawlerUrlDTO> createNewOwnInstance(
       final Queue<CrawlerUrlDTO> aElementsToProcess) {
-    return new ZdfDayPageTask(crawler, apiUrlBase, aElementsToProcess, getAuthKey().orElse(null));
+    return new ZdfDayPageTask(crawler, apiUrlBase, aElementsToProcess, getAuthKey().orElse(null), partnerToSender);
   }
 
   private void processNextPage(final ZdfDayPageDto entries) {

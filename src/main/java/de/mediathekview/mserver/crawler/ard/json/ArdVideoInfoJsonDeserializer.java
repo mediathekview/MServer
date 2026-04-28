@@ -121,7 +121,7 @@ public class ArdVideoInfoJsonDeserializer implements JsonDeserializer<ArdVideoIn
                 if (UrlUtils.getProtocol(videoUrl).isEmpty()) {
                   videoUrl = baseUrl + videoUrl;
                 }
-                urls.put(resolution.get(), URI.create(videoUrl).toURL());
+                urls.put(resolution.get(), new URL(videoUrl));
               } catch (final MalformedURLException malformedURLException) {
                 LOG.error(
                     "ArdVideoInfoJsonDeserializer: invalid url {}",

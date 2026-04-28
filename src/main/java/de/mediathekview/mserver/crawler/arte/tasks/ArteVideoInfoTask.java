@@ -64,7 +64,9 @@ public class ArteVideoInfoTask
   
   protected void postProcessingElements(Set<ArteVideoInfoDto> elements, TopicUrlDTO aDTO) {
     for (ArteVideoInfoDto element : elements)  {
-      taskResults.add(element);
+      if(!taskResults.add(element)) {
+        log.debug("Duplicate film");
+      }
     }
   }
   

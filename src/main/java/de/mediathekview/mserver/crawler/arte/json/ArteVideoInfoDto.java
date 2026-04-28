@@ -85,8 +85,8 @@ public class ArteVideoInfoDto extends CrawlerUrlDTO {
   public Optional<String> getFirstBroadcastDate() {
     return firstBroadcastDate;
   }
-  public Optional<String> getId() {
-    return id;
+  public String getId() {
+    return id.orElse("");
   }
   public Optional<String> getProgramId() {
     return programId;

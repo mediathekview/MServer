@@ -15,6 +15,7 @@ import de.mediathekview.mserver.base.progress.AbstractManager;
 import de.mediathekview.mserver.base.uploader.copy.FileCopyTarget;
 import de.mediathekview.mserver.base.uploader.copy.FileCopyTask;
 import de.mediathekview.mserver.base.utils.CheckUrlAvailability;
+import de.mediathekview.mserver.base.utils.FilmDBService;
 import de.mediathekview.mserver.crawler.ard.ArdCrawler;
 import de.mediathekview.mserver.crawler.arte.ArteCrawler;
 import de.mediathekview.mserver.crawler.arte.ArteCrawler_EN;
@@ -91,6 +92,15 @@ public class CrawlerManager extends AbstractManager {
 
   public MServerConfigManager getConfigManager() {
     return rootConfig;
+  }
+  
+  public void storeFilmsToDB() {
+    FilmDBService filmDBService = new FilmDBService(executorService, getConfigManager().getConfig().getDatabaseConfig().getBatchSize(), getConfigManager().getConfig().getDatabaseConfig().getRefreshIntervalInDays());
+    try { 
+      filmDBService.saveAll(filmlist);
+    } catch (Exception e) {
+      LOG.error(e);
+    }
   }
 
   public void copyFilmlist() {
@@ -188,7 +198,9 @@ public class CrawlerManager extends AbstractManager {
   public void importFilmlist(final ImportFilmlistConfiguration importFilmlistConfiguration) {
     try {
       Optional<Filmlist> importedFilmlist;
-      if (importFilmlistConfiguration.getPath().startsWith(HTTP)) {
+      if (importFilmlistConfiguration.getPath().startsWith("jdbc")) {
+        importedFilmlist = importFilmlistFromDB();
+      } else if (importFilmlistConfiguration.getPath().startsWith(HTTP)) {
         importedFilmlist = importFilmListFromURl(importFilmlistConfiguration.getFormat(), importFilmlistConfiguration.getPath());
       } else {
         importedFilmlist = importFilmlistFromFile(importFilmlistConfiguration.getFormat(), importFilmlistConfiguration.getPath());
@@ -200,13 +212,14 @@ public class CrawlerManager extends AbstractManager {
                 config.getCheckImportListUrlMinSize(),
                 config.getCheckImportListUrlTimeoutInSec(),
                 config.getMaximumCpuThreads())
-            .getAvaiableFilmlist(importedFilmlist.get())
+            .getAvailableFilmlist(importedFilmlist.get())
         );
       }
       //
       final Filmlist difflist = new Filmlist(UUID.randomUUID(), LocalDateTime.now());
-      importedFilmlist.ifPresent(value -> Film.addAllToFilmlist(Film.mergeTwoFilmlists(filmlist,value),difflist));
+      importedFilmlist.ifPresent(value -> Film.addAllToFilmlist(Film.mergeTwoFilmlists(filmlist,value), difflist));
       if (importFilmlistConfiguration.isCreateDiff()) {
+        difflist.getFilms().entrySet().removeIf(entry -> entry.getValue().getThema().equals("Livestream") && entry.getValue().getTitel().endsWith("Livestream") && entry.getValue().getTime().getHour() == 0);
         Film.addAllToFilmlist(difflist, differenceList);
       }
     } catch (final IOException ioException) {
@@ -443,6 +456,12 @@ public class CrawlerManager extends AbstractManager {
     }
 
     return crawlerToRun;
+  }
+
+  private Optional<Filmlist> importFilmlistFromDB() throws IOException {
+    FilmDBService filmDBService = new FilmDBService(getExecutorService(), getConfigManager().getConfig().getDatabaseConfig().getBatchSize(), getConfigManager().getConfig().getDatabaseConfig().getRefreshIntervalInDays());
+    Optional<Filmlist> dbFilmlist = filmDBService.readFilmlistFromDB();
+    return dbFilmlist;
   }
 
   private Optional<Filmlist> importFilmlistFromFile(

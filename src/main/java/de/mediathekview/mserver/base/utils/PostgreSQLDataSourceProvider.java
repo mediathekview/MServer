@@ -1,0 +1,61 @@
+package de.mediathekview.mserver.base.utils;
+
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
+
+import de.mediathekview.mserver.base.config.MServerConfigManager;
+
+import javax.sql.DataSource;
+
+public final class PostgreSQLDataSourceProvider {
+  private static HikariDataSource DATA_SOURCE;
+  private static Boolean enabled = false;
+  private MServerConfigManager aMServerConfigManager;
+
+  public PostgreSQLDataSourceProvider(MServerConfigManager aMServerConfigManager) {
+    this.aMServerConfigManager = aMServerConfigManager;
+    init();
+  }
+
+  public static boolean isEnabled() {
+    return enabled;
+  }
+  
+  public static DataSource get() {
+      return DATA_SOURCE;
+    }
+
+  public static void shutdown() {
+    DATA_SOURCE.close();
+  }
+
+  private void init() {
+    HikariConfig cfg = new HikariConfig();
+    enabled = aMServerConfigManager.getConfig().getDatabaseConfig().getActive();
+    if(!enabled) {
+      return;
+    }
+    cfg.setJdbcUrl(aMServerConfigManager.getConfig().getDatabaseConfig().getUrl());
+    cfg.setUsername(aMServerConfigManager.getConfig().getDatabaseConfig().getUsername());
+    cfg.setPassword(aMServerConfigManager.getConfig().getDatabaseConfig().getPassword());
+
+    // === Pool Sizing ===
+    cfg.setMaximumPoolSize(50);
+    cfg.setMinimumIdle(4);
+
+    // === Performance ===
+    cfg.setAutoCommit(false);
+    cfg.setConnectionTimeout(3000);
+    cfg.setIdleTimeout(600_000);
+    cfg.setMaxLifetime(1_800_000);
+
+    // === PostgreSQL Optimierungen ===
+    cfg.addDataSourceProperty("stringtype", "unspecified");
+    cfg.addDataSourceProperty("defaultRowFetchSize", "10000");
+
+    // === Debug (optional) ===
+    cfg.setPoolName("CrawlerPool");
+
+    DATA_SOURCE = new HikariDataSource(cfg);
+  }
+}

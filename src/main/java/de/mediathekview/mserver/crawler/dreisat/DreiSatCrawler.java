@@ -2,6 +2,7 @@ package de.mediathekview.mserver.crawler.dreisat;
 
 import de.mediathekview.mserver.daten.Sender;
 import de.mediathekview.mserver.base.messages.listener.MessageListener;
+import de.mediathekview.mserver.base.utils.DateUtils;
 import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.zdf.AbstractZdfCrawler;
@@ -9,10 +10,9 @@ import de.mediathekview.mserver.crawler.zdf.ZdfConfiguration;
 import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
 import org.jetbrains.annotations.NotNull;
 
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 import java.util.Collection;
+import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutionException;
@@ -75,14 +75,14 @@ public class DreiSatCrawler extends AbstractZdfCrawler {
 
   private Queue<CrawlerUrlDTO> getExtraDayUrls() {
     final Queue<CrawlerUrlDTO> urls = new ConcurrentLinkedQueue<>();
-    for (int i = 0; i <= getMaximumDaysPast(); i++) {
-
-      final LocalDateTime local = LocalDateTime.now().minus(i, ChronoUnit.DAYS);
-      final String date = local.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-      final String url = String.format(DreisatConstants.URL_HTML_DAY, date);
+    final List<String> days = DateUtils.generateDaysToCrawl(
+        getMaximumDaysPast(),
+        crawlerConfig.getMaximumDaysForSendungVerpasstSectionFuture(),
+        DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+    days.forEach( dateString -> {
+      final String url = String.format(DreisatConstants.URL_HTML_DAY, dateString);
       urls.add(new CrawlerUrlDTO(url));
-    }
-
+    });
     return urls;
   }
 

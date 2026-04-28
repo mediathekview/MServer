@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.EnumMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
@@ -43,7 +44,6 @@ public class OrfOnEpisodeDeserializer implements JsonDeserializer<OrfOnVideoInfo
   private static final String TAG_DESCRIPTION = "description";
   private static final String TAG_SHARE_BODY = "share_body";
   private static final String TAG_RIGHT = "right";
-  private static final String TAG_VIDEO_TYPE ="video_type";
   private static final String[] TAG_SUBTITLE = {"_links", "subtitle", "href"};
   private static final String[] TAG_VIDEO_PATH_1 = {"_embedded","segments"};
   private static final String[] TAG_VIDEO_PATH_2 = {"_embedded", "playlist", "sources"};
@@ -97,11 +97,14 @@ public class OrfOnEpisodeDeserializer implements JsonDeserializer<OrfOnVideoInfo
     if (urls.isPresent() && urls.get().size() == 1) {
       final Map<Resolution, FilmUrl> urlMap = urls.get();
       final FilmUrl url = urlMap.get(Resolution.NORMAL);
-      final String urlToOptimize = url.getUrl().toString();
+      String urlToOptimize = url.getUrl().toString();
+      for (String s : List.of("QXA","QXB")) {
+        urlToOptimize = urlToOptimize.replace(s, "#Q#");  
+      }
       try {
-        urlMap.put(Resolution.SMALL, new FilmUrl(urlToOptimize.replace("QXA", "Q4A"), 0L));
-        urlMap.put(Resolution.NORMAL, new FilmUrl(urlToOptimize.replace("QXA", "Q6A"), 0L));
-        urlMap.put(Resolution.HD, new FilmUrl(urlToOptimize.replace("QXA", "Q8C"), 0L));
+        urlMap.put(Resolution.SMALL, new FilmUrl(urlToOptimize.replace("#Q#", "Q4A"), 0L));
+        urlMap.put(Resolution.NORMAL, new FilmUrl(urlToOptimize.replace("#Q#", "Q6A"), 0L));
+        urlMap.put(Resolution.HD, new FilmUrl(urlToOptimize.replace("#Q#", "Q8C"), 0L));
       } catch (MalformedURLException e) {}
     }
     return urls;
@@ -215,7 +218,15 @@ public class OrfOnEpisodeDeserializer implements JsonDeserializer<OrfOnVideoInfo
         }
       }
     }
-    return parseVideoFromThumbnail(root);
+    Optional<Map<Resolution, FilmUrl>> fallbackThumbnail = parseVideoFromThumbnail(root);
+    if (fallbackThumbnail.isPresent()) {
+      return fallbackThumbnail;
+    }
+    Optional<Map<Resolution, FilmUrl>> fallbackGapless = parseVideoFromGapless(root);
+    if (fallbackGapless.isPresent()) {
+      return fallbackGapless;
+    }
+    return Optional.empty();
   }
   
 
@@ -238,6 +249,32 @@ public class OrfOnEpisodeDeserializer implements JsonDeserializer<OrfOnVideoInfo
             LOG.error("Malformed video url {} {}", url, e);
           }
         }
+      }
+    } catch (Exception e) {
+      LOG.error("generateFallbackVideo {}", e);
+    }
+    if (urls.size() == 0) {
+      return Optional.empty();
+    }
+    return Optional.of(urls);
+  }
+  
+  private Optional<Map<Resolution, FilmUrl>> parseVideoFromGapless(JsonElement root) {
+    Map<Resolution, FilmUrl> urls = new EnumMap<>(Resolution.class);
+    try {
+      Optional<JsonElement> gaplessSourceAT = JsonUtils.getElement(root, "gapless_sources_austria", "hls");
+      if (gaplessSourceAT.isPresent()) {
+        gaplessSourceAT.get().getAsJsonArray().forEach( e -> {
+          Optional<String> url = JsonUtils.getElementValueAsString(e, "src");
+          Optional<String> drm = JsonUtils.getElementValueAsString(e, "is_drm_protected");
+          try {
+            if (url.isPresent() && drm.orElse("").equalsIgnoreCase("false")) {
+              urls.put(Resolution.NORMAL, new FilmUrl(url.get(), 0L));
+            }
+          } catch (MalformedURLException err) {
+            LOG.error("Malformed video url {} {}", url, err);
+          }
+        });
       }
     } catch (Exception e) {
       LOG.error("generateFallbackVideo {}", e);

@@ -5,14 +5,11 @@ import de.mediathekview.mserver.daten.GeoLocations;
 import de.mediathekview.mserver.daten.Sender;
 import de.mediathekview.mserver.base.messages.listener.MessageListener;
 import de.mediathekview.mserver.base.config.MServerConfigManager;
-import de.mediathekview.mserver.crawler.ard.ArdConstants;
 import de.mediathekview.mserver.crawler.ard.ArdCrawler;
 import de.mediathekview.mserver.crawler.ard.ArdFilmDto;
-import de.mediathekview.mserver.crawler.ard.ArdFilmInfoDto;
 import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
 import de.mediathekview.mserver.testhelper.AssertFilm;
 import de.mediathekview.mserver.testhelper.JsonFileReader;
-import org.hamcrest.Matchers;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -45,7 +42,6 @@ public class ArdFilmDeserializerTest {
   private final String expectedDGSUrlHd;
   private final String expectedSubtitle;
   private final GeoLocations expectedGeo;
-  private final ArdFilmInfoDto[] relatedFilms;
   private final Optional<Sender> additionalSender;
 
   protected MServerConfigManager rootConfig = new MServerConfigManager("MServer-JUnit-Config.yaml");
@@ -68,7 +64,6 @@ public class ArdFilmDeserializerTest {
       final String expectedDGSUrlHd,
       final String expectedSubtitle,
       final GeoLocations expectedGeo,
-      final ArdFilmInfoDto[] relatedFilms,
       final Optional<Sender> additionalSender) {
     this.jsonFile = jsonFile;
     this.expectedTopic = expectedTopic;
@@ -87,7 +82,6 @@ public class ArdFilmDeserializerTest {
     this.expectedDGSUrlHd = expectedDGSUrlHd;
     this.expectedSubtitle = expectedSubtitle;
     this.expectedGeo = expectedGeo;
-    this.relatedFilms = relatedFilms;
     this.additionalSender = additionalSender;
   }
 
@@ -113,7 +107,6 @@ public class ArdFilmDeserializerTest {
             /*DGShd*/ "https://mediandr-a.akamaihd.net/progressive_geo/2022/0104/TV-20220104-0902-5000.hd.mp4",
             /*sub*/ "https://api.ardmediathek.de/player-service/subtitle/ebutt/urn:ard:subtitle:eaa2ed13a677cd00",
             /*hd*/ GeoLocations.GEO_DE,
-            /*related*/ new ArdFilmInfoDto[0],
             /*sender*/ Optional.of(Sender.KIKA)
           },
           {
@@ -134,16 +127,6 @@ public class ArdFilmDeserializerTest {
             /*DGShd*/ "https://pd-videos.daserste.de/int/2024/01/24/03247ab1-4dcc-427e-b577-a6ca25c1dffe/JOB_432151_sendeton_1920x1080-50p-5000kbit.mp4",
             /*sub*/ "https://api.ardmediathek.de/player-service/subtitle/webvtt/urn:ard:subtitle:7b0043ec0b358eb8.vtt",
             /*hd*/ GeoLocations.GEO_NONE,
-            /*related*/ new ArdFilmInfoDto[] {
-                new ArdFilmInfoDto(
-                    "Y3JpZDovL3dkci5kZS9CZWl0cmFnLThlNjczODVlLWZhZTktNDMwYi1iNzI1LTA0NjU1ZmRmMDljZQ",
-                    String.format(ArdConstants.ITEM_URL, "Y3JpZDovL3dkci5kZS9CZWl0cmFnLThlNjczODVlLWZhZTktNDMwYi1iNzI1LTA0NjU1ZmRmMDljZQ"),
-                    0),
-                new ArdFilmInfoDto(
-                    "Y3JpZDovL3dkci5kZS9CZWl0cmFnLXNvcGhvcmEtZWRmMTRhM2UtNmM3Ny00NGZhLTg1ZWYtYTJkYmZmNzM0NTg5",
-                    String.format(ArdConstants.ITEM_URL, "Y3JpZDovL3dkci5kZS9CZWl0cmFnLXNvcGhvcmEtZWRmMTRhM2UtNmM3Ny00NGZhLTg1ZWYtYTJkYmZmNzM0NTg5"),
-                    0)
-              },
             /*sender*/ Optional.of(Sender.ARD)
           },
           {
@@ -164,12 +147,6 @@ public class ArdFilmDeserializerTest {
             /*DGShd */ "",
             /*sub*/ "",
             /*hd*/ GeoLocations.GEO_NONE,
-            /*related*/ new ArdFilmInfoDto[] {
-                new ArdFilmInfoDto(
-                    "Y3JpZDovL2JyLmRlL3ZpZGVvLzkwZTA1Y2Y5LTA4ZDEtNGU4Zi1iNTQyLWNiYjIyYzcyZDA0Mw",
-                    String.format(ArdConstants.ITEM_URL, "Y3JpZDovL2JyLmRlL3ZpZGVvLzkwZTA1Y2Y5LTA4ZDEtNGU4Zi1iNTQyLWNiYjIyYzcyZDA0Mw"),
-                    0)
-              },
             /*sender*/ Optional.of(Sender.BR)
           },
           {
@@ -190,12 +167,6 @@ public class ArdFilmDeserializerTest {
             /*DGShd */ "",
             /*sub*/ "https://api.ardmediathek.de/player-service/subtitle/webvtt/urn:ard:subtitle:c09c9cee3bf53db8.vtt",
             /*hd*/ GeoLocations.GEO_NONE,
-            /*related*/ new ArdFilmInfoDto[] {
-                new ArdFilmInfoDto(
-                    "Y3JpZDovL3RhZ2Vzc2NoYXUuZGUvNTBjOTc0OGUtMTIwYi00MjllLWI2ODEtZTkyMTY5ODEyNGI0X2dhbnplU2VuZHVuZw",
-                    String.format(ArdConstants.ITEM_URL, "Y3JpZDovL3RhZ2Vzc2NoYXUuZGUvNTBjOTc0OGUtMTIwYi00MjllLWI2ODEtZTkyMTY5ODEyNGI0X2dhbnplU2VuZHVuZw"),
-                    0)
-              },
             /*sender*/ Optional.of(Sender.ARD),
           },
           {
@@ -216,7 +187,6 @@ public class ArdFilmDeserializerTest {
             /*DGShd */ "",
             /*sub*/ "",
             /*hd*/ GeoLocations.GEO_NONE,
-            /*related*/ new ArdFilmInfoDto[0],
             /*sender*/ Optional.of(Sender.HR),
           },
           {
@@ -237,7 +207,6 @@ public class ArdFilmDeserializerTest {
             /*DGShd */ "",
             /*sub*/ "https://api.ardmediathek.de/player-service/subtitle/webvtt/urn:ard:subtitle:ea9ad6b71df1b8ed.vtt",
             /*hd*/ GeoLocations.GEO_NONE,
-            /*related*/ new ArdFilmInfoDto[0],
             /*sender*/ Optional.of(Sender.NDR),
           },
           {
@@ -258,7 +227,6 @@ public class ArdFilmDeserializerTest {
             /*DGShd */ "",
             /*sub*/ "https://api.ardmediathek.de/player-service/subtitle/webvtt/urn:ard:subtitle:0567b031db73e4b9.vtt",
             /*hd*/ GeoLocations.GEO_DE,
-            /*related*/ new ArdFilmInfoDto[0],
             /*sender*/ Optional.of(Sender.ONE),
           },
           {
@@ -279,7 +247,6 @@ public class ArdFilmDeserializerTest {
             /*DGShd */ "",
             /*sub*/ "",
             /*hd*/ GeoLocations.GEO_NONE,
-            /*related*/ new ArdFilmInfoDto[0],
             /*sender*/ Optional.of(Sender.RBB),
           },
           {
@@ -300,7 +267,6 @@ public class ArdFilmDeserializerTest {
             /*DGShd */ "",
             /*sub*/ "https://api.ardmediathek.de/player-service/subtitle/webvtt/urn:ard:subtitle:a1d11ac623c7d120.vtt",
             /*hd*/ GeoLocations.GEO_NONE,
-            /*related*/ new ArdFilmInfoDto[0],
             /*sender*/ Optional.of(Sender.ARD),
           },
           {
@@ -321,7 +287,6 @@ public class ArdFilmDeserializerTest {
             /*DGShd */ "",
             /*sub*/ "https://api.ardmediathek.de/player-service/subtitle/ebutt/urn:ard:subtitle:7d1c01087f8cae77",
             /*hd*/ GeoLocations.GEO_DE,
-            /*related*/ new ArdFilmInfoDto[0],
             /*sender*/ Optional.of(Sender.MDR),
           },
           {
@@ -342,7 +307,6 @@ public class ArdFilmDeserializerTest {
             /*DGShd */ "",
             /*sub*/ "",
             /*hd*/ GeoLocations.GEO_DE,
-            /*related*/ new ArdFilmInfoDto[0],
             /*sender*/ Optional.of(Sender.SWR),
           }, 
           {
@@ -363,7 +327,6 @@ public class ArdFilmDeserializerTest {
             /*DGShd */ "",
             /*sub*/ "https://api.ardmediathek.de/player-service/subtitle/webvtt/urn:ard:subtitle:efab8bf55007171e.vtt",
             /*hd*/ GeoLocations.GEO_DE,
-            /*related*/ new ArdFilmInfoDto[0],
             /*sender*/ Optional.of(Sender.ARD),
           },
           {
@@ -384,7 +347,6 @@ public class ArdFilmDeserializerTest {
             /*DGShd */ "",
             /*sub*/ "https://api.ardmediathek.de/player-service/subtitle/webvtt/urn:ard:subtitle:d0e38dd26e6cc85e.vtt",
             /*hd*/ GeoLocations.GEO_DE,
-            /*related*/ new ArdFilmInfoDto[0],
             /*sender*/ Optional.of(Sender.ONE),
           }
         });
@@ -422,7 +384,6 @@ public class ArdFilmDeserializerTest {
           expectedADUrlNormal,
           expectedADUrlHd,
           expectedSubtitle);
-      assertThat(films[0].getRelatedFilms(), Matchers.containsInAnyOrder(relatedFilms));
     }
   }
 

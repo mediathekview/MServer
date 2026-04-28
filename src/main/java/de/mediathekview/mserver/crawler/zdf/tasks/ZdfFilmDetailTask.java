@@ -59,7 +59,7 @@ public class ZdfFilmDetailTask extends ZdfTaskBase<Film, CrawlerUrlDTO> {
             aFilm.getThema(),
             aFilm.getTime(),
             aFilm.getDuration());
-
+    film.setId(aFilm.getId());
     film.setBeschreibung(aFilm.getBeschreibung());
     film.setWebsite(aFilm.getWebsite().orElse(null));
 

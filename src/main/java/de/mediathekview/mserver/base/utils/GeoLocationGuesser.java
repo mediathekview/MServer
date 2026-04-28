@@ -57,9 +57,8 @@ public class GeoLocationGuesser {
         Arrays.asList(
             "mvideos-geo.daserste.de",
             "media.ndr.de/progressive_geo",
-            "mediandr-a.akamaihd.net//progressive_geo",
+            "/progressive_geo/",
             "/de/",
-            "mediandr-a.akamaihd.net/progressive_geo",
             "cdn-storage.br.de/geo",
             "cdn-sotschi.br.de/geo/b7",
             "ondemandgeo.mdr.de",

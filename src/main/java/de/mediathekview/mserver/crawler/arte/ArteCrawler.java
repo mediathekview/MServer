@@ -62,16 +62,18 @@ public class ArteCrawler extends AbstractCrawler {
       final ArteVideoInfoTask aArteRestVideoInfoTask;
       // DO NOT overload - maximumUrlsPerTask used to reduce threads to 4
       aArteRestVideoInfoTask = new ArteVideoInfoTask(this, videoUrls, getMaxPagesForOverview(getLanguage().toString().toLowerCase()));
-      final Queue<ArteVideoInfoDto> videos = new ConcurrentLinkedQueue<>();
-      videos.addAll(aArteRestVideoInfoTask.fork().join());
+      final Queue<ArteVideoInfoDto> videosRaw = new ConcurrentLinkedQueue<>();
+      videosRaw.addAll(aArteRestVideoInfoTask.fork().join());
+      //
+      final Queue<ArteVideoInfoDto> videosFiltered = this.filterExistingFilms(videosRaw, ArteVideoInfoDto::getId);
       //
       printMessage(
-          ServerMessages.DEBUG_ALL_SENDUNG_COUNT, getSender().getName(), videos.size());
-      getAndSetMaxCount(videos.size());
+          ServerMessages.DEBUG_ALL_SENDUNG_COUNT, getSender().getName(), videosFiltered.size());
+      getAndSetMaxCount(videosFiltered.size());
       updateProgress();
       //
       final Queue<ArteVideoInfoDto> videosWithLink = new ConcurrentLinkedQueue<>();
-      final ArteVideoLinkTask aArteRestVideosTask = new ArteVideoLinkTask(this, videos);
+      final ArteVideoLinkTask aArteRestVideosTask = new ArteVideoLinkTask(this, videosFiltered);
       videosWithLink.addAll(aArteRestVideosTask.fork().join());
       //
       printMessage(

@@ -10,7 +10,6 @@ import org.apache.logging.log4j.Logger;
 
 import de.mediathekview.mserver.daten.Film;
 import de.mediathekview.mserver.daten.Filmlist;
-import de.mediathekview.mserver.daten.Resolution;
 import de.mediathekview.mserver.daten.Sender;
 import de.mediathekview.mserver.base.utils.FileSizeDeterminer.ResponseInfo;
 
@@ -32,8 +31,11 @@ public class CheckUrlAvailability {
     fsd = new FileSizeDeterminer(30L, 30L, numberOfThreads);
   }
   
-  public Filmlist getAvaiableFilmlist(final Filmlist importList) {
-    LOG.debug("start getAvaiableFilmlist(minSize {} byte, timeout {} sec)", this.minFileSize, (this.timeoutInMS/1000));
+  public Filmlist getAvailableFilmlist(final Filmlist importList) {
+    return getAvailableFilmlist(importList, true);
+  }
+  public Filmlist getAvailableFilmlist(final Filmlist importList, final boolean available) {
+    LOG.debug("start getAvailableFilmlist(minSize {} byte, timeout {} sec)", this.minFileSize, (this.timeoutInMS/1000));
     start = System.currentTimeMillis();
     Filmlist filteredFilmlist = new Filmlist();
     filteredFilmlist.setCreationDate(importList.getCreationDate());
@@ -41,10 +43,11 @@ public class CheckUrlAvailability {
     //
     ForkJoinPool customThreadPool = new ForkJoinPool(numberOfThreads);
     customThreadPool.submit(() -> importList.getFilms().values().parallelStream()
-            .filter(this::isAvailable)
+            .filter(film -> isAvailable(film) == available)
             .forEach(filteredFilmlist::add))
             .join();
     customThreadPool.shutdown();
+    customThreadPool.close();
     //
     LOG.debug("checked {} urls and removed {} in {} sec and timeout was reached: {}", importList.getFilms().size(), removedCounter.get(), ((System.currentTimeMillis()-start)/1000), timeout.get());
     return filteredFilmlist;
@@ -55,8 +58,7 @@ public class CheckUrlAvailability {
       timeout.set(true);
       return true;
     }
-    
-    String normalUrl = pFilm.getUrl(Resolution.NORMAL).getUrl().toString();
+    String normalUrl = pFilm.getDefaultUrl().get().getUrl().toString();
     ResponseInfo ri = fsd.getRequestInfo(normalUrl);
 
     if (pFilm.getThema().equalsIgnoreCase("Livestream")) {

@@ -56,21 +56,19 @@ abstract class ArdTeasersDeserializer {
   }
 
   private ArdFilmInfoDto createFilmInfo(final String id, final int numberOfClips) {
-    final String url = String.format(ArdConstants.ITEM_URL, id);
+    String refId = id;
+    if(id.contains(":")) {
+      refId = id.replace(":", "%3A");
+    }
+    final String url = String.format(ArdConstants.ITEM_URL, refId);
     return new ArdFilmInfoDto(id, url, numberOfClips);
   }
   
   private boolean isRelevant(final JsonObject teaserObject) {
-    if (teaserObject.has(ELEMENT_PUBLICATION_SERVICE)) {
-      final JsonObject publicationService =
-              teaserObject.get(ELEMENT_PUBLICATION_SERVICE).getAsJsonObject();
-      final Optional<String> attributeAsString =
-              JsonUtils.getAttributeAsString(publicationService, ATTRIBUTE_PARTNER);
-      if (attributeAsString.isPresent()) {
-        return ArdConstants.PARTNER_TO_SENDER.get(attributeAsString.get()) != null;
-      }
+    Optional<String> partner = JsonUtils.getElementValueAsString(teaserObject, ELEMENT_PUBLICATION_SERVICE, ATTRIBUTE_PARTNER);
+    if (partner.isPresent()) {
+      return ArdConstants.PARTNER_TO_SENDER.get(partner.get()) != null;
     }
-
     return true;
   }
 }
