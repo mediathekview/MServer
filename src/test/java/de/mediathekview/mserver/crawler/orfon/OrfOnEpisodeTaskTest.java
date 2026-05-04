@@ -44,7 +44,7 @@ public class OrfOnEpisodeTaskTest extends OrfOnEpisodesTaskTest {
     assertEquals("Servus Kasperl: Kasperl & Strolchi: Koko und Maximilian",actual.getTitel());
     assertEquals("Servus Kasperl",actual.getThema());
     assertEquals(LocalDateTime.of(2024,01,04,07,07,38),actual.getTime());
-    assertEquals("Kasperl und Strolchi besuchen den Zirkusdirektor des Zirkus Kindleroni. Dieser ist verzweifelt, weil sein Stallbursche krank ist und er die ganze Arbeit alleine kaum schaffen kann. Doch da kommt Hilfe durch Maximilian, der Arbeit sucht. Sofort darf Maximilian die Stelle als Stallbursche antreten. Eine seiner Aufgaben ist es auch auf Koko, den Papagei des Direktors, aufzupassen. Dieser ist in Gefah",actual.getBeschreibung().substring(0,400));
+    assertEquals("Kasperl und Strolchi besuchen den Zirkusdirektor des Zirkus Kindleroni. Dieser ist verzweifelt, weil sein Stallbursche krank ist und er die ganze Arbeit alleine kaum schaffen kann. Doch da kommt Hilfe durch Maximilian, der Arbeit sucht. Sofort darf Maximilian die Stelle als Stallbursche antreten. Eine seiner Aufgaben ist es auch auf Koko, den Papagei des Direktors, aufzupassen....",actual.getBeschreibung());
     assertEquals(Duration.parse("PT21M56S"),actual.getDuration());
     assertEquals(Optional.of(URI.create("https://tvthek.orf.at/profile/Servus-Kasperl/3272601/Servus-Kasperl-Kasperl-Strolchi-Koko-und-Maximilian/14207792").toURL()),actual.getWebsite());
     assertTrue(List.of(GeoLocations.GEO_NONE).containsAll(actual.getGeoLocations()));
@@ -77,7 +77,7 @@ public class OrfOnEpisodeTaskTest extends OrfOnEpisodesTaskTest {
     assertEquals("ABC Bär",actual.getTitel());
     assertEquals("ABC-Bär",actual.getThema());
     assertEquals(LocalDateTime.of(2024,01,04,06,45),actual.getTime());
-    assertEquals("Der ABC Bär und seine Tierfreunde reisen mit ihrem lustigen Baumhaus durch das Land, um ihre Zahl- und Buchstabenspiele aufzuführen und erleben dabei jede Menge spannender Geschichten.  Bildquelle: ORF",actual.getBeschreibung());
+    assertEquals("Der ABC Bär und seine Tierfreunde reisen mit ihrem lustigen Baumhaus durch das Land, um ihre Zahl- und Buchstabenspiele aufzuführen und erleben dabei jede Menge spannender Geschichten. Bildquelle: ORF",actual.getBeschreibung());
     assertEquals(Duration.parse("PT13M29S"),actual.getDuration());
     assertEquals(Optional.of(URI.create("https://tvthek.orf.at/profile/ABC-Baer/4611813/ABC-Baer/14207790").toURL()),actual.getWebsite());
     assertTrue(List.of(GeoLocations.GEO_AT).containsAll(actual.getGeoLocations()));
@@ -113,7 +113,7 @@ public class OrfOnEpisodeTaskTest extends OrfOnEpisodesTaskTest {
         "ZIB 13:00 vom 20.03.2024",
         LocalDateTime.of(2024, 3, 20, 13, 0, 0),
         Duration.ofSeconds(1177),
-        "Wohnbaupaket passiert Nationalrat | ORF-Analyse: Details zum Wohnbaupaket | Neue Lehrerausbildung kommt ein Jahr später | Agrarprodukte aus Ukraine werden wieder verzollt | ORF-Analyse: Zölle auf Landwirtschaftsgüter aus Ukraine | London: Zweiter Anlauf für \"Ruanda-Plan\" | Vorschau: GB stimmt über \"Ruanda-Plan\"  ab | 2023: Über 1.300 Vorfälle von Rassismus in Österreich | Rekordhoch bei Insolvenze\n.....",
+        "Wohnbaupaket passiert Nationalrat | ORF-Analyse: Details zum Wohnbaupaket | Neue Lehrerausbildung kommt ein Jahr später | Agrarprodukte aus Ukraine werden wieder verzollt | ORF-Analyse: Zölle auf Landwirtschaftsgüter aus Ukraine | London: Zweiter Anlauf für \"Ruanda-Plan\" | Vorschau: GB stimmt über \"Ruanda-Plan\" ab | 2023: Über 1.300 Vorfälle von Rassismus in Österreich | Rekordhoch bei Insolvenzen | Kredit für Signa-Immobiliensparte in Aussicht?...",
         "https://tvthek.orf.at/profile/ZIB-1300/71280/ZIB-1300-vom-20-03-2024/14218665",
         new GeoLocations[] { GeoLocations.GEO_NONE},
         "https://apasfiis.sf.apa.at/ipad/cms-worldwide_episodes/14218665_0017_Q4A.mp4/playlist.m3u8",
@@ -133,7 +133,7 @@ public class OrfOnEpisodeTaskTest extends OrfOnEpisodesTaskTest {
     assertEquals("Vorstadtweiber: Folge 18 (Audiodeskription)",actual.getTitel());
     assertEquals("Vorstadtweiber Staffel 2",actual.getThema());
     assertEquals(LocalDateTime.of(2023,12,06,23,07,52),actual.getTime());
-    assertEquals("Chaos wegen der Entführung von Waltrauds Baby. Die betrunkene Sylvia sagt, sie habe Simon vor der Türe gesehen. Waltraud ist sofort klar, dass nur Simon der Entführer sein kann. Den trifft sie zuhause, wo er gerade packt, um abzuhauen. Er beteuert, das Baby nicht entführt zu haben. Währenddessen rast Vanessa mit ihrem Wagen durch die Stadt, verheult, überdreht, ein Baby am Rücksitz. Daheim angekom",actual.getBeschreibung().substring(0,400));
+    assertEquals("Chaos wegen der Entführung von Waltrauds Baby. Die betrunkene Sylvia sagt, sie habe Simon vor der Türe gesehen. Waltraud ist sofort klar, dass nur Simon der Entführer sein kann. Den trifft sie zuhause, wo er gerade packt, um abzuhauen. Er beteuert, das Baby nicht entführt zu haben. Währenddessen rast Vanessa mit ihrem Wagen durch die Stadt, verheult, überdreht, ein Baby am Rücksitz....",actual.getBeschreibung());
     assertEquals(Duration.parse("PT46M32S"),actual.getDuration());
     assertEquals(Optional.of(URI.create("https://tvthek.orf.at/profile/AD-Vorstadtweiber-Staffel-2/13895877/AD-Vorstadtweiber-Folge-18/14204417").toURL()),actual.getWebsite());
     assertTrue(List.of(GeoLocations.GEO_AT).containsAll(actual.getGeoLocations()));
@@ -168,7 +168,7 @@ public class OrfOnEpisodeTaskTest extends OrfOnEpisodesTaskTest {
     assertEquals("ORF-Mitarbeiter in Quarantäne",actual.getTitel());
     assertEquals("Best of \"ZIB 2\"-Interviews",actual.getThema());
     assertEquals(LocalDateTime.of(2020,03,25,13,10),actual.getTime());
-    assertEquals("Der ORF hat während der Coronakrise 2020 eine besondere Vorsichtsmaßnahme getroffen, um den Betrieb sicherzustellen. Einige Mitarbeiter und Moderatoren des Senders sind vorübergehend in das ORF-Zentrum am Küniglberg gezogen. Dort wird in \"Sperrzonen\" gearbeitet und der Sendebetrieb aufrecht erhalten.     Sendung: Mittag in Österreich  Gestaltung: Stefan Schlager",actual.getBeschreibung());
+    assertEquals("Der ORF hat während der Coronakrise 2020 eine besondere Vorsichtsmaßnahme getroffen, um den Betrieb sicherzustellen. Einige Mitarbeiter und Moderatoren des Senders sind vorübergehend in das ORF-Zentrum am Küniglberg gezogen. Dort wird in \"Sperrzonen\" gearbeitet und der Sendebetrieb aufrecht erhalten. Sendung: Mittag in Österreich Gestaltung: Stefan Schlager",actual.getBeschreibung());
     assertEquals(Duration.parse("PT3M30S"),actual.getDuration());
     assertEquals(Optional.of(URI.create("https://tvthek.orf.at/profile/Archiv/7648449/ORF-Mitarbeiter-in-Quarantaene/14046198").toURL()),actual.getWebsite());
     assertTrue(List.of(GeoLocations.GEO_NONE).containsAll(actual.getGeoLocations()));
