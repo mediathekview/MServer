@@ -11,6 +11,7 @@ public class TextCleaner {
   private static final String CARRIAGE_RETURN = "\r";
   private static final String NO_BREAK_SPACE = "\u00a0";
   private static final int MAX_BESCHREIBUNG = 400;
+  private static final int MAX_BESCHREIBUNG_MARGIN_LENGTH = 40;
   private static final String[] GERMAN_GEOBLOCKING_TEXTS = {
     "+++ Aus rechtlichen Gründen ist der Film nur innerhalb von Deutschland abrufbar. +++",
     "+++ Aus rechtlichen Gründen ist diese Sendung nur innerhalb von Deutschland abrufbar. +++",
@@ -64,10 +65,7 @@ public class TextCleaner {
   }
 
   private static String shortenBeschreibung(final String text) {
-    if (text.length() > MAX_BESCHREIBUNG) {
-      return text.substring(0, MAX_BESCHREIBUNG) + "\n.....";
-    }
-    return text;
+    return SentenceShortener.shorten(text, MAX_BESCHREIBUNG, MAX_BESCHREIBUNG_MARGIN_LENGTH);
   }
 
   private static String beschreibungCleanUp(
