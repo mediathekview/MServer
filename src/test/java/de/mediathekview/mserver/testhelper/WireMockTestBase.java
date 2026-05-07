@@ -9,6 +9,12 @@ import org.junit.After;
 import org.junit.Before;
 
 import jakarta.annotation.Nullable;
+import org.junit.BeforeClass;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+
 import java.util.Optional;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -23,6 +29,7 @@ public abstract class WireMockTestBase {
   private boolean wireMockStarted = false;
 
   @Before
+  @BeforeEach
   public void setUpClass() {
     LOG.info("Setting up WireMock test class");
     startWireMock();
@@ -39,6 +46,7 @@ public abstract class WireMockTestBase {
   }
 
   @After
+  @AfterEach
   public void tearDownClass() {
     LOG.info("Tear down WireMock test class");
     LOG.info("Stopping WireMock");
