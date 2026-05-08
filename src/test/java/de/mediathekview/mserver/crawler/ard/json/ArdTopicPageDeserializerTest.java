@@ -24,23 +24,28 @@ public class ArdTopicPageDeserializerTest {
                       new ArdFilmInfoDto(
                               "Y3JpZDovL3JhZGlvYnJlbWVuLmRlLzFmOTkwMzNlLWY1MjUtNDk4Yy1iZjQ5LWIwZjZjYjhjNzRkYQ",
                               String.format(ArdConstants.ITEM_URL, "Y3JpZDovL3JhZGlvYnJlbWVuLmRlLzFmOTkwMzNlLWY1MjUtNDk4Yy1iZjQ5LWIwZjZjYjhjNzRkYQ"),
-                              0),
+                              0,
+                              false),
                       new ArdFilmInfoDto(
                               "Y3JpZDovL3JhZGlvYnJlbWVuLmRlLzkzM2QzZjFjLTlkMWQtNGFlNy1hNDA5LTlhMjdjNGI0NTdjZA",
                               String.format(ArdConstants.ITEM_URL, "Y3JpZDovL3JhZGlvYnJlbWVuLmRlLzkzM2QzZjFjLTlkMWQtNGFlNy1hNDA5LTlhMjdjNGI0NTdjZA"),
-                              0),
+                              0,
+                              false),
                       new ArdFilmInfoDto(
                               "Y3JpZDovL3JhZGlvYnJlbWVuLmRlLzg1NTVhNjlmLWNkMDMtNDY3ZS04MWJmLWU3YmI4YjIxNGJjMw",
                               String.format(ArdConstants.ITEM_URL, "Y3JpZDovL3JhZGlvYnJlbWVuLmRlLzg1NTVhNjlmLWNkMDMtNDY3ZS04MWJmLWU3YmI4YjIxNGJjMw"),
-                              0),
+                              0,
+                              false),
                       new ArdFilmInfoDto(
                               "Y3JpZDovL3JhZGlvYnJlbWVuLmRlL2FhNDRiYTVhLWMzOWItNDgyMy1iNDZjLTZhMjBlYTAyN2I0ZQ",
                               String.format(ArdConstants.ITEM_URL, "Y3JpZDovL3JhZGlvYnJlbWVuLmRlL2FhNDRiYTVhLWMzOWItNDgyMy1iNDZjLTZhMjBlYTAyN2I0ZQ"),
-                              0),
+                              0,
+                              false),
                       new ArdFilmInfoDto(
                               "Y3JpZDovL3JhZGlvYnJlbWVuLmRlL2M2MzU2NTJjLWVkYTAtNDNkNS05ZTJkLTliMzBkZTI2NzM2Mw",
                               String.format(ArdConstants.ITEM_URL, "Y3JpZDovL3JhZGlvYnJlbWVuLmRlL2M2MzU2NTJjLWVkYTAtNDNkNS05ZTJkLTliMzBkZTI2NzM2Mw"),
-                              0),
+                              0,
+                              false),
               };
 
     final ArdTopicPageDeserializer instance = new ArdTopicPageDeserializer();
@@ -51,4 +56,21 @@ public class ArdTopicPageDeserializerTest {
     assertThat(filmInfos.size(), equalTo(expected.length));
     assertThat(filmInfos, Matchers.containsInAnyOrder(expected));
   }
+
+  @Test
+  public void testDeserializeWithCompilation() {
+    final JsonElement jsonElement = JsonFileReader.readJson("/ard/ard_topic_page_with_compilations.json");
+
+    final ArdTopicPageDeserializer instance = new ArdTopicPageDeserializer();
+
+    final ArdTopicInfoDto ardTopicInfoDto = instance.deserialize(jsonElement, null, null);
+    final Set<ArdFilmInfoDto> filmInfos = ardTopicInfoDto.getFilmInfos();
+
+    assertThat(filmInfos.size(), equalTo(20));
+    filmInfos.forEach(filmInfo -> {
+      assertThat(filmInfo.isCompilation(), equalTo(true));
+      assertThat(filmInfo.getNumberOfClips(), equalTo(0));
+    });
+  }
+
 }
