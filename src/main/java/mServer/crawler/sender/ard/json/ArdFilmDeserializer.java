@@ -32,15 +32,17 @@ import mServer.crawler.CrawlerTool;
 import mServer.crawler.sender.ard.ArdConstants;
 import mServer.crawler.sender.ard.ArdFilmDto;
 import mServer.crawler.sender.ard.ArdFilmInfoDto;
+import mServer.crawler.sender.ard.WdrM3U8ToMp4Converter;
 import mServer.crawler.sender.base.JsonUtils;
 import mServer.crawler.sender.base.Qualities;
 import mServer.crawler.sender.base.UrlUtils;
 
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
 
-  private static final org.apache.logging.log4j.Logger LOG
+  private static final Logger LOG
       = LogManager.getLogger(ArdFilmDeserializer.class);
 
   private static final String GERMAN_TIME_ZONE = "Europe/Berlin";
@@ -108,6 +110,12 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
     ADDITIONAL_SENDER.put("phoenix", Const.PHOENIX);
     ADDITIONAL_SENDER.put("ard", Const.ARD);
     //IGNORED_SENDER "zdf", "kika", "3sat", "arte"
+  }
+
+  private final WdrM3U8ToMp4Converter converter;
+
+  public ArdFilmDeserializer() {
+    converter = new WdrM3U8ToMp4Converter();
   }
 
   private static Optional<JsonObject> getMediaCollectionObject(final JsonObject itemObject) {
@@ -501,28 +509,40 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
   }
   
   private Optional<Map<Qualities, String>> getResolutionsFromAdaptiveUrl(Optional<Map<Qualities, String>> videoInfoAdaptive) {
-     Map<Qualities, URL> qualitiesUrls = videoInfoAdaptive.get().entrySet().stream()
-         .collect(Collectors.toMap(Map.Entry::getKey, entry -> {
-             try {
-                 return new URL(entry.getValue());
-             } catch (MalformedURLException e) {
-                 LOG.error("failed converting string {} to url", entry.getValue(), e);
-                 return null;
-             }
-         }));
-     if (!qualitiesUrls.containsKey(Qualities.NORMAL)) {
-       qualitiesUrls.put(Qualities.NORMAL,  qualitiesUrls.entrySet().stream().findFirst().get().getValue());
-     }
-     //
-     ArdVideoInfoJsonDeserializer.loadM3U8(qualitiesUrls);
-     //
-     Map<Qualities, String> fallback = qualitiesUrls.entrySet().stream()
-     .collect(Collectors.toMap(Map.Entry::getKey, entry -> entry.getValue().toString()));
-     //
-     if (!fallback.containsKey(Qualities.NORMAL) && !fallback.isEmpty()) {
-       fallback.put(Qualities.NORMAL, fallback.entrySet().stream().findFirst().get().getValue());
-     }
-     
-     return Optional.of(fallback);
-   }
+    if (videoInfoAdaptive.isPresent()) {
+      if (videoInfoAdaptive.get().containsKey(Qualities.NORMAL)) {
+        final String url = videoInfoAdaptive.get().get(Qualities.NORMAL);
+        final Map<Qualities, String> mp4Urls = converter.convert(url);
+        if (!mp4Urls.isEmpty()) {
+          return Optional.of(mp4Urls);
+        }
+      }
+
+      Map<Qualities, URL> qualitiesUrls = videoInfoAdaptive.get().entrySet().stream()
+              .collect(Collectors.toMap(Map.Entry::getKey, entry -> {
+                try {
+                  return new URL(entry.getValue());
+                } catch (MalformedURLException e) {
+                  LOG.error("failed converting string {} to url", entry.getValue(), e);
+                  return null;
+                }
+              }));
+      if (!qualitiesUrls.containsKey(Qualities.NORMAL)) {
+        qualitiesUrls.put(Qualities.NORMAL, qualitiesUrls.entrySet().stream().findFirst().get().getValue());
+      }
+      //
+      ArdVideoInfoJsonDeserializer.loadM3U8(qualitiesUrls);
+      //
+      Map<Qualities, String> fallback = qualitiesUrls.entrySet().stream()
+              .collect(Collectors.toMap(Map.Entry::getKey, entry -> entry.getValue().toString()));
+      //
+      if (!fallback.containsKey(Qualities.NORMAL) && !fallback.isEmpty()) {
+        fallback.put(Qualities.NORMAL, fallback.entrySet().stream().findFirst().get().getValue());
+      }
+
+      return Optional.of(fallback);
+    }
+
+    return Optional.empty();
+  }
 }
