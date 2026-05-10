@@ -1,0 +1,1603 @@
+{
+  "personalized": false,
+  "widgets": [
+    {
+      "binaryFeatures": [
+        "OV",
+        "UT"
+      ],
+      "embeddable": false,
+      "isChildContent": false,
+      "mediaCollection": {
+        "embedded": {
+          "id": "urn:ard:publication:080a323c78bc6013",
+          "isGeoBlocked": true,
+          "meta": {
+            "availableToDateTime": "2026-06-05T19:50:00Z",
+            "broadcastedOnDateTime": "2026-05-06T19:50:00Z",
+            "clipSourceName": "ONE",
+            "durationSeconds": 2546,
+            "images": [
+              {
+                "alt": "Murdoch Mysteries (S08/E16)",
+                "aspectRatio": "16x9",
+                "imageSourceName": "WDR",
+                "kind": "preview",
+                "title": "Murdoch Mysteries (S08/E16) - OV",
+                "url": "https://api.ardmediathek.de/image-service/images/urn:ard:image:04eae71c24fc64f9?w=960&ch=bc082601d44d0600"
+              }
+            ],
+            "maturityContentRating": {
+              "age": 12,
+              "descriptors": [],
+              "isBlocked": false,
+              "kind": "other"
+            },
+            "publicationService": {
+              "name": "ONE",
+              "partner": "one"
+            },
+            "seriesTitle": "Murdoch Mysteries",
+            "synopsis": "Bei seiner ersten Mordermittlung deckt Crabtree Täuschung und Betrug auf, als ein Ringer nach einem Wettkampf stirbt.\r\n\r\nConstable George Crabtree (Jonny Harris), seine Freundin Edna Brooks (Tamara Hope) und ihr kleiner Sohn Simon (Percy Hynes White) verfolgen das Spektakel eines Wrestlingkampfes. Handsome Randolph (Reuben Jarvis) wird zum Champion erklärt. Plötzlich klettert ein kräftiger normal gekleideter Mann mit einer Maske in den Ring. Er ringt mit dem Champion, führt er ein schockierendes neues Manöver aus, das Randolph fast bewusstlos macht. Der Kampf wird abgebrochen und Randolph taumelt benommen in seine Umkleidekabine. Kurze Zeit später geht George hinein und findet den Wrestler tot auf dem Boden liegend vor. Detective Murdoch (Yannick Bisson) und Inspector Brackenreid (Thomas Craig) erteilen Crabtree die Erlaubnis, den Todesfall zu untersuchen. Doch als George in die Geheimnisse der Wrestling-Welt eindringt, muss er zu seinem Erstaunen feststellen, dass dies ein Ort der Theatralik und des Betrugs ist.",
+            "title": "Folge 16: Hinter der Maske (S08/E16) - (Originalversion)"
+          },
+          "pluginData": {
+            "recommendation@all": {
+              "isAutoplay": true,
+              "timerSeconds": 10,
+              "url": "https://api.ardmediathek.de/page-gateway/compilations/ard/recommendations?contextItemId=Y3JpZDovL3dkci5kZS9CZWl0cmFnLXNvcGhvcmEtYzk1NzA2MDItMTA4OS00N2FjLWEzYzgtMGFkMTM3NmU1ZGFh"
+            },
+            "trackingAgf@all": {
+              "appId": "PA02DC09C-B8D3-4098-87D2-2C023682D6D5",
+              "clipData": {
+                "assetid": "urn_ard_publication_080a323c78bc6013",
+                "length": "2546",
+                "nol_c0": "p0,0",
+                "nol_c10": "p10,ONE",
+                "nol_c12": "p12,Content",
+                "nol_c15": "p15,POC_2003209330",
+                "nol_c16": "p16,Fiction",
+                "nol_c18": "p18,N",
+                "nol_c19": "p19,ONE",
+                "nol_c2": "p2,N",
+                "nol_c5": "p5,ARD Mediathek",
+                "nol_c7": "p7,crid://wdr.de/Beitrag-sophora-c9570602-1089-47ac-a3c8-0ad1376e5daa",
+                "nol_c9": "p9,Murdoch Mysteries_Folge 16: Hinter der Maske (S08/E16) - (Originalversion)_06.05.2026 19:50",
+                "program": "Murdoch Mysteries",
+                "title": "ONE_Murdoch Mysteries_Folge 16: Hinter der Maske (S08/E16) - (Originalversion)_06.05.2026 19:50",
+                "type": "content"
+              },
+              "tracker": "AGF"
+            },
+            "trackingAti@all": {
+              "config": {
+                "site": 511893
+              },
+              "isEnabled": true,
+              "richMedia": {
+                "broadcastMode": "clip",
+                "duration": "2546",
+                "mediaLabel": "Folge 16: Hinter der Maske (S08/E16) - (Originalversion)__16293335__OV | UT",
+                "mediaLevel2": "{richMediaLevelTwo}",
+                "mediaTheme1": "ONE",
+                "mediaTheme2": "ONE",
+                "mediaTheme3": "Murdoch Mysteries",
+                "mediaType": "video",
+                "playerId": "urn:ard:publication:080a323c78bc6013",
+                "refreshDuration": {
+                  "0": 5,
+                  "1": 12,
+                  "12": 15,
+                  "18": 30
+                }
+              },
+              "tracker": "ATI"
+            },
+            "trackingPiano@all": {
+              "avContent": {
+                "av_broadcasting_type": "OnDemand",
+                "av_content": "Folge 16: Hinter der Maske (S08/E16) - (Originalversion)",
+                "av_content_duration": 2546000,
+                "av_content_id": "urn:ard:publication:080a323c78bc6013",
+                "av_content_type": "video",
+                "av_institution": "ONE",
+                "av_institution_id": "urn:ard:institution:9edd94d68de90140",
+                "av_publisher": "ONE",
+                "av_publisher_id": "urn:ard:publisher:892e3c758ca56a9d",
+                "av_show": "Murdoch Mysteries",
+                "av_show_id": "urn:ard:show:85088a146d3740b7"
+              },
+              "config": {
+                "events": [
+                  "av.error",
+                  "av.speed",
+                  "av.quality",
+                  "av.jumpmark",
+                  "av.share",
+                  "av.playermode",
+                  "av.subtitle",
+                  "av.language",
+                  "av.audiodescription",
+                  "av.signlanguage",
+                  "av.volume.mute"
+                ],
+                "site": 634408
+              },
+              "isEnabled": true
+            }
+          },
+          "streams": [
+            {
+              "kind": "main",
+              "kindName": "Normal",
+              "media": [
+                {
+                  "aspectRatio": "16:9",
+                  "audios": [
+                    {
+                      "kind": "standard",
+                      "languageCode": "ov"
+                    }
+                  ],
+                  "forcedLabel": "Auto",
+                  "hasEmbeddedSubtitles": false,
+                  "isAdaptiveQualitySelectable": true,
+                  "isHbbtv": false,
+                  "isHighDynamicRange": false,
+                  "isProtocolRelative": false,
+                  "maxHResolutionPx": 1920,
+                  "maxVResolutionPx": 1080,
+                  "mimeType": "application/vnd.apple.mpegurl",
+                  "subtitles": [],
+                  "url": "https://wdradaptiv-vh.akamaihd.net/i/media/p/public/de/2026/04/19/4818d599-7da2-44cb-ba95-b791ae8d3735/4818d599-7da2-44cb-ba95-b791ae8d3735_AVC-,270,360,540,720,1080,.mp4.csmil/master.m3u8",
+                  "videoCodec": "H.264"
+                }
+              ],
+              "videoLanguageCode": ""
+            }
+          ],
+          "subtitles": [
+            {
+              "kind": "normal",
+              "languageCode": "deu",
+              "sources": [
+                {
+                  "kind": "ebutt",
+                  "url": "https://api.ardmediathek.de/player-service/subtitle/ebutt/urn:ard:subtitle:dbc0169f49963ba0"
+                },
+                {
+                  "kind": "webvtt",
+                  "url": "https://api.ardmediathek.de/player-service/subtitle/webvtt/urn:ard:subtitle:dbc0169f49963ba0.vtt"
+                }
+              ]
+            }
+          ]
+        },
+        "href": "https://api.ardmediathek.de/page-gateway/mediacollectionv6/Y3JpZDovL3dkci5kZS9CZWl0cmFnLXNvcGhvcmEtYzk1NzA2MDItMTA4OS00N2FjLWEzYzgtMGFkMTM3NmU1ZGFh?isTv=false"
+      },
+      "personalized": false,
+      "availableTo": "2026-06-05T19:50:00Z",
+      "blockedByFsk": false,
+      "broadcastedOn": "2026-05-06T19:50:00Z",
+      "geoblocked": false,
+      "id": "Y3JpZDovL3dkci5kZS9CZWl0cmFnLXNvcGhvcmEtYzk1NzA2MDItMTA4OS00N2FjLWEzYzgtMGFkMTM3NmU1ZGFh",
+      "image": {
+        "alt": "Murdoch Mysteries (S08/E16)",
+        "producerName": "WDR",
+        "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:04eae71c24fc64f9?w={width}&ch=bc082601d44d0600",
+        "title": "Murdoch Mysteries (S08/E16) - OV"
+      },
+      "maturityContentRating": "FSK12",
+      "pagination": null,
+      "playerConfig": null,
+      "publicationService": {
+        "name": "ONE",
+        "logo": {
+          "title": "Logo ONE",
+          "alt": "Logo ONE",
+          "producerName": "Logo ONE",
+          "src": "https://api.ardmediathek.de/image-service/image-collections/urn:ard:image-collection:2213972a8d101de1/16x9?w={width}",
+          "aspectRatio": "16x9"
+        },
+        "publisherType": "TV",
+        "partner": "one",
+        "id": "b3JnYW5pemF0aW9uX09ORQ",
+        "coreId": "urn:ard:publisher:892e3c758ca56a9d"
+      },
+      "links": {
+        "self": {
+          "id": "player_on_demand_widget_ard",
+          "urlId": "player_on_demand_widget_ard",
+          "title": "Folge 16: Hinter der Maske (S08/E16) - (Originalversion)",
+          "href": "https://api.ardmediathek.de/page-gateway/widgets/ard/editorials/player_on_demand_widget_ard/item/Y3JpZDovL3dkci5kZS9CZWl0cmFnLXNvcGhvcmEtYzk1NzA2MDItMTA4OS00N2FjLWEzYzgtMGFkMTM3NmU1ZGFh?pageNumber=0&pageSize=100&embedded=true",
+          "type": "application/vnd.ard.widget+json",
+          "partner": "ard"
+        }
+      },
+      "show": {
+        "id": "Y3JpZDovL3dkci5kZTdvbmUvbXVyZG9jaG15c3Rlcmllcw",
+        "title": "Murdoch Mysteries",
+        "image": {
+          "alt": "Sendungslogo \"Murdoch Mysteries\"",
+          "producerName": "Shaftesbury Murdoch II Inc",
+          "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:559937f982bde0f5?w={width}&ch=3974711696bf3a2d",
+          "title": "Murdoch Mysteries"
+        },
+        "availableSeasons": [
+          "8"
+        ],
+        "binaryFeatures": [
+          "UT",
+          "OV"
+        ],
+        "isChildContent": false,
+        "coreAssetType": "SEASON_SERIES"
+      },
+      "synopsis": "Bei seiner ersten Mordermittlung deckt Crabtree Täuschung und Betrug auf, als ein Ringer nach einem Wettkampf stirbt.\r\n\r\nConstable George Crabtree (Jonny Harris), seine Freundin Edna Brooks (Tamara Hope) und ihr kleiner Sohn Simon (Percy Hynes White) verfolgen das Spektakel eines Wrestlingkampfes. Handsome Randolph (Reuben Jarvis) wird zum Champion erklärt. Plötzlich klettert ein kräftiger normal gekleideter Mann mit einer Maske in den Ring. Er ringt mit dem Champion, führt er ein schockierendes neues Manöver aus, das Randolph fast bewusstlos macht. Der Kampf wird abgebrochen und Randolph taumelt benommen in seine Umkleidekabine. Kurze Zeit später geht George hinein und findet den Wrestler tot auf dem Boden liegend vor. Detective Murdoch (Yannick Bisson) und Inspector Brackenreid (Thomas Craig) erteilen Crabtree die Erlaubnis, den Todesfall zu untersuchen. Doch als George in die Geheimnisse der Wrestling-Welt eindringt, muss er zu seinem Erstaunen feststellen, dass dies ein Ort der Theatralik und des Betrugs ist.",
+      "title": "Folge 16: Hinter der Maske (S08/E16) - (Originalversion)",
+      "trackingPiano": {
+        "teaser_recommended": false,
+        "widget_id": "player_on_demand_widget_ard",
+        "widget_title": "Folge 16: Hinter der Maske (S08/E16) - (Originalversion)",
+        "widget_typ": "player_ondemand"
+      },
+      "type": "player_ondemand"
+    },
+    {
+      "compilationType": "itemsOfShow",
+      "isChildContent": false,
+      "pagination": {
+        "pageNumber": 0,
+        "pageSize": 8,
+        "totalElements": 8
+      },
+      "personalized": false,
+      "teasers": [
+        {
+          "availableTo": "2026-06-05T19:50:00Z",
+          "binaryFeatures": [
+            "UT"
+          ],
+          "broadcastedOn": "2026-05-06T19:50:00Z",
+          "coreAssetType": "EPISODE",
+          "duration": 2546,
+          "id": "Y3JpZDovL3dkci5kZS9CZWl0cmFnLXNvcGhvcmEtMjg1Yzg1YjctNTE3Ny00NDY5LTk3Y2QtMzZjMGFhZGY0MzMz",
+          "images": {
+            "aspect16x9": {
+              "alt": "Murdoch Mysteries (S08/E16)",
+              "producerName": "WDR",
+              "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:e0d597c9e59860a7?w={width}&ch=91d2b3bfe6bc3d6f",
+              "title": "Murdoch Mysteries (S08/E16)"
+            },
+            "aspect16x7": {
+              "alt": "Murdoch Mysteries (S08/E16)",
+              "producerName": "WDR",
+              "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:e1b02643030c7697?w={width}&ch=2fd2df05b08ddb24",
+              "title": "Murdoch Mysteries (S08/E16)"
+            },
+            "aspect1x1": {
+              "alt": "Murdoch Mysteries (S08/E16)",
+              "producerName": "WDR",
+              "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:983ce775a08dd178?w={width}&ch=d5e5aa49aa599e91",
+              "title": "Murdoch Mysteries (S08/E16)"
+            }
+          },
+          "isChildContent": false,
+          "isFamilyFriendly": false,
+          "longTitle": "Folge 16: Hinter der Maske (S08/E16)",
+          "maturityContentRating": "FSK12",
+          "mediumTitle": "Folge 16: Hinter der Maske (S08/E16)",
+          "personalized": false,
+          "publicationService": {
+            "name": "ONE",
+            "logo": {
+              "title": "Logo ONE",
+              "alt": "Logo ONE",
+              "producerName": "Logo ONE",
+              "src": "https://api.ardmediathek.de/image-service/image-collections/urn:ard:image-collection:2213972a8d101de1/16x9?w={width}",
+              "aspectRatio": "16x9"
+            },
+            "publisherType": "TV",
+            "partner": "one",
+            "id": "b3JnYW5pemF0aW9uX09ORQ",
+            "coreId": "urn:ard:publisher:892e3c758ca56a9d"
+          },
+          "links": {
+            "self": {
+              "id": "Y3JpZDovL3dkci5kZS9CZWl0cmFnLXNvcGhvcmEtMjg1Yzg1YjctNTE3Ny00NDY5LTk3Y2QtMzZjMGFhZGY0MzMz",
+              "urlId": "Y3JpZDovL3dkci5kZS9CZWl0cmFnLXNvcGhvcmEtMjg1Yzg1YjctNTE3Ny00NDY5LTk3Y2QtMzZjMGFhZGY0MzMz",
+              "title": "Folge 16: Hinter der Maske (S08/E16)",
+              "href": "https://api.ardmediathek.de/page-gateway/teasers/one/items/Y3JpZDovL3dkci5kZS9CZWl0cmFnLXNvcGhvcmEtMjg1Yzg1YjctNTE3Ny00NDY5LTk3Y2QtMzZjMGFhZGY0MzMz",
+              "type": "application/vnd.ard.teaser+json",
+              "partner": "one"
+            },
+            "target": {
+              "id": "Y3JpZDovL3dkci5kZS9CZWl0cmFnLXNvcGhvcmEtMjg1Yzg1YjctNTE3Ny00NDY5LTk3Y2QtMzZjMGFhZGY0MzMz",
+              "urlId": "Y3JpZDovL3dkci5kZS9CZWl0cmFnLXNvcGhvcmEtMjg1Yzg1YjctNTE3Ny00NDY5LTk3Y2QtMzZjMGFhZGY0MzMz",
+              "title": "Folge 16: Hinter der Maske (S08/E16)",
+              "href": "https://api.ardmediathek.de/page-gateway/pages/one/item/Y3JpZDovL3dkci5kZS9CZWl0cmFnLXNvcGhvcmEtMjg1Yzg1YjctNTE3Ny00NDY5LTk3Y2QtMzZjMGFhZGY0MzMz?devicetype=pc&embedded=true",
+              "type": "application/vnd.ard.page+json",
+              "partner": "one"
+            }
+          },
+          "shortTitle": "Folge 16: Hinter der Maske (S08/E16)",
+          "show": {
+            "id": "crid://wdr.de7one/murdochmysteries",
+            "coremediaId": 90781436,
+            "title": "Murdoch Mysteries",
+            "publisher": {
+              "name": "ONE",
+              "logo": {
+                "title": "Logo ONE",
+                "alt": "Logo ONE",
+                "producerName": "Logo ONE",
+                "src": "https://api.ardmediathek.de/image-service/image-collections/urn:ard:image-collection:2213972a8d101de1/16x9?w={width}",
+                "aspectRatio": "16x9"
+              },
+              "publisherType": "TV",
+              "partner": "one",
+              "id": "b3JnYW5pemF0aW9uX09ORQ",
+              "coreId": "urn:ard:publisher:892e3c758ca56a9d"
+            },
+            "self": {
+              "id": null,
+              "title": "Murdoch Mysteries",
+              "href": "http://asset-gateway:8080/asset-gateway/groupings/Y3JpZDovL3dkci5kZTdvbmUvbXVyZG9jaG15c3Rlcmllcw",
+              "type": "application/vnd.ard.grouping+json"
+            },
+            "images": {
+              "16x9": {
+                "title": "Murdoch Mysteries",
+                "alt": "Sendungslogo \"Murdoch Mysteries\"",
+                "producerName": "Shaftesbury Murdoch II Inc",
+                "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:559937f982bde0f5?w={width}&ch=3974711696bf3a2d",
+                "aspectRatio": "16x9"
+              },
+              "16x7": {
+                "title": "Murdoch Mysteries",
+                "alt": "Sendungslogo \"Murdoch Mysteries\"",
+                "producerName": "Shaftesbury Murdoch II Inc",
+                "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:ed700f1f8e36a287?w={width}&ch=5b8a78b2f716eeec",
+                "aspectRatio": "16x7"
+              },
+              "1x1": {
+                "title": "Murdoch Mysteries",
+                "alt": "Sendungslogo \"Murdoch Mysteries\"",
+                "producerName": "Shaftesbury Murdoch II Inc",
+                "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:83e23c7ceeb5a3c8?w={width}&ch=25eb6e3a56ef3080",
+                "aspectRatio": "1x1"
+              }
+            },
+            "shortSynopsis": "Der katholische Detective William Murdoch löst im Jahr 1895 Kriminalfälle im protestantischen Toronto. Mithilfe von Fingerabdrücken, Blutproben und genauen Analysen kommt er den Tätern auf die Spur. Seine Kollegen stehen ihm dabei zur Seite…",
+            "synopsis": "Der katholische Detective William Murdoch löst im Jahr 1895 Kriminalfälle im protestantischen Toronto. Mithilfe von Fingerabdrücken, Blutproben und genauen Analysen kommt er den Tätern auf die Spur. Seine Kollegen stehen ihm dabei zur Seite…",
+            "longSynopsis": "Der katholische Detective William Murdoch löst im Jahr 1895 Kriminalfälle im protestantischen Toronto. Mithilfe von Fingerabdrücken, Blutproben und genauen Analysen kommt er den Tätern auf die Spur. Seine Kollegen stehen ihm dabei zur Seite…",
+            "modificationDate": null,
+            "assetSource": null,
+            "isChildContent": false,
+            "isFamilyFriendly": false,
+            "targetAudienceAgeMin": null,
+            "targetAudienceAgeMax": null,
+            "categories": null,
+            "categoryIds": null,
+            "coreAssetType": "SEASON_SERIES",
+            "noIndexSeo": false,
+            "titleSeo": null,
+            "descriptionSeo": null,
+            "coreId": "urn:ard:show:85088a146d3740b7",
+            "groupingType": "SHOW",
+            "homepage": {
+              "id": null,
+              "title": "Murdoch Mysteries",
+              "href": "https://www.ardmediathek.de/sendung/murdoch-mysteries/staffel-1/Y3JpZDovL3dkci5kZTdvbmUvbXVyZG9jaG15c3Rlcmllcw/1/",
+              "type": null
+            },
+            "hasSeasons": true,
+            "availableSeasons": [
+              "8"
+            ],
+            "binaryFeatures": [
+              "UT",
+              "OV"
+            ]
+          },
+          "subtitled": true,
+          "titleVisible": true,
+          "trackingPiano": {
+            "teaser_content_type": "OnDemand",
+            "teaser_id": "Y3JpZDovL3dkci5kZS9CZWl0cmFnLXNvcGhvcmEtMjg1Yzg1YjctNTE3Ny00NDY5LTk3Y2QtMzZjMGFhZGY0MzMz",
+            "teaser_institution": "ONE",
+            "teaser_institution_id": "urn:ard:institution:9edd94d68de90140",
+            "teaser_title": "Folge 16: Hinter der Maske (S08/E16)"
+          },
+          "type": "ondemand"
+        },
+        {
+          "availableTo": "2026-05-29T19:50:00Z",
+          "binaryFeatures": [
+            "UT"
+          ],
+          "broadcastedOn": "2026-04-29T19:50:00Z",
+          "coreAssetType": "EPISODE",
+          "duration": 2655,
+          "id": "Y3JpZDovL3dkci5kZS9CZWl0cmFnLXNvcGhvcmEtOWY5MzdiMDctZjM2ZS00NGU1LTk5MzItNDhmZWY0NjNlYjEz",
+          "images": {
+            "aspect16x9": {
+              "alt": "Father Keegan (Peter Outerbridge, l.) und Detective William Murdoch (Yannick Bisson, r.)",
+              "producerName": "WDR",
+              "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:f097f9eaf65448c2?w={width}&ch=a0166daee742e412",
+              "title": "Murdoch Mysteries (S08/E15)"
+            },
+            "aspect16x7": {
+              "alt": "Father Keegan (Peter Outerbridge, l.) und Detective William Murdoch (Yannick Bisson, r.)",
+              "producerName": "WDR",
+              "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:1049c8965d211c4d?w={width}&ch=57668d897341c0ac",
+              "title": "Murdoch Mysteries (S08/E15)"
+            },
+            "aspect1x1": {
+              "alt": "Father Keegan (Peter Outerbridge, l.) und Detective William Murdoch (Yannick Bisson, r.)",
+              "producerName": "WDR",
+              "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:bc6fbc99fc443197?w={width}&ch=2eecde788e232162",
+              "title": "Murdoch Mysteries (S08/E15)"
+            }
+          },
+          "isChildContent": false,
+          "isFamilyFriendly": false,
+          "longTitle": "Folge 15: Die Wahrheit ist der Fels (S08/E15)",
+          "maturityContentRating": "FSK12",
+          "mediumTitle": "Folge 15: Die Wahrheit ist der Fels (S08/E15)",
+          "personalized": false,
+          "publicationService": {
+            "name": "ONE",
+            "logo": {
+              "title": "Logo ONE",
+              "alt": "Logo ONE",
+              "producerName": "Logo ONE",
+              "src": "https://api.ardmediathek.de/image-service/image-collections/urn:ard:image-collection:2213972a8d101de1/16x9?w={width}",
+              "aspectRatio": "16x9"
+            },
+            "publisherType": "TV",
+            "partner": "one",
+            "id": "b3JnYW5pemF0aW9uX09ORQ",
+            "coreId": "urn:ard:publisher:892e3c758ca56a9d"
+          },
+          "links": {
+            "self": {
+              "id": "Y3JpZDovL3dkci5kZS9CZWl0cmFnLXNvcGhvcmEtOWY5MzdiMDctZjM2ZS00NGU1LTk5MzItNDhmZWY0NjNlYjEz",
+              "urlId": "Y3JpZDovL3dkci5kZS9CZWl0cmFnLXNvcGhvcmEtOWY5MzdiMDctZjM2ZS00NGU1LTk5MzItNDhmZWY0NjNlYjEz",
+              "title": "Folge 15: Die Wahrheit ist der Fels (S08/E15)",
+              "href": "https://api.ardmediathek.de/page-gateway/teasers/one/items/Y3JpZDovL3dkci5kZS9CZWl0cmFnLXNvcGhvcmEtOWY5MzdiMDctZjM2ZS00NGU1LTk5MzItNDhmZWY0NjNlYjEz",
+              "type": "application/vnd.ard.teaser+json",
+              "partner": "one"
+            },
+            "target": {
+              "id": "Y3JpZDovL3dkci5kZS9CZWl0cmFnLXNvcGhvcmEtOWY5MzdiMDctZjM2ZS00NGU1LTk5MzItNDhmZWY0NjNlYjEz",
+              "urlId": "Y3JpZDovL3dkci5kZS9CZWl0cmFnLXNvcGhvcmEtOWY5MzdiMDctZjM2ZS00NGU1LTk5MzItNDhmZWY0NjNlYjEz",
+              "title": "Folge 15: Die Wahrheit ist der Fels (S08/E15)",
+              "href": "https://api.ardmediathek.de/page-gateway/pages/one/item/Y3JpZDovL3dkci5kZS9CZWl0cmFnLXNvcGhvcmEtOWY5MzdiMDctZjM2ZS00NGU1LTk5MzItNDhmZWY0NjNlYjEz?devicetype=pc&embedded=true",
+              "type": "application/vnd.ard.page+json",
+              "partner": "one"
+            }
+          },
+          "shortTitle": "Folge 15: Die Wahrheit ist der Fels (S08/E15)",
+          "show": {
+            "id": "crid://wdr.de7one/murdochmysteries",
+            "coremediaId": 90781436,
+            "title": "Murdoch Mysteries",
+            "publisher": {
+              "name": "ONE",
+              "logo": {
+                "title": "Logo ONE",
+                "alt": "Logo ONE",
+                "producerName": "Logo ONE",
+                "src": "https://api.ardmediathek.de/image-service/image-collections/urn:ard:image-collection:2213972a8d101de1/16x9?w={width}",
+                "aspectRatio": "16x9"
+              },
+              "publisherType": "TV",
+              "partner": "one",
+              "id": "b3JnYW5pemF0aW9uX09ORQ",
+              "coreId": "urn:ard:publisher:892e3c758ca56a9d"
+            },
+            "self": {
+              "id": null,
+              "title": "Murdoch Mysteries",
+              "href": "http://asset-gateway:8080/asset-gateway/groupings/Y3JpZDovL3dkci5kZTdvbmUvbXVyZG9jaG15c3Rlcmllcw",
+              "type": "application/vnd.ard.grouping+json"
+            },
+            "images": {
+              "16x9": {
+                "title": "Murdoch Mysteries",
+                "alt": "Sendungslogo \"Murdoch Mysteries\"",
+                "producerName": "Shaftesbury Murdoch II Inc",
+                "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:559937f982bde0f5?w={width}&ch=3974711696bf3a2d",
+                "aspectRatio": "16x9"
+              },
+              "16x7": {
+                "title": "Murdoch Mysteries",
+                "alt": "Sendungslogo \"Murdoch Mysteries\"",
+                "producerName": "Shaftesbury Murdoch II Inc",
+                "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:ed700f1f8e36a287?w={width}&ch=5b8a78b2f716eeec",
+                "aspectRatio": "16x7"
+              },
+              "1x1": {
+                "title": "Murdoch Mysteries",
+                "alt": "Sendungslogo \"Murdoch Mysteries\"",
+                "producerName": "Shaftesbury Murdoch II Inc",
+                "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:83e23c7ceeb5a3c8?w={width}&ch=25eb6e3a56ef3080",
+                "aspectRatio": "1x1"
+              }
+            },
+            "shortSynopsis": "Der katholische Detective William Murdoch löst im Jahr 1895 Kriminalfälle im protestantischen Toronto. Mithilfe von Fingerabdrücken, Blutproben und genauen Analysen kommt er den Tätern auf die Spur. Seine Kollegen stehen ihm dabei zur Seite…",
+            "synopsis": "Der katholische Detective William Murdoch löst im Jahr 1895 Kriminalfälle im protestantischen Toronto. Mithilfe von Fingerabdrücken, Blutproben und genauen Analysen kommt er den Tätern auf die Spur. Seine Kollegen stehen ihm dabei zur Seite…",
+            "longSynopsis": "Der katholische Detective William Murdoch löst im Jahr 1895 Kriminalfälle im protestantischen Toronto. Mithilfe von Fingerabdrücken, Blutproben und genauen Analysen kommt er den Tätern auf die Spur. Seine Kollegen stehen ihm dabei zur Seite…",
+            "modificationDate": null,
+            "assetSource": null,
+            "isChildContent": false,
+            "isFamilyFriendly": false,
+            "targetAudienceAgeMin": null,
+            "targetAudienceAgeMax": null,
+            "categories": null,
+            "categoryIds": null,
+            "coreAssetType": "SEASON_SERIES",
+            "noIndexSeo": false,
+            "titleSeo": null,
+            "descriptionSeo": null,
+            "coreId": "urn:ard:show:85088a146d3740b7",
+            "groupingType": "SHOW",
+            "homepage": {
+              "id": null,
+              "title": "Murdoch Mysteries",
+              "href": "https://www.ardmediathek.de/sendung/murdoch-mysteries/staffel-1/Y3JpZDovL3dkci5kZTdvbmUvbXVyZG9jaG15c3Rlcmllcw/1/",
+              "type": null
+            },
+            "hasSeasons": true,
+            "availableSeasons": [
+              "8"
+            ],
+            "binaryFeatures": [
+              "UT",
+              "OV"
+            ]
+          },
+          "subtitled": true,
+          "titleVisible": true,
+          "trackingPiano": {
+            "teaser_content_type": "OnDemand",
+            "teaser_id": "Y3JpZDovL3dkci5kZS9CZWl0cmFnLXNvcGhvcmEtOWY5MzdiMDctZjM2ZS00NGU1LTk5MzItNDhmZWY0NjNlYjEz",
+            "teaser_institution": "ONE",
+            "teaser_institution_id": "urn:ard:institution:9edd94d68de90140",
+            "teaser_title": "Folge 15: Die Wahrheit ist der Fels (S08/E15)"
+          },
+          "type": "ondemand"
+        },
+        {
+          "availableTo": "2026-05-29T19:50:00Z",
+          "binaryFeatures": [
+            "OV",
+            "UT"
+          ],
+          "broadcastedOn": "2026-04-29T19:50:00Z",
+          "coreAssetType": "EXTRA_BONUS_CONTENT",
+          "duration": 2655,
+          "id": "Y3JpZDovL3dkci5kZS9CZWl0cmFnLXNvcGhvcmEtNzgwMjU3ZDAtMDQ4OC00ZWEzLWI4MGEtNzNkYzExY2ExY2Ez",
+          "images": {
+            "aspect16x9": {
+              "alt": "Father Keegan (Peter Outerbridge, l.) und Detective William Murdoch (Yannick Bisson, r.)",
+              "producerName": "WDR",
+              "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:6f7e15cad1f484ba?w={width}&ch=8dc5a6f95a4faa55",
+              "title": "Murdoch Mysteries (S08/E15) - OV"
+            },
+            "aspect16x7": {
+              "alt": "Father Keegan (Peter Outerbridge, l.) und Detective William Murdoch (Yannick Bisson, r.)",
+              "producerName": "WDR",
+              "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:b0c52305b22c2505?w={width}&ch=75b22bbd0d3db9ce",
+              "title": "Murdoch Mysteries (S08/E15) - OV"
+            },
+            "aspect1x1": {
+              "alt": "Father Keegan (Peter Outerbridge, l.) und Detective William Murdoch (Yannick Bisson, r.)",
+              "producerName": "WDR",
+              "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:d900897259a2d661?w={width}&ch=8547caab088e48c4",
+              "title": "Murdoch Mysteries (S08/E15) - OV"
+            }
+          },
+          "isChildContent": false,
+          "isFamilyFriendly": false,
+          "longTitle": "Folge 15: Die Wahrheit ist der Fels (S08/E15) - (Originalversion)",
+          "maturityContentRating": "FSK12",
+          "mediumTitle": "Folge 15: Die Wahrheit ist der Fels (S08/E15) - (Originalversion)",
+          "personalized": false,
+          "publicationService": {
+            "name": "ONE",
+            "logo": {
+              "title": "Logo ONE",
+              "alt": "Logo ONE",
+              "producerName": "Logo ONE",
+              "src": "https://api.ardmediathek.de/image-service/image-collections/urn:ard:image-collection:2213972a8d101de1/16x9?w={width}",
+              "aspectRatio": "16x9"
+            },
+            "publisherType": "TV",
+            "partner": "one",
+            "id": "b3JnYW5pemF0aW9uX09ORQ",
+            "coreId": "urn:ard:publisher:892e3c758ca56a9d"
+          },
+          "links": {
+            "self": {
+              "id": "Y3JpZDovL3dkci5kZS9CZWl0cmFnLXNvcGhvcmEtNzgwMjU3ZDAtMDQ4OC00ZWEzLWI4MGEtNzNkYzExY2ExY2Ez",
+              "urlId": "Y3JpZDovL3dkci5kZS9CZWl0cmFnLXNvcGhvcmEtNzgwMjU3ZDAtMDQ4OC00ZWEzLWI4MGEtNzNkYzExY2ExY2Ez",
+              "title": "Folge 15: Die Wahrheit ist der Fels (S08/E15) - (Originalversion)",
+              "href": "https://api.ardmediathek.de/page-gateway/teasers/one/items/Y3JpZDovL3dkci5kZS9CZWl0cmFnLXNvcGhvcmEtNzgwMjU3ZDAtMDQ4OC00ZWEzLWI4MGEtNzNkYzExY2ExY2Ez",
+              "type": "application/vnd.ard.teaser+json",
+              "partner": "one"
+            },
+            "target": {
+              "id": "Y3JpZDovL3dkci5kZS9CZWl0cmFnLXNvcGhvcmEtNzgwMjU3ZDAtMDQ4OC00ZWEzLWI4MGEtNzNkYzExY2ExY2Ez",
+              "urlId": "Y3JpZDovL3dkci5kZS9CZWl0cmFnLXNvcGhvcmEtNzgwMjU3ZDAtMDQ4OC00ZWEzLWI4MGEtNzNkYzExY2ExY2Ez",
+              "title": "Folge 15: Die Wahrheit ist der Fels (S08/E15) - (Originalversion)",
+              "href": "https://api.ardmediathek.de/page-gateway/pages/one/item/Y3JpZDovL3dkci5kZS9CZWl0cmFnLXNvcGhvcmEtNzgwMjU3ZDAtMDQ4OC00ZWEzLWI4MGEtNzNkYzExY2ExY2Ez?devicetype=pc&embedded=true",
+              "type": "application/vnd.ard.page+json",
+              "partner": "one"
+            }
+          },
+          "shortTitle": "Folge 15: Die Wahrheit ist der Fels (S08/E15) - (Originalversion)",
+          "show": {
+            "id": "crid://wdr.de7one/murdochmysteries",
+            "coremediaId": 90781436,
+            "title": "Murdoch Mysteries",
+            "publisher": {
+              "name": "ONE",
+              "logo": {
+                "title": "Logo ONE",
+                "alt": "Logo ONE",
+                "producerName": "Logo ONE",
+                "src": "https://api.ardmediathek.de/image-service/image-collections/urn:ard:image-collection:2213972a8d101de1/16x9?w={width}",
+                "aspectRatio": "16x9"
+              },
+              "publisherType": "TV",
+              "partner": "one",
+              "id": "b3JnYW5pemF0aW9uX09ORQ",
+              "coreId": "urn:ard:publisher:892e3c758ca56a9d"
+            },
+            "self": {
+              "id": null,
+              "title": "Murdoch Mysteries",
+              "href": "http://asset-gateway:8080/asset-gateway/groupings/Y3JpZDovL3dkci5kZTdvbmUvbXVyZG9jaG15c3Rlcmllcw",
+              "type": "application/vnd.ard.grouping+json"
+            },
+            "images": {
+              "16x9": {
+                "title": "Murdoch Mysteries",
+                "alt": "Sendungslogo \"Murdoch Mysteries\"",
+                "producerName": "Shaftesbury Murdoch II Inc",
+                "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:559937f982bde0f5?w={width}&ch=3974711696bf3a2d",
+                "aspectRatio": "16x9"
+              },
+              "16x7": {
+                "title": "Murdoch Mysteries",
+                "alt": "Sendungslogo \"Murdoch Mysteries\"",
+                "producerName": "Shaftesbury Murdoch II Inc",
+                "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:ed700f1f8e36a287?w={width}&ch=5b8a78b2f716eeec",
+                "aspectRatio": "16x7"
+              },
+              "1x1": {
+                "title": "Murdoch Mysteries",
+                "alt": "Sendungslogo \"Murdoch Mysteries\"",
+                "producerName": "Shaftesbury Murdoch II Inc",
+                "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:83e23c7ceeb5a3c8?w={width}&ch=25eb6e3a56ef3080",
+                "aspectRatio": "1x1"
+              }
+            },
+            "shortSynopsis": "Der katholische Detective William Murdoch löst im Jahr 1895 Kriminalfälle im protestantischen Toronto. Mithilfe von Fingerabdrücken, Blutproben und genauen Analysen kommt er den Tätern auf die Spur. Seine Kollegen stehen ihm dabei zur Seite…",
+            "synopsis": "Der katholische Detective William Murdoch löst im Jahr 1895 Kriminalfälle im protestantischen Toronto. Mithilfe von Fingerabdrücken, Blutproben und genauen Analysen kommt er den Tätern auf die Spur. Seine Kollegen stehen ihm dabei zur Seite…",
+            "longSynopsis": "Der katholische Detective William Murdoch löst im Jahr 1895 Kriminalfälle im protestantischen Toronto. Mithilfe von Fingerabdrücken, Blutproben und genauen Analysen kommt er den Tätern auf die Spur. Seine Kollegen stehen ihm dabei zur Seite…",
+            "modificationDate": null,
+            "assetSource": null,
+            "isChildContent": false,
+            "isFamilyFriendly": false,
+            "targetAudienceAgeMin": null,
+            "targetAudienceAgeMax": null,
+            "categories": null,
+            "categoryIds": null,
+            "coreAssetType": "SEASON_SERIES",
+            "noIndexSeo": false,
+            "titleSeo": null,
+            "descriptionSeo": null,
+            "coreId": "urn:ard:show:85088a146d3740b7",
+            "groupingType": "SHOW",
+            "homepage": {
+              "id": null,
+              "title": "Murdoch Mysteries",
+              "href": "https://www.ardmediathek.de/sendung/murdoch-mysteries/staffel-1/Y3JpZDovL3dkci5kZTdvbmUvbXVyZG9jaG15c3Rlcmllcw/1/",
+              "type": null
+            },
+            "hasSeasons": true,
+            "availableSeasons": [
+              "8"
+            ],
+            "binaryFeatures": [
+              "UT",
+              "OV"
+            ]
+          },
+          "subtitled": true,
+          "titleVisible": true,
+          "trackingPiano": {
+            "teaser_content_type": "OnDemand",
+            "teaser_id": "Y3JpZDovL3dkci5kZS9CZWl0cmFnLXNvcGhvcmEtNzgwMjU3ZDAtMDQ4OC00ZWEzLWI4MGEtNzNkYzExY2ExY2Ez",
+            "teaser_institution": "ONE",
+            "teaser_institution_id": "urn:ard:institution:9edd94d68de90140",
+            "teaser_title": "Folge 15: Die Wahrheit ist der Fels (S08/E15) - (Originalversion)"
+          },
+          "type": "ondemand"
+        },
+        {
+          "availableTo": "2026-05-22T19:50:00Z",
+          "binaryFeatures": [
+            "UT"
+          ],
+          "broadcastedOn": "2026-04-22T19:50:00Z",
+          "coreAssetType": "EPISODE",
+          "duration": 2547,
+          "id": "Y3JpZDovL3dkci5kZS9CZWl0cmFnLXNvcGhvcmEtYmRmOGU0MmItNzNlYi00Y2ZmLTk3NzQtM2ZkYWM5ZDJjZGIy",
+          "images": {
+            "aspect16x9": {
+              "alt": "v.l.n.r.: Mary Puddle (Kaitlyn Riordan), Beatrice Crawford (Laura Carswell), Lillian Moss (Sara Mitich), Dr. Emily Grace (Georgina Reilly), Elaine Henshaw (Allison Dawn Doiron) und Helen Conroy (Karen Knox).",
+              "producerName": "WDR",
+              "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:61519e66f6b06fdc?w={width}&ch=a2cb8633c378b65a",
+              "title": "Murdoch Mysteries (S08/E14)"
+            },
+            "aspect16x7": {
+              "alt": "v.l.n.r.: Mary Puddle (Kaitlyn Riordan), Beatrice Crawford (Laura Carswell), Lillian Moss (Sara Mitich), Dr. Emily Grace (Georgina Reilly), Elaine Henshaw (Allison Dawn Doiron) und Helen Conroy (Karen Knox).",
+              "producerName": "WDR",
+              "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:b5255b0c19a7276d?w={width}&ch=0c59a6911d847716",
+              "title": "Murdoch Mysteries (S08/E14)"
+            },
+            "aspect1x1": {
+              "alt": "v.l.n.r.: Mary Puddle (Kaitlyn Riordan), Beatrice Crawford (Laura Carswell), Lillian Moss (Sara Mitich), Dr. Emily Grace (Georgina Reilly), Elaine Henshaw (Allison Dawn Doiron) und Helen Conroy (Karen Knox).",
+              "producerName": "WDR",
+              "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:a83f4c4d5c5ae826?w={width}&ch=85a67d6bf33271bc",
+              "title": "Murdoch Mysteries (S08/E14)"
+            }
+          },
+          "isChildContent": false,
+          "isFamilyFriendly": false,
+          "longTitle": "Folge 14: Apropos Frauen  (S08/E14)",
+          "maturityContentRating": "FSK12",
+          "mediumTitle": "Folge 14: Apropos Frauen  (S08/E14)",
+          "personalized": false,
+          "publicationService": {
+            "name": "ONE",
+            "logo": {
+              "title": "Logo ONE",
+              "alt": "Logo ONE",
+              "producerName": "Logo ONE",
+              "src": "https://api.ardmediathek.de/image-service/image-collections/urn:ard:image-collection:2213972a8d101de1/16x9?w={width}",
+              "aspectRatio": "16x9"
+            },
+            "publisherType": "TV",
+            "partner": "one",
+            "id": "b3JnYW5pemF0aW9uX09ORQ",
+            "coreId": "urn:ard:publisher:892e3c758ca56a9d"
+          },
+          "links": {
+            "self": {
+              "id": "Y3JpZDovL3dkci5kZS9CZWl0cmFnLXNvcGhvcmEtYmRmOGU0MmItNzNlYi00Y2ZmLTk3NzQtM2ZkYWM5ZDJjZGIy",
+              "urlId": "Y3JpZDovL3dkci5kZS9CZWl0cmFnLXNvcGhvcmEtYmRmOGU0MmItNzNlYi00Y2ZmLTk3NzQtM2ZkYWM5ZDJjZGIy",
+              "title": "Folge 14: Apropos Frauen  (S08/E14)",
+              "href": "https://api.ardmediathek.de/page-gateway/teasers/one/items/Y3JpZDovL3dkci5kZS9CZWl0cmFnLXNvcGhvcmEtYmRmOGU0MmItNzNlYi00Y2ZmLTk3NzQtM2ZkYWM5ZDJjZGIy",
+              "type": "application/vnd.ard.teaser+json",
+              "partner": "one"
+            },
+            "target": {
+              "id": "Y3JpZDovL3dkci5kZS9CZWl0cmFnLXNvcGhvcmEtYmRmOGU0MmItNzNlYi00Y2ZmLTk3NzQtM2ZkYWM5ZDJjZGIy",
+              "urlId": "Y3JpZDovL3dkci5kZS9CZWl0cmFnLXNvcGhvcmEtYmRmOGU0MmItNzNlYi00Y2ZmLTk3NzQtM2ZkYWM5ZDJjZGIy",
+              "title": "Folge 14: Apropos Frauen  (S08/E14)",
+              "href": "https://api.ardmediathek.de/page-gateway/pages/one/item/Y3JpZDovL3dkci5kZS9CZWl0cmFnLXNvcGhvcmEtYmRmOGU0MmItNzNlYi00Y2ZmLTk3NzQtM2ZkYWM5ZDJjZGIy?devicetype=pc&embedded=true",
+              "type": "application/vnd.ard.page+json",
+              "partner": "one"
+            }
+          },
+          "shortTitle": "Folge 14: Apropos Frauen  (S08/E14)",
+          "show": {
+            "id": "crid://wdr.de7one/murdochmysteries",
+            "coremediaId": 90781436,
+            "title": "Murdoch Mysteries",
+            "publisher": {
+              "name": "ONE",
+              "logo": {
+                "title": "Logo ONE",
+                "alt": "Logo ONE",
+                "producerName": "Logo ONE",
+                "src": "https://api.ardmediathek.de/image-service/image-collections/urn:ard:image-collection:2213972a8d101de1/16x9?w={width}",
+                "aspectRatio": "16x9"
+              },
+              "publisherType": "TV",
+              "partner": "one",
+              "id": "b3JnYW5pemF0aW9uX09ORQ",
+              "coreId": "urn:ard:publisher:892e3c758ca56a9d"
+            },
+            "self": {
+              "id": null,
+              "title": "Murdoch Mysteries",
+              "href": "http://asset-gateway:8080/asset-gateway/groupings/Y3JpZDovL3dkci5kZTdvbmUvbXVyZG9jaG15c3Rlcmllcw",
+              "type": "application/vnd.ard.grouping+json"
+            },
+            "images": {
+              "16x9": {
+                "title": "Murdoch Mysteries",
+                "alt": "Sendungslogo \"Murdoch Mysteries\"",
+                "producerName": "Shaftesbury Murdoch II Inc",
+                "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:559937f982bde0f5?w={width}&ch=3974711696bf3a2d",
+                "aspectRatio": "16x9"
+              },
+              "16x7": {
+                "title": "Murdoch Mysteries",
+                "alt": "Sendungslogo \"Murdoch Mysteries\"",
+                "producerName": "Shaftesbury Murdoch II Inc",
+                "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:ed700f1f8e36a287?w={width}&ch=5b8a78b2f716eeec",
+                "aspectRatio": "16x7"
+              },
+              "1x1": {
+                "title": "Murdoch Mysteries",
+                "alt": "Sendungslogo \"Murdoch Mysteries\"",
+                "producerName": "Shaftesbury Murdoch II Inc",
+                "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:83e23c7ceeb5a3c8?w={width}&ch=25eb6e3a56ef3080",
+                "aspectRatio": "1x1"
+              }
+            },
+            "shortSynopsis": "Der katholische Detective William Murdoch löst im Jahr 1895 Kriminalfälle im protestantischen Toronto. Mithilfe von Fingerabdrücken, Blutproben und genauen Analysen kommt er den Tätern auf die Spur. Seine Kollegen stehen ihm dabei zur Seite…",
+            "synopsis": "Der katholische Detective William Murdoch löst im Jahr 1895 Kriminalfälle im protestantischen Toronto. Mithilfe von Fingerabdrücken, Blutproben und genauen Analysen kommt er den Tätern auf die Spur. Seine Kollegen stehen ihm dabei zur Seite…",
+            "longSynopsis": "Der katholische Detective William Murdoch löst im Jahr 1895 Kriminalfälle im protestantischen Toronto. Mithilfe von Fingerabdrücken, Blutproben und genauen Analysen kommt er den Tätern auf die Spur. Seine Kollegen stehen ihm dabei zur Seite…",
+            "modificationDate": null,
+            "assetSource": null,
+            "isChildContent": false,
+            "isFamilyFriendly": false,
+            "targetAudienceAgeMin": null,
+            "targetAudienceAgeMax": null,
+            "categories": null,
+            "categoryIds": null,
+            "coreAssetType": "SEASON_SERIES",
+            "noIndexSeo": false,
+            "titleSeo": null,
+            "descriptionSeo": null,
+            "coreId": "urn:ard:show:85088a146d3740b7",
+            "groupingType": "SHOW",
+            "homepage": {
+              "id": null,
+              "title": "Murdoch Mysteries",
+              "href": "https://www.ardmediathek.de/sendung/murdoch-mysteries/staffel-1/Y3JpZDovL3dkci5kZTdvbmUvbXVyZG9jaG15c3Rlcmllcw/1/",
+              "type": null
+            },
+            "hasSeasons": true,
+            "availableSeasons": [
+              "8"
+            ],
+            "binaryFeatures": [
+              "UT",
+              "OV"
+            ]
+          },
+          "subtitled": true,
+          "titleVisible": true,
+          "trackingPiano": {
+            "teaser_content_type": "OnDemand",
+            "teaser_id": "Y3JpZDovL3dkci5kZS9CZWl0cmFnLXNvcGhvcmEtYmRmOGU0MmItNzNlYi00Y2ZmLTk3NzQtM2ZkYWM5ZDJjZGIy",
+            "teaser_institution": "ONE",
+            "teaser_institution_id": "urn:ard:institution:9edd94d68de90140",
+            "teaser_title": "Folge 14: Apropos Frauen  (S08/E14)"
+          },
+          "type": "ondemand"
+        },
+        {
+          "availableTo": "2026-05-22T19:50:00Z",
+          "binaryFeatures": [
+            "OV",
+            "UT"
+          ],
+          "broadcastedOn": "2026-04-22T19:50:00Z",
+          "coreAssetType": "EXTRA_BONUS_CONTENT",
+          "duration": 2547,
+          "id": "Y3JpZDovL3dkci5kZS9CZWl0cmFnLXNvcGhvcmEtYmE4Nzk2YmMtMDhmMi00ZjVlLTllMDMtMWE2OWYwODA0OWZj",
+          "images": {
+            "aspect16x9": {
+              "alt": "v.l.n.r.: Mary Puddle (Kaitlyn Riordan), Beatrice Crawford (Laura Carswell), Lillian Moss (Sara Mitich), Dr. Emily Grace (Georgina Reilly), Elaine Henshaw (Allison Dawn Doiron) und Helen Conroy (Karen Knox).",
+              "producerName": "WDR",
+              "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:ee07becdfafe00ef?w={width}&ch=cc8aa2a9641b2968",
+              "title": "Murdoch Mysteries (S08/E14) - OV"
+            },
+            "aspect16x7": {
+              "alt": "v.l.n.r.: Mary Puddle (Kaitlyn Riordan), Beatrice Crawford (Laura Carswell), Lillian Moss (Sara Mitich), Dr. Emily Grace (Georgina Reilly), Elaine Henshaw (Allison Dawn Doiron) und Helen Conroy (Karen Knox).",
+              "producerName": "WDR",
+              "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:29a84f4fc2c01fad?w={width}&ch=4a783aca281d76e6",
+              "title": "Murdoch Mysteries (S08/E14) - OV"
+            },
+            "aspect1x1": {
+              "alt": "v.l.n.r.: Mary Puddle (Kaitlyn Riordan), Beatrice Crawford (Laura Carswell), Lillian Moss (Sara Mitich), Dr. Emily Grace (Georgina Reilly), Elaine Henshaw (Allison Dawn Doiron) und Helen Conroy (Karen Knox).",
+              "producerName": "WDR",
+              "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:14a18a7287fec13f?w={width}&ch=363c4011709565c1",
+              "title": "Murdoch Mysteries (S08/E14) - OV"
+            }
+          },
+          "isChildContent": false,
+          "isFamilyFriendly": false,
+          "longTitle": "Folge 14: Apropos Frauen (S08/E14) - (Originalversion)",
+          "maturityContentRating": "FSK12",
+          "mediumTitle": "Folge 14: Apropos Frauen (S08/E14) - (Originalversion)",
+          "personalized": false,
+          "publicationService": {
+            "name": "ONE",
+            "logo": {
+              "title": "Logo ONE",
+              "alt": "Logo ONE",
+              "producerName": "Logo ONE",
+              "src": "https://api.ardmediathek.de/image-service/image-collections/urn:ard:image-collection:2213972a8d101de1/16x9?w={width}",
+              "aspectRatio": "16x9"
+            },
+            "publisherType": "TV",
+            "partner": "one",
+            "id": "b3JnYW5pemF0aW9uX09ORQ",
+            "coreId": "urn:ard:publisher:892e3c758ca56a9d"
+          },
+          "links": {
+            "self": {
+              "id": "Y3JpZDovL3dkci5kZS9CZWl0cmFnLXNvcGhvcmEtYmE4Nzk2YmMtMDhmMi00ZjVlLTllMDMtMWE2OWYwODA0OWZj",
+              "urlId": "Y3JpZDovL3dkci5kZS9CZWl0cmFnLXNvcGhvcmEtYmE4Nzk2YmMtMDhmMi00ZjVlLTllMDMtMWE2OWYwODA0OWZj",
+              "title": "Folge 14: Apropos Frauen (S08/E14) - (Originalversion)",
+              "href": "https://api.ardmediathek.de/page-gateway/teasers/one/items/Y3JpZDovL3dkci5kZS9CZWl0cmFnLXNvcGhvcmEtYmE4Nzk2YmMtMDhmMi00ZjVlLTllMDMtMWE2OWYwODA0OWZj",
+              "type": "application/vnd.ard.teaser+json",
+              "partner": "one"
+            },
+            "target": {
+              "id": "Y3JpZDovL3dkci5kZS9CZWl0cmFnLXNvcGhvcmEtYmE4Nzk2YmMtMDhmMi00ZjVlLTllMDMtMWE2OWYwODA0OWZj",
+              "urlId": "Y3JpZDovL3dkci5kZS9CZWl0cmFnLXNvcGhvcmEtYmE4Nzk2YmMtMDhmMi00ZjVlLTllMDMtMWE2OWYwODA0OWZj",
+              "title": "Folge 14: Apropos Frauen (S08/E14) - (Originalversion)",
+              "href": "https://api.ardmediathek.de/page-gateway/pages/one/item/Y3JpZDovL3dkci5kZS9CZWl0cmFnLXNvcGhvcmEtYmE4Nzk2YmMtMDhmMi00ZjVlLTllMDMtMWE2OWYwODA0OWZj?devicetype=pc&embedded=true",
+              "type": "application/vnd.ard.page+json",
+              "partner": "one"
+            }
+          },
+          "shortTitle": "Folge 14: Apropos Frauen (S08/E14) - (Originalversion)",
+          "show": {
+            "id": "crid://wdr.de7one/murdochmysteries",
+            "coremediaId": 90781436,
+            "title": "Murdoch Mysteries",
+            "publisher": {
+              "name": "ONE",
+              "logo": {
+                "title": "Logo ONE",
+                "alt": "Logo ONE",
+                "producerName": "Logo ONE",
+                "src": "https://api.ardmediathek.de/image-service/image-collections/urn:ard:image-collection:2213972a8d101de1/16x9?w={width}",
+                "aspectRatio": "16x9"
+              },
+              "publisherType": "TV",
+              "partner": "one",
+              "id": "b3JnYW5pemF0aW9uX09ORQ",
+              "coreId": "urn:ard:publisher:892e3c758ca56a9d"
+            },
+            "self": {
+              "id": null,
+              "title": "Murdoch Mysteries",
+              "href": "http://asset-gateway:8080/asset-gateway/groupings/Y3JpZDovL3dkci5kZTdvbmUvbXVyZG9jaG15c3Rlcmllcw",
+              "type": "application/vnd.ard.grouping+json"
+            },
+            "images": {
+              "16x9": {
+                "title": "Murdoch Mysteries",
+                "alt": "Sendungslogo \"Murdoch Mysteries\"",
+                "producerName": "Shaftesbury Murdoch II Inc",
+                "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:559937f982bde0f5?w={width}&ch=3974711696bf3a2d",
+                "aspectRatio": "16x9"
+              },
+              "16x7": {
+                "title": "Murdoch Mysteries",
+                "alt": "Sendungslogo \"Murdoch Mysteries\"",
+                "producerName": "Shaftesbury Murdoch II Inc",
+                "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:ed700f1f8e36a287?w={width}&ch=5b8a78b2f716eeec",
+                "aspectRatio": "16x7"
+              },
+              "1x1": {
+                "title": "Murdoch Mysteries",
+                "alt": "Sendungslogo \"Murdoch Mysteries\"",
+                "producerName": "Shaftesbury Murdoch II Inc",
+                "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:83e23c7ceeb5a3c8?w={width}&ch=25eb6e3a56ef3080",
+                "aspectRatio": "1x1"
+              }
+            },
+            "shortSynopsis": "Der katholische Detective William Murdoch löst im Jahr 1895 Kriminalfälle im protestantischen Toronto. Mithilfe von Fingerabdrücken, Blutproben und genauen Analysen kommt er den Tätern auf die Spur. Seine Kollegen stehen ihm dabei zur Seite…",
+            "synopsis": "Der katholische Detective William Murdoch löst im Jahr 1895 Kriminalfälle im protestantischen Toronto. Mithilfe von Fingerabdrücken, Blutproben und genauen Analysen kommt er den Tätern auf die Spur. Seine Kollegen stehen ihm dabei zur Seite…",
+            "longSynopsis": "Der katholische Detective William Murdoch löst im Jahr 1895 Kriminalfälle im protestantischen Toronto. Mithilfe von Fingerabdrücken, Blutproben und genauen Analysen kommt er den Tätern auf die Spur. Seine Kollegen stehen ihm dabei zur Seite…",
+            "modificationDate": null,
+            "assetSource": null,
+            "isChildContent": false,
+            "isFamilyFriendly": false,
+            "targetAudienceAgeMin": null,
+            "targetAudienceAgeMax": null,
+            "categories": null,
+            "categoryIds": null,
+            "coreAssetType": "SEASON_SERIES",
+            "noIndexSeo": false,
+            "titleSeo": null,
+            "descriptionSeo": null,
+            "coreId": "urn:ard:show:85088a146d3740b7",
+            "groupingType": "SHOW",
+            "homepage": {
+              "id": null,
+              "title": "Murdoch Mysteries",
+              "href": "https://www.ardmediathek.de/sendung/murdoch-mysteries/staffel-1/Y3JpZDovL3dkci5kZTdvbmUvbXVyZG9jaG15c3Rlcmllcw/1/",
+              "type": null
+            },
+            "hasSeasons": true,
+            "availableSeasons": [
+              "8"
+            ],
+            "binaryFeatures": [
+              "UT",
+              "OV"
+            ]
+          },
+          "subtitled": true,
+          "titleVisible": true,
+          "trackingPiano": {
+            "teaser_content_type": "OnDemand",
+            "teaser_id": "Y3JpZDovL3dkci5kZS9CZWl0cmFnLXNvcGhvcmEtYmE4Nzk2YmMtMDhmMi00ZjVlLTllMDMtMWE2OWYwODA0OWZj",
+            "teaser_institution": "ONE",
+            "teaser_institution_id": "urn:ard:institution:9edd94d68de90140",
+            "teaser_title": "Folge 14: Apropos Frauen (S08/E14) - (Originalversion)"
+          },
+          "type": "ondemand"
+        },
+        {
+          "availableTo": "2026-05-15T19:50:00Z",
+          "binaryFeatures": [
+            "UT"
+          ],
+          "broadcastedOn": "2026-04-15T19:50:00Z",
+          "coreAssetType": "EPISODE",
+          "duration": 2542,
+          "id": "Y3JpZDovL3dkci5kZS9CZWl0cmFnLXNvcGhvcmEtMDI2OWFhMjQtZTY2Zi00M2Q2LWJjMmMtZTVjODMyNTRlNmMx",
+          "images": {
+            "aspect16x9": {
+              "alt": "Detective William Murdoch (Yannick Bisson, l.), Dr. Julia Odgen (Helen Joy, r.)",
+              "producerName": "WDR",
+              "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:058f6ecd73223f09?w={width}&ch=da670841787a1850",
+              "title": "Murdoch Mysteries (S08/E13)"
+            },
+            "aspect16x7": {
+              "alt": "Detective William Murdoch (Yannick Bisson, l.), Dr. Julia Odgen (Helen Joy, r.)",
+              "producerName": "WDR",
+              "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:557e243c74e46fd6?w={width}&ch=22fe8df408c184d8",
+              "title": "Murdoch Mysteries (S08/E13)"
+            },
+            "aspect1x1": {
+              "alt": "Detective William Murdoch (Yannick Bisson, l.), Dr. Julia Odgen (Helen Joy, r.)",
+              "producerName": "WDR",
+              "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:298372670be7fb08?w={width}&ch=e39f0d83acfe7770",
+              "title": "Murdoch Mysteries (S08/E13)"
+            }
+          },
+          "isChildContent": false,
+          "isFamilyFriendly": false,
+          "longTitle": "Folge 13: Die Unheilbaren (S08/E13)",
+          "maturityContentRating": "FSK12",
+          "mediumTitle": "Folge 13: Die Unheilbaren (S08/E13)",
+          "personalized": false,
+          "publicationService": {
+            "name": "ONE",
+            "logo": {
+              "title": "Logo ONE",
+              "alt": "Logo ONE",
+              "producerName": "Logo ONE",
+              "src": "https://api.ardmediathek.de/image-service/image-collections/urn:ard:image-collection:2213972a8d101de1/16x9?w={width}",
+              "aspectRatio": "16x9"
+            },
+            "publisherType": "TV",
+            "partner": "one",
+            "id": "b3JnYW5pemF0aW9uX09ORQ",
+            "coreId": "urn:ard:publisher:892e3c758ca56a9d"
+          },
+          "links": {
+            "self": {
+              "id": "Y3JpZDovL3dkci5kZS9CZWl0cmFnLXNvcGhvcmEtMDI2OWFhMjQtZTY2Zi00M2Q2LWJjMmMtZTVjODMyNTRlNmMx",
+              "urlId": "Y3JpZDovL3dkci5kZS9CZWl0cmFnLXNvcGhvcmEtMDI2OWFhMjQtZTY2Zi00M2Q2LWJjMmMtZTVjODMyNTRlNmMx",
+              "title": "Folge 13: Die Unheilbaren (S08/E13)",
+              "href": "https://api.ardmediathek.de/page-gateway/teasers/one/items/Y3JpZDovL3dkci5kZS9CZWl0cmFnLXNvcGhvcmEtMDI2OWFhMjQtZTY2Zi00M2Q2LWJjMmMtZTVjODMyNTRlNmMx",
+              "type": "application/vnd.ard.teaser+json",
+              "partner": "one"
+            },
+            "target": {
+              "id": "Y3JpZDovL3dkci5kZS9CZWl0cmFnLXNvcGhvcmEtMDI2OWFhMjQtZTY2Zi00M2Q2LWJjMmMtZTVjODMyNTRlNmMx",
+              "urlId": "Y3JpZDovL3dkci5kZS9CZWl0cmFnLXNvcGhvcmEtMDI2OWFhMjQtZTY2Zi00M2Q2LWJjMmMtZTVjODMyNTRlNmMx",
+              "title": "Folge 13: Die Unheilbaren (S08/E13)",
+              "href": "https://api.ardmediathek.de/page-gateway/pages/one/item/Y3JpZDovL3dkci5kZS9CZWl0cmFnLXNvcGhvcmEtMDI2OWFhMjQtZTY2Zi00M2Q2LWJjMmMtZTVjODMyNTRlNmMx?devicetype=pc&embedded=true",
+              "type": "application/vnd.ard.page+json",
+              "partner": "one"
+            }
+          },
+          "shortTitle": "Folge 13: Die Unheilbaren (S08/E13)",
+          "show": {
+            "id": "crid://wdr.de7one/murdochmysteries",
+            "coremediaId": 90781436,
+            "title": "Murdoch Mysteries",
+            "publisher": {
+              "name": "ONE",
+              "logo": {
+                "title": "Logo ONE",
+                "alt": "Logo ONE",
+                "producerName": "Logo ONE",
+                "src": "https://api.ardmediathek.de/image-service/image-collections/urn:ard:image-collection:2213972a8d101de1/16x9?w={width}",
+                "aspectRatio": "16x9"
+              },
+              "publisherType": "TV",
+              "partner": "one",
+              "id": "b3JnYW5pemF0aW9uX09ORQ",
+              "coreId": "urn:ard:publisher:892e3c758ca56a9d"
+            },
+            "self": {
+              "id": null,
+              "title": "Murdoch Mysteries",
+              "href": "http://asset-gateway:8080/asset-gateway/groupings/Y3JpZDovL3dkci5kZTdvbmUvbXVyZG9jaG15c3Rlcmllcw",
+              "type": "application/vnd.ard.grouping+json"
+            },
+            "images": {
+              "16x9": {
+                "title": "Murdoch Mysteries",
+                "alt": "Sendungslogo \"Murdoch Mysteries\"",
+                "producerName": "Shaftesbury Murdoch II Inc",
+                "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:559937f982bde0f5?w={width}&ch=3974711696bf3a2d",
+                "aspectRatio": "16x9"
+              },
+              "16x7": {
+                "title": "Murdoch Mysteries",
+                "alt": "Sendungslogo \"Murdoch Mysteries\"",
+                "producerName": "Shaftesbury Murdoch II Inc",
+                "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:ed700f1f8e36a287?w={width}&ch=5b8a78b2f716eeec",
+                "aspectRatio": "16x7"
+              },
+              "1x1": {
+                "title": "Murdoch Mysteries",
+                "alt": "Sendungslogo \"Murdoch Mysteries\"",
+                "producerName": "Shaftesbury Murdoch II Inc",
+                "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:83e23c7ceeb5a3c8?w={width}&ch=25eb6e3a56ef3080",
+                "aspectRatio": "1x1"
+              }
+            },
+            "shortSynopsis": "Der katholische Detective William Murdoch löst im Jahr 1895 Kriminalfälle im protestantischen Toronto. Mithilfe von Fingerabdrücken, Blutproben und genauen Analysen kommt er den Tätern auf die Spur. Seine Kollegen stehen ihm dabei zur Seite…",
+            "synopsis": "Der katholische Detective William Murdoch löst im Jahr 1895 Kriminalfälle im protestantischen Toronto. Mithilfe von Fingerabdrücken, Blutproben und genauen Analysen kommt er den Tätern auf die Spur. Seine Kollegen stehen ihm dabei zur Seite…",
+            "longSynopsis": "Der katholische Detective William Murdoch löst im Jahr 1895 Kriminalfälle im protestantischen Toronto. Mithilfe von Fingerabdrücken, Blutproben und genauen Analysen kommt er den Tätern auf die Spur. Seine Kollegen stehen ihm dabei zur Seite…",
+            "modificationDate": null,
+            "assetSource": null,
+            "isChildContent": false,
+            "isFamilyFriendly": false,
+            "targetAudienceAgeMin": null,
+            "targetAudienceAgeMax": null,
+            "categories": null,
+            "categoryIds": null,
+            "coreAssetType": "SEASON_SERIES",
+            "noIndexSeo": false,
+            "titleSeo": null,
+            "descriptionSeo": null,
+            "coreId": "urn:ard:show:85088a146d3740b7",
+            "groupingType": "SHOW",
+            "homepage": {
+              "id": null,
+              "title": "Murdoch Mysteries",
+              "href": "https://www.ardmediathek.de/sendung/murdoch-mysteries/staffel-1/Y3JpZDovL3dkci5kZTdvbmUvbXVyZG9jaG15c3Rlcmllcw/1/",
+              "type": null
+            },
+            "hasSeasons": true,
+            "availableSeasons": [
+              "8"
+            ],
+            "binaryFeatures": [
+              "UT",
+              "OV"
+            ]
+          },
+          "subtitled": true,
+          "titleVisible": true,
+          "trackingPiano": {
+            "teaser_content_type": "OnDemand",
+            "teaser_id": "Y3JpZDovL3dkci5kZS9CZWl0cmFnLXNvcGhvcmEtMDI2OWFhMjQtZTY2Zi00M2Q2LWJjMmMtZTVjODMyNTRlNmMx",
+            "teaser_institution": "ONE",
+            "teaser_institution_id": "urn:ard:institution:9edd94d68de90140",
+            "teaser_title": "Folge 13: Die Unheilbaren (S08/E13)"
+          },
+          "type": "ondemand"
+        },
+        {
+          "availableTo": "2026-05-15T19:50:00Z",
+          "binaryFeatures": [
+            "OV",
+            "UT"
+          ],
+          "broadcastedOn": "2026-04-15T19:50:00Z",
+          "coreAssetType": "EXTRA_BONUS_CONTENT",
+          "duration": 2542,
+          "id": "Y3JpZDovL3dkci5kZS9CZWl0cmFnLXNvcGhvcmEtYWVlY2I5MmMtODFmYS00YjAxLTk0ZWUtZjk0MjU2ZDI2ZTVh",
+          "images": {
+            "aspect16x9": {
+              "alt": "Detective William Murdoch (Yannick Bisson, l.), Dr. Julia Odgen (Helen Joy, r.)",
+              "producerName": "WDR",
+              "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:10c9964911f26f14?w={width}&ch=e2a84d48c308d7de",
+              "title": "Murdoch Mysteries (S08/E13) - OV"
+            },
+            "aspect16x7": {
+              "alt": "Detective William Murdoch (Yannick Bisson, l.), Dr. Julia Odgen (Helen Joy, r.)",
+              "producerName": "WDR",
+              "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:25fe734de34cf2a0?w={width}&ch=258c2f3e41f021fa",
+              "title": "Murdoch Mysteries (S08/E13) - OV"
+            },
+            "aspect1x1": {
+              "alt": "Detective William Murdoch (Yannick Bisson, l.), Dr. Julia Odgen (Helen Joy, r.)",
+              "producerName": "WDR",
+              "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:02850954ecfeb9ab?w={width}&ch=5abb5e0855bcf0a4",
+              "title": "Murdoch Mysteries (S08/E13) - OV"
+            }
+          },
+          "isChildContent": false,
+          "isFamilyFriendly": false,
+          "longTitle": "Folge 13: Die Unheilbaren (S08/E13) - (Originalversion)",
+          "maturityContentRating": "FSK12",
+          "mediumTitle": "Folge 13: Die Unheilbaren (S08/E13) - (Originalversion)",
+          "personalized": false,
+          "publicationService": {
+            "name": "ONE",
+            "logo": {
+              "title": "Logo ONE",
+              "alt": "Logo ONE",
+              "producerName": "Logo ONE",
+              "src": "https://api.ardmediathek.de/image-service/image-collections/urn:ard:image-collection:2213972a8d101de1/16x9?w={width}",
+              "aspectRatio": "16x9"
+            },
+            "publisherType": "TV",
+            "partner": "one",
+            "id": "b3JnYW5pemF0aW9uX09ORQ",
+            "coreId": "urn:ard:publisher:892e3c758ca56a9d"
+          },
+          "links": {
+            "self": {
+              "id": "Y3JpZDovL3dkci5kZS9CZWl0cmFnLXNvcGhvcmEtYWVlY2I5MmMtODFmYS00YjAxLTk0ZWUtZjk0MjU2ZDI2ZTVh",
+              "urlId": "Y3JpZDovL3dkci5kZS9CZWl0cmFnLXNvcGhvcmEtYWVlY2I5MmMtODFmYS00YjAxLTk0ZWUtZjk0MjU2ZDI2ZTVh",
+              "title": "Folge 13: Die Unheilbaren (S08/E13) - (Originalversion)",
+              "href": "https://api.ardmediathek.de/page-gateway/teasers/one/items/Y3JpZDovL3dkci5kZS9CZWl0cmFnLXNvcGhvcmEtYWVlY2I5MmMtODFmYS00YjAxLTk0ZWUtZjk0MjU2ZDI2ZTVh",
+              "type": "application/vnd.ard.teaser+json",
+              "partner": "one"
+            },
+            "target": {
+              "id": "Y3JpZDovL3dkci5kZS9CZWl0cmFnLXNvcGhvcmEtYWVlY2I5MmMtODFmYS00YjAxLTk0ZWUtZjk0MjU2ZDI2ZTVh",
+              "urlId": "Y3JpZDovL3dkci5kZS9CZWl0cmFnLXNvcGhvcmEtYWVlY2I5MmMtODFmYS00YjAxLTk0ZWUtZjk0MjU2ZDI2ZTVh",
+              "title": "Folge 13: Die Unheilbaren (S08/E13) - (Originalversion)",
+              "href": "https://api.ardmediathek.de/page-gateway/pages/one/item/Y3JpZDovL3dkci5kZS9CZWl0cmFnLXNvcGhvcmEtYWVlY2I5MmMtODFmYS00YjAxLTk0ZWUtZjk0MjU2ZDI2ZTVh?devicetype=pc&embedded=true",
+              "type": "application/vnd.ard.page+json",
+              "partner": "one"
+            }
+          },
+          "shortTitle": "Folge 13: Die Unheilbaren (S08/E13) - (Originalversion)",
+          "show": {
+            "id": "crid://wdr.de7one/murdochmysteries",
+            "coremediaId": 90781436,
+            "title": "Murdoch Mysteries",
+            "publisher": {
+              "name": "ONE",
+              "logo": {
+                "title": "Logo ONE",
+                "alt": "Logo ONE",
+                "producerName": "Logo ONE",
+                "src": "https://api.ardmediathek.de/image-service/image-collections/urn:ard:image-collection:2213972a8d101de1/16x9?w={width}",
+                "aspectRatio": "16x9"
+              },
+              "publisherType": "TV",
+              "partner": "one",
+              "id": "b3JnYW5pemF0aW9uX09ORQ",
+              "coreId": "urn:ard:publisher:892e3c758ca56a9d"
+            },
+            "self": {
+              "id": null,
+              "title": "Murdoch Mysteries",
+              "href": "http://asset-gateway:8080/asset-gateway/groupings/Y3JpZDovL3dkci5kZTdvbmUvbXVyZG9jaG15c3Rlcmllcw",
+              "type": "application/vnd.ard.grouping+json"
+            },
+            "images": {
+              "16x9": {
+                "title": "Murdoch Mysteries",
+                "alt": "Sendungslogo \"Murdoch Mysteries\"",
+                "producerName": "Shaftesbury Murdoch II Inc",
+                "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:559937f982bde0f5?w={width}&ch=3974711696bf3a2d",
+                "aspectRatio": "16x9"
+              },
+              "16x7": {
+                "title": "Murdoch Mysteries",
+                "alt": "Sendungslogo \"Murdoch Mysteries\"",
+                "producerName": "Shaftesbury Murdoch II Inc",
+                "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:ed700f1f8e36a287?w={width}&ch=5b8a78b2f716eeec",
+                "aspectRatio": "16x7"
+              },
+              "1x1": {
+                "title": "Murdoch Mysteries",
+                "alt": "Sendungslogo \"Murdoch Mysteries\"",
+                "producerName": "Shaftesbury Murdoch II Inc",
+                "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:83e23c7ceeb5a3c8?w={width}&ch=25eb6e3a56ef3080",
+                "aspectRatio": "1x1"
+              }
+            },
+            "shortSynopsis": "Der katholische Detective William Murdoch löst im Jahr 1895 Kriminalfälle im protestantischen Toronto. Mithilfe von Fingerabdrücken, Blutproben und genauen Analysen kommt er den Tätern auf die Spur. Seine Kollegen stehen ihm dabei zur Seite…",
+            "synopsis": "Der katholische Detective William Murdoch löst im Jahr 1895 Kriminalfälle im protestantischen Toronto. Mithilfe von Fingerabdrücken, Blutproben und genauen Analysen kommt er den Tätern auf die Spur. Seine Kollegen stehen ihm dabei zur Seite…",
+            "longSynopsis": "Der katholische Detective William Murdoch löst im Jahr 1895 Kriminalfälle im protestantischen Toronto. Mithilfe von Fingerabdrücken, Blutproben und genauen Analysen kommt er den Tätern auf die Spur. Seine Kollegen stehen ihm dabei zur Seite…",
+            "modificationDate": null,
+            "assetSource": null,
+            "isChildContent": false,
+            "isFamilyFriendly": false,
+            "targetAudienceAgeMin": null,
+            "targetAudienceAgeMax": null,
+            "categories": null,
+            "categoryIds": null,
+            "coreAssetType": "SEASON_SERIES",
+            "noIndexSeo": false,
+            "titleSeo": null,
+            "descriptionSeo": null,
+            "coreId": "urn:ard:show:85088a146d3740b7",
+            "groupingType": "SHOW",
+            "homepage": {
+              "id": null,
+              "title": "Murdoch Mysteries",
+              "href": "https://www.ardmediathek.de/sendung/murdoch-mysteries/staffel-1/Y3JpZDovL3dkci5kZTdvbmUvbXVyZG9jaG15c3Rlcmllcw/1/",
+              "type": null
+            },
+            "hasSeasons": true,
+            "availableSeasons": [
+              "8"
+            ],
+            "binaryFeatures": [
+              "UT",
+              "OV"
+            ]
+          },
+          "subtitled": true,
+          "titleVisible": true,
+          "trackingPiano": {
+            "teaser_content_type": "OnDemand",
+            "teaser_id": "Y3JpZDovL3dkci5kZS9CZWl0cmFnLXNvcGhvcmEtYWVlY2I5MmMtODFmYS00YjAxLTk0ZWUtZjk0MjU2ZDI2ZTVh",
+            "teaser_institution": "ONE",
+            "teaser_institution_id": "urn:ard:institution:9edd94d68de90140",
+            "teaser_title": "Folge 13: Die Unheilbaren (S08/E13) - (Originalversion)"
+          },
+          "type": "ondemand"
+        },
+        {
+          "availableTo": "2026-05-30T22:00:00Z",
+          "binaryFeatures": [],
+          "broadcastedOn": "2026-01-28T20:00:00Z",
+          "coreAssetType": "EXTRA_TRAILER",
+          "duration": 44,
+          "id": "Y3JpZDovL3dkci5kZS9CZWl0cmFnLXNvcGhvcmEtMGYxMjQ0MDktN2QzZS00MTIyLTgwY2YtNjE1NzA3ZDE2Nzgx",
+          "images": {
+            "aspect16x9": {
+              "alt": "Sendungslogo \"Murdoch Mysteries\"",
+              "producerName": "Shaftesbury Murdoch II Inc",
+              "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:559937f982bde0f5?w={width}&ch=3974711696bf3a2d",
+              "title": "Murdoch Mysteries"
+            },
+            "aspect16x7": {
+              "alt": "Sendungslogo \"Murdoch Mysteries\"",
+              "producerName": "Shaftesbury Murdoch II Inc",
+              "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:ed700f1f8e36a287?w={width}&ch=5b8a78b2f716eeec",
+              "title": "Murdoch Mysteries"
+            },
+            "aspect1x1": {
+              "alt": "Sendungslogo \"Murdoch Mysteries\"",
+              "producerName": "Shaftesbury Murdoch II Inc",
+              "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:83e23c7ceeb5a3c8?w={width}&ch=25eb6e3a56ef3080",
+              "title": "Murdoch Mysteries"
+            }
+          },
+          "isChildContent": false,
+          "isFamilyFriendly": false,
+          "longTitle": "Trailer: Murdoch Mysteries | Ab 28.01.",
+          "maturityContentRating": "FSK12",
+          "mediumTitle": "Trailer: Murdoch Mysteries | Ab 28.01.",
+          "personalized": false,
+          "publicationService": {
+            "name": "ONE",
+            "logo": {
+              "title": "Logo ONE",
+              "alt": "Logo ONE",
+              "producerName": "Logo ONE",
+              "src": "https://api.ardmediathek.de/image-service/image-collections/urn:ard:image-collection:2213972a8d101de1/16x9?w={width}",
+              "aspectRatio": "16x9"
+            },
+            "publisherType": "TV",
+            "partner": "one",
+            "id": "b3JnYW5pemF0aW9uX09ORQ",
+            "coreId": "urn:ard:publisher:892e3c758ca56a9d"
+          },
+          "links": {
+            "self": {
+              "id": "Y3JpZDovL3dkci5kZS9CZWl0cmFnLXNvcGhvcmEtMGYxMjQ0MDktN2QzZS00MTIyLTgwY2YtNjE1NzA3ZDE2Nzgx",
+              "urlId": "Y3JpZDovL3dkci5kZS9CZWl0cmFnLXNvcGhvcmEtMGYxMjQ0MDktN2QzZS00MTIyLTgwY2YtNjE1NzA3ZDE2Nzgx",
+              "title": "Trailer: Murdoch Mysteries | Ab 28.01.",
+              "href": "https://api.ardmediathek.de/page-gateway/teasers/one/items/Y3JpZDovL3dkci5kZS9CZWl0cmFnLXNvcGhvcmEtMGYxMjQ0MDktN2QzZS00MTIyLTgwY2YtNjE1NzA3ZDE2Nzgx",
+              "type": "application/vnd.ard.teaser+json",
+              "partner": "one"
+            },
+            "target": {
+              "id": "Y3JpZDovL3dkci5kZS9CZWl0cmFnLXNvcGhvcmEtMGYxMjQ0MDktN2QzZS00MTIyLTgwY2YtNjE1NzA3ZDE2Nzgx",
+              "urlId": "Y3JpZDovL3dkci5kZS9CZWl0cmFnLXNvcGhvcmEtMGYxMjQ0MDktN2QzZS00MTIyLTgwY2YtNjE1NzA3ZDE2Nzgx",
+              "title": "Trailer: Murdoch Mysteries | Ab 28.01.",
+              "href": "https://api.ardmediathek.de/page-gateway/pages/one/item/Y3JpZDovL3dkci5kZS9CZWl0cmFnLXNvcGhvcmEtMGYxMjQ0MDktN2QzZS00MTIyLTgwY2YtNjE1NzA3ZDE2Nzgx?devicetype=pc&embedded=true",
+              "type": "application/vnd.ard.page+json",
+              "partner": "one"
+            }
+          },
+          "shortTitle": "Trailer: Murdoch Mysteries | Ab 28.01.",
+          "show": {
+            "id": "crid://wdr.de7one/murdochmysteries",
+            "coremediaId": 90781436,
+            "title": "Murdoch Mysteries",
+            "publisher": {
+              "name": "ONE",
+              "logo": {
+                "title": "Logo ONE",
+                "alt": "Logo ONE",
+                "producerName": "Logo ONE",
+                "src": "https://api.ardmediathek.de/image-service/image-collections/urn:ard:image-collection:2213972a8d101de1/16x9?w={width}",
+                "aspectRatio": "16x9"
+              },
+              "publisherType": "TV",
+              "partner": "one",
+              "id": "b3JnYW5pemF0aW9uX09ORQ",
+              "coreId": "urn:ard:publisher:892e3c758ca56a9d"
+            },
+            "self": {
+              "id": null,
+              "title": "Murdoch Mysteries",
+              "href": "http://asset-gateway:8080/asset-gateway/groupings/Y3JpZDovL3dkci5kZTdvbmUvbXVyZG9jaG15c3Rlcmllcw",
+              "type": "application/vnd.ard.grouping+json"
+            },
+            "images": {
+              "16x9": {
+                "title": "Murdoch Mysteries",
+                "alt": "Sendungslogo \"Murdoch Mysteries\"",
+                "producerName": "Shaftesbury Murdoch II Inc",
+                "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:559937f982bde0f5?w={width}&ch=3974711696bf3a2d",
+                "aspectRatio": "16x9"
+              },
+              "16x7": {
+                "title": "Murdoch Mysteries",
+                "alt": "Sendungslogo \"Murdoch Mysteries\"",
+                "producerName": "Shaftesbury Murdoch II Inc",
+                "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:ed700f1f8e36a287?w={width}&ch=5b8a78b2f716eeec",
+                "aspectRatio": "16x7"
+              },
+              "1x1": {
+                "title": "Murdoch Mysteries",
+                "alt": "Sendungslogo \"Murdoch Mysteries\"",
+                "producerName": "Shaftesbury Murdoch II Inc",
+                "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:83e23c7ceeb5a3c8?w={width}&ch=25eb6e3a56ef3080",
+                "aspectRatio": "1x1"
+              }
+            },
+            "shortSynopsis": "Der katholische Detective William Murdoch löst im Jahr 1895 Kriminalfälle im protestantischen Toronto. Mithilfe von Fingerabdrücken, Blutproben und genauen Analysen kommt er den Tätern auf die Spur. Seine Kollegen stehen ihm dabei zur Seite…",
+            "synopsis": "Der katholische Detective William Murdoch löst im Jahr 1895 Kriminalfälle im protestantischen Toronto. Mithilfe von Fingerabdrücken, Blutproben und genauen Analysen kommt er den Tätern auf die Spur. Seine Kollegen stehen ihm dabei zur Seite…",
+            "longSynopsis": "Der katholische Detective William Murdoch löst im Jahr 1895 Kriminalfälle im protestantischen Toronto. Mithilfe von Fingerabdrücken, Blutproben und genauen Analysen kommt er den Tätern auf die Spur. Seine Kollegen stehen ihm dabei zur Seite…",
+            "modificationDate": null,
+            "assetSource": null,
+            "isChildContent": false,
+            "isFamilyFriendly": false,
+            "targetAudienceAgeMin": null,
+            "targetAudienceAgeMax": null,
+            "categories": null,
+            "categoryIds": null,
+            "coreAssetType": "SEASON_SERIES",
+            "noIndexSeo": false,
+            "titleSeo": null,
+            "descriptionSeo": null,
+            "coreId": "urn:ard:show:85088a146d3740b7",
+            "groupingType": "SHOW",
+            "homepage": {
+              "id": null,
+              "title": "Murdoch Mysteries",
+              "href": "https://www.ardmediathek.de/sendung/murdoch-mysteries/staffel-1/Y3JpZDovL3dkci5kZTdvbmUvbXVyZG9jaG15c3Rlcmllcw/1/",
+              "type": null
+            },
+            "hasSeasons": true,
+            "availableSeasons": [
+              "8"
+            ],
+            "binaryFeatures": [
+              "UT",
+              "OV"
+            ]
+          },
+          "subtitled": false,
+          "titleVisible": true,
+          "trackingPiano": {
+            "teaser_content_type": "OnDemand",
+            "teaser_id": "Y3JpZDovL3dkci5kZS9CZWl0cmFnLXNvcGhvcmEtMGYxMjQ0MDktN2QzZS00MTIyLTgwY2YtNjE1NzA3ZDE2Nzgx",
+            "teaser_institution": "ONE",
+            "teaser_institution_id": "urn:ard:institution:9edd94d68de90140",
+            "teaser_title": "Trailer: Murdoch Mysteries | Ab 28.01."
+          },
+          "type": "ondemand"
+        }
+      ],
+      "userVisibility": "ALWAYS",
+      "aZContent": false,
+      "id": "Y3JpZDovL3dkci5kZTdvbmUvbXVyZG9jaG15c3Rlcmllcw",
+      "links": {
+        "self": {
+          "id": "Y3JpZDovL3dkci5kZTdvbmUvbXVyZG9jaG15c3Rlcmllcw",
+          "urlId": "Y3JpZDovL3dkci5kZTdvbmUvbXVyZG9jaG15c3Rlcmllcw",
+          "title": "Murdoch Mysteries",
+          "href": "https://api.ardmediathek.de/page-gateway/widgets/ard/asset/Y3JpZDovL3dkci5kZTdvbmUvbXVyZG9jaG15c3Rlcmllcw?excludedAssetIds=Y3JpZDovL3dkci5kZS9CZWl0cmFnLXNvcGhvcmEtYzk1NzA2MDItMTA4OS00N2FjLWEzYzgtMGFkMTM3NmU1ZGFh&pageNumber=0&pageSize=24&embedded=true&seasoned=false&seasonNumber=&withAudiodescription=false&withOriginalWithSubtitle=false&withOriginalversion=false&single=false",
+          "type": "application/vnd.ard.widget+json",
+          "partner": "ard"
+        }
+      },
+      "size": "m",
+      "swipeable": true,
+      "title": "Murdoch Mysteries",
+      "titleVisible": true,
+      "trackingPiano": {
+        "teaser_recommended": false,
+        "widget_id": "Y3JpZDovL3dkci5kZTdvbmUvbXVyZG9jaG15c3Rlcmllcw",
+        "widget_title": "Murdoch Mysteries",
+        "widget_typ": "gridlist"
+      },
+      "type": "gridlist"
+    }
+  ],
+  "coreAssetType": "EXTRA_BONUS_CONTENT",
+  "descriptionSeo": "Bei seiner ersten Mordermittlung deckt Crabtree Täuschung und Betrug auf, als ein Ringer nach einem Wettkampf stirbt.\r\n\r\nConstable George Crabtree (Jonny Harris), seine Freundin Edna Brooks (Tamara Hope) und ihr kleiner Sohn Simon (Percy Hynes White) verf",
+  "fskRating": "FSK12",
+  "id": "player_ondemand-page-ard",
+  "isChildContent": false,
+  "isFamilyFriendly": false,
+  "noIndexSeo": false,
+  "links": {
+    "self": {
+      "id": "player_ondemand-page-ard",
+      "urlId": "player_ondemand-page-ard",
+      "title": "Folge 16: Hinter der Maske (S08/E16) - (Originalversion)",
+      "href": "https://api.ardmediathek.de/page-gateway/pages/ard/item/Y3JpZDovL3dkci5kZS9CZWl0cmFnLXNvcGhvcmEtYzk1NzA2MDItMTA4OS00N2FjLWEzYzgtMGFkMTM3NmU1ZGFh?embedded=true",
+      "type": "application/vnd.ard.page+json",
+      "partner": "ard"
+    }
+  },
+  "targetAudienceAgeMax": null,
+  "targetAudienceAgeMin": null,
+  "title": "Folge 16: Hinter der Maske (S08/E16) - (Originalversion)",
+  "titleSeo": "Murdoch Mysteries - Folge 16: Hinter der Maske (S08/E16) - (Originalversion) - hier anschauen",
+  "tracking": {
+    "aggregationLevelId": 38,
+    "chapter2": "Player",
+    "chapter3": "Murdoch Mysteries",
+    "environmentId": 511893,
+    "pageTitle": "Mediathek/Player/Murdoch Mysteries/Folge 16: Hinter der Maske (S08/E16) - (Originalversion)/16293335/20260506_1950",
+    "szmType": "CP",
+    "atiCustomVars": {
+      "clipTitle": "Folge 16: Hinter der Maske (S08/E16) - (Originalversion)",
+      "mediaType": "video",
+      "lra": "ONE",
+      "channel": "ONE",
+      "show": "Murdoch Mysteries",
+      "contentTypes": "UT",
+      "mediaDistributionType": 1,
+      "contentId": 16293335,
+      "metadataId": "crid://wdr.de/Beitrag-sophora-c9570602-1089-47ac-a3c8-0ad1376e5daa",
+      "clipLength": 2546
+    }
+  },
+  "trackingPiano": {
+    "page_chapter1": "Player",
+    "page_content_id": "urn:ard:publication:080a323c78bc6013",
+    "page_content_title": "Folge 16: Hinter der Maske (S08/E16) - (Originalversion)",
+    "page_id": "player_ondemand-page-ard",
+    "page_institution": "ONE",
+    "page_institution_id": "urn:ard:institution:9edd94d68de90140",
+    "page_publisher": "ONE",
+    "page_publisher_id": "urn:ard:publisher:892e3c758ca56a9d",
+    "page_show": "Murdoch Mysteries",
+    "page_show_id": "urn:ard:show:85088a146d3740b7",
+    "page_title": "Folge 16: Hinter der Maske (S08/E16) - (Originalversion)",
+    "site": "634408"
+  }
+}

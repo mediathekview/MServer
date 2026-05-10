@@ -1,26 +1,25 @@
 package de.mediathekview.mserver.crawler.ard.json;
 
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
+
 import com.google.gson.JsonElement;
-import de.mediathekview.mserver.daten.GeoLocations;
-import de.mediathekview.mserver.daten.Sender;
-import de.mediathekview.mserver.base.messages.listener.MessageListener;
 import de.mediathekview.mserver.base.config.MServerConfigManager;
+import de.mediathekview.mserver.base.messages.listener.MessageListener;
 import de.mediathekview.mserver.crawler.ard.ArdCrawler;
 import de.mediathekview.mserver.crawler.ard.ArdFilmDto;
+import de.mediathekview.mserver.daten.GeoLocations;
+import de.mediathekview.mserver.daten.Sender;
 import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
 import de.mediathekview.mserver.testhelper.AssertFilm;
 import de.mediathekview.mserver.testhelper.JsonFileReader;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.concurrent.ForkJoinPool;
-
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.MatcherAssert.assertThat;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 
 @RunWith(Parameterized.class)
 public class ArdFilmDeserializerTest {
@@ -308,7 +307,7 @@ public class ArdFilmDeserializerTest {
             /*sub*/ "",
             /*hd*/ GeoLocations.GEO_DE,
             /*sender*/ Optional.of(Sender.SWR),
-          }, 
+          },
           {
             /*jsonFile*/ "/ard/ard_item_ignore_OV.json",
             /*topic*/ "You shall not lie - Tödliche Geheimnisse",
@@ -346,6 +345,26 @@ public class ArdFilmDeserializerTest {
             /*DGSnormal */ "",
             /*DGShd */ "",
             /*sub*/ "https://api.ardmediathek.de/player-service/subtitle/webvtt/urn:ard:subtitle:d0e38dd26e6cc85e.vtt",
+            /*hd*/ GeoLocations.GEO_DE,
+            /*sender*/ Optional.of(Sender.ONE),
+          },
+          {
+            /*jsonFile*/ "/ard/ard_item_ov_streaming.json",
+            /*topic*/ "Murdoch Mysteries",
+            /*title*/ "Folge 16: Hinter der Maske (S08/E16) (Originalversion)",
+            /*description*/ "Bei seiner ersten Mordermittlung deckt Crabtree Täuschung und Betrug auf, als ein Ringer nach einem Wettkampf stirbt.    Constable George Crabtree (Jonny Harris), seine Freundin Edna Brooks (Tamara Hope) und ihr kleiner Sohn Simon (Percy Hynes White) verfolgen das Spektakel eines Wrestlingkampfes. Handsome Randolph (Reuben Jarvis) wird zum Champion erklärt. Plötzlich klettert ein kräftiger normal \n.....",
+            /*date*/ LocalDateTime.parse("2026-05-06T21:50"),
+            /*duration*/ Duration.parse("PT42M26S"),
+            /*small*/ "https://wdrvod-rwrtr.akamaized.net/i/,/media/p/public/de/2026/04/19/4818d599-7da2-44cb-ba95-b791ae8d3735/4818d599-7da2-44cb-ba95-b791ae8d3735_AVC-,270,360,540,720,1080,.mp4.csmil/index-f2-v1-a1.m3u8",
+            /*normal*/ "https://wdrvod-rwrtr.akamaized.net/i/,/media/p/public/de/2026/04/19/4818d599-7da2-44cb-ba95-b791ae8d3735/4818d599-7da2-44cb-ba95-b791ae8d3735_AVC-,270,360,540,720,1080,.mp4.csmil/index-f4-v1-a1.m3u8",
+            /*hd*/ "https://wdrvod-rwrtr.akamaized.net/i/,/media/p/public/de/2026/04/19/4818d599-7da2-44cb-ba95-b791ae8d3735/4818d599-7da2-44cb-ba95-b791ae8d3735_AVC-,270,360,540,720,1080,.mp4.csmil/index-f5-v1-a1.m3u8",
+            /*ADsmall*/ "",
+            /*ADnormal*/ "",
+            /*ADhd*/ "",
+            /*DGSsmall */ "",
+            /*DGSnormal */ "",
+            /*DGShd */ "",
+            /*sub*/ "https://api.ardmediathek.de/player-service/subtitle/webvtt/urn:ard:subtitle:dbc0169f49963ba0.vtt",
             /*hd*/ GeoLocations.GEO_DE,
             /*sender*/ Optional.of(Sender.ONE),
           }

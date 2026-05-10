@@ -404,15 +404,24 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
     Optional<Map<Resolution, String>> videoInfoStandard = parseVideoUrls(playerPageObject, MARKER_VIDEO_CATEGORY_MAIN, MARKER_VIDEO_STANDARD, MARKER_VIDEO_MP4, MARKER_VIDEO_DE);
     Optional<Map<Resolution, String>> videoInfoAdaptive = parseVideoUrls(playerPageObject, MARKER_VIDEO_CATEGORY_MAIN, MARKER_VIDEO_STANDARD, MARKER_VIDEO_CATEGORY_MPEG, MARKER_VIDEO_DE);
     Optional<Map<Resolution, String>> videoInfoAD = parseVideoUrls(playerPageObject, MARKER_VIDEO_CATEGORY_MAIN, MARKER_VIDEO_AD, MARKER_VIDEO_MP4, MARKER_VIDEO_DE);
+    Optional<Map<Resolution, String>> videoInfoADAdaptive = parseVideoUrls(playerPageObject, MARKER_VIDEO_CATEGORY_MAIN, MARKER_VIDEO_AD, MARKER_VIDEO_CATEGORY_MPEG, MARKER_VIDEO_DE);
     Optional<Map<Resolution, String>> videoInfoDGS = parseVideoUrls(playerPageObject, MARKER_VIDEO_DGS, MARKER_VIDEO_STANDARD, MARKER_VIDEO_MP4, MARKER_VIDEO_DE);
+    Optional<Map<Resolution, String>> videoInfoDGSAdaptive = parseVideoUrls(playerPageObject, MARKER_VIDEO_DGS, MARKER_VIDEO_STANDARD, MARKER_VIDEO_CATEGORY_MPEG, MARKER_VIDEO_DE);
     Optional<Map<Resolution, String>> videoInfoOV = parseVideoUrls(playerPageObject, MARKER_VIDEO_CATEGORY_MAIN, MARKER_VIDEO_STANDARD, MARKER_VIDEO_MP4, MARKER_VIDEO_OV);
+    Optional<Map<Resolution, String>> videoInfoOVAdaptive = parseVideoUrls(playerPageObject, MARKER_VIDEO_CATEGORY_MAIN, MARKER_VIDEO_STANDARD, MARKER_VIDEO_CATEGORY_MPEG, MARKER_VIDEO_OV);
     Optional<Set<String>> subtitles = prepareSubtitleUrl(playerPageObject);
     // mainly funk
     if (videoInfoStandard.isEmpty() && videoInfoAD.isEmpty() && videoInfoDGS.isEmpty() && videoInfoOV.isEmpty() && videoInfoAdaptive.isPresent()) {
-      ArdVideoInfoDto fallbackM3UUrl = new ArdVideoInfoDto();
-      fallbackM3UUrl.putAll(videoInfoAdaptive.get());
-      Optional<Map<Resolution, String>> fallback = fallbackToM3U(Optional.of(fallbackM3UUrl));
-      videoInfoStandard = fallback;
+      videoInfoStandard = getResolutionsFromAdaptiveUrl(videoInfoAdaptive);
+    }
+    if (videoInfoAD.isEmpty() && videoInfoADAdaptive.isPresent()) {
+      videoInfoAD = getResolutionsFromAdaptiveUrl(videoInfoADAdaptive);
+    }
+    if (videoInfoDGS.isEmpty() && videoInfoDGSAdaptive.isPresent()) {
+      videoInfoDGS = getResolutionsFromAdaptiveUrl(videoInfoDGSAdaptive);
+    }
+    if (videoInfoOV.isEmpty() && videoInfoOVAdaptive.isPresent()) {
+      videoInfoOV = getResolutionsFromAdaptiveUrl(videoInfoOVAdaptive);
     }
     // flaws - missing proper video marker - mainly tagesschau
     if ((title.contains(" - (Originalversion)") || title.contains(" (OV)")) && videoInfoOV.isEmpty()) {
@@ -430,6 +439,7 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
     videoInfoStandard.ifPresent(allVideoUrls::putAll);
     videoInfoAD.ifPresent(allVideoUrls::putAllAD);
     videoInfoDGS.ifPresent(allVideoUrls::putAllDGS);
+    videoInfoOVAdaptive.ifPresent(x -> allVideoUrls.setAdaptivUrl(x.entrySet().stream().findFirst().get().getValue()));
     videoInfoOV.ifPresent(allVideoUrls::putAllOV);
     subtitles.ifPresent(allVideoUrls::setSubtitleUrl);
     
@@ -456,7 +466,14 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
     
     return Optional.of(allVideoUrls);
   }
-  
+
+  private Optional<Map<Resolution, String>> getResolutionsFromAdaptiveUrl(Optional<Map<Resolution, String>> videoInfoAdaptive) {
+    ArdVideoInfoDto fallbackM3UUrl = new ArdVideoInfoDto();
+    fallbackM3UUrl.putAll(videoInfoAdaptive.get());
+    Optional<Map<Resolution, String>> fallback = fallbackToM3U(Optional.of(fallbackM3UUrl));
+    return fallback;
+  }
+
   static AtomicInteger good = new AtomicInteger(0);
   static AtomicInteger bad = new AtomicInteger(0);
   
