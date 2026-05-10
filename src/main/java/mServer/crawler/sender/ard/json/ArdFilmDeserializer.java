@@ -234,8 +234,11 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
     Optional<Map<Qualities, String>> videoInfoStandard = parseVideoUrls(itemObject, MARKER_VIDEO_CATEGORY_MAIN, MARKER_VIDEO_STANDARD, MARKER_VIDEO_MP4, MARKER_VIDEO_DE);
     Optional<Map<Qualities, String>> videoInfoAdaptive = parseVideoUrls(itemObject, MARKER_VIDEO_CATEGORY_MAIN, MARKER_VIDEO_STANDARD, MARKER_VIDEO_CATEGORY_MPEG, MARKER_VIDEO_DE);
     Optional<Map<Qualities, String>> videoInfoAD = parseVideoUrls(itemObject, MARKER_VIDEO_CATEGORY_MAIN, MARKER_VIDEO_AD, MARKER_VIDEO_MP4, MARKER_VIDEO_DE);
+    Optional<Map<Qualities, String>> videoInfoADAdaptive = parseVideoUrls(itemObject, MARKER_VIDEO_CATEGORY_MAIN, MARKER_VIDEO_AD, MARKER_VIDEO_CATEGORY_MPEG, MARKER_VIDEO_DE);
     Optional<Map<Qualities, String>> videoInfoDGS = parseVideoUrls(itemObject, MARKER_VIDEO_DGS, MARKER_VIDEO_STANDARD, MARKER_VIDEO_MP4, MARKER_VIDEO_DE);
+    Optional<Map<Qualities, String>> videoInfoDGSAdaptive = parseVideoUrls(itemObject, MARKER_VIDEO_DGS, MARKER_VIDEO_STANDARD, MARKER_VIDEO_CATEGORY_MPEG, MARKER_VIDEO_DE);
     Optional<Map<Qualities, String>> videoInfoOV = parseVideoUrls(itemObject, MARKER_VIDEO_CATEGORY_MAIN, MARKER_VIDEO_STANDARD, MARKER_VIDEO_MP4, MARKER_VIDEO_OV);
+    Optional<Map<Qualities, String>> videoInfoOVAdaptive = parseVideoUrls(itemObject, MARKER_VIDEO_CATEGORY_MAIN, MARKER_VIDEO_STANDARD, MARKER_VIDEO_CATEGORY_MPEG, MARKER_VIDEO_OV);
     Optional<String> subtitles = prepareSubtitleUrl(itemObject);
     
     if (topic.isEmpty() || title.isEmpty() || partner.isEmpty() || ADDITIONAL_SENDER.get(partner.get()) == null) {
@@ -249,7 +252,16 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
         || titleoriginal.get().contains("- Hörfassung") || titleoriginal.get().contains("(mit Audiodeskription)");
     // mainly funk
     if (videoInfoStandard.isEmpty() && videoInfoAD.isEmpty() && videoInfoDGS.isEmpty() && videoInfoOV.isEmpty() && videoInfoAdaptive.isPresent()) {
-      videoInfoStandard = resolveFallbackFromPlaylist(videoInfoAdaptive);
+      videoInfoStandard = getResolutionsFromAdaptiveUrl(videoInfoAdaptive);
+    }
+    if (videoInfoAD.isEmpty() && videoInfoADAdaptive.isPresent()) {
+      videoInfoAD = getResolutionsFromAdaptiveUrl(videoInfoADAdaptive);
+    }
+    if (videoInfoDGS.isEmpty() && videoInfoDGSAdaptive.isPresent()) {
+      videoInfoDGS = getResolutionsFromAdaptiveUrl(videoInfoDGSAdaptive);
+    }
+    if (videoInfoOV.isEmpty() && videoInfoOVAdaptive.isPresent()) {
+      videoInfoOV = getResolutionsFromAdaptiveUrl(videoInfoOVAdaptive);
     }
     // incorrect langueage code for OV
     if ((titleoriginal.get().contains(" - (Originalversion)") || titleoriginal.get().contains(" (OV)")) && videoInfoOV.isEmpty()) {
@@ -488,7 +500,7 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
     return Optional.of(videoInfo);
   }
   
-  private Optional<Map<Qualities, String>> resolveFallbackFromPlaylist(Optional<Map<Qualities, String>> videoInfoAdaptive) {
+  private Optional<Map<Qualities, String>> getResolutionsFromAdaptiveUrl(Optional<Map<Qualities, String>> videoInfoAdaptive) {
      Map<Qualities, URL> qualitiesUrls = videoInfoAdaptive.get().entrySet().stream()
          .collect(Collectors.toMap(Map.Entry::getKey, entry -> {
              try {
