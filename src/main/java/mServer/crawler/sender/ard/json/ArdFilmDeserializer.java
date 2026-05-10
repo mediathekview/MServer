@@ -383,7 +383,7 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
               = JsonUtils.getAttributeAsString(teasersItemObject, ATTRIBUTE_ID);
           if (id.isPresent()) {
             final String url = String.format(ArdConstants.ITEM_URL, id.get());
-            filmDto.addRelatedFilm(new ArdFilmInfoDto(id.get(), url, 0));
+            filmDto.addRelatedFilm(new ArdFilmInfoDto(id.get(), url, 0, false));
           }
         }
       }
