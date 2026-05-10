@@ -1,6 +1,7 @@
 package de.mediathekview.mserver.crawler.ard.json;
 
 import com.google.gson.*;
+import de.mediathekview.mserver.crawler.ard.WdrM3U8ToMp4Converter;
 import de.mediathekview.mserver.daten.Film;
 import de.mediathekview.mserver.daten.FilmUrl;
 import de.mediathekview.mserver.daten.GeoLocations;
@@ -75,11 +76,13 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
   private final ArdVideoInfoJsonDeserializer videoDeserializer;
   private final AbstractCrawler crawler;
   private final UrlOptimizer urlOptimizer;
-  
+  private final WdrM3U8ToMp4Converter converter;
+
   public ArdFilmDeserializer(final AbstractCrawler crawler) {
     videoDeserializer = new ArdVideoInfoJsonDeserializer(crawler);
     this.crawler = crawler;
     this.urlOptimizer = new UrlOptimizer(crawler);
+    converter = new WdrM3U8ToMp4Converter();
   }
 
   private static Optional<JsonObject> getMediaCollectionObject(final JsonObject itemObject) {
@@ -468,10 +471,21 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
   }
 
   private Optional<Map<Resolution, String>> getResolutionsFromAdaptiveUrl(Optional<Map<Resolution, String>> videoInfoAdaptive) {
-    ArdVideoInfoDto fallbackM3UUrl = new ArdVideoInfoDto();
-    fallbackM3UUrl.putAll(videoInfoAdaptive.get());
-    Optional<Map<Resolution, String>> fallback = fallbackToM3U(Optional.of(fallbackM3UUrl));
-    return fallback;
+    if (videoInfoAdaptive.isPresent()) {
+      if (videoInfoAdaptive.get().containsKey(Resolution.NORMAL)) {
+        final String url = videoInfoAdaptive.get().get(Resolution.NORMAL);
+        final Map<Resolution, String> mp4Urls = converter.convert(url);
+        if (!mp4Urls.isEmpty()) {
+          return Optional.of(mp4Urls);
+        }
+      }
+
+      ArdVideoInfoDto fallbackM3UUrl = new ArdVideoInfoDto();
+      fallbackM3UUrl.putAll(videoInfoAdaptive.get());
+      Optional<Map<Resolution, String>> fallback = fallbackToM3U(Optional.of(fallbackM3UUrl));
+      return fallback;
+    }
+    return Optional.empty();
   }
 
   static AtomicInteger good = new AtomicInteger(0);
