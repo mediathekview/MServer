@@ -13,7 +13,6 @@ import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
@@ -61,9 +60,9 @@ public class ArdCrawler extends AbstractCrawler {
           ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), shows.size());
 
       if (Boolean.TRUE.equals(crawlerConfig.getTopicsSearchEnabled())) {
+        final Set<CrawlerUrlDTO> senderTopicUrls = new HashSet<>();
         final Set<ForkJoinTask<Set<CrawlerUrlDTO>>> senderTopicTasks = createSenderTopicTasks();
 
-        final Set<CrawlerUrlDTO> senderTopicUrls = new HashSet<>();
         for (final ForkJoinTask<Set<CrawlerUrlDTO>> senderTopicTask : senderTopicTasks) {
           senderTopicUrls.addAll(senderTopicTask.get());
         }
@@ -75,11 +74,28 @@ public class ArdCrawler extends AbstractCrawler {
         
         final ArdTopicPageTask topicTask =
             new ArdTopicPageTask(this, new ConcurrentLinkedQueue<>(assitUrls));
-              
+
+        final Set<ArdFilmInfoDto> ardFilmInfosWithCompilations = forkJoinPool.submit(topicTask).get();
+
+        // add filmInfos without compilation
         final int showsCountBefore = shows.size();
-        shows.addAll(forkJoinPool.submit(topicTask).get());
+        shows.addAll(ardFilmInfosWithCompilations.stream().filter(filmInfo -> !filmInfo.isCompilation()).toList());
         LOG.debug(
-            "ARD crawler found {} topics for all sub-sender.", shows.size() - showsCountBefore);
+            "ARD crawler found {} topics excluding compilations for all sub-sender.", shows.size() - showsCountBefore);
+
+        // search compilations
+        final List<ArdFilmInfoDto> compilations = ardFilmInfosWithCompilations.stream().filter(ArdFilmInfoDto::isCompilation).toList();
+        LOG.debug(
+                "ARD crawler found {} compilations for all sub-sender.", compilations.size());
+        final ArdTopicCompilationTask compilationTask =
+                new ArdTopicCompilationTask(this, new ConcurrentLinkedQueue<>(compilations));
+        final Set<ArdFilmInfoDto> ardCompilationEntries = forkJoinPool.submit(compilationTask).get();
+        LOG.debug(
+                "ARD crawler found {} entries in compilations for all sub-sender.", ardCompilationEntries.size());
+
+        final int sizeBefore = shows.size();
+        shows.addAll(ardCompilationEntries.stream().filter(filmInfo -> !filmInfo.isCompilation()).toList());
+        LOG.debug("ARD crawler added {} entries from compilations to shows.", shows.size() - sizeBefore);
       }
       //
       final Queue<ArdFilmInfoDto> showsFiltered = this.filterExistingFilms(shows, ArdFilmInfoDto::getId);
@@ -116,13 +132,12 @@ public class ArdCrawler extends AbstractCrawler {
 
   private ForkJoinTask<Set<CrawlerUrlDTO>> getTopicEntriesBySender(final String sender) throws ExecutionException, InterruptedException {
      Set<CrawlerUrlDTO> senderSingleLetterUrls = forkJoinPool.submit(
-        new ArdTopicsTask(this, sender, CreateLetterUrlQuery(sender))).get();
+        new ArdTopicsTask(this, sender, createLetterUrlQuery(sender))).get();
 
-     //LOG.debug("topics task result {}", senderSingleLetterUrls.size());
      return forkJoinPool.submit(new ArdTopicsLetterTask(this, sender, new ConcurrentLinkedQueue<>(senderSingleLetterUrls)));
   }
 
-  private Queue<CrawlerUrlDTO> CreateLetterUrlQuery(final String client) {
+  private Queue<CrawlerUrlDTO> createLetterUrlQuery(final String client) {
     final Queue<CrawlerUrlDTO> urls = new ConcurrentLinkedQueue<>();
 
     final String url = String.format(ArdConstants.TOPICS_URL, client);

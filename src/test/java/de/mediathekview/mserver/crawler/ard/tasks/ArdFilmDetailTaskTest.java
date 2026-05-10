@@ -149,7 +149,7 @@ public class ArdFilmDetailTaskTest extends ArdTaskTestBase {
 
   private Set<Film> executeTask(final String aDetailUrl) {
     final Queue<ArdFilmInfoDto> urls = new ConcurrentLinkedQueue<>();
-    urls.add(new ArdFilmInfoDto(id, getWireMockBaseUrlSafe() + aDetailUrl, 0));
+    urls.add(new ArdFilmInfoDto(id, getWireMockBaseUrlSafe() + aDetailUrl, 0, false));
     return new ArdFilmDetailTask(createCrawler(), urls).invoke();
   }
 }

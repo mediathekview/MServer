@@ -1,0 +1,896 @@
+{
+  "compilationType": "editorial",
+  "isChildContent": false,
+  "pagination": {
+    "pageNumber": 0,
+    "pageSize": 50,
+    "totalElements": 20
+  },
+  "personalized": false,
+  "teasers": [
+    {
+      "trackingPiano": {
+        "teaser_content_type": "compilation",
+        "teaser_id": "oTCiO7dX0s0HgHSxwjx7Y:6695307326032499840",
+        "teaser_institution": "BR",
+        "teaser_institution_id": "urn:ard:institution:95a02eb6cc4f3d59",
+        "teaser_title": "DiD 2007 - Sammlung"
+      },
+      "id": "oTCiO7dX0s0HgHSxwjx7Y:6695307326032499840",
+      "images": {
+        "aspect16x9": {
+          "alt": "\"Dahoam is Dahoam\"-Lebkuchenherz mit Schriftzug \"2007\" für Staffel-Sammelseite",
+          "producerName": "BR; Montage: BR",
+          "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:078e0ca385cb2455?ch=5e84f8a3d2299b6f&w={width}",
+          "title": "Sammlung \"Dahoam is Dahoam\" · 2007"
+        }
+      },
+      "isChildContent": false,
+      "longTitle": "DiD 2007 - Sammlung",
+      "mediumTitle": "DiD 2007 - Sammlung",
+      "personalized": false,
+      "links": {
+        "self": {
+          "id": "oTCiO7dX0s0HgHSxwjx7Y:6695307326032499840",
+          "urlId": "oTCiO7dX0s0HgHSxwjx7Y:6695307326032499840",
+          "title": "DiD 2007 - Sammlung",
+          "href": "https://api.ardmediathek.de/page-gateway/teasers/br/editorials/oTCiO7dX0s0HgHSxwjx7Y%3A6695307326032499840",
+          "type": "application/vnd.ard.teaser+json",
+          "partner": "br"
+        },
+        "target": {
+          "id": "25336973-c78f-4a4e-836f-18c60d2479ee",
+          "urlId": "25336973-c78f-4a4e-836f-18c60d2479ee",
+          "title": "Alle Folgen aus 2007",
+          "href": "https://api.ardmediathek.de/page-gateway/pages/br/compilation/25336973-c78f-4a4e-836f-18c60d2479ee?embedded=true",
+          "type": "application/vnd.ard.page+json",
+          "partner": "br"
+        }
+      },
+      "shortTitle": "Alle Folgen aus 2007",
+      "titleVisible": false,
+      "type": "compilation"
+    },
+    {
+      "trackingPiano": {
+        "teaser_content_type": "compilation",
+        "teaser_id": "oTCiO7dX0s0HgHSxwjx7Y:-1055805477374260117",
+        "teaser_institution": "BR",
+        "teaser_institution_id": "urn:ard:institution:95a02eb6cc4f3d59",
+        "teaser_title": "DiD 2008 - Sammlung"
+      },
+      "id": "oTCiO7dX0s0HgHSxwjx7Y:-1055805477374260117",
+      "images": {
+        "aspect16x9": {
+          "alt": "\"Dahoam is Dahoam\"-Lebkuchenherz mit Schriftzug \"2008\" für Staffel-Sammelseite",
+          "producerName": "BR; Montage: BR",
+          "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:90abb3d85c3e9548?ch=40f2d1dadbcbbe66&w={width}",
+          "title": "Sammlung \"Dahoam is Dahoam\" · 2008"
+        }
+      },
+      "isChildContent": false,
+      "longTitle": "DiD 2008 - Sammlung",
+      "mediumTitle": "DiD 2008 - Sammlung",
+      "personalized": false,
+      "links": {
+        "self": {
+          "id": "oTCiO7dX0s0HgHSxwjx7Y:-1055805477374260117",
+          "urlId": "oTCiO7dX0s0HgHSxwjx7Y:-1055805477374260117",
+          "title": "DiD 2008 - Sammlung",
+          "href": "https://api.ardmediathek.de/page-gateway/teasers/br/editorials/oTCiO7dX0s0HgHSxwjx7Y%3A-1055805477374260117",
+          "type": "application/vnd.ard.teaser+json",
+          "partner": "br"
+        },
+        "target": {
+          "id": "e4623c55-262e-4f35-88ea-629ccfa22de7",
+          "urlId": "e4623c55-262e-4f35-88ea-629ccfa22de7",
+          "title": "Alle Folgen aus 2008",
+          "href": "https://api.ardmediathek.de/page-gateway/pages/br/compilation/e4623c55-262e-4f35-88ea-629ccfa22de7?embedded=true",
+          "type": "application/vnd.ard.page+json",
+          "partner": "br"
+        }
+      },
+      "shortTitle": "Alle Folgen aus 2008",
+      "titleVisible": false,
+      "type": "compilation"
+    },
+    {
+      "trackingPiano": {
+        "teaser_content_type": "compilation",
+        "teaser_id": "oTCiO7dX0s0HgHSxwjx7Y:5008616242188056255",
+        "teaser_institution": "BR",
+        "teaser_institution_id": "urn:ard:institution:95a02eb6cc4f3d59",
+        "teaser_title": "DiD 2009 - Sammlung"
+      },
+      "id": "oTCiO7dX0s0HgHSxwjx7Y:5008616242188056255",
+      "images": {
+        "aspect16x9": {
+          "alt": "\"Dahoam is Dahoam\"-Lebkuchenherz mit Schriftzug \"2009\" für Staffel-Sammelseite",
+          "producerName": "BR; Montage: BR",
+          "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:bcdf30cc4ad616ed?ch=5be622bc4c212d49&w={width}",
+          "title": "Sammlung \"Dahoam is Dahoam\" · 2009"
+        }
+      },
+      "isChildContent": false,
+      "longTitle": "DiD 2009 - Sammlung",
+      "mediumTitle": "DiD 2009 - Sammlung",
+      "personalized": false,
+      "links": {
+        "self": {
+          "id": "oTCiO7dX0s0HgHSxwjx7Y:5008616242188056255",
+          "urlId": "oTCiO7dX0s0HgHSxwjx7Y:5008616242188056255",
+          "title": "DiD 2009 - Sammlung",
+          "href": "https://api.ardmediathek.de/page-gateway/teasers/br/editorials/oTCiO7dX0s0HgHSxwjx7Y%3A5008616242188056255",
+          "type": "application/vnd.ard.teaser+json",
+          "partner": "br"
+        },
+        "target": {
+          "id": "9844af68-9c42-47b9-84f7-ec926b56a26a",
+          "urlId": "9844af68-9c42-47b9-84f7-ec926b56a26a",
+          "title": "Alle Folgen aus 2009",
+          "href": "https://api.ardmediathek.de/page-gateway/pages/br/compilation/9844af68-9c42-47b9-84f7-ec926b56a26a?embedded=true",
+          "type": "application/vnd.ard.page+json",
+          "partner": "br"
+        }
+      },
+      "shortTitle": "Alle Folgen aus 2009",
+      "titleVisible": false,
+      "type": "compilation"
+    },
+    {
+      "trackingPiano": {
+        "teaser_content_type": "compilation",
+        "teaser_id": "oTCiO7dX0s0HgHSxwjx7Y:8820230105850005195",
+        "teaser_institution": "BR",
+        "teaser_institution_id": "urn:ard:institution:95a02eb6cc4f3d59",
+        "teaser_title": "DiD 2010 - Sammlung"
+      },
+      "id": "oTCiO7dX0s0HgHSxwjx7Y:8820230105850005195",
+      "images": {
+        "aspect16x9": {
+          "alt": "\"Dahoam is Dahoam\"-Lebkuchenherz mit Schriftzug \"2010\" für Staffel-Sammelseite",
+          "producerName": "BR; Montage: BR",
+          "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:04155f7e4666af71?ch=206bed1896f24fb2&w={width}",
+          "title": "Sammlung \"Dahoam is Dahoam\" · 2010"
+        }
+      },
+      "isChildContent": false,
+      "longTitle": "DiD 2010 - Sammlung",
+      "mediumTitle": "DiD 2010 - Sammlung",
+      "personalized": false,
+      "links": {
+        "self": {
+          "id": "oTCiO7dX0s0HgHSxwjx7Y:8820230105850005195",
+          "urlId": "oTCiO7dX0s0HgHSxwjx7Y:8820230105850005195",
+          "title": "DiD 2010 - Sammlung",
+          "href": "https://api.ardmediathek.de/page-gateway/teasers/br/editorials/oTCiO7dX0s0HgHSxwjx7Y%3A8820230105850005195",
+          "type": "application/vnd.ard.teaser+json",
+          "partner": "br"
+        },
+        "target": {
+          "id": "52df389f-fa44-4dd0-a81f-58874afd86d8",
+          "urlId": "52df389f-fa44-4dd0-a81f-58874afd86d8",
+          "title": "Alle Folgen aus 2010",
+          "href": "https://api.ardmediathek.de/page-gateway/pages/br/compilation/52df389f-fa44-4dd0-a81f-58874afd86d8?embedded=true",
+          "type": "application/vnd.ard.page+json",
+          "partner": "br"
+        }
+      },
+      "shortTitle": "Alle Folgen aus 2010",
+      "titleVisible": false,
+      "type": "compilation"
+    },
+    {
+      "trackingPiano": {
+        "teaser_content_type": "compilation",
+        "teaser_id": "oTCiO7dX0s0HgHSxwjx7Y:3049846776785408788",
+        "teaser_institution": "BR",
+        "teaser_institution_id": "urn:ard:institution:95a02eb6cc4f3d59",
+        "teaser_title": "DiD 2011 - Sammlung"
+      },
+      "id": "oTCiO7dX0s0HgHSxwjx7Y:3049846776785408788",
+      "images": {
+        "aspect16x9": {
+          "alt": "\"Dahoam is Dahoam\"-Lebkuchenherz mit Schriftzug \"2011\" für Staffel-Sammelseite",
+          "producerName": "BR; Montage: BR",
+          "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:bab73de77c52aa60?ch=b6f81a566c9d3f0c&w={width}",
+          "title": "Sammlung \"Dahoam is Dahoam\" · 2011"
+        }
+      },
+      "isChildContent": false,
+      "longTitle": "DiD 2011 - Sammlung",
+      "mediumTitle": "DiD 2011 - Sammlung",
+      "personalized": false,
+      "links": {
+        "self": {
+          "id": "oTCiO7dX0s0HgHSxwjx7Y:3049846776785408788",
+          "urlId": "oTCiO7dX0s0HgHSxwjx7Y:3049846776785408788",
+          "title": "DiD 2011 - Sammlung",
+          "href": "https://api.ardmediathek.de/page-gateway/teasers/br/editorials/oTCiO7dX0s0HgHSxwjx7Y%3A3049846776785408788",
+          "type": "application/vnd.ard.teaser+json",
+          "partner": "br"
+        },
+        "target": {
+          "id": "b739947d-80ea-4eaf-83df-93104662f4b8",
+          "urlId": "b739947d-80ea-4eaf-83df-93104662f4b8",
+          "title": "Alle Folgen aus 2011",
+          "href": "https://api.ardmediathek.de/page-gateway/pages/br/compilation/b739947d-80ea-4eaf-83df-93104662f4b8?embedded=true",
+          "type": "application/vnd.ard.page+json",
+          "partner": "br"
+        }
+      },
+      "shortTitle": "Alle Folgen aus 2011",
+      "titleVisible": false,
+      "type": "compilation"
+    },
+    {
+      "trackingPiano": {
+        "teaser_content_type": "compilation",
+        "teaser_id": "oTCiO7dX0s0HgHSxwjx7Y:7422949862680127956",
+        "teaser_institution": "BR",
+        "teaser_institution_id": "urn:ard:institution:95a02eb6cc4f3d59",
+        "teaser_title": "DiD 2012 - Sammlung"
+      },
+      "id": "oTCiO7dX0s0HgHSxwjx7Y:7422949862680127956",
+      "images": {
+        "aspect16x9": {
+          "alt": "\"Dahoam is Dahoam\"-Lebkuchenherz mit Schriftzug \"2012\" für Staffel-Sammelseite",
+          "producerName": "BR; Montage: BR",
+          "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:1ccde6dcc415bb12?ch=babc6e142b618c0a&w={width}",
+          "title": "Sammlung \"Dahoam is Dahoam\" · 2012"
+        }
+      },
+      "isChildContent": false,
+      "longTitle": "DiD 2012 - Sammlung",
+      "mediumTitle": "DiD 2012 - Sammlung",
+      "personalized": false,
+      "links": {
+        "self": {
+          "id": "oTCiO7dX0s0HgHSxwjx7Y:7422949862680127956",
+          "urlId": "oTCiO7dX0s0HgHSxwjx7Y:7422949862680127956",
+          "title": "DiD 2012 - Sammlung",
+          "href": "https://api.ardmediathek.de/page-gateway/teasers/br/editorials/oTCiO7dX0s0HgHSxwjx7Y%3A7422949862680127956",
+          "type": "application/vnd.ard.teaser+json",
+          "partner": "br"
+        },
+        "target": {
+          "id": "a2149abb-6181-4c0a-862c-c741937f2085",
+          "urlId": "a2149abb-6181-4c0a-862c-c741937f2085",
+          "title": "Alle Folgen aus 2012",
+          "href": "https://api.ardmediathek.de/page-gateway/pages/br/compilation/a2149abb-6181-4c0a-862c-c741937f2085?embedded=true",
+          "type": "application/vnd.ard.page+json",
+          "partner": "br"
+        }
+      },
+      "shortTitle": "Alle Folgen aus 2012",
+      "titleVisible": false,
+      "type": "compilation"
+    },
+    {
+      "trackingPiano": {
+        "teaser_content_type": "compilation",
+        "teaser_id": "oTCiO7dX0s0HgHSxwjx7Y:1773174563563761219",
+        "teaser_institution": "BR",
+        "teaser_institution_id": "urn:ard:institution:95a02eb6cc4f3d59",
+        "teaser_title": "DiD 2013 - Sammlung"
+      },
+      "id": "oTCiO7dX0s0HgHSxwjx7Y:1773174563563761219",
+      "images": {
+        "aspect16x9": {
+          "alt": "\"Dahoam is Dahoam\"-Lebkuchenherz mit Schriftzug \"2013\" für Staffel-Sammelseite",
+          "producerName": "BR; Montage: BR",
+          "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:b599d6133ad9d845?ch=2dae63137537d6ce&w={width}",
+          "title": "Sammlung \"Dahoam is Dahoam\" · 2013"
+        }
+      },
+      "isChildContent": false,
+      "longTitle": "DiD 2013 - Sammlung",
+      "mediumTitle": "DiD 2013 - Sammlung",
+      "personalized": false,
+      "links": {
+        "self": {
+          "id": "oTCiO7dX0s0HgHSxwjx7Y:1773174563563761219",
+          "urlId": "oTCiO7dX0s0HgHSxwjx7Y:1773174563563761219",
+          "title": "DiD 2013 - Sammlung",
+          "href": "https://api.ardmediathek.de/page-gateway/teasers/br/editorials/oTCiO7dX0s0HgHSxwjx7Y%3A1773174563563761219",
+          "type": "application/vnd.ard.teaser+json",
+          "partner": "br"
+        },
+        "target": {
+          "id": "de929c61-3569-4a8e-b7ba-990986df9780",
+          "urlId": "de929c61-3569-4a8e-b7ba-990986df9780",
+          "title": "Alle Folgen aus 2013",
+          "href": "https://api.ardmediathek.de/page-gateway/pages/br/compilation/de929c61-3569-4a8e-b7ba-990986df9780?embedded=true",
+          "type": "application/vnd.ard.page+json",
+          "partner": "br"
+        }
+      },
+      "shortTitle": "Alle Folgen aus 2013",
+      "titleVisible": false,
+      "type": "compilation"
+    },
+    {
+      "trackingPiano": {
+        "teaser_content_type": "compilation",
+        "teaser_id": "oTCiO7dX0s0HgHSxwjx7Y:9024970733024581617",
+        "teaser_institution": "BR",
+        "teaser_institution_id": "urn:ard:institution:95a02eb6cc4f3d59",
+        "teaser_title": "DiD 2014 - Sammlung"
+      },
+      "id": "oTCiO7dX0s0HgHSxwjx7Y:9024970733024581617",
+      "images": {
+        "aspect16x9": {
+          "alt": "\"Dahoam is Dahoam\"-Lebkuchenherz mit Schriftzug \"2014\" für Staffel-Sammelseite",
+          "producerName": "BR; Montage: BR",
+          "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:b72f3514706e9e42?ch=b3d3d130b462ceb4&w={width}",
+          "title": "Sammlung \"Dahoam is Dahoam\" · 2014"
+        }
+      },
+      "isChildContent": false,
+      "longTitle": "DiD 2014 - Sammlung",
+      "mediumTitle": "DiD 2014 - Sammlung",
+      "personalized": false,
+      "links": {
+        "self": {
+          "id": "oTCiO7dX0s0HgHSxwjx7Y:9024970733024581617",
+          "urlId": "oTCiO7dX0s0HgHSxwjx7Y:9024970733024581617",
+          "title": "DiD 2014 - Sammlung",
+          "href": "https://api.ardmediathek.de/page-gateway/teasers/br/editorials/oTCiO7dX0s0HgHSxwjx7Y%3A9024970733024581617",
+          "type": "application/vnd.ard.teaser+json",
+          "partner": "br"
+        },
+        "target": {
+          "id": "681e6d1e-e624-4faa-b967-1ca4d6232c55",
+          "urlId": "681e6d1e-e624-4faa-b967-1ca4d6232c55",
+          "title": "Alle Folgen aus 2014",
+          "href": "https://api.ardmediathek.de/page-gateway/pages/br/compilation/681e6d1e-e624-4faa-b967-1ca4d6232c55?embedded=true",
+          "type": "application/vnd.ard.page+json",
+          "partner": "br"
+        }
+      },
+      "shortTitle": "Alle Folgen aus 2014",
+      "titleVisible": false,
+      "type": "compilation"
+    },
+    {
+      "trackingPiano": {
+        "teaser_content_type": "compilation",
+        "teaser_id": "oTCiO7dX0s0HgHSxwjx7Y:6133408335039035552",
+        "teaser_institution": "BR",
+        "teaser_institution_id": "urn:ard:institution:95a02eb6cc4f3d59",
+        "teaser_title": "DiD 2015 - Sammlung"
+      },
+      "id": "oTCiO7dX0s0HgHSxwjx7Y:6133408335039035552",
+      "images": {
+        "aspect16x9": {
+          "alt": "\"Dahoam is Dahoam\"-Lebkuchenherz mit Schriftzug \"2015\" für Staffel-Sammelseite",
+          "producerName": "BR; Montage: BR",
+          "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:f45ff1d8dd2fc74c?ch=ec36f666eb5b92c7&w={width}",
+          "title": "Sammlung \"Dahoam is Dahoam\" · 2015"
+        }
+      },
+      "isChildContent": false,
+      "longTitle": "DiD 2015 - Sammlung",
+      "mediumTitle": "DiD 2015 - Sammlung",
+      "personalized": false,
+      "links": {
+        "self": {
+          "id": "oTCiO7dX0s0HgHSxwjx7Y:6133408335039035552",
+          "urlId": "oTCiO7dX0s0HgHSxwjx7Y:6133408335039035552",
+          "title": "DiD 2015 - Sammlung",
+          "href": "https://api.ardmediathek.de/page-gateway/teasers/br/editorials/oTCiO7dX0s0HgHSxwjx7Y%3A6133408335039035552",
+          "type": "application/vnd.ard.teaser+json",
+          "partner": "br"
+        },
+        "target": {
+          "id": "af9e6d72-cc6b-46c2-961d-3b014dd76f5d",
+          "urlId": "af9e6d72-cc6b-46c2-961d-3b014dd76f5d",
+          "title": "Alle Folgen aus 2015",
+          "href": "https://api.ardmediathek.de/page-gateway/pages/br/compilation/af9e6d72-cc6b-46c2-961d-3b014dd76f5d?embedded=true",
+          "type": "application/vnd.ard.page+json",
+          "partner": "br"
+        }
+      },
+      "shortTitle": "Alle Folgen aus 2015",
+      "titleVisible": false,
+      "type": "compilation"
+    },
+    {
+      "trackingPiano": {
+        "teaser_content_type": "compilation",
+        "teaser_id": "oTCiO7dX0s0HgHSxwjx7Y:3675354257865082939",
+        "teaser_institution": "BR",
+        "teaser_institution_id": "urn:ard:institution:95a02eb6cc4f3d59",
+        "teaser_title": "DiD 2016 - Sammlung"
+      },
+      "id": "oTCiO7dX0s0HgHSxwjx7Y:3675354257865082939",
+      "images": {
+        "aspect16x9": {
+          "alt": "\"Dahoam is Dahoam\"-Lebkuchenherz mit Schriftzug \"2016\" für Staffel-Sammelseite",
+          "producerName": "BR; Montage: BR",
+          "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:756bcc9b42befea8?ch=8e9f46cf3771f7d2&w={width}",
+          "title": "Sammlung \"Dahoam is Dahoam\" · 2016"
+        }
+      },
+      "isChildContent": false,
+      "longTitle": "DiD 2016 - Sammlung",
+      "mediumTitle": "DiD 2016 - Sammlung",
+      "personalized": false,
+      "links": {
+        "self": {
+          "id": "oTCiO7dX0s0HgHSxwjx7Y:3675354257865082939",
+          "urlId": "oTCiO7dX0s0HgHSxwjx7Y:3675354257865082939",
+          "title": "DiD 2016 - Sammlung",
+          "href": "https://api.ardmediathek.de/page-gateway/teasers/br/editorials/oTCiO7dX0s0HgHSxwjx7Y%3A3675354257865082939",
+          "type": "application/vnd.ard.teaser+json",
+          "partner": "br"
+        },
+        "target": {
+          "id": "c7ed440d-9580-4bdc-9f4e-54a3363f0820",
+          "urlId": "c7ed440d-9580-4bdc-9f4e-54a3363f0820",
+          "title": "Alle Folgen aus 2016",
+          "href": "https://api.ardmediathek.de/page-gateway/pages/br/compilation/c7ed440d-9580-4bdc-9f4e-54a3363f0820?embedded=true",
+          "type": "application/vnd.ard.page+json",
+          "partner": "br"
+        }
+      },
+      "shortTitle": "Alle Folgen aus 2016",
+      "titleVisible": false,
+      "type": "compilation"
+    },
+    {
+      "trackingPiano": {
+        "teaser_content_type": "compilation",
+        "teaser_id": "oTCiO7dX0s0HgHSxwjx7Y:4851585905947321692",
+        "teaser_institution": "BR",
+        "teaser_institution_id": "urn:ard:institution:95a02eb6cc4f3d59",
+        "teaser_title": "DiD 2017 - Sammlung"
+      },
+      "id": "oTCiO7dX0s0HgHSxwjx7Y:4851585905947321692",
+      "images": {
+        "aspect16x9": {
+          "alt": "\"Dahoam is Dahoam\"-Lebkuchenherz mit Schriftzug \"2017\" für Staffel-Sammelseite",
+          "producerName": "BR; Montage: BR",
+          "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:3cc0435eaac70be1?ch=caf66964c39554da&w={width}",
+          "title": "Sammlung \"Dahoam is Dahoam\" · 2017"
+        }
+      },
+      "isChildContent": false,
+      "longTitle": "DiD 2017 - Sammlung",
+      "mediumTitle": "DiD 2017 - Sammlung",
+      "personalized": false,
+      "links": {
+        "self": {
+          "id": "oTCiO7dX0s0HgHSxwjx7Y:4851585905947321692",
+          "urlId": "oTCiO7dX0s0HgHSxwjx7Y:4851585905947321692",
+          "title": "DiD 2017 - Sammlung",
+          "href": "https://api.ardmediathek.de/page-gateway/teasers/br/editorials/oTCiO7dX0s0HgHSxwjx7Y%3A4851585905947321692",
+          "type": "application/vnd.ard.teaser+json",
+          "partner": "br"
+        },
+        "target": {
+          "id": "7a27674f-943f-4039-822e-ebe5ab83ea9f",
+          "urlId": "7a27674f-943f-4039-822e-ebe5ab83ea9f",
+          "title": "Alle Folgen aus 2017",
+          "href": "https://api.ardmediathek.de/page-gateway/pages/br/compilation/7a27674f-943f-4039-822e-ebe5ab83ea9f?embedded=true",
+          "type": "application/vnd.ard.page+json",
+          "partner": "br"
+        }
+      },
+      "shortTitle": "Alle Folgen aus 2017",
+      "titleVisible": false,
+      "type": "compilation"
+    },
+    {
+      "trackingPiano": {
+        "teaser_content_type": "compilation",
+        "teaser_id": "oTCiO7dX0s0HgHSxwjx7Y:-6996410022807034065",
+        "teaser_institution": "BR",
+        "teaser_institution_id": "urn:ard:institution:95a02eb6cc4f3d59",
+        "teaser_title": "DiD 2018 - Sammlung"
+      },
+      "id": "oTCiO7dX0s0HgHSxwjx7Y:-6996410022807034065",
+      "images": {
+        "aspect16x9": {
+          "alt": "\"Dahoam is Dahoam\"-Lebkuchenherz mit Schriftzug \"2018\" für Staffel-Sammelseite",
+          "producerName": "BR; Montage: BR",
+          "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:55a0a1991baa2d7f?ch=2d2d5ffaff4bfc11&w={width}",
+          "title": "Sammlung \"Dahoam is Dahoam\" · 2018"
+        }
+      },
+      "isChildContent": false,
+      "longTitle": "DiD 2018 - Sammlung",
+      "mediumTitle": "DiD 2018 - Sammlung",
+      "personalized": false,
+      "links": {
+        "self": {
+          "id": "oTCiO7dX0s0HgHSxwjx7Y:-6996410022807034065",
+          "urlId": "oTCiO7dX0s0HgHSxwjx7Y:-6996410022807034065",
+          "title": "DiD 2018 - Sammlung",
+          "href": "https://api.ardmediathek.de/page-gateway/teasers/br/editorials/oTCiO7dX0s0HgHSxwjx7Y%3A-6996410022807034065",
+          "type": "application/vnd.ard.teaser+json",
+          "partner": "br"
+        },
+        "target": {
+          "id": "3aafc07f-06ed-4158-9b3e-4b1c46bc576c",
+          "urlId": "3aafc07f-06ed-4158-9b3e-4b1c46bc576c",
+          "title": "Alle Folgen aus 2018",
+          "href": "https://api.ardmediathek.de/page-gateway/pages/br/compilation/3aafc07f-06ed-4158-9b3e-4b1c46bc576c?embedded=true",
+          "type": "application/vnd.ard.page+json",
+          "partner": "br"
+        }
+      },
+      "shortTitle": "Alle Folgen aus 2018",
+      "titleVisible": false,
+      "type": "compilation"
+    },
+    {
+      "trackingPiano": {
+        "teaser_content_type": "compilation",
+        "teaser_id": "oTCiO7dX0s0HgHSxwjx7Y:6192651405162659037",
+        "teaser_institution": "BR",
+        "teaser_institution_id": "urn:ard:institution:95a02eb6cc4f3d59",
+        "teaser_title": "DiD 2019 - Sammlung"
+      },
+      "id": "oTCiO7dX0s0HgHSxwjx7Y:6192651405162659037",
+      "images": {
+        "aspect16x9": {
+          "alt": "\"Dahoam is Dahoam\"-Lebkuchenherz mit Schriftzug \"2018\" für Staffel-Sammelseite",
+          "producerName": "BR; Montage: BR",
+          "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:e9d41965c1d4bd8a?ch=bb18042b5d971461&w={width}",
+          "title": "Sammlung \"Dahoam is Dahoam\" · 2019"
+        }
+      },
+      "isChildContent": false,
+      "longTitle": "DiD 2019 - Sammlung",
+      "mediumTitle": "DiD 2019 - Sammlung",
+      "personalized": false,
+      "links": {
+        "self": {
+          "id": "oTCiO7dX0s0HgHSxwjx7Y:6192651405162659037",
+          "urlId": "oTCiO7dX0s0HgHSxwjx7Y:6192651405162659037",
+          "title": "DiD 2019 - Sammlung",
+          "href": "https://api.ardmediathek.de/page-gateway/teasers/br/editorials/oTCiO7dX0s0HgHSxwjx7Y%3A6192651405162659037",
+          "type": "application/vnd.ard.teaser+json",
+          "partner": "br"
+        },
+        "target": {
+          "id": "10a8705b-7fd3-456e-8c4c-30c9058737a1",
+          "urlId": "10a8705b-7fd3-456e-8c4c-30c9058737a1",
+          "title": "Alle Folgen aus 2019",
+          "href": "https://api.ardmediathek.de/page-gateway/pages/br/compilation/10a8705b-7fd3-456e-8c4c-30c9058737a1?embedded=true",
+          "type": "application/vnd.ard.page+json",
+          "partner": "br"
+        }
+      },
+      "shortTitle": "Alle Folgen aus 2019",
+      "titleVisible": false,
+      "type": "compilation"
+    },
+    {
+      "trackingPiano": {
+        "teaser_content_type": "compilation",
+        "teaser_id": "oTCiO7dX0s0HgHSxwjx7Y:2183888473251754210",
+        "teaser_institution": "BR",
+        "teaser_institution_id": "urn:ard:institution:95a02eb6cc4f3d59",
+        "teaser_title": "DiD 2020 - Sammlung"
+      },
+      "id": "oTCiO7dX0s0HgHSxwjx7Y:2183888473251754210",
+      "images": {
+        "aspect16x9": {
+          "alt": "\"Dahoam is Dahoam\"-Lebkuchenherz mit Schriftzug \"2020\" für Staffel-Sammelseite",
+          "producerName": "BR; Montage: BR",
+          "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:dbe3f02f72494edb?ch=53f95b8f56687230&w={width}",
+          "title": "Sammlung \"Dahoam is Dahoam\" · 2020"
+        }
+      },
+      "isChildContent": false,
+      "longTitle": "DiD 2020 - Sammlung",
+      "mediumTitle": "DiD 2020 - Sammlung",
+      "personalized": false,
+      "links": {
+        "self": {
+          "id": "oTCiO7dX0s0HgHSxwjx7Y:2183888473251754210",
+          "urlId": "oTCiO7dX0s0HgHSxwjx7Y:2183888473251754210",
+          "title": "DiD 2020 - Sammlung",
+          "href": "https://api.ardmediathek.de/page-gateway/teasers/br/editorials/oTCiO7dX0s0HgHSxwjx7Y%3A2183888473251754210",
+          "type": "application/vnd.ard.teaser+json",
+          "partner": "br"
+        },
+        "target": {
+          "id": "41d24191-b44e-47d3-b6b2-d04a47c850d0",
+          "urlId": "41d24191-b44e-47d3-b6b2-d04a47c850d0",
+          "title": "Alle Folgen aus 2020",
+          "href": "https://api.ardmediathek.de/page-gateway/pages/br/compilation/41d24191-b44e-47d3-b6b2-d04a47c850d0?embedded=true",
+          "type": "application/vnd.ard.page+json",
+          "partner": "br"
+        }
+      },
+      "shortTitle": "Alle Folgen aus 2020",
+      "titleVisible": false,
+      "type": "compilation"
+    },
+    {
+      "trackingPiano": {
+        "teaser_content_type": "compilation",
+        "teaser_id": "oTCiO7dX0s0HgHSxwjx7Y:-1355744632075319521",
+        "teaser_institution": "BR",
+        "teaser_institution_id": "urn:ard:institution:95a02eb6cc4f3d59",
+        "teaser_title": "DiD 2021 - Sammlung"
+      },
+      "id": "oTCiO7dX0s0HgHSxwjx7Y:-1355744632075319521",
+      "images": {
+        "aspect16x9": {
+          "alt": "\"Dahoam is Dahoam\"-Lebkuchenherz mit Schriftzug \"2021\" für Staffel-Sammelseite",
+          "producerName": "BR; Montage: BR",
+          "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:651580d6dc74e337?ch=b479990b72b5640f&w={width}",
+          "title": "Sammlung \"Dahoam is Dahoam\" · 2021"
+        }
+      },
+      "isChildContent": false,
+      "longTitle": "DiD 2021 - Sammlung",
+      "mediumTitle": "DiD 2021 - Sammlung",
+      "personalized": false,
+      "links": {
+        "self": {
+          "id": "oTCiO7dX0s0HgHSxwjx7Y:-1355744632075319521",
+          "urlId": "oTCiO7dX0s0HgHSxwjx7Y:-1355744632075319521",
+          "title": "DiD 2021 - Sammlung",
+          "href": "https://api.ardmediathek.de/page-gateway/teasers/br/editorials/oTCiO7dX0s0HgHSxwjx7Y%3A-1355744632075319521",
+          "type": "application/vnd.ard.teaser+json",
+          "partner": "br"
+        },
+        "target": {
+          "id": "a1f42a08-b422-4096-b8e5-90fb0f05502d",
+          "urlId": "a1f42a08-b422-4096-b8e5-90fb0f05502d",
+          "title": "Alle Folgen aus 2021",
+          "href": "https://api.ardmediathek.de/page-gateway/pages/br/compilation/a1f42a08-b422-4096-b8e5-90fb0f05502d?embedded=true",
+          "type": "application/vnd.ard.page+json",
+          "partner": "br"
+        }
+      },
+      "shortTitle": "Alle Folgen aus 2021",
+      "titleVisible": false,
+      "type": "compilation"
+    },
+    {
+      "trackingPiano": {
+        "teaser_content_type": "compilation",
+        "teaser_id": "oTCiO7dX0s0HgHSxwjx7Y:-7767035753868924217",
+        "teaser_institution": "BR",
+        "teaser_institution_id": "urn:ard:institution:95a02eb6cc4f3d59",
+        "teaser_title": "Dahoam is Dahoam | 2022 (ab Folge 2870) "
+      },
+      "id": "oTCiO7dX0s0HgHSxwjx7Y:-7767035753868924217",
+      "images": {
+        "aspect16x9": {
+          "alt": "\"Dahoam is Dahoam\"-Lebkuchenherz mit Schriftzug \"2021\" für Staffel-Sammelseite",
+          "producerName": "BR; Montage: BR",
+          "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:417c521dc77f9ec4?ch=08734c1849fcb65e&w={width}",
+          "title": "Sammlung \"Dahoam is Dahoam\" · 2022"
+        }
+      },
+      "isChildContent": false,
+      "longTitle": "Dahoam is Dahoam | 2022 (ab Folge 2870) ",
+      "mediumTitle": "Dahoam is Dahoam | 2022 (ab Folge 2870) ",
+      "personalized": false,
+      "links": {
+        "self": {
+          "id": "oTCiO7dX0s0HgHSxwjx7Y:-7767035753868924217",
+          "urlId": "oTCiO7dX0s0HgHSxwjx7Y:-7767035753868924217",
+          "title": "Dahoam is Dahoam | 2022 (ab Folge 2870) ",
+          "href": "https://api.ardmediathek.de/page-gateway/teasers/br/editorials/oTCiO7dX0s0HgHSxwjx7Y%3A-7767035753868924217",
+          "type": "application/vnd.ard.teaser+json",
+          "partner": "br"
+        },
+        "target": {
+          "id": "b2dfbb97-c471-4e11-b6eb-7dbd76d7a7b7",
+          "urlId": "b2dfbb97-c471-4e11-b6eb-7dbd76d7a7b7",
+          "title": "Alle Folgen aus 2022",
+          "href": "https://api.ardmediathek.de/page-gateway/pages/br/compilation/b2dfbb97-c471-4e11-b6eb-7dbd76d7a7b7?embedded=true",
+          "type": "application/vnd.ard.page+json",
+          "partner": "br"
+        }
+      },
+      "shortTitle": "Alle Folgen aus 2022",
+      "titleVisible": false,
+      "type": "compilation"
+    },
+    {
+      "trackingPiano": {
+        "teaser_content_type": "compilation",
+        "teaser_id": "oTCiO7dX0s0HgHSxwjx7Y:724356865172284296",
+        "teaser_institution": "BR",
+        "teaser_institution_id": "urn:ard:institution:95a02eb6cc4f3d59",
+        "teaser_title": "DiD 2023 - Sammlung"
+      },
+      "id": "oTCiO7dX0s0HgHSxwjx7Y:724356865172284296",
+      "images": {
+        "aspect16x9": {
+          "alt": "\"Dahoam is Dahoam\"-Lebkuchenherz mit Schriftzug \"2023\" für Staffel-Sammelseite",
+          "producerName": "BR; Montage: BR",
+          "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:fcf5063aaaf19302?ch=cd83491661baeb80&w={width}",
+          "title": "Sammlung \"Dahoam is Dahoam\" · 2023"
+        }
+      },
+      "isChildContent": false,
+      "longTitle": "DiD 2023 - Sammlung",
+      "mediumTitle": "DiD 2023 - Sammlung",
+      "personalized": false,
+      "links": {
+        "self": {
+          "id": "oTCiO7dX0s0HgHSxwjx7Y:724356865172284296",
+          "urlId": "oTCiO7dX0s0HgHSxwjx7Y:724356865172284296",
+          "title": "DiD 2023 - Sammlung",
+          "href": "https://api.ardmediathek.de/page-gateway/teasers/br/editorials/oTCiO7dX0s0HgHSxwjx7Y%3A724356865172284296",
+          "type": "application/vnd.ard.teaser+json",
+          "partner": "br"
+        },
+        "target": {
+          "id": "9404a8f7-1336-4fd3-800a-18d43a057ddc",
+          "urlId": "9404a8f7-1336-4fd3-800a-18d43a057ddc",
+          "title": "Alle Folgen aus 2023",
+          "href": "https://api.ardmediathek.de/page-gateway/pages/br/compilation/9404a8f7-1336-4fd3-800a-18d43a057ddc?embedded=true",
+          "type": "application/vnd.ard.page+json",
+          "partner": "br"
+        }
+      },
+      "shortTitle": "Alle Folgen aus 2023",
+      "titleVisible": false,
+      "type": "compilation"
+    },
+    {
+      "trackingPiano": {
+        "teaser_content_type": "compilation",
+        "teaser_id": "oTCiO7dX0s0HgHSxwjx7Y:-1557373654259800462",
+        "teaser_institution": "BR",
+        "teaser_institution_id": "urn:ard:institution:95a02eb6cc4f3d59",
+        "teaser_title": "DiD 2024 - Sammlung"
+      },
+      "id": "oTCiO7dX0s0HgHSxwjx7Y:-1557373654259800462",
+      "images": {
+        "aspect16x9": {
+          "alt": "\"Dahoam is Dahoam\"-Lebkuchenherz mit Schriftzug \"2024\" für Staffel-Sammelseite",
+          "producerName": "BR; Montage: BR",
+          "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:e9ec4b7653762ffc?ch=5db1f531a0d6e7a3&w={width}",
+          "title": "Sammlung \"Dahoam is Dahoam\" · 2024"
+        }
+      },
+      "isChildContent": false,
+      "longTitle": "DiD 2024 - Sammlung",
+      "mediumTitle": "DiD 2024 - Sammlung",
+      "personalized": false,
+      "links": {
+        "self": {
+          "id": "oTCiO7dX0s0HgHSxwjx7Y:-1557373654259800462",
+          "urlId": "oTCiO7dX0s0HgHSxwjx7Y:-1557373654259800462",
+          "title": "DiD 2024 - Sammlung",
+          "href": "https://api.ardmediathek.de/page-gateway/teasers/br/editorials/oTCiO7dX0s0HgHSxwjx7Y%3A-1557373654259800462",
+          "type": "application/vnd.ard.teaser+json",
+          "partner": "br"
+        },
+        "target": {
+          "id": "3fc2a539-49cf-4ffc-8b66-430313c98ae6",
+          "urlId": "3fc2a539-49cf-4ffc-8b66-430313c98ae6",
+          "title": "Alle Folgen aus 2024",
+          "href": "https://api.ardmediathek.de/page-gateway/pages/br/compilation/3fc2a539-49cf-4ffc-8b66-430313c98ae6?embedded=true",
+          "type": "application/vnd.ard.page+json",
+          "partner": "br"
+        }
+      },
+      "shortTitle": "Alle Folgen aus 2024",
+      "titleVisible": false,
+      "type": "compilation"
+    },
+    {
+      "trackingPiano": {
+        "teaser_content_type": "compilation",
+        "teaser_id": "oTCiO7dX0s0HgHSxwjx7Y:-3929504926070594748",
+        "teaser_institution": "BR",
+        "teaser_institution_id": "urn:ard:institution:95a02eb6cc4f3d59",
+        "teaser_title": "DiD 2025 - Sammlung"
+      },
+      "id": "oTCiO7dX0s0HgHSxwjx7Y:-3929504926070594748",
+      "images": {
+        "aspect16x9": {
+          "alt": "\"Dahoam is Dahoam\"-Lebkuchenherz mit Schriftzug \"2025\" für Staffel-Sammelseite",
+          "producerName": "BR; Montage: BR",
+          "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:d2c999c4c3d4d608?ch=a227d2f5b9b94dd5&w={width}",
+          "title": "Sammlung \"Dahoam is Dahoam\" · 2025"
+        }
+      },
+      "isChildContent": false,
+      "longTitle": "DiD 2025 - Sammlung",
+      "mediumTitle": "DiD 2025 - Sammlung",
+      "personalized": false,
+      "links": {
+        "self": {
+          "id": "oTCiO7dX0s0HgHSxwjx7Y:-3929504926070594748",
+          "urlId": "oTCiO7dX0s0HgHSxwjx7Y:-3929504926070594748",
+          "title": "DiD 2025 - Sammlung",
+          "href": "https://api.ardmediathek.de/page-gateway/teasers/br/editorials/oTCiO7dX0s0HgHSxwjx7Y%3A-3929504926070594748",
+          "type": "application/vnd.ard.teaser+json",
+          "partner": "br"
+        },
+        "target": {
+          "id": "c049debb-2528-4bb2-9db1-4622c586685f",
+          "urlId": "c049debb-2528-4bb2-9db1-4622c586685f",
+          "title": "Alle Folgen aus 2025",
+          "href": "https://api.ardmediathek.de/page-gateway/pages/br/compilation/c049debb-2528-4bb2-9db1-4622c586685f?embedded=true",
+          "type": "application/vnd.ard.page+json",
+          "partner": "br"
+        }
+      },
+      "shortTitle": "Alle Folgen aus 2025",
+      "titleVisible": false,
+      "type": "compilation"
+    },
+    {
+      "trackingPiano": {
+        "teaser_content_type": "compilation",
+        "teaser_id": "oTCiO7dX0s0HgHSxwjx7Y:-2472677030436235598",
+        "teaser_institution": "BR",
+        "teaser_institution_id": "urn:ard:institution:95a02eb6cc4f3d59",
+        "teaser_title": "DiD 2026 - Sammlung"
+      },
+      "id": "oTCiO7dX0s0HgHSxwjx7Y:-2472677030436235598",
+      "images": {
+        "aspect16x9": {
+          "alt": "\"Dahoam is Dahoam\"-Lebkuchenherz mit Schriftzug \"2026\" für Staffel-Sammelseite",
+          "producerName": "BR; Montage: BR",
+          "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:dfca41517e32235e?ch=18012bb440726f2a&w={width}",
+          "title": "Sammlung \"Dahoam is Dahoam\" · 2026"
+        }
+      },
+      "isChildContent": false,
+      "longTitle": "DiD 2026 - Sammlung",
+      "mediumTitle": "DiD 2026 - Sammlung",
+      "personalized": false,
+      "links": {
+        "self": {
+          "id": "oTCiO7dX0s0HgHSxwjx7Y:-2472677030436235598",
+          "urlId": "oTCiO7dX0s0HgHSxwjx7Y:-2472677030436235598",
+          "title": "DiD 2026 - Sammlung",
+          "href": "https://api.ardmediathek.de/page-gateway/teasers/br/editorials/oTCiO7dX0s0HgHSxwjx7Y%3A-2472677030436235598",
+          "type": "application/vnd.ard.teaser+json",
+          "partner": "br"
+        },
+        "target": {
+          "id": "d64f1940-c9ad-4999-81da-3189589933ef",
+          "urlId": "d64f1940-c9ad-4999-81da-3189589933ef",
+          "title": "Alle Folgen aus 2025",
+          "href": "https://api.ardmediathek.de/page-gateway/pages/br/compilation/d64f1940-c9ad-4999-81da-3189589933ef?embedded=true",
+          "type": "application/vnd.ard.page+json",
+          "partner": "br"
+        }
+      },
+      "shortTitle": "Alle Folgen aus 2025",
+      "titleVisible": false,
+      "type": "compilation"
+    }
+  ],
+  "userVisibility": "ALWAYS",
+  "aZContent": false,
+  "id": "oTCiO7dX0s0HgHSxwjx7Y:3433640345444388680",
+  "links": {
+    "self": {
+      "id": "oTCiO7dX0s0HgHSxwjx7Y:3433640345444388680",
+      "urlId": "oTCiO7dX0s0HgHSxwjx7Y:3433640345444388680",
+      "title": "Alle verfügbaren Folgen",
+      "href": "https://api.ardmediathek.de/page-gateway/widgets/br/editorials/oTCiO7dX0s0HgHSxwjx7Y%3A3433640345444388680?pageNumber=0&pageSize=50&embedded=true",
+      "type": "application/vnd.ard.widget+json",
+      "partner": "br"
+    }
+  },
+  "size": "m",
+  "swipeable": true,
+  "title": "Alle verfügbaren Folgen",
+  "titleVisible": true,
+  "trackingPiano": {
+    "teaser_recommended": false,
+    "widget_id": "oTCiO7dX0s0HgHSxwjx7Y:3433640345444388680",
+    "widget_title": "Alle verfügbaren Folgen",
+    "widget_typ": "gridlist"
+  },
+  "type": "gridlist"
+}

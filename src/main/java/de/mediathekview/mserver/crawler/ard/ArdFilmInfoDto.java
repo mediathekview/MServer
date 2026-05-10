@@ -8,12 +8,14 @@ public class ArdFilmInfoDto extends CrawlerUrlDTO {
 
   private final String id;
   private final int numberOfClips;
+  private final boolean isCompilation;
 
-  public ArdFilmInfoDto(final String id, final String aUrl, final int numberOfClips) {
+  public ArdFilmInfoDto(final String id, final String aUrl, final int numberOfClips, final boolean isCompilation) {
     super(aUrl);
 
     this.id = id;
     this.numberOfClips = numberOfClips;
+    this.isCompilation = isCompilation;
   }
 
   public String getId() {
@@ -23,6 +25,8 @@ public class ArdFilmInfoDto extends CrawlerUrlDTO {
   public int getNumberOfClips() {
     return numberOfClips;
   }
+
+  public boolean isCompilation() { return isCompilation; }
 
   @Override
   public boolean equals(final Object o) {
@@ -35,11 +39,11 @@ public class ArdFilmInfoDto extends CrawlerUrlDTO {
     if (!super.equals(o)) {
       return false;
     }
-    return numberOfClips == that.numberOfClips && Objects.equals(id, that.id);
+    return numberOfClips == that.numberOfClips && Objects.equals(id, that.id) && isCompilation == that.isCompilation;
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(super.hashCode(), id, numberOfClips);
+    return Objects.hash(super.hashCode(), id, numberOfClips, isCompilation);
   }
 }
