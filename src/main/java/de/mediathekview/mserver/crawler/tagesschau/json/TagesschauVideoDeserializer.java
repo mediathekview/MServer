@@ -9,10 +9,10 @@ import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.daten.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.glassfish.jersey.message.internal.Quality;
 
 import java.lang.reflect.Type;
 import java.net.MalformedURLException;
+import java.net.URI;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
@@ -25,6 +25,8 @@ public class TagesschauVideoDeserializer implements JsonDeserializer<List<Film>>
   private static final String ELEMENT_MC = "mc";
   private static final String ELEMENT_MEDIA = "media";
   private static final String ELEMENT_META = "meta";
+  private static final String ELEMENT_PLUG_IN_DATA = "pluginData";
+  private static final String ELEMENT_SHARING_WEB = "sharing@web";
   private static final String ELEMENT_STREAMS = "streams";
 
   private static final String ATTRIBUTE_DATE = "broadcastedOnDateTime";
@@ -35,6 +37,7 @@ public class TagesschauVideoDeserializer implements JsonDeserializer<List<Film>>
   private static final String ATTRIBUTE_WIDTH = "maxHResolutionPx";
   private static final String ATTRIBUTE_MIMETYPE = "mimeType";
   private static final String ATTRIBUTE_URL = "url";
+  private static final String ATTRIBUTE_LINK = "link";
   private static final String[] SUPPORTED_MIME_TYPES = new String[] { "video/mp4" };
 
   private static final DateTimeFormatter DATE_TIME_FORMATTER =
@@ -63,6 +66,7 @@ public class TagesschauVideoDeserializer implements JsonDeserializer<List<Film>>
         final Optional<Integer> duration = JsonUtils.getAttributeAsInt(metaObject, ATTRIBUTE_DURATION);
         final Optional<LocalDateTime> date = parseDate(metaObject);
         final Map<Resolution, String> urls = parseUrls(mcElement.get().getAsJsonObject());
+        final String website = parseWebsite(mcElement.get().getAsJsonObject());
 
         // TODO Prüfungen auf Topic+Titel
         // TODO Zeitzone passt nicht
@@ -76,6 +80,13 @@ public class TagesschauVideoDeserializer implements JsonDeserializer<List<Film>>
                 date.get(),
                 duration.isEmpty() ? Duration.ofSeconds(0) : Duration.ofSeconds(duration.get()));
         film.addGeolocation(GeoLocations.GEO_NONE);
+        if (!website.isEmpty()) {
+          try {
+            film.setWebsite(URI.create(website).toURL());
+          } catch (MalformedURLException e) {
+            LOG.error("Invalid website URL: {}", website, e);
+          }
+        }
 
         urls.forEach((resolution, url) -> {
         try {
@@ -92,9 +103,13 @@ public class TagesschauVideoDeserializer implements JsonDeserializer<List<Film>>
     return results;
   }
 
+  private String parseWebsite(JsonObject mcObject) {
+    return JsonUtils.getElementValueAsString(mcObject, ELEMENT_PLUG_IN_DATA, ELEMENT_SHARING_WEB, ATTRIBUTE_LINK).orElse("");
+  }
+
   private Map<Resolution, String> parseUrls(final JsonObject mcObject) {
     // TODO robust machen gegen fehlende Elemente
-    final Map urls = new EnumMap(Resolution.class);
+    final Map<Resolution, String> urls = new EnumMap<>(Resolution.class);
 
     mcObject.get(ELEMENT_STREAMS).getAsJsonArray().forEach(stream -> {
       stream.getAsJsonObject().get(ELEMENT_MEDIA).getAsJsonArray().forEach(media -> {

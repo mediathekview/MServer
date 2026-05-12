@@ -1,5 +1,8 @@
 package de.mediathekview.mserver.crawler.tagesschau;
 
+import de.mediathekview.mserver.crawler.tagesschau.tasks.TagesschauEnriesTask;
+import de.mediathekview.mserver.crawler.tagesschau.tasks.TagesschauOverviewTask;
+import de.mediathekview.mserver.crawler.tagesschau.tasks.TagesschauVideoTask;
 import de.mediathekview.mserver.daten.Film;
 import de.mediathekview.mserver.daten.Sender;
 import de.mediathekview.mserver.base.messages.listener.MessageListener;
@@ -7,7 +10,6 @@ import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.base.messages.ServerMessages;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
-import de.mediathekview.mserver.crawler.tagesschau.tasks.TagesschauFilmTask;
 import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -19,10 +21,6 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.RecursiveTask;
 
-/**
- * Crawler for the Tagesschau "vor 20 Jahren" (20 years ago) archive.
- * Extracts daily news broadcasts from the archive.
- */
 public class TagesschauCrawler extends AbstractCrawler {
 
   private static final Logger LOG = LogManager.getLogger(TagesschauCrawler.class);
@@ -43,24 +41,29 @@ public class TagesschauCrawler extends AbstractCrawler {
   @Override
   protected RecursiveTask<Set<Film>> createCrawlerTask() {
     try {
-      // Create URLs for the last YEARS_BACK years
-      Queue<CrawlerUrlDTO> filmUrls = createFilmUrls();
+      Queue<CrawlerUrlDTO> archiveUrl = createArchiveUrl();
 
-      if (filmUrls.isEmpty()) {
-        LOG.warn("No URLs created for Tagesschau crawler");
-        return null;
-      }
+      TagesschauOverviewTask overviewTask = new TagesschauOverviewTask(this, archiveUrl);
+      final Set<CrawlerUrlDTO> overviewResults = this.forkJoinPool.submit(overviewTask).get();
 
-      // Set max count for progress tracking
-      getAndSetMaxCount(filmUrls.size());
+      // TODO nur für den aktuellen Monat passt die Logik
+      // für alle anderen Einträge muss rekursive OverviewTask genutzt werden, bis die Monatsseite erreicht ist
+
+      LOG.debug("Overview task completed. Found {} overview URLs.", overviewResults.size());
+
+      TagesschauEnriesTask entriesTask = new TagesschauEnriesTask(this, new ConcurrentLinkedQueue<>(overviewResults));
+      final Set<CrawlerUrlDTO> entriesResults = this.forkJoinPool.submit(entriesTask).get();
+
+      LOG.debug("Entries task completed. Found {} entry URLs.", entriesResults.size());
+
+      getAndSetMaxCount(entriesResults.size());
 
       printMessage(
           ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT,
           getSender().getName(),
-          filmUrls.size());
+              entriesResults.size());
 
-      // Return the task that will process the URLs
-      return new TagesschauFilmTask(this, filmUrls);
+      return new TagesschauVideoTask(this, new ConcurrentLinkedQueue<>(entriesResults));
 
     } catch (final Exception ex) {
       LOG.fatal("Exception in Tagesschau crawler.", ex);
@@ -69,22 +72,9 @@ public class TagesschauCrawler extends AbstractCrawler {
     return null;
   }
 
-  /**
-   * Creates URLs for the daily broadcast pages.
-   * We need to crawl through the years and generate URLs for each day.
-   */
-  private Queue<CrawlerUrlDTO> createFilmUrls() {
+  private Queue<CrawlerUrlDTO> createArchiveUrl() {
     Queue<CrawlerUrlDTO> urls = new ConcurrentLinkedQueue<>();
-
-    try {
-      // For now, we start by fetching the main archive page
-      // This page contains links to the individual days
-      urls.add(new CrawlerUrlDTO(TagesschauConstants.ARCHIVE_START_URL));
-
-    } catch (final Exception e) {
-      LOG.error("Error creating film URLs", e);
-    }
-
+    urls.add(new CrawlerUrlDTO(TagesschauConstants.ARCHIVE_START_URL));
     return urls;
   }
 }
