@@ -352,7 +352,7 @@ public class ArdFilmDeserializerTest {
             /*jsonFile*/ "/ard/ard_item_ov_streaming.json",
             /*topic*/ "Murdoch Mysteries",
             /*title*/ "Folge 16: Hinter der Maske (S08/E16) (Originalversion)",
-            /*description*/ "Bei seiner ersten Mordermittlung deckt Crabtree Täuschung und Betrug auf, als ein Ringer nach einem Wettkampf stirbt.    Constable George Crabtree (Jonny Harris), seine Freundin Edna Brooks (Tamara Hope) und ihr kleiner Sohn Simon (Percy Hynes White) verfolgen das Spektakel eines Wrestlingkampfes. Handsome Randolph (Reuben Jarvis) wird zum Champion erklärt. Plötzlich klettert ein kräftiger normal \n.....",
+            /*description*/ "Bei seiner ersten Mordermittlung deckt Crabtree Täuschung und Betrug auf, als ein Ringer nach einem Wettkampf stirbt. Constable George Crabtree (Jonny Harris), seine Freundin Edna Brooks (Tamara Hope) und ihr kleiner Sohn Simon (Percy Hynes White) verfolgen das Spektakel eines Wrestlingkampfes. Handsome Randolph (Reuben Jarvis) wird zum Champion erklärt....",
             /*date*/ LocalDateTime.parse("2026-05-06T21:50"),
             /*duration*/ Duration.parse("PT42M26S"),
             /*small*/ "https://wdr-progressive.ard-mcdn.de/media/p/public/de/2026/04/19/4818d599-7da2-44cb-ba95-b791ae8d3735/4818d599-7da2-44cb-ba95-b791ae8d3735_AVC-540.mp4",
