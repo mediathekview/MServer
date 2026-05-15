@@ -97,7 +97,7 @@ public class ArdFilmDetailTaskTest extends ArdTaskTestBase {
             ),
             /*topic*/ "Fickt euch!",
             /*title*/ "Keine Chance für Smegma! Intimhygiene für Jungs I Fickt euch - Ist doch nur Sex",
-            /*description*/ "Den Penis richtig waschen ist ganz einfach! Was ihr beachten müsst, um Infektionen und unangenehme Gerüche zu vermeiden, erfahrt ihr im Video. Du willst mehr? Dann abonniere meinen Kanal: https://www.youtube.com/channel/UC3ZkjIfabQzVypsQBd9-AIQ?sub_confirmation=1Fickt euch! bei Facebook: http://www.facebook.com/istdochnursexFickt euch! bei Instagram: http://www.instagram.com/istdochnursexFickt euc\n.....",
+            /*description*/ "Den Penis richtig waschen ist ganz einfach! Was ihr beachten müsst, um Infektionen und unangenehme Gerüche zu vermeiden, erfahrt ihr im Video. Du willst mehr? Dann abonniere meinen Kanal: https://www.youtube.com/channel/UC3ZkjIfabQzVypsQBd9-AIQ?sub_confirmation=1Fickt euch! bei Facebook: http://www.facebook.com/istdochnursexFickt euch! bei Instagram: http://www.instagram.com/istdochnursexFickt euch! bei Snapchat: @istdochnursex",
             /*date*/ LocalDateTime.parse("2016-12-13T15:00"),
             /*duration*/ Duration.parse("PT3M5S"),
             /*small*/ "http://localhost:50998/22679/files/21/01/30/2678992/22679-jqh9gFKRm8YDnC2.ism/22679-jqh9gFKRm8YDnC2-audio=152016-video=771000.m3u8",
