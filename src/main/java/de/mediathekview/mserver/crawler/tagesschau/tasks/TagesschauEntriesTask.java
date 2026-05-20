@@ -22,8 +22,8 @@ import org.jspecify.annotations.NonNull;
 public class TagesschauEntriesTask extends AbstractDocumentTask<EntryUrlDto, CrawlerUrlDTO> {
   private static final Logger LOG = LogManager.getLogger(TagesschauEntriesTask.class);
 
-  private static final Pattern PATTERN_VIDEO = Pattern.compile(".*/video-\\d+\\.html$");
-  private static final Pattern PATTERN_SUB_PAGE = Pattern.compile(".*/(tsvorzwanzigjahren(?:-ts)?-?\\d+)\\.html$");
+  private static final Pattern PATTERN_VIDEO = Pattern.compile("/video-\\d+\\.html$");
+  private static final Pattern PATTERN_SUB_PAGE = Pattern.compile("/(tsvorzwanzigjahren(?:-ts)?-?\\d+)\\.html$");
   private static final String[] BLACKLIST = new String[] {TagesschauConstants.ARCHIVE_START_URL};
 
   public TagesschauEntriesTask(final AbstractCrawler crawler, final Queue<CrawlerUrlDTO> queue) {
