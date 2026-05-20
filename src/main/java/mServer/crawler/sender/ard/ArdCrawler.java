@@ -12,6 +12,7 @@ import mServer.crawler.sender.base.CrawlerUrlDTO;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutionException;
@@ -27,6 +28,7 @@ public class ArdCrawler extends MediathekCrawler {
           = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
   public static final String[] MISSING_TOPIC_IDS = new String[]{
+//          "Y3JpZDovL2JyLmRlL2Jyb2FkY2FzdFNlcmllcy9icm9hZGNhc3RTZXJpZXM6L2JyZGUvZmVybnNlaGVuL2JheWVyaXNjaGVzLWZlcm5zZWhlbi9zZW5kdW5nZW4vZGFob2FtLWlzLWRhaG9hbQ"
   };
 
   public ArdCrawler(FilmeSuchen ssearch, int startPrio) {
@@ -131,6 +133,7 @@ public class ArdCrawler extends MediathekCrawler {
   }
 
   private Set<ArdFilmInfoDto> getTopicsEntries() throws ExecutionException, InterruptedException {
+    final Set<ArdFilmInfoDto> shows = new HashSet<>();
     Set<CrawlerUrlDTO> topics = new HashSet<>();
     topics.addAll(getTopicEntriesBySender(ArdConstants.DEFAULT_CLIENT));
     for (String client : ArdConstants.CLIENTS) {
@@ -149,9 +152,21 @@ public class ArdCrawler extends MediathekCrawler {
     ConcurrentLinkedQueue<CrawlerUrlDTO> topicUrls = new ConcurrentLinkedQueue<>(assitUrls);
 
     final ArdTopicPageTask topicTask = new ArdTopicPageTask(this, topicUrls);
-    final Set<ArdFilmInfoDto> filmInfos = forkJoinPool.submit(topicTask).get();
-    Log.sysLog("ard shows by topics: " + filmInfos.size());
-    return filmInfos;
+    final Set<ArdFilmInfoDto> ardFilmInfosWithCompilations = forkJoinPool.submit(topicTask).get();
+
+    // add filmInfos without compilation
+    shows.addAll(ardFilmInfosWithCompilations.stream().filter(filmInfo -> !filmInfo.isCompilation()).toList());
+
+    // search compilations
+    final List<ArdFilmInfoDto> compilations = ardFilmInfosWithCompilations.stream().filter(ArdFilmInfoDto::isCompilation).toList();
+    final ArdTopicCompilationTask compilationTask = new ArdTopicCompilationTask(this, new ConcurrentLinkedQueue<>(compilations));
+    final Set<ArdFilmInfoDto> ardCompilationEntries = forkJoinPool.submit(compilationTask).get();
+
+    final int sizeBefore = shows.size();
+    shows.addAll(ardCompilationEntries.stream().filter(filmInfo -> !filmInfo.isCompilation()).toList());
+    Log.sysLog("ard shows by topics compilation: " + (shows.size() - sizeBefore));
+    Log.sysLog("ard shows by topics: " + shows.size());
+    return shows;
   }
 
   // temporary workaround for missing topics

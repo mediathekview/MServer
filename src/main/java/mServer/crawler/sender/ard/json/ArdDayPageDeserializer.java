@@ -50,7 +50,7 @@ public class ArdDayPageDeserializer implements JsonDeserializer<Set<ArdFilmInfoD
 
   private ArdFilmInfoDto createFilmInfo(final String id, final int numberOfClips) {
     final String url = String.format(ArdConstants.ITEM_URL, id);
-    return new ArdFilmInfoDto(id, url, numberOfClips);
+    return new ArdFilmInfoDto(id, url, numberOfClips, false);
   }
 
   private Optional<String> toId(final JsonObject teaserObject) {
