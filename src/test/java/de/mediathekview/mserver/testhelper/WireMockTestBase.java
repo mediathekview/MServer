@@ -9,10 +9,7 @@ import org.junit.After;
 import org.junit.Before;
 
 import jakarta.annotation.Nullable;
-import org.junit.BeforeClass;
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 
 import java.util.Optional;
@@ -24,7 +21,7 @@ import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.options
 
 /** base class of tests with WireMock. */
 public abstract class WireMockTestBase {
-  private final Logger LOG = LogManager.getLogger(WireMockTestBase.class);
+  private static final Logger LOG = LogManager.getLogger(WireMockTestBase.class);
   protected WireMockServer wireMockServer = new WireMockServer(options().dynamicPort());
   private boolean wireMockStarted = false;
 
