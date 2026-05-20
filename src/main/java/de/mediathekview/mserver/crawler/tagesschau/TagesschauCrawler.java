@@ -79,7 +79,12 @@ public class TagesschauCrawler extends AbstractCrawler {
     } catch (final ExecutionException ex) {
       LOG.fatal("Exception in Tagesschau crawler.", ex);
     }
-    return null;
+    return new RecursiveTask<Set<Film>>() {
+      @Override
+      protected Set<Film> compute() {
+        return Set.of();
+      }
+    };
   }
 
   private Queue<CrawlerUrlDTO> createArchiveUrl() {

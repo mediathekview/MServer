@@ -54,7 +54,7 @@ public class TagesschauVideoDeserializer implements JsonDeserializer<List<Film>>
           .appendPattern("d MMMM uuuu")
           .toFormatter(Locale.GERMAN);
   private static final DateTimeFormatter DATE_TIME_FORMATTER =
-          DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ssZ", Locale.GERMANY); // 2016-10-29T16:15:00+02:00
+          DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ssZ", Locale.GERMANY);
   private static final String GERMAN_TIME_ZONE = "Europe/Berlin";
   private static final Logger LOG = LogManager.getLogger(TagesschauVideoDeserializer.class);
   private final AbstractCrawler crawler;
@@ -75,7 +75,7 @@ public class TagesschauVideoDeserializer implements JsonDeserializer<List<Film>>
         }
         return Optional.of(localDateTime);
       } catch (final DateTimeParseException ex) {
-        LOG.error("Error parsing date time value {}", dateValue.get(), ex);
+        LOG.warn("Error parsing date time value {}", dateValue.get(), ex);
       }
     }
 
