@@ -64,14 +64,15 @@ public class TagesschauCrawler extends AbstractCrawler {
         recursionCount++;
       }
 
-      getAndSetMaxCount(videos.size());
+      final Queue<CrawlerUrlDTO> videosFiltered = this.filterExistingFilms(videos, CrawlerUrlDTO::getUrl);
+      getAndSetMaxCount(videosFiltered.size());
 
       printMessage(
           ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT,
           getSender().getName(),
-              videos.size());
+              videosFiltered.size());
 
-      return new TagesschauVideoTask(this, new ConcurrentLinkedQueue<>(videos));
+      return new TagesschauVideoTask(this, new ConcurrentLinkedQueue<>(videosFiltered));
 
     } catch (final InterruptedException ex) {
       LOG.fatal("Exception in Tagesschau crawler.", ex);
