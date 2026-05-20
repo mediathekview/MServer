@@ -49,7 +49,18 @@ class TagesschauVideoDeserializerTest {
         "");
   }
 
-  protected TagesschauCrawler createCrawler() {
+   @Test
+   void testWrongYear() {
+
+    final JsonElement jsonElement =
+        JsonFileReader.readJson("/tagesschau/tagesschau_20jahre_video_date.json");
+    TagesschauVideoDeserializer target = new TagesschauVideoDeserializer(createCrawler());
+    final List<Film> actual = target.deserialize(jsonElement, null, null);
+    assertNotNull(actual);
+    assertEquals(1, actual.size());
+    assertEquals(LocalDateTime.of(1996, 7, 23, 22, 45, 0), actual.getFirst().getTime());
+}
+    protected TagesschauCrawler createCrawler() {
     final ForkJoinPool forkJoinPool = new ForkJoinPool();
     final Collection<MessageListener> nachrichten = new ArrayList<>();
     final Collection<SenderProgressListener> fortschritte = new ArrayList<>();

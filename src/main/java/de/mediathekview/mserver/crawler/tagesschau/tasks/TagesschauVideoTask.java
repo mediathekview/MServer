@@ -43,6 +43,7 @@ public class TagesschauVideoTask extends AbstractDocumentTask<Film, CrawlerUrlDT
                 taskResults.addAll(films);
                 crawler.incrementAndGetActualCount();
               } catch (Exception e) {
+                LOG.error(e);
                 crawler.incrementAndGetErrorCount();
               }
             });

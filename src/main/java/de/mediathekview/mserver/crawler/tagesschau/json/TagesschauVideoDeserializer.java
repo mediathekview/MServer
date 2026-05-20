@@ -7,19 +7,18 @@ import com.google.gson.JsonObject;
 import de.mediathekview.mserver.base.utils.JsonUtils;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.daten.*;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import java.lang.reflect.Type;
 import java.net.MalformedURLException;
 import java.net.URI;
-import java.time.Duration;
-import java.time.LocalDateTime;
-import java.time.OffsetDateTime;
-import java.time.ZoneId;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 import java.time.format.DateTimeParseException;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class TagesschauVideoDeserializer implements JsonDeserializer<List<Film>> {
   private static final String ELEMENT_MC = "mc";
@@ -40,6 +39,20 @@ public class TagesschauVideoDeserializer implements JsonDeserializer<List<Film>>
   private static final String ATTRIBUTE_LINK = "link";
   private static final String[] SUPPORTED_MIME_TYPES = new String[] { "video/mp4" };
 
+  private static final Pattern LONG_MONTH_PATTERN =
+      Pattern.compile("(\\d{1,2}(?:\\.|\\s)\\s*[A-Za-zÄÖÜäöüß]+\\s+\\d{4})");
+  private static final DateTimeFormatter GERMAN_LONG = new DateTimeFormatterBuilder()
+          .parseCaseInsensitive()
+          .appendPattern("d. MMMM uuuu")
+          .toFormatter(Locale.GERMAN);
+  private static final DateTimeFormatter GERMAN_LONG_NO_SPACE = new DateTimeFormatterBuilder()
+          .parseCaseInsensitive()
+          .appendPattern("d.MMMM uuuu")
+          .toFormatter(Locale.GERMAN);
+  private static final DateTimeFormatter GERMAN_LONG_NO_DOT = new DateTimeFormatterBuilder()
+          .parseCaseInsensitive()
+          .appendPattern("d MMMM uuuu")
+          .toFormatter(Locale.GERMAN);
   private static final DateTimeFormatter DATE_TIME_FORMATTER =
           DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ssZ", Locale.GERMANY); // 2016-10-29T16:15:00+02:00
   private static final String GERMAN_TIME_ZONE = "Europe/Berlin";
@@ -48,6 +61,25 @@ public class TagesschauVideoDeserializer implements JsonDeserializer<List<Film>>
 
   public TagesschauVideoDeserializer(AbstractCrawler crawler) {
     this.crawler = crawler;
+  }
+
+  private static Optional<LocalDateTime> parseDate(final JsonObject metaObject, final Optional<LocalDate> titleDate) {
+    final Optional<String> dateValue =
+            JsonUtils.getAttributeAsString(metaObject, ATTRIBUTE_DATE);
+    if (dateValue.isPresent()) {
+      try {
+        final OffsetDateTime inputDateTime = OffsetDateTime.parse(dateValue.get(), DATE_TIME_FORMATTER);
+        LocalDateTime localDateTime = inputDateTime.atZoneSameInstant(ZoneId.of(GERMAN_TIME_ZONE)).toLocalDateTime();
+        if (titleDate.isPresent() && titleDate.get().getYear() != localDateTime.getYear()) {
+          localDateTime = localDateTime.withYear(titleDate.get().getYear());
+        }
+        return Optional.of(localDateTime);
+      } catch (final DateTimeParseException ex) {
+        LOG.error("Error parsing date time value {}", dateValue.get(), ex);
+      }
+    }
+
+    return titleDate.map(localDate -> LocalDateTime.of(localDate, LocalTime.of(20, 0)));
   }
 
   @Override
@@ -64,12 +96,9 @@ public class TagesschauVideoDeserializer implements JsonDeserializer<List<Film>>
         final Optional<String> topic = JsonUtils.getAttributeAsString(metaObject, ATTRIBUTE_TOPIC);
         final Optional<String> title = JsonUtils.getAttributeAsString(metaObject, ATTRIBUTE_TITLE);
         final Optional<Integer> duration = JsonUtils.getAttributeAsInt(metaObject, ATTRIBUTE_DURATION);
-        final Optional<LocalDateTime> date = parseDate(metaObject);
+        final Optional<LocalDateTime> date = parseDate(metaObject, parseDateFromTitle(title.orElse("")));
         final Map<Resolution, String> urls = parseUrls(mcElement.get().getAsJsonObject());
         final String website = parseWebsite(mcElement.get().getAsJsonObject());
-
-        // TODO Prüfungen auf Topic+Titel
-        // TODO Zeitzone passt nicht
 
         final Film film =
             new Film(
@@ -77,7 +106,7 @@ public class TagesschauVideoDeserializer implements JsonDeserializer<List<Film>>
                 Sender.TAGESSCHAU24,
                 title.orElse(""),
                 topic.orElse(""),
-                date.get(),
+                date.orElse(LocalDateTime.now()),
                 duration.isEmpty() ? Duration.ofSeconds(0) : Duration.ofSeconds(duration.get()));
         film.addGeolocation(GeoLocations.GEO_NONE);
         if (!website.isEmpty()) {
@@ -103,46 +132,70 @@ public class TagesschauVideoDeserializer implements JsonDeserializer<List<Film>>
     return results;
   }
 
+  private Optional<LocalDate> parseDateFromTitle(String title) {
+    Matcher m = LONG_MONTH_PATTERN.matcher(title);
+    if (m.find()) {
+      String datePart = m.group(1).replaceAll("\\s+", " ").trim();
+      try {
+        return Optional.of(LocalDate.parse(datePart, GERMAN_LONG));
+      } catch (DateTimeParseException ignored) {
+        // try other conversion
+      }
+      try {
+        return Optional.of(LocalDate.parse(datePart, GERMAN_LONG_NO_SPACE));
+      } catch (DateTimeParseException ignored) {
+        // try other conversion
+      }
+      try {
+        return Optional.of(LocalDate.parse(datePart, GERMAN_LONG_NO_DOT));
+      } catch (DateTimeParseException ex) {
+        LOG.warn("no valid date converted", ex);
+      }
+    }
+    return Optional.empty();
+  }
+
   private String parseWebsite(JsonObject mcObject) {
     return JsonUtils.getElementValueAsString(mcObject, ELEMENT_PLUG_IN_DATA, ELEMENT_SHARING_WEB, ATTRIBUTE_LINK).orElse("");
   }
 
   private Map<Resolution, String> parseUrls(final JsonObject mcObject) {
-    // TODO robust machen gegen fehlende Elemente
     final Map<Resolution, String> urls = new EnumMap<>(Resolution.class);
+    if (mcObject.has(ELEMENT_STREAMS) && mcObject.get(ELEMENT_STREAMS).isJsonArray()) {
+      mcObject
+          .get(ELEMENT_STREAMS)
+          .getAsJsonArray()
+          .forEach(
+              stream -> {
+                final JsonObject streamObject = stream.getAsJsonObject();
+                if (streamObject.has(ELEMENT_MEDIA)
+                    && streamObject.get(ELEMENT_MEDIA).isJsonArray()) {
+                  streamObject
+                      .get(ELEMENT_MEDIA)
+                      .getAsJsonArray()
+                      .forEach(
+                          media -> {
+                            final Optional<String> mimeType =
+                                JsonUtils.getElementValueAsString(media, ATTRIBUTE_MIMETYPE);
+                            if (mimeType.isPresent()
+                                && Arrays.stream(SUPPORTED_MIME_TYPES)
+                                    .anyMatch(type -> type.equals(mimeType.get()))) {
+                              final Optional<Integer> width =
+                                  JsonUtils.getAttributeAsInt(
+                                      media.getAsJsonObject(), ATTRIBUTE_WIDTH);
+                              final Optional<String> url =
+                                  JsonUtils.getElementValueAsString(media, ATTRIBUTE_URL);
 
-    mcObject.get(ELEMENT_STREAMS).getAsJsonArray().forEach(stream -> {
-      stream.getAsJsonObject().get(ELEMENT_MEDIA).getAsJsonArray().forEach(media -> {
-        final Optional<String> mimeType = JsonUtils.getElementValueAsString(media, ATTRIBUTE_MIMETYPE);
-        if (mimeType.isPresent() && Arrays.stream(SUPPORTED_MIME_TYPES).anyMatch(type -> type.equals(mimeType.get()))) {
-          final Optional<Integer> width = JsonUtils.getAttributeAsInt(media.getAsJsonObject(), ATTRIBUTE_WIDTH);
-          final Optional<String> url = JsonUtils.getElementValueAsString(media, ATTRIBUTE_URL);
-
-          if (width.isPresent() && url.isPresent()) {
-            final Resolution resolution = Resolution.getResolutionFromWidth(width.get());
-            urls.put(resolution, url.get());
-          }
-        }
-      });
-    });
-
+                              if (width.isPresent() && url.isPresent()) {
+                                final Resolution resolution =
+                                    Resolution.getResolutionFromWidth(width.get());
+                                urls.put(resolution, url.get());
+                              }
+                            }
+                          });
+                }
+              });
+    }
     return urls;
   }
-
-  private static Optional<LocalDateTime> parseDate(final JsonObject metaObject) {
-    final Optional<String> dateValue =
-            JsonUtils.getAttributeAsString(metaObject, ATTRIBUTE_DATE);
-    if (dateValue.isPresent()) {
-      try {
-        final OffsetDateTime inputDateTime = OffsetDateTime.parse(dateValue.get(), DATE_TIME_FORMATTER);
-        final LocalDateTime localDateTime = inputDateTime.atZoneSameInstant(ZoneId.of(GERMAN_TIME_ZONE)).toLocalDateTime();
-        return Optional.of(localDateTime);
-      } catch (final DateTimeParseException ex) {
-        LOG.error("Error parsing date time value {}", dateValue.get(), ex);
-      }
-    }
-
-    return Optional.empty();
-  }
-
 }
