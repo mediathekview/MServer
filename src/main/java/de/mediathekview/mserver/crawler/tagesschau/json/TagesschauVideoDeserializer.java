@@ -149,7 +149,7 @@ public class TagesschauVideoDeserializer implements JsonDeserializer<List<Film>>
       try {
         return Optional.of(LocalDate.parse(datePart, GERMAN_LONG_NO_DOT));
       } catch (DateTimeParseException ex) {
-        LOG.warn("no valid date converted", ex);
+        LOG.debug("no valid date converted", ex);
       }
     }
     return Optional.empty();
