@@ -201,7 +201,7 @@ public class DatenFilm implements Comparable<DatenFilm> {
       description = description.replace("\\\"", "\"");
     }
     if (description.length() > Const.MAX_BESCHREIBUNG) {
-      return description.substring(0, Const.MAX_BESCHREIBUNG) + "\n.....";
+      return SentenceShortener.shorten(description, Const.MAX_BESCHREIBUNG, Const.MAX_BESCHREIBUNG_MARGIN_LENGTH);
     } else {
       return description;
     }

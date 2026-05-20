@@ -32,15 +32,17 @@ import mServer.crawler.CrawlerTool;
 import mServer.crawler.sender.ard.ArdConstants;
 import mServer.crawler.sender.ard.ArdFilmDto;
 import mServer.crawler.sender.ard.ArdFilmInfoDto;
+import mServer.crawler.sender.ard.WdrM3U8ToMp4Converter;
 import mServer.crawler.sender.base.JsonUtils;
 import mServer.crawler.sender.base.Qualities;
 import mServer.crawler.sender.base.UrlUtils;
 
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
 
-  private static final org.apache.logging.log4j.Logger LOG
+  private static final Logger LOG
       = LogManager.getLogger(ArdFilmDeserializer.class);
 
   private static final String GERMAN_TIME_ZONE = "Europe/Berlin";
@@ -108,6 +110,12 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
     ADDITIONAL_SENDER.put("phoenix", Const.PHOENIX);
     ADDITIONAL_SENDER.put("ard", Const.ARD);
     //IGNORED_SENDER "zdf", "kika", "3sat", "arte"
+  }
+
+  private final WdrM3U8ToMp4Converter converter;
+
+  public ArdFilmDeserializer() {
+    converter = new WdrM3U8ToMp4Converter();
   }
 
   private static Optional<JsonObject> getMediaCollectionObject(final JsonObject itemObject) {
@@ -234,8 +242,11 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
     Optional<Map<Qualities, String>> videoInfoStandard = parseVideoUrls(itemObject, MARKER_VIDEO_CATEGORY_MAIN, MARKER_VIDEO_STANDARD, MARKER_VIDEO_MP4, MARKER_VIDEO_DE);
     Optional<Map<Qualities, String>> videoInfoAdaptive = parseVideoUrls(itemObject, MARKER_VIDEO_CATEGORY_MAIN, MARKER_VIDEO_STANDARD, MARKER_VIDEO_CATEGORY_MPEG, MARKER_VIDEO_DE);
     Optional<Map<Qualities, String>> videoInfoAD = parseVideoUrls(itemObject, MARKER_VIDEO_CATEGORY_MAIN, MARKER_VIDEO_AD, MARKER_VIDEO_MP4, MARKER_VIDEO_DE);
+    Optional<Map<Qualities, String>> videoInfoADAdaptive = parseVideoUrls(itemObject, MARKER_VIDEO_CATEGORY_MAIN, MARKER_VIDEO_AD, MARKER_VIDEO_CATEGORY_MPEG, MARKER_VIDEO_DE);
     Optional<Map<Qualities, String>> videoInfoDGS = parseVideoUrls(itemObject, MARKER_VIDEO_DGS, MARKER_VIDEO_STANDARD, MARKER_VIDEO_MP4, MARKER_VIDEO_DE);
+    Optional<Map<Qualities, String>> videoInfoDGSAdaptive = parseVideoUrls(itemObject, MARKER_VIDEO_DGS, MARKER_VIDEO_STANDARD, MARKER_VIDEO_CATEGORY_MPEG, MARKER_VIDEO_DE);
     Optional<Map<Qualities, String>> videoInfoOV = parseVideoUrls(itemObject, MARKER_VIDEO_CATEGORY_MAIN, MARKER_VIDEO_STANDARD, MARKER_VIDEO_MP4, MARKER_VIDEO_OV);
+    Optional<Map<Qualities, String>> videoInfoOVAdaptive = parseVideoUrls(itemObject, MARKER_VIDEO_CATEGORY_MAIN, MARKER_VIDEO_STANDARD, MARKER_VIDEO_CATEGORY_MPEG, MARKER_VIDEO_OV);
     Optional<String> subtitles = prepareSubtitleUrl(itemObject);
     
     if (topic.isEmpty() || title.isEmpty() || partner.isEmpty() || ADDITIONAL_SENDER.get(partner.get()) == null) {
@@ -249,7 +260,16 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
         || titleoriginal.get().contains("- Hörfassung") || titleoriginal.get().contains("(mit Audiodeskription)");
     // mainly funk
     if (videoInfoStandard.isEmpty() && videoInfoAD.isEmpty() && videoInfoDGS.isEmpty() && videoInfoOV.isEmpty() && videoInfoAdaptive.isPresent()) {
-      videoInfoStandard = resolveFallbackFromPlaylist(videoInfoAdaptive);
+      videoInfoStandard = getResolutionsFromAdaptiveUrl(videoInfoAdaptive);
+    }
+    if (videoInfoAD.isEmpty() && videoInfoADAdaptive.isPresent()) {
+      videoInfoAD = getResolutionsFromAdaptiveUrl(videoInfoADAdaptive);
+    }
+    if (videoInfoDGS.isEmpty() && videoInfoDGSAdaptive.isPresent()) {
+      videoInfoDGS = getResolutionsFromAdaptiveUrl(videoInfoDGSAdaptive);
+    }
+    if (videoInfoOV.isEmpty() && videoInfoOVAdaptive.isPresent()) {
+      videoInfoOV = getResolutionsFromAdaptiveUrl(videoInfoOVAdaptive);
     }
     // incorrect langueage code for OV
     if ((titleoriginal.get().contains(" - (Originalversion)") || titleoriginal.get().contains(" (OV)")) && videoInfoOV.isEmpty()) {
@@ -383,7 +403,7 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
               = JsonUtils.getAttributeAsString(teasersItemObject, ATTRIBUTE_ID);
           if (id.isPresent()) {
             final String url = String.format(ArdConstants.ITEM_URL, id.get());
-            filmDto.addRelatedFilm(new ArdFilmInfoDto(id.get(), url, 0));
+            filmDto.addRelatedFilm(new ArdFilmInfoDto(id.get(), url, 0, false));
           }
         }
       }
@@ -488,29 +508,41 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
     return Optional.of(videoInfo);
   }
   
-  private Optional<Map<Qualities, String>> resolveFallbackFromPlaylist(Optional<Map<Qualities, String>> videoInfoAdaptive) {
-     Map<Qualities, URL> qualitiesUrls = videoInfoAdaptive.get().entrySet().stream()
-         .collect(Collectors.toMap(Map.Entry::getKey, entry -> {
-             try {
-                 return new URL(entry.getValue());
-             } catch (MalformedURLException e) {
-                 LOG.error("failed converting string {} to url", entry.getValue(), e);
-                 return null;
-             }
-         }));
-     if (!qualitiesUrls.containsKey(Qualities.NORMAL)) {
-       qualitiesUrls.put(Qualities.NORMAL,  qualitiesUrls.entrySet().stream().findFirst().get().getValue());
-     }
-     //
-     ArdVideoInfoJsonDeserializer.loadM3U8(qualitiesUrls);
-     //
-     Map<Qualities, String> fallback = qualitiesUrls.entrySet().stream()
-     .collect(Collectors.toMap(Map.Entry::getKey, entry -> entry.getValue().toString()));
-     //
-     if (!fallback.containsKey(Qualities.NORMAL) && !fallback.isEmpty()) {
-       fallback.put(Qualities.NORMAL, fallback.entrySet().stream().findFirst().get().getValue());
-     }
-     
-     return Optional.of(fallback);
-   }
+  private Optional<Map<Qualities, String>> getResolutionsFromAdaptiveUrl(Optional<Map<Qualities, String>> videoInfoAdaptive) {
+    if (videoInfoAdaptive.isPresent()) {
+      if (videoInfoAdaptive.get().containsKey(Qualities.NORMAL)) {
+        final String url = videoInfoAdaptive.get().get(Qualities.NORMAL);
+        final Map<Qualities, String> mp4Urls = converter.convert(url);
+        if (!mp4Urls.isEmpty()) {
+          return Optional.of(mp4Urls);
+        }
+      }
+
+      Map<Qualities, URL> qualitiesUrls = videoInfoAdaptive.get().entrySet().stream()
+              .collect(Collectors.toMap(Map.Entry::getKey, entry -> {
+                try {
+                  return new URL(entry.getValue());
+                } catch (MalformedURLException e) {
+                  LOG.error("failed converting string {} to url", entry.getValue(), e);
+                  return null;
+                }
+              }));
+      if (!qualitiesUrls.containsKey(Qualities.NORMAL)) {
+        qualitiesUrls.put(Qualities.NORMAL, qualitiesUrls.entrySet().stream().findFirst().get().getValue());
+      }
+      //
+      ArdVideoInfoJsonDeserializer.loadM3U8(qualitiesUrls);
+      //
+      Map<Qualities, String> fallback = qualitiesUrls.entrySet().stream()
+              .collect(Collectors.toMap(Map.Entry::getKey, entry -> entry.getValue().toString()));
+      //
+      if (!fallback.containsKey(Qualities.NORMAL) && !fallback.isEmpty()) {
+        fallback.put(Qualities.NORMAL, fallback.entrySet().stream().findFirst().get().getValue());
+      }
+
+      return Optional.of(fallback);
+    }
+
+    return Optional.empty();
+  }
 }
