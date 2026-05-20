@@ -17,6 +17,7 @@ import org.apache.logging.log4j.Logger;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.jspecify.annotations.NonNull;
 
 public class TagesschauEntriesTask extends AbstractDocumentTask<EntryUrlDto, CrawlerUrlDTO> {
   private static final Logger LOG = LogManager.getLogger(TagesschauEntriesTask.class);
@@ -43,7 +44,7 @@ public class TagesschauEntriesTask extends AbstractDocumentTask<EntryUrlDto, Cra
           continue;
         }
         // normalize to absolute
-        final String fullUrl = href.startsWith("http") ? href : "https://www.tagesschau.de" + (href.startsWith("/") ? "" : "/") + href;
+        final String fullUrl = href.startsWith("http") ? href : buildUrl(href);
 
         if (Arrays.stream(BLACKLIST).noneMatch(fullUrl::equalsIgnoreCase)) {
           final Matcher matcherSubPage = PATTERN_SUB_PAGE.matcher(fullUrl);
@@ -60,6 +61,10 @@ public class TagesschauEntriesTask extends AbstractDocumentTask<EntryUrlDto, Cra
     }
 
     taskResults.add(result);
+  }
+
+  private static @NonNull String buildUrl(String href) {
+    return "https://www.tagesschau.de" + (href.startsWith("/") ? "" : "/") + href;
   }
 
   @Override
