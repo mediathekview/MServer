@@ -1,15 +1,13 @@
 package de.mediathekview.mserver.crawler.zdf.tasks;
 
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
+
+import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.daten.Film;
 import de.mediathekview.mserver.daten.GeoLocations;
 import de.mediathekview.mserver.daten.Sender;
-import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.testhelper.AssertFilm;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
-
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Arrays;
@@ -19,90 +17,11 @@ import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.MatcherAssert.assertThat;
-
-@RunWith(Parameterized.class)
 public class ZdfFilmDetailTaskTest extends ZdfTaskTestBase {
 
-  private final String filmUrl;
-  private final String filmJsonFile;
-  private final String videoUrl;
-  private final String videoJsonFile;
-  private final String videoUrlDgs;
-  private final String videoJsonFileDgs;
-  private final String expectedTopic;
-  private final String expectedTitle;
-  private final LocalDateTime expectedTime;
-  private final Duration expectedDuration;
-  private final String expectedDescription;
-  private final String expectedWebsite;
-  private final String expectedUrlSmall;
-  private final String expectedUrlNormal;
-  private final String expectedUrlHd;
-  private final String expectedUrlAudioDescriptionSmall;
-  private final String expectedUrlAudioDescriptionNormal;
-  private final String expectedUrlAudioDescriptionHd;
-  private final String expectedUrlSignLanguageSmall;
-  private final String expectedUrlSignLanguageNormal;
-  private final String expectedUrlSignLanguageHd;
-  private final String expectedSubtitle;
-  private final GeoLocations expectedGeo;
-  private final boolean optimizeUrls;
-
-  public ZdfFilmDetailTaskTest(
-      final String aFilmUrl,
-      final String aFilmJsonFile,
-      final String aVideoUrl,
-      final String aVideoJsonFile,
-      final String aVideoUrlDgs,
-      final String aVideoJsonFileDgs,
-      final String aExpectedTopic,
-      final String aExpectedTitle,
-      final LocalDateTime aExpectedTime,
-      final Duration aExpectedDuration,
-      final String aExpectedDescription,
-      final String aExpectedWebsite,
-      final String aExpectedUrlSmall,
-      final String aExpectedUrlNormal,
-      final String aExpectedUrlHd,
-      final String aExpectedUrlAudioDescriptionSmall,
-      final String aExpectedUrlAudioDescriptionNormal,
-      final String aExpectedUrlAudioDescriptionHd,
-      final String aExpectedUrlSignLanguageSmall,
-      final String aExpectedUrlSignLanguageNormal,
-      final String aExpectedUrlSignLanguageHd,
-      final String aExpectedSubtitle,
-      final GeoLocations aExpectedGeo,
-      final boolean aOptimizeUrls) {
-    filmUrl = aFilmUrl;
-    filmJsonFile = aFilmJsonFile;
-    videoUrl = aVideoUrl;
-    videoJsonFile = aVideoJsonFile;
-    videoUrlDgs = aVideoUrlDgs;
-    videoJsonFileDgs = aVideoJsonFileDgs;
-    expectedTopic = aExpectedTopic;
-    expectedTitle = aExpectedTitle;
-    expectedTime = aExpectedTime;
-    expectedDuration = aExpectedDuration;
-    expectedDescription = aExpectedDescription;
-    expectedWebsite = aExpectedWebsite;
-    expectedUrlSmall = buildWireMockUrl(aExpectedUrlSmall);
-    expectedUrlNormal = buildWireMockUrl(aExpectedUrlNormal);
-    expectedUrlHd = buildWireMockUrl(aExpectedUrlHd);
-    expectedUrlAudioDescriptionSmall = buildWireMockUrl(aExpectedUrlAudioDescriptionSmall);
-    expectedUrlAudioDescriptionNormal = buildWireMockUrl(aExpectedUrlAudioDescriptionNormal);
-    expectedUrlAudioDescriptionHd = buildWireMockUrl(aExpectedUrlAudioDescriptionHd);
-    expectedUrlSignLanguageSmall = buildWireMockUrl(aExpectedUrlSignLanguageSmall);
-    expectedUrlSignLanguageNormal = buildWireMockUrl(aExpectedUrlSignLanguageNormal);
-    expectedUrlSignLanguageHd = buildWireMockUrl(aExpectedUrlSignLanguageHd);
-    expectedSubtitle = buildWireMockUrl(aExpectedSubtitle);
-    expectedGeo = aExpectedGeo;
-    optimizeUrls = aOptimizeUrls;
-  }
-
-  @Parameters
   public static Collection<Object[]> data() {
     return Arrays.asList(
         new Object[][] {
@@ -193,10 +112,10 @@ public class ZdfFilmDetailTaskTest extends ZdfTaskTestBase {
             "/zdf/zdf_video_details_with_dgs.json",
             "ZDFinfo Doku",
             "Geliebt, geduldet, getötet",
-                  LocalDateTime.of(2022, 5, 5, 18, 0, 0),
-                  Duration.ofMinutes(44).plusSeconds(24),
-                  "Trotz aller Bemühung um Inklusion erleben Menschen mit Behinderungen in Deutschland immer noch täglich Ablehnung und Ausgrenzung. Warum ist das so? Und war das schon immer so?",
-                  "https://www.zdf.de/dokumentation/zdfinfo-doku/geliebt-geduldet-getoetet-die-geschichte-von-menschen-mit-behinderungen-100.html",
+            LocalDateTime.of(2022, 5, 5, 18, 0, 0),
+            Duration.ofMinutes(44).plusSeconds(24),
+            "Trotz aller Bemühung um Inklusion erleben Menschen mit Behinderungen in Deutschland immer noch täglich Ablehnung und Ausgrenzung. Warum ist das so? Und war das schon immer so?",
+            "https://www.zdf.de/dokumentation/zdfinfo-doku/geliebt-geduldet-getoetet-die-geschichte-von-menschen-mit-behinderungen-100.html",
             "/none/zdf/22/05/220505_geliebt_geduldet_getoetet_inf/4/220505_geliebt_geduldet_getoetet_inf_a1a2_808k_p11v15.mp4",
             "/none/zdf/22/05/220505_geliebt_geduldet_getoetet_inf/4/220505_geliebt_geduldet_getoetet_inf_a1a2_1628k_p13v15.mp4",
             "",
@@ -213,8 +132,33 @@ public class ZdfFilmDetailTaskTest extends ZdfTaskTestBase {
         });
   }
 
-  @Test
-  public void test() {
+  @MethodSource("data")
+  @ParameterizedTest
+  void test(
+      final String filmUrl,
+      final String filmJsonFile,
+      final String videoUrl,
+      final String videoJsonFile,
+      final String videoUrlDgs,
+      final String videoJsonFileDgs,
+      final String expectedTopic,
+      final String expectedTitle,
+      final LocalDateTime expectedTime,
+      final Duration expectedDuration,
+      final String expectedDescription,
+      final String expectedWebsite,
+      final String expectedUrlSmall,
+      final String expectedUrlNormal,
+      final String expectedUrlHd,
+      final String expectedUrlAudioDescriptionSmall,
+      final String expectedUrlAudioDescriptionNormal,
+      final String expectedUrlAudioDescriptionHd,
+      final String expectedUrlSignLanguageSmall,
+      final String expectedUrlSignLanguageNormal,
+      final String expectedUrlSignLanguageHd,
+      final String expectedSubtitle,
+      final GeoLocations expectedGeo,
+      final boolean optimizeUrls) {
     setupSuccessfulJsonResponse(filmUrl, filmJsonFile);
     setupSuccessfulJsonResponse(videoUrl, videoJsonFile);
     if (!videoUrlDgs.isEmpty()) {
@@ -242,31 +186,34 @@ public class ZdfFilmDetailTaskTest extends ZdfTaskTestBase {
         expectedDescription,
         expectedWebsite,
         new GeoLocations[] {expectedGeo},
-        expectedUrlSmall,
-        expectedUrlNormal,
-        expectedUrlHd,
-        expectedUrlSignLanguageSmall,
-        expectedUrlSignLanguageNormal,
-        expectedUrlSignLanguageHd,
-        expectedUrlAudioDescriptionSmall,
-        expectedUrlAudioDescriptionNormal,
-        expectedUrlAudioDescriptionHd,
-        expectedSubtitle);
+        buildWireMockUrl(expectedUrlSmall),
+        buildWireMockUrl(expectedUrlNormal),
+        buildWireMockUrl(expectedUrlHd),
+        buildWireMockUrl(expectedUrlSignLanguageSmall),
+        buildWireMockUrl(expectedUrlSignLanguageNormal),
+        buildWireMockUrl(expectedUrlSignLanguageHd),
+        buildWireMockUrl(expectedUrlAudioDescriptionSmall),
+        buildWireMockUrl(expectedUrlAudioDescriptionNormal),
+        buildWireMockUrl(expectedUrlAudioDescriptionHd),
+        buildWireMockUrl(expectedSubtitle));
   }
 
   private Set<Film> executeTask(final String detailUrl) {
     final Queue<CrawlerUrlDTO> urls = new ConcurrentLinkedQueue<>();
     urls.add(new CrawlerUrlDTO(getWireMockBaseUrlSafe() + detailUrl));
-    return new ZdfFilmDetailTask(createCrawler(), getWireMockBaseUrlSafe(), urls, null, createPartnerMap()).invoke();
+    return new ZdfFilmDetailTask(
+            createCrawler(), getWireMockBaseUrlSafe(), urls, null, createPartnerMap())
+        .invoke();
   }
-  
+
   private Map<String, Sender> createPartnerMap() {
     Map<String, Sender> partnerMap = new HashMap<>();
     partnerMap.put("ZDFinfo", Sender.ZDF);
     partnerMap.put("ZDFneo", Sender.ZDF);
-    partnerMap.put("ZDF", Sender.ZDF); 
+    partnerMap.put("ZDF", Sender.ZDF);
     partnerMap.put("EMPTY", Sender.ZDF);
-      // IGNORED Sender [KI.KA, WDR, PHOENIX, one, HR, 3sat, SWR, arte, BR, RBB, ARD, daserste, alpha, MDR, radiobremen, funk, ZDF, NDR, SR]
+    // IGNORED Sender [KI.KA, WDR, PHOENIX, one, HR, 3sat, SWR, arte, BR, RBB, ARD, daserste, alpha,
+    // MDR, radiobremen, funk, ZDF, NDR, SR]
     return partnerMap;
   }
 }

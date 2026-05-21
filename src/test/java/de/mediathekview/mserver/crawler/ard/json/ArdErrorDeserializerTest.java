@@ -2,17 +2,17 @@ package de.mediathekview.mserver.crawler.ard.json;
 
 import com.google.gson.JsonElement;
 import de.mediathekview.mserver.testhelper.JsonFileReader;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class ArdErrorDeserializerTest {
+class ArdErrorDeserializerTest {
 
   @Test
-  public void deserializeTestNoError() {
+  void deserializeTestNoError() {
     final JsonElement jsonElement = JsonFileReader.readJson("/ard/ard_day_page1.json");
 
     final ArdErrorDeserializer target = new ArdErrorDeserializer();
@@ -22,7 +22,7 @@ public class ArdErrorDeserializerTest {
   }
 
   @Test
-  public void deserializeTestQueryNotFoundError() {
+  void deserializeTestQueryNotFoundError() {
     final JsonElement jsonElement = JsonFileReader.readJson("/ard/ard_error_page_query_not_found.json");
 
     final ArdErrorInfoDto expected =
@@ -36,7 +36,7 @@ public class ArdErrorDeserializerTest {
   }
 
   @Test
-  public void deserializeTestInternalServerError() {
+  void deserializeTestInternalServerError() {
     final JsonElement jsonElement =
         JsonFileReader.readJson("/ard/ard_error_page_internal_server_error.json");
 

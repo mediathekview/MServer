@@ -1,7 +1,7 @@
 package de.mediathekview.mserver.crawler.basic;
 
 import org.hamcrest.Matchers;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
@@ -9,7 +9,7 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class M3U8ParserTest {
+class M3U8ParserTest {
 
   private static M3U8Dto createDto(final String aUrl, final String[] keys, final String[] values) {
 
@@ -22,7 +22,7 @@ public class M3U8ParserTest {
   }
 
   @Test
-  public void parseTestSrf() {
+  void parseTestSrf() {
 
     final M3U8Dto[] expected =
         new M3U8Dto[] {
@@ -85,7 +85,7 @@ public class M3U8ParserTest {
   }
 
   @Test
-  public void parseTestSrf2() {
+  void parseTestSrf2() {
 
     final M3U8Dto[] expected =
         new M3U8Dto[] {
@@ -182,7 +182,7 @@ public class M3U8ParserTest {
   }
 
   @Test
-  public void parseTestArd() {
+  void parseTestArd() {
 
     final M3U8Dto[] expected =
         new M3U8Dto[] {
@@ -223,7 +223,7 @@ public class M3U8ParserTest {
   }
 
   @Test
-  public void parseTestArdNoQuotedElementAtTheEnd() {
+  void parseTestArdNoQuotedElementAtTheEnd() {
 
     final M3U8Dto[] expected =
         new M3U8Dto[] {
@@ -283,7 +283,7 @@ public class M3U8ParserTest {
   }
 
   @Test
-  public void parseTestArdFunk() {
+  void parseTestArdFunk() {
 
     final M3U8Dto[] expected =
         new M3U8Dto[] {

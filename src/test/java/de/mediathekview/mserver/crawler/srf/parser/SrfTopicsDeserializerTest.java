@@ -4,16 +4,16 @@ import com.google.gson.JsonElement;
 import de.mediathekview.mserver.crawler.basic.TopicUrlDTO;
 import de.mediathekview.mserver.testhelper.JsonFileReader;
 import org.hamcrest.Matchers;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Set;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class SrfTopicsDeserializerTest {
+class SrfTopicsDeserializerTest {
 
   @Test
-  public void test() {
+  void test() {
     final TopicUrlDTO[] expectedUrls =
         new TopicUrlDTO[] {
           new TopicUrlDTO(

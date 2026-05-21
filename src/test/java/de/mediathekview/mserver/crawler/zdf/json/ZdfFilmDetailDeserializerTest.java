@@ -10,6 +10,9 @@ import de.mediathekview.mserver.crawler.zdf.ZdfConstants;
 import de.mediathekview.mserver.crawler.zdf.ZdfFilmDtoOld;
 import de.mediathekview.mserver.testhelper.AssertFilm;
 import de.mediathekview.mserver.testhelper.JsonFileReader;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
+
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Arrays;
@@ -17,49 +20,9 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
 
-@RunWith(Parameterized.class)
 public class ZdfFilmDetailDeserializerTest {
 
-  private final String jsonFile;
-  private final Sender expectedSender;
-  private final String expectedTopic;
-  private final String expectedTitle;
-  private final LocalDateTime expectedTime;
-  private final Duration expectedDuration;
-  private final String expectedDescription;
-  private final String expectedWebsite;
-  private final String expectedDownloadUrl;
-  private final Optional<String> expectedDownloadUrlSignLanguage;
-
-  public ZdfFilmDetailDeserializerTest(
-      final String aJsonFile,
-      final Sender aSender,
-      final String aExpectedTopic,
-      final String aExpectedTitle,
-      final LocalDateTime aExpectedTime,
-      final Duration aExpectedDuration,
-      final String aExpectedDescription,
-      final String aExpectedWebsite,
-      final String aExpectedDownloadUrl,
-      final Optional<String> aExpectedDownloadUrlSignLanguage) {
-    jsonFile = aJsonFile;
-    expectedSender = aSender;
-    expectedTopic = aExpectedTopic;
-    expectedTitle = aExpectedTitle;
-    expectedTime = aExpectedTime;
-    expectedDuration = aExpectedDuration;
-    expectedDescription = aExpectedDescription;
-    expectedWebsite = aExpectedWebsite;
-    expectedDownloadUrl = aExpectedDownloadUrl;
-    expectedDownloadUrlSignLanguage = aExpectedDownloadUrlSignLanguage;
-  }
-
-  @Parameters
   public static Collection<Object[]> data() {
     return Arrays.asList(
         new Object[][] {
@@ -175,8 +138,9 @@ public class ZdfFilmDetailDeserializerTest {
         });
   }
 
-  @Test
-  public void test() {
+  @MethodSource("data")
+  @ParameterizedTest
+  void test(final String jsonFile, final Sender expectedSender, final String expectedTopic, final String expectedTitle, final LocalDateTime expectedTime, final Duration expectedDuration, final String expectedDescription, final String expectedWebsite, final String expectedDownloadUrl, final Optional<String> expectedDownloadUrlSignLanguage) {
     final JsonObject json = JsonFileReader.readJson(jsonFile);
     final ZdfFilmDetailDeserializer target =
         new ZdfFilmDetailDeserializer(ZdfConstants.URL_API_BASE, createPartnerMap());

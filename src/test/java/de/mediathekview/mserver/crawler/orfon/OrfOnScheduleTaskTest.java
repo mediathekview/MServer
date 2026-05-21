@@ -9,15 +9,14 @@ import java.util.Queue;
 import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-import org.junit.Test;
-
 import de.mediathekview.mserver.crawler.orfon.task.OrfOnScheduleTask;
 import de.mediathekview.mserver.testhelper.WireMockTestBase;
+import org.junit.jupiter.api.Test;
 
-public class OrfOnScheduleTaskTest extends WireMockTestBase {
+class OrfOnScheduleTaskTest extends WireMockTestBase {
 
   @Test
-  public void test() {
+  void test() {
     setupSuccessfulJsonResponse("/scheduleTask", "/orfOn/schedule.json");
     Set<OrfOnBreadCrumsUrlDTO> result = executeTask("/scheduleTask");
     assertIterableEquals(result, generateExpectedResult());

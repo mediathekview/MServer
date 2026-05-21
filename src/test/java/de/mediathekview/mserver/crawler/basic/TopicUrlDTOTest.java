@@ -1,14 +1,14 @@
 package de.mediathekview.mserver.crawler.basic;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class TopicUrlDTOTest {
+class TopicUrlDTOTest {
 
   @Test
-  public void equalsTestSameUrlAndTheme() {
+  void equalsTestSameUrlAndTheme() {
     final TopicUrlDTO dto1 = new TopicUrlDTO("Thema", "Url");
     final TopicUrlDTO dto2 = new TopicUrlDTO("Thema", "Url");
 
@@ -16,7 +16,7 @@ public class TopicUrlDTOTest {
   }
 
   @Test
-  public void equalsTestSameUrlAndDifferentTheme() {
+  void equalsTestSameUrlAndDifferentTheme() {
     final TopicUrlDTO dto1 = new TopicUrlDTO("Thema", "Url");
     final TopicUrlDTO dto2 = new TopicUrlDTO("Anders", "Url");
 
@@ -24,7 +24,7 @@ public class TopicUrlDTOTest {
   }
 
   @Test
-  public void equalsTestDifferentUrlAndSameTheme() {
+  void equalsTestDifferentUrlAndSameTheme() {
     final TopicUrlDTO dto1 = new TopicUrlDTO("Thema", "Urls");
     final TopicUrlDTO dto2 = new TopicUrlDTO("Thema", "Url");
 

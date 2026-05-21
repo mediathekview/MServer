@@ -1,8 +1,7 @@
 package de.mediathekview.mserver.base.utils;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -11,18 +10,8 @@ import java.util.Optional;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-@RunWith(Parameterized.class)
 public class UrlUtilsGetFileTypeTest {
 
-  private final String inputUrl;
-  private final Optional<String> expectedFileType;
-
-  public UrlUtilsGetFileTypeTest(final String aInputUrl, final Optional<String> aExpectedFileType) {
-    inputUrl = aInputUrl;
-    expectedFileType = aExpectedFileType;
-  }
-
-  @Parameterized.Parameters
   public static Collection<Object[]> data() {
     return Arrays.asList(
         new Object[][] {
@@ -40,8 +29,9 @@ public class UrlUtilsGetFileTypeTest {
         });
   }
 
-  @Test
-  public void getFileTypeTest() {
+  @MethodSource("data")
+  @ParameterizedTest
+  void getFileTypeTest(final String inputUrl, final Optional<String> expectedFileType) {
     final Optional<String> actual = UrlUtils.getFileType(inputUrl);
 
     assertThat(actual, equalTo(expectedFileType));

@@ -6,11 +6,9 @@ import de.mediathekview.mserver.daten.Resolution;
 import de.mediathekview.mserver.crawler.dw.parser.DwFilmDetailDeserializer;
 import de.mediathekview.mserver.testhelper.AssertFilm;
 import de.mediathekview.mserver.testhelper.JsonFileReader;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.MockitoAnnotations;
 
 import java.time.Duration;
@@ -22,47 +20,8 @@ import java.util.Optional;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-@RunWith(Parameterized.class)
 public class DWDetailDeserializerTest extends DwTaskTestBase {
 
-  private final String responseAsFile;
-  private final String title;
-  private final String topic;
-  private final String website;
-  private final Duration duration;
-  private final LocalDateTime time;
-  private final String urlVerySmall;
-  private final String urlSmall;
-  private final String urlNormal;
-  private final String urlHd;
-  private final String urlWqhd;
-
-  public DWDetailDeserializerTest(
-      final String responseAsFile,
-      final String title,
-      final String topic,
-      final String website,
-      final Duration duration,
-      final LocalDateTime time,
-      final String video_q0,
-      final String video_q1,
-      final String video_q2,
-      final String video_q3,
-      final String video_q4) {
-    this.responseAsFile = responseAsFile;
-    this.title = title;
-    this.topic = topic;
-    this.website = website;
-    this.duration = duration;
-    this.time = time;
-    this.urlVerySmall = video_q0;
-    this.urlSmall = video_q1;
-    this.urlNormal = video_q2;
-    this.urlHd = video_q3;
-    this.urlWqhd = video_q4;
-  }
-
-  @Parameters
   public static Collection<Object[]> data() {
     return Arrays.asList(
         new Object[][] {
@@ -108,13 +67,14 @@ public class DWDetailDeserializerTest extends DwTaskTestBase {
         });
   }
 
-  @Before
-  public void setUp() {
+  @BeforeEach
+  void setUp() {
     MockitoAnnotations.openMocks(this);
   }
 
-  @Test
-  public void test() {
+  @MethodSource("data")
+  @ParameterizedTest
+  void test(final String responseAsFile, final String title, final String topic, final String website, final Duration duration, final LocalDateTime time, final String urlVerySmall, final String urlSmall, final String urlNormal, final String urlHd, final String urlWqhd) {
     final JsonElement jsonElement = JsonFileReader.readJson(responseAsFile);
     final DwFilmDetailDeserializer target = new DwFilmDetailDeserializer(createCrawler());
     final Optional<Film> actual = target.deserialize(jsonElement, null, null);

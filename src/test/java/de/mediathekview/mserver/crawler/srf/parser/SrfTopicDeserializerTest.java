@@ -5,16 +5,16 @@ import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.basic.PagedElementListDTO;
 import de.mediathekview.mserver.testhelper.JsonFileReader;
 import org.hamcrest.Matchers;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class SrfTopicDeserializerTest {
+class SrfTopicDeserializerTest {
   @Test
-  public void test() {
+  void test() {
     final CrawlerUrlDTO[] expectedUrls =
         new CrawlerUrlDTO[] {
           new CrawlerUrlDTO(
@@ -37,7 +37,7 @@ public class SrfTopicDeserializerTest {
   }
 
   @Test
-  public void testWithNextPage() {
+  void testWithNextPage() {
     final CrawlerUrlDTO[] expectedUrls =
         new CrawlerUrlDTO[] {
           new CrawlerUrlDTO(

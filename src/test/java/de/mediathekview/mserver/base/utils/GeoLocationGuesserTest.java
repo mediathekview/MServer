@@ -2,25 +2,17 @@ package de.mediathekview.mserver.base.utils;
 
 import de.mediathekview.mserver.daten.GeoLocations;
 import de.mediathekview.mserver.daten.Sender;
-import junit.framework.TestCase;
 import org.hamcrest.Matchers;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.Arrays;
 import java.util.Collection;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 
-@RunWith(Parameterized.class)
-public class GeoLocationGuesserTest extends TestCase {
+public class GeoLocationGuesserTest {
 
-  private final Sender sender;
-  private final String url;
-  private final GeoLocations expectedGeoLocation;
-
-  @Parameterized.Parameters
   public static Collection<Object[]> data() {
     return Arrays.asList(
         new Object[][] {
@@ -177,16 +169,9 @@ public class GeoLocationGuesserTest extends TestCase {
         });
   }
 
-  public GeoLocationGuesserTest(
-      final Sender sender, final String url, final GeoLocations expectedGeoLocation) {
-
-    this.sender = sender;
-    this.url = url;
-    this.expectedGeoLocation = expectedGeoLocation;
-  }
-
-  @Test
-  public void geoLocations() {
+  @MethodSource("data")
+  @ParameterizedTest
+  void geoLocations(final Sender sender, final String url, final GeoLocations expectedGeoLocation) {
 
     final Collection<GeoLocations> actualGeoLocations =
         GeoLocationGuesser.getGeoLocations(sender, url);

@@ -5,8 +5,6 @@ import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
-import org.junit.After;
-import org.junit.Before;
 
 import jakarta.annotation.Nullable;
 import org.junit.jupiter.api.AfterEach;
@@ -25,7 +23,6 @@ public abstract class WireMockTestBase {
   protected WireMockServer wireMockServer = new WireMockServer(options().dynamicPort());
   private boolean wireMockStarted = false;
 
-  @Before
   @BeforeEach
   public void setUpClass() {
     LOG.info("Setting up WireMock test class");
@@ -42,7 +39,6 @@ public abstract class WireMockTestBase {
     }
   }
 
-  @After
   @AfterEach
   public void tearDownClass() {
     LOG.info("Tear down WireMock test class");

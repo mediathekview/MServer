@@ -1,89 +1,29 @@
 package de.mediathekview.mserver.crawler.phoenix.tasks;
 
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
+
+import de.mediathekview.mserver.base.config.MServerConfigManager;
+import de.mediathekview.mserver.base.messages.listener.MessageListener;
+import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
+import de.mediathekview.mserver.crawler.phoenix.PhoenixCrawler;
 import de.mediathekview.mserver.daten.Film;
 import de.mediathekview.mserver.daten.GeoLocations;
 import de.mediathekview.mserver.daten.Sender;
-import de.mediathekview.mserver.base.messages.listener.MessageListener;
-import de.mediathekview.mserver.base.config.MServerConfigManager;
-import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
-import de.mediathekview.mserver.crawler.phoenix.PhoenixCrawler;
 import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
 import de.mediathekview.mserver.testhelper.AssertFilm;
 import de.mediathekview.mserver.testhelper.WireMockTestBase;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
-
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ForkJoinPool;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.MatcherAssert.assertThat;
-
-@RunWith(Parameterized.class)
 public class PhoenixFilmDetailTaskTest extends WireMockTestBase {
-
-  private final String filmUrl;
-  private final String filmJsonFile;
-  private final String filmDetailUrl;
-  private final String filmDetailFile;
-  private final String videoUrl;
-  private final String videoJsonFile;
-  private final String expectedTopic;
-  private final String expectedTitle;
-  private final LocalDateTime expectedTime;
-  private final Duration expectedDuration;
-  private final String expectedDescription;
-  private final String expectedWebsite;
-  private final String expectedUrlSmall;
-  private final String expectedUrlNormal;
-  private final String expectedUrlHd;
-  private final String expectedSubtitle;
-  private final GeoLocations expectedGeo;
   protected MServerConfigManager rootConfig = new MServerConfigManager("MServer-JUnit-Config.yaml");
 
-  public PhoenixFilmDetailTaskTest(
-      final String aFilmUrl,
-      final String aFilmJsonFile,
-      final String aFilmDetailUrl,
-      final String aFilmDetailFile,
-      final String aVideoUrl,
-      final String aVideoJsonFile,
-      final String aExpectedTopic,
-      final String aExpectedTitle,
-      final LocalDateTime aExpectedTime,
-      final Duration aExpectedDuration,
-      final String aExpectedDescription,
-      final String aExpectedWebsite,
-      final String aExpectedUrlSmall,
-      final String aExpectedUrlNormal,
-      final String aExpectedUrlHd,
-      final String aExpectedSubtitle,
-      final GeoLocations aExpectedGeo) {
-    filmUrl = aFilmUrl;
-    filmJsonFile = aFilmJsonFile;
-    filmDetailUrl = aFilmDetailUrl;
-    filmDetailFile = aFilmDetailFile;
-    videoUrl = aVideoUrl;
-    videoJsonFile = aVideoJsonFile;
-    expectedTopic = aExpectedTopic;
-    expectedTitle = aExpectedTitle;
-    expectedTime = aExpectedTime;
-    expectedDuration = aExpectedDuration;
-    expectedDescription = aExpectedDescription;
-    expectedWebsite = aExpectedWebsite;
-    expectedUrlSmall = buildWireMockUrl(aExpectedUrlSmall);
-    expectedUrlNormal = buildWireMockUrl(aExpectedUrlNormal);
-    expectedUrlHd = buildWireMockUrl(aExpectedUrlHd);
-    expectedSubtitle = buildWireMockUrl(aExpectedSubtitle);
-    expectedGeo = aExpectedGeo;
-  }
-
-  @Parameters
   public static Collection<Object[]> data() {
     return Arrays.asList(
         new Object[][] {
@@ -128,8 +68,26 @@ public class PhoenixFilmDetailTaskTest extends WireMockTestBase {
         });
   }
 
-  @Test
-  public void test() {
+  @MethodSource("data")
+  @ParameterizedTest
+  void test(
+      final String filmUrl,
+      final String filmJsonFile,
+      final String filmDetailUrl,
+      final String filmDetailFile,
+      final String videoUrl,
+      final String videoJsonFile,
+      final String expectedTopic,
+      final String expectedTitle,
+      final LocalDateTime expectedTime,
+      final Duration expectedDuration,
+      final String expectedDescription,
+      final String expectedWebsite,
+      final String expectedUrlSmall,
+      final String expectedUrlNormal,
+      final String expectedUrlHd,
+      final String expectedSubtitle,
+      final GeoLocations expectedGeo) {
     setupSuccessfulJsonResponse(filmUrl, filmJsonFile);
     setupSuccessfulJsonResponse(filmDetailUrl, filmDetailFile);
     setupSuccessfulJsonResponse(videoUrl, videoJsonFile);
@@ -153,10 +111,10 @@ public class PhoenixFilmDetailTaskTest extends WireMockTestBase {
         expectedDescription,
         expectedWebsite,
         new GeoLocations[] {expectedGeo},
-        expectedUrlSmall,
-        expectedUrlNormal,
-        expectedUrlHd,
-        expectedSubtitle);
+        buildWireMockUrl(expectedUrlSmall),
+        buildWireMockUrl(expectedUrlNormal),
+        buildWireMockUrl(expectedUrlHd),
+        buildWireMockUrl(expectedSubtitle));
   }
 
   protected PhoenixCrawler createCrawler() {

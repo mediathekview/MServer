@@ -1,12 +1,12 @@
 package de.mediathekview.mserver.crawler.ard.json;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 import com.google.gson.JsonElement;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.testhelper.JsonFileReader;
 import java.util.Set;
-import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 
@@ -55,6 +55,6 @@ class ArdTopicsDeserializerTest {
     final Set<CrawlerUrlDTO> actual = target.deserialize(jsonElement, null, null);
 
     assertEquals(expected.length, actual.size());
-    MatcherAssert.assertThat(actual, Matchers.containsInAnyOrder(expected));
+    assertThat(actual, Matchers.containsInAnyOrder(expected));
   }
 }

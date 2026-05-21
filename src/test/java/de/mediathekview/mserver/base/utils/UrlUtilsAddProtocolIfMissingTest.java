@@ -1,8 +1,7 @@
 package de.mediathekview.mserver.base.utils;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -10,19 +9,10 @@ import java.util.Collection;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-@RunWith(Parameterized.class)
 public class UrlUtilsAddProtocolIfMissingTest {
 
   private static final String PROTOCOL = "https:";
-  private final String inputUrl;
-  private final String expectedBaseUrl;
 
-  public UrlUtilsAddProtocolIfMissingTest(final String aInputUrl, final String aExpectedBaseUrl) {
-    inputUrl = aInputUrl;
-    expectedBaseUrl = aExpectedBaseUrl;
-  }
-
-  @Parameterized.Parameters
   public static Collection<String[]> data() {
     return Arrays.asList(
         new String[][] {
@@ -36,8 +26,9 @@ public class UrlUtilsAddProtocolIfMissingTest {
         });
   }
 
-  @Test
-  public void addProtocolIfMissingTest() {
+  @MethodSource("data")
+  @ParameterizedTest
+  void addProtocolIfMissingTest(final String inputUrl, final String expectedBaseUrl) {
     final String actual = UrlUtils.addProtocolIfMissing(inputUrl, PROTOCOL);
 
     assertThat(actual, equalTo(expectedBaseUrl));

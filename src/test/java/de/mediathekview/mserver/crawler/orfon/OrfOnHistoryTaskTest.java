@@ -9,17 +9,16 @@ import java.util.Queue;
 import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-import org.junit.Test;
-
 import de.mediathekview.mserver.crawler.orfon.task.OrfOnHistoryTask;
 import de.mediathekview.mserver.testhelper.WireMockTestBase;
+import org.junit.jupiter.api.Test;
 
-public class OrfOnHistoryTaskTest extends WireMockTestBase {
+class OrfOnHistoryTaskTest extends WireMockTestBase {
     
 
   
   @Test
-  public void test() {
+  void test() {
     setupSuccessfulJsonResponse("/history", "/orfOn/history.json");
     Set<OrfOnBreadCrumsUrlDTO> result = executeTask("/history");
     assertIterableEquals(result, generateExpectedResult());

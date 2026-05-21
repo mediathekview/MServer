@@ -4,12 +4,11 @@ import de.mediathekview.mserver.daten.Film;
 import de.mediathekview.mserver.base.webaccess.JsoupConnection;
 import de.mediathekview.mserver.crawler.sr.SrCrawler;
 import de.mediathekview.mserver.testhelper.JsoupMock;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -19,36 +18,11 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-@RunWith(Parameterized.class)
+@ExtendWith(MockitoExtension.class)
 public class SrFilmDetailTaskNoFilmTest extends SrTaskTestBase {
-
-  private final String requestUrl;
-  private final String filmPageFile;
-  private final String theme;
-  private final String videoDetailsUrl;
-  private final String videoDetailsFile;
 
   @Mock JsoupConnection jsoupConnection;
 
-  @Before
-  public void setUp() {
-    MockitoAnnotations.openMocks(this);
-  }
-
-  public SrFilmDetailTaskNoFilmTest(
-      final String aRequestUrl,
-      final String aFilmPageFile,
-      final String aTheme,
-      final String videoDetailsUrl,
-      final String videoDetailsFile) {
-    requestUrl = aRequestUrl;
-    filmPageFile = aFilmPageFile;
-    theme = aTheme;
-    this.videoDetailsUrl = videoDetailsUrl;
-    this.videoDetailsFile = videoDetailsFile;
-  }
-
-  @Parameterized.Parameters
   public static Collection<Object[]> data() {
     return Arrays.asList(
         new Object[][] {
@@ -76,8 +50,9 @@ public class SrFilmDetailTaskNoFilmTest extends SrTaskTestBase {
         });
   }
 
-  @Test
-  public void test() {
+  @MethodSource("data")
+  @ParameterizedTest
+  void test(final String requestUrl, final String filmPageFile, final String theme, final String videoDetailsUrl, final String videoDetailsFile) {
     jsoupConnection = JsoupMock.mock(requestUrl, filmPageFile);
     SrCrawler crawler = createCrawler();
     crawler.setConnection(jsoupConnection);
