@@ -4,7 +4,7 @@ plugins {
     id 'application'
     id 'com.github.jk1.dependency-license-report' version "2.0"
     id "org.sonarqube" version "3.4.0.2513"
-    id 'org.openjfx.javafxplugin' version '0.0.13'
+    id 'org.openjfx.javafxplugin' version '0.1.0'
 }
 
 repositories {
@@ -22,11 +22,10 @@ javafx {
     version = "19"
     modules = [ 'javafx.base', 'javafx.controls', 'javafx.fxml', 'javafx.graphics', 'javafx.media' ]
 }
-
-sourceCompatibility = JavaVersion.VERSION_17
-targetCompatibility = JavaVersion.VERSION_17
 group = 'de.mediathekview'
-archivesBaseName = "MServer"
+base {
+    archivesName = "MServer"
+}
 version = '3.1.285'
 
 def jarName = 'MServer.jar'
@@ -131,7 +130,7 @@ task performanceTest(type: Test) {
 }
 
 tasks.withType(Test) {
-    reports.html.destination = file("${reporting.baseDir}/${name}")
+    reports.html.outputLocation = layout.buildDirectory.dir("reports/${name}")
     useJUnitPlatform()
 }
 
@@ -177,7 +176,7 @@ processResources.dependsOn generateLicenseReport
 
 [distZip, distTar]*.shouldRunAfter compileJava, updateVersion, jar
 distTar.compression = Compression.GZIP
-distTar.extension = 'tar.gz'
+distTar.archiveExtension = 'tar.gz'
 
 jar {
     manifest {
@@ -186,7 +185,7 @@ jar {
                 'Class-Path': configurations.compileClasspath.files.collect { "lib/$it.name" }.join(' ')
         )
     }
-    archiveName = jarName
+    archiveFileName = jarName
 }
 
 distributions {
@@ -217,7 +216,7 @@ distributions {
  * This is how you pass arguments: "./gradlew start -Pargs=arg1,arg2,arg3
  */
 task start(type: JavaExec, dependsOn: classes) {
-    main = mainClass
+    mainClass = mainClass
     classpath = sourceSets.main.runtimeClasspath
 
     if (project.hasProperty('args')) {
@@ -233,7 +232,7 @@ task start(type: JavaExec, dependsOn: classes) {
  * This is how you pass arguments: "./gradlew debug -Pargs=arg1,arg2,arg3
  */
 task debug(type: JavaExec, dependsOn: classes) {
-    main = mainClass
+    mainClass = mainClass
     classpath = sourceSets.main.runtimeClasspath
     debug true
 
@@ -272,4 +271,9 @@ sonarqube {
     properties {
         property "sonar.projectKey", "mediathekview_MServer"
     }
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
 }
