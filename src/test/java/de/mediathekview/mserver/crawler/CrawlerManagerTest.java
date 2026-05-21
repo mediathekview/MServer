@@ -10,12 +10,11 @@ import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.testhelper.FileReader;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.junit.AfterClass;
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.io.File;
 import java.io.IOException;
@@ -28,19 +27,18 @@ import java.util.Date;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@RunWith(Parameterized.class)
 public class CrawlerManagerTest implements MessageListener {
 
-  private final Logger logger;
+  private Logger logger;
   private static final String TEMP_FOLDER_NAME_PATTERN = "MSERVER_TEST_%d";
   private static Path testFileFolderPath;
 
-  private final CrawlerManager crawlerManager;
-  private final String filmlistPath;
-  private final FilmlistFormats format;
-  private final int expectedSize;
+  private CrawlerManager crawlerManager;
+  private String filmlistPath;
+  private FilmlistFormats format;
+  private int expectedSize;
 
-  public CrawlerManagerTest(final String aFilmlistPath, final FilmlistFormats aFormat, final int aExpectedSize) {
+  public void initCrawlerManagerTest(final String aFilmlistPath, final FilmlistFormats aFormat, final int aExpectedSize) {
     filmlistPath = aFilmlistPath;
     expectedSize = aExpectedSize;
     format = aFormat;
@@ -48,7 +46,6 @@ public class CrawlerManagerTest implements MessageListener {
     logger = LogManager.getLogger(CrawlerManagerTest.class);
   }
 
-  @Parameterized.Parameters(name = "Test {index} Filmlist for {0} with {1}")
   public static Collection<Object[]> data() {
     return Arrays.asList(
         new Object[][] {
@@ -63,16 +60,16 @@ public class CrawlerManagerTest implements MessageListener {
         });
   }
 
-  @AfterClass
-  public static void deleteTempFiles() throws IOException {
+  @AfterAll
+  static void deleteTempFiles() throws IOException {
     Files.walk(testFileFolderPath)
         .sorted(Comparator.reverseOrder())
         .map(Path::toFile)
         .forEach(File::delete);
   }
 
-  @BeforeClass
-  public static void initTestData() throws Exception {
+  @BeforeAll
+  static void initTestData() throws Exception {
     testFileFolderPath = Files.createTempDirectory(formatWithDate(TEMP_FOLDER_NAME_PATTERN));
     Files.createDirectory(testFileFolderPath.resolve("filmlists"));
   }
@@ -84,7 +81,7 @@ public class CrawlerManagerTest implements MessageListener {
   @Override
   public void consumeMessage(final Message aMessage, final Object... aParameters) {
     if (MessageTypes.FATAL_ERROR.equals(aMessage.getMessageType())) {
-      Assert.fail(String.format(MessageUtil.getInstance().loadMessageText(aMessage), aParameters));
+      Assertions.fail(String.format(MessageUtil.getInstance().loadMessageText(aMessage), aParameters));
     } else {
       logger.info(
           String.format(
@@ -94,8 +91,10 @@ public class CrawlerManagerTest implements MessageListener {
     }
   }
 
-  @Test
-  public void testSaveAndImport() {
+  @MethodSource("data")
+  @ParameterizedTest(name = "Test {index} Filmlist for {0} with {1}")
+  void testSaveAndImport(final String aFilmlistPath, final FilmlistFormats aFormat, final int aExpectedSize) {
+    initCrawlerManagerTest(aFilmlistPath, aFormat, aExpectedSize);
     final Path filmListFilePath = FileReader.getPath(filmlistPath);
     synchronized (crawlerManager) {
       crawlerManager.addMessageListener(this);

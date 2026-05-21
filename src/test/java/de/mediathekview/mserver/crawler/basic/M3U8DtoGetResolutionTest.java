@@ -1,9 +1,8 @@
 package de.mediathekview.mserver.crawler.basic;
 
 import de.mediathekview.mserver.daten.Resolution;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -12,25 +11,8 @@ import java.util.Optional;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-@RunWith(Parameterized.class)
 public class M3U8DtoGetResolutionTest {
-  private final Optional<Resolution> expectedResolution;
-  private final M3U8Dto target;
 
-  public M3U8DtoGetResolutionTest(
-      final String aUrl,
-      final String aCodec,
-      final String aResolution,
-      final Optional<Resolution> aExpectedResolution) {
-
-    target = new M3U8Dto(aUrl);
-    target.addMeta(M3U8Constants.M3U8_CODECS, aCodec);
-    target.addMeta(M3U8Constants.M3U8_RESOLUTION, aResolution);
-
-    expectedResolution = aExpectedResolution;
-  }
-
-  @Parameterized.Parameters
   public static Collection<Object[]> data() {
     return Arrays.asList(
         new Object[][] {
@@ -47,8 +29,12 @@ public class M3U8DtoGetResolutionTest {
         });
   }
 
-  @Test
-  public void getResolutionTest() {
+  @MethodSource("data")
+  @ParameterizedTest
+  void getResolutionTest(final String aUrl, final String aCodec, final String aResolution, final Optional<Resolution> expectedResolution) {
+    M3U8Dto target = new M3U8Dto(aUrl);
+    target.addMeta(M3U8Constants.M3U8_CODECS, aCodec);
+    target.addMeta(M3U8Constants.M3U8_RESOLUTION, aResolution);
     final Optional<Resolution> actual = target.getResolution();
 
     assertThat(actual, equalTo(expectedResolution));

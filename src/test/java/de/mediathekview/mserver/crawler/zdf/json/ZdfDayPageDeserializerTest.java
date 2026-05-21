@@ -12,31 +12,11 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Optional;
 import org.hamcrest.Matchers;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
-@RunWith(Parameterized.class)
 public class ZdfDayPageDeserializerTest {
 
-  private final ZdfDayPageDeserializer target;
-  private final String jsonFile;
-  private final CrawlerUrlDTO[] expectedEntries;
-  private final Optional<String> expectedNextPageUrl;
-
-  public ZdfDayPageDeserializerTest(
-      final String aJsonFile,
-      final CrawlerUrlDTO[] aExpectedEntries,
-      final Optional<String> aExpectedNextPageUrl) {
-    target = new ZdfDayPageDeserializer(ZdfConstants.URL_API_BASE, ZdfConstants.PARTNER_TO_SENDER);
-
-    jsonFile = aJsonFile;
-    expectedEntries = aExpectedEntries;
-    expectedNextPageUrl = aExpectedNextPageUrl;
-  }
-
-  @Parameters
   public static Collection<Object[]> data() {
     return Arrays.asList(
         new Object[][] {
@@ -99,8 +79,11 @@ public class ZdfDayPageDeserializerTest {
         });
   }
 
-  @Test
-  public void deserializeTest() {
+  @MethodSource("data")
+  @ParameterizedTest
+  void deserializeTest(final String jsonFile, final CrawlerUrlDTO[] expectedEntries, final Optional<String> expectedNextPageUrl) {
+    ZdfDayPageDeserializer target = new ZdfDayPageDeserializer(ZdfConstants.URL_API_BASE, ZdfConstants.PARTNER_TO_SENDER);
+
     final JsonObject json = JsonFileReader.readJson(jsonFile);
 
     final ZdfDayPageDto actual = target.deserialize(json, ZdfDayPageDto.class, null);

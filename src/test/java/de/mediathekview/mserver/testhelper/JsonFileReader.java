@@ -14,7 +14,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.function.Function;
 
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.fail;
 
 /** Reads a json file */
 public class JsonFileReader {

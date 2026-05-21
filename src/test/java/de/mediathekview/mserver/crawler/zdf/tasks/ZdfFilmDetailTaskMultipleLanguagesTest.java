@@ -5,7 +5,7 @@ import de.mediathekview.mserver.daten.GeoLocations;
 import de.mediathekview.mserver.daten.Sender;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.testhelper.AssertFilm;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -15,10 +15,10 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class ZdfFilmDetailTaskMultipleLanguagesTest extends ZdfTaskTestBase {
+class ZdfFilmDetailTaskMultipleLanguagesTest extends ZdfTaskTestBase {
 
   @Test
-  public void testGermanAndEnglish() {
+  void testGermanAndEnglish() {
 
     final String[] expectedTitles =
         new String[] {

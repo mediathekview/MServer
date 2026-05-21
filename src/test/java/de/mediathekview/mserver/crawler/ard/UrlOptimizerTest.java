@@ -1,78 +1,33 @@
 package de.mediathekview.mserver.crawler.ard;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.when;
 
+import de.mediathekview.mserver.base.config.MServerConfigManager;
+import de.mediathekview.mserver.base.messages.listener.MessageListener;
+import de.mediathekview.mserver.daten.Resolution;
+import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ForkJoinPool;
 import java.util.stream.Stream;
-
-import org.junit.Before;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-import de.mediathekview.mserver.base.config.MServerConfigManager;
-import de.mediathekview.mserver.base.messages.listener.MessageListener;
-import de.mediathekview.mserver.daten.Resolution;
-import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
-
-public class UrlOptimizerTest {
+@ExtendWith(MockitoExtension.class)
+class UrlOptimizerTest {
   
+  protected MServerConfigManager rootConfig = new MServerConfigManager("MServer-JUnit-Config.yaml");
   @Mock
   private ArdCrawler crawler;
   
-  @Before
-  public void setUp() {
-    MockitoAnnotations.openMocks(this);
-    
-  }
-  
-  @ParameterizedTest(name = "[{index}] adaptive={0}")
-  @MethodSource("dataM3UToUrls")
-  void testM3UToUrls(String adaptive, String sampleUrl, List<String> expected) {
-    crawler = createCrawler();
-    crawler = Mockito.mock(ArdCrawler.class);
-    when(crawler.requestUrlExists(anyString())).thenReturn(true);
-    UrlOptimizer urlOptimizer = new UrlOptimizer(crawler);
-    
-    Map<Integer, String> actual = urlOptimizer.buildUrlsFromPlaylist(adaptive, sampleUrl);
-    assertThat(actual.values()).containsAll(expected);
-  }
-  
-  @Test
-  void singleTest() {
-    // https://manifest-arte.akamaized.net/api/manifest/v1/Generate/f620eafe-7d6d-4965-95cd-b11aea6e65d3/VOA-STA/XQ/129139-000-A.m3u8
-    // https://manifest-arte.akamaized.net/api/manifest/v1/Generate/f620eafe-7d6d-4965-95cd-b11aea6e65d3/VOA-STA/XQ/129139-000-A.m3u8
-    String adaptive = "https://manifest-arte.akamaized.net/api/manifest/v1/Generate/f620eafe-7d6d-4965-95cd-b11aea6e65d3/VOA-STA/XQ/129139-000-A.m3u8";
-    String sampleUrl = "https://hrardmediathek-a.akamaihd.net/video/as/allgemein/2021_06/hrLogo_210619151025_0215626_512x288-25p-500kbit.mp4";
-    crawler = createCrawler();
-    //crawler = Mockito.mock(ArdCrawler.class);
-    //when(crawler.requestUrlExists(anyString())).thenReturn(true);
-    UrlOptimizer urlOptimizer = new UrlOptimizer(crawler);
-    Map<Resolution, String> actual = urlOptimizer.buildFilmUrlFromAdaptive(adaptive, sampleUrl);
-    System.out.println(urlOptimizer.printMap(actual));
-  }
-  
-  protected MServerConfigManager rootConfig = new MServerConfigManager("MServer-JUnit-Config.yaml");
-  protected ArdCrawler createCrawler() {
-    final ForkJoinPool forkJoinPool = new ForkJoinPool();
-    final Collection<MessageListener> nachrichten = new ArrayList<>();
-    final Collection<SenderProgressListener> fortschritte = new ArrayList<>();
-
-    return new ArdCrawler(forkJoinPool, nachrichten, fortschritte, rootConfig);
-  }
-
-
   static Stream<Arguments> dataM3UToUrls() {
     return Stream.of(
         // ───────────────────────────────────────────────────────────────
@@ -359,7 +314,7 @@ public class UrlOptimizerTest {
                 "https://pdodswr-a.akamaihd.net/swr/swraktuell/bw/tv/gesamtsendung/2292127.avc-1080.mp4"   // 1920
             )
         ),
-        
+
        // ───────────────────────────────────────────────────────────────
        // 12. RB
        // ───────────────────────────────────────────────────────────────
@@ -373,7 +328,7 @@ public class UrlOptimizerTest {
                 "https://rbprogressivedl-a.akamaihd.net/clips/zt/welt/pz/PZ4x6OtreF/PZ4x6OtreF1920x1080-50p.mp4" //1920
             )
         ),
-        
+
         Arguments.of(
             "https://rbhlsod-vh.akamaihd.net/i/,clips/zt/welt/zs/zShs2LSY8I/zShs2LSY8I1920x1080-50p.mp4,clips/zt/welt/zs/zShs2LSY8I/zShs2LSY8I1280x720-50p.mp4,clips/zt/welt/zs/zShs2LSY8I/zShs2LSY8I960x540-50p.mp4,clips/zt/welt/zs/zShs2LSY8I/zShs2LSY8I640x360-50p.mp4,.csmil/master.m3u8",
             "https://rbprogressivedl-a.akamaihd.net/clips/zt/welt/zs/zShs2LSY8I/zShs2LSY8I1920x1080-50p.mp4",
@@ -384,7 +339,7 @@ public class UrlOptimizerTest {
                 "https://rbprogressivedl-a.akamaihd.net/clips/zt/welt/zs/zShs2LSY8I/zShs2LSY8I1920x1080-50p.mp4"   // 1920
             )
         ),
-        
+
         // ───────────────────────────────────────────────────────────────
         // 13. DRA Deutsches Rundfunkarchive
         // ───────────────────────────────────────────────────────────────
@@ -398,7 +353,7 @@ public class UrlOptimizerTest {
                 "https://dra-dd.akamaized.net/video/152870/349904/mp4/17Tagungder4VolkskammerderDDR-17Tagungder4VolkskammerderDDR_152870_349904_vod.1080.MP4"
             )
         ),
-        
+
         // ───────────────────────────────────────────────────────────────
         // 14. ZDF
         // ───────────────────────────────────────────────────────────────
@@ -413,8 +368,39 @@ public class UrlOptimizerTest {
                 "https://nrodlzdf-a.akamaihd.net/none/zdf/25/12/251218_trailer_kudamm77_hero_kud/1/251218_trailer_kudamm77_hero_kud_6628k_p61v17.mp4" // 1080 fhd
             )
         )
- 
+
 
     );
+  }
+  
+  @ParameterizedTest(name = "[{index}] adaptive={0}")
+  @MethodSource("dataM3UToUrls")
+  void testM3UToUrls(String adaptive, String sampleUrl, List<String> expected) {
+    crawler = createCrawler();
+    crawler = Mockito.mock(ArdCrawler.class);
+    UrlOptimizer urlOptimizer = new UrlOptimizer(crawler);
+
+    Map<Integer, String> actual = urlOptimizer.buildUrlsFromPlaylist(adaptive, sampleUrl);
+    assertThat(actual.values()).containsAll(expected);
+  }
+
+  @Test
+  void singleTest() {
+    // https://manifest-arte.akamaized.net/api/manifest/v1/Generate/f620eafe-7d6d-4965-95cd-b11aea6e65d3/VOA-STA/XQ/129139-000-A.m3u8
+    // https://manifest-arte.akamaized.net/api/manifest/v1/Generate/f620eafe-7d6d-4965-95cd-b11aea6e65d3/VOA-STA/XQ/129139-000-A.m3u8
+    String adaptive = "https://manifest-arte.akamaized.net/api/manifest/v1/Generate/f620eafe-7d6d-4965-95cd-b11aea6e65d3/VOA-STA/XQ/129139-000-A.m3u8";
+    String sampleUrl = "https://hrardmediathek-a.akamaihd.net/video/as/allgemein/2021_06/hrLogo_210619151025_0215626_512x288-25p-500kbit.mp4";
+    crawler = createCrawler();
+    UrlOptimizer urlOptimizer = new UrlOptimizer(crawler);
+    Map<Resolution, String> actual = urlOptimizer.buildFilmUrlFromAdaptive(adaptive, sampleUrl);
+    System.out.println(urlOptimizer.printMap(actual));
+  }
+
+  protected ArdCrawler createCrawler() {
+    final ForkJoinPool forkJoinPool = new ForkJoinPool();
+    final Collection<MessageListener> nachrichten = new ArrayList<>();
+    final Collection<SenderProgressListener> fortschritte = new ArrayList<>();
+
+    return new ArdCrawler(forkJoinPool, nachrichten, fortschritte, rootConfig);
   }
 }

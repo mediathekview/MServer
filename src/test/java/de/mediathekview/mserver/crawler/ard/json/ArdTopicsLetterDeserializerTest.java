@@ -5,15 +5,15 @@ import de.mediathekview.mserver.crawler.ard.PaginationUrlDto;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.testhelper.JsonFileReader;
 import org.hamcrest.Matchers;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class ArdTopicsLetterDeserializerTest {
+class ArdTopicsLetterDeserializerTest {
 
   @Test
-  public void testDeserialize() {
+  void testDeserialize() {
     final JsonElement jsonElement = JsonFileReader.readJson("/ard/ard_topic_page.json");
 
     final CrawlerUrlDTO[] expected =

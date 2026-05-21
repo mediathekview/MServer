@@ -7,16 +7,16 @@ import de.mediathekview.mserver.crawler.ard.ArdFilmInfoDto;
 import de.mediathekview.mserver.crawler.ard.ArdTopicInfoDto;
 import de.mediathekview.mserver.testhelper.JsonFileReader;
 import org.hamcrest.Matchers;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Set;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class ArdTopicPageDeserializerTest {
+class ArdTopicPageDeserializerTest {
   @Test
-  public void testDeserialize() {
+  void testDeserialize() {
     final JsonElement jsonElement = JsonFileReader.readJson("/ard/ard_topic.json");
 
       ArdFilmInfoDto[] expected =
@@ -58,7 +58,7 @@ public class ArdTopicPageDeserializerTest {
   }
 
   @Test
-  public void testDeserializeWithCompilation() {
+  void testDeserializeWithCompilation() {
     final JsonElement jsonElement = JsonFileReader.readJson("/ard/ard_topic_page_with_compilations.json");
 
     final ArdTopicPageDeserializer instance = new ArdTopicPageDeserializer();

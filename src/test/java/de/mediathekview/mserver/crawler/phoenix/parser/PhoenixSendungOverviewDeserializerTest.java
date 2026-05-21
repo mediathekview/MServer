@@ -6,9 +6,8 @@ import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.basic.PagedElementListDTO;
 import de.mediathekview.mserver.testhelper.JsonFileReader;
 import org.hamcrest.Matchers;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -17,23 +16,8 @@ import java.util.Optional;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
-@RunWith(Parameterized.class)
 public class PhoenixSendungOverviewDeserializerTest {
 
-  private final String jsonFile;
-  private final Optional<String> expectedNextPageId;
-  private final CrawlerUrlDTO[] expectedUrls;
-
-  public PhoenixSendungOverviewDeserializerTest(
-      final String aJsonFile,
-      final Optional<String> aExpectedNextPageId,
-      final CrawlerUrlDTO[] aExpectedUrls) {
-    jsonFile = aJsonFile;
-    expectedNextPageId = aExpectedNextPageId;
-    expectedUrls = aExpectedUrls;
-  }
-
-  @Parameterized.Parameters
   public static Collection<Object[]> data() {
     return Arrays.asList(
         new Object[][] {
@@ -53,8 +37,9 @@ public class PhoenixSendungOverviewDeserializerTest {
         });
   }
 
-  @Test
-  public void test() {
+  @MethodSource("data")
+  @ParameterizedTest
+  void test(final String jsonFile, final Optional<String> expectedNextPageId, final CrawlerUrlDTO[] expectedUrls) {
     final JsonElement jsonElement = JsonFileReader.readJson(jsonFile);
 
     final PhoenixSendungOverviewDeserializer target = new PhoenixSendungOverviewDeserializer();

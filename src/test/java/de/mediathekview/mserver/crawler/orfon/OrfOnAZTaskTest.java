@@ -1,30 +1,27 @@
 package de.mediathekview.mserver.crawler.orfon;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertIterableEquals;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Queue;
 import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-import org.junit.Test;
-
 import de.mediathekview.mserver.crawler.orfon.task.OrfOnAZTask;
 import de.mediathekview.mserver.testhelper.WireMockTestBase;
+import org.junit.jupiter.api.Test;
 
 import static java.util.Arrays.asList;
+import static org.junit.jupiter.api.Assertions.*;
 
 
-public class OrfOnAZTaskTest extends WireMockTestBase {
+class OrfOnAZTaskTest extends WireMockTestBase {
   
   @Test
-  public void test() {
+  void test() {
     setupSuccessfulJsonResponse("/azTask", "/orfOn/letter_1.json");
     Set<OrfOnBreadCrumsUrlDTO> result = executeTask("/azTask");
     List<OrfOnBreadCrumsUrlDTO> expectedResult = generateExpectedResult();
-    assertTrue(result.size() == 9);
+    assertEquals(9, result.size());
     assertIterableEquals(result, expectedResult);
   }
   

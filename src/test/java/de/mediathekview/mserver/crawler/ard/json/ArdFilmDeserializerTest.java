@@ -13,78 +13,18 @@ import de.mediathekview.mserver.daten.Sender;
 import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
 import de.mediathekview.mserver.testhelper.AssertFilm;
 import de.mediathekview.mserver.testhelper.JsonFileReader;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
+
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.concurrent.ForkJoinPool;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
 
-@RunWith(Parameterized.class)
 public class ArdFilmDeserializerTest {
-
-  private final String jsonFile;
-  private final String expectedTopic;
-  private final String expectedTitle;
-  private final String expectedDescription;
-  private final LocalDateTime expectedDateTime;
-  private final Duration expectedDuration;
-  private final String expectedUrlSmall;
-  private final String expectedUrlNormal;
-  private final String expectedUrlHd;
-  private final String expectedADUrlSmall;
-  private final String expectedADUrlNormal;
-  private final String expectedADUrlHd;
-  private final String expectedDGSUrlSmall;
-  private final String expectedDGSUrlNormal;
-  private final String expectedDGSUrlHd;
-  private final String expectedSubtitle;
-  private final GeoLocations expectedGeo;
-  private final Optional<Sender> additionalSender;
 
   protected MServerConfigManager rootConfig = new MServerConfigManager("MServer-JUnit-Config.yaml");
 
-  public ArdFilmDeserializerTest(
-      final String jsonFile,
-      final String expectedTopic,
-      final String expectedTitle,
-      final String expectedDescription,
-      final LocalDateTime expectedDateTime,
-      final Duration expectedDuration,
-      final String expectedUrlSmall,
-      final String expectedUrlNormal,
-      final String expectedUrlHd,
-      final String expectedADUrlSmall,
-      final String expectedADUrlNormal,
-      final String expectedADUrlHd,
-      final String expectedDGSUrlSmall,
-      final String expectedDGSUrlNormal,
-      final String expectedDGSUrlHd,
-      final String expectedSubtitle,
-      final GeoLocations expectedGeo,
-      final Optional<Sender> additionalSender) {
-    this.jsonFile = jsonFile;
-    this.expectedTopic = expectedTopic;
-    this.expectedTitle = expectedTitle;
-    this.expectedDescription = expectedDescription;
-    this.expectedDateTime = expectedDateTime;
-    this.expectedDuration = expectedDuration;
-    this.expectedUrlSmall = expectedUrlSmall;
-    this.expectedUrlNormal = expectedUrlNormal;
-    this.expectedUrlHd = expectedUrlHd;
-    this.expectedADUrlSmall = expectedADUrlSmall;
-    this.expectedADUrlNormal = expectedADUrlNormal;
-    this.expectedADUrlHd = expectedADUrlHd;
-    this.expectedDGSUrlSmall = expectedDGSUrlSmall;
-    this.expectedDGSUrlNormal = expectedDGSUrlNormal;
-    this.expectedDGSUrlHd = expectedDGSUrlHd;
-    this.expectedSubtitle = expectedSubtitle;
-    this.expectedGeo = expectedGeo;
-    this.additionalSender = additionalSender;
-  }
-
-  @Parameterized.Parameters
   public static Collection<Object[]> data() {
     return Arrays.asList(
         new Object[][] {
@@ -371,8 +311,9 @@ public class ArdFilmDeserializerTest {
         });
   }
 
-  @Test
-  public void test() {
+  @MethodSource("data")
+  @ParameterizedTest
+  void test(final String jsonFile, final String expectedTopic, final String expectedTitle, final String expectedDescription, final LocalDateTime expectedDateTime, final Duration expectedDuration, final String expectedUrlSmall, final String expectedUrlNormal, final String expectedUrlHd, final String expectedADUrlSmall, final String expectedADUrlNormal, final String expectedADUrlHd, final String expectedDGSUrlSmall, final String expectedDGSUrlNormal, final String expectedDGSUrlHd, final String expectedSubtitle, final GeoLocations expectedGeo, final Optional<Sender> additionalSender) {
 
     final JsonElement jsonElement = JsonFileReader.readJson(jsonFile);
 

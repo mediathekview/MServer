@@ -1,8 +1,7 @@
 package de.mediathekview.mserver.crawler.srf.tasks;
 
 import de.mediathekview.mserver.daten.Film;
-
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Set;
 
@@ -11,10 +10,10 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class SrfFilmDetailTaskTest extends SrfTaskTestBase {
+class SrfFilmDetailTaskTest extends SrfTaskTestBase {
 
   @Test
-  public void testSingleUrl() {
+  void testSingleUrl() {
     final String requestUrl =
         "/integrationlayer/2.0/srf/mediaComposition/video/22b9dd2c-d1fd-463b-91de-d804eda74889.json";
 
@@ -30,7 +29,7 @@ public class SrfFilmDetailTaskTest extends SrfTaskTestBase {
   }
 
   @Test
-  public void testFilmUrlNotFound() {
+  void testFilmUrlNotFound() {
     final String requestUrl =
         "/integrationlayer/2.0/srf/mediaComposition/video/22b9dd2c-d1fd-463b-91de-d804eda74889.json";
 

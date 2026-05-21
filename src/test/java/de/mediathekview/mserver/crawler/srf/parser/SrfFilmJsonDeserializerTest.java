@@ -7,10 +7,8 @@ import de.mediathekview.mserver.daten.Sender;
 import de.mediathekview.mserver.crawler.srf.tasks.SrfTaskTestBase;
 import de.mediathekview.mserver.testhelper.AssertFilm;
 import de.mediathekview.mserver.testhelper.JsonFileReader;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -22,62 +20,8 @@ import java.util.Optional;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-@RunWith(Parameterized.class)
 public class SrfFilmJsonDeserializerTest extends SrfTaskTestBase {
 
-  private final String jsonFile;
-  private final String m3u8File;
-  private final String m3u8Url;
-  private final String theme;
-  private final String title;
-  private final LocalDateTime dateTime;
-  private final long duration;
-  private final String description;
-  private final String website;
-  private final String urlSmall;
-  private final String urlNormal;
-  private final String urlHd;
-  private final String urlAudioDescriptionSmall;
-  private final String urlAudioDescriptionNormal;
-  private final String urlAudioDescriptionHd;
-  private final String subtitleUrl;
-
-  public SrfFilmJsonDeserializerTest(
-      final String aJsonFile,
-      final String aM3u8File,
-      final String aM3u8Url,
-      final String aTheme,
-      final String aTitle,
-      final LocalDateTime aLocalDateTime,
-      final long aDuration,
-      final String aDescription,
-      final String aWebsite,
-      final String aUrlSmall,
-      final String aUrlNormal,
-      final String aUrlHd,
-      final String aUrlAudioDescriptionSmall,
-      final String aUrlAudioDescriptionNormal,
-      final String aUrlAudioDescriptionHd,
-      final String aSubtitleUrl) {
-    jsonFile = aJsonFile;
-    m3u8File = aM3u8File;
-    m3u8Url = aM3u8Url;
-    theme = aTheme;
-    title = aTitle;
-    dateTime = aLocalDateTime;
-    duration = aDuration;
-    description = aDescription;
-    website = aWebsite;
-    urlSmall = aUrlSmall;
-    urlNormal = aUrlNormal;
-    urlHd = aUrlHd;
-    urlAudioDescriptionSmall = aUrlAudioDescriptionSmall;
-    urlAudioDescriptionNormal = aUrlAudioDescriptionNormal;
-    urlAudioDescriptionHd = aUrlAudioDescriptionHd;
-    subtitleUrl = aSubtitleUrl;
-  }
-
-  @Parameters
   public static Collection<Object[]> data() {
     return Arrays.asList(
         new Object[][] {
@@ -192,8 +136,9 @@ public class SrfFilmJsonDeserializerTest extends SrfTaskTestBase {
         });
   }
 
-  @Test
-  public void test() {
+  @MethodSource("data")
+  @ParameterizedTest
+  void test(final String jsonFile, final String m3u8File, final String m3u8Url, final String theme, final String title, final LocalDateTime localDateTime, final long duration, final String description, final String website, final String urlSmall, final String urlNormal, final String urlHd, final String urlAudioDescriptionSmall, final String urlAudioDescriptionNormal, final String urlAudioDescriptionHd, final String subtitleUrl) {
     final JsonElement jsonElement =
         JsonFileReader.readJsonWithTextModification(jsonFile, this::fixupAllWireMockUrls);
 
@@ -209,7 +154,7 @@ public class SrfFilmJsonDeserializerTest extends SrfTaskTestBase {
         Sender.SRF,
         theme,
         title,
-        dateTime,
+        localDateTime,
         Duration.of(duration, ChronoUnit.MILLIS),
         description,
         website,

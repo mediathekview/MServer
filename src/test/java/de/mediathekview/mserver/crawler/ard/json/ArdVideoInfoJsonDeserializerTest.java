@@ -8,9 +8,8 @@ import de.mediathekview.mserver.crawler.ard.ArdCrawler;
 import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
 import de.mediathekview.mserver.testhelper.JsonFileReader;
 import de.mediathekview.mserver.testhelper.WireMockTestBase;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -21,32 +20,8 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-@RunWith(Parameterized.class)
 public class ArdVideoInfoJsonDeserializerTest extends WireMockTestBase {
 
-  private final String jsonFile;
-  private final String m3u8Url;
-  private final String m3u8File;
-  private final String expectedUrlSmall;
-  private final String expectedUrlNormal;
-  private final String expectedUrlHd;
-
-  public ArdVideoInfoJsonDeserializerTest(
-      final String aJsonFile,
-      final String aM3u8Url,
-      final String aM3u8File,
-      final String aUrlSmall,
-      final String aUrlNormal,
-      final String aUrlHd) {
-    jsonFile = aJsonFile;
-    m3u8Url = aM3u8Url;
-    m3u8File = aM3u8File;
-    expectedUrlSmall = aUrlSmall;
-    expectedUrlNormal = aUrlNormal;
-    expectedUrlHd = aUrlHd;
-  }
-
-  @Parameterized.Parameters
   public static Collection<Object[]> data() {
     return Arrays.asList(
         new Object[][] {
@@ -181,8 +156,9 @@ public class ArdVideoInfoJsonDeserializerTest extends WireMockTestBase {
         });
   }
 
-  @Test
-  public void deserializeTest() {
+  @MethodSource("data")
+  @ParameterizedTest
+  void deserializeTest(final String jsonFile, final String m3u8Url, final String m3u8File, final String expectedUrlSmall, final String expectedUrlNormal, final String expectedUrlHd) {
 
     final JsonElement jsonElement =
         JsonFileReader.readJsonWithTextModification(jsonFile, this::fixupAllWireMockUrls);

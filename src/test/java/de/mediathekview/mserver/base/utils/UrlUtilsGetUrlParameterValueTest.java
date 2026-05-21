@@ -1,30 +1,16 @@
 package de.mediathekview.mserver.base.utils;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Optional;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.MatcherAssert.assertThat;
-
-@RunWith(Parameterized.class)
 public class UrlUtilsGetUrlParameterValueTest {
-  private final String inputUrl;
-  private final String parameterName;
-  private final Optional<String> expectedParameterValue;
 
-  public UrlUtilsGetUrlParameterValueTest(
-          final String aInputUrl, final String aParameterName, final Optional<String> aExpectedParameterValue) {
-    inputUrl = aInputUrl;
-    parameterName = aParameterName;
-    expectedParameterValue = aExpectedParameterValue;
-  }
-
-  @Parameterized.Parameters
   public static Collection<Object[]> data() {
     return Arrays.asList(
         new Object[][] {
@@ -37,8 +23,12 @@ public class UrlUtilsGetUrlParameterValueTest {
         });
   }
 
-  @Test
-  public void getUrlParameterValueTest() throws UrlParseException {
+  @MethodSource("data")
+  @ParameterizedTest
+  void getUrlParameterValueTest(
+      final String inputUrl,
+      final String parameterName,
+      final Optional<String> expectedParameterValue) {
     final Optional<String> actual = UrlUtils.getUrlParameterValue(inputUrl, parameterName);
 
     assertThat(actual, equalTo(expectedParameterValue));

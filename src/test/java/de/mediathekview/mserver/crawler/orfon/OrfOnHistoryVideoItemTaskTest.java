@@ -9,15 +9,14 @@ import java.util.Queue;
 import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-import org.junit.Test;
-
 import de.mediathekview.mserver.crawler.orfon.task.OrfOnHistoryVideoItemTask;
 import de.mediathekview.mserver.testhelper.WireMockTestBase;
+import org.junit.jupiter.api.Test;
 
-public class OrfOnHistoryVideoItemTaskTest extends WireMockTestBase {
+class OrfOnHistoryVideoItemTaskTest extends WireMockTestBase {
 
   @Test
-  public void test() {
+  void test() {
     setupSuccessfulJsonResponse("/videoItems", "/orfOn/videoItems_1.json");
     Set<OrfOnBreadCrumsUrlDTO> result = executeTask("/videoItems");
     assertIterableEquals(result, generateExpectedResult());

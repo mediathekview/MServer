@@ -9,14 +9,14 @@ import java.util.Queue;
 import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-import org.junit.Test;
 import de.mediathekview.mserver.crawler.orfon.task.OrfOnHistoryChildrenTask;
 import de.mediathekview.mserver.testhelper.WireMockTestBase;
+import org.junit.jupiter.api.Test;
 
-public class OrfOnHistoryChildrenTaskTest extends WireMockTestBase {
+class OrfOnHistoryChildrenTaskTest extends WireMockTestBase {
 
   @Test
-  public void test() {
+  void test() {
     setupSuccessfulJsonResponse("/children", "/orfOn/children_1.json");
     Set<OrfOnBreadCrumsUrlDTO> result = executeTask("/children");
     assertIterableEquals(result, generateExpectedResult());

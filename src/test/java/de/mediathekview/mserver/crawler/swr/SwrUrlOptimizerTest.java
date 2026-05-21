@@ -5,7 +5,7 @@ import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.crawler.ard.ArdCrawler;
 import de.mediathekview.mserver.crawler.ard.ArdUrlOptimizer;
 import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
-import de.mediathekview.mserver.testhelper.WireMockTestBaseJUnit5;
+import de.mediathekview.mserver.testhelper.WireMockTestBase;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -14,7 +14,7 @@ import java.util.concurrent.ForkJoinPool;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class SwrUrlOptimizerTest extends WireMockTestBaseJUnit5 {
+class SwrUrlOptimizerTest extends WireMockTestBase {
 
   @Test
   void optimizeHdUrlTestFullHdExists() {

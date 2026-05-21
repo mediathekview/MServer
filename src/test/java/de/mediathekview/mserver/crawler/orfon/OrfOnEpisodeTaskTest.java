@@ -1,7 +1,7 @@
 package de.mediathekview.mserver.crawler.orfon;
 
-import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import de.mediathekview.mserver.base.messages.listener.MessageListener;
 import de.mediathekview.mserver.base.config.MServerConfigManager;
@@ -9,6 +9,7 @@ import de.mediathekview.mserver.crawler.orfon.task.OrfOnEpisodeTask;
 import de.mediathekview.mserver.daten.*;
 import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
 import de.mediathekview.mserver.testhelper.AssertFilm;
+import org.junit.jupiter.api.Test;
 
 import java.net.URI;
 import java.time.Duration;
@@ -22,9 +23,8 @@ import java.util.Queue;
 import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ForkJoinPool;
-import org.junit.Test;
 
-public class OrfOnEpisodeTaskTest extends OrfOnEpisodesTaskTest {
+class OrfOnEpisodeTaskTest extends OrfOnEpisodesTaskTest {
   
   protected static OrfOnCrawler createCrawler() {
     final ForkJoinPool forkJoinPool = new ForkJoinPool();
@@ -34,10 +34,10 @@ public class OrfOnEpisodeTaskTest extends OrfOnEpisodesTaskTest {
   }
   
   @Test
-  public void testNormal_1() {
+  void testNormal_1() {
     setupSuccessfulJsonResponse("/episode1", "/orfOn/episode_1.json");
     Set<Film> result = executeTask("/episode1");
-    assertTrue(result.size() == 1);
+    assertEquals(1, result.size());
     Film actual = result.toArray(new Film[1])[0];
     //
     try {
@@ -67,10 +67,10 @@ public class OrfOnEpisodeTaskTest extends OrfOnEpisodesTaskTest {
   }
 
   @Test
-  public void testNormal_2() {
+  void testNormal_2() {
     setupSuccessfulJsonResponse("/episode2", "/orfOn/episode_2.json");
     Set<Film> result = executeTask("/episode2");
-    assertTrue(result.size() == 1);
+    assertEquals(1, result.size());
     Film actual = result.toArray(new Film[1])[0];
     //
     try {
@@ -100,10 +100,10 @@ public class OrfOnEpisodeTaskTest extends OrfOnEpisodesTaskTest {
   }
   
   @Test
-  public void testZib() {
+  void testZib() {
     setupSuccessfulJsonResponse("/zib", "/orfOn/episode_zib.json");
     Set<Film> result = executeTask("/zib");
-    assertTrue(result.size() == 1);
+    assertEquals(1, result.size());
     Film actual = result.toArray(new Film[1])[0];
 
     AssertFilm.assertEquals(
@@ -123,10 +123,10 @@ public class OrfOnEpisodeTaskTest extends OrfOnEpisodesTaskTest {
   }
   
   @Test
-  public void testAD() {
+  void testAD() {
     setupSuccessfulJsonResponse("/episodeAD", "/orfOn/episode_ad.json");
     Set<Film> result = executeTask("/episodeAD");
-    assertTrue(result.size() == 1);
+    assertEquals(1, result.size());
     Film actual = result.toArray(new Film[1])[0];
     //
     try {
@@ -151,17 +151,16 @@ public class OrfOnEpisodeTaskTest extends OrfOnEpisodesTaskTest {
         Resolution.SMALL, new FilmUrl("https://apasfiis.sf.apa.at/ipad/cms-austria/2023-12-06_2307_sd_01_AD---Vorstadtwe_____14204417__o__8792736916__s15524266_6__ORF1ADHD_23092909P_23560117P_Q4A.mp4/playlist.m3u8", 0L),
         Resolution.VERY_SMALL, new FilmUrl("https://apasfiis.sf.apa.at/ipad/cms-austria/2023-12-06_2307_sd_01_AD---Vorstadtwe_____14204417__o__8792736916__s15524266_6__ORF1ADHD_23092909P_23560117P_Q1A.3gp/playlist.m3u8", 0L)
         ), actual.getUrls());
-    // {HD=, NORMAL=, SMALL=, VERY_SMALL=}
     } catch (Exception e) {
       assertTrue(false);
     }
   }
   
   @Test
-  public void testArchive() {
+  void testArchive() {
     setupSuccessfulJsonResponse("/episodeArchive", "/orfOn/episode_archive.json");
     Set<Film> result = executeTask("/episodeArchive");
-    assertTrue(result.size() == 1);
+    assertEquals(1, result.size());
     Film actual = result.toArray(new Film[1])[0];
     //
     try {
@@ -191,7 +190,7 @@ public class OrfOnEpisodeTaskTest extends OrfOnEpisodesTaskTest {
   }
   
   @Test
-  public void testIgnoreDRM() {
+  void testIgnoreDRM() {
     setupSuccessfulJsonResponse("/episodeDummyUrl", "/orfOn/episode_noDrm.json");
     setupSuccessfulJsonResponse("/cms-austria/online/6b2d672267c81e196472b564abf8c8fe/1713132000/2024-03-13_2349_in_01_Spektakulaere-R_____14216629__o__1333685799__s15595990_Q8C.mp4", "/orfOn/episode_noDrm.json");
     setupSuccessfulJsonResponse("/cms-austria/online/de9bd8775f46ea293a9db4b0711d4de5/1713132000/2024-03-13_2349_in_01_Spektakulaere-R_____14216629__o__1333685799__s15595990_Q6A.mp4", "/orfOn/episode_noDrm.json");
@@ -200,7 +199,7 @@ public class OrfOnEpisodeTaskTest extends OrfOnEpisodesTaskTest {
     setupHeadRequestForFileSize();
     //
     Set<Film> result = executeTask("/episodeDummyUrl");
-    assertTrue(result.size() == 0);
+    assertEquals(0, result.size());
   }
   
   private Set<Film> executeTask(String... requestUrl) {

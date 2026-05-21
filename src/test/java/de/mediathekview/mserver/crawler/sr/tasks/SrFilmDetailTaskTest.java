@@ -16,62 +16,14 @@ import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Set;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-@RunWith(Parameterized.class)
+@ExtendWith(MockitoExtension.class)
 public class SrFilmDetailTaskTest extends SrTaskTestBase {
 
-  private final String requestUrl;
-  private final String filmPageFile;
-  private final String videoDetailsUrl;
-  private final String videoDetailsFile;
-  private final String theme;
-  private final String expectedTitle;
-  private final LocalDateTime expectedDate;
-  private final Duration expectedDuration;
-  private final String expectedDescription;
-  private final String expectedSubtitle;
-  private final String expectedUrlSmall;
-  private final String expectedUrlNormal;
-  private final String expectedUrlHd;
-
-  @Mock JsoupConnection jsoupConnection;
-
-  public SrFilmDetailTaskTest(
-      final String aRequestUrl,
-      final String aFilmPageFile,
-      final String aVideoDetailsUrl,
-      final String aVideoDetailsFile,
-      final String aTheme,
-      final String aExpectedTitle,
-      final LocalDateTime aExpectedDate,
-      final Duration aExpectedDuration,
-      final String aExpectedDescription,
-      final String aExpectedSubtitle,
-      final String aExpectedUrlSmall,
-      final String aExpectedUrlNormal,
-      final String aExpectedUrlHd) {
-    requestUrl = aRequestUrl;
-    filmPageFile = aFilmPageFile;
-    videoDetailsUrl = aVideoDetailsUrl;
-    videoDetailsFile = aVideoDetailsFile;
-    theme = aTheme;
-    expectedTitle = aExpectedTitle;
-    expectedDate = aExpectedDate;
-    expectedDuration = aExpectedDuration;
-    expectedDescription = aExpectedDescription;
-    expectedSubtitle = aExpectedSubtitle;
-    expectedUrlSmall = aExpectedUrlSmall;
-    expectedUrlNormal = aExpectedUrlNormal;
-    expectedUrlHd = aExpectedUrlHd;
-  }
-
-  @Parameterized.Parameters
   public static Collection<Object[]> data() {
     return Arrays.asList(
         new Object[][] {
@@ -123,14 +75,10 @@ public class SrFilmDetailTaskTest extends SrTaskTestBase {
         });
   }
 
-  @Before
-  public void setUp() {
-    MockitoAnnotations.openMocks(this);
-  }
-
-  @Test
-  public void test() {
-    jsoupConnection =
+  @MethodSource("data")
+  @ParameterizedTest
+  void test(final String requestUrl, final String filmPageFile, final String videoDetailsUrl, final String videoDetailsFile, final String theme, final String expectedTitle, final LocalDateTime expectedDate, final Duration expectedDuration, final String expectedDescription, final String expectedSubtitle, final String expectedUrlSmall, final String expectedUrlNormal, final String expectedUrlHd) {
+    JsoupConnection jsoupConnection =
         JsoupMock.mockWithTextModifications(requestUrl, filmPageFile, this::fixupAllWireMockUrls);
     final SrCrawler crawler = createCrawler();
     crawler.setConnection(jsoupConnection);

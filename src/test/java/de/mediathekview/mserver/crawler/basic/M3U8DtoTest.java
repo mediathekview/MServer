@@ -1,17 +1,17 @@
 package de.mediathekview.mserver.crawler.basic;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class M3U8DtoTest {
+class M3U8DtoTest {
 
   @Test
-  public void equalTestSameObject() {
+  void equalTestSameObject() {
     final M3U8Dto target = new M3U8Dto("test");
 
     final boolean actual = target.equals(target);
@@ -20,7 +20,7 @@ public class M3U8DtoTest {
   }
 
   @Test
-  public void equalTestNull() {
+  void equalTestNull() {
     final M3U8Dto target = new M3U8Dto("test");
 
     final boolean actual = target.equals(null);
@@ -29,7 +29,7 @@ public class M3U8DtoTest {
   }
 
   @Test
-  public void equalTestOnlyUrlEqual() {
+  void equalTestOnlyUrlEqual() {
     final M3U8Dto target = new M3U8Dto("test");
     final M3U8Dto other = new M3U8Dto("test");
 
@@ -39,7 +39,7 @@ public class M3U8DtoTest {
   }
 
   @Test
-  public void equalTestOnlyUrlDifferent() {
+  void equalTestOnlyUrlDifferent() {
     final M3U8Dto target = new M3U8Dto("test");
     final M3U8Dto other = new M3U8Dto("test1");
 
@@ -49,7 +49,7 @@ public class M3U8DtoTest {
   }
 
   @Test
-  public void equalTestWithMetaDifferentSize() {
+  void equalTestWithMetaDifferentSize() {
     final M3U8Dto target = new M3U8Dto("test");
     target.addMeta("x", "test");
     final M3U8Dto other = new M3U8Dto("test");
@@ -60,7 +60,7 @@ public class M3U8DtoTest {
   }
 
   @Test
-  public void equalTestWithMetaSameSizeDifferentKeys() {
+  void equalTestWithMetaSameSizeDifferentKeys() {
     final M3U8Dto target = new M3U8Dto("test");
     target.addMeta("x", "test");
     final M3U8Dto other = new M3U8Dto("test");
@@ -72,7 +72,7 @@ public class M3U8DtoTest {
   }
 
   @Test
-  public void equalTestWithMetaSameSizeDifferentValues() {
+  void equalTestWithMetaSameSizeDifferentValues() {
     final M3U8Dto target = new M3U8Dto("test");
     target.addMeta("x", "test");
     final M3U8Dto other = new M3U8Dto("test");
@@ -84,7 +84,7 @@ public class M3U8DtoTest {
   }
 
   @Test
-  public void equalTestWithMeta() {
+  void equalTestWithMeta() {
     final M3U8Dto target = new M3U8Dto("test");
     target.addMeta("x", "test");
     target.addMeta("y", "5");
@@ -98,7 +98,7 @@ public class M3U8DtoTest {
   }
 
   @Test
-  public void getNormalizedMetaWithoutModification() {
+  void getNormalizedMetaWithoutModification() {
     final M3U8Dto target = new M3U8Dto("test");
     target.addMeta(M3U8Constants.M3U8_RESOLUTION, "1920x1200");
 
@@ -109,7 +109,7 @@ public class M3U8DtoTest {
   }
 
   @Test
-  public void getNormalizedMetaWithModification() {
+  void getNormalizedMetaWithModification() {
     final M3U8Dto target = new M3U8Dto("test");
     target.addMeta(M3U8Constants.M3U8_RESOLUTION, "960x540");
 

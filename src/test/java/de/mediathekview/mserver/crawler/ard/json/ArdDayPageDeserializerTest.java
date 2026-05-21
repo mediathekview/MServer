@@ -5,17 +5,17 @@ import de.mediathekview.mserver.crawler.ard.ArdConstants;
 import de.mediathekview.mserver.crawler.ard.ArdFilmInfoDto;
 import de.mediathekview.mserver.testhelper.JsonFileReader;
 import org.hamcrest.Matchers;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Set;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class ArdDayPageDeserializerTest {
+class ArdDayPageDeserializerTest {
 
   @Test
-  public void testDeserialize() {
+  void testDeserialize() {
     final JsonElement jsonElement = JsonFileReader.readJson("/ard/ard_day_page.json");
 
     final ArdFilmInfoDto[] expected =

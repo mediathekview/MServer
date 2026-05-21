@@ -3,7 +3,7 @@ package de.mediathekview.mserver.crawler.zdf.tasks;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.zdf.ZdfConstants;
 import org.hamcrest.Matchers;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Collection;
 import java.util.Set;
@@ -13,10 +13,10 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class ZdfDayPageTaskTest extends ZdfTaskTestBase {
+class ZdfDayPageTaskTest extends ZdfTaskTestBase {
 
   @Test
-  public void testWithSinglePage() {
+  void testWithSinglePage() {
 
     final CrawlerUrlDTO[] expectedEntries =
         new CrawlerUrlDTO[] {
@@ -40,7 +40,7 @@ public class ZdfDayPageTaskTest extends ZdfTaskTestBase {
   }
 
   @Test
-  public void testWithMultiplePages() {
+  void testWithMultiplePages() {
 
     final String requestUrl =
         "/search/documents?hasVideo=true&q=*&types=page-video&sortOrder=desc&from=2018-02-24T12:00:00.000%2B01:00&to=2018-02-24T14:00:00.878%2B01:00&sortBy=date&page=1";
@@ -59,7 +59,7 @@ public class ZdfDayPageTaskTest extends ZdfTaskTestBase {
   }
 
   @Test
-  public void testOverviewPageNotFound() {
+  void testOverviewPageNotFound() {
     final String requestUrl = "/url/notfound";
 
     wireMockServer.stubFor(

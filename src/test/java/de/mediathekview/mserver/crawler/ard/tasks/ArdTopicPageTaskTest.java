@@ -1,9 +1,9 @@
 package de.mediathekview.mserver.crawler.ard.tasks;
 
 import de.mediathekview.mserver.daten.Sender;
+import org.junit.jupiter.api.Test;
 import de.mediathekview.mserver.crawler.ard.ArdFilmInfoDto;
 import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
-import org.junit.Test;
 
 import java.util.Queue;
 import java.util.Set;
@@ -12,10 +12,10 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class ArdTopicPageTaskTest extends ArdTaskTestBase {
+class ArdTopicPageTaskTest extends ArdTaskTestBase {
 
   @Test
-  public void testNoPagination() {
+  void testNoPagination() {
     rootConfig.getSenderConfig(Sender.ARD).setMaximumSubpages(5);
 
     final String filmUrl =
@@ -28,7 +28,7 @@ public class ArdTopicPageTaskTest extends ArdTaskTestBase {
   }
 
   @Test
-  public void testPaginationLoadOnlyOneSubpage() {
+  void testPaginationLoadOnlyOneSubpage() {
     rootConfig.getSenderConfig(Sender.ARD).setMaximumSubpages(1);
 
     final String filmUrl =
@@ -47,7 +47,7 @@ public class ArdTopicPageTaskTest extends ArdTaskTestBase {
   }
 
   @Test
-  public void testPaginationLoadAllWithMaxSubpagesHigherThanPageCount() {
+  void testPaginationLoadAllWithMaxSubpagesHigherThanPageCount() {
     rootConfig.getSenderConfig(Sender.ARD).setMaximumSubpages(10);
 
     final String filmUrl =

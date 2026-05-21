@@ -1,8 +1,7 @@
 package de.mediathekview.mserver.base.utils;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -10,17 +9,7 @@ import java.util.Collection;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-@RunWith(Parameterized.class)
 public class UrlUtilsGetBaseUrlTest {
-  private final String inputUrl;
-  private final String expectedBaseUrl;
-
-  public UrlUtilsGetBaseUrlTest(final String aInputUrl, final String aExpectedBaseUrl) {
-    inputUrl = aInputUrl;
-    expectedBaseUrl = aExpectedBaseUrl;
-  }
-
-  @Parameterized.Parameters
   public static Collection<Object[]> data() {
     return Arrays.asList(
         new Object[][] {
@@ -32,8 +21,9 @@ public class UrlUtilsGetBaseUrlTest {
         });
   }
 
-  @Test
-  public void getBaseUrlTest() {
+  @MethodSource("data")
+  @ParameterizedTest
+  void getBaseUrlTest(final String inputUrl, final String expectedBaseUrl) {
     final String actual = UrlUtils.getBaseUrl(inputUrl);
 
     assertThat(actual, equalTo(expectedBaseUrl));

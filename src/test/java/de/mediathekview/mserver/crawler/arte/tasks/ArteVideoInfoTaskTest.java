@@ -1,7 +1,7 @@
 package de.mediathekview.mserver.crawler.arte.tasks;
 
-import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 import java.util.List;
@@ -10,16 +10,15 @@ import java.util.Queue;
 import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-import org.junit.Test;
-
 import de.mediathekview.mserver.crawler.arte.json.ArteVideoInfoDto;
 import de.mediathekview.mserver.crawler.basic.TopicUrlDTO;
 import de.mediathekview.mserver.testhelper.WireMockTestBase;
+import org.junit.jupiter.api.Test;
 
-public class ArteVideoInfoTaskTest extends WireMockTestBase {
+class ArteVideoInfoTaskTest extends WireMockTestBase {
 
   @Test
-  public void test() {
+  void test() {
     setupSuccessfulJsonResponse("/arte_videos1", "/arte/arte_videos_1.json");
     Set<ArteVideoInfoDto> result = executeTask("/arte_videos1");
     List<List<Optional<String>>> expectedResult = generateExpectedResult();

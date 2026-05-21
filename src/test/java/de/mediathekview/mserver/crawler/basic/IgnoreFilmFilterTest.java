@@ -1,9 +1,7 @@
 package de.mediathekview.mserver.crawler.basic;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.rules.TemporaryFolder;
-
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import de.mediathekview.mserver.daten.Film;
 import de.mediathekview.mserver.daten.Sender;
 import de.mediathekview.mserver.testhelper.WireMockTestBase;
@@ -15,19 +13,19 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-public class IgnoreFilmFilterTest extends WireMockTestBase {
+class IgnoreFilmFilterTest extends WireMockTestBase {
   File externalFile;
   
-  @Before
-  public void setUp() {
+  @BeforeEach
+  void setUp() {
       try {
-        TemporaryFolder folder = new TemporaryFolder();
-        folder.create();
-        externalFile = folder.newFile( "testfile1.txt" );
+        File folder = Files.createTempDirectory("junit").toFile();
+        externalFile = newFile(folder, "testfile1.txt");
         FileWriter fw1 = new FileWriter( externalFile );
         BufferedWriter bw1 = new BufferedWriter( fw1 );
         bw1.write( "content for testfile1\n\n\n\n");
@@ -42,7 +40,7 @@ public class IgnoreFilmFilterTest extends WireMockTestBase {
   }
   
   @Test
-  public void filterTest() {
+  void filterTest() {
     final IgnoreFilmFilter ignoreFilmFilterForClasspath = new IgnoreFilmFilter("ignoreFilmlist.txt");
     final IgnoreFilmFilter ignoreFilmFilterForExternal = new IgnoreFilmFilter(externalFile.getAbsolutePath());
     final IgnoreFilmFilter ignoreFilmFilterForHttp = new IgnoreFilmFilter(this.getWireMockBaseUrlSafe()+"/list/ignoreFilmlistAsHttp.txt");
@@ -62,6 +60,12 @@ public class IgnoreFilmFilterTest extends WireMockTestBase {
     assertThat(ignoreFilmFilterForClasspath.ignoreFilm(filmPositiv2), equalTo(true));
     assertThat(ignoreFilmFilterForClasspath.ignoreFilm(filmNegativ), equalTo(false));
     assertThat(ignoreFilmFilterForClasspath.ignoreFilm(filmNegativ1), equalTo(false));
+  }
+
+  private static File newFile(File parent, String child) throws IOException {
+    File result = new File(parent, child);
+    result.createNewFile();
+    return result;
   }
 
 }

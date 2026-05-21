@@ -5,10 +5,8 @@ import de.mediathekview.mserver.daten.GeoLocations;
 import de.mediathekview.mserver.daten.Sender;
 import de.mediathekview.mserver.crawler.ard.ArdFilmInfoDto;
 import de.mediathekview.mserver.testhelper.AssertFilm;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -23,68 +21,8 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-@RunWith(Parameterized.class)
 public class ArdFilmDetailTaskTest extends ArdTaskTestBase {
 
-  private final Map<String,String> urlStub;
-  private final String crawlerUrl;
-  private final String expectedTopic;
-  private final String expectedTitle;
-  private final LocalDateTime expectedTime;
-  private final Duration expectedDuration;
-  private final String expectedDescription;
-  private final String expectedWebsite;
-  private final String expectedUrlSmall;
-  private final String expectedUrlNormal;
-  private final String expectedUrlHd;
-  private final String expectedADUrlSmall;
-  private final String expectedADUrlNormal;
-  private final String expectedADUrlHd;
-  private final String expectedSubtitle;
-  private final GeoLocations expectedGeo;
-  private final String id;
-  private final Sender sender;
-  
-  public ArdFilmDetailTaskTest(
-      final String aId,
-      final String aCrawlerUrl,
-      final Map<String,String> aUrlStub,
-      final String aExpectedTopic,
-      final String aExpectedTitle,
-      final String aExpectedDescription,
-      final LocalDateTime aExpectedTime,
-      final Duration aExpectedDuration,
-      final String aExpectedUrlSmall,
-      final String aExpectedUrlNormal,
-      final String aExpectedUrlHd,
-      final String aExpectedADUrlSmall,
-      final String aExpectedADUrlNormal,
-      final String aExpectedADUrlHd,
-      final String aExpectedSubtitle,
-      final GeoLocations aExpectedGeo,
-      final String aExpectedWebsite,
-      final Sender aSender) {
-    id = aId;
-    crawlerUrl = aCrawlerUrl;
-    urlStub = aUrlStub;
-    expectedTopic = aExpectedTopic;
-    expectedTitle = aExpectedTitle;
-    expectedTime = aExpectedTime;
-    expectedDuration = aExpectedDuration;
-    expectedDescription = aExpectedDescription;
-    expectedWebsite = aExpectedWebsite;
-    expectedUrlSmall = aExpectedUrlSmall;
-    expectedUrlNormal = aExpectedUrlNormal;
-    expectedUrlHd = aExpectedUrlHd;
-    expectedADUrlSmall = aExpectedADUrlSmall;
-    expectedADUrlNormal = aExpectedADUrlNormal;
-    expectedADUrlHd = aExpectedADUrlHd;
-    expectedSubtitle = aExpectedSubtitle;
-    expectedGeo = aExpectedGeo;
-    sender = aSender;
-  }
-
-  @Parameters
   public static Collection<Object[]> data() {
     return Arrays.asList(
         new Object[][] {
@@ -114,14 +52,15 @@ public class ArdFilmDetailTaskTest extends ArdTaskTestBase {
         });
   }
 
-  @Test
-  public void test() {
-    
+  @MethodSource("data")
+  @ParameterizedTest
+  void test(final String id, final String crawlerUrl, final Map<String, String> urlStub, final String expectedTopic, final String expectedTitle, final String expectedDescription, final LocalDateTime expectedTime, final Duration expectedDuration, final String expectedUrlSmall, final String expectedUrlNormal, final String expectedUrlHd, final String expectedADUrlSmall, final String expectedADUrlNormal, final String expectedADUrlHd, final String expectedSubtitle, final GeoLocations expectedGeo, final String expectedWebsite, final Sender sender) {
+
     for (Entry<String,String> entry : urlStub.entrySet()) {
       setupSuccessfulJsonResponse(entry.getKey(), entry.getValue());
     }
 
-    final Set<Film> actual = executeTask(crawlerUrl);
+    final Set<Film> actual = executeTask(id, crawlerUrl);
 
     assertThat(actual.size(), equalTo(1));
 
@@ -147,7 +86,7 @@ public class ArdFilmDetailTaskTest extends ArdTaskTestBase {
         expectedSubtitle);
   }
 
-  private Set<Film> executeTask(final String aDetailUrl) {
+  private Set<Film> executeTask(final String id, final String aDetailUrl) {
     final Queue<ArdFilmInfoDto> urls = new ConcurrentLinkedQueue<>();
     urls.add(new ArdFilmInfoDto(id, getWireMockBaseUrlSafe() + aDetailUrl, 0, false));
     return new ArdFilmDetailTask(createCrawler(), urls).invoke();

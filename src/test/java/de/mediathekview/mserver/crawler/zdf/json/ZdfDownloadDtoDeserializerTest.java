@@ -6,10 +6,8 @@ import de.mediathekview.mserver.daten.Resolution;
 import de.mediathekview.mserver.crawler.zdf.ZdfConstants;
 import de.mediathekview.mserver.testhelper.AssertFilm;
 import de.mediathekview.mserver.testhelper.JsonFileReader;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -18,62 +16,8 @@ import java.util.Optional;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-@RunWith(Parameterized.class)
 public class ZdfDownloadDtoDeserializerTest {
 
-  private final String jsonFile;
-  private final String expectedUrlSmall;
-  private final String expectedUrlNormal;
-  private final String expectedUrlHd;
-  private final String expectedUrlUhd;
-  private final String expectedUrlSmallEnglish;
-  private final String expectedUrlNormalEnglish;
-  private final String expectedUrlHdEnglish;
-  private final String expectedUrlUhdEnglish;
-  private final String expectedUrlSmallAd;
-  private final String expectedUrlNormalAd;
-  private final String expectedUrlHdAd;
-  private final String expectedUrlUhdAd;
-  private final Optional<String> expectedSubtitle;
-  private final Optional<String> expectedSubtitleEnglish;
-  private final Optional<GeoLocations> expectedGeo;
-
-  public ZdfDownloadDtoDeserializerTest(
-      final String aJsonFile,
-      final String aExpectedUrlSmall,
-      final String aExpectedUrlNormal,
-      final String aExpectedUrlHd,
-      final String aExpectedUrlUhd,
-      final String aExpectedUrlSmallEnglish,
-      final String aExpectedUrlNormalEnglish,
-      final String aExpectedUrlHdEnglish,
-      final String aExpectedUrlUhdEnglish,
-      final String aExpectedUrlSmallAd,
-      final String aExpectedUrlNormalAd,
-      final String aExpectedUrlHdAd,
-      final String aExpectedUrlUhdAd,
-      final Optional<String> aExpectedSubtitle,
-      final Optional<String> aExpectedSubtitleEnglish,
-      final Optional<GeoLocations> aExpectedGeo) {
-    jsonFile = aJsonFile;
-    expectedUrlSmall = aExpectedUrlSmall;
-    expectedUrlNormal = aExpectedUrlNormal;
-    expectedUrlHd = aExpectedUrlHd;
-    expectedUrlUhd = aExpectedUrlUhd;
-    expectedUrlSmallEnglish = aExpectedUrlSmallEnglish;
-    expectedUrlNormalEnglish = aExpectedUrlNormalEnglish;
-    expectedUrlHdEnglish = aExpectedUrlHdEnglish;
-    expectedUrlUhdEnglish = aExpectedUrlUhdEnglish;
-    this.expectedUrlSmallAd = aExpectedUrlSmallAd;
-    this.expectedUrlNormalAd = aExpectedUrlNormalAd;
-    this.expectedUrlHdAd = aExpectedUrlHdAd;
-    this.expectedUrlUhdAd = aExpectedUrlUhdAd;
-    expectedSubtitle = aExpectedSubtitle;
-    expectedSubtitleEnglish = aExpectedSubtitleEnglish;
-    expectedGeo = aExpectedGeo;
-  }
-
-  @Parameters
   public static Collection<Object[]> data() {
     return Arrays.asList(
         new Object[][] {
@@ -247,8 +191,9 @@ public class ZdfDownloadDtoDeserializerTest {
         });
   }
 
-  @Test
-  public void test() {
+  @MethodSource("data")
+  @ParameterizedTest
+  void test(final String jsonFile, final String expectedUrlSmall, final String expectedUrlNormal, final String expectedUrlHd, final String expectedUrlUhd, final String expectedUrlSmallEnglish, final String expectedUrlNormalEnglish, final String expectedUrlHdEnglish, final String expectedUrlUhdEnglish, final String expectedUrlSmallAd, final String expectedUrlNormalAd, final String expectedUrlHdAd, final String expectedUrlUhdAd, final Optional<String> expectedSubtitle, final Optional<String> expectedSubtitleEnglish, final Optional<GeoLocations> expectedGeo) {
 
     final JsonObject json = JsonFileReader.readJson(jsonFile);
 

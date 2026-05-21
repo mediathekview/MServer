@@ -5,12 +5,11 @@ import de.mediathekview.mserver.crawler.sr.SrCrawler;
 import de.mediathekview.mserver.crawler.sr.SrTopicUrlDTO;
 import de.mediathekview.mserver.testhelper.JsoupMock;
 import org.hamcrest.Matchers;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -18,17 +17,13 @@ import java.util.Set;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class SrTopicArchivePageTaskTest extends SrTaskTestBase {
+@ExtendWith(MockitoExtension.class)
+class SrTopicArchivePageTaskTest extends SrTaskTestBase {
 
   @Mock JsoupConnection jsoupConnection;
 
-  @Before
-  public void setUp() {
-    MockitoAnnotations.openMocks(this);
-  }
-
   @Test
-  public void testOverviewWithSinglePage() throws IOException {
+  void testOverviewWithSinglePage() {
     final String theme = "2 Mann für alle Gänge";
 
     final SrTopicUrlDTO[] expectedUrls =
@@ -51,7 +46,7 @@ public class SrTopicArchivePageTaskTest extends SrTaskTestBase {
   }
 
   @Test
-  public void testOverviewWithMultiplePages() throws IOException {
+  void testOverviewWithMultiplePages() {
     final String theme = "Meine Traumreise";
     final SrTopicUrlDTO[] expectedUrls =
         new SrTopicUrlDTO[] {
@@ -94,7 +89,7 @@ public class SrTopicArchivePageTaskTest extends SrTaskTestBase {
   }
 
   @Test
-  public void testOverviewEmpty() throws IOException {
+  void testOverviewEmpty() {
     final SrTopicUrlDTO[] expectedUrls = new SrTopicUrlDTO[0];
 
     final String requestUrl = "srf_sample.html";
@@ -109,7 +104,7 @@ public class SrTopicArchivePageTaskTest extends SrTaskTestBase {
   }
 
   @Test
-  public void testOverviewAudioFiles() throws IOException {
+  void testOverviewAudioFiles() {
     final SrTopicUrlDTO[] expectedUrls = new SrTopicUrlDTO[0];
 
     final String requestUrl = "srf_sample.html";

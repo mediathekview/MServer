@@ -9,37 +9,26 @@ import java.util.Queue;
 import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
-
 import de.mediathekview.mserver.crawler.arte.json.ArteVideoInfoDto;
 import de.mediathekview.mserver.crawler.arte.json.ArteVideoLinkDto;
 import de.mediathekview.mserver.testhelper.WireMockTestBase;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
-@RunWith(Parameterized.class)
 public class ArteVideoLinkTaskTest extends WireMockTestBase {
-  private final String filmUrl;
-  private final ArteVideoLinkDto[] arteVideoLinkDtoData;
-  
-  public ArteVideoLinkTaskTest(String filmUrl, ArteVideoLinkDto[] arteVideoLinkDtoData) {
-    this.filmUrl=filmUrl;
-    this.arteVideoLinkDtoData = arteVideoLinkDtoData;
-  }
-  
-  
-  @Test
-  public void test() {
-    setupSuccessfulJsonResponse(this.filmUrl, this.filmUrl);
-    Set<ArteVideoInfoDto> resultSet = executeTask(buildWireMockUrl(this.filmUrl));
+
+  @MethodSource("data")
+  @ParameterizedTest
+  void test(String filmUrl, ArteVideoLinkDto[] arteVideoLinkDtoData) {
+    setupSuccessfulJsonResponse(filmUrl, filmUrl);
+    Set<ArteVideoInfoDto> resultSet = executeTask(buildWireMockUrl(filmUrl));
     
     assertEquals(1, resultSet.size());
     ArteVideoInfoDto result = resultSet.stream().findAny().get();
-    assertEquals(result.getVideoLinks().size(), this.arteVideoLinkDtoData.length);
+    assertEquals(result.getVideoLinks().size(), arteVideoLinkDtoData.length);
     //
-    for (int i = 0; i < this.arteVideoLinkDtoData.length; i++) {
-      assertEntry(result.getVideoLinks().get(i), this.arteVideoLinkDtoData[i]);
+    for (int i = 0; i < arteVideoLinkDtoData.length; i++) {
+      assertEntry(result.getVideoLinks().get(i), arteVideoLinkDtoData[i]);
     }
   }
   
@@ -65,7 +54,6 @@ public class ArteVideoLinkTaskTest extends WireMockTestBase {
     return new ArteVideoLinkTask(ArteTaskTestBase.createCrawler(), input).invoke();
   }
   
-  @Parameters
   public static Collection<Object[]> data() {
     return Arrays.asList(
         new Object[][] {

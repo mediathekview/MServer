@@ -2,9 +2,8 @@ package de.mediathekview.mserver.crawler.phoenix.parser;
 
 import com.google.gson.JsonElement;
 import de.mediathekview.mserver.testhelper.JsonFileReader;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -13,32 +12,8 @@ import java.util.Optional;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
-@RunWith(Parameterized.class)
 public class PhoenixFilmDetailDeserializerTest {
 
-  private final String jsonFile;
-  private final String expectedTopic;
-  private final String expectedTitle;
-  private final String expectedDescription;
-  private final String expectedBaseName;
-  private final String expectedWebsite;
-
-    public PhoenixFilmDetailDeserializerTest(
-            final String aJsonFile,
-            final String aExpectedTopic,
-            final String aExpectedTitle,
-            final String aExpectedDescription,
-            final String aExpectedBaseName,
-            final String aExpectedWebsite) {
-    jsonFile = aJsonFile;
-    expectedTopic = aExpectedTopic;
-    expectedTitle = aExpectedTitle;
-    expectedDescription = aExpectedDescription;
-    expectedBaseName = aExpectedBaseName;
-    expectedWebsite = aExpectedWebsite;
-  }
-
-    @Parameterized.Parameters
     public static Collection<Object[]> data() {
     return Arrays.asList(
         new Object[][] {
@@ -69,8 +44,9 @@ public class PhoenixFilmDetailDeserializerTest {
         });
     }
 
-  @Test
-  public void test() {
+  @MethodSource("data")
+  @ParameterizedTest
+  void test(final String jsonFile, final String expectedTopic, final String expectedTitle, final String expectedDescription, final String expectedBaseName, final String expectedWebsite) {
       final JsonElement jsonElement = JsonFileReader.readJson(jsonFile);
 
       final PhoenixFilmDetailDeserializer target = new PhoenixFilmDetailDeserializer();

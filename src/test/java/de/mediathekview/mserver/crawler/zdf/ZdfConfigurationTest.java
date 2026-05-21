@@ -1,29 +1,29 @@
 package de.mediathekview.mserver.crawler.zdf;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
-public class ZdfConfigurationTest {
+class ZdfConfigurationTest {
 
   private ZdfConfiguration target;
 
-  @Before
-  public void before() {
+  @BeforeEach
+  void before() {
     target = new ZdfConfiguration();
   }
 
   @Test
-  public void getSearchAuthKeyReturnsDefaultIfSetNotCalled() {
+  void getSearchAuthKeyReturnsDefaultIfSetNotCalled() {
     assertThat(Optional.of(ZdfConfiguration.AUTH_KEY_SEARCH), equalTo(target.getSearchAuthKey()));
   }
 
   @Test
-  public void getSearchAuthKeyReturnsValueUsedInSetBefore() {
+  void getSearchAuthKeyReturnsValueUsedInSetBefore() {
     final String value = "my bearer";
 
     target.setSearchAuthKey(value);
@@ -33,12 +33,12 @@ public class ZdfConfigurationTest {
   }
 
   @Test
-  public void getVideoAuthKeyReturnsDefaultIfSetNotCalled() {
+  void getVideoAuthKeyReturnsDefaultIfSetNotCalled() {
     assertThat(Optional.of(ZdfConfiguration.AUTH_KEY_VIDEO), equalTo(target.getVideoAuthKey()));
   }
 
   @Test
-  public void getVideoAuthKeyReturnsValueUsedInSetBefore() {
+  void getVideoAuthKeyReturnsValueUsedInSetBefore() {
     final String value = "my bearer";
 
     target.setVideoAuthKey(value);
