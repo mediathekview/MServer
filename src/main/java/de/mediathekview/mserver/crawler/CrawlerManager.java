@@ -1,5 +1,6 @@
 package de.mediathekview.mserver.crawler;
 
+import de.mediathekview.mserver.crawler.tagesschau.TagesschauCrawler;
 import de.mediathekview.mserver.daten.Film;
 import de.mediathekview.mserver.daten.Filmlist;
 import de.mediathekview.mserver.daten.Sender;
@@ -547,6 +548,8 @@ public class CrawlerManager extends AbstractManager {
         Sender.SRF, new SrfCrawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
     crawlerMap.put(
         Sender.SR, new SrCrawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
+    crawlerMap.put(
+            Sender.TAGESSCHAU24, new TagesschauCrawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
     crawlerMap.put(
         Sender.ZDF, new ZdfCrawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
   }

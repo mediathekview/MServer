@@ -52,9 +52,9 @@ public class JsoupMock {
         final Document document = Jsoup.parse(fileContent);
         final Document XmlDocument = Jsoup.parse(fileContent, url, Parser.xmlParser());
 
-        Mockito.when(connection.requestBodyAsString(url)).thenReturn(fileContent);
+        Mockito.lenient().when(connection.requestBodyAsString(url)).thenReturn(fileContent);
         Mockito.when(connection.requestBodyAsHtmlDocument(url)).thenReturn(document);
-        Mockito.when(connection.requestBodyAsXmlDocument(org.mockito.Mockito.eq(url)))
+        Mockito.lenient().when(connection.requestBodyAsXmlDocument(org.mockito.Mockito.eq(url)))
             .thenReturn(XmlDocument);
       } catch (final IOException ioException) {
         LogManager.getLogger(JsoupMock.class)

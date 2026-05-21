@@ -27,7 +27,7 @@ maximumRequestsPerSecond: 999.0
 
 # If set only these Sender will be crawled all other will be ignored.
 senderIncluded:
-  - ARD
+  # - ARD
   #- ARTE_DE
   #- ARTE_FR
   #- ARTE_PL
@@ -41,6 +41,7 @@ senderIncluded:
   #- PHOENIX
   #- SRF
   #- SR
+  - TAGESSCHAU24
   #- ZDF
   
 #SRF,SR,PHONIX,ORF,KIKA,DW,3SAT<

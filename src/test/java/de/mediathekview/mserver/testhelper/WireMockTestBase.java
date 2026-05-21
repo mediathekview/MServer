@@ -9,6 +9,9 @@ import org.junit.After;
 import org.junit.Before;
 
 import jakarta.annotation.Nullable;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+
 import java.util.Optional;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -18,11 +21,12 @@ import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.options
 
 /** base class of tests with WireMock. */
 public abstract class WireMockTestBase {
-  private final Logger LOG = LogManager.getLogger(WireMockTestBase.class);
+  private static final Logger LOG = LogManager.getLogger(WireMockTestBase.class);
   protected WireMockServer wireMockServer = new WireMockServer(options().dynamicPort());
   private boolean wireMockStarted = false;
 
   @Before
+  @BeforeEach
   public void setUpClass() {
     LOG.info("Setting up WireMock test class");
     startWireMock();
@@ -39,6 +43,7 @@ public abstract class WireMockTestBase {
   }
 
   @After
+  @AfterEach
   public void tearDownClass() {
     LOG.info("Tear down WireMock test class");
     LOG.info("Stopping WireMock");
