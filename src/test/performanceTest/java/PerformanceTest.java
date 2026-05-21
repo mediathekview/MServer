@@ -3,9 +3,9 @@ import etm.core.configuration.EtmManager;
 import etm.core.monitor.EtmMonitor;
 import etm.core.renderer.SimpleTextRenderer;
 import mServer.Main;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.net.URISyntaxException;
 import java.nio.file.Path;
@@ -20,7 +20,7 @@ public class PerformanceTest
     private EtmMonitor performanceMonitor;
     private Path testConfigPath;
 
-    @Before
+    @BeforeEach
     public void setUp() throws URISyntaxException
     {
         BasicEtmConfigurator.configure();
@@ -30,7 +30,7 @@ public class PerformanceTest
         testConfigPath = Paths.get(getClass().getResource(TEST_REOSURCES_FOLDERPATH).toURI());
     }
 
-    @After
+    @AfterEach
     public void tearDown()
     {
         performanceMonitor.stop();
