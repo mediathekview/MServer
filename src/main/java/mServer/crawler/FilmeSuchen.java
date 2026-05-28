@@ -35,6 +35,7 @@ import mServer.crawler.sender.orfon.OrfOnCrawler;
 import mServer.crawler.sender.phoenix.PhoenixCrawler;
 import mServer.crawler.sender.sr.SrCrawler;
 import mServer.crawler.sender.srf.SrfCrawler;
+import mServer.crawler.sender.tagesschau.TagesschauCrawler;
 import mServer.crawler.sender.zdf.ZdfCrawler;
 import mServer.tool.MserverDaten;
 import mServer.tool.MserverKonstanten;
@@ -118,6 +119,9 @@ public class FilmeSuchen {
     }
     if (crawlerList.contains("PHONIX")) {
       mediathekListe.add(new PhoenixCrawler(this, 0));
+    }
+    if (crawlerList.contains("TAGESSCHAU")) {
+      mediathekListe.add(new TagesschauCrawler(this, 1));
     }
   
   }
