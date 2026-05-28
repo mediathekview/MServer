@@ -98,20 +98,19 @@ public class ZdfCrawler extends MediathekCrawler {
     final ZdfPubFormTask pubFormTask = new ZdfPubFormTask(this, createPubFormUrls(), AUTH_KEY);
     final Set<ZdfPubFormResult> pubFormUrls = forkJoinPool.submit(pubFormTask).get();
 
-    Log.sysLog("ZDF: Pubform urls: " + pubFormUrls.size());
-
     if (Config.getStop()) {
       return shows;
     }
 
+    long topicsBefore = topicUrls.size();
     pubFormUrls.forEach(
             pubFormResult -> {
               topicUrls.addAll(pubFormResult.getTopics().getElements());
               shows.addAll(pubFormResult.getFilms());
             });
 
-    Log.sysLog("ZDF: Pubform topics: " + pubFormUrls.size());
-
+    Log.sysLog("ZDF: Pubform urls: " + shows.size());
+    Log.sysLog("ZDF: Pubform topics: " + (topicUrls.size() - topicsBefore));
     if (Config.getStop()) {
       return shows;
     }
