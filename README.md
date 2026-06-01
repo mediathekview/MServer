@@ -39,15 +39,16 @@ java -jar MServer.jar
 
 # Überblick der Crawler
 
-| Crawler | liest Mediathek | beinhaltet Sender                                                                            | bestückt Sender | entspricht Develop |
-|---------|-----------|----------------------------------------------------------------------------------------------|---------|--|
-| 3sat|3sat-Mediathek| 3sat                                                                                         |3sat|x|
-| ARD|ARD-Mediathek| Alpha, BR, Das Erste, FUNK, HR, MDR, NDR, ONE, Radio Bremen, RBB, SR, SWR, WDR, tagesschau24 |ARD, BR, HR, MDR, NDR, Radio Bremen, RBB, SWR, WDR| x|
-| ARTE|ARTE-Mediathek| ARTE in DE, FR, EN, ES, PL, IT                                                               |ARTE.DE, ARTE.FR||
-| DW|DW-Mediathek| DW                                                                                           |DW|x|
-| KIKA|KIKA-Mediathek| KIKA                                                                                         |KIKA|x|
-| ORF|ORF-Mediathek| ORF1, ORF2, ORF3, ORFSport                                                                   |ORF|x|
-| PHOENIX|PHOENIX-Mediathek| PHOENIX                                                                                      |PHOENIX|x|
-| SR|SR-Mediathek| SR                                                                                           |SR|x|
-| SRF|SRF-Mediathek| SRF1, SRF2, SRFinfo                                                                          |SRF|x|
-| ZDF|ZDF-Mediathek| ZDF, ZDFneo, ZDFinfo                                                                         |ZDF|x|
+| Crawler | liest Mediathek         | beinhaltet Sender                                                                            | bestückt Sender                                    | entspricht Develop |
+|---------|-------------------------|----------------------------------------------------------------------------------------------|----------------------------------------------------|--|
+| 3sat| 3sat-Mediathek          | 3sat                                                                                         | 3sat                                               |x|
+| ARD| ARD-Mediathek           | Alpha, BR, Das Erste, FUNK, HR, MDR, NDR, ONE, Radio Bremen, RBB, SR, SWR, WDR, tagesschau24 | ARD, BR, HR, MDR, NDR, Radio Bremen, RBB, SWR, WDR | x|
+| ARTE| ARTE-Mediathek          | ARTE in DE, FR, EN, ES, PL, IT                                                               | ARTE.DE, ARTE.FR                                   ||
+| DW| DW-Mediathek            | DW                                                                                           | DW                                                 |x|
+| KIKA| KIKA-Mediathek          | KIKA                                                                                         | KIKA                                               |x|
+| ORF| ORF-Mediathek           | ORF1, ORF2, ORF3, ORFSport                                                                   | ORF                                                |x|
+| PHOENIX| PHOENIX-Mediathek       | PHOENIX                                                                                      | PHOENIX                                            |x|
+| SR| SR-Mediathek            | SR                                                                                           | SR                                                 |x|
+| SRF| SRF-Mediathek           | SRF1, SRF2, SRFinfo                                                                          | SRF                                                |x|
+| Tagesschau | tagesschau.de | Tagesschau vor 20 Jahren                                                                     | tagesschau24                                       |x |
+| ZDF| ZDF-Mediathek           | ZDF, ZDFneo, ZDFinfo                                                                         | ZDF                                                |x|
