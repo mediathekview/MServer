@@ -3,10 +3,10 @@ package mServer.tool;
 import java.util.Map;
 
 import org.hamcrest.CoreMatchers;
-import org.junit.Assert;
-import org.junit.Test;
-
+import org.junit.jupiter.api.Test;
 import mServer.crawler.sender.base.Qualities;
+
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
  * A test class for the util class {@link M3U8Utils}.
@@ -33,9 +33,9 @@ public class M3U8UtilsTest
     public void testGatherUrlsFromWDRM3U8_MoreThenThree_Positiv()
     {
         Map<Qualities, String> qualitiesAndUrls = M3U8Utils.gatherUrlsFromWdrM3U8(TEST_URL_POSITIV_MORE_THEN_THREE_ELEMENTS);
-        Assert.assertThat(qualitiesAndUrls.get(Qualities.SMALL), CoreMatchers.is(AWAITED_URL_SMALL));
-        Assert.assertThat(qualitiesAndUrls.get(Qualities.NORMAL), CoreMatchers.is(AWAITED_URL_NORMAL));
-        Assert.assertThat(qualitiesAndUrls.get(Qualities.HD), CoreMatchers.is(AWAITED_URL_HD));
+        assertThat(qualitiesAndUrls.get(Qualities.SMALL), CoreMatchers.is(AWAITED_URL_SMALL));
+        assertThat(qualitiesAndUrls.get(Qualities.NORMAL), CoreMatchers.is(AWAITED_URL_NORMAL));
+        assertThat(qualitiesAndUrls.get(Qualities.HD), CoreMatchers.is(AWAITED_URL_HD));
     }
 
     /**
@@ -45,9 +45,9 @@ public class M3U8UtilsTest
     public void testGatherUrlsFromWDRM3U8_ExactThree_Positiv()
     {
         Map<Qualities, String> qualitiesAndUrls = M3U8Utils.gatherUrlsFromWdrM3U8(TEST_URL_POSITIV_THREE_ELEMENTS);
-        Assert.assertThat(qualitiesAndUrls.get(Qualities.SMALL), CoreMatchers.is(AWAITED_URL_SMALL));
-        Assert.assertThat(qualitiesAndUrls.get(Qualities.NORMAL), CoreMatchers.is(AWAITED_URL_NORMAL));
-        Assert.assertThat(qualitiesAndUrls.get(Qualities.HD), CoreMatchers.is(AWAITED_URL_HD));
+        assertThat(qualitiesAndUrls.get(Qualities.SMALL), CoreMatchers.is(AWAITED_URL_SMALL));
+        assertThat(qualitiesAndUrls.get(Qualities.NORMAL), CoreMatchers.is(AWAITED_URL_NORMAL));
+        assertThat(qualitiesAndUrls.get(Qualities.HD), CoreMatchers.is(AWAITED_URL_HD));
     }
 
     /**
@@ -57,8 +57,8 @@ public class M3U8UtilsTest
     public void testGatherUrlsFromWDRM3U8_ExactTwo_Positiv()
     {
         Map<Qualities, String> qualitiesAndUrls = M3U8Utils.gatherUrlsFromWdrM3U8(TEST_URL_POSITIV_TWO_ELEMENTS);
-        Assert.assertThat(qualitiesAndUrls.get(Qualities.SMALL), CoreMatchers.is(AWAITED_URL_SMALL));
-        Assert.assertThat(qualitiesAndUrls.get(Qualities.NORMAL), CoreMatchers.is(AWAITED_URL_NORMAL));
+        assertThat(qualitiesAndUrls.get(Qualities.SMALL), CoreMatchers.is(AWAITED_URL_SMALL));
+        assertThat(qualitiesAndUrls.get(Qualities.NORMAL), CoreMatchers.is(AWAITED_URL_NORMAL));
     }
 
     /**
@@ -68,7 +68,7 @@ public class M3U8UtilsTest
     public void testGatherUrlsFromWDRM3U8_ExactOne_Positiv()
     {
         Map<Qualities, String> qualitiesAndUrls = M3U8Utils.gatherUrlsFromWdrM3U8(TEST_URL_POSITIV_ONE_ELEMENT);
-        Assert.assertThat(qualitiesAndUrls.get(Qualities.SMALL), CoreMatchers.is(AWAITED_URL_SMALL));
+        assertThat(qualitiesAndUrls.get(Qualities.SMALL), CoreMatchers.is(AWAITED_URL_SMALL));
     }
 
     /**
@@ -78,7 +78,7 @@ public class M3U8UtilsTest
     public void testGatherUrlsFromWDRM3U8_NoneElement_Negativ()
     {
         Map<Qualities, String> qualitiesAndUrls = M3U8Utils.gatherUrlsFromWdrM3U8(TEST_URL_NEGATIV_NONE_ELEMENT);
-        Assert.assertThat(qualitiesAndUrls.isEmpty(), CoreMatchers.is(true));
+        assertThat(qualitiesAndUrls.isEmpty(), CoreMatchers.is(true));
     }
 
     /**
@@ -88,6 +88,6 @@ public class M3U8UtilsTest
     public void testGatherUrlsFromWDRM3U8_WrongUrl_Negativ()
     {
         Map<Qualities, String> qualitiesAndUrls = M3U8Utils.gatherUrlsFromWdrM3U8(TEST_URL_NEGATIV_WRONG_URL);
-        Assert.assertThat(qualitiesAndUrls.isEmpty(), CoreMatchers.is(true));
+        assertThat(qualitiesAndUrls.isEmpty(), CoreMatchers.is(true));
     }
 }

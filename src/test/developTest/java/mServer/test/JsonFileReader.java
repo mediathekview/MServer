@@ -5,12 +5,13 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 import java.io.IOException;
+
+import static org.junit.jupiter.api.Assertions.fail;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import static org.junit.Assert.fail;
 
 /**
  * Reads a json file
