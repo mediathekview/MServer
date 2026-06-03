@@ -2,7 +2,7 @@ package mServer.crawler;
 
 import static jakarta.ws.rs.core.HttpHeaders.CONTENT_LENGTH;
 import static jakarta.ws.rs.core.HttpHeaders.CONTENT_TYPE;
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 import de.mediathekview.mlib.Const;
 import de.mediathekview.mlib.daten.DatenFilm;
@@ -16,11 +16,10 @@ import okhttp3.mockwebserver.Dispatcher;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
-import org.assertj.core.api.Assertions;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 //FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class AddToFilmlistTest {
@@ -46,7 +45,7 @@ public class AddToFilmlistTest {
   private ListeFilme list;
   private ListeFilme listToAdd;
 
-  @BeforeClass
+  @BeforeAll
   public static void setUpClass() throws IOException {
     mockServer = new MockWebServer();
     Dispatcher dispatcher = new Dispatcher() {
@@ -102,12 +101,12 @@ public class AddToFilmlistTest {
     baseUrl = mockServer.url("").toString();
   }
 
-  @AfterClass
+  @AfterAll
   public static void teardownClass() throws IOException {
-    mockServer.shutdown();
+    mockServer.close();
   }
 
-  @Before
+  @BeforeEach
   public void setUp() {
     MserverDaten.system[MserverKonstanten.SYSTEM_BANNEDFILMLIST_NR] = "file:dist/bannedFilmList.txt";
     listToAdd = new ListeFilme();
