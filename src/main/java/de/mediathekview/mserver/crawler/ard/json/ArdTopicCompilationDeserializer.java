@@ -52,7 +52,10 @@ public class ArdTopicCompilationDeserializer extends ArdTeasersDeserializer
     if (showPageObject.has(ELEMENT_WIDGETS)) {
       final JsonElement widgetElement = showPageObject.get(ELEMENT_WIDGETS);
       if (widgetElement.isJsonArray()) {
-        return widgetElement.getAsJsonArray().get(0).getAsJsonObject().get(ELEMENT_PAGINATION);
+        final JsonArray widgetArray = widgetElement.getAsJsonArray();
+        if (!widgetArray.isEmpty()) {
+          return widgetArray.get(0).getAsJsonObject().get(ELEMENT_PAGINATION);
+        }
       }
     } else if (showPageObject.has(ELEMENT_PAGINATION)) {
       return showPageObject.get(ELEMENT_PAGINATION);
