@@ -1,0 +1,1920 @@
+{
+  "compilationType": "editorial",
+  "isChildContent": false,
+  "pagination": {
+    "pageNumber": 4,
+    "pageSize": 24,
+    "totalElements": 108
+  },
+  "personalized": false,
+  "teasers": [
+    {
+      "availableTo": null,
+      "binaryFeatures": [
+        "UT",
+        "AD"
+      ],
+      "broadcastedOn": "2026-04-10T06:03:00Z",
+      "coreAssetType": "EPISODE",
+      "duration": 1690,
+      "id": "b2dfbb97-c471-4e11-b6eb-7dbd76d7a7b7:1059246697988085723",
+      "images": {
+        "aspect16x9": {
+          "alt": "Veronika (Senta Auth) fühlt sich an vielen Fronten als gescheitert.",
+          "producerName": "BR/Nadya Jakobs",
+          "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:6fbc307f31b52545?w={width}&ch=cf1fd96ea29b9233",
+          "title": "Dahoam is Dahoam | Folge 2881"
+        },
+        "aspect16x7": {
+          "alt": "Grüne Wiese mit blauem Himmel. Darüber das Lebkuchenherz zur Serie \"Dahoam is Dahoam\" sowie daneben das Ortsschild \"Lansing\".",
+          "producerName": "br",
+          "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:5fe4cc0f2f131953?w={width}&ch=195a5bddb5aa7810",
+          "title": "Dahoam is Dahoam - Keyvisual"
+        },
+        "aspect1x1": {
+          "alt": "Grüne Wiese mit blauem Himmel. Darüber das Lebkuchenherz zur Serie \"Dahoam is Dahoam\" sowie daneben das Ortsschild \"Lansing\".",
+          "producerName": "br",
+          "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:6cb5835cf0e46b99?w={width}&ch=14244fc1656d9df9",
+          "title": "Dahoam is Dahoam - Keyvisual"
+        }
+      },
+      "isChildContent": false,
+      "isFamilyFriendly": false,
+      "longTitle": "Kettenreaktion · 20.01.22 | Folge 2881",
+      "maturityContentRating": "NONE",
+      "mediumTitle": "Kettenreaktion · 20.01.22 | Folge 2881",
+      "personalized": false,
+      "publicationService": {
+        "name": "BR",
+        "logo": {
+          "title": "Logo BR",
+          "alt": "Logo BR",
+          "producerName": "Logo BR",
+          "src": "https://api.ardmediathek.de/image-service/image-collections/urn:ard:image-collection:2213972a8d101de1/16x9?w={width}",
+          "aspectRatio": "16x9"
+        },
+        "publisherType": "TV",
+        "partner": "br",
+        "id": "b3JnYW5pemF0aW9uX0JS",
+        "coreId": "urn:ard:publisher:e78748ebe4a9d534"
+      },
+      "links": {
+        "self": {
+          "id": "b2dfbb97-c471-4e11-b6eb-7dbd76d7a7b7:1059246697988085723",
+          "urlId": "b2dfbb97-c471-4e11-b6eb-7dbd76d7a7b7:1059246697988085723",
+          "title": "Kettenreaktion · 20.01.22 | Folge 2881",
+          "href": "https://api.ardmediathek.de/page-gateway/teasers/br/editorials/b2dfbb97-c471-4e11-b6eb-7dbd76d7a7b7%3A1059246697988085723",
+          "type": "application/vnd.ard.teaser+json",
+          "partner": "br"
+        },
+        "target": {
+          "id": "Y3JpZDovL2JyLmRlL2Jyb2FkY2FzdC9iMmNhMDdlOC1hMWEwLTQ4NmQtYWM0Mi1kZDQyYTFlMTlmYzZfb25saW5lYnJvYWRjYXN0",
+          "urlId": "Y3JpZDovL2JyLmRlL2Jyb2FkY2FzdC9iMmNhMDdlOC1hMWEwLTQ4NmQtYWM0Mi1kZDQyYTFlMTlmYzZfb25saW5lYnJvYWRjYXN0",
+          "title": "Kettenreaktion · 20.01.22 | Folge 2881",
+          "href": "https://api.ardmediathek.de/page-gateway/pages/br/item/Y3JpZDovL2JyLmRlL2Jyb2FkY2FzdC9iMmNhMDdlOC1hMWEwLTQ4NmQtYWM0Mi1kZDQyYTFlMTlmYzZfb25saW5lYnJvYWRjYXN0?devicetype=pc&embedded=true",
+          "type": "application/vnd.ard.page+json",
+          "partner": "br"
+        }
+      },
+      "shortTitle": "Kettenreaktion · 20.01.22 | Folge 2881",
+      "show": {
+        "id": "crid://br.de/broadcastSeries/broadcastSeries:/brde/fernsehen/bayerisches-fernsehen/sendungen/dahoam-is-dahoam",
+        "coremediaId": 14913698,
+        "title": "Dahoam is Dahoam",
+        "publisher": {
+          "name": "BR",
+          "logo": {
+            "title": "Logo BR",
+            "alt": "Logo BR",
+            "producerName": "Logo BR",
+            "src": "https://api.ardmediathek.de/image-service/image-collections/urn:ard:image-collection:2213972a8d101de1/16x9?w={width}",
+            "aspectRatio": "16x9"
+          },
+          "publisherType": "TV",
+          "partner": "br",
+          "id": "b3JnYW5pemF0aW9uX0JS",
+          "coreId": "urn:ard:publisher:e78748ebe4a9d534"
+        },
+        "self": {
+          "id": null,
+          "title": "Dahoam is Dahoam",
+          "href": "http://asset-gateway:8080/asset-gateway/groupings/Y3JpZDovL2JyLmRlL2Jyb2FkY2FzdFNlcmllcy9icm9hZGNhc3RTZXJpZXM6L2JyZGUvZmVybnNlaGVuL2JheWVyaXNjaGVzLWZlcm5zZWhlbi9zZW5kdW5nZW4vZGFob2FtLWlzLWRhaG9hbQ",
+          "type": "application/vnd.ard.grouping+json"
+        },
+        "images": {
+          "16x9": {
+            "title": "Dahoam is Dahoam - Keyvisual",
+            "alt": "Grüne Wiese mit blauem Himmel. Darüber das Lebkuchenherz zur Serie \"Dahoam is Dahoam\" sowie daneben das Ortsschild \"Lansing\".",
+            "producerName": "br",
+            "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:506b38ade21e6cd5?w={width}&ch=dfc83d65b0130d55",
+            "aspectRatio": "16x9"
+          },
+          "16x7": {
+            "title": "Dahoam is Dahoam - Keyvisual",
+            "alt": "Grüne Wiese mit blauem Himmel. Darüber das Lebkuchenherz zur Serie \"Dahoam is Dahoam\" sowie daneben das Ortsschild \"Lansing\".",
+            "producerName": "br",
+            "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:5fe4cc0f2f131953?w={width}&ch=195a5bddb5aa7810",
+            "aspectRatio": "16x7"
+          },
+          "1x1": {
+            "title": "Dahoam is Dahoam - Keyvisual",
+            "alt": "Grüne Wiese mit blauem Himmel. Darüber das Lebkuchenherz zur Serie \"Dahoam is Dahoam\" sowie daneben das Ortsschild \"Lansing\".",
+            "producerName": "br",
+            "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:6cb5835cf0e46b99?w={width}&ch=14244fc1656d9df9",
+            "aspectRatio": "1x1"
+          }
+        },
+        "shortSynopsis": "Das ist \"Dahoam is Dahoam\"\n\"Dahoam is Dahoam\" läuft seit 2007 und über 3.700 Folgen von Montag bis Donnerstag immer zwischen 19.30 und 20.00 Uhr im BR Fernsehen. Die tägliche Serie erzählt mit typisch bayerischen Charakteren liebevolle Geschichten aus dem Leben rund um das fiktive Dorf Lansing.",
+        "synopsis": "Das ist \"Dahoam is Dahoam\"\n\"Dahoam is Dahoam\" läuft seit 2007 und über 3.700 Folgen von Montag bis Donnerstag immer zwischen 19.30 und 20.00 Uhr im BR Fernsehen. Die tägliche Serie erzählt mit typisch bayerischen Charakteren liebevolle Geschichten aus dem Leben rund um das fiktive Dorf Lansing.",
+        "longSynopsis": "Das ist \"Dahoam is Dahoam\"\n\"Dahoam is Dahoam\" läuft seit 2007 und über 3.700 Folgen von Montag bis Donnerstag immer zwischen 19.30 und 20.00 Uhr im BR Fernsehen. Die tägliche Serie erzählt mit typisch bayerischen Charakteren liebevolle Geschichten aus dem Leben rund um das fiktive Dorf Lansing.",
+        "modificationDate": null,
+        "assetSource": null,
+        "isChildContent": false,
+        "isFamilyFriendly": false,
+        "targetAudienceAgeMin": null,
+        "targetAudienceAgeMax": null,
+        "categories": null,
+        "categoryIds": null,
+        "coreAssetType": "INFINITE_SERIES",
+        "noIndexSeo": false,
+        "titleSeo": null,
+        "descriptionSeo": null,
+        "coreId": "urn:ard:show:beac0bc7dcac6b2d",
+        "groupingType": "SHOW",
+        "homepage": {
+          "id": null,
+          "title": "Dahoam is Dahoam",
+          "href": "https://www.ardmediathek.de/br/dahoam-is-dahoam",
+          "type": null
+        },
+        "hasSeasons": false,
+        "availableSeasons": null,
+        "binaryFeatures": [
+          "UT",
+          "AD"
+        ]
+      },
+      "subtitled": true,
+      "titleVisible": true,
+      "trackingPiano": {
+        "teaser_content_type": "OnDemand",
+        "teaser_id": "b2dfbb97-c471-4e11-b6eb-7dbd76d7a7b7:1059246697988085723",
+        "teaser_institution": "BR",
+        "teaser_institution_id": "urn:ard:institution:95a02eb6cc4f3d59",
+        "teaser_title": "Kettenreaktion · 20.01.22 | Folge 2881"
+      },
+      "type": "ondemand"
+    },
+    {
+      "availableTo": null,
+      "binaryFeatures": [
+        "UT",
+        "AD"
+      ],
+      "broadcastedOn": "2022-01-19T18:30:00Z",
+      "coreAssetType": "EPISODE",
+      "duration": 1671,
+      "id": "b2dfbb97-c471-4e11-b6eb-7dbd76d7a7b7:-1015264663863702294",
+      "images": {
+        "aspect16x9": {
+          "alt": "Margot (Sarah Camp, links) ist entsetzt, als ihr Verlobter Gerstl (Gerd Lohmeyer) Rosi (Brigitte Walbrun, rechts) eine Kette umlegt.",
+          "producerName": "BR/Marco Orlando Pichler",
+          "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:b76d93fe7089c3bb?w={width}&ch=c3d51009124a7424",
+          "title": "Dahoam is Dahoam | Folge 2800"
+        },
+        "aspect16x7": {
+          "alt": "Grüne Wiese mit blauem Himmel. Darüber das Lebkuchenherz zur Serie \"Dahoam is Dahoam\" sowie daneben das Ortsschild \"Lansing\".",
+          "producerName": "br",
+          "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:5fe4cc0f2f131953?w={width}&ch=195a5bddb5aa7810",
+          "title": "Dahoam is Dahoam - Keyvisual"
+        },
+        "aspect1x1": {
+          "alt": "Dahoam is Dahoam: Tina (Anita Eichhorn, links) kann sich und Josephine (Mira Mazumdar, rechts) nicht erklären, wie der Apothekenschlüssel in ihr Auto geraten ist.",
+          "producerName": "BR/Marco Orlando Pichler",
+          "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:efb97f463d34cf06?w={width}&ch=8b09fce937407f95",
+          "title": "Dahoam is Dahoam"
+        }
+      },
+      "isChildContent": false,
+      "isFamilyFriendly": false,
+      "longTitle": "Erklärungsnöte · 19.01.22 | Folge 2880",
+      "maturityContentRating": "NONE",
+      "mediumTitle": "Erklärungsnöte · 19.01.22 | Folge 2880",
+      "personalized": false,
+      "publicationService": {
+        "name": "BR",
+        "logo": {
+          "title": "Logo BR",
+          "alt": "Logo BR",
+          "producerName": "Logo BR",
+          "src": "https://api.ardmediathek.de/image-service/image-collections/urn:ard:image-collection:2213972a8d101de1/16x9?w={width}",
+          "aspectRatio": "16x9"
+        },
+        "publisherType": "TV",
+        "partner": "br",
+        "id": "b3JnYW5pemF0aW9uX0JS",
+        "coreId": "urn:ard:publisher:e78748ebe4a9d534"
+      },
+      "links": {
+        "self": {
+          "id": "b2dfbb97-c471-4e11-b6eb-7dbd76d7a7b7:-1015264663863702294",
+          "urlId": "b2dfbb97-c471-4e11-b6eb-7dbd76d7a7b7:-1015264663863702294",
+          "title": "Erklärungsnöte · 19.01.22 | Folge 2880",
+          "href": "https://api.ardmediathek.de/page-gateway/teasers/br/editorials/b2dfbb97-c471-4e11-b6eb-7dbd76d7a7b7%3A-1015264663863702294",
+          "type": "application/vnd.ard.teaser+json",
+          "partner": "br"
+        },
+        "target": {
+          "id": "Y3JpZDovL2JyLmRlL2Jyb2FkY2FzdC9XT046MzE0NzUzOTY2ODEzX0YyMDIwV08wMTgzNDVBMDpjaGFubmVsXzI4MTA3",
+          "urlId": "Y3JpZDovL2JyLmRlL2Jyb2FkY2FzdC9XT046MzE0NzUzOTY2ODEzX0YyMDIwV08wMTgzNDVBMDpjaGFubmVsXzI4MTA3",
+          "title": "Erklärungsnöte · 19.01.22 | Folge 2880",
+          "href": "https://api.ardmediathek.de/page-gateway/pages/br/item/Y3JpZDovL2JyLmRlL2Jyb2FkY2FzdC9XT046MzE0NzUzOTY2ODEzX0YyMDIwV08wMTgzNDVBMDpjaGFubmVsXzI4MTA3?devicetype=pc&embedded=true",
+          "type": "application/vnd.ard.page+json",
+          "partner": "br"
+        }
+      },
+      "shortTitle": "Erklärungsnöte · 19.01.22 | Folge 2880",
+      "show": {
+        "id": "crid://br.de/broadcastSeries/broadcastSeries:/brde/fernsehen/bayerisches-fernsehen/sendungen/dahoam-is-dahoam",
+        "coremediaId": 14913698,
+        "title": "Dahoam is Dahoam",
+        "publisher": {
+          "name": "BR",
+          "logo": {
+            "title": "Logo BR",
+            "alt": "Logo BR",
+            "producerName": "Logo BR",
+            "src": "https://api.ardmediathek.de/image-service/image-collections/urn:ard:image-collection:2213972a8d101de1/16x9?w={width}",
+            "aspectRatio": "16x9"
+          },
+          "publisherType": "TV",
+          "partner": "br",
+          "id": "b3JnYW5pemF0aW9uX0JS",
+          "coreId": "urn:ard:publisher:e78748ebe4a9d534"
+        },
+        "self": {
+          "id": null,
+          "title": "Dahoam is Dahoam",
+          "href": "http://asset-gateway:8080/asset-gateway/groupings/Y3JpZDovL2JyLmRlL2Jyb2FkY2FzdFNlcmllcy9icm9hZGNhc3RTZXJpZXM6L2JyZGUvZmVybnNlaGVuL2JheWVyaXNjaGVzLWZlcm5zZWhlbi9zZW5kdW5nZW4vZGFob2FtLWlzLWRhaG9hbQ",
+          "type": "application/vnd.ard.grouping+json"
+        },
+        "images": {
+          "16x9": {
+            "title": "Dahoam is Dahoam - Keyvisual",
+            "alt": "Grüne Wiese mit blauem Himmel. Darüber das Lebkuchenherz zur Serie \"Dahoam is Dahoam\" sowie daneben das Ortsschild \"Lansing\".",
+            "producerName": "br",
+            "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:506b38ade21e6cd5?w={width}&ch=dfc83d65b0130d55",
+            "aspectRatio": "16x9"
+          },
+          "16x7": {
+            "title": "Dahoam is Dahoam - Keyvisual",
+            "alt": "Grüne Wiese mit blauem Himmel. Darüber das Lebkuchenherz zur Serie \"Dahoam is Dahoam\" sowie daneben das Ortsschild \"Lansing\".",
+            "producerName": "br",
+            "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:5fe4cc0f2f131953?w={width}&ch=195a5bddb5aa7810",
+            "aspectRatio": "16x7"
+          },
+          "1x1": {
+            "title": "Dahoam is Dahoam - Keyvisual",
+            "alt": "Grüne Wiese mit blauem Himmel. Darüber das Lebkuchenherz zur Serie \"Dahoam is Dahoam\" sowie daneben das Ortsschild \"Lansing\".",
+            "producerName": "br",
+            "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:6cb5835cf0e46b99?w={width}&ch=14244fc1656d9df9",
+            "aspectRatio": "1x1"
+          }
+        },
+        "shortSynopsis": "Das ist \"Dahoam is Dahoam\"\n\"Dahoam is Dahoam\" läuft seit 2007 und über 3.700 Folgen von Montag bis Donnerstag immer zwischen 19.30 und 20.00 Uhr im BR Fernsehen. Die tägliche Serie erzählt mit typisch bayerischen Charakteren liebevolle Geschichten aus dem Leben rund um das fiktive Dorf Lansing.",
+        "synopsis": "Das ist \"Dahoam is Dahoam\"\n\"Dahoam is Dahoam\" läuft seit 2007 und über 3.700 Folgen von Montag bis Donnerstag immer zwischen 19.30 und 20.00 Uhr im BR Fernsehen. Die tägliche Serie erzählt mit typisch bayerischen Charakteren liebevolle Geschichten aus dem Leben rund um das fiktive Dorf Lansing.",
+        "longSynopsis": "Das ist \"Dahoam is Dahoam\"\n\"Dahoam is Dahoam\" läuft seit 2007 und über 3.700 Folgen von Montag bis Donnerstag immer zwischen 19.30 und 20.00 Uhr im BR Fernsehen. Die tägliche Serie erzählt mit typisch bayerischen Charakteren liebevolle Geschichten aus dem Leben rund um das fiktive Dorf Lansing.",
+        "modificationDate": null,
+        "assetSource": null,
+        "isChildContent": false,
+        "isFamilyFriendly": false,
+        "targetAudienceAgeMin": null,
+        "targetAudienceAgeMax": null,
+        "categories": null,
+        "categoryIds": null,
+        "coreAssetType": "INFINITE_SERIES",
+        "noIndexSeo": false,
+        "titleSeo": null,
+        "descriptionSeo": null,
+        "coreId": "urn:ard:show:beac0bc7dcac6b2d",
+        "groupingType": "SHOW",
+        "homepage": {
+          "id": null,
+          "title": "Dahoam is Dahoam",
+          "href": "https://www.ardmediathek.de/br/dahoam-is-dahoam",
+          "type": null
+        },
+        "hasSeasons": false,
+        "availableSeasons": null,
+        "binaryFeatures": [
+          "UT",
+          "AD"
+        ]
+      },
+      "subtitled": true,
+      "titleVisible": true,
+      "trackingPiano": {
+        "teaser_content_type": "OnDemand",
+        "teaser_id": "b2dfbb97-c471-4e11-b6eb-7dbd76d7a7b7:-1015264663863702294",
+        "teaser_institution": "BR",
+        "teaser_institution_id": "urn:ard:institution:95a02eb6cc4f3d59",
+        "teaser_title": "Erklärungsnöte · 19.01.22 | Folge 2880"
+      },
+      "type": "ondemand"
+    },
+    {
+      "availableTo": null,
+      "binaryFeatures": [
+        "UT",
+        "AD"
+      ],
+      "broadcastedOn": "2026-04-10T06:01:00Z",
+      "coreAssetType": "EPISODE",
+      "duration": 1672,
+      "id": "b2dfbb97-c471-4e11-b6eb-7dbd76d7a7b7:-4934947152290708494",
+      "images": {
+        "aspect16x9": {
+          "alt": "Tina (Anita Eichhorn) gerät nach dem Einbruch in die Apotheke in Erklärungsnot.",
+          "producerName": "BR/Marco Orlando Pichler",
+          "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:734c9b69e015cde2?w={width}&ch=22a8854d1796cf77",
+          "title": "Dahoam is Dahoam | Folge 2879"
+        },
+        "aspect16x7": {
+          "alt": "Grüne Wiese mit blauem Himmel. Darüber das Lebkuchenherz zur Serie \"Dahoam is Dahoam\" sowie daneben das Ortsschild \"Lansing\".",
+          "producerName": "br",
+          "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:5fe4cc0f2f131953?w={width}&ch=195a5bddb5aa7810",
+          "title": "Dahoam is Dahoam - Keyvisual"
+        },
+        "aspect1x1": {
+          "alt": "Grüne Wiese mit blauem Himmel. Darüber das Lebkuchenherz zur Serie \"Dahoam is Dahoam\" sowie daneben das Ortsschild \"Lansing\".",
+          "producerName": "br",
+          "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:6cb5835cf0e46b99?w={width}&ch=14244fc1656d9df9",
+          "title": "Dahoam is Dahoam - Keyvisual"
+        }
+      },
+      "isChildContent": false,
+      "isFamilyFriendly": false,
+      "longTitle": "Zweifel und Zuversicht · 18.01.22 | Folge 2879",
+      "maturityContentRating": "NONE",
+      "mediumTitle": "Zweifel und Zuversicht · 18.01.22 | Folge 2879",
+      "personalized": false,
+      "publicationService": {
+        "name": "BR",
+        "logo": {
+          "title": "Logo BR",
+          "alt": "Logo BR",
+          "producerName": "Logo BR",
+          "src": "https://api.ardmediathek.de/image-service/image-collections/urn:ard:image-collection:2213972a8d101de1/16x9?w={width}",
+          "aspectRatio": "16x9"
+        },
+        "publisherType": "TV",
+        "partner": "br",
+        "id": "b3JnYW5pemF0aW9uX0JS",
+        "coreId": "urn:ard:publisher:e78748ebe4a9d534"
+      },
+      "links": {
+        "self": {
+          "id": "b2dfbb97-c471-4e11-b6eb-7dbd76d7a7b7:-4934947152290708494",
+          "urlId": "b2dfbb97-c471-4e11-b6eb-7dbd76d7a7b7:-4934947152290708494",
+          "title": "Zweifel und Zuversicht · 18.01.22 | Folge 2879",
+          "href": "https://api.ardmediathek.de/page-gateway/teasers/br/editorials/b2dfbb97-c471-4e11-b6eb-7dbd76d7a7b7%3A-4934947152290708494",
+          "type": "application/vnd.ard.teaser+json",
+          "partner": "br"
+        },
+        "target": {
+          "id": "Y3JpZDovL2JyLmRlL2Jyb2FkY2FzdC82ZWQwMmJjZS02NzhhLTQyZGEtYTNmZS1iMTQ3OWQxZDBkMWNfb25saW5lYnJvYWRjYXN0",
+          "urlId": "Y3JpZDovL2JyLmRlL2Jyb2FkY2FzdC82ZWQwMmJjZS02NzhhLTQyZGEtYTNmZS1iMTQ3OWQxZDBkMWNfb25saW5lYnJvYWRjYXN0",
+          "title": "Zweifel und Zuversicht · 18.01.22 | Folge 2879",
+          "href": "https://api.ardmediathek.de/page-gateway/pages/br/item/Y3JpZDovL2JyLmRlL2Jyb2FkY2FzdC82ZWQwMmJjZS02NzhhLTQyZGEtYTNmZS1iMTQ3OWQxZDBkMWNfb25saW5lYnJvYWRjYXN0?devicetype=pc&embedded=true",
+          "type": "application/vnd.ard.page+json",
+          "partner": "br"
+        }
+      },
+      "shortTitle": "Zweifel und Zuversicht · 18.01.22 | Folge 2879",
+      "show": {
+        "id": "crid://br.de/broadcastSeries/broadcastSeries:/brde/fernsehen/bayerisches-fernsehen/sendungen/dahoam-is-dahoam",
+        "coremediaId": 14913698,
+        "title": "Dahoam is Dahoam",
+        "publisher": {
+          "name": "BR",
+          "logo": {
+            "title": "Logo BR",
+            "alt": "Logo BR",
+            "producerName": "Logo BR",
+            "src": "https://api.ardmediathek.de/image-service/image-collections/urn:ard:image-collection:2213972a8d101de1/16x9?w={width}",
+            "aspectRatio": "16x9"
+          },
+          "publisherType": "TV",
+          "partner": "br",
+          "id": "b3JnYW5pemF0aW9uX0JS",
+          "coreId": "urn:ard:publisher:e78748ebe4a9d534"
+        },
+        "self": {
+          "id": null,
+          "title": "Dahoam is Dahoam",
+          "href": "http://asset-gateway:8080/asset-gateway/groupings/Y3JpZDovL2JyLmRlL2Jyb2FkY2FzdFNlcmllcy9icm9hZGNhc3RTZXJpZXM6L2JyZGUvZmVybnNlaGVuL2JheWVyaXNjaGVzLWZlcm5zZWhlbi9zZW5kdW5nZW4vZGFob2FtLWlzLWRhaG9hbQ",
+          "type": "application/vnd.ard.grouping+json"
+        },
+        "images": {
+          "16x9": {
+            "title": "Dahoam is Dahoam - Keyvisual",
+            "alt": "Grüne Wiese mit blauem Himmel. Darüber das Lebkuchenherz zur Serie \"Dahoam is Dahoam\" sowie daneben das Ortsschild \"Lansing\".",
+            "producerName": "br",
+            "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:506b38ade21e6cd5?w={width}&ch=dfc83d65b0130d55",
+            "aspectRatio": "16x9"
+          },
+          "16x7": {
+            "title": "Dahoam is Dahoam - Keyvisual",
+            "alt": "Grüne Wiese mit blauem Himmel. Darüber das Lebkuchenherz zur Serie \"Dahoam is Dahoam\" sowie daneben das Ortsschild \"Lansing\".",
+            "producerName": "br",
+            "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:5fe4cc0f2f131953?w={width}&ch=195a5bddb5aa7810",
+            "aspectRatio": "16x7"
+          },
+          "1x1": {
+            "title": "Dahoam is Dahoam - Keyvisual",
+            "alt": "Grüne Wiese mit blauem Himmel. Darüber das Lebkuchenherz zur Serie \"Dahoam is Dahoam\" sowie daneben das Ortsschild \"Lansing\".",
+            "producerName": "br",
+            "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:6cb5835cf0e46b99?w={width}&ch=14244fc1656d9df9",
+            "aspectRatio": "1x1"
+          }
+        },
+        "shortSynopsis": "Das ist \"Dahoam is Dahoam\"\n\"Dahoam is Dahoam\" läuft seit 2007 und über 3.700 Folgen von Montag bis Donnerstag immer zwischen 19.30 und 20.00 Uhr im BR Fernsehen. Die tägliche Serie erzählt mit typisch bayerischen Charakteren liebevolle Geschichten aus dem Leben rund um das fiktive Dorf Lansing.",
+        "synopsis": "Das ist \"Dahoam is Dahoam\"\n\"Dahoam is Dahoam\" läuft seit 2007 und über 3.700 Folgen von Montag bis Donnerstag immer zwischen 19.30 und 20.00 Uhr im BR Fernsehen. Die tägliche Serie erzählt mit typisch bayerischen Charakteren liebevolle Geschichten aus dem Leben rund um das fiktive Dorf Lansing.",
+        "longSynopsis": "Das ist \"Dahoam is Dahoam\"\n\"Dahoam is Dahoam\" läuft seit 2007 und über 3.700 Folgen von Montag bis Donnerstag immer zwischen 19.30 und 20.00 Uhr im BR Fernsehen. Die tägliche Serie erzählt mit typisch bayerischen Charakteren liebevolle Geschichten aus dem Leben rund um das fiktive Dorf Lansing.",
+        "modificationDate": null,
+        "assetSource": null,
+        "isChildContent": false,
+        "isFamilyFriendly": false,
+        "targetAudienceAgeMin": null,
+        "targetAudienceAgeMax": null,
+        "categories": null,
+        "categoryIds": null,
+        "coreAssetType": "INFINITE_SERIES",
+        "noIndexSeo": false,
+        "titleSeo": null,
+        "descriptionSeo": null,
+        "coreId": "urn:ard:show:beac0bc7dcac6b2d",
+        "groupingType": "SHOW",
+        "homepage": {
+          "id": null,
+          "title": "Dahoam is Dahoam",
+          "href": "https://www.ardmediathek.de/br/dahoam-is-dahoam",
+          "type": null
+        },
+        "hasSeasons": false,
+        "availableSeasons": null,
+        "binaryFeatures": [
+          "UT",
+          "AD"
+        ]
+      },
+      "subtitled": true,
+      "titleVisible": true,
+      "trackingPiano": {
+        "teaser_content_type": "OnDemand",
+        "teaser_id": "b2dfbb97-c471-4e11-b6eb-7dbd76d7a7b7:-4934947152290708494",
+        "teaser_institution": "BR",
+        "teaser_institution_id": "urn:ard:institution:95a02eb6cc4f3d59",
+        "teaser_title": "Zweifel und Zuversicht · 18.01.22 | Folge 2879"
+      },
+      "type": "ondemand"
+    },
+    {
+      "availableTo": null,
+      "binaryFeatures": [
+        "UT",
+        "AD"
+      ],
+      "broadcastedOn": "2026-04-10T06:00:00Z",
+      "coreAssetType": "EPISODE",
+      "duration": 1687,
+      "id": "b2dfbb97-c471-4e11-b6eb-7dbd76d7a7b7:-755986066145582960",
+      "images": {
+        "aspect16x9": {
+          "alt": "In einem unbeobachteten Moment stiehlt Volker (Rhon Diels) den Apothekenschlüssel aus Tinas Tasche.",
+          "producerName": "BR/Nadya Jakobs",
+          "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:3cb9d4e12467e13a?w={width}&ch=6a14acc72d94a252",
+          "title": "Folge 2878: Auf einen letzten Drink"
+        },
+        "aspect16x7": {
+          "alt": "In einem unbeobachteten Moment stiehlt Volker (Rhon Diels) den Apothekenschlüssel aus Tinas Tasche.",
+          "producerName": "BR/Nadya Jakobs",
+          "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:46d19e91cebef354?w={width}&ch=7c13436b1a5324e7",
+          "title": "Folge 2878: Auf einen letzten Drink"
+        },
+        "aspect1x1": {
+          "alt": "Grüne Wiese mit blauem Himmel. Darüber das Lebkuchenherz zur Serie \"Dahoam is Dahoam\" sowie daneben das Ortsschild \"Lansing\".",
+          "producerName": "br",
+          "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:6cb5835cf0e46b99?w={width}&ch=14244fc1656d9df9",
+          "title": "Dahoam is Dahoam - Keyvisual"
+        }
+      },
+      "isChildContent": false,
+      "isFamilyFriendly": false,
+      "longTitle": "Auf einen letzten Drink · 17.01.22 | Folge 2878",
+      "maturityContentRating": "NONE",
+      "mediumTitle": "Auf einen letzten Drink · 17.01.22 | Folge 2878",
+      "personalized": false,
+      "publicationService": {
+        "name": "BR",
+        "logo": {
+          "title": "Logo BR",
+          "alt": "Logo BR",
+          "producerName": "Logo BR",
+          "src": "https://api.ardmediathek.de/image-service/image-collections/urn:ard:image-collection:2213972a8d101de1/16x9?w={width}",
+          "aspectRatio": "16x9"
+        },
+        "publisherType": "TV",
+        "partner": "br",
+        "id": "b3JnYW5pemF0aW9uX0JS",
+        "coreId": "urn:ard:publisher:e78748ebe4a9d534"
+      },
+      "links": {
+        "self": {
+          "id": "b2dfbb97-c471-4e11-b6eb-7dbd76d7a7b7:-755986066145582960",
+          "urlId": "b2dfbb97-c471-4e11-b6eb-7dbd76d7a7b7:-755986066145582960",
+          "title": "Auf einen letzten Drink · 17.01.22 | Folge 2878",
+          "href": "https://api.ardmediathek.de/page-gateway/teasers/br/editorials/b2dfbb97-c471-4e11-b6eb-7dbd76d7a7b7%3A-755986066145582960",
+          "type": "application/vnd.ard.teaser+json",
+          "partner": "br"
+        },
+        "target": {
+          "id": "Y3JpZDovL2JyLmRlL2Jyb2FkY2FzdC9kZTIyZGNkZC0yODIwLTRlNGUtYjkzOS03Y2VhMmQ5NzY5ODlfb25saW5lYnJvYWRjYXN0",
+          "urlId": "Y3JpZDovL2JyLmRlL2Jyb2FkY2FzdC9kZTIyZGNkZC0yODIwLTRlNGUtYjkzOS03Y2VhMmQ5NzY5ODlfb25saW5lYnJvYWRjYXN0",
+          "title": "Auf einen letzten Drink · 17.01.22 | Folge 2878",
+          "href": "https://api.ardmediathek.de/page-gateway/pages/br/item/Y3JpZDovL2JyLmRlL2Jyb2FkY2FzdC9kZTIyZGNkZC0yODIwLTRlNGUtYjkzOS03Y2VhMmQ5NzY5ODlfb25saW5lYnJvYWRjYXN0?devicetype=pc&embedded=true",
+          "type": "application/vnd.ard.page+json",
+          "partner": "br"
+        }
+      },
+      "shortTitle": "Auf einen letzten Drink · 17.01.22 | Folge 2878",
+      "show": {
+        "id": "crid://br.de/broadcastSeries/broadcastSeries:/brde/fernsehen/bayerisches-fernsehen/sendungen/dahoam-is-dahoam",
+        "coremediaId": 14913698,
+        "title": "Dahoam is Dahoam",
+        "publisher": {
+          "name": "BR",
+          "logo": {
+            "title": "Logo BR",
+            "alt": "Logo BR",
+            "producerName": "Logo BR",
+            "src": "https://api.ardmediathek.de/image-service/image-collections/urn:ard:image-collection:2213972a8d101de1/16x9?w={width}",
+            "aspectRatio": "16x9"
+          },
+          "publisherType": "TV",
+          "partner": "br",
+          "id": "b3JnYW5pemF0aW9uX0JS",
+          "coreId": "urn:ard:publisher:e78748ebe4a9d534"
+        },
+        "self": {
+          "id": null,
+          "title": "Dahoam is Dahoam",
+          "href": "http://asset-gateway:8080/asset-gateway/groupings/Y3JpZDovL2JyLmRlL2Jyb2FkY2FzdFNlcmllcy9icm9hZGNhc3RTZXJpZXM6L2JyZGUvZmVybnNlaGVuL2JheWVyaXNjaGVzLWZlcm5zZWhlbi9zZW5kdW5nZW4vZGFob2FtLWlzLWRhaG9hbQ",
+          "type": "application/vnd.ard.grouping+json"
+        },
+        "images": {
+          "16x9": {
+            "title": "Dahoam is Dahoam - Keyvisual",
+            "alt": "Grüne Wiese mit blauem Himmel. Darüber das Lebkuchenherz zur Serie \"Dahoam is Dahoam\" sowie daneben das Ortsschild \"Lansing\".",
+            "producerName": "br",
+            "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:506b38ade21e6cd5?w={width}&ch=dfc83d65b0130d55",
+            "aspectRatio": "16x9"
+          },
+          "16x7": {
+            "title": "Dahoam is Dahoam - Keyvisual",
+            "alt": "Grüne Wiese mit blauem Himmel. Darüber das Lebkuchenherz zur Serie \"Dahoam is Dahoam\" sowie daneben das Ortsschild \"Lansing\".",
+            "producerName": "br",
+            "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:5fe4cc0f2f131953?w={width}&ch=195a5bddb5aa7810",
+            "aspectRatio": "16x7"
+          },
+          "1x1": {
+            "title": "Dahoam is Dahoam - Keyvisual",
+            "alt": "Grüne Wiese mit blauem Himmel. Darüber das Lebkuchenherz zur Serie \"Dahoam is Dahoam\" sowie daneben das Ortsschild \"Lansing\".",
+            "producerName": "br",
+            "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:6cb5835cf0e46b99?w={width}&ch=14244fc1656d9df9",
+            "aspectRatio": "1x1"
+          }
+        },
+        "shortSynopsis": "Das ist \"Dahoam is Dahoam\"\n\"Dahoam is Dahoam\" läuft seit 2007 und über 3.700 Folgen von Montag bis Donnerstag immer zwischen 19.30 und 20.00 Uhr im BR Fernsehen. Die tägliche Serie erzählt mit typisch bayerischen Charakteren liebevolle Geschichten aus dem Leben rund um das fiktive Dorf Lansing.",
+        "synopsis": "Das ist \"Dahoam is Dahoam\"\n\"Dahoam is Dahoam\" läuft seit 2007 und über 3.700 Folgen von Montag bis Donnerstag immer zwischen 19.30 und 20.00 Uhr im BR Fernsehen. Die tägliche Serie erzählt mit typisch bayerischen Charakteren liebevolle Geschichten aus dem Leben rund um das fiktive Dorf Lansing.",
+        "longSynopsis": "Das ist \"Dahoam is Dahoam\"\n\"Dahoam is Dahoam\" läuft seit 2007 und über 3.700 Folgen von Montag bis Donnerstag immer zwischen 19.30 und 20.00 Uhr im BR Fernsehen. Die tägliche Serie erzählt mit typisch bayerischen Charakteren liebevolle Geschichten aus dem Leben rund um das fiktive Dorf Lansing.",
+        "modificationDate": null,
+        "assetSource": null,
+        "isChildContent": false,
+        "isFamilyFriendly": false,
+        "targetAudienceAgeMin": null,
+        "targetAudienceAgeMax": null,
+        "categories": null,
+        "categoryIds": null,
+        "coreAssetType": "INFINITE_SERIES",
+        "noIndexSeo": false,
+        "titleSeo": null,
+        "descriptionSeo": null,
+        "coreId": "urn:ard:show:beac0bc7dcac6b2d",
+        "groupingType": "SHOW",
+        "homepage": {
+          "id": null,
+          "title": "Dahoam is Dahoam",
+          "href": "https://www.ardmediathek.de/br/dahoam-is-dahoam",
+          "type": null
+        },
+        "hasSeasons": false,
+        "availableSeasons": null,
+        "binaryFeatures": [
+          "UT",
+          "AD"
+        ]
+      },
+      "subtitled": true,
+      "titleVisible": true,
+      "trackingPiano": {
+        "teaser_content_type": "OnDemand",
+        "teaser_id": "b2dfbb97-c471-4e11-b6eb-7dbd76d7a7b7:-755986066145582960",
+        "teaser_institution": "BR",
+        "teaser_institution_id": "urn:ard:institution:95a02eb6cc4f3d59",
+        "teaser_title": "Auf einen letzten Drink · 17.01.22 | Folge 2878"
+      },
+      "type": "ondemand"
+    },
+    {
+      "availableTo": null,
+      "binaryFeatures": [
+        "UT",
+        "AD"
+      ],
+      "broadcastedOn": "2026-04-03T06:09:00Z",
+      "coreAssetType": "EPISODE",
+      "duration": 1683,
+      "id": "b2dfbb97-c471-4e11-b6eb-7dbd76d7a7b7:-1506510220785853465",
+      "images": {
+        "aspect16x9": {
+          "alt": "Bamberger bekommt mit, wie Tina (Anita Eichhorn, rechts) eine Kundin (Isabella Leicht, links) offensichtlich respektlos behandelt.",
+          "producerName": "BR/Nadya Jakobs",
+          "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:9607803a8e1492a6?w={width}&ch=e68f1fd247e90494",
+          "title": "Folge 2877: Ärger am ersten Arbeitstag"
+        },
+        "aspect16x7": {
+          "alt": "Bamberger bekommt mit, wie Tina (Anita Eichhorn, rechts) eine Kundin (Isabella Leicht, links) offensichtlich respektlos behandelt.",
+          "producerName": "BR/Nadya Jakobs",
+          "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:ec6fca4a64cd80c8?w={width}&ch=551d3b3caa35d766",
+          "title": "Folge 2877: Ärger am ersten Arbeitstag"
+        },
+        "aspect1x1": {
+          "alt": "Grüne Wiese mit blauem Himmel. Darüber das Lebkuchenherz zur Serie \"Dahoam is Dahoam\" sowie daneben das Ortsschild \"Lansing\".",
+          "producerName": "br",
+          "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:6cb5835cf0e46b99?w={width}&ch=14244fc1656d9df9",
+          "title": "Dahoam is Dahoam - Keyvisual"
+        }
+      },
+      "isChildContent": false,
+      "isFamilyFriendly": false,
+      "longTitle": "Ärger am ersten Arbeitstag · 13.01.22 | Folge 2877",
+      "maturityContentRating": "NONE",
+      "mediumTitle": "Ärger am ersten Arbeitstag · 13.01.22 | Folge 2877",
+      "personalized": false,
+      "publicationService": {
+        "name": "BR",
+        "logo": {
+          "title": "Logo BR",
+          "alt": "Logo BR",
+          "producerName": "Logo BR",
+          "src": "https://api.ardmediathek.de/image-service/image-collections/urn:ard:image-collection:2213972a8d101de1/16x9?w={width}",
+          "aspectRatio": "16x9"
+        },
+        "publisherType": "TV",
+        "partner": "br",
+        "id": "b3JnYW5pemF0aW9uX0JS",
+        "coreId": "urn:ard:publisher:e78748ebe4a9d534"
+      },
+      "links": {
+        "self": {
+          "id": "b2dfbb97-c471-4e11-b6eb-7dbd76d7a7b7:-1506510220785853465",
+          "urlId": "b2dfbb97-c471-4e11-b6eb-7dbd76d7a7b7:-1506510220785853465",
+          "title": "Ärger am ersten Arbeitstag · 13.01.22 | Folge 2877",
+          "href": "https://api.ardmediathek.de/page-gateway/teasers/br/editorials/b2dfbb97-c471-4e11-b6eb-7dbd76d7a7b7%3A-1506510220785853465",
+          "type": "application/vnd.ard.teaser+json",
+          "partner": "br"
+        },
+        "target": {
+          "id": "Y3JpZDovL2JyLmRlL2Jyb2FkY2FzdC82NWFiZjQ5OS0yY2Y2LTQ4NTUtYjZmMi05Zjc4MWEwMDA0NTRfb25saW5lYnJvYWRjYXN0",
+          "urlId": "Y3JpZDovL2JyLmRlL2Jyb2FkY2FzdC82NWFiZjQ5OS0yY2Y2LTQ4NTUtYjZmMi05Zjc4MWEwMDA0NTRfb25saW5lYnJvYWRjYXN0",
+          "title": "Ärger am ersten Arbeitstag · 13.01.22 | Folge 2877",
+          "href": "https://api.ardmediathek.de/page-gateway/pages/br/item/Y3JpZDovL2JyLmRlL2Jyb2FkY2FzdC82NWFiZjQ5OS0yY2Y2LTQ4NTUtYjZmMi05Zjc4MWEwMDA0NTRfb25saW5lYnJvYWRjYXN0?devicetype=pc&embedded=true",
+          "type": "application/vnd.ard.page+json",
+          "partner": "br"
+        }
+      },
+      "shortTitle": "Ärger am ersten Arbeitstag · 13.01.22 | Folge 2877",
+      "show": {
+        "id": "crid://br.de/broadcastSeries/broadcastSeries:/brde/fernsehen/bayerisches-fernsehen/sendungen/dahoam-is-dahoam",
+        "coremediaId": 14913698,
+        "title": "Dahoam is Dahoam",
+        "publisher": {
+          "name": "BR",
+          "logo": {
+            "title": "Logo BR",
+            "alt": "Logo BR",
+            "producerName": "Logo BR",
+            "src": "https://api.ardmediathek.de/image-service/image-collections/urn:ard:image-collection:2213972a8d101de1/16x9?w={width}",
+            "aspectRatio": "16x9"
+          },
+          "publisherType": "TV",
+          "partner": "br",
+          "id": "b3JnYW5pemF0aW9uX0JS",
+          "coreId": "urn:ard:publisher:e78748ebe4a9d534"
+        },
+        "self": {
+          "id": null,
+          "title": "Dahoam is Dahoam",
+          "href": "http://asset-gateway:8080/asset-gateway/groupings/Y3JpZDovL2JyLmRlL2Jyb2FkY2FzdFNlcmllcy9icm9hZGNhc3RTZXJpZXM6L2JyZGUvZmVybnNlaGVuL2JheWVyaXNjaGVzLWZlcm5zZWhlbi9zZW5kdW5nZW4vZGFob2FtLWlzLWRhaG9hbQ",
+          "type": "application/vnd.ard.grouping+json"
+        },
+        "images": {
+          "16x9": {
+            "title": "Dahoam is Dahoam - Keyvisual",
+            "alt": "Grüne Wiese mit blauem Himmel. Darüber das Lebkuchenherz zur Serie \"Dahoam is Dahoam\" sowie daneben das Ortsschild \"Lansing\".",
+            "producerName": "br",
+            "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:506b38ade21e6cd5?w={width}&ch=dfc83d65b0130d55",
+            "aspectRatio": "16x9"
+          },
+          "16x7": {
+            "title": "Dahoam is Dahoam - Keyvisual",
+            "alt": "Grüne Wiese mit blauem Himmel. Darüber das Lebkuchenherz zur Serie \"Dahoam is Dahoam\" sowie daneben das Ortsschild \"Lansing\".",
+            "producerName": "br",
+            "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:5fe4cc0f2f131953?w={width}&ch=195a5bddb5aa7810",
+            "aspectRatio": "16x7"
+          },
+          "1x1": {
+            "title": "Dahoam is Dahoam - Keyvisual",
+            "alt": "Grüne Wiese mit blauem Himmel. Darüber das Lebkuchenherz zur Serie \"Dahoam is Dahoam\" sowie daneben das Ortsschild \"Lansing\".",
+            "producerName": "br",
+            "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:6cb5835cf0e46b99?w={width}&ch=14244fc1656d9df9",
+            "aspectRatio": "1x1"
+          }
+        },
+        "shortSynopsis": "Das ist \"Dahoam is Dahoam\"\n\"Dahoam is Dahoam\" läuft seit 2007 und über 3.700 Folgen von Montag bis Donnerstag immer zwischen 19.30 und 20.00 Uhr im BR Fernsehen. Die tägliche Serie erzählt mit typisch bayerischen Charakteren liebevolle Geschichten aus dem Leben rund um das fiktive Dorf Lansing.",
+        "synopsis": "Das ist \"Dahoam is Dahoam\"\n\"Dahoam is Dahoam\" läuft seit 2007 und über 3.700 Folgen von Montag bis Donnerstag immer zwischen 19.30 und 20.00 Uhr im BR Fernsehen. Die tägliche Serie erzählt mit typisch bayerischen Charakteren liebevolle Geschichten aus dem Leben rund um das fiktive Dorf Lansing.",
+        "longSynopsis": "Das ist \"Dahoam is Dahoam\"\n\"Dahoam is Dahoam\" läuft seit 2007 und über 3.700 Folgen von Montag bis Donnerstag immer zwischen 19.30 und 20.00 Uhr im BR Fernsehen. Die tägliche Serie erzählt mit typisch bayerischen Charakteren liebevolle Geschichten aus dem Leben rund um das fiktive Dorf Lansing.",
+        "modificationDate": null,
+        "assetSource": null,
+        "isChildContent": false,
+        "isFamilyFriendly": false,
+        "targetAudienceAgeMin": null,
+        "targetAudienceAgeMax": null,
+        "categories": null,
+        "categoryIds": null,
+        "coreAssetType": "INFINITE_SERIES",
+        "noIndexSeo": false,
+        "titleSeo": null,
+        "descriptionSeo": null,
+        "coreId": "urn:ard:show:beac0bc7dcac6b2d",
+        "groupingType": "SHOW",
+        "homepage": {
+          "id": null,
+          "title": "Dahoam is Dahoam",
+          "href": "https://www.ardmediathek.de/br/dahoam-is-dahoam",
+          "type": null
+        },
+        "hasSeasons": false,
+        "availableSeasons": null,
+        "binaryFeatures": [
+          "UT",
+          "AD"
+        ]
+      },
+      "subtitled": true,
+      "titleVisible": true,
+      "trackingPiano": {
+        "teaser_content_type": "OnDemand",
+        "teaser_id": "b2dfbb97-c471-4e11-b6eb-7dbd76d7a7b7:-1506510220785853465",
+        "teaser_institution": "BR",
+        "teaser_institution_id": "urn:ard:institution:95a02eb6cc4f3d59",
+        "teaser_title": "Ärger am ersten Arbeitstag · 13.01.22 | Folge 2877"
+      },
+      "type": "ondemand"
+    },
+    {
+      "availableTo": null,
+      "binaryFeatures": [
+        "UT",
+        "AD"
+      ],
+      "broadcastedOn": "2026-04-03T06:08:00Z",
+      "coreAssetType": "EPISODE",
+      "duration": 1701,
+      "id": "b2dfbb97-c471-4e11-b6eb-7dbd76d7a7b7:8578610752301599288",
+      "images": {
+        "aspect16x9": {
+          "alt": "Pfarrer Bruman (Daniel Popat) überrascht Josephine (Mira Mazumdar) mit selbstgekochtem indischem Essen.",
+          "producerName": "BR/Nadya Jakobs",
+          "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:b3494d6b7ba99ed0?w={width}&ch=450d6c07d91174f8",
+          "title": "Folge 2876: Freundschaft geht durch den Magen"
+        },
+        "aspect16x7": {
+          "alt": "Pfarrer Bruman (Daniel Popat) überrascht Josephine (Mira Mazumdar) mit selbstgekochtem indischem Essen.",
+          "producerName": "BR/Nadya Jakobs",
+          "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:c921071b91708cbe?w={width}&ch=6112f080af4bba83",
+          "title": "Folge 2876: Freundschaft geht durch den Magen"
+        },
+        "aspect1x1": {
+          "alt": "Grüne Wiese mit blauem Himmel. Darüber das Lebkuchenherz zur Serie \"Dahoam is Dahoam\" sowie daneben das Ortsschild \"Lansing\".",
+          "producerName": "br",
+          "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:6cb5835cf0e46b99?w={width}&ch=14244fc1656d9df9",
+          "title": "Dahoam is Dahoam - Keyvisual"
+        }
+      },
+      "isChildContent": false,
+      "isFamilyFriendly": false,
+      "longTitle": "Freundschaft geht durch den Magen · 12.01.22 | Folge 2876",
+      "maturityContentRating": "NONE",
+      "mediumTitle": "Freundschaft geht durch den Magen · 12.01.22 | Folge 2876",
+      "personalized": false,
+      "publicationService": {
+        "name": "BR",
+        "logo": {
+          "title": "Logo BR",
+          "alt": "Logo BR",
+          "producerName": "Logo BR",
+          "src": "https://api.ardmediathek.de/image-service/image-collections/urn:ard:image-collection:2213972a8d101de1/16x9?w={width}",
+          "aspectRatio": "16x9"
+        },
+        "publisherType": "TV",
+        "partner": "br",
+        "id": "b3JnYW5pemF0aW9uX0JS",
+        "coreId": "urn:ard:publisher:e78748ebe4a9d534"
+      },
+      "links": {
+        "self": {
+          "id": "b2dfbb97-c471-4e11-b6eb-7dbd76d7a7b7:8578610752301599288",
+          "urlId": "b2dfbb97-c471-4e11-b6eb-7dbd76d7a7b7:8578610752301599288",
+          "title": "Freundschaft geht durch den Magen · 12.01.22 | Folge 2876",
+          "href": "https://api.ardmediathek.de/page-gateway/teasers/br/editorials/b2dfbb97-c471-4e11-b6eb-7dbd76d7a7b7%3A8578610752301599288",
+          "type": "application/vnd.ard.teaser+json",
+          "partner": "br"
+        },
+        "target": {
+          "id": "Y3JpZDovL2JyLmRlL2Jyb2FkY2FzdC85MjA4MWMyNC02MDM0LTQ0ZTktYjY5NS1mMzVmYzg1YmFjZmFfb25saW5lYnJvYWRjYXN0",
+          "urlId": "Y3JpZDovL2JyLmRlL2Jyb2FkY2FzdC85MjA4MWMyNC02MDM0LTQ0ZTktYjY5NS1mMzVmYzg1YmFjZmFfb25saW5lYnJvYWRjYXN0",
+          "title": "Freundschaft geht durch den Magen · 12.01.22 | Folge 2876",
+          "href": "https://api.ardmediathek.de/page-gateway/pages/br/item/Y3JpZDovL2JyLmRlL2Jyb2FkY2FzdC85MjA4MWMyNC02MDM0LTQ0ZTktYjY5NS1mMzVmYzg1YmFjZmFfb25saW5lYnJvYWRjYXN0?devicetype=pc&embedded=true",
+          "type": "application/vnd.ard.page+json",
+          "partner": "br"
+        }
+      },
+      "shortTitle": "Freundschaft geht durch den Magen · 12.01.22 | Folge 2876",
+      "show": {
+        "id": "crid://br.de/broadcastSeries/broadcastSeries:/brde/fernsehen/bayerisches-fernsehen/sendungen/dahoam-is-dahoam",
+        "coremediaId": 14913698,
+        "title": "Dahoam is Dahoam",
+        "publisher": {
+          "name": "BR",
+          "logo": {
+            "title": "Logo BR",
+            "alt": "Logo BR",
+            "producerName": "Logo BR",
+            "src": "https://api.ardmediathek.de/image-service/image-collections/urn:ard:image-collection:2213972a8d101de1/16x9?w={width}",
+            "aspectRatio": "16x9"
+          },
+          "publisherType": "TV",
+          "partner": "br",
+          "id": "b3JnYW5pemF0aW9uX0JS",
+          "coreId": "urn:ard:publisher:e78748ebe4a9d534"
+        },
+        "self": {
+          "id": null,
+          "title": "Dahoam is Dahoam",
+          "href": "http://asset-gateway:8080/asset-gateway/groupings/Y3JpZDovL2JyLmRlL2Jyb2FkY2FzdFNlcmllcy9icm9hZGNhc3RTZXJpZXM6L2JyZGUvZmVybnNlaGVuL2JheWVyaXNjaGVzLWZlcm5zZWhlbi9zZW5kdW5nZW4vZGFob2FtLWlzLWRhaG9hbQ",
+          "type": "application/vnd.ard.grouping+json"
+        },
+        "images": {
+          "16x9": {
+            "title": "Dahoam is Dahoam - Keyvisual",
+            "alt": "Grüne Wiese mit blauem Himmel. Darüber das Lebkuchenherz zur Serie \"Dahoam is Dahoam\" sowie daneben das Ortsschild \"Lansing\".",
+            "producerName": "br",
+            "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:506b38ade21e6cd5?w={width}&ch=dfc83d65b0130d55",
+            "aspectRatio": "16x9"
+          },
+          "16x7": {
+            "title": "Dahoam is Dahoam - Keyvisual",
+            "alt": "Grüne Wiese mit blauem Himmel. Darüber das Lebkuchenherz zur Serie \"Dahoam is Dahoam\" sowie daneben das Ortsschild \"Lansing\".",
+            "producerName": "br",
+            "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:5fe4cc0f2f131953?w={width}&ch=195a5bddb5aa7810",
+            "aspectRatio": "16x7"
+          },
+          "1x1": {
+            "title": "Dahoam is Dahoam - Keyvisual",
+            "alt": "Grüne Wiese mit blauem Himmel. Darüber das Lebkuchenherz zur Serie \"Dahoam is Dahoam\" sowie daneben das Ortsschild \"Lansing\".",
+            "producerName": "br",
+            "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:6cb5835cf0e46b99?w={width}&ch=14244fc1656d9df9",
+            "aspectRatio": "1x1"
+          }
+        },
+        "shortSynopsis": "Das ist \"Dahoam is Dahoam\"\n\"Dahoam is Dahoam\" läuft seit 2007 und über 3.700 Folgen von Montag bis Donnerstag immer zwischen 19.30 und 20.00 Uhr im BR Fernsehen. Die tägliche Serie erzählt mit typisch bayerischen Charakteren liebevolle Geschichten aus dem Leben rund um das fiktive Dorf Lansing.",
+        "synopsis": "Das ist \"Dahoam is Dahoam\"\n\"Dahoam is Dahoam\" läuft seit 2007 und über 3.700 Folgen von Montag bis Donnerstag immer zwischen 19.30 und 20.00 Uhr im BR Fernsehen. Die tägliche Serie erzählt mit typisch bayerischen Charakteren liebevolle Geschichten aus dem Leben rund um das fiktive Dorf Lansing.",
+        "longSynopsis": "Das ist \"Dahoam is Dahoam\"\n\"Dahoam is Dahoam\" läuft seit 2007 und über 3.700 Folgen von Montag bis Donnerstag immer zwischen 19.30 und 20.00 Uhr im BR Fernsehen. Die tägliche Serie erzählt mit typisch bayerischen Charakteren liebevolle Geschichten aus dem Leben rund um das fiktive Dorf Lansing.",
+        "modificationDate": null,
+        "assetSource": null,
+        "isChildContent": false,
+        "isFamilyFriendly": false,
+        "targetAudienceAgeMin": null,
+        "targetAudienceAgeMax": null,
+        "categories": null,
+        "categoryIds": null,
+        "coreAssetType": "INFINITE_SERIES",
+        "noIndexSeo": false,
+        "titleSeo": null,
+        "descriptionSeo": null,
+        "coreId": "urn:ard:show:beac0bc7dcac6b2d",
+        "groupingType": "SHOW",
+        "homepage": {
+          "id": null,
+          "title": "Dahoam is Dahoam",
+          "href": "https://www.ardmediathek.de/br/dahoam-is-dahoam",
+          "type": null
+        },
+        "hasSeasons": false,
+        "availableSeasons": null,
+        "binaryFeatures": [
+          "UT",
+          "AD"
+        ]
+      },
+      "subtitled": true,
+      "titleVisible": true,
+      "trackingPiano": {
+        "teaser_content_type": "OnDemand",
+        "teaser_id": "b2dfbb97-c471-4e11-b6eb-7dbd76d7a7b7:8578610752301599288",
+        "teaser_institution": "BR",
+        "teaser_institution_id": "urn:ard:institution:95a02eb6cc4f3d59",
+        "teaser_title": "Freundschaft geht durch den Magen · 12.01.22 | Folge 2876"
+      },
+      "type": "ondemand"
+    },
+    {
+      "availableTo": null,
+      "binaryFeatures": [
+        "UT",
+        "AD"
+      ],
+      "broadcastedOn": "2026-04-03T06:07:00Z",
+      "coreAssetType": "EPISODE",
+      "duration": 1689,
+      "id": "b2dfbb97-c471-4e11-b6eb-7dbd76d7a7b7:2628046753137045744",
+      "images": {
+        "aspect16x9": {
+          "alt": "Katharina (Carina Dengler) und Christian (Jonathan Gertis) entscheiden, dass sie Eltern werden wollen.",
+          "producerName": "BR/Marco Orlando Pichler",
+          "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:4a9972ac63d1ff2c?w={width}&ch=227b9c0672bf258a",
+          "title": "Folge 2875: Kinderwunsch"
+        },
+        "aspect16x7": {
+          "alt": "Katharina (Carina Dengler) und Christian (Jonathan Gertis) entscheiden, dass sie Eltern werden wollen.",
+          "producerName": "BR/Marco Orlando Pichler",
+          "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:30f138dc8908ed42?w={width}&ch=eb7fcedd36aa082f",
+          "title": "Folge 2875: Kinderwunsch"
+        },
+        "aspect1x1": {
+          "alt": "Grüne Wiese mit blauem Himmel. Darüber das Lebkuchenherz zur Serie \"Dahoam is Dahoam\" sowie daneben das Ortsschild \"Lansing\".",
+          "producerName": "br",
+          "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:6cb5835cf0e46b99?w={width}&ch=14244fc1656d9df9",
+          "title": "Dahoam is Dahoam - Keyvisual"
+        }
+      },
+      "isChildContent": false,
+      "isFamilyFriendly": false,
+      "longTitle": "Kinderwunsch · 11.01.22 | Folge 2875",
+      "maturityContentRating": "NONE",
+      "mediumTitle": "Kinderwunsch · 11.01.22 | Folge 2875",
+      "personalized": false,
+      "publicationService": {
+        "name": "BR",
+        "logo": {
+          "title": "Logo BR",
+          "alt": "Logo BR",
+          "producerName": "Logo BR",
+          "src": "https://api.ardmediathek.de/image-service/image-collections/urn:ard:image-collection:2213972a8d101de1/16x9?w={width}",
+          "aspectRatio": "16x9"
+        },
+        "publisherType": "TV",
+        "partner": "br",
+        "id": "b3JnYW5pemF0aW9uX0JS",
+        "coreId": "urn:ard:publisher:e78748ebe4a9d534"
+      },
+      "links": {
+        "self": {
+          "id": "b2dfbb97-c471-4e11-b6eb-7dbd76d7a7b7:2628046753137045744",
+          "urlId": "b2dfbb97-c471-4e11-b6eb-7dbd76d7a7b7:2628046753137045744",
+          "title": "Kinderwunsch · 11.01.22 | Folge 2875",
+          "href": "https://api.ardmediathek.de/page-gateway/teasers/br/editorials/b2dfbb97-c471-4e11-b6eb-7dbd76d7a7b7%3A2628046753137045744",
+          "type": "application/vnd.ard.teaser+json",
+          "partner": "br"
+        },
+        "target": {
+          "id": "Y3JpZDovL2JyLmRlL2Jyb2FkY2FzdC9kMWI0NjFlMS03YzE5LTRhZTUtOTU1MS04ODg0ZWRhYTAwYTZfb25saW5lYnJvYWRjYXN0",
+          "urlId": "Y3JpZDovL2JyLmRlL2Jyb2FkY2FzdC9kMWI0NjFlMS03YzE5LTRhZTUtOTU1MS04ODg0ZWRhYTAwYTZfb25saW5lYnJvYWRjYXN0",
+          "title": "Kinderwunsch · 11.01.22 | Folge 2875",
+          "href": "https://api.ardmediathek.de/page-gateway/pages/br/item/Y3JpZDovL2JyLmRlL2Jyb2FkY2FzdC9kMWI0NjFlMS03YzE5LTRhZTUtOTU1MS04ODg0ZWRhYTAwYTZfb25saW5lYnJvYWRjYXN0?devicetype=pc&embedded=true",
+          "type": "application/vnd.ard.page+json",
+          "partner": "br"
+        }
+      },
+      "shortTitle": "Kinderwunsch · 11.01.22 | Folge 2875",
+      "show": {
+        "id": "crid://br.de/broadcastSeries/broadcastSeries:/brde/fernsehen/bayerisches-fernsehen/sendungen/dahoam-is-dahoam",
+        "coremediaId": 14913698,
+        "title": "Dahoam is Dahoam",
+        "publisher": {
+          "name": "BR",
+          "logo": {
+            "title": "Logo BR",
+            "alt": "Logo BR",
+            "producerName": "Logo BR",
+            "src": "https://api.ardmediathek.de/image-service/image-collections/urn:ard:image-collection:2213972a8d101de1/16x9?w={width}",
+            "aspectRatio": "16x9"
+          },
+          "publisherType": "TV",
+          "partner": "br",
+          "id": "b3JnYW5pemF0aW9uX0JS",
+          "coreId": "urn:ard:publisher:e78748ebe4a9d534"
+        },
+        "self": {
+          "id": null,
+          "title": "Dahoam is Dahoam",
+          "href": "http://asset-gateway:8080/asset-gateway/groupings/Y3JpZDovL2JyLmRlL2Jyb2FkY2FzdFNlcmllcy9icm9hZGNhc3RTZXJpZXM6L2JyZGUvZmVybnNlaGVuL2JheWVyaXNjaGVzLWZlcm5zZWhlbi9zZW5kdW5nZW4vZGFob2FtLWlzLWRhaG9hbQ",
+          "type": "application/vnd.ard.grouping+json"
+        },
+        "images": {
+          "16x9": {
+            "title": "Dahoam is Dahoam - Keyvisual",
+            "alt": "Grüne Wiese mit blauem Himmel. Darüber das Lebkuchenherz zur Serie \"Dahoam is Dahoam\" sowie daneben das Ortsschild \"Lansing\".",
+            "producerName": "br",
+            "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:506b38ade21e6cd5?w={width}&ch=dfc83d65b0130d55",
+            "aspectRatio": "16x9"
+          },
+          "16x7": {
+            "title": "Dahoam is Dahoam - Keyvisual",
+            "alt": "Grüne Wiese mit blauem Himmel. Darüber das Lebkuchenherz zur Serie \"Dahoam is Dahoam\" sowie daneben das Ortsschild \"Lansing\".",
+            "producerName": "br",
+            "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:5fe4cc0f2f131953?w={width}&ch=195a5bddb5aa7810",
+            "aspectRatio": "16x7"
+          },
+          "1x1": {
+            "title": "Dahoam is Dahoam - Keyvisual",
+            "alt": "Grüne Wiese mit blauem Himmel. Darüber das Lebkuchenherz zur Serie \"Dahoam is Dahoam\" sowie daneben das Ortsschild \"Lansing\".",
+            "producerName": "br",
+            "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:6cb5835cf0e46b99?w={width}&ch=14244fc1656d9df9",
+            "aspectRatio": "1x1"
+          }
+        },
+        "shortSynopsis": "Das ist \"Dahoam is Dahoam\"\n\"Dahoam is Dahoam\" läuft seit 2007 und über 3.700 Folgen von Montag bis Donnerstag immer zwischen 19.30 und 20.00 Uhr im BR Fernsehen. Die tägliche Serie erzählt mit typisch bayerischen Charakteren liebevolle Geschichten aus dem Leben rund um das fiktive Dorf Lansing.",
+        "synopsis": "Das ist \"Dahoam is Dahoam\"\n\"Dahoam is Dahoam\" läuft seit 2007 und über 3.700 Folgen von Montag bis Donnerstag immer zwischen 19.30 und 20.00 Uhr im BR Fernsehen. Die tägliche Serie erzählt mit typisch bayerischen Charakteren liebevolle Geschichten aus dem Leben rund um das fiktive Dorf Lansing.",
+        "longSynopsis": "Das ist \"Dahoam is Dahoam\"\n\"Dahoam is Dahoam\" läuft seit 2007 und über 3.700 Folgen von Montag bis Donnerstag immer zwischen 19.30 und 20.00 Uhr im BR Fernsehen. Die tägliche Serie erzählt mit typisch bayerischen Charakteren liebevolle Geschichten aus dem Leben rund um das fiktive Dorf Lansing.",
+        "modificationDate": null,
+        "assetSource": null,
+        "isChildContent": false,
+        "isFamilyFriendly": false,
+        "targetAudienceAgeMin": null,
+        "targetAudienceAgeMax": null,
+        "categories": null,
+        "categoryIds": null,
+        "coreAssetType": "INFINITE_SERIES",
+        "noIndexSeo": false,
+        "titleSeo": null,
+        "descriptionSeo": null,
+        "coreId": "urn:ard:show:beac0bc7dcac6b2d",
+        "groupingType": "SHOW",
+        "homepage": {
+          "id": null,
+          "title": "Dahoam is Dahoam",
+          "href": "https://www.ardmediathek.de/br/dahoam-is-dahoam",
+          "type": null
+        },
+        "hasSeasons": false,
+        "availableSeasons": null,
+        "binaryFeatures": [
+          "UT",
+          "AD"
+        ]
+      },
+      "subtitled": true,
+      "titleVisible": true,
+      "trackingPiano": {
+        "teaser_content_type": "OnDemand",
+        "teaser_id": "b2dfbb97-c471-4e11-b6eb-7dbd76d7a7b7:2628046753137045744",
+        "teaser_institution": "BR",
+        "teaser_institution_id": "urn:ard:institution:95a02eb6cc4f3d59",
+        "teaser_title": "Kinderwunsch · 11.01.22 | Folge 2875"
+      },
+      "type": "ondemand"
+    },
+    {
+      "availableTo": null,
+      "binaryFeatures": [
+        "UT",
+        "AD"
+      ],
+      "broadcastedOn": "2026-04-03T06:06:00Z",
+      "coreAssetType": "EPISODE",
+      "duration": 1686,
+      "id": "b2dfbb97-c471-4e11-b6eb-7dbd76d7a7b7:-9055179635618026749",
+      "images": {
+        "aspect16x9": {
+          "alt": "Tina (Anita Eichhorn) macht Volker (Rhon Diels) klar, dass sie nichts mehr mit ihm zu tun haben will.",
+          "producerName": "BR/Nadya Jakobs",
+          "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:62971e9c3c181300?w={width}&ch=4d502d54b81747f2",
+          "title": "Folge 2874: Der Mann aus der Vergangenheit"
+        },
+        "aspect16x7": {
+          "alt": "Tina (Anita Eichhorn) macht Volker (Rhon Diels) klar, dass sie nichts mehr mit ihm zu tun haben will.",
+          "producerName": "BR/Nadya Jakobs",
+          "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:18ff54ecd6c1016e?w={width}&ch=057f2ca50fca4d26",
+          "title": "Folge 2874: Der Mann aus der Vergangenheit"
+        },
+        "aspect1x1": {
+          "alt": "Grüne Wiese mit blauem Himmel. Darüber das Lebkuchenherz zur Serie \"Dahoam is Dahoam\" sowie daneben das Ortsschild \"Lansing\".",
+          "producerName": "br",
+          "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:6cb5835cf0e46b99?w={width}&ch=14244fc1656d9df9",
+          "title": "Dahoam is Dahoam - Keyvisual"
+        }
+      },
+      "isChildContent": false,
+      "isFamilyFriendly": false,
+      "longTitle": "Der Mann aus der Vergangenheit · 10.01.22 | Folge 2874",
+      "maturityContentRating": "NONE",
+      "mediumTitle": "Der Mann aus der Vergangenheit · 10.01.22 | Folge 2874",
+      "personalized": false,
+      "publicationService": {
+        "name": "BR",
+        "logo": {
+          "title": "Logo BR",
+          "alt": "Logo BR",
+          "producerName": "Logo BR",
+          "src": "https://api.ardmediathek.de/image-service/image-collections/urn:ard:image-collection:2213972a8d101de1/16x9?w={width}",
+          "aspectRatio": "16x9"
+        },
+        "publisherType": "TV",
+        "partner": "br",
+        "id": "b3JnYW5pemF0aW9uX0JS",
+        "coreId": "urn:ard:publisher:e78748ebe4a9d534"
+      },
+      "links": {
+        "self": {
+          "id": "b2dfbb97-c471-4e11-b6eb-7dbd76d7a7b7:-9055179635618026749",
+          "urlId": "b2dfbb97-c471-4e11-b6eb-7dbd76d7a7b7:-9055179635618026749",
+          "title": "Der Mann aus der Vergangenheit · 10.01.22 | Folge 2874",
+          "href": "https://api.ardmediathek.de/page-gateway/teasers/br/editorials/b2dfbb97-c471-4e11-b6eb-7dbd76d7a7b7%3A-9055179635618026749",
+          "type": "application/vnd.ard.teaser+json",
+          "partner": "br"
+        },
+        "target": {
+          "id": "Y3JpZDovL2JyLmRlL2Jyb2FkY2FzdC84ZThlM2ZhNi0yODcwLTQxMDMtYjRmMC0zNWI0NzY2NTcyMWRfb25saW5lYnJvYWRjYXN0",
+          "urlId": "Y3JpZDovL2JyLmRlL2Jyb2FkY2FzdC84ZThlM2ZhNi0yODcwLTQxMDMtYjRmMC0zNWI0NzY2NTcyMWRfb25saW5lYnJvYWRjYXN0",
+          "title": "Der Mann aus der Vergangenheit · 10.01.22 | Folge 2874",
+          "href": "https://api.ardmediathek.de/page-gateway/pages/br/item/Y3JpZDovL2JyLmRlL2Jyb2FkY2FzdC84ZThlM2ZhNi0yODcwLTQxMDMtYjRmMC0zNWI0NzY2NTcyMWRfb25saW5lYnJvYWRjYXN0?devicetype=pc&embedded=true",
+          "type": "application/vnd.ard.page+json",
+          "partner": "br"
+        }
+      },
+      "shortTitle": "Der Mann aus der Vergangenheit · 10.01.22 | Folge 2874",
+      "show": {
+        "id": "crid://br.de/broadcastSeries/broadcastSeries:/brde/fernsehen/bayerisches-fernsehen/sendungen/dahoam-is-dahoam",
+        "coremediaId": 14913698,
+        "title": "Dahoam is Dahoam",
+        "publisher": {
+          "name": "BR",
+          "logo": {
+            "title": "Logo BR",
+            "alt": "Logo BR",
+            "producerName": "Logo BR",
+            "src": "https://api.ardmediathek.de/image-service/image-collections/urn:ard:image-collection:2213972a8d101de1/16x9?w={width}",
+            "aspectRatio": "16x9"
+          },
+          "publisherType": "TV",
+          "partner": "br",
+          "id": "b3JnYW5pemF0aW9uX0JS",
+          "coreId": "urn:ard:publisher:e78748ebe4a9d534"
+        },
+        "self": {
+          "id": null,
+          "title": "Dahoam is Dahoam",
+          "href": "http://asset-gateway:8080/asset-gateway/groupings/Y3JpZDovL2JyLmRlL2Jyb2FkY2FzdFNlcmllcy9icm9hZGNhc3RTZXJpZXM6L2JyZGUvZmVybnNlaGVuL2JheWVyaXNjaGVzLWZlcm5zZWhlbi9zZW5kdW5nZW4vZGFob2FtLWlzLWRhaG9hbQ",
+          "type": "application/vnd.ard.grouping+json"
+        },
+        "images": {
+          "16x9": {
+            "title": "Dahoam is Dahoam - Keyvisual",
+            "alt": "Grüne Wiese mit blauem Himmel. Darüber das Lebkuchenherz zur Serie \"Dahoam is Dahoam\" sowie daneben das Ortsschild \"Lansing\".",
+            "producerName": "br",
+            "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:506b38ade21e6cd5?w={width}&ch=dfc83d65b0130d55",
+            "aspectRatio": "16x9"
+          },
+          "16x7": {
+            "title": "Dahoam is Dahoam - Keyvisual",
+            "alt": "Grüne Wiese mit blauem Himmel. Darüber das Lebkuchenherz zur Serie \"Dahoam is Dahoam\" sowie daneben das Ortsschild \"Lansing\".",
+            "producerName": "br",
+            "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:5fe4cc0f2f131953?w={width}&ch=195a5bddb5aa7810",
+            "aspectRatio": "16x7"
+          },
+          "1x1": {
+            "title": "Dahoam is Dahoam - Keyvisual",
+            "alt": "Grüne Wiese mit blauem Himmel. Darüber das Lebkuchenherz zur Serie \"Dahoam is Dahoam\" sowie daneben das Ortsschild \"Lansing\".",
+            "producerName": "br",
+            "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:6cb5835cf0e46b99?w={width}&ch=14244fc1656d9df9",
+            "aspectRatio": "1x1"
+          }
+        },
+        "shortSynopsis": "Das ist \"Dahoam is Dahoam\"\n\"Dahoam is Dahoam\" läuft seit 2007 und über 3.700 Folgen von Montag bis Donnerstag immer zwischen 19.30 und 20.00 Uhr im BR Fernsehen. Die tägliche Serie erzählt mit typisch bayerischen Charakteren liebevolle Geschichten aus dem Leben rund um das fiktive Dorf Lansing.",
+        "synopsis": "Das ist \"Dahoam is Dahoam\"\n\"Dahoam is Dahoam\" läuft seit 2007 und über 3.700 Folgen von Montag bis Donnerstag immer zwischen 19.30 und 20.00 Uhr im BR Fernsehen. Die tägliche Serie erzählt mit typisch bayerischen Charakteren liebevolle Geschichten aus dem Leben rund um das fiktive Dorf Lansing.",
+        "longSynopsis": "Das ist \"Dahoam is Dahoam\"\n\"Dahoam is Dahoam\" läuft seit 2007 und über 3.700 Folgen von Montag bis Donnerstag immer zwischen 19.30 und 20.00 Uhr im BR Fernsehen. Die tägliche Serie erzählt mit typisch bayerischen Charakteren liebevolle Geschichten aus dem Leben rund um das fiktive Dorf Lansing.",
+        "modificationDate": null,
+        "assetSource": null,
+        "isChildContent": false,
+        "isFamilyFriendly": false,
+        "targetAudienceAgeMin": null,
+        "targetAudienceAgeMax": null,
+        "categories": null,
+        "categoryIds": null,
+        "coreAssetType": "INFINITE_SERIES",
+        "noIndexSeo": false,
+        "titleSeo": null,
+        "descriptionSeo": null,
+        "coreId": "urn:ard:show:beac0bc7dcac6b2d",
+        "groupingType": "SHOW",
+        "homepage": {
+          "id": null,
+          "title": "Dahoam is Dahoam",
+          "href": "https://www.ardmediathek.de/br/dahoam-is-dahoam",
+          "type": null
+        },
+        "hasSeasons": false,
+        "availableSeasons": null,
+        "binaryFeatures": [
+          "UT",
+          "AD"
+        ]
+      },
+      "subtitled": true,
+      "titleVisible": true,
+      "trackingPiano": {
+        "teaser_content_type": "OnDemand",
+        "teaser_id": "b2dfbb97-c471-4e11-b6eb-7dbd76d7a7b7:-9055179635618026749",
+        "teaser_institution": "BR",
+        "teaser_institution_id": "urn:ard:institution:95a02eb6cc4f3d59",
+        "teaser_title": "Der Mann aus der Vergangenheit · 10.01.22 | Folge 2874"
+      },
+      "type": "ondemand"
+    },
+    {
+      "availableTo": null,
+      "binaryFeatures": [
+        "UT",
+        "AD"
+      ],
+      "broadcastedOn": "2026-04-03T06:05:00Z",
+      "coreAssetType": "EPISODE",
+      "duration": 1676,
+      "id": "b2dfbb97-c471-4e11-b6eb-7dbd76d7a7b7:-4311948605466868300",
+      "images": {
+        "aspect16x9": {
+          "alt": "Bamberger (Horst Kummeth) muss Tina (Anita Eichhorn) bitten, in seiner Apotheke einzuspringen.",
+          "producerName": "BR/Marco Orlando Pichler",
+          "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:a8e170dfef6b22b4?w={width}&ch=0eff10f0ccfa2089",
+          "title": "Folge 2873: Für alle Notfälle"
+        },
+        "aspect16x7": {
+          "alt": "Bamberger (Horst Kummeth) muss Tina (Anita Eichhorn) bitten, in seiner Apotheke einzuspringen.",
+          "producerName": "BR/Marco Orlando Pichler",
+          "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:d2893aaf05b230da?w={width}&ch=810730dc0788a1cf",
+          "title": "Folge 2873: Für alle Notfälle"
+        },
+        "aspect1x1": {
+          "alt": "Grüne Wiese mit blauem Himmel. Darüber das Lebkuchenherz zur Serie \"Dahoam is Dahoam\" sowie daneben das Ortsschild \"Lansing\".",
+          "producerName": "br",
+          "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:6cb5835cf0e46b99?w={width}&ch=14244fc1656d9df9",
+          "title": "Dahoam is Dahoam - Keyvisual"
+        }
+      },
+      "isChildContent": false,
+      "isFamilyFriendly": false,
+      "longTitle": "Für alle Notfälle · 06.01.22 | Folge 2873",
+      "maturityContentRating": "NONE",
+      "mediumTitle": "Für alle Notfälle · 06.01.22 | Folge 2873",
+      "personalized": false,
+      "publicationService": {
+        "name": "BR",
+        "logo": {
+          "title": "Logo BR",
+          "alt": "Logo BR",
+          "producerName": "Logo BR",
+          "src": "https://api.ardmediathek.de/image-service/image-collections/urn:ard:image-collection:2213972a8d101de1/16x9?w={width}",
+          "aspectRatio": "16x9"
+        },
+        "publisherType": "TV",
+        "partner": "br",
+        "id": "b3JnYW5pemF0aW9uX0JS",
+        "coreId": "urn:ard:publisher:e78748ebe4a9d534"
+      },
+      "links": {
+        "self": {
+          "id": "b2dfbb97-c471-4e11-b6eb-7dbd76d7a7b7:-4311948605466868300",
+          "urlId": "b2dfbb97-c471-4e11-b6eb-7dbd76d7a7b7:-4311948605466868300",
+          "title": "Für alle Notfälle · 06.01.22 | Folge 2873",
+          "href": "https://api.ardmediathek.de/page-gateway/teasers/br/editorials/b2dfbb97-c471-4e11-b6eb-7dbd76d7a7b7%3A-4311948605466868300",
+          "type": "application/vnd.ard.teaser+json",
+          "partner": "br"
+        },
+        "target": {
+          "id": "Y3JpZDovL2JyLmRlL2Jyb2FkY2FzdC8xY2Q2YmRlMi1iMDhmLTRmZmItOWU1Ni1kNGQ4Y2YzN2E1Mzdfb25saW5lYnJvYWRjYXN0",
+          "urlId": "Y3JpZDovL2JyLmRlL2Jyb2FkY2FzdC8xY2Q2YmRlMi1iMDhmLTRmZmItOWU1Ni1kNGQ4Y2YzN2E1Mzdfb25saW5lYnJvYWRjYXN0",
+          "title": "Für alle Notfälle · 06.01.22 | Folge 2873",
+          "href": "https://api.ardmediathek.de/page-gateway/pages/br/item/Y3JpZDovL2JyLmRlL2Jyb2FkY2FzdC8xY2Q2YmRlMi1iMDhmLTRmZmItOWU1Ni1kNGQ4Y2YzN2E1Mzdfb25saW5lYnJvYWRjYXN0?devicetype=pc&embedded=true",
+          "type": "application/vnd.ard.page+json",
+          "partner": "br"
+        }
+      },
+      "shortTitle": "Für alle Notfälle · 06.01.22 | Folge 2873",
+      "show": {
+        "id": "crid://br.de/broadcastSeries/broadcastSeries:/brde/fernsehen/bayerisches-fernsehen/sendungen/dahoam-is-dahoam",
+        "coremediaId": 14913698,
+        "title": "Dahoam is Dahoam",
+        "publisher": {
+          "name": "BR",
+          "logo": {
+            "title": "Logo BR",
+            "alt": "Logo BR",
+            "producerName": "Logo BR",
+            "src": "https://api.ardmediathek.de/image-service/image-collections/urn:ard:image-collection:2213972a8d101de1/16x9?w={width}",
+            "aspectRatio": "16x9"
+          },
+          "publisherType": "TV",
+          "partner": "br",
+          "id": "b3JnYW5pemF0aW9uX0JS",
+          "coreId": "urn:ard:publisher:e78748ebe4a9d534"
+        },
+        "self": {
+          "id": null,
+          "title": "Dahoam is Dahoam",
+          "href": "http://asset-gateway:8080/asset-gateway/groupings/Y3JpZDovL2JyLmRlL2Jyb2FkY2FzdFNlcmllcy9icm9hZGNhc3RTZXJpZXM6L2JyZGUvZmVybnNlaGVuL2JheWVyaXNjaGVzLWZlcm5zZWhlbi9zZW5kdW5nZW4vZGFob2FtLWlzLWRhaG9hbQ",
+          "type": "application/vnd.ard.grouping+json"
+        },
+        "images": {
+          "16x9": {
+            "title": "Dahoam is Dahoam - Keyvisual",
+            "alt": "Grüne Wiese mit blauem Himmel. Darüber das Lebkuchenherz zur Serie \"Dahoam is Dahoam\" sowie daneben das Ortsschild \"Lansing\".",
+            "producerName": "br",
+            "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:506b38ade21e6cd5?w={width}&ch=dfc83d65b0130d55",
+            "aspectRatio": "16x9"
+          },
+          "16x7": {
+            "title": "Dahoam is Dahoam - Keyvisual",
+            "alt": "Grüne Wiese mit blauem Himmel. Darüber das Lebkuchenherz zur Serie \"Dahoam is Dahoam\" sowie daneben das Ortsschild \"Lansing\".",
+            "producerName": "br",
+            "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:5fe4cc0f2f131953?w={width}&ch=195a5bddb5aa7810",
+            "aspectRatio": "16x7"
+          },
+          "1x1": {
+            "title": "Dahoam is Dahoam - Keyvisual",
+            "alt": "Grüne Wiese mit blauem Himmel. Darüber das Lebkuchenherz zur Serie \"Dahoam is Dahoam\" sowie daneben das Ortsschild \"Lansing\".",
+            "producerName": "br",
+            "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:6cb5835cf0e46b99?w={width}&ch=14244fc1656d9df9",
+            "aspectRatio": "1x1"
+          }
+        },
+        "shortSynopsis": "Das ist \"Dahoam is Dahoam\"\n\"Dahoam is Dahoam\" läuft seit 2007 und über 3.700 Folgen von Montag bis Donnerstag immer zwischen 19.30 und 20.00 Uhr im BR Fernsehen. Die tägliche Serie erzählt mit typisch bayerischen Charakteren liebevolle Geschichten aus dem Leben rund um das fiktive Dorf Lansing.",
+        "synopsis": "Das ist \"Dahoam is Dahoam\"\n\"Dahoam is Dahoam\" läuft seit 2007 und über 3.700 Folgen von Montag bis Donnerstag immer zwischen 19.30 und 20.00 Uhr im BR Fernsehen. Die tägliche Serie erzählt mit typisch bayerischen Charakteren liebevolle Geschichten aus dem Leben rund um das fiktive Dorf Lansing.",
+        "longSynopsis": "Das ist \"Dahoam is Dahoam\"\n\"Dahoam is Dahoam\" läuft seit 2007 und über 3.700 Folgen von Montag bis Donnerstag immer zwischen 19.30 und 20.00 Uhr im BR Fernsehen. Die tägliche Serie erzählt mit typisch bayerischen Charakteren liebevolle Geschichten aus dem Leben rund um das fiktive Dorf Lansing.",
+        "modificationDate": null,
+        "assetSource": null,
+        "isChildContent": false,
+        "isFamilyFriendly": false,
+        "targetAudienceAgeMin": null,
+        "targetAudienceAgeMax": null,
+        "categories": null,
+        "categoryIds": null,
+        "coreAssetType": "INFINITE_SERIES",
+        "noIndexSeo": false,
+        "titleSeo": null,
+        "descriptionSeo": null,
+        "coreId": "urn:ard:show:beac0bc7dcac6b2d",
+        "groupingType": "SHOW",
+        "homepage": {
+          "id": null,
+          "title": "Dahoam is Dahoam",
+          "href": "https://www.ardmediathek.de/br/dahoam-is-dahoam",
+          "type": null
+        },
+        "hasSeasons": false,
+        "availableSeasons": null,
+        "binaryFeatures": [
+          "UT",
+          "AD"
+        ]
+      },
+      "subtitled": true,
+      "titleVisible": true,
+      "trackingPiano": {
+        "teaser_content_type": "OnDemand",
+        "teaser_id": "b2dfbb97-c471-4e11-b6eb-7dbd76d7a7b7:-4311948605466868300",
+        "teaser_institution": "BR",
+        "teaser_institution_id": "urn:ard:institution:95a02eb6cc4f3d59",
+        "teaser_title": "Für alle Notfälle · 06.01.22 | Folge 2873"
+      },
+      "type": "ondemand"
+    },
+    {
+      "availableTo": null,
+      "binaryFeatures": [
+        "UT",
+        "AD"
+      ],
+      "broadcastedOn": "2026-04-03T06:04:00Z",
+      "coreAssetType": "EPISODE",
+      "duration": 1688,
+      "id": "b2dfbb97-c471-4e11-b6eb-7dbd76d7a7b7:-8317973882139542015",
+      "images": {
+        "aspect16x9": {
+          "alt": "Voller Vorfreude schicken Katharina (Carina Dengler) und Martin (Herman Giefer, rechts) eine Probe des Franzl-Biers zum Bier Award. Mit Komparserie (Tobias Schmitt, KLD).",
+          "producerName": "BR/Nadya Jakobs",
+          "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:6a11af5aab923a3e?w={width}&ch=e353b07aebbe78c1",
+          "title": "Folge 2872: Nicht sein Bier "
+        },
+        "aspect16x7": {
+          "alt": "Voller Vorfreude schicken Katharina (Carina Dengler) und Martin (Herman Giefer, rechts) eine Probe des Franzl-Biers zum Bier Award. Mit Komparserie (Tobias Schmitt, KLD).",
+          "producerName": "BR/Nadya Jakobs",
+          "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:1079e52a414b2850?w={width}&ch=3260c7b5651decab",
+          "title": "Folge 2872: Nicht sein Bier "
+        },
+        "aspect1x1": {
+          "alt": "Grüne Wiese mit blauem Himmel. Darüber das Lebkuchenherz zur Serie \"Dahoam is Dahoam\" sowie daneben das Ortsschild \"Lansing\".",
+          "producerName": "br",
+          "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:6cb5835cf0e46b99?w={width}&ch=14244fc1656d9df9",
+          "title": "Dahoam is Dahoam - Keyvisual"
+        }
+      },
+      "isChildContent": false,
+      "isFamilyFriendly": false,
+      "longTitle": "Nicht sein Bier · 05.01.22 | Folge 2872",
+      "maturityContentRating": "NONE",
+      "mediumTitle": "Nicht sein Bier · 05.01.22 | Folge 2872",
+      "personalized": false,
+      "publicationService": {
+        "name": "BR",
+        "logo": {
+          "title": "Logo BR",
+          "alt": "Logo BR",
+          "producerName": "Logo BR",
+          "src": "https://api.ardmediathek.de/image-service/image-collections/urn:ard:image-collection:2213972a8d101de1/16x9?w={width}",
+          "aspectRatio": "16x9"
+        },
+        "publisherType": "TV",
+        "partner": "br",
+        "id": "b3JnYW5pemF0aW9uX0JS",
+        "coreId": "urn:ard:publisher:e78748ebe4a9d534"
+      },
+      "links": {
+        "self": {
+          "id": "b2dfbb97-c471-4e11-b6eb-7dbd76d7a7b7:-8317973882139542015",
+          "urlId": "b2dfbb97-c471-4e11-b6eb-7dbd76d7a7b7:-8317973882139542015",
+          "title": "Nicht sein Bier · 05.01.22 | Folge 2872",
+          "href": "https://api.ardmediathek.de/page-gateway/teasers/br/editorials/b2dfbb97-c471-4e11-b6eb-7dbd76d7a7b7%3A-8317973882139542015",
+          "type": "application/vnd.ard.teaser+json",
+          "partner": "br"
+        },
+        "target": {
+          "id": "Y3JpZDovL2JyLmRlL2Jyb2FkY2FzdC8wMTU5NmMwYi03NGFiLTQ1MzMtOWIwNi1lYzIwY2E5YmM3MjRfb25saW5lYnJvYWRjYXN0",
+          "urlId": "Y3JpZDovL2JyLmRlL2Jyb2FkY2FzdC8wMTU5NmMwYi03NGFiLTQ1MzMtOWIwNi1lYzIwY2E5YmM3MjRfb25saW5lYnJvYWRjYXN0",
+          "title": "Nicht sein Bier · 05.01.22 | Folge 2872",
+          "href": "https://api.ardmediathek.de/page-gateway/pages/br/item/Y3JpZDovL2JyLmRlL2Jyb2FkY2FzdC8wMTU5NmMwYi03NGFiLTQ1MzMtOWIwNi1lYzIwY2E5YmM3MjRfb25saW5lYnJvYWRjYXN0?devicetype=pc&embedded=true",
+          "type": "application/vnd.ard.page+json",
+          "partner": "br"
+        }
+      },
+      "shortTitle": "Nicht sein Bier · 05.01.22 | Folge 2872",
+      "show": {
+        "id": "crid://br.de/broadcastSeries/broadcastSeries:/brde/fernsehen/bayerisches-fernsehen/sendungen/dahoam-is-dahoam",
+        "coremediaId": 14913698,
+        "title": "Dahoam is Dahoam",
+        "publisher": {
+          "name": "BR",
+          "logo": {
+            "title": "Logo BR",
+            "alt": "Logo BR",
+            "producerName": "Logo BR",
+            "src": "https://api.ardmediathek.de/image-service/image-collections/urn:ard:image-collection:2213972a8d101de1/16x9?w={width}",
+            "aspectRatio": "16x9"
+          },
+          "publisherType": "TV",
+          "partner": "br",
+          "id": "b3JnYW5pemF0aW9uX0JS",
+          "coreId": "urn:ard:publisher:e78748ebe4a9d534"
+        },
+        "self": {
+          "id": null,
+          "title": "Dahoam is Dahoam",
+          "href": "http://asset-gateway:8080/asset-gateway/groupings/Y3JpZDovL2JyLmRlL2Jyb2FkY2FzdFNlcmllcy9icm9hZGNhc3RTZXJpZXM6L2JyZGUvZmVybnNlaGVuL2JheWVyaXNjaGVzLWZlcm5zZWhlbi9zZW5kdW5nZW4vZGFob2FtLWlzLWRhaG9hbQ",
+          "type": "application/vnd.ard.grouping+json"
+        },
+        "images": {
+          "16x9": {
+            "title": "Dahoam is Dahoam - Keyvisual",
+            "alt": "Grüne Wiese mit blauem Himmel. Darüber das Lebkuchenherz zur Serie \"Dahoam is Dahoam\" sowie daneben das Ortsschild \"Lansing\".",
+            "producerName": "br",
+            "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:506b38ade21e6cd5?w={width}&ch=dfc83d65b0130d55",
+            "aspectRatio": "16x9"
+          },
+          "16x7": {
+            "title": "Dahoam is Dahoam - Keyvisual",
+            "alt": "Grüne Wiese mit blauem Himmel. Darüber das Lebkuchenherz zur Serie \"Dahoam is Dahoam\" sowie daneben das Ortsschild \"Lansing\".",
+            "producerName": "br",
+            "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:5fe4cc0f2f131953?w={width}&ch=195a5bddb5aa7810",
+            "aspectRatio": "16x7"
+          },
+          "1x1": {
+            "title": "Dahoam is Dahoam - Keyvisual",
+            "alt": "Grüne Wiese mit blauem Himmel. Darüber das Lebkuchenherz zur Serie \"Dahoam is Dahoam\" sowie daneben das Ortsschild \"Lansing\".",
+            "producerName": "br",
+            "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:6cb5835cf0e46b99?w={width}&ch=14244fc1656d9df9",
+            "aspectRatio": "1x1"
+          }
+        },
+        "shortSynopsis": "Das ist \"Dahoam is Dahoam\"\n\"Dahoam is Dahoam\" läuft seit 2007 und über 3.700 Folgen von Montag bis Donnerstag immer zwischen 19.30 und 20.00 Uhr im BR Fernsehen. Die tägliche Serie erzählt mit typisch bayerischen Charakteren liebevolle Geschichten aus dem Leben rund um das fiktive Dorf Lansing.",
+        "synopsis": "Das ist \"Dahoam is Dahoam\"\n\"Dahoam is Dahoam\" läuft seit 2007 und über 3.700 Folgen von Montag bis Donnerstag immer zwischen 19.30 und 20.00 Uhr im BR Fernsehen. Die tägliche Serie erzählt mit typisch bayerischen Charakteren liebevolle Geschichten aus dem Leben rund um das fiktive Dorf Lansing.",
+        "longSynopsis": "Das ist \"Dahoam is Dahoam\"\n\"Dahoam is Dahoam\" läuft seit 2007 und über 3.700 Folgen von Montag bis Donnerstag immer zwischen 19.30 und 20.00 Uhr im BR Fernsehen. Die tägliche Serie erzählt mit typisch bayerischen Charakteren liebevolle Geschichten aus dem Leben rund um das fiktive Dorf Lansing.",
+        "modificationDate": null,
+        "assetSource": null,
+        "isChildContent": false,
+        "isFamilyFriendly": false,
+        "targetAudienceAgeMin": null,
+        "targetAudienceAgeMax": null,
+        "categories": null,
+        "categoryIds": null,
+        "coreAssetType": "INFINITE_SERIES",
+        "noIndexSeo": false,
+        "titleSeo": null,
+        "descriptionSeo": null,
+        "coreId": "urn:ard:show:beac0bc7dcac6b2d",
+        "groupingType": "SHOW",
+        "homepage": {
+          "id": null,
+          "title": "Dahoam is Dahoam",
+          "href": "https://www.ardmediathek.de/br/dahoam-is-dahoam",
+          "type": null
+        },
+        "hasSeasons": false,
+        "availableSeasons": null,
+        "binaryFeatures": [
+          "UT",
+          "AD"
+        ]
+      },
+      "subtitled": true,
+      "titleVisible": true,
+      "trackingPiano": {
+        "teaser_content_type": "OnDemand",
+        "teaser_id": "b2dfbb97-c471-4e11-b6eb-7dbd76d7a7b7:-8317973882139542015",
+        "teaser_institution": "BR",
+        "teaser_institution_id": "urn:ard:institution:95a02eb6cc4f3d59",
+        "teaser_title": "Nicht sein Bier · 05.01.22 | Folge 2872"
+      },
+      "type": "ondemand"
+    },
+    {
+      "availableTo": null,
+      "binaryFeatures": [
+        "UT",
+        "AD"
+      ],
+      "broadcastedOn": "2022-01-04T18:30:00Z",
+      "coreAssetType": "EPISODE",
+      "duration": 1671,
+      "id": "b2dfbb97-c471-4e11-b6eb-7dbd76d7a7b7:-3679369511213128983",
+      "images": {
+        "aspect16x9": {
+          "alt": "Unerwartet geht der alte Silvesterböller in Joschis (Adrian Bräunig, rechts) Hand los und verletzt ihn. Mit Christian (Jonathan Gertis, links).",
+          "producerName": "BR/Nadya Jakobs",
+          "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:e731bb2b5f599f08?w={width}&ch=c2503f4a76847d93",
+          "title": "Folge 2871: Weitreichende Folgen "
+        },
+        "aspect16x7": {
+          "alt": "Unerwartet geht der alte Silvesterböller in Joschis (Adrian Bräunig, rechts) Hand los und verletzt ihn. Mit Christian (Jonathan Gertis, links).",
+          "producerName": "BR/Nadya Jakobs",
+          "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:e8be4f899254ea8e?w={width}&ch=00921bc08b05fc30",
+          "title": "Folge 2871: Weitreichende Folgen "
+        },
+        "aspect1x1": {
+          "alt": "Dahoam is Dahoam: Martin (Hermann Giefer, rechts) geht Uschi (Silke Popp) wegen ihrer Untreue an. Mit Hubert (Bernhard Ulrich).",
+          "producerName": "BR/Nadya Jakobs",
+          "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:a367a573a2c767d4?w={width}&ch=e9123352f89218a8",
+          "title": "Dahoam is Dahoam"
+        }
+      },
+      "isChildContent": false,
+      "isFamilyFriendly": false,
+      "longTitle": "Weitreichende Folgen · 04.01.22 | Folge 2871",
+      "maturityContentRating": "NONE",
+      "mediumTitle": "Weitreichende Folgen · 04.01.22 | Folge 2871",
+      "personalized": false,
+      "publicationService": {
+        "name": "BR",
+        "logo": {
+          "title": "Logo BR",
+          "alt": "Logo BR",
+          "producerName": "Logo BR",
+          "src": "https://api.ardmediathek.de/image-service/image-collections/urn:ard:image-collection:2213972a8d101de1/16x9?w={width}",
+          "aspectRatio": "16x9"
+        },
+        "publisherType": "TV",
+        "partner": "br",
+        "id": "b3JnYW5pemF0aW9uX0JS",
+        "coreId": "urn:ard:publisher:e78748ebe4a9d534"
+      },
+      "links": {
+        "self": {
+          "id": "b2dfbb97-c471-4e11-b6eb-7dbd76d7a7b7:-3679369511213128983",
+          "urlId": "b2dfbb97-c471-4e11-b6eb-7dbd76d7a7b7:-3679369511213128983",
+          "title": "Weitreichende Folgen · 04.01.22 | Folge 2871",
+          "href": "https://api.ardmediathek.de/page-gateway/teasers/br/editorials/b2dfbb97-c471-4e11-b6eb-7dbd76d7a7b7%3A-3679369511213128983",
+          "type": "application/vnd.ard.teaser+json",
+          "partner": "br"
+        },
+        "target": {
+          "id": "Y3JpZDovL2JyLmRlL2Jyb2FkY2FzdC9XT046MzE0NzUzMTIyODEzX0YyMDIwV08wMTgzMzZBMDpjaGFubmVsXzI4MTA3",
+          "urlId": "Y3JpZDovL2JyLmRlL2Jyb2FkY2FzdC9XT046MzE0NzUzMTIyODEzX0YyMDIwV08wMTgzMzZBMDpjaGFubmVsXzI4MTA3",
+          "title": "Weitreichende Folgen · 04.01.22 | Folge 2871",
+          "href": "https://api.ardmediathek.de/page-gateway/pages/br/item/Y3JpZDovL2JyLmRlL2Jyb2FkY2FzdC9XT046MzE0NzUzMTIyODEzX0YyMDIwV08wMTgzMzZBMDpjaGFubmVsXzI4MTA3?devicetype=pc&embedded=true",
+          "type": "application/vnd.ard.page+json",
+          "partner": "br"
+        }
+      },
+      "shortTitle": "Weitreichende Folgen · 04.01.22 | Folge 2871",
+      "show": {
+        "id": "crid://br.de/broadcastSeries/broadcastSeries:/brde/fernsehen/bayerisches-fernsehen/sendungen/dahoam-is-dahoam",
+        "coremediaId": 14913698,
+        "title": "Dahoam is Dahoam",
+        "publisher": {
+          "name": "BR",
+          "logo": {
+            "title": "Logo BR",
+            "alt": "Logo BR",
+            "producerName": "Logo BR",
+            "src": "https://api.ardmediathek.de/image-service/image-collections/urn:ard:image-collection:2213972a8d101de1/16x9?w={width}",
+            "aspectRatio": "16x9"
+          },
+          "publisherType": "TV",
+          "partner": "br",
+          "id": "b3JnYW5pemF0aW9uX0JS",
+          "coreId": "urn:ard:publisher:e78748ebe4a9d534"
+        },
+        "self": {
+          "id": null,
+          "title": "Dahoam is Dahoam",
+          "href": "http://asset-gateway:8080/asset-gateway/groupings/Y3JpZDovL2JyLmRlL2Jyb2FkY2FzdFNlcmllcy9icm9hZGNhc3RTZXJpZXM6L2JyZGUvZmVybnNlaGVuL2JheWVyaXNjaGVzLWZlcm5zZWhlbi9zZW5kdW5nZW4vZGFob2FtLWlzLWRhaG9hbQ",
+          "type": "application/vnd.ard.grouping+json"
+        },
+        "images": {
+          "16x9": {
+            "title": "Dahoam is Dahoam - Keyvisual",
+            "alt": "Grüne Wiese mit blauem Himmel. Darüber das Lebkuchenherz zur Serie \"Dahoam is Dahoam\" sowie daneben das Ortsschild \"Lansing\".",
+            "producerName": "br",
+            "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:506b38ade21e6cd5?w={width}&ch=dfc83d65b0130d55",
+            "aspectRatio": "16x9"
+          },
+          "16x7": {
+            "title": "Dahoam is Dahoam - Keyvisual",
+            "alt": "Grüne Wiese mit blauem Himmel. Darüber das Lebkuchenherz zur Serie \"Dahoam is Dahoam\" sowie daneben das Ortsschild \"Lansing\".",
+            "producerName": "br",
+            "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:5fe4cc0f2f131953?w={width}&ch=195a5bddb5aa7810",
+            "aspectRatio": "16x7"
+          },
+          "1x1": {
+            "title": "Dahoam is Dahoam - Keyvisual",
+            "alt": "Grüne Wiese mit blauem Himmel. Darüber das Lebkuchenherz zur Serie \"Dahoam is Dahoam\" sowie daneben das Ortsschild \"Lansing\".",
+            "producerName": "br",
+            "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:6cb5835cf0e46b99?w={width}&ch=14244fc1656d9df9",
+            "aspectRatio": "1x1"
+          }
+        },
+        "shortSynopsis": "Das ist \"Dahoam is Dahoam\"\n\"Dahoam is Dahoam\" läuft seit 2007 und über 3.700 Folgen von Montag bis Donnerstag immer zwischen 19.30 und 20.00 Uhr im BR Fernsehen. Die tägliche Serie erzählt mit typisch bayerischen Charakteren liebevolle Geschichten aus dem Leben rund um das fiktive Dorf Lansing.",
+        "synopsis": "Das ist \"Dahoam is Dahoam\"\n\"Dahoam is Dahoam\" läuft seit 2007 und über 3.700 Folgen von Montag bis Donnerstag immer zwischen 19.30 und 20.00 Uhr im BR Fernsehen. Die tägliche Serie erzählt mit typisch bayerischen Charakteren liebevolle Geschichten aus dem Leben rund um das fiktive Dorf Lansing.",
+        "longSynopsis": "Das ist \"Dahoam is Dahoam\"\n\"Dahoam is Dahoam\" läuft seit 2007 und über 3.700 Folgen von Montag bis Donnerstag immer zwischen 19.30 und 20.00 Uhr im BR Fernsehen. Die tägliche Serie erzählt mit typisch bayerischen Charakteren liebevolle Geschichten aus dem Leben rund um das fiktive Dorf Lansing.",
+        "modificationDate": null,
+        "assetSource": null,
+        "isChildContent": false,
+        "isFamilyFriendly": false,
+        "targetAudienceAgeMin": null,
+        "targetAudienceAgeMax": null,
+        "categories": null,
+        "categoryIds": null,
+        "coreAssetType": "INFINITE_SERIES",
+        "noIndexSeo": false,
+        "titleSeo": null,
+        "descriptionSeo": null,
+        "coreId": "urn:ard:show:beac0bc7dcac6b2d",
+        "groupingType": "SHOW",
+        "homepage": {
+          "id": null,
+          "title": "Dahoam is Dahoam",
+          "href": "https://www.ardmediathek.de/br/dahoam-is-dahoam",
+          "type": null
+        },
+        "hasSeasons": false,
+        "availableSeasons": null,
+        "binaryFeatures": [
+          "UT",
+          "AD"
+        ]
+      },
+      "subtitled": true,
+      "titleVisible": true,
+      "trackingPiano": {
+        "teaser_content_type": "OnDemand",
+        "teaser_id": "b2dfbb97-c471-4e11-b6eb-7dbd76d7a7b7:-3679369511213128983",
+        "teaser_institution": "BR",
+        "teaser_institution_id": "urn:ard:institution:95a02eb6cc4f3d59",
+        "teaser_title": "Weitreichende Folgen · 04.01.22 | Folge 2871"
+      },
+      "type": "ondemand"
+    },
+    {
+      "availableTo": null,
+      "binaryFeatures": [
+        "UT",
+        "AD"
+      ],
+      "broadcastedOn": "2026-04-03T06:02:00Z",
+      "coreAssetType": "EPISODE",
+      "duration": 1690,
+      "id": "b2dfbb97-c471-4e11-b6eb-7dbd76d7a7b7:-1040060362634892402",
+      "images": {
+        "aspect16x9": {
+          "alt": "Joschi (Adrian Bräunig) findet bei der Putzaktion nicht explodierte Silvester-Kracher.",
+          "producerName": "BR/Nadya Jakobs",
+          "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:13210c4bdd9ab5fc?w={width}&ch=e4d7346561608fae",
+          "title": "Folge 2870: Sturm-Ramadama"
+        },
+        "aspect16x7": {
+          "alt": "Joschi (Adrian Bräunig) findet bei der Putzaktion nicht explodierte Silvester-Kracher.",
+          "producerName": "BR/Nadya Jakobs",
+          "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:6949463b3743a792?w={width}&ch=d1132c91f351a4d5",
+          "title": "Folge 2870: Sturm-Ramadama"
+        },
+        "aspect1x1": {
+          "alt": "Grüne Wiese mit blauem Himmel. Darüber das Lebkuchenherz zur Serie \"Dahoam is Dahoam\" sowie daneben das Ortsschild \"Lansing\".",
+          "producerName": "br",
+          "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:6cb5835cf0e46b99?w={width}&ch=14244fc1656d9df9",
+          "title": "Dahoam is Dahoam - Keyvisual"
+        }
+      },
+      "isChildContent": false,
+      "isFamilyFriendly": false,
+      "longTitle": "Sturm-Ramadama · 03.01.22 | Folge 2870",
+      "maturityContentRating": "NONE",
+      "mediumTitle": "Sturm-Ramadama · 03.01.22 | Folge 2870",
+      "personalized": false,
+      "publicationService": {
+        "name": "BR",
+        "logo": {
+          "title": "Logo BR",
+          "alt": "Logo BR",
+          "producerName": "Logo BR",
+          "src": "https://api.ardmediathek.de/image-service/image-collections/urn:ard:image-collection:2213972a8d101de1/16x9?w={width}",
+          "aspectRatio": "16x9"
+        },
+        "publisherType": "TV",
+        "partner": "br",
+        "id": "b3JnYW5pemF0aW9uX0JS",
+        "coreId": "urn:ard:publisher:e78748ebe4a9d534"
+      },
+      "links": {
+        "self": {
+          "id": "b2dfbb97-c471-4e11-b6eb-7dbd76d7a7b7:-1040060362634892402",
+          "urlId": "b2dfbb97-c471-4e11-b6eb-7dbd76d7a7b7:-1040060362634892402",
+          "title": "Sturm-Ramadama · 03.01.22 | Folge 2870",
+          "href": "https://api.ardmediathek.de/page-gateway/teasers/br/editorials/b2dfbb97-c471-4e11-b6eb-7dbd76d7a7b7%3A-1040060362634892402",
+          "type": "application/vnd.ard.teaser+json",
+          "partner": "br"
+        },
+        "target": {
+          "id": "Y3JpZDovL2JyLmRlL2Jyb2FkY2FzdC9lMGYwYjgxNy05ODQ1LTQzNmYtYThhOC00Njk0MjZiYzdhNWVfb25saW5lYnJvYWRjYXN0",
+          "urlId": "Y3JpZDovL2JyLmRlL2Jyb2FkY2FzdC9lMGYwYjgxNy05ODQ1LTQzNmYtYThhOC00Njk0MjZiYzdhNWVfb25saW5lYnJvYWRjYXN0",
+          "title": "Sturm-Ramadama · 03.01.22 | Folge 2870",
+          "href": "https://api.ardmediathek.de/page-gateway/pages/br/item/Y3JpZDovL2JyLmRlL2Jyb2FkY2FzdC9lMGYwYjgxNy05ODQ1LTQzNmYtYThhOC00Njk0MjZiYzdhNWVfb25saW5lYnJvYWRjYXN0?devicetype=pc&embedded=true",
+          "type": "application/vnd.ard.page+json",
+          "partner": "br"
+        }
+      },
+      "shortTitle": "Sturm-Ramadama · 03.01.22 | Folge 2870",
+      "show": {
+        "id": "crid://br.de/broadcastSeries/broadcastSeries:/brde/fernsehen/bayerisches-fernsehen/sendungen/dahoam-is-dahoam",
+        "coremediaId": 14913698,
+        "title": "Dahoam is Dahoam",
+        "publisher": {
+          "name": "BR",
+          "logo": {
+            "title": "Logo BR",
+            "alt": "Logo BR",
+            "producerName": "Logo BR",
+            "src": "https://api.ardmediathek.de/image-service/image-collections/urn:ard:image-collection:2213972a8d101de1/16x9?w={width}",
+            "aspectRatio": "16x9"
+          },
+          "publisherType": "TV",
+          "partner": "br",
+          "id": "b3JnYW5pemF0aW9uX0JS",
+          "coreId": "urn:ard:publisher:e78748ebe4a9d534"
+        },
+        "self": {
+          "id": null,
+          "title": "Dahoam is Dahoam",
+          "href": "http://asset-gateway:8080/asset-gateway/groupings/Y3JpZDovL2JyLmRlL2Jyb2FkY2FzdFNlcmllcy9icm9hZGNhc3RTZXJpZXM6L2JyZGUvZmVybnNlaGVuL2JheWVyaXNjaGVzLWZlcm5zZWhlbi9zZW5kdW5nZW4vZGFob2FtLWlzLWRhaG9hbQ",
+          "type": "application/vnd.ard.grouping+json"
+        },
+        "images": {
+          "16x9": {
+            "title": "Dahoam is Dahoam - Keyvisual",
+            "alt": "Grüne Wiese mit blauem Himmel. Darüber das Lebkuchenherz zur Serie \"Dahoam is Dahoam\" sowie daneben das Ortsschild \"Lansing\".",
+            "producerName": "br",
+            "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:506b38ade21e6cd5?w={width}&ch=dfc83d65b0130d55",
+            "aspectRatio": "16x9"
+          },
+          "16x7": {
+            "title": "Dahoam is Dahoam - Keyvisual",
+            "alt": "Grüne Wiese mit blauem Himmel. Darüber das Lebkuchenherz zur Serie \"Dahoam is Dahoam\" sowie daneben das Ortsschild \"Lansing\".",
+            "producerName": "br",
+            "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:5fe4cc0f2f131953?w={width}&ch=195a5bddb5aa7810",
+            "aspectRatio": "16x7"
+          },
+          "1x1": {
+            "title": "Dahoam is Dahoam - Keyvisual",
+            "alt": "Grüne Wiese mit blauem Himmel. Darüber das Lebkuchenherz zur Serie \"Dahoam is Dahoam\" sowie daneben das Ortsschild \"Lansing\".",
+            "producerName": "br",
+            "src": "https://api.ardmediathek.de/image-service/images/urn:ard:image:6cb5835cf0e46b99?w={width}&ch=14244fc1656d9df9",
+            "aspectRatio": "1x1"
+          }
+        },
+        "shortSynopsis": "Das ist \"Dahoam is Dahoam\"\n\"Dahoam is Dahoam\" läuft seit 2007 und über 3.700 Folgen von Montag bis Donnerstag immer zwischen 19.30 und 20.00 Uhr im BR Fernsehen. Die tägliche Serie erzählt mit typisch bayerischen Charakteren liebevolle Geschichten aus dem Leben rund um das fiktive Dorf Lansing.",
+        "synopsis": "Das ist \"Dahoam is Dahoam\"\n\"Dahoam is Dahoam\" läuft seit 2007 und über 3.700 Folgen von Montag bis Donnerstag immer zwischen 19.30 und 20.00 Uhr im BR Fernsehen. Die tägliche Serie erzählt mit typisch bayerischen Charakteren liebevolle Geschichten aus dem Leben rund um das fiktive Dorf Lansing.",
+        "longSynopsis": "Das ist \"Dahoam is Dahoam\"\n\"Dahoam is Dahoam\" läuft seit 2007 und über 3.700 Folgen von Montag bis Donnerstag immer zwischen 19.30 und 20.00 Uhr im BR Fernsehen. Die tägliche Serie erzählt mit typisch bayerischen Charakteren liebevolle Geschichten aus dem Leben rund um das fiktive Dorf Lansing.",
+        "modificationDate": null,
+        "assetSource": null,
+        "isChildContent": false,
+        "isFamilyFriendly": false,
+        "targetAudienceAgeMin": null,
+        "targetAudienceAgeMax": null,
+        "categories": null,
+        "categoryIds": null,
+        "coreAssetType": "INFINITE_SERIES",
+        "noIndexSeo": false,
+        "titleSeo": null,
+        "descriptionSeo": null,
+        "coreId": "urn:ard:show:beac0bc7dcac6b2d",
+        "groupingType": "SHOW",
+        "homepage": {
+          "id": null,
+          "title": "Dahoam is Dahoam",
+          "href": "https://www.ardmediathek.de/br/dahoam-is-dahoam",
+          "type": null
+        },
+        "hasSeasons": false,
+        "availableSeasons": null,
+        "binaryFeatures": [
+          "UT",
+          "AD"
+        ]
+      },
+      "subtitled": true,
+      "titleVisible": true,
+      "trackingPiano": {
+        "teaser_content_type": "OnDemand",
+        "teaser_id": "b2dfbb97-c471-4e11-b6eb-7dbd76d7a7b7:-1040060362634892402",
+        "teaser_institution": "BR",
+        "teaser_institution_id": "urn:ard:institution:95a02eb6cc4f3d59",
+        "teaser_title": "Sturm-Ramadama · 03.01.22 | Folge 2870"
+      },
+      "type": "ondemand"
+    }
+  ],
+  "userVisibility": "ALWAYS",
+  "aZContent": false,
+  "id": "AutoCompilationWidget:b2dfbb97-c471-4e11-b6eb-7dbd76d7a7b7",
+  "links": {
+    "self": {
+      "id": "AutoCompilationWidget:b2dfbb97-c471-4e11-b6eb-7dbd76d7a7b7",
+      "urlId": "AutoCompilationWidget:b2dfbb97-c471-4e11-b6eb-7dbd76d7a7b7",
+      "title": "Dahoam is Dahoam | 2022 (ab Folge 2870) ",
+      "href": "https://api.ardmediathek.de/page-gateway/widgets/br/compilation/b2dfbb97-c471-4e11-b6eb-7dbd76d7a7b7?pageNumber=4&pageSize=24&embedded=true",
+      "type": "application/vnd.ard.widget+json",
+      "partner": "br"
+    }
+  },
+  "size": "m",
+  "swipeable": true,
+  "title": "Dahoam is Dahoam | 2022 (ab Folge 2870) ",
+  "titleVisible": false,
+  "trackingPiano": {
+    "teaser_recommended": false,
+    "widget_id": "AutoCompilationWidget:b2dfbb97-c471-4e11-b6eb-7dbd76d7a7b7",
+    "widget_title": "Dahoam is Dahoam | 2022 (ab Folge 2870) ",
+    "widget_typ": "gridlist"
+  },
+  "type": "gridlist"
+}

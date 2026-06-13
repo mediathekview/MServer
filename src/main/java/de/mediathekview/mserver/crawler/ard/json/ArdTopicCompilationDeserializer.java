@@ -32,9 +32,13 @@ public class ArdTopicCompilationDeserializer extends ArdTeasersDeserializer
           results.addAll(parseTeasers(teasers));
         }
       });
+    } else if (showPageObject.getAsJsonObject().has(ELEMENT_TEASERS)) {
+      final JsonArray teasers = showPageObject.getAsJsonObject().get(ELEMENT_TEASERS).getAsJsonArray();
+      results.addAll(parseTeasers(teasers));
     }
 
-    final JsonElement paginationElement = showPageObject.get(ELEMENT_PAGINATION);
+
+    final JsonElement paginationElement = findPaginationElement(showPageObject);
     final int pageNumber = getChildElementAsIntOrNullIfNotExist(paginationElement, ELEMENT_PAGE_NUMBER);
     final int totalElements = getChildElementAsIntOrNullIfNotExist(paginationElement, ELEMENT_TOTAL_ELEMENTS);
     final int pageSize = getChildElementAsIntOrNullIfNotExist(paginationElement, ELEMENT_PAGE_SIZE);
@@ -42,6 +46,18 @@ public class ArdTopicCompilationDeserializer extends ArdTeasersDeserializer
     ardTopicInfoDto.setPageSize(pageSize);
     ardTopicInfoDto.setTotalElements(totalElements);    
     return ardTopicInfoDto;
+  }
+
+  private JsonElement findPaginationElement(JsonObject showPageObject) {
+    if (showPageObject.has(ELEMENT_WIDGETS)) {
+      final JsonElement widgetElement = showPageObject.get(ELEMENT_WIDGETS);
+      if (widgetElement.isJsonArray()) {
+        return widgetElement.getAsJsonArray().get(0).getAsJsonObject().get(ELEMENT_PAGINATION);
+      }
+    } else if (showPageObject.has(ELEMENT_PAGINATION)) {
+      return showPageObject.get(ELEMENT_PAGINATION);
+    }
+    return null;
   }
 
   private int getChildElementAsIntOrNullIfNotExist(

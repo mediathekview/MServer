@@ -16,6 +16,7 @@ public class ArdConstants {
 
   public static final String TOPICS_URL = API_URL + "/page-gateway/pages/%s/editorial/experiment-a-z?embedded=false";
   public static final String TOPICS_COMPILATION_URL = API_URL + "/page-gateway/widgets/%s/editorials/%s?pageNumber=0&pageSize=%s";
+  public static final String TOPIC_COMPILATION_PAGE_URL = API_URL + "/page-gateway/widgets/%s/compilation/%s?pageNumber=%d&pageSize=%d";
   public static final String TOPIC_URL = API_URL + "/page-gateway/widgets/ard/asset/%s?pageSize=%d";
   public static final String DAY_PAGE_URL = "https://programm-api.ard.de/program/api/program?day=%s&channelIds=%s&mode=channel";
 

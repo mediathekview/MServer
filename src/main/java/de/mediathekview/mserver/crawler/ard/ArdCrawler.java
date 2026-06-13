@@ -13,11 +13,7 @@ import de.mediathekview.mserver.progress.listeners.SenderProgressListener;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Queue;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.*;
 
 public class ArdCrawler extends AbstractCrawler {
@@ -81,7 +77,7 @@ public class ArdCrawler extends AbstractCrawler {
         final int showsCountBefore = shows.size();
         shows.addAll(ardFilmInfosWithCompilations.stream().filter(filmInfo -> !filmInfo.isCompilation()).toList());
         LOG.debug(
-            "ARD crawler found {} topics excluding compilations for all sub-sender.", shows.size() - showsCountBefore);
+            "ARD crawler found {} shows excluding compilations for all sub-sender.", shows.size() - showsCountBefore);
 
         // search compilations
         final List<ArdFilmInfoDto> compilations = ardFilmInfosWithCompilations.stream().filter(ArdFilmInfoDto::isCompilation).toList();
