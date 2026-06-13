@@ -68,7 +68,7 @@ public class ArdTopicPageTask extends ArdTaskBase<ArdFilmInfoDto, CrawlerUrlDTO>
           final WebTarget aTarget, final ArdTopicInfoDto topicInfo) {
     final ConcurrentLinkedQueue<CrawlerUrlDTO> subpages = new ConcurrentLinkedQueue<>();
 
-    final int actualSubPageNumber = topicInfo.getSubPageNumber();
+    final int actualSubPageNumber = topicInfo.getPageNumber();
     final int maximumAllowedSubpages = getMaximumSubpages(topicInfo.getId());
     if (actualSubPageNumber != 0) {
       LOG.debug("Sub page {} is already the maximum allowed sub page.", actualSubPageNumber);
