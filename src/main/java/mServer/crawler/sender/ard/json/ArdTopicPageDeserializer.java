@@ -41,6 +41,8 @@ public class ArdTopicPageDeserializer extends ArdTeasersDeserializer
     ardTopicInfoDto.setTotalElements(totalElements);
     final int pageSize = getChildElementAsIntOrNullIfNotExist(paginationElement, ELEMENT_PAGE_SIZE);
     ardTopicInfoDto.setPageSize(pageSize);
+    ardTopicInfoDto.setMaxSubPageNumber(pageSize == 0 ? 0 :
+            (totalElements + pageSize - 1) / pageSize);
 
     return ardTopicInfoDto;
   }
