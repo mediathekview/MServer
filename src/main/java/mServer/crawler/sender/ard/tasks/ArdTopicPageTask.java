@@ -44,6 +44,8 @@ public class ArdTopicPageTask extends ArdTaskBase<ArdFilmInfoDto, CrawlerUrlDTO>
     TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL3N3ci5kZS8yNDEwMzE1Ng");
     TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL2hyLW9ubGluZS8zODIyMDA5Ng");
     TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL3NyLW9ubGluZS5kZS9SRVRSTy1IRA");
+    // NDR Nordstory
+    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL25kci5kZS8xNDk1");
     // example: TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL2Rhc2Vyc3RlLmRlL3Nwb3J0c2NoYXU");
   }
 
