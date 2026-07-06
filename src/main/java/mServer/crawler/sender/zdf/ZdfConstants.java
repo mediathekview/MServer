@@ -35,7 +35,7 @@ public final class ZdfConstants {
   public static final String URL_TOPIC_PAGE_VARIABLES = "{\"seasonIndex\":%d,\"episodesPageSize\":%d,\"canonical\":\"%s\",\"sortBy\":[{\"field\":\"EDITORIAL_DATE\",\"direction\":\"DESC\"}]}";
   public static final String URL_TOPIC_PAGE_VARIABLES_WITH_CURSOR = "{\"seasonIndex\":%d,\"episodesPageSize\":%d,\"canonical\":\"%s\",\"sortBy\":[{\"field\":\"EDITORIAL_DATE\",\"direction\":\"DESC\"}],\"episodesAfter\":\"%s\"}";
   public static final String URL_TOPIC_PAGE_EXTENSIONS =
-          "{\"persistedQuery\":{\"version\":1,\"sha256Hash\":\"9412a0f4ac55dc37d46975d461ec64bfd14380d815df843a1492348f77b5c99a\"}}";
+          "{\"persistedQuery\":{\"version\":1,\"sha256Hash\":\"81237cafa2f0176d351b21bff20cdcb5e5755092a0bd42d7271018c5440a4493\"}}";
 
   public static final String URL_TOPIC_PAGE_NO_SEASON = URL_API_BASE + "/graphql?operationName=getMetaCollectionContent&" +
           "variables=%s&" +
