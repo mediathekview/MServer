@@ -33,17 +33,37 @@ public class ArdTopicCompilationDeserializer extends ArdTeasersDeserializer
           results.addAll(parseTeasers(teasers));
         }
       });
+    } else if (showPageObject.getAsJsonObject().has(ELEMENT_TEASERS)) {
+      final JsonArray teasers = showPageObject.getAsJsonObject().get(ELEMENT_TEASERS).getAsJsonArray();
+      results.addAll(parseTeasers(teasers));
     }
 
-    final JsonElement paginationElement = showPageObject.get(ELEMENT_PAGINATION);
+    final JsonElement paginationElement = findPaginationElement(showPageObject);
     final int pageNumber = getChildElementAsIntOrNullIfNotExist(paginationElement, ELEMENT_PAGE_NUMBER);
     final int totalElements = getChildElementAsIntOrNullIfNotExist(paginationElement, ELEMENT_TOTAL_ELEMENTS);
+    ardTopicInfoDto.setTotalElements(totalElements);
     final int pageSize = getChildElementAsIntOrNullIfNotExist(paginationElement, ELEMENT_PAGE_SIZE);
+    ardTopicInfoDto.setPageSize(pageSize);
     ardTopicInfoDto.setMaxSubPageNumber(pageSize == 0 ? 0 :
             (totalElements + pageSize - 1) / pageSize);
-    ardTopicInfoDto.setSubPageNumber(pageNumber);
+    ardTopicInfoDto.setPageNumber(pageNumber);
 
     return ardTopicInfoDto;
+  }
+
+  private JsonElement findPaginationElement(JsonObject showPageObject) {
+    if (showPageObject.has(ELEMENT_WIDGETS)) {
+      final JsonElement widgetElement = showPageObject.get(ELEMENT_WIDGETS);
+      if (widgetElement.isJsonArray()) {
+        final JsonArray widgetArray = widgetElement.getAsJsonArray();
+        if (!widgetArray.isEmpty()) {
+          return widgetArray.get(0).getAsJsonObject().get(ELEMENT_PAGINATION);
+        }
+      }
+    } else if (showPageObject.has(ELEMENT_PAGINATION)) {
+      return showPageObject.get(ELEMENT_PAGINATION);
+    }
+    return null;
   }
 
   private int getChildElementAsIntOrNullIfNotExist(
