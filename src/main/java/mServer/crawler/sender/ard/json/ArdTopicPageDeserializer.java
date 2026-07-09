@@ -35,10 +35,12 @@ public class ArdTopicPageDeserializer extends ArdTeasersDeserializer
     id.ifPresent(ardTopicInfoDto::setId);
 
     final JsonElement paginationElement = showPageObject.get(ELEMENT_PAGINATION);
-    ardTopicInfoDto.setSubPageNumber(
+    ardTopicInfoDto.setPageNumber(
             getChildElementAsIntOrNullIfNotExist(paginationElement, ELEMENT_PAGE_NUMBER));
     final int totalElements = getChildElementAsIntOrNullIfNotExist(paginationElement, ELEMENT_TOTAL_ELEMENTS);
+    ardTopicInfoDto.setTotalElements(totalElements);
     final int pageSize = getChildElementAsIntOrNullIfNotExist(paginationElement, ELEMENT_PAGE_SIZE);
+    ardTopicInfoDto.setPageSize(pageSize);
     ardTopicInfoDto.setMaxSubPageNumber(pageSize == 0 ? 0 :
             (totalElements + pageSize - 1) / pageSize);
 

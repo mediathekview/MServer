@@ -34,6 +34,20 @@ public class ArdTopicPageTask extends ArdTaskBase<ArdFilmInfoDto, CrawlerUrlDTO>
   private static final Set<String> TOPICS_LOAD_ALL_PAGES = new HashSet<>();
 
   static {
+    // Retro
+    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL3JhZGlvYnJlbWVuLmRlL2IwYTJlZWFlLWI2NjAtNDI5Yi05ZTE3LTM5YzlkZDhmNTc4Ng");
+    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL2JyLmRlL2Jyb2FkY2FzdFNlcmllcy8yOGEwMzU4Yi00N2ViLTQ0MDktOGFmZi02ZjVkMDE5NDA2NDc");
+    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL3dkci5kZS93ZHJyZXRybw");
+    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL25kci5kZS80NTg4");
+    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL3JiYi1vbmxpbmUuZGUvYmVybGluZXItYWJlbmRzY2hhdQ");
+    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL2hyLW9ubGluZS8zODIyMDExOA");
+    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL3N3ci5kZS8yNDEwMzE1Ng");
+    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL2hyLW9ubGluZS8zODIyMDA5Ng");
+    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL3NyLW9ubGluZS5kZS9SRVRSTy1IRA");
+    // NDR Nordstory
+    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL25kci5kZS8xNDk1");
+    // SWR Eisenbahn-Romantik
+    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL3N3ci5kZS8yMjUwOTg2");
     // example: TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL2Rhc2Vyc3RlLmRlL3Nwb3J0c2NoYXU");
   }
 
@@ -68,7 +82,7 @@ public class ArdTopicPageTask extends ArdTaskBase<ArdFilmInfoDto, CrawlerUrlDTO>
           final WebTarget aTarget, final ArdTopicInfoDto topicInfo) {
     final ConcurrentLinkedQueue<CrawlerUrlDTO> subpages = new ConcurrentLinkedQueue<>();
 
-    final int actualSubPageNumber = topicInfo.getSubPageNumber();
+    final int actualSubPageNumber = topicInfo.getPageNumber();
     final int maximumAllowedSubpages = getMaximumSubpages(topicInfo.getId());
     if (actualSubPageNumber != 0) {
       LOG.debug("Sub page {} is already the maximum allowed sub page.", actualSubPageNumber);
