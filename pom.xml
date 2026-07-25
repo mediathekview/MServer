@@ -400,6 +400,7 @@
         <artifactId>maven-surefire-plugin</artifactId>
         <version>${maven-surefire-plugin.version}</version>
         <configuration>
+          <argLine>-javaagent:${settings.localRepository}/org/mockito/mockito-core/${mockito.version}/mockito-core-${mockito.version}.jar</argLine>
           <parallel>classes</parallel>
           <useUnlimitedThreads>true</useUnlimitedThreads>
           <perCoreThreadCount>true</perCoreThreadCount>
