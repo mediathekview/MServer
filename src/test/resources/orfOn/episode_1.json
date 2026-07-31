@@ -122,76 +122,12 @@
   "show_instream_ads": false,
   "sources": {
     "hls": [
-      {
-        "is_uhd": false,
-        "quality_key": "QXA",
-        "quality_description": "Adaptiv",
-        "src": "https:\/\/apasfiis.sf.apa.at\/ipad\/cms-worldwide\/2024-01-04_0707_tl_01_Servus-Kasperl-_____14207792__o__6332192865__s15543049_9__ORF1HD_07081012P_07300711P_QXA.mp4\/playlist.m3u8",
-        "is_adaptive_stream": true,
-        "is_drm_protected": false
-      },
-      {
-        "is_uhd": false,
-        "quality_key": "QXB",
-        "quality_description": "Adaptiv",
-        "src": "https:\/\/apasfiis.sf.apa.at\/ipad\/cms-worldwide\/2024-01-04_0707_tl_01_Servus-Kasperl-_____14207792__o__6332192865__s15543049_9__ORF1HD_07081012P_07300711P_QXB.mp4\/playlist.m3u8",
-        "is_adaptive_stream": true,
-        "is_drm_protected": false
-      }
     ],
     "hds": [
-      {
-        "is_uhd": false,
-        "quality_key": "QXA",
-        "quality_description": "Adaptiv",
-        "src": "https:\/\/apasfiis.sf.apa.at\/f4m\/cms-worldwide\/2024-01-04_0707_tl_01_Servus-Kasperl-_____14207792__o__6332192865__s15543049_9__ORF1HD_07081012P_07300711P_QXA.mp4\/manifest.f4m",
-        "is_adaptive_stream": true,
-        "is_drm_protected": false
-      },
-      {
-        "is_uhd": false,
-        "quality_key": "QXB",
-        "quality_description": "Adaptiv",
-        "src": "https:\/\/apasfiis.sf.apa.at\/f4m\/cms-worldwide\/2024-01-04_0707_tl_01_Servus-Kasperl-_____14207792__o__6332192865__s15543049_9__ORF1HD_07081012P_07300711P_QXB.mp4\/manifest.f4m",
-        "is_adaptive_stream": true,
-        "is_drm_protected": false
-      }
     ],
     "smooth": [
-      {
-        "is_uhd": false,
-        "quality_key": "QXA",
-        "quality_description": "Adaptiv",
-        "src": "https:\/\/apasfiis.sf.apa.at\/smooth\/cms-worldwide\/2024-01-04_0707_tl_01_Servus-Kasperl-_____14207792__o__6332192865__s15543049_9__ORF1HD_07081012P_07300711P_QXA.mp4\/manifest",
-        "is_adaptive_stream": true,
-        "is_drm_protected": false
-      },
-      {
-        "is_uhd": false,
-        "quality_key": "QXB",
-        "quality_description": "Adaptiv",
-        "src": "https:\/\/apasfiis.sf.apa.at\/smooth\/cms-worldwide\/2024-01-04_0707_tl_01_Servus-Kasperl-_____14207792__o__6332192865__s15543049_9__ORF1HD_07081012P_07300711P_QXB.mp4\/manifest",
-        "is_adaptive_stream": true,
-        "is_drm_protected": false
-      }
     ],
     "dash": [
-      {
-        "is_uhd": false,
-        "quality_key": "QXA",
-        "quality_description": "Adaptiv",
-        "src": "https:\/\/apasfiis.sf.apa.at\/dash\/cms-worldwide\/2024-01-04_0707_tl_01_Servus-Kasperl-_____14207792__o__6332192865__s15543049_9__ORF1HD_07081012P_07300711P_QXA.mp4\/manifest.mpd",
-        "is_adaptive_stream": true,
-        "is_drm_protected": false
-      },
-      {
-        "is_uhd": false,
-        "quality_key": "QXB",
-        "quality_description": "Adaptiv",
-        "src": "https:\/\/apasfiis.sf.apa.at\/dash\/cms-worldwide\/2024-01-04_0707_tl_01_Servus-Kasperl-_____14207792__o__6332192865__s15543049_9__ORF1HD_07081012P_07300711P_QXB.mp4\/manifest.mpd",
-        "is_adaptive_stream": true,
-        "is_drm_protected": false
-      }
     ]
   },
   "sub_headline": "ORF Kids | Servus Kasperl",
@@ -809,76 +745,12 @@
         "show_instream_ads": false,
         "sources": {
           "hls": [
-            {
-              "is_uhd": false,
-              "quality_key": "QXA",
-              "quality_description": "Adaptiv",
-              "src": "https:\/\/apasfiis.sf.apa.at\/ipad\/cms-worldwide\/2024-01-04_0707_tl_01_Servus-Kasperl-_____14207792__o__6332192865__s15543049_9__ORF1HD_07081012P_07300711P_QXA.mp4\/playlist.m3u8",
-              "is_adaptive_stream": true,
-              "is_drm_protected": false
-            },
-            {
-              "is_uhd": false,
-              "quality_key": "QXB",
-              "quality_description": "Adaptiv",
-              "src": "https:\/\/apasfiis.sf.apa.at\/ipad\/cms-worldwide\/2024-01-04_0707_tl_01_Servus-Kasperl-_____14207792__o__6332192865__s15543049_9__ORF1HD_07081012P_07300711P_QXB.mp4\/playlist.m3u8",
-              "is_adaptive_stream": true,
-              "is_drm_protected": false
-            }
           ],
           "hds": [
-            {
-              "is_uhd": false,
-              "quality_key": "QXA",
-              "quality_description": "Adaptiv",
-              "src": "https:\/\/apasfiis.sf.apa.at\/f4m\/cms-worldwide\/2024-01-04_0707_tl_01_Servus-Kasperl-_____14207792__o__6332192865__s15543049_9__ORF1HD_07081012P_07300711P_QXA.mp4\/manifest.f4m",
-              "is_adaptive_stream": true,
-              "is_drm_protected": false
-            },
-            {
-              "is_uhd": false,
-              "quality_key": "QXB",
-              "quality_description": "Adaptiv",
-              "src": "https:\/\/apasfiis.sf.apa.at\/f4m\/cms-worldwide\/2024-01-04_0707_tl_01_Servus-Kasperl-_____14207792__o__6332192865__s15543049_9__ORF1HD_07081012P_07300711P_QXB.mp4\/manifest.f4m",
-              "is_adaptive_stream": true,
-              "is_drm_protected": false
-            }
           ],
           "smooth": [
-            {
-              "is_uhd": false,
-              "quality_key": "QXA",
-              "quality_description": "Adaptiv",
-              "src": "https:\/\/apasfiis.sf.apa.at\/smooth\/cms-worldwide\/2024-01-04_0707_tl_01_Servus-Kasperl-_____14207792__o__6332192865__s15543049_9__ORF1HD_07081012P_07300711P_QXA.mp4\/manifest",
-              "is_adaptive_stream": true,
-              "is_drm_protected": false
-            },
-            {
-              "is_uhd": false,
-              "quality_key": "QXB",
-              "quality_description": "Adaptiv",
-              "src": "https:\/\/apasfiis.sf.apa.at\/smooth\/cms-worldwide\/2024-01-04_0707_tl_01_Servus-Kasperl-_____14207792__o__6332192865__s15543049_9__ORF1HD_07081012P_07300711P_QXB.mp4\/manifest",
-              "is_adaptive_stream": true,
-              "is_drm_protected": false
-            }
           ],
           "dash": [
-            {
-              "is_uhd": false,
-              "quality_key": "QXA",
-              "quality_description": "Adaptiv",
-              "src": "https:\/\/apasfiis.sf.apa.at\/dash\/cms-worldwide\/2024-01-04_0707_tl_01_Servus-Kasperl-_____14207792__o__6332192865__s15543049_9__ORF1HD_07081012P_07300711P_QXA.mp4\/manifest.mpd",
-              "is_adaptive_stream": true,
-              "is_drm_protected": false
-            },
-            {
-              "is_uhd": false,
-              "quality_key": "QXB",
-              "quality_description": "Adaptiv",
-              "src": "https:\/\/apasfiis.sf.apa.at\/dash\/cms-worldwide\/2024-01-04_0707_tl_01_Servus-Kasperl-_____14207792__o__6332192865__s15543049_9__ORF1HD_07081012P_07300711P_QXB.mp4\/manifest.mpd",
-              "is_adaptive_stream": true,
-              "is_drm_protected": false
-            }
           ]
         },
         "state": "distributed",
@@ -1270,24 +1142,6 @@
                 "protocol": "http"
               },
               {
-                "src": "https:\/\/apasfiis.sf.apa.at\/ipad\/cms-worldwide\/2024-01-04_0707_tl_01_Servus-Kasperl-_____14207792__o__6332192865__s15543049_9__ORF1HD_07081012P_07300711P_QXA.mp4\/playlist.m3u8",
-                "is_uhd": false,
-                "quality": "QXA",
-                "quality_string": "Adaptiv",
-                "delivery": "hls",
-                "type": "video\/mp4",
-                "protocol": "http"
-              },
-              {
-                "src": "https:\/\/apasfiis.sf.apa.at\/ipad\/cms-worldwide\/2024-01-04_0707_tl_01_Servus-Kasperl-_____14207792__o__6332192865__s15543049_9__ORF1HD_07081012P_07300711P_QXB.mp4\/playlist.m3u8",
-                "is_uhd": false,
-                "quality": "QXB",
-                "quality_string": "Adaptiv",
-                "delivery": "hls",
-                "type": "video\/mp4",
-                "protocol": "http"
-              },
-              {
                 "src": "https:\/\/apasfiis.sf.apa.at\/f4m\/cms-worldwide\/2024-01-04_0707_tl_01_Servus-Kasperl-_____14207792__o__6332192865__s15543049_9__ORF1HD_07081012P_07300711P_Q0A.3gp\/manifest.f4m",
                 "is_uhd": false,
                 "quality": "Q0A",
@@ -1328,24 +1182,6 @@
                 "is_uhd": false,
                 "quality": "Q8C",
                 "quality_string": "Sehr hoch",
-                "delivery": "hds",
-                "type": "video\/mp4",
-                "protocol": "http"
-              },
-              {
-                "src": "https:\/\/apasfiis.sf.apa.at\/f4m\/cms-worldwide\/2024-01-04_0707_tl_01_Servus-Kasperl-_____14207792__o__6332192865__s15543049_9__ORF1HD_07081012P_07300711P_QXA.mp4\/manifest.f4m",
-                "is_uhd": false,
-                "quality": "QXA",
-                "quality_string": "Adaptiv",
-                "delivery": "hds",
-                "type": "video\/mp4",
-                "protocol": "http"
-              },
-              {
-                "src": "https:\/\/apasfiis.sf.apa.at\/f4m\/cms-worldwide\/2024-01-04_0707_tl_01_Servus-Kasperl-_____14207792__o__6332192865__s15543049_9__ORF1HD_07081012P_07300711P_QXB.mp4\/manifest.f4m",
-                "is_uhd": false,
-                "quality": "QXB",
-                "quality_string": "Adaptiv",
                 "delivery": "hds",
                 "type": "video\/mp4",
                 "protocol": "http"
