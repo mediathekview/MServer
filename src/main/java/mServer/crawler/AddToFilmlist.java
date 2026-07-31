@@ -17,7 +17,6 @@ import mServer.crawler.sender.orfon.OrfOnConstants;
 import mServer.tool.MserverDaten;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.Request.Builder;
 import okhttp3.Response;
 import org.jetbrains.annotations.NotNull;
 
@@ -400,7 +399,7 @@ public class AddToFilmlist {
 
     @NotNull
     private Request createOnlineCheckRequest(String url) {
-      Builder builder = new Builder().url(url);
+      Request.Builder builder = new Request.Builder().url(url);
       if (isM3u8File(url)) {
         // head request of m3u8 files always returns 405 => use get instead
         return builder.get().build();
