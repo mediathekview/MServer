@@ -81,6 +81,9 @@ public class JsoupConnection {
         if (response.isSuccessful()) {
           final ResponseBody responseBody = response.body();
           return responseBody == null ? "" : responseBody.string();
+        } else if(response.code() == 403) {
+          // no retry for forbidden
+          break;
         }
       }
       retry++;
