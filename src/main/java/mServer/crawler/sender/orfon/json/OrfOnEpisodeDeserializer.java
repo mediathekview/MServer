@@ -177,7 +177,7 @@ public class OrfOnEpisodeDeserializer implements JsonDeserializer<OrfOnVideoInfo
       if (resultingVideos.get().containsKey("QXA")) {
         String url = resultingVideos.get().get("QXA");
         result.put(Qualities.SMALL, enrichUrl(url, "chunklist_b620000.m3u8"));
-        result.put(Qualities.NORMAL, enrichUrl(url, "chunklist_b2440000.m3u8"));
+        result.put(Qualities.NORMAL, enrichUrl(url, "chunklist_b4165000.m3u8"));
         result.put(Qualities.HD, enrichUrl(url, "chunklist_b6100000.m3u8"));
       } else {
         resultingVideos.get().entrySet().stream()
