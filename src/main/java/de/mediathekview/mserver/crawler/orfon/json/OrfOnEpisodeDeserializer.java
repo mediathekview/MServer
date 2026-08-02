@@ -224,7 +224,7 @@ public class OrfOnEpisodeDeserializer implements JsonDeserializer<OrfOnVideoInfo
         try {
               result.put(Resolution.VERY_SMALL, new FilmUrl(enrichUrl(url, "chunklist_b375000.m3u8"), 0L));
               result.put(Resolution.SMALL, new FilmUrl(enrichUrl(url, "chunklist_b620000.m3u8"), 0L));
-              result.put(Resolution.NORMAL, new FilmUrl(enrichUrl(url, "chunklist_b2440000.m3u8"), 0L));
+              result.put(Resolution.NORMAL, new FilmUrl(enrichUrl(url, "chunklist_b4165000.m3u8"), 0L));
               result.put(Resolution.HD, new FilmUrl(enrichUrl(url, "chunklist_b6100000.m3u8"), 0L));
         } catch (IOException e) {
           LOG.error("Failed to fetch content from url {} error {}", resultingVideos.get().get("QXA").getUrl(), e);

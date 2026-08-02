@@ -91,7 +91,7 @@ class OrfOnEpisodeTaskTest extends OrfOnEpisodesTaskTest {
     assertEquals(Map.of(
             Resolution.VERY_SMALL, new FilmUrl("https://apasfiis.sf.apa.at/ipad/cms-austria/2024-01-04_0645_tl_00_ABC-Baer_____14207790__o__4346842346__s15542921_1__KIDS1_06363007P_06500003P_QXA.mp4/chunklist_b375000.m3u8", 0L),
             Resolution.SMALL, new FilmUrl("https://apasfiis.sf.apa.at/ipad/cms-austria/2024-01-04_0645_tl_00_ABC-Baer_____14207790__o__4346842346__s15542921_1__KIDS1_06363007P_06500003P_QXA.mp4/chunklist_b620000.m3u8", 0L),
-            Resolution.NORMAL, new FilmUrl("https://apasfiis.sf.apa.at/ipad/cms-austria/2024-01-04_0645_tl_00_ABC-Baer_____14207790__o__4346842346__s15542921_1__KIDS1_06363007P_06500003P_QXA.mp4/chunklist_b2440000.m3u8", 0L),
+            Resolution.NORMAL, new FilmUrl("https://apasfiis.sf.apa.at/ipad/cms-austria/2024-01-04_0645_tl_00_ABC-Baer_____14207790__o__4346842346__s15542921_1__KIDS1_06363007P_06500003P_QXA.mp4/chunklist_b4165000.m3u8", 0L),
             Resolution.HD, new FilmUrl("https://apasfiis.sf.apa.at/ipad/cms-austria/2024-01-04_0645_tl_00_ABC-Baer_____14207790__o__4346842346__s15542921_1__KIDS1_06363007P_06500003P_QXA.mp4/chunklist_b6100000.m3u8", 0L)
         ), actual.getUrls());
     } catch (Exception e) {
@@ -117,7 +117,7 @@ class OrfOnEpisodeTaskTest extends OrfOnEpisodesTaskTest {
         "https://tvthek.orf.at/profile/ZIB-1300/71280/ZIB-1300-vom-20-03-2024/14218665",
         new GeoLocations[] { GeoLocations.GEO_NONE},
         "https://apasfiis.sf.apa.at/ipad/cms-worldwide_episodes/14218665_0017_QXA.mp4/chunklist_b620000.m3u8",
-        "https://apasfiis.sf.apa.at/ipad/cms-worldwide_episodes/14218665_0017_QXA.mp4/chunklist_b2440000.m3u8",
+        "https://apasfiis.sf.apa.at/ipad/cms-worldwide_episodes/14218665_0017_QXA.mp4/chunklist_b4165000.m3u8",
         "https://apasfiis.sf.apa.at/ipad/cms-worldwide_episodes/14218665_0017_QXA.mp4/chunklist_b6100000.m3u8",
         "https://api-tvthek.orf.at/assets/subtitles/0171/59/69a0deabec546a7fb5fabc7ebb44e55a031987ac.ttml");
   }
@@ -147,7 +147,7 @@ class OrfOnEpisodeTaskTest extends OrfOnEpisodesTaskTest {
     // [, , , , ]
     assertEquals(Map.of(
         Resolution.HD, new FilmUrl("https://apasfiis.sf.apa.at/ipad/cms-austria/2023-12-06_2307_sd_01_AD---Vorstadtwe_____14204417__o__8792736916__s15524266_6__ORF1ADHD_23092909P_23560117P_QXA.mp4/chunklist_b6100000.m3u8", 0L),
-        Resolution.NORMAL, new FilmUrl("https://apasfiis.sf.apa.at/ipad/cms-austria/2023-12-06_2307_sd_01_AD---Vorstadtwe_____14204417__o__8792736916__s15524266_6__ORF1ADHD_23092909P_23560117P_QXA.mp4/chunklist_b2440000.m3u8", 0L),
+        Resolution.NORMAL, new FilmUrl("https://apasfiis.sf.apa.at/ipad/cms-austria/2023-12-06_2307_sd_01_AD---Vorstadtwe_____14204417__o__8792736916__s15524266_6__ORF1ADHD_23092909P_23560117P_QXA.mp4/chunklist_b4165000.m3u8", 0L),
         Resolution.SMALL, new FilmUrl("https://apasfiis.sf.apa.at/ipad/cms-austria/2023-12-06_2307_sd_01_AD---Vorstadtwe_____14204417__o__8792736916__s15524266_6__ORF1ADHD_23092909P_23560117P_QXA.mp4/chunklist_b620000.m3u8", 0L),
         Resolution.VERY_SMALL, new FilmUrl("https://apasfiis.sf.apa.at/ipad/cms-austria/2023-12-06_2307_sd_01_AD---Vorstadtwe_____14204417__o__8792736916__s15524266_6__ORF1ADHD_23092909P_23560117P_QXA.mp4/chunklist_b375000.m3u8", 0L)
         ), actual.getUrls());
@@ -181,7 +181,7 @@ class OrfOnEpisodeTaskTest extends OrfOnEpisodesTaskTest {
     assertEquals(Map.of(
             Resolution.VERY_SMALL, new FilmUrl("https://apasfiis.sf.apa.at/ipad/cms-worldwide/2020-03-26_1310_sd_02_ORF-Mitarbeiter_____14046198__o__8302694905__s14668903_3__ORF3HD_13420114P_13453123P_QXA.mp4/chunklist_b375000.m3u8", 0L),
             Resolution.SMALL, new FilmUrl("https://apasfiis.sf.apa.at/ipad/cms-worldwide/2020-03-26_1310_sd_02_ORF-Mitarbeiter_____14046198__o__8302694905__s14668903_3__ORF3HD_13420114P_13453123P_QXA.mp4/chunklist_b620000.m3u8", 0L),
-            Resolution.NORMAL, new FilmUrl("https://apasfiis.sf.apa.at/ipad/cms-worldwide/2020-03-26_1310_sd_02_ORF-Mitarbeiter_____14046198__o__8302694905__s14668903_3__ORF3HD_13420114P_13453123P_QXA.mp4/chunklist_b2440000.m3u8", 0L),
+            Resolution.NORMAL, new FilmUrl("https://apasfiis.sf.apa.at/ipad/cms-worldwide/2020-03-26_1310_sd_02_ORF-Mitarbeiter_____14046198__o__8302694905__s14668903_3__ORF3HD_13420114P_13453123P_QXA.mp4/chunklist_b4165000.m3u8", 0L),
             Resolution.HD, new FilmUrl("https://apasfiis.sf.apa.at/ipad/cms-worldwide/2020-03-26_1310_sd_02_ORF-Mitarbeiter_____14046198__o__8302694905__s14668903_3__ORF3HD_13420114P_13453123P_QXA.mp4/chunklist_b6100000.m3u8", 0L)
         ), actual.getUrls());
     } catch (Exception e) {
