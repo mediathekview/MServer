@@ -72,6 +72,8 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
   private static final String MARKER_VIDEO_DGS = "sign-language";
   private static final String MARKER_VIDEO_OV = "OV";
   private static final String MARKER_VIDEO_DE = "deu";
+  private static final String MARKER_VIDEO_ENG = "eng";
+  private static final String MARKER_VIDEO_FRA = "fra";
 
   private final ArdVideoInfoJsonDeserializer videoDeserializer;
   private final AbstractCrawler crawler;
@@ -412,6 +414,8 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
     Optional<Map<Resolution, String>> videoInfoDGSAdaptive = parseVideoUrls(playerPageObject, MARKER_VIDEO_DGS, MARKER_VIDEO_STANDARD, MARKER_VIDEO_CATEGORY_MPEG, MARKER_VIDEO_DE);
     Optional<Map<Resolution, String>> videoInfoOV = parseVideoUrls(playerPageObject, MARKER_VIDEO_CATEGORY_MAIN, MARKER_VIDEO_STANDARD, MARKER_VIDEO_MP4, MARKER_VIDEO_OV);
     Optional<Map<Resolution, String>> videoInfoOVAdaptive = parseVideoUrls(playerPageObject, MARKER_VIDEO_CATEGORY_MAIN, MARKER_VIDEO_STANDARD, MARKER_VIDEO_CATEGORY_MPEG, MARKER_VIDEO_OV);
+    Optional<Map<Resolution, String>> videoInfoEng = parseVideoUrls(playerPageObject, MARKER_VIDEO_CATEGORY_MAIN, MARKER_VIDEO_STANDARD, MARKER_VIDEO_MP4, MARKER_VIDEO_ENG);
+    Optional<Map<Resolution, String>> videoInfoFra = parseVideoUrls(playerPageObject, MARKER_VIDEO_CATEGORY_MAIN, MARKER_VIDEO_STANDARD, MARKER_VIDEO_MP4, MARKER_VIDEO_FRA);
     Optional<Set<String>> subtitles = prepareSubtitleUrl(playerPageObject);
     // mainly funk
     if (videoInfoStandard.isEmpty() && videoInfoAD.isEmpty() && videoInfoDGS.isEmpty() && videoInfoOV.isEmpty() && videoInfoAdaptive.isPresent()) {
@@ -425,6 +429,12 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
     }
     if (videoInfoOV.isEmpty() && videoInfoOVAdaptive.isPresent()) {
       videoInfoOV = getResolutionsFromAdaptiveUrl(videoInfoOVAdaptive);
+    }
+    if (videoInfoOV.isEmpty() && videoInfoEng.isPresent()) {
+      videoInfoOV = videoInfoEng;
+    }
+    if (videoInfoOV.isEmpty() && videoInfoFra.isPresent()) {
+      videoInfoOV = videoInfoFra;
     }
     // flaws - missing proper video marker - mainly tagesschau
     if ((title.contains(" - (Originalversion)") || title.contains(" (OV)")) && videoInfoOV.isEmpty()) {
