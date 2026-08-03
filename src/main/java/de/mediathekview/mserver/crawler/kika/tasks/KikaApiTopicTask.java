@@ -1,5 +1,5 @@
 package de.mediathekview.mserver.crawler.kika.tasks;
-
+import java.io.Serial;
 import java.lang.reflect.Type;
 import java.net.URI;
 import java.util.Optional;
@@ -24,7 +24,7 @@ import jakarta.ws.rs.core.Response;
 // <T, R, D extends CrawlerUrlDTO> extends AbstractRestTask<T, D>
 // return T Class from this task, desirialisation of class R , D , Reasearch in this url
 public class KikaApiTopicTask extends AbstractJsonRestTask<KikaApiFilmDto, KikaApiTopicDto, TopicUrlDTO> {
-  private static final long serialVersionUID = 1L;
+  @Serial private static final long serialVersionUID = 1L;
   private static final Logger LOG = LogManager.getLogger(KikaApiTopicTask.class);
   private int subPageIndex = 0;
 

@@ -79,12 +79,12 @@ public class KikaApiVideoInfoPageDeserializer implements JsonDeserializer<KikaAp
     // gap into the middle (size/2) to take one of the medium quality urls
     if (!urls.isEmpty()) {
       if (urls.size() > 2) {
-        aKikaApiVideoInfoDto.addUrl(Resolution.HD, urls.get(urls.size()-1));
+        aKikaApiVideoInfoDto.addUrl(Resolution.HD, urls.getLast());
       }
       if (urls.size() > 1) {
         aKikaApiVideoInfoDto.addUrl(Resolution.NORMAL, urls.get(urls.size()/2));
       }
-      aKikaApiVideoInfoDto.addUrl(Resolution.SMALL, urls.get(0));
+      aKikaApiVideoInfoDto.addUrl(Resolution.SMALL, urls.getFirst());
     }
   }
 

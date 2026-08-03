@@ -1,5 +1,5 @@
 package de.mediathekview.mserver.crawler.arte.tasks;
-
+import java.io.Serial;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
@@ -30,7 +30,7 @@ import de.mediathekview.mserver.daten.Resolution;
 
 
 public class ArteDtoVideo2FilmTask extends AbstractRecursiveConverterTask<Film, ArteVideoInfoDto> {
-  private static final long serialVersionUID = 1L;
+  @Serial private static final long serialVersionUID = 1L;
   protected final transient Logger log = LogManager.getLogger(this.getClass());
   
   private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ssX");

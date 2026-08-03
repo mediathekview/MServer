@@ -1,17 +1,13 @@
 package de.mediathekview.mserver.base.config;
 
 import com.yacl4j.core.ConfigurationBuilder;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.net.URL;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 
 /** A manager to load configurations. */
 public abstract class ConfigManager<T extends ConfigDTO> {
   private T config;
-  //private static final Logger LOG = LogManager.getLogger(ConfigManager.class);
 
   protected abstract String getConfigFileName();
 
@@ -53,7 +49,7 @@ public abstract class ConfigManager<T extends ConfigDTO> {
         ClassLoader classLoader = getClass().getClassLoader();
         URL resourceUrl = classLoader.getResource(resourceName);
         if (resourceUrl != null) {
-          Path resourcePath = Paths.get(resourceUrl.toURI());
+          Path resourcePath = Path.of(resourceUrl.toURI());
           return resourcePath.toString();
         }
       }

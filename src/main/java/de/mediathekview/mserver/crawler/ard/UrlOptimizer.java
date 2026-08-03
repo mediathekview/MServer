@@ -1,15 +1,8 @@
 package de.mediathekview.mserver.crawler.ard;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
-import java.util.TreeMap;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -32,7 +25,7 @@ public class UrlOptimizer {
     Map<Resolution, String> proposal = buildFilmUrlFromAdaptive(adaptive, allUrls.entrySet().stream().findFirst().get().getValue());
   
     if(proposal.size() != allUrls.size() && !adaptive.contains("arte.")) {
-      System.out.println("asdf");
+      LOG.debug("asdf");
       Map<Integer, String> x = buildFromUrl(adaptive, allUrls.entrySet().stream().findFirst().get().getValue());
       StringBuffer sb = new StringBuffer();
       sb.append("#").append(adaptive).append("#").append(printMap(proposal)).append("#vs#").append(printMap(allUrls));
@@ -148,7 +141,7 @@ public class UrlOptimizer {
   // ----------------------------------------------------------------------------------------------------------------------------------------------------  
   
   public Map<Resolution, String> buildFilmUrlFromAdaptive(String adaptive, String aUrl) {
-    Map<Resolution, String> result = new HashMap<>();
+    Map<Resolution, String> result = new EnumMap<>(Resolution.class);
     Map<Integer, String> rawStringUrlMap = buildFromUrl(adaptive, aUrl);
     rawStringUrlMap.forEach( (resolutionVertical, url) -> {
       try {

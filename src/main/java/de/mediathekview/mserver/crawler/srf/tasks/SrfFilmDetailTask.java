@@ -16,13 +16,14 @@ import org.apache.logging.log4j.Logger;
 import jakarta.ws.rs.client.Invocation;
 import jakarta.ws.rs.client.WebTarget;
 import jakarta.ws.rs.core.Response;
+import java.io.Serial;
 import java.lang.reflect.Type;
 import java.net.URI;
 import java.util.Optional;
 import java.util.Queue;
 
 public class SrfFilmDetailTask extends AbstractRestTask<Film, CrawlerUrlDTO> {
-  private static final long serialVersionUID = 7984235678468580128L;
+  @Serial private static final long serialVersionUID = 7984235678468580128L;
   private static final Logger LOG = LogManager.getLogger(SrfFilmDetailTask.class);
 
   public SrfFilmDetailTask(
@@ -36,8 +37,7 @@ public class SrfFilmDetailTask extends AbstractRestTask<Film, CrawlerUrlDTO> {
     final Response response = request.header(HEADER_ACCEPT_ENCODING, ENCODING_GZIP).get();
 
     switch (response.getStatus()) {
-      case 200:
-      case 203:
+      case 200, 203:
         parseFilm(response, aTarget.getUri());
         break;
       case 403:

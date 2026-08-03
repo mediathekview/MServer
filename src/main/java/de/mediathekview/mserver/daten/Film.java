@@ -1,5 +1,6 @@
 package de.mediathekview.mserver.daten;
 
+import java.io.Serial;
 import java.net.URL;
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -8,7 +9,7 @@ import java.util.stream.Collectors;
 
 /** Represents a found film. */
 public class Film extends Podcast {
-  private static final long serialVersionUID = -7834270191129532291L;
+  @Serial private static final long serialVersionUID = -7834270191129532291L;
   private final Set<URL> subtitles;
   private Map<Resolution, FilmUrl> audioDescriptions;
   private Map<Resolution, FilmUrl> signLanguages;
@@ -146,7 +147,8 @@ public class Film extends Podcast {
   public boolean hasUT() {
     return !subtitles.isEmpty();
   }
-  
+
+  @Override
   public Optional<FilmUrl> getDefaultUrl() {
     Optional<FilmUrl> defaultFilmUrl = super.getDefaultUrl();
     if (defaultFilmUrl.isPresent()) {

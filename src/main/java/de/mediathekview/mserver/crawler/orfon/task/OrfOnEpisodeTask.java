@@ -1,5 +1,5 @@
 package de.mediathekview.mserver.crawler.orfon.task;
-
+import java.io.Serial;
 import java.lang.reflect.Type;
 import java.net.URI;
 import java.time.Duration;
@@ -27,7 +27,7 @@ import jakarta.ws.rs.core.Response;
 // <T, R, D extends CrawlerUrlDTO> extends AbstractRestTask<T, D>
 // return T Class from this task, desirialisation of class R , D , Reasearch in this url
 public class OrfOnEpisodeTask extends AbstractJsonRestTask<Film, OrfOnVideoInfoDTO, OrfOnBreadCrumsUrlDTO> {
-  private static final long serialVersionUID = 3272445100769901305L;
+  @Serial private static final long serialVersionUID = 3272445100769901305L;
   private static final Logger LOG = LogManager.getLogger(OrfOnEpisodeTask.class);
   private static final String ORF_AUDIODESCRIPTION_PREFIX = "AD | ";
 

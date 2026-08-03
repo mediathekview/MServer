@@ -15,7 +15,6 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
@@ -123,7 +122,7 @@ public class FilmlistManager extends MessageCreator {
       try {
         CompressionManager.getInstance().compress(compressionType.get(), aSourcePath, aTargetPath);
         return true;
-      } catch (final IOException ioException) {
+      } catch (final IOException _) {
         publishMessage(
             FilmListMessages.FILMLIST_COMPRESS_ERROR, aTargetPath.toAbsolutePath().toString());
       }
@@ -135,12 +134,11 @@ public class FilmlistManager extends MessageCreator {
     try (final BufferedWriter fileWriter =
         Files.newBufferedWriter(
             savePath,
-            StandardCharsets.UTF_8,
             StandardOpenOption.CREATE,
             StandardOpenOption.TRUNCATE_EXISTING)) {
       fileWriter.write(String.valueOf(filmlist.hashCode()));
       return true;
-    } catch (final IOException ioException) {
+    } catch (final IOException _) {
       LOG.fatal("Can't write the hash file \"{}\".", savePath);
       return false;
     }
@@ -150,12 +148,11 @@ public class FilmlistManager extends MessageCreator {
     try (final BufferedWriter fileWriter =
         Files.newBufferedWriter(
             savePath,
-            StandardCharsets.UTF_8,
             StandardOpenOption.CREATE,
             StandardOpenOption.TRUNCATE_EXISTING)) {
       fileWriter.write(filmlist.getListId().toString());
       return true;
-    } catch (final IOException ioException) {
+    } catch (final IOException _) {
       LOG.fatal("Can't write the hash file \"{}\".", savePath);
       return false;
     }
@@ -173,7 +170,7 @@ public class FilmlistManager extends MessageCreator {
     } finally {
       try {
         Files.deleteIfExists(tempPath);
-      } catch (final IOException ioException) {
+      } catch (final IOException _) {
         LOG.error(String.format("Can't delete temp file \"%s\".", tempPath));
       }
     }

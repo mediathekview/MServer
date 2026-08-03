@@ -8,6 +8,7 @@ import org.jsoup.HttpStatusException;
 import org.jsoup.nodes.Document;
 
 import java.io.IOException;
+import java.io.Serial;
 import java.util.Queue;
 
 /**
@@ -22,7 +23,7 @@ import java.util.Queue;
  */
 public abstract class AbstractDocumentTask<T, D extends CrawlerUrlDTO>
     extends AbstractUrlTask<T, D> {
-  private static final long serialVersionUID = -4124779055395250981L;
+  @Serial private static final long serialVersionUID = -4124779055395250981L;
   private static final Logger LOG = LogManager.getLogger(AbstractDocumentTask.class);
   private static final String LOAD_DOCUMENT_ERRORTEXTPATTERN =
       "Something terrible happened while crawl the %s page \"%s\".";

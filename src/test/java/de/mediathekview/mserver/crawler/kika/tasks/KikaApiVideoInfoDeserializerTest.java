@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.nio.file.Path;
 import java.util.stream.Stream;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -34,7 +34,7 @@ class KikaApiVideoInfoDeserializerTest {
     //
     final KikaApiVideoInfoDto aKikaApiVideoDto =
         gson.fromJson(
-            Files.newBufferedReader(Paths.get(getClass().getResource(jsonFile).toURI())),
+            Files.newBufferedReader(Path.of(getClass().getResource(jsonFile).toURI())),
             kikaApiVideoInfoDtoType);
     //
     assertEquals(numberOfExpectedRecords, aKikaApiVideoDto.getVideoUrls().size());

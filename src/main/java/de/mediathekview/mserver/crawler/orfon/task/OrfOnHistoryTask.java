@@ -1,5 +1,5 @@
 package de.mediathekview.mserver.crawler.orfon.task;
-
+import java.io.Serial;
 import java.lang.reflect.Type;
 import java.util.Queue;
 
@@ -15,7 +15,7 @@ import de.mediathekview.mserver.crawler.orfon.json.OrfOnHistoryDeserializer;
 // <T, R, D extends CrawlerUrlDTO> extends AbstractRestTask<T, D>
 // return T Class from this task, desirialisation of class R , D , Reasearch in this url
 public class OrfOnHistoryTask extends OrfOnPagedTask {
-  private static final long serialVersionUID = 1L;
+  @Serial private static final long serialVersionUID = 1L;
 
 
   public OrfOnHistoryTask(AbstractCrawler crawler, Queue<OrfOnBreadCrumsUrlDTO> urlToCrawlDTOs) {

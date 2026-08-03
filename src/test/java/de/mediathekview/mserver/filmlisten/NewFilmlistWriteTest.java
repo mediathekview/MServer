@@ -44,7 +44,7 @@ class NewFilmlistWriteTest {
   @MethodSource("createReadTestArguments")
   void testWrite(String jsonName, FilmlistFormats format) {
     final Path testFilePath = testFileFolderPath.resolve(jsonName);
-    System.out.println(testFilePath.toString());
+    IO.println(testFilePath.toString());
     filmlistManager.save(format, testData, testFilePath);
 
     if (format.getFileExtension().contains("xz")) {

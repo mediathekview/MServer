@@ -1,6 +1,7 @@
 package de.mediathekview.mserver.crawler.ard;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.mock;
 
 import de.mediathekview.mserver.base.config.MServerConfigManager;
 import de.mediathekview.mserver.base.messages.listener.MessageListener;
@@ -377,7 +378,7 @@ class UrlOptimizerTest {
   @MethodSource("dataM3UToUrls")
   void testM3UToUrls(String adaptive, String sampleUrl, List<String> expected) {
     crawler = createCrawler();
-    crawler = Mockito.mock(ArdCrawler.class);
+    crawler = mock(ArdCrawler.class);
     UrlOptimizer urlOptimizer = new UrlOptimizer(crawler);
 
     Map<Integer, String> actual = urlOptimizer.buildUrlsFromPlaylist(adaptive, sampleUrl);
@@ -393,7 +394,7 @@ class UrlOptimizerTest {
     crawler = createCrawler();
     UrlOptimizer urlOptimizer = new UrlOptimizer(crawler);
     Map<Resolution, String> actual = urlOptimizer.buildFilmUrlFromAdaptive(adaptive, sampleUrl);
-    System.out.println(urlOptimizer.printMap(actual));
+    IO.println(urlOptimizer.printMap(actual));
   }
 
   protected ArdCrawler createCrawler() {

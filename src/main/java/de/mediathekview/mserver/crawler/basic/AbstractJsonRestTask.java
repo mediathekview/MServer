@@ -7,6 +7,7 @@ import jakarta.annotation.Nullable;
 import jakarta.ws.rs.client.Invocation.Builder;
 import jakarta.ws.rs.client.WebTarget;
 import jakarta.ws.rs.core.Response;
+import java.io.Serial;
 import java.lang.reflect.Type;
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
@@ -24,7 +25,7 @@ public abstract class AbstractJsonRestTask<T, R, D extends CrawlerUrlDTO>
     extends AbstractRestTask<T, D> {
   protected final transient Logger log = LogManager.getLogger(this.getClass());
   protected static final String ENCODING_GZIP = "gzip";
-  private static final long serialVersionUID = -1090560363478964885L;
+  @Serial private static final long serialVersionUID = -1090560363478964885L;
   protected final transient GsonBuilder gsonBuilder;
 
   protected AbstractJsonRestTask(

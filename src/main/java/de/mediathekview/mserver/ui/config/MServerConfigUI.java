@@ -23,7 +23,6 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +30,7 @@ import java.util.Map;
 
 public final class MServerConfigUI {
   // logger setup in start
-  private Logger LOG = null;
+  private Logger log = null;
   private static final String CONFIG_FILE_NAME = "MServer-Config.yaml";
   private LogMessageListener logMessageListener;
   private CrawlerManager manager;
@@ -56,13 +55,13 @@ public final class MServerConfigUI {
   }
 
   private void generateDefaultConfiguration() {
-    final Path configFilePath = Paths.get(CONFIG_FILE_NAME);
+    final Path configFilePath = Path.of(CONFIG_FILE_NAME);
     try {
       final Path defaultConfigFile =
-          Paths.get(getClass().getClassLoader().getResource(CONFIG_FILE_NAME).toURI());
+          Path.of(getClass().getClassLoader().getResource(CONFIG_FILE_NAME).toURI());
       Files.copy(defaultConfigFile, configFilePath);
     } catch (final IOException | URISyntaxException ioException) {
-      LOG.error("The default configuration can't be generated.", ioException);
+      log.error("The default configuration can't be generated.", ioException);
       logMessageListener.consumeMessage(
           ServerMessages.UI_GENERATE_DEFAULT_CONFIG_FILE_FAILED,
           configFilePath.toAbsolutePath().toString());
@@ -76,7 +75,7 @@ public final class MServerConfigUI {
       try {
         // get a copy of this file to use it as configuration file
         fileUrl = URI.create(configFileName).toURL();
-        String filename = Paths.get(fileUrl.getPath()).getFileName().toString();
+        String filename = Path.of(fileUrl.getPath()).getFileName().toString();
         MServerConfigUI.getRemoteFileToLocal(configFileName, filename);
         configFileName = filename;
       } catch (MalformedURLException e) {
@@ -112,7 +111,7 @@ public final class MServerConfigUI {
     // here we set the correct configManager for all log4logger
     // logsettings are stored static in our factory
     new Log4JConfigurationFactory(aMServerConfigManager.getConfig().getLogSettings());
-    LOG = LogManager.getLogger(MServerConfigUI.class);
+    log = LogManager.getLogger(MServerConfigUI.class);
     logMessageListener = new LogMessageListener();
     //
     new PostgreSQLDataSourceProvider(aMServerConfigManager); // init singleton

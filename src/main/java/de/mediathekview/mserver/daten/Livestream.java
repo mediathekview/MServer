@@ -1,11 +1,12 @@
 package de.mediathekview.mserver.daten;
 
+import java.io.Serial;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
 public class Livestream extends AbstractMediaResource<URL> {
-	private static final long serialVersionUID = 6510203888335220851L;
+  @Serial private static final long serialVersionUID = 6510203888335220851L;
 
 	/**
 	 * DON'T USE! - ONLY FOR GSON!

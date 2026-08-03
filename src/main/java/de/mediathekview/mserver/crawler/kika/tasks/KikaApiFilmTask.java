@@ -1,5 +1,5 @@
 package de.mediathekview.mserver.crawler.kika.tasks;
-
+import java.io.Serial;
 import java.lang.reflect.Type;
 import java.net.MalformedURLException;
 import java.net.URI;
@@ -41,7 +41,7 @@ import de.mediathekview.mserver.crawler.kika.json.KikaApiVideoInfoPageDeserializ
 // <T, R, D extends CrawlerUrlDTO> extends AbstractRestTask<T, D>
 // return T Class from this task, desirialisation of class R , D , Reasearch in this url
 public class KikaApiFilmTask extends AbstractJsonRestTask<Film, KikaApiVideoInfoDto, KikaApiFilmDto> {
-  private static final long serialVersionUID = 1L;
+  @Serial private static final long serialVersionUID = 1L;
   private static final Logger LOG = LogManager.getLogger(KikaApiFilmTask.class);
 
   private transient ArdUrlOptimizer ardUrlOptimizer;

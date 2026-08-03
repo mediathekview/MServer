@@ -5,7 +5,6 @@ import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.Arrays;
 
@@ -75,11 +74,11 @@ class ConfigManagerTest {
 
   @BeforeEach
   void deleteExistingFiles() throws IOException {
-    Files.deleteIfExists(Paths.get(TEST_CONFIG_FILE_NAME));
+    Files.deleteIfExists(Path.of(TEST_CONFIG_FILE_NAME));
   }
 
   private void writeTempTestFileConfig() throws IOException {
-    final Path tempConfigPath = Paths.get("./" + TEST_CONFIG_FILE_NAME);
+    final Path tempConfigPath = Path.of("./" + TEST_CONFIG_FILE_NAME);
 
     Files.write(
         tempConfigPath,
