@@ -412,7 +412,7 @@
           <useUnlimitedThreads>true</useUnlimitedThreads>
           <perCoreThreadCount>true</perCoreThreadCount>
           <!--suppress MavenModelInspection -->
-          <argLine>-javaagent:${settings.localRepository}/org/mockito/mockito-core/${mockito.version}/mockito-core-${mockito.version}.jar -javaagent:${org.mockito:mockito-core:jar}</argLine>
+          <argLine>-javaagent:${settings.localRepository}/org/mockito/mockito-core/${mockito.version}/mockito-core-${mockito.version}.jar</argLine>
         </configuration>
       </plugin>
       <plugin>
