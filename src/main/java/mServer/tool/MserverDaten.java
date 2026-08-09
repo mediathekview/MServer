@@ -30,11 +30,13 @@ import mServer.daten.MserverListeSuchen;
 import mServer.daten.MserverListeUpload;
 
 public class MserverDaten {
+  private MserverDaten() {
+  }
 
   private static final EtmMonitor etmMonitor = EtmManager.getEtmMonitor();
-  public static String[] system = new String[MserverKonstanten.SYSTEM_MAX_ELEM];
-  public static MserverListeSuchen listeSuchen = new MserverListeSuchen();
-  public static MserverListeUpload listeUpload = new MserverListeUpload();
+  protected static String[] system = new String[MserverKonstanten.SYSTEM_MAX_ELEM];
+  protected static MserverListeSuchen listeSuchen = new MserverListeSuchen();
+  protected static MserverListeUpload listeUpload = new MserverListeUpload();
   public static boolean debug = false;
   public static boolean restart = false;
   //
@@ -54,16 +56,15 @@ public class MserverDaten {
   }
 
   public static String getUserAgent() {
-    if (system[MserverKonstanten.SYSTEM_USER_AGENT_NR].trim().equals("")) {
+    if (system[MserverKonstanten.SYSTEM_USER_AGENT_NR].trim().isEmpty()) {
       return MserverKonstanten.PROGRAMMNAME + " " + Const.VERSION_FILMLISTE + " / " + Functions.getProgVersion().toString();
-    } else {
     }
     return system[MserverKonstanten.SYSTEM_USER_AGENT_NR].trim();
   }
 
   public static double getSrRateLimit() {
     String rateLimitValue = system[MserverKonstanten.SYSTEM_SR_RATELIMIT_NR];
-    if (rateLimitValue == null || rateLimitValue.trim().equals("")) {
+    if (rateLimitValue == null || rateLimitValue.trim().isEmpty()) {
       return 1.0;
     }
 
@@ -71,7 +72,7 @@ public class MserverDaten {
       double rateLimit = Double.parseDouble(system[MserverKonstanten.SYSTEM_SR_RATELIMIT_NR].trim());
       MserverLog.systemMeldung("SR rate limit: " + Double.toString(rateLimit));
       return rateLimit;
-    } catch (NumberFormatException ignored) {
+    } catch (NumberFormatException _) {
       MserverLog.fehlerMeldung(963487218, MserverDaten.class.getName(), new String[]{"SR rate limit falsch: ", system[MserverKonstanten.SYSTEM_SR_RATELIMIT_NR]});
       return 1.0;
     }
@@ -87,7 +88,7 @@ public class MserverDaten {
       double rateLimit = Double.parseDouble(system[MserverKonstanten.SYSTEM_ARTE_RATELIMIT_NR].trim());
       MserverLog.systemMeldung("ARTE rate limit: " + Double.toString(rateLimit));
       return rateLimit;
-    } catch (NumberFormatException ignored) {
+    } catch (NumberFormatException _) {
       MserverLog.fehlerMeldung(963487218, MserverDaten.class.getName(), new String[]{"ARTE rate limit falsch: ", system[MserverKonstanten.SYSTEM_ARTE_RATELIMIT_NR]});
       return 6.0;
     }
@@ -107,7 +108,7 @@ public class MserverDaten {
     }
     try {
       return Integer.parseInt(system[MserverKonstanten.SYSTEM_PROXY_PORT_NR]);
-    } catch (Exception ex) {
+    } catch (Exception _) {
       MserverLog.fehlerMeldung(963487219, MserverDaten.class.getName(), new String[]{"Proxyport falsch: ", system[MserverKonstanten.SYSTEM_PROXY_PORT_NR]});
     }
     return -1;
@@ -176,7 +177,7 @@ public class MserverDaten {
         }
       }
     } catch (Exception ex) {
-      System.out.println("Logfile anlegen: " + name + '\n' + ex.getMessage()); // hier muss direkt geschrieben werden
+      IO.println("Logfile anlegen: " + name + '\n' + ex.getMessage()); // hier muss direkt geschrieben werden
       logFileName = "";
     }
 

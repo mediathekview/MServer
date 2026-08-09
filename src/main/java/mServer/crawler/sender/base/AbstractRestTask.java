@@ -2,6 +2,8 @@ package mServer.crawler.sender.base;
 
 import de.mediathekview.mlib.Config;
 import de.mediathekview.mlib.tool.Log;
+
+import java.io.Serial;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.TimeUnit;
@@ -24,7 +26,7 @@ import org.glassfish.jersey.message.GZipEncoder;
  */
 public abstract class AbstractRestTask<T, D extends CrawlerUrlDTO> extends AbstractUrlTask<T, D> {
 
-  private static final long serialVersionUID = 2590729915326002860L;
+  @Serial private static final long serialVersionUID = 2590729915326002860L;
   protected static final String ENCODING_GZIP = "gzip";
   protected static final String HEADER_ACCEPT = "Accept";
   protected static final String HEADER_ACCEPT_ENCODING = "Accept-Encoding";

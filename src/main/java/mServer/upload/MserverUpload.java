@@ -29,6 +29,8 @@ import mServer.tool.MserverLog;
 import mServer.tool.MserverWarten;
 
 public class MserverUpload {
+    private MserverUpload() {
+    }
 
     // Konstanten Upload
     public static final String UPLOAD_ART_FTP = "ftp";
@@ -116,7 +118,7 @@ public class MserverUpload {
     }
 
     private static void uploadFtp_(String srcPathFile, String destFileName, MserverDatenUpload datenUpload) {
-        if (!MserverFtp.uploadFtp(srcPathFile, destFileName, datenUpload)) {
+    if (!MserverFtp.uploadFtp(srcPathFile, destFileName, datenUpload)) {
             new MserverWarten().sekundenWarten(30);
             MserverLog.systemMeldung("2. Versuch Upload FTP");
             if (!MserverFtp.uploadFtp(srcPathFile, destFileName, datenUpload)) {

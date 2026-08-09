@@ -101,45 +101,43 @@ public class MserverSearch {
 
             // ===========================================
             // erst mal schauen ob noch was läuft
-            if (t != null) {
-                if (t.isAlive()) {
-                    MserverLog.fehlerMeldung(915147623, MserverSearch.class.getName(), "Der letzte Suchlauf läuft noch");
-                    if (crawler != null) {
-                        MserverLog.systemMeldung("");
-                        MserverLog.systemMeldung("");
-                        MserverLog.systemMeldung("================================");
-                        MserverLog.systemMeldung("================================");
-                        MserverLog.systemMeldung("und wird jetzt gestoppt");
-                        MserverLog.systemMeldung("Zeit: " + FastDateFormat.getInstance("dd.MM.yyyy HH:mm:ss").format(new Date()));
-                        MserverLog.systemMeldung("================================");
-                        MserverLog.systemMeldung("================================");
-                        MserverLog.systemMeldung("");
-                        //und jetzt STOPPEN!!!!!!!!
-                        crawler.stop();
-                    }
-
-                    int w;
-                    if (loadLongMax())
-                        w = wartenLang; // 30 Minuten bei langen Läufen
-                    else
-                        w = wartenkurz;// 20 Minuten warten, das Erstellen/Komprimieren der Liste dauert
-                    TimeUnit.MINUTES.timedJoin(t, w);
-
-                    if (t.isAlive()) {
-                        MserverLog.systemMeldung("");
-                        MserverLog.systemMeldung("");
-                        MserverLog.systemMeldung("================================");
-                        MserverLog.systemMeldung("================================");
-                        MserverLog.systemMeldung("und noch gekillt");
-                        MserverLog.systemMeldung("Zeit: " + FastDateFormat.getInstance("dd.MM.yyyy HH:mm:ss").format(new Date()));
-                        MserverLog.systemMeldung("================================");
-                        MserverLog.systemMeldung("================================");
-                        MserverLog.systemMeldung("");
-                        ret = false;
-                    }
-                    //jetzt ist Schicht im Schacht
-                    t.stop();
+            if (t.isAlive()) {
+                MserverLog.fehlerMeldung(915147623, MserverSearch.class.getName(), "Der letzte Suchlauf läuft noch");
+                if (crawler != null) {
+                    MserverLog.systemMeldung("");
+                    MserverLog.systemMeldung("");
+                    MserverLog.systemMeldung("================================");
+                    MserverLog.systemMeldung("================================");
+                    MserverLog.systemMeldung("und wird jetzt gestoppt");
+                    MserverLog.systemMeldung("Zeit: " + FastDateFormat.getInstance("dd.MM.yyyy HH:mm:ss").format(new Date()));
+                    MserverLog.systemMeldung("================================");
+                    MserverLog.systemMeldung("================================");
+                    MserverLog.systemMeldung("");
+                    //und jetzt STOPPEN!!!!!!!!
+                    crawler.stop();
                 }
+
+                int w;
+                if (loadLongMax())
+                    w = wartenLang; // 30 Minuten bei langen Läufen
+                else
+                    w = wartenkurz;// 20 Minuten warten, das Erstellen/Komprimieren der Liste dauert
+                TimeUnit.MINUTES.timedJoin(t, w);
+
+                if (t.isAlive()) {
+                    MserverLog.systemMeldung("");
+                    MserverLog.systemMeldung("");
+                    MserverLog.systemMeldung("================================");
+                    MserverLog.systemMeldung("================================");
+                    MserverLog.systemMeldung("und noch gekillt");
+                    MserverLog.systemMeldung("Zeit: " + FastDateFormat.getInstance("dd.MM.yyyy HH:mm:ss").format(new Date()));
+                    MserverLog.systemMeldung("================================");
+                    MserverLog.systemMeldung("================================");
+                    MserverLog.systemMeldung("");
+                    ret = false;
+                }
+              //jetzt ist Schicht im Schacht
+              throw new UnsupportedOperationException();
             }
         } catch (Exception ex) {
             MserverLog.fehlerMeldung(636987308, MserverSearch.class.getName(), "filmeSuchen", ex);

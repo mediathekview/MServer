@@ -14,6 +14,7 @@ import mServer.crawler.sender.base.TopicUrlDTO;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.io.Serial;
 import java.lang.reflect.Type;
 import java.net.URI;
 import java.util.Optional;
@@ -22,7 +23,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 // <T, R, D extends CrawlerUrlDTO> extends AbstractRestTask<T, D>
 // return T Class from this task, desirialisation of class R , D , Reasearch in this url
 public class KikaApiTopicTask extends AbstractJsonRestTask<KikaApiFilmDto, KikaApiTopicDto, TopicUrlDTO> {
-  private static final long serialVersionUID = 1L;
+  @Serial private static final long serialVersionUID = 1L;
   private static final Logger LOG = LogManager.getLogger(KikaApiTopicTask.class);
   private int subPageIndex = 0;
   private int maxPages = 1;

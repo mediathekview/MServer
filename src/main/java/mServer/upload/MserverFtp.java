@@ -35,21 +35,23 @@ import mServer.tool.MserverKonstanten;
 import mServer.tool.MserverLog;
 
 public class MserverFtp {
+    private MserverFtp() {
+    }
 
     private static String server, strPort, username, password, srcPathFile, destFileName;
     private static MserverDatenUpload datenUpload;
     private static boolean retFtp = false;
 
     @SuppressWarnings("deprecation")
-    public static boolean uploadFtp(String srcPathFile_, String destFileName_, MserverDatenUpload datenUpload_) {
+    public static boolean uploadFtp(String srcPathFile, String destFileName, MserverDatenUpload datenUpload) {
         try {
-            srcPathFile = srcPathFile_;
-            destFileName = destFileName_;
-            datenUpload = datenUpload_;
-            server = datenUpload.arr[MserverDatenUpload.UPLOAD_SERVER_NR];
-            strPort = datenUpload.arr[MserverDatenUpload.UPLOAD_PORT_NR];
-            username = datenUpload.arr[MserverDatenUpload.UPLOAD_USER_NR];
-            password = datenUpload.arr[MserverDatenUpload.UPLOAD_PWD_NR];
+            MserverFtp.srcPathFile = srcPathFile;
+            MserverFtp.destFileName = destFileName;
+            MserverFtp.datenUpload = datenUpload;
+            server = MserverFtp.datenUpload.arr[MserverDatenUpload.UPLOAD_SERVER_NR];
+            strPort = MserverFtp.datenUpload.arr[MserverDatenUpload.UPLOAD_PORT_NR];
+            username = MserverFtp.datenUpload.arr[MserverDatenUpload.UPLOAD_USER_NR];
+            password = MserverFtp.datenUpload.arr[MserverDatenUpload.UPLOAD_PWD_NR];
             MserverLog.systemMeldung("");
             MserverLog.systemMeldung("----------------------");
             MserverLog.systemMeldung("Upload start");
@@ -63,13 +65,11 @@ public class MserverFtp {
             warten = 1000 * 60 * warten;
             t.join(warten);
 
-            if (t != null) {
-                if (t.isAlive()) {
-                    MserverLog.fehlerMeldung(396958702, MserverFtp.class.getName(), "Der letzte FtpUpload läuft noch");
-                    MserverLog.systemMeldung("und wird gekillt");
-                    t.stop();
-                    retFtp = false;
-                }
+            if (t.isAlive()) {
+                MserverLog.fehlerMeldung(396958702, MserverFtp.class.getName(), "Der letzte FtpUpload läuft noch");
+                MserverLog.systemMeldung("und wird gekillt");
+                t.interrupt();
+                retFtp = false;
             }
         } catch (Exception ex) {
             MserverLog.fehlerMeldung(739861047, MserverFtp.class.getName(), "uploadFtp", ex);
@@ -117,7 +117,7 @@ public class MserverFtp {
                 if (ftp.isConnected()) {
                     try {
                         ftp.disconnect();
-                    } catch (IOException ignored) {
+                    } catch (IOException _) {
                     }
                 }
                 MserverLog.fehlerMeldung(969363254, MserverFtp.class.getName(), "MS_UploadFtp", e);
@@ -143,13 +143,13 @@ public class MserverFtp {
                 String dest = datenUpload.getFilmlisteDestPfadName(destFileName);
 
                 MserverLog.debugMeldung("Upload Filmliste + rename");
-                String dest_tmp = dest + "__";
-                String dest_old = dest + "_old";
-                ftp.storeFile(dest_tmp, input);
-                MserverLog.debugMeldung("Upload Filmliste " + dest_tmp);
-                ftp.rename(dest, dest_old);
+                String destTmp = dest + "__";
+                String destOld = dest + "_old";
+                ftp.storeFile(destTmp, input);
+                MserverLog.debugMeldung("Upload Filmliste " + destTmp);
+                ftp.rename(dest, destOld);
                 MserverLog.debugMeldung("Rename alte Filmliste " + dest);
-                ftp.rename(dest_tmp, dest);
+                ftp.rename(destTmp, dest);
                 MserverLog.debugMeldung("Rename Filmliste " + dest);
 
                 input.close();
@@ -165,8 +165,7 @@ public class MserverFtp {
                 if (ftp.isConnected()) {
                     try {
                         ftp.disconnect();
-                    } catch (IOException f) {
-                        // do nothing
+                    } catch (IOException _) {
                     }
                 }
             }

@@ -9,6 +9,7 @@ import mServer.crawler.FilmeSuchen;
 import mServer.crawler.RunSender;
 import mServer.crawler.sender.MediathekReader;
 
+import java.io.Serial;
 import java.lang.reflect.Type;
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
@@ -24,7 +25,7 @@ import static jakarta.ws.rs.core.HttpHeaders.ACCEPT_ENCODING;
 public abstract class AbstractJsonRestTask<T, R, D extends CrawlerUrlDTO>
         extends AbstractRestTask<T, D> {
   protected static final String ENCODING_GZIP = "gzip";
-  private static final long serialVersionUID = -1090560363478964885L;
+  @Serial private static final long serialVersionUID = -1090560363478964885L;
   protected final transient GsonBuilder gsonBuilder;
 
   protected AbstractJsonRestTask(

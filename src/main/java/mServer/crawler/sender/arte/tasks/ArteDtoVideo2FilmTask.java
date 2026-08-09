@@ -16,6 +16,7 @@ import mServer.crawler.sender.base.Qualities;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.io.Serial;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -27,7 +28,7 @@ import java.util.Optional;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class ArteDtoVideo2FilmTask extends AbstractRecursivConverterTask<DatenFilm, ArteVideoInfoDto> {
-  private static final long serialVersionUID = 1L;
+  @Serial private static final long serialVersionUID = 1L;
   private static final DateTimeFormatter DATE_FORMAT
           = DateTimeFormatter.ofPattern("dd.MM.yyyy");
   private static final DateTimeFormatter TIME_FORMAT

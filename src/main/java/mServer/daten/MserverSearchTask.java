@@ -91,7 +91,7 @@ public class MserverSearchTask {
         } else {
             try {
                 waitTime = Integer.parseInt(arr[MserverSearchTask.SUCHEN_MAX_WAIT_NR]);
-            } catch (Exception ignore) {
+            } catch (Exception _) {
                 waitTime = MserverKonstanten.WAIT_TIME_LOAD_UPDATE;
             }
         }
@@ -129,18 +129,11 @@ public class MserverSearchTask {
     }
 
     public int loadHow() {
-        int ret;
-        switch (this.arr[SUCHEN_SENDER_WIE_NR]) {
-            case SUCHEN_LONG:
-                ret = CrawlerConfig.LOAD_LONG;
-                break;
-            case SUCHEN_MAX:
-                ret = CrawlerConfig.LOAD_MAX;
-                break;
-            default:
-                ret = CrawlerConfig.LOAD_SHORT;
-        }
-        return ret;
+        return switch (this.arr[SUCHEN_SENDER_WIE_NR]) {
+            case SUCHEN_LONG -> CrawlerConfig.LOAD_LONG;
+            case SUCHEN_MAX -> CrawlerConfig.LOAD_MAX;
+            default -> CrawlerConfig.LOAD_SHORT;
+        };
     }
 
     public boolean updateFilmliste() {

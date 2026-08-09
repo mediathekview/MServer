@@ -73,8 +73,8 @@ public final class SentenceShortener {
               : shortened;
     }
     return sentences.size() > 1
-            ? sentences.get(0) + SHORTENING_SUFFIX
-            : sentences.get(0);
+            ? sentences.getFirst() + SHORTENING_SUFFIX
+            : sentences.getFirst();
   }
 
   /**

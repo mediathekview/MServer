@@ -24,7 +24,7 @@ public class BannedFilmFilter {
   	try (
   	        InputStream is = getInputStreamFromPath(MserverDaten.system[MserverKonstanten.SYSTEM_BANNEDFILMLIST_NR]);
   			    InputStreamReader isr = new InputStreamReader(is);
-  			    BufferedReader reader = new BufferedReader(isr);
+  			    BufferedReader reader = new BufferedReader(isr)
   	) {
   		String line = "";
   		while ((line = reader.readLine()) != null) {
@@ -51,8 +51,7 @@ public class BannedFilmFilter {
 	    InputStream is;
 	    String protocol = path.replaceFirst("^(\\w+):.+$", "$1").toLowerCase();
 	    switch (protocol) {
-	        case "http":
-	        case "https":
+	        case "http", "https":
 	            HttpURLConnection connection = (HttpURLConnection) new URL(path).openConnection();
 	            int code = connection.getResponseCode();
 	            if (code >= 400) throw new IOException("Server returned error code #" + code);

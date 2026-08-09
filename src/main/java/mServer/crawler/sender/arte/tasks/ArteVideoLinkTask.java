@@ -1,5 +1,6 @@
 package mServer.crawler.sender.arte.tasks;
 
+import java.io.Serial;
 import java.lang.reflect.Type;
 import java.net.URI;
 import java.util.List;
@@ -22,7 +23,7 @@ import jakarta.ws.rs.core.Response;
 
 public class ArteVideoLinkTask
     extends ArteRateLimitedJsonRestTask<ArteVideoInfoDto, List<ArteVideoLinkDto>, ArteVideoInfoDto> {
-  private static final long serialVersionUID = 1L;
+  @Serial private static final long serialVersionUID = 1L;
   protected final transient Logger log = LogManager.getLogger(this.getClass());
 
   

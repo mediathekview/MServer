@@ -152,7 +152,7 @@ public class M3U8Dto {
 
   public Optional<String> getNormalizedMeta(String m3u8Resolution) {
     final Optional<String> resolutionMeta = getMeta(m3u8Resolution);
-    if (!resolutionMeta.isPresent()) {
+    if (resolutionMeta.isEmpty()) {
       return Optional.empty();
     }
 

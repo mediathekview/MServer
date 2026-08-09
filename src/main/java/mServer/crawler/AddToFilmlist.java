@@ -36,7 +36,7 @@ public class AddToFilmlist {
    * Minimum size of films in MiB to be included in new list.
    */
   private static final int MIN_SIZE_ADD_OLD = 5;
-  private final static int NUMBER_OF_THREADS = 32;//(Runtime.getRuntime().availableProcessors() * Runtime.getRuntime().availableProcessors()) / 2;
+  private static final int NUMBER_OF_THREADS = 32; // (Runtime.getRuntime().availableProcessors() * Runtime.getRuntime().availableProcessors()) / 2;
   private final ListeFilme vonListe;
   private final ListeFilme listeEinsortieren;
   private final BannedFilmFilter bannedFilmFilter;
@@ -53,7 +53,7 @@ public class AddToFilmlist {
   }
 
   public synchronized void addLiveStream() {
-    if (listeEinsortieren.size() <= 0) {
+    if (listeEinsortieren.isEmpty()) {
       return;
     }
 
@@ -170,7 +170,7 @@ public class AddToFilmlist {
   private void updateArdWebsite(ListeFilme listeEinsortieren) {
     final List<DatenFilm> list = listeEinsortieren.parallelStream()
             .filter(film -> film.arr[DatenFilm.FILM_SENDER].equals(Const.ARD) && !film.arr[DatenFilm.FILM_WEBSEITE].startsWith("https://www.ardmediathek.de/video/"))
-            .collect(Collectors.toList());
+            .toList();
     Log.sysLog("ARD: update webseite für " + list.size() + " Einträge.");
 
     list.forEach(film -> film.arr[DatenFilm.FILM_WEBSEITE] = film.arr[DatenFilm.FILM_WEBSEITE].replace("/ard/player/", "/video/").trim());
@@ -181,7 +181,7 @@ public class AddToFilmlist {
             .filter(
                     film -> film.arr[DatenFilm.FILM_SENDER].equals(Const.ORF) && film.arr[DatenFilm.FILM_THEMA]
                             .matches(".*[0-9]{1,2}:[0-9][0-9]$"))
-            .collect(Collectors.toList());
+            .toList();
     Log.sysLog("ORF: update Thema für " + list.size() + " Einträge.");
     if (!list.isEmpty()) {
       list.forEach(film -> film.arr[DatenFilm.FILM_THEMA] = film.arr[DatenFilm.FILM_THEMA].replaceAll("[0-9]{1,2}:[0-9][0-9]$", "").trim());
@@ -192,7 +192,7 @@ public class AddToFilmlist {
     final String topic = "MDR aktuell";
     final List<DatenFilm> list = listeEinsortieren.parallelStream()
             .filter(film -> film.arr[DatenFilm.FILM_THEMA].startsWith(topic))
-            .collect(Collectors.toList());
+            .toList();
     Log.sysLog("MDR aktuell: update Thema für " + list.size() + " Einträge.");
     if (!list.isEmpty()) {
       list.forEach(film -> film.arr[DatenFilm.FILM_THEMA] = topic);
@@ -219,7 +219,7 @@ public class AddToFilmlist {
       for (ImportOldFilmlistThread t : threadList) {
         try {
           t.join();
-        } catch (InterruptedException ignored) {
+        } catch (InterruptedException _) {
         }
       }
     }
@@ -231,7 +231,7 @@ public class AddToFilmlist {
    */
   public int addOldList() {
     threadCounter = new AtomicInteger(0);
-    final HashSet<Hash> hash = new HashSet<>(vonListe.size() + 1);
+    final HashSet<Hash> hash = HashSet.newHashSet(vonListe.size() + 1);
 
     performInitialCleanup();
 
@@ -253,8 +253,8 @@ public class AddToFilmlist {
         count++;
         if (count % 5 == 0) {
           long curSize = listeEinsortieren.size();
-          System.out.println("Liste: " + curSize);
-          System.out.println("Entfernte Einträge: " + ((oldSize - curSize)));
+          IO.println("Liste: " + curSize);
+          IO.println("Entfernte Einträge: " + ((oldSize - curSize)));
           oldSize = curSize;
         }
         TimeUnit.SECONDS.sleep(2);
@@ -365,7 +365,7 @@ public class AddToFilmlist {
               } else {
                 Log.sysLog("film removed: code: " + response.code() + ": " + url);
               }
-            } catch (SocketTimeoutException ignored) {
+            } catch (SocketTimeoutException _) {
             } catch (IOException ex) {
               ex.printStackTrace();
             }

@@ -58,7 +58,7 @@ public class ArdMediaArrayToDownloadUrlsConverter {
                     url
                     -> url.getFileType().isPresent()
                     && url.getFileType().get().equalsIgnoreCase(aFileType))
-            .collect(Collectors.toList());
+            .toList();
   }
 
   private static Optional<Qualities> getQuality(final String qualityAsText) {
@@ -107,7 +107,7 @@ public class ArdMediaArrayToDownloadUrlsConverter {
 
       urls = filterUrls(aUrls, "m3u8");
       if (!urls.isEmpty()) {
-        ardUrlInfo = urls.get(0);
+        ardUrlInfo = urls.getFirst();
       } else {
         ardUrlInfo = aUrls.iterator().next();
       }
@@ -148,7 +148,7 @@ public class ArdMediaArrayToDownloadUrlsConverter {
 
     if (!url.isEmpty()) {
       if (url.startsWith(PROTOCOL_RTMP)) {
-        LOG.debug("Found an Sendung with the old RTMP format: " + url);
+        LOG.debug("Found an Sendung with the old RTMP format: {}", url);
       } else {
         final ArdFilmUrlInfoDto info
                 = new ArdFilmUrlInfoDto(UrlUtils.removeParameters(UrlUtils.addProtocolIfMissing(url, "https:")), qualityText);
@@ -256,12 +256,10 @@ public class ArdMediaArrayToDownloadUrlsConverter {
 
   private static Qualities getQualityForNumber(final int i) {
     switch (i) {
-      case 0:
-      case 1:
+      case 0, 1:
         return Qualities.SMALL;
 
-      case 3:
-      case 4:
+      case 3, 4:
         return Qualities.HD;
       case 5:
         return Qualities.UHD;
@@ -276,10 +274,10 @@ public class ArdMediaArrayToDownloadUrlsConverter {
     switch (aQualities) {
       case SMALL:
         // the first url is the best
-        return aUrls.get(0);
+        return aUrls.getFirst();
       case NORMAL:
         // the last url is the best
-        return aUrls.get(aUrls.size() - 1);
+        return aUrls.getLast();
       case HD:
         ArdFilmUrlInfoDto relevantInfo = null;
 

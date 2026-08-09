@@ -79,17 +79,17 @@ public class M3U8Utils {
 		List<String> urlQualityParts = Arrays.asList(StringUtils.split(urlQualityPartsText, ','));
 		if (urlQualityParts.size() == 1) {
 			urlAndQualities.put(Qualities.SMALL,
-					String.format(WDR_MP4_URL_PATTERN, region, fsk, unkownNumber, videoId, urlQualityParts.get(0)));
+					String.format(WDR_MP4_URL_PATTERN, region, fsk, unkownNumber, videoId, urlQualityParts.getFirst()));
 		} else if (urlQualityParts.size() == 2) {
 			urlAndQualities.put(Qualities.SMALL,
-					String.format(WDR_MP4_URL_PATTERN, region, fsk, unkownNumber, videoId, urlQualityParts.get(0)));
+					String.format(WDR_MP4_URL_PATTERN, region, fsk, unkownNumber, videoId, urlQualityParts.getFirst()));
 			urlAndQualities.put(Qualities.NORMAL,
 					String.format(WDR_MP4_URL_PATTERN, region, fsk, unkownNumber, videoId, urlQualityParts.get(1)));
 		} else if (urlQualityParts.size() >= 3) {
 			List<String> bestThreeUrlQualityParts = urlQualityParts.subList(urlQualityParts.size() - 3,
 					urlQualityParts.size());
 			urlAndQualities.put(Qualities.SMALL, String.format(WDR_MP4_URL_PATTERN, region, fsk, unkownNumber, videoId,
-					bestThreeUrlQualityParts.get(0)));
+					bestThreeUrlQualityParts.getFirst()));
 			urlAndQualities.put(Qualities.NORMAL, String.format(WDR_MP4_URL_PATTERN, region, fsk, unkownNumber, videoId,
 					bestThreeUrlQualityParts.get(1)));
 			urlAndQualities.put(Qualities.HD, String.format(WDR_MP4_URL_PATTERN, region, fsk, unkownNumber, videoId,

@@ -43,7 +43,7 @@ public class PhoenixFilmDetailTask extends ZdfTaskBase<DatenFilm, CrawlerUrlDTO>
   @Override
   protected void processRestTarget(CrawlerUrlDTO aDTO, WebTarget aTarget) {
     Optional<PhoenixFilmDetailDto> filmDetailDtoOptional = deserializeOptional(aTarget, OPTIONAL_FILM_DETAIL_DTO_TYPE_TOKEN);
-    if (!filmDetailDtoOptional.isPresent()) {
+    if (filmDetailDtoOptional.isEmpty()) {
       // tritt auf, wenn kein Film vorhanden
       return;
     }

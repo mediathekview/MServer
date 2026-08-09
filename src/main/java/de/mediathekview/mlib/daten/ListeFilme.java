@@ -50,7 +50,7 @@ public class ListeFilme extends ArrayList<de.mediathekview.mlib.daten.DatenFilm>
     public static final String[] COLUMN_NAMES = {FILMLISTE_DATUM, FILMLISTE_DATUM_GMT, FILMLISTE_VERSION, FILMLISTE_PROGRAMM, FILMLISTE_ID};
     public int nr = 1;
     public String[] metaDaten = new String[]{"", "", "", "", ""};
-    private final static String DATUM_ZEIT_FORMAT = "dd.MM.yyyy, HH:mm";
+    private static final String DATUM_ZEIT_FORMAT = "dd.MM.yyyy, HH:mm";
     private final SimpleDateFormat sdf = new SimpleDateFormat(DATUM_ZEIT_FORMAT);
     public String[] sender = {""};
     public String[][] themenPerSender = {{""}};
@@ -169,26 +169,26 @@ public class ListeFilme extends ArrayList<de.mediathekview.mlib.daten.DatenFilm>
             String s = film.arr[de.mediathekview.mlib.daten.DatenFilm.FILM_BESCHREIBUNG];
             film.arr[de.mediathekview.mlib.daten.DatenFilm.FILM_BESCHREIBUNG] = Functions.removeHtml(film.arr[de.mediathekview.mlib.daten.DatenFilm.FILM_BESCHREIBUNG]);
             if (!s.equals(film.arr[de.mediathekview.mlib.daten.DatenFilm.FILM_BESCHREIBUNG])) {
-                System.out.println("---------------------");
-                System.out.println(s);
-                System.out.println(film.arr[de.mediathekview.mlib.daten.DatenFilm.FILM_BESCHREIBUNG]);
+              IO.println("---------------------");
+              IO.println(s);
+              IO.println(film.arr[de.mediathekview.mlib.daten.DatenFilm.FILM_BESCHREIBUNG]);
             }
             s = film.arr[de.mediathekview.mlib.daten.DatenFilm.FILM_THEMA];
             film.arr[de.mediathekview.mlib.daten.DatenFilm.FILM_THEMA] = Functions.removeHtml(film.arr[de.mediathekview.mlib.daten.DatenFilm.FILM_THEMA]);
             if (!s.equals(film.arr[de.mediathekview.mlib.daten.DatenFilm.FILM_THEMA])) {
-                System.out.println("---------------------");
-                System.out.println(s);
-                System.out.println(film.arr[de.mediathekview.mlib.daten.DatenFilm.FILM_THEMA]);
+              IO.println("---------------------");
+              IO.println(s);
+              IO.println(film.arr[de.mediathekview.mlib.daten.DatenFilm.FILM_THEMA]);
             }
             s = film.arr[de.mediathekview.mlib.daten.DatenFilm.FILM_TITEL];
             film.arr[de.mediathekview.mlib.daten.DatenFilm.FILM_TITEL] = Functions.removeHtml(film.arr[de.mediathekview.mlib.daten.DatenFilm.FILM_TITEL]);
             if (!s.equals(film.arr[de.mediathekview.mlib.daten.DatenFilm.FILM_TITEL])) {
-                System.out.println("---------------------");
-                System.out.println(s);
-                System.out.println(film.arr[de.mediathekview.mlib.daten.DatenFilm.FILM_TITEL]);
+              IO.println("---------------------");
+              IO.println(s);
+              IO.println(film.arr[de.mediathekview.mlib.daten.DatenFilm.FILM_TITEL]);
             }
             if (film.arr[de.mediathekview.mlib.daten.DatenFilm.FILM_URL].contains(" ")) {
-                System.out.println(film.arr[de.mediathekview.mlib.daten.DatenFilm.FILM_URL]);
+              IO.println(film.arr[de.mediathekview.mlib.daten.DatenFilm.FILM_URL]);
             }
         }
     }
@@ -318,7 +318,7 @@ public class ListeFilme extends ArrayList<de.mediathekview.mlib.daten.DatenFilm>
             Date filmDate = null;
             try {
                 filmDate = sdf_.parse(date);
-            } catch (ParseException ignored) {
+            } catch (ParseException _) {
             }
             if (filmDate == null) {
                 ret = metaDaten[ListeFilme.FILMLISTE_DATUM_GMT_NR];
@@ -369,7 +369,7 @@ public class ListeFilme extends ArrayList<de.mediathekview.mlib.daten.DatenFilm>
         Date filmDate = null;
         try {
             filmDate = sdf.parse(date);
-        } catch (ParseException ignored) {
+        } catch (ParseException _) {
         }
 
         return filmDate;
@@ -400,7 +400,7 @@ public class ListeFilme extends ArrayList<de.mediathekview.mlib.daten.DatenFilm>
             if (dateFilmliste != null) {
                 return dateFilmliste.getTime() < dateMaxDiff.getTime();
             }
-        } catch (Exception ignored) {
+        } catch (Exception _) {
         }
         return true;
     }
@@ -427,7 +427,7 @@ public class ListeFilme extends ArrayList<de.mediathekview.mlib.daten.DatenFilm>
         metaDaten[ListeFilme.FILMLISTE_DATUM_GMT_NR] = getJetzt_ddMMyyyy_HHmm_gmt();
         metaDaten[ListeFilme.FILMLISTE_ID_NR] = createChecksum(metaDaten[ListeFilme.FILMLISTE_DATUM_GMT_NR]);
         metaDaten[ListeFilme.FILMLISTE_VERSION_NR] = Const.VERSION_FILMLISTE;
-        metaDaten[ListeFilme.FILMLISTE_PRGRAMM_NR] = Const.PROGRAMMNAME + Functions.getProgVersionString(); //  + " - Compiled: " + Functions.getCompileDate();
+        metaDaten[ListeFilme.FILMLISTE_PRGRAMM_NR] = Const.PROGRAMMNAME + Functions.getProgVersionString();
     }
 
     /**
@@ -445,7 +445,7 @@ public class ListeFilme extends ArrayList<de.mediathekview.mlib.daten.DatenFilm>
             for (byte b : digest) {
                 sb.append(Integer.toString((b & 0xff) + 0x100, 16).substring(1));
             }
-        } catch (Exception ignored) {
+        } catch (Exception _) {
         }
         return sb.toString();
     }
@@ -474,7 +474,7 @@ public class ListeFilme extends ArrayList<de.mediathekview.mlib.daten.DatenFilm>
     @SuppressWarnings("unchecked")
     public synchronized void themenLaden() {
         Duration.counterStart(THEME_SEARCH_TEXT);
-        LinkedHashSet<String> senderSet = new LinkedHashSet<>(21);
+        LinkedHashSet<String> senderSet = LinkedHashSet.newLinkedHashSet(21);
         // der erste Sender ist ""
         senderSet.add("");
 

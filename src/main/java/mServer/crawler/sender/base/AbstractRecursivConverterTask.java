@@ -1,5 +1,6 @@
 package mServer.crawler.sender.base;
 
+import java.io.Serial;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -22,7 +23,7 @@ import mServer.crawler.sender.MediathekReader;
  */
 public abstract class AbstractRecursivConverterTask<T, D> extends RecursiveTask<Set<T>> {
 
-  private static final long serialVersionUID = 8416254950859957820L;
+  @Serial private static final long serialVersionUID = 8416254950859957820L;
 
   private final ConcurrentLinkedQueue<D> elementsToProcess;
 
@@ -36,7 +37,7 @@ public abstract class AbstractRecursivConverterTask<T, D> extends RecursiveTask<
    */
   protected transient Set<T> taskResults;
 
-  public AbstractRecursivConverterTask(final MediathekReader aCrawler,
+  protected AbstractRecursivConverterTask(final MediathekReader aCrawler,
           final ConcurrentLinkedQueue<D> aUrlToCrawlDTOs) {
     crawler = aCrawler;
     elementsToProcess = aUrlToCrawlDTOs;

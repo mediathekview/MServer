@@ -67,7 +67,7 @@ public class FilmeSuchen {
   // private
   private final LinkedList<MediathekReader> mediathekListe = new LinkedList<>(); // ist die Liste mit allen MediathekReadern (also allen Sender)
   private final EventListenerList listeners = new EventListenerList();
-  public static final ListeRunSender listeSenderLaufen = new ListeRunSender(); // Liste mit Infos über jeden laufeneden MedathekReader
+  protected static final ListeRunSender listeSenderLaufen = new ListeRunSender(); // Liste mit Infos über jeden laufeneden MedathekReader
   private Date startZeit = new Date();
   private Date stopZeit = new Date();
   private boolean allStarted = false;
@@ -346,7 +346,7 @@ public class FilmeSuchen {
     int sekunden;
     try {
       sekunden = Math.round((stopZeit.getTime() - startZeit.getTime()) / (1000));
-    } catch (Exception ex) {
+    } catch (Exception _) {
       sekunden = 1;
     }
     if (sekunden <= 0) {
@@ -363,7 +363,6 @@ public class FilmeSuchen {
     Config.setStop(false);
     startZeit = new Date(System.currentTimeMillis());
     listeFilmeNeu = new ListeFilme();
-//        listeFilmeNeu.liveStreamEintragen();
     Log.sysLog("");
     Log.sysLog("=======================================");
     Log.sysLog("Start Filme laden:");
@@ -391,7 +390,7 @@ public class FilmeSuchen {
     int sekunden = 0;
     try {
       sekunden = Math.round((new Date(System.currentTimeMillis()).getTime() - startZeit.getTime()) / (1000));
-    } catch (Exception ignored) {
+    } catch (Exception _) {
     }
 
     if (max != 0) {
@@ -420,24 +419,24 @@ public class FilmeSuchen {
 
   private void notifyStart(ListenerFilmeLadenEvent event) {
     for (Object l : listeners.getListenerList()) {
-      if (l instanceof ListenerFilmeLaden) {
-        ((ListenerFilmeLaden) l).start(event);
+      if (l instanceof ListenerFilmeLaden laden) {
+        laden.start(event);
       }
     }
   }
 
   private void notifyProgress(ListenerFilmeLadenEvent event) {
     for (Object l : listeners.getListenerList()) {
-      if (l instanceof ListenerFilmeLaden) {
-        ((ListenerFilmeLaden) l).progress(event);
+      if (l instanceof ListenerFilmeLaden laden) {
+        laden.progress(event);
       }
     }
   }
 
   private void notifyFertig(ListenerFilmeLadenEvent event) {
     for (Object l : listeners.getListenerList()) {
-      if (l instanceof ListenerFilmeLaden) {
-        ((ListenerFilmeLaden) l).fertig(event);
+      if (l instanceof ListenerFilmeLaden laden) {
+        laden.fertig(event);
       }
     }
   }

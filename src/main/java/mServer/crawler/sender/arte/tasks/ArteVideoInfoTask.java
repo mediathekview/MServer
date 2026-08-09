@@ -1,5 +1,6 @@
 package mServer.crawler.sender.arte.tasks;
 
+import java.io.Serial;
 import java.lang.reflect.Type;
 import java.net.URI;
 import java.util.Optional;
@@ -7,9 +8,7 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import de.mediathekview.mlib.tool.Log;
-import mServer.crawler.CrawlerTool;
 import mServer.crawler.sender.MediathekReader;
-import mServer.crawler.sender.base.AbstractJsonRestTask;
 import mServer.crawler.sender.base.AbstractRecursivConverterTask;
 import mServer.crawler.sender.base.PagedElementListDTO;
 import mServer.crawler.sender.base.TopicUrlDTO;
@@ -26,7 +25,7 @@ import jakarta.ws.rs.core.Response;
 
 public class ArteVideoInfoTask
     extends ArteRateLimitedJsonRestTask<ArteVideoInfoDto, PagedElementListDTO<ArteVideoInfoDto>, TopicUrlDTO> {
-  private static final long serialVersionUID = 1L;
+  @Serial private static final long serialVersionUID = 1L;
   protected final transient Logger log = LogManager.getLogger(this.getClass());
   protected transient Optional<AbstractRecursivConverterTask<ArteVideoInfoDto, TopicUrlDTO>> nextPageTask = Optional.empty();
   protected int maxSubpages;

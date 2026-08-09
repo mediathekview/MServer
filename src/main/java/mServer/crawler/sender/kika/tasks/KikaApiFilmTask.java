@@ -22,6 +22,7 @@ import mServer.crawler.sender.zdf.ZdfVideoUrlOptimizer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.io.Serial;
 import java.lang.reflect.Type;
 import java.net.MalformedURLException;
 import java.net.URI;
@@ -35,7 +36,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 // <T, R, D extends CrawlerUrlDTO> extends AbstractRestTask<T, D>
 // return T Class from this task, desirialisation of class R , D , Reasearch in this url
 public class KikaApiFilmTask extends AbstractJsonRestTask<DatenFilm, KikaApiVideoInfoDto, KikaApiFilmDto> {
-  private static final long serialVersionUID = 1L;
+  @Serial private static final long serialVersionUID = 1L;
   private static final Logger LOG = LogManager.getLogger(KikaApiFilmTask.class);
   private static final RateLimiter LIMITER = RateLimiter.create(15);
   private transient ArdUrlOptimizer ardUrlOptimizer;
@@ -86,14 +87,14 @@ public class KikaApiFilmTask extends AbstractJsonRestTask<DatenFilm, KikaApiVide
     }
     //
     final Optional<LocalDateTime> airedDate = getAiredDateTime(aDTO);
-    if (!aDTO.getTitle().isPresent() || !aDTO.getTopic().isPresent() || !airedDate.isPresent() || !aDTO.getDuration().isPresent()) {
-      if (!aDTO.getTitle().isPresent()) {
+    if (aDTO.getTitle().isEmpty() || aDTO.getTopic().isEmpty() || airedDate.isEmpty() || aDTO.getDuration().isEmpty()) {
+      if (aDTO.getTitle().isEmpty()) {
         LOG.error("Missing title for {}", aDTO.getUrl());
-      } else if (!aDTO.getTopic().isPresent()) {
+      } else if (aDTO.getTopic().isEmpty()) {
         LOG.error("Missing topic for {}", aDTO.getUrl());
-      } else if (!airedDate.isPresent()) {
+      } else if (airedDate.isEmpty()) {
         LOG.error("Missing date for {}", aDTO.getUrl());
-      } else if (!aDTO.getDuration().isPresent()) {
+      } else if (aDTO.getDuration().isEmpty()) {
         LOG.error("Missing duration for {}", aDTO.getUrl());
       }
       return;

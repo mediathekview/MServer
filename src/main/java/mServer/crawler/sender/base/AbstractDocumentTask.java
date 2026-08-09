@@ -3,6 +3,7 @@ package mServer.crawler.sender.base;
 import de.mediathekview.mlib.Config;
 import de.mediathekview.mlib.tool.Log;
 import java.io.IOException;
+import java.io.Serial;
 import java.net.SocketTimeoutException;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.TimeUnit;
@@ -22,7 +23,7 @@ import org.jsoup.nodes.Document;
 public abstract class AbstractDocumentTask<T, D extends CrawlerUrlDTO>
         extends AbstractUrlTask<T, D> {
 
-  private static final long serialVersionUID = -4124779055395250981L;
+  @Serial private static final long serialVersionUID = -4124779055395250981L;
   private static final String LOAD_DOCUMENT_HTTPERROR
           = "Some HTTP error happened while crawl the %s page \"%s\".";
 
@@ -70,7 +71,7 @@ public abstract class AbstractDocumentTask<T, D extends CrawlerUrlDTO>
 
       Log.errorLog(96459855,
               crawler.getSendername() + ": crawlerDocumentLoadError: " + aUrlDTO.getUrl() + ", " + httpStatusError.getStatusCode());
-    } catch(final SocketTimeoutException timeoutException) {
+    } catch(final SocketTimeoutException _) {
       Log.errorLog(964598567, crawler.getSendername() + ": timeout: " + aUrlDTO.getUrl());
     } catch (final IOException ioException) {
       Log.errorLog(96459856, ioException);

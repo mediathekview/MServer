@@ -33,7 +33,7 @@ public class MserverLog {
 
     private static final LinkedList<Integer[]> fehlerListe = new LinkedList<>(); // [Fehlernummer, Anzahl]
     private static final Date startZeit = new Date(System.currentTimeMillis());
-    private static final String logfile = MserverDaten.getLogDatei(MserverKonstanten.LOG_FILE_NAME);
+    private static final String LOGFILE = MserverDaten.getLogDatei(MserverKonstanten.LOG_FILE_NAME);
 
     public static synchronized void versionsMeldungen(String classname) {
         SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
@@ -127,14 +127,13 @@ public class MserverLog {
             systemMeldung("###########################################################");
         } else {
             // Fehler ausgeben
-            int i_1;
-            int i_2;
+            int i1;
+            int i2;
             for (int i = 1; i < fehlerListe.size(); ++i) {
                 for (int k = i; k > 0; --k) {
-                    i_1 = fehlerListe.get(k - 1)[1];
-                    i_2 = fehlerListe.get(k)[1];
-                    // if (str1.compareToIgnoreCase(str2) > 0) {
-                    if (i_1 < i_2) {
+                    i1 = fehlerListe.get(k - 1)[1];
+                    i2 = fehlerListe.get(k)[1];
+                    if (i1 < i2) {
                         fehlerListe.add(k - 1, fehlerListe.remove(k));
                     } else {
                         break;
@@ -185,17 +184,17 @@ public class MserverLog {
         addFehlerNummer(fehlerNummer);
         final String FEHLER = "Fehler(" + MserverKonstanten.PROGRAMMNAME + "): ";
         final String z = "*";
-        System.out.println(z + z + z + z + z + z + z + z + z + z + z + z + z + z + z + z + z + z + z + z + z + z + z + z + z + z + z + z);
-        System.out.println(z + " Fehlernr: " + fehlerNummer);
-        System.out.println(z + ' ' + FEHLER + klasse);
+      IO.println(z + z + z + z + z + z + z + z + z + z + z + z + z + z + z + z + z + z + z + z + z + z + z + z + z + z + z + z);
+      IO.println(z + " Fehlernr: " + fehlerNummer);
+      IO.println(z + ' ' + FEHLER + klasse);
         for (String aTexte : texte) {
-            System.out.println(z + "           " + aTexte);
+          IO.println(z + "           " + aTexte);
         }
-        System.out.println(z + z + z + z + z + z + z + z + z + z + z + z + z + z + z + z + z + z + z + z + z + z + z + z + z + z + z + z);
+      IO.println(z + z + z + z + z + z + z + z + z + z + z + z + z + z + z + z + z + z + z + z + z + z + z + z + z + z + z + z);
     }
 
     private static void debugmeldung(String texte) {
-        System.out.println("|||| " + texte);
+      IO.println("|||| " + texte);
     }
 
     private static void systemmeldung(String[] texte) {
@@ -205,20 +204,20 @@ public class MserverLog {
     private static void systemmeldung(String[] texte, boolean datum) {
         final String z = "o ";
         if (texte.length <= 1) {
-            System.out.println(z + ' ' + texte[0]);
+          IO.println(z + ' ' + texte[0]);
         } else {
             String zeile = "---------------------------------------";
             String txt;
-            System.out.println(z + zeile);
+          IO.println(z + zeile);
             for (String aTexte : texte) {
                 txt = "| " + aTexte;
-                System.out.println(z + txt);
+              IO.println(z + txt);
             }
-            System.out.println(z + zeile);
+          IO.println(z + zeile);
         }
         // ins Logfile eintragen
-        if (!logfile.isEmpty()) {
-            try (FileOutputStream fos = new FileOutputStream(logfile, true);
+        if (!LOGFILE.isEmpty()) {
+            try (FileOutputStream fos = new FileOutputStream(LOGFILE, true);
                  OutputStreamWriter writer = new OutputStreamWriter(fos)) {
                 for (String s : texte) {
                     if (s.isEmpty()) {
@@ -233,7 +232,7 @@ public class MserverLog {
                     }
                 }
             } catch (Exception ex) {
-                System.out.println("Fehler beim Logfile schreiben: " + ex.getMessage());
+              IO.println("Fehler beim Logfile schreiben: " + ex.getMessage());
             }
         }
     }

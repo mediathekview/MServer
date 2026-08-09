@@ -19,11 +19,12 @@
  */
 package mServer.daten;
 
+import java.io.Serial;
 import java.util.LinkedList;
 
 public class MserverListeUpload extends LinkedList<MserverDatenUpload> {
 
-    private static final long serialVersionUID = 1L;
+  @Serial private static final long serialVersionUID = 1L;
 
     @Override
     public boolean add(MserverDatenUpload mvsDatenUpload) {
