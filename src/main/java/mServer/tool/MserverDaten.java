@@ -34,9 +34,9 @@ public class MserverDaten {
   }
 
   private static final EtmMonitor etmMonitor = EtmManager.getEtmMonitor();
-  protected static String[] system = new String[MserverKonstanten.SYSTEM_MAX_ELEM];
-  protected static MserverListeSuchen listeSuchen = new MserverListeSuchen();
-  protected static MserverListeUpload listeUpload = new MserverListeUpload();
+  public static String[] system = new String[MserverKonstanten.SYSTEM_MAX_ELEM];
+  public static MserverListeSuchen listeSuchen = new MserverListeSuchen();
+  public static MserverListeUpload listeUpload = new MserverListeUpload();
   public static boolean debug = false;
   public static boolean restart = false;
   //

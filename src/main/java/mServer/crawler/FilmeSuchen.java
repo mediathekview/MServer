@@ -67,7 +67,7 @@ public class FilmeSuchen {
   // private
   private final LinkedList<MediathekReader> mediathekListe = new LinkedList<>(); // ist die Liste mit allen MediathekReadern (also allen Sender)
   private final EventListenerList listeners = new EventListenerList();
-  protected static final ListeRunSender listeSenderLaufen = new ListeRunSender(); // Liste mit Infos über jeden laufeneden MedathekReader
+  public static final ListeRunSender listeSenderLaufen = new ListeRunSender(); // Liste mit Infos über jeden laufeneden MedathekReader
   private Date startZeit = new Date();
   private Date stopZeit = new Date();
   private boolean allStarted = false;
