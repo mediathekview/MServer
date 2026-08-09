@@ -152,7 +152,7 @@ public class FilmDBService {
     int readCounter = 0;
     Filmlist list = new Filmlist();
     try (Connection con = dataSource.getConnection();
-        PreparedStatement ps = con.prepareStatement("SELECT data FROM filme " + where + " ORDER BY data ->> 'sender', data ->> 'thema', data ->> 'titel' " + limit);
+        PreparedStatement ps = con.prepareStatement("SELECT data FROM filme " + where + " ORDER BY data ->> 'sender', data ->> 'thema', data ->> 'titel' " + limit)
         ) {
        ps.setFetchSize(50000);
        try (ResultSet rs = ps.executeQuery()) {

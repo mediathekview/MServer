@@ -5,7 +5,6 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -48,6 +47,6 @@ public class FileReader {
     } catch (final URISyntaxException ex) {
       fail("Exception reading file " + filePath + ": " + ex.getMessage());
     }
-    return Paths.get(u);
+    return Path.of(u);
   }
 }

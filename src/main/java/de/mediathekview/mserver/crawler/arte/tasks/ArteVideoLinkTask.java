@@ -1,12 +1,9 @@
 package de.mediathekview.mserver.crawler.arte.tasks;
-
+import java.io.Serial;
 import java.lang.reflect.Type;
 import java.net.URI;
 import java.util.List;
 import java.util.Queue;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import com.google.gson.JsonDeserializer;
 import com.google.gson.reflect.TypeToken;
@@ -24,10 +21,8 @@ import jakarta.ws.rs.core.Response;
 
 public class ArteVideoLinkTask
     extends AbstractJsonRestTask<ArteVideoInfoDto, List<ArteVideoLinkDto>, ArteVideoInfoDto> {
-  private static final long serialVersionUID = 1L;
-  protected final transient Logger log = LogManager.getLogger(this.getClass());
+  @Serial private static final long serialVersionUID = 1L;
 
-  
   public ArteVideoLinkTask(AbstractCrawler crawler, Queue<ArteVideoInfoDto> videoInfo) {
     super(crawler, videoInfo, ArteConstants.API_TOKEN);
   }

@@ -41,7 +41,6 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.Map.Entry;
@@ -110,11 +109,11 @@ public class CrawlerManager extends AbstractManager {
       for (final Entry<FilmlistFormats, String> copyEntry :
           copySettings.getCopyTargetFilePaths().entrySet()) {
         copyFilmlist(
-            copyEntry.getKey(), new FileCopyTarget(Paths.get(copyEntry.getValue())), false);
+            copyEntry.getKey(), new FileCopyTarget(Path.of(copyEntry.getValue())), false);
       }
       for (final Entry<FilmlistFormats, String> copyEntry :
           copySettings.getCopyTargetDiffFilePaths().entrySet()) {
-        copyFilmlist(copyEntry.getKey(), new FileCopyTarget(Paths.get(copyEntry.getValue())), true);
+        copyFilmlist(copyEntry.getKey(), new FileCopyTarget(Path.of(copyEntry.getValue())), true);
       }
     }
   }
@@ -134,7 +133,7 @@ public class CrawlerManager extends AbstractManager {
     }
 
     if (formats.contains(aFilmlistFormat)) {
-      copyFilmlist(Paths.get(paths.get(aFilmlistFormat)), aFileCopyTarget);
+      copyFilmlist(Path.of(paths.get(aFilmlistFormat)), aFileCopyTarget);
     } else {
       printMessage(ServerMessages.FORMAT_NOT_IN_SAVE_FORMATS, aFilmlistFormat);
     }
@@ -234,7 +233,7 @@ public class CrawlerManager extends AbstractManager {
    * MServerConfigDTO#getFilmlistSavePaths()}.
    */
   public void saveDifferenceFilmlist() {
-    config.getFilmlistDiffSavePaths().forEach((key, value) -> saveFilmlist(Paths.get(value), key, true));
+    config.getFilmlistDiffSavePaths().forEach((key, value) -> saveFilmlist(Path.of(value), key, true));
   }
 
   /**
@@ -246,7 +245,7 @@ public class CrawlerManager extends AbstractManager {
     if (checkConfigForFilmlistSave()) {
       config
           .getFilmlistSaveFormats()
-          .forEach(f -> saveFilmlist(Paths.get(config.getFilmlistSavePaths().get(f)), f));
+          .forEach(f -> saveFilmlist(Path.of(config.getFilmlistSavePaths().get(f)), f));
     }
   }
 
@@ -277,7 +276,7 @@ public class CrawlerManager extends AbstractManager {
     if (parentDir != null) {
       try {
         Files.createDirectories(parentDir);
-      } catch (final IOException ioException) {
+      } catch (final IOException _) {
         LOG.debug("Can't create the parent directories!");
         printMessage(ServerMessages.FILMLIST_SAVE_PATH_INVALID, filmlistFilePath.toString());
         return;
@@ -436,7 +435,7 @@ public class CrawlerManager extends AbstractManager {
   }
 
   private Path filterPath(final Path aSavePath) {
-    return Paths.get(aSavePath.toString().replaceFirst(HOME_PATTERN, USER_HOME_PATH));
+    return Path.of(aSavePath.toString().replaceFirst(HOME_PATTERN, USER_HOME_PATH));
   }
 
   private Set<AbstractCrawler> getCrawlerToRun() {
@@ -459,7 +458,7 @@ public class CrawlerManager extends AbstractManager {
     return crawlerToRun;
   }
 
-  private Optional<Filmlist> importFilmlistFromDB() throws IOException {
+  private Optional<Filmlist> importFilmlistFromDB() {
     FilmDBService filmDBService = new FilmDBService(getExecutorService(), getConfigManager().getConfig().getDatabaseConfig().getBatchSize(), getConfigManager().getConfig().getDatabaseConfig().getRefreshIntervalInDays());
     Optional<Filmlist> dbFilmlist = filmDBService.readFilmlistFromDB();
     return dbFilmlist;
@@ -467,7 +466,7 @@ public class CrawlerManager extends AbstractManager {
 
   private Optional<Filmlist> importFilmlistFromFile(
       final FilmlistFormats aFormat, final String aFilmlistLocation) throws IOException {
-    final Path filmlistPath = Paths.get(aFilmlistLocation);
+    final Path filmlistPath = Path.of(aFilmlistLocation);
     if (checkFilmlistImportFile(filmlistPath)) {
       filmlistManager.addAllMessageListener(messageListeners);
       return filmlistManager.importList(aFormat, filmlistPath);
@@ -480,7 +479,7 @@ public class CrawlerManager extends AbstractManager {
     try {
       filmlistManager.addAllMessageListener(messageListeners);
       return filmlistManager.importList(aFormat, new URI(aFilmlistLocation).toURL());
-    } catch (final MalformedURLException | URISyntaxException malformedURLException) {
+    } catch (final MalformedURLException | URISyntaxException _) {
       printMessage(ServerMessages.FILMLIST_IMPORT_URL_INVALID, aFilmlistLocation);
     }
     return Optional.empty();
@@ -489,7 +488,7 @@ public class CrawlerManager extends AbstractManager {
   public void writeHashFile() {
     if (Boolean.TRUE.equals(config.getWriteFilmlistHashFileEnabled())) {
       final Path hashFilePath =
-          filterPath(Paths.get(config.getFilmlistHashFilePath())).toAbsolutePath();
+          filterPath(Path.of(config.getFilmlistHashFilePath())).toAbsolutePath();
       if (!Files.exists(hashFilePath.getParent())
           || !Files.isWritable(hashFilePath.getParent())
           || !filmlistManager.writeHashFile(filmlist, hashFilePath)) {
@@ -501,7 +500,7 @@ public class CrawlerManager extends AbstractManager {
   public void writeIdFile() {
     if (Boolean.TRUE.equals(config.getWriteFilmlistIdFileEnabled())) {
       final Path idFilePath =
-          filterPath(Paths.get(config.getFilmlistIdFilePath())).toAbsolutePath();
+          filterPath(Path.of(config.getFilmlistIdFilePath())).toAbsolutePath();
       if (!Files.exists(idFilePath.getParent())
           || !Files.isWritable(idFilePath.getParent())
           || !filmlistManager.writeIdFile(filmlist, idFilePath)) {

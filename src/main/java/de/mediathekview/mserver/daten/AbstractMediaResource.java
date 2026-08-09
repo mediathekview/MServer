@@ -1,6 +1,7 @@
 package de.mediathekview.mserver.daten;
 
 import de.mediathekview.mserver.base.utils.TextCleaner;
+import java.io.Serial;
 import java.io.Serializable;
 import java.net.URL;
 import java.time.LocalDateTime;
@@ -9,7 +10,7 @@ import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
 public abstract class AbstractMediaResource<T extends Serializable> implements Serializable {
-  private static final long serialVersionUID = -6404888306701549134L;
+  @Serial private static final long serialVersionUID = -6404888306701549134L;
   private Map<Resolution, T> urls;
   private UUID uuid; // Old: filmNr
   private Sender sender;

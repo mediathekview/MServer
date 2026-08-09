@@ -7,6 +7,7 @@ import jakarta.annotation.Nullable;
 import jakarta.ws.rs.client.Invocation.Builder;
 import jakarta.ws.rs.client.WebTarget;
 import jakarta.ws.rs.core.Response;
+import java.io.Serial;
 import java.lang.reflect.Type;
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
@@ -24,7 +25,7 @@ public abstract class AbstractJsonRestTask<T, R, D extends CrawlerUrlDTO>
     extends AbstractRestTask<T, D> {
   protected final transient Logger log = LogManager.getLogger(this.getClass());
   protected static final String ENCODING_GZIP = "gzip";
-  private static final long serialVersionUID = -1090560363478964885L;
+  @Serial private static final long serialVersionUID = -1090560363478964885L;
   protected final transient GsonBuilder gsonBuilder;
 
   protected AbstractJsonRestTask(
@@ -68,20 +69,17 @@ public abstract class AbstractJsonRestTask<T, R, D extends CrawlerUrlDTO>
                   return;
               }
               if (status == 429 && attempt < maxRetries) {
-                  final long proposalWaitMillis = getRetryAfterMillis(response).orElse(1000L) * attempt;
-                  long waitMillis = proposalWaitMillis;
+                  long waitMillis = getRetryAfterMillis(response).orElse(1000L) * attempt;
                   if (waitMillis < 100) {
                     waitMillis = 100;
                   } else if (waitMillis > 180000 ) {
                     waitMillis = 180000;
                   }
-                  //log.debug("Too Many Requests - propsoal: {} waiting: {} ", proposalWaitMillis, waitMillis);
                   Thread.sleep(waitMillis);
                   crawler.getRateLimiter().acquire();
                   continue;
               }
               handleHttpError(aDTO, aTarget.getUri(), response);
-              return;
           } catch (InterruptedException e) {
               Thread.currentThread().interrupt();
               throw new RuntimeException("Retry interrupted", e);
@@ -101,7 +99,7 @@ public abstract class AbstractJsonRestTask<T, R, D extends CrawlerUrlDTO>
     try {
         long seconds = Long.parseLong(retryAfter);
         return Optional.of(seconds * 1000);
-    } catch (NumberFormatException e) {
+    } catch (NumberFormatException _) {
         return Optional.empty();
     }
 }

@@ -179,7 +179,7 @@ public class ZdfDownloadDtoDeserializer implements JsonDeserializer<Optional<Dow
 
           // prefer xml subtitles
           if (uriValue.endsWith(RELEVANT_SUBTITLE_TYPE)
-              || !dto.getSubTitleUrl(language).isPresent()) {
+              || dto.getSubTitleUrl(language).isEmpty()) {
             dto.addSubTitleUrl(language, uriValue);
           }
         }
@@ -191,14 +191,10 @@ public class ZdfDownloadDtoDeserializer implements JsonDeserializer<Optional<Dow
     Resolution qualityValue;
     final String zdfQuality = quality.get(JSON_ELEMENT_QUALITY).getAsString();
     switch (zdfQuality) {
-      case ZDF_QUALITY_LOW:
-      case ZDF_QUALITY_MED:
-      case ZDF_QUALITY_MEDIUM:
-      case ZDF_QUALITY_HIGH:
+      case ZDF_QUALITY_LOW, ZDF_QUALITY_MED, ZDF_QUALITY_MEDIUM, ZDF_QUALITY_HIGH:
         qualityValue = Resolution.SMALL;
         break;
-      case ZDF_QUALITY_VERYHIGH:
-      case ZDF_QUALITY_HD:
+      case ZDF_QUALITY_VERYHIGH, ZDF_QUALITY_HD:
         qualityValue = Resolution.NORMAL;
         break;
       case ZDF_QUALITY_FHD:

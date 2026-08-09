@@ -116,7 +116,7 @@ public class ZdfFilmDetailDeserializer implements JsonDeserializer<Optional<ZdfF
       }
       final Optional<String> selfId = JsonUtils.getElementValueAsString(aJsonObject, "self");
       if(id.isEmpty() && selfId.isEmpty()) {
-        System.out.println("check");
+        LOG.debug("check");
       }
       
       final Optional<Film> film =

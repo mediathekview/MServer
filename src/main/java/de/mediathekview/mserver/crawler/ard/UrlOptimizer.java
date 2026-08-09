@@ -1,15 +1,8 @@
 package de.mediathekview.mserver.crawler.ard;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
-import java.util.TreeMap;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -32,8 +25,7 @@ public class UrlOptimizer {
     Map<Resolution, String> proposal = buildFilmUrlFromAdaptive(adaptive, allUrls.entrySet().stream().findFirst().get().getValue());
   
     if(proposal.size() != allUrls.size() && !adaptive.contains("arte.")) {
-      System.out.println("asdf");
-      Map<Integer, String> x = buildFromUrl(adaptive, allUrls.entrySet().stream().findFirst().get().getValue());
+      LOG.debug("asdf");
       StringBuffer sb = new StringBuffer();
       sb.append("#").append(adaptive).append("#").append(printMap(proposal)).append("#vs#").append(printMap(allUrls));
       LOG.debug(sb.toString());
@@ -64,8 +56,6 @@ public class UrlOptimizer {
     });
     return sb.toString();
   }
-
-  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   record AdaptiveUrlStructure(String prefix, Map<Integer, String> qualities, String suffix) {
   }
@@ -115,7 +105,7 @@ public class UrlOptimizer {
     try {
       m3uContent = crawler.requestBodyAsString(adaptive);
     } catch (IOException e) {
-      LOG.error("{}", e);
+      LOG.error("exception", e);
       return resolutions;
     }
     String[] lines = m3uContent.split("\n");
@@ -133,7 +123,7 @@ public class UrlOptimizer {
                 int horizontal = Integer.parseInt(dims[0]);
                 int vertical = Integer.parseInt(dims[1]);
                 resolutions.add(new int[] { horizontal, vertical });
-              } catch (NumberFormatException e) {
+              } catch (NumberFormatException _) {
                 resolutions.add(new int[] { 0, 0 });
               }
             }
@@ -148,7 +138,7 @@ public class UrlOptimizer {
   // ----------------------------------------------------------------------------------------------------------------------------------------------------  
   
   public Map<Resolution, String> buildFilmUrlFromAdaptive(String adaptive, String aUrl) {
-    Map<Resolution, String> result = new HashMap<>();
+    Map<Resolution, String> result = new EnumMap<>(Resolution.class);
     Map<Integer, String> rawStringUrlMap = buildFromUrl(adaptive, aUrl);
     rawStringUrlMap.forEach( (resolutionVertical, url) -> {
       try {
@@ -167,7 +157,7 @@ public class UrlOptimizer {
 
   public Map<Integer, String> buildFromUrl(String adaptive, String aUrl) {
     if (adaptive.startsWith("https://dra-dd.akamaized.net")) {
-      return buildFromUrlForDRA(adaptive, aUrl);
+      return buildFromUrlForDRA(adaptive);
     } else {
       Map<Integer,String> positionToUrl = buildUrlsFromPlaylist(adaptive, aUrl);
       return addResolutionToUrls(adaptive, positionToUrl);
@@ -176,7 +166,7 @@ public class UrlOptimizer {
   
   public Map<Integer, String> buildUrlsFromPlaylist(String adaptive, String aUrl) {
     if (adaptive.startsWith("https://dra-dd.akamaized.net")) {
-      return buildFromUrlForDRA(adaptive, aUrl);
+      return buildFromUrlForDRA(adaptive);
     } else {
       return buildFromUrlForArdMediathek(adaptive, aUrl);
     }
@@ -220,7 +210,7 @@ public class UrlOptimizer {
     return positionToUrl;
   }
 
-  private static Map<Integer, String > buildFromUrlForDRA(String adaptive, String aUrl) {
+  private static Map<Integer, String > buildFromUrlForDRA(String adaptive) {
     String newUrl = adaptive.replace("/HLS/", "/mp4/");
     Map<Integer, String> result = new TreeMap<>(Comparator.reverseOrder());
     result.put(360, newUrl.replace("_master.m3u8", "_vod.360.MP4"));

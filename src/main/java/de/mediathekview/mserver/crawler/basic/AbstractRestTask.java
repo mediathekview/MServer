@@ -8,6 +8,7 @@ import jakarta.annotation.Nullable;
 import jakarta.ws.rs.client.Client;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.WebTarget;
+import java.io.Serial;
 import java.util.Optional;
 import java.util.Queue;
 import java.util.concurrent.TimeUnit;
@@ -30,7 +31,7 @@ public abstract class AbstractRestTask<T, D extends CrawlerUrlDTO> extends Abstr
   protected static final String HEADER_CONTENT_TYPE = "Content-Type";
   protected static final String AUTHORIZATION_BEARER = "Bearer ";
   protected static final String APPLICATION_JSON = "application/json";
-  private static final long serialVersionUID = 2590729915326002860L;
+  @Serial private static final long serialVersionUID = 2590729915326002860L;
   private final transient String authKey;
   private final transient Client client;
 

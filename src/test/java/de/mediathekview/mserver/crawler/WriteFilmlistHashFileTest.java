@@ -19,6 +19,6 @@ class WriteFilmlistHashFileTest {
     final Filmlist filmlist = new Filmlist();
     FilmlistManager.getInstance().writeHashFile(filmlist, testHashFilePath.toAbsolutePath());
     assertThat(
-        String.valueOf(filmlist.hashCode()), equalTo(Files.readAllLines(testHashFilePath).get(0)));
+        String.valueOf(filmlist.hashCode()), equalTo(Files.readAllLines(testHashFilePath).getFirst()));
   }
 }

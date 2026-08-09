@@ -1,6 +1,7 @@
 package de.mediathekview.mserver.crawler.basic;
 
 import de.mediathekview.mserver.base.config.MServerBasicConfigDTO;
+import java.io.Serial;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -20,7 +21,7 @@ import java.util.concurrent.RecursiveTask;
  */
 public abstract class AbstractRecursiveConverterTask<T, D> extends RecursiveTask<Set<T>> {
   private static final Logger LOG = LogManager.getLogger(AbstractRecursiveConverterTask.class);
-  private static final long serialVersionUID = 8416254950859957820L;
+  @Serial private static final long serialVersionUID = 8416254950859957820L;
 
   private final transient Queue<D> elementsToProcess;
 

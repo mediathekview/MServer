@@ -19,6 +19,6 @@ class WriteFilmlistIdFileTest {
     final Filmlist filmlist = new Filmlist();
     FilmlistManager.getInstance().writeIdFile(filmlist, testIdFilePath.toAbsolutePath());
     assertThat(
-        String.valueOf(filmlist.getListId()), equalTo(Files.readAllLines(testIdFilePath).get(0)));
+        String.valueOf(filmlist.getListId()), equalTo(Files.readAllLines(testIdFilePath).getFirst()));
   }
 }

@@ -1,12 +1,13 @@
 package de.mediathekview.mserver.daten;
 
+import java.io.Serial;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.UUID;
 
 public class Podcast extends AbstractMediaResource<FilmUrl> {
-  private static final long serialVersionUID = -7161315980975471103L;
+  @Serial private static final long serialVersionUID = -7161315980975471103L;
   private Duration duration;
   private boolean neu;
 

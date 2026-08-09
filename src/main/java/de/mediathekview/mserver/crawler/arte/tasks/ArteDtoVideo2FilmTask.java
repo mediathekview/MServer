@@ -1,5 +1,5 @@
 package de.mediathekview.mserver.crawler.arte.tasks;
-
+import java.io.Serial;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
@@ -8,11 +8,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Queue;
-import java.util.UUID;
+import java.util.*;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -30,7 +26,7 @@ import de.mediathekview.mserver.daten.Resolution;
 
 
 public class ArteDtoVideo2FilmTask extends AbstractRecursiveConverterTask<Film, ArteVideoInfoDto> {
-  private static final long serialVersionUID = 1L;
+  @Serial private static final long serialVersionUID = 1L;
   protected final transient Logger log = LogManager.getLogger(this.getClass());
   
   private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ssX");
@@ -55,8 +51,6 @@ public class ArteDtoVideo2FilmTask extends AbstractRecursiveConverterTask<Film, 
   protected void processElement(ArteVideoInfoDto aElement) {
     parse(aElement);
   }
-  
-  ///////////////////////////////////////////////////////////////////////////
   
   protected void parse(ArteVideoInfoDto aElement) {
     Map<Resolution, FilmUrl> videoUrls = buildVideoUrls(aElement, ArteVideoType.DEFAULT);
@@ -178,14 +172,14 @@ public class ArteDtoVideo2FilmTask extends AbstractRecursiveConverterTask<Film, 
     }
     try {
       return URI.create(aElement.getWebsite().get()).toURL();
-    } catch (MalformedURLException e) {
+    } catch (MalformedURLException _) {
       log.error("Invalid url: {}", aElement.getWebsite().get());
     }
     return null;
   }
   
   protected Map<Resolution, FilmUrl> buildVideoUrls(ArteVideoInfoDto aElement, ArteVideoType type) {
-    Map<Resolution, FilmUrl> urls  = new HashMap<>();
+    Map<Resolution, FilmUrl> urls  = new EnumMap<>(Resolution.class);
     Map<Resolution, String> rawUrls = builRawVideoUrls(aElement, type);
     rawUrls.forEach( (resolution, rawUrl) -> {
       try {
@@ -198,7 +192,7 @@ public class ArteDtoVideo2FilmTask extends AbstractRecursiveConverterTask<Film, 
   }
   
   protected Map<Resolution, String> builRawVideoUrls(ArteVideoInfoDto aElement, ArteVideoType type) {
-    final Map<Resolution, String> urls = new HashMap<>();
+    final Map<Resolution, String> urls = new EnumMap<>(Resolution.class);
     aElement.getVideoLinks().forEach( entry -> {
       Optional<ArteVideoType> audioTypeCode = ArteRestVideoTypeMapper.map(crawler.getSender(), entry.getAudioCode().get());
       if (audioTypeCode.isPresent() && audioTypeCode.get().equals(type)) {

@@ -39,7 +39,7 @@ public class PhoenixFilmDetailDeserializer
     final Optional<String> baseName = parseBaseName(jsonObject);
     final Optional<String> website = parseWebsite(jsonObject);
 
-    if (!title.isPresent() || !subtitle.isPresent() || !baseName.isPresent()) {
+    if (title.isEmpty() || subtitle.isEmpty() || baseName.isEmpty()) {
       return Optional.empty();
     }
 

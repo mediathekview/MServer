@@ -8,12 +8,13 @@ import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import de.mediathekview.mserver.crawler.srf.parser.SrfScheduleDeserializer;
 
 import jakarta.ws.rs.client.WebTarget;
+import java.io.Serial;
 import java.lang.reflect.Type;
 import java.util.Queue;
 import java.util.Set;
 
 public class SrfScheduleOverviewTask extends ArdTaskBase<CrawlerUrlDTO, CrawlerUrlDTO> {
-  private static final long serialVersionUID = 1978224352345L;
+  @Serial private static final long serialVersionUID = 1978224352345L;
 
   private static final Type SRF_SCHEDULE_DESERIALIZER =
       new TypeToken<Set<CrawlerUrlDTO>>() {}.getType();
