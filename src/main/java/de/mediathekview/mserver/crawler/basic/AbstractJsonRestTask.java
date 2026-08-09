@@ -69,20 +69,17 @@ public abstract class AbstractJsonRestTask<T, R, D extends CrawlerUrlDTO>
                   return;
               }
               if (status == 429 && attempt < maxRetries) {
-                  final long proposalWaitMillis = getRetryAfterMillis(response).orElse(1000L) * attempt;
-                  long waitMillis = proposalWaitMillis;
+                  long waitMillis = getRetryAfterMillis(response).orElse(1000L) * attempt;
                   if (waitMillis < 100) {
                     waitMillis = 100;
                   } else if (waitMillis > 180000 ) {
                     waitMillis = 180000;
                   }
-                  //log.debug("Too Many Requests - propsoal: {} waiting: {} ", proposalWaitMillis, waitMillis);
                   Thread.sleep(waitMillis);
                   crawler.getRateLimiter().acquire();
                   continue;
               }
               handleHttpError(aDTO, aTarget.getUri(), response);
-              return;
           } catch (InterruptedException e) {
               Thread.currentThread().interrupt();
               throw new RuntimeException("Retry interrupted", e);
@@ -102,7 +99,7 @@ public abstract class AbstractJsonRestTask<T, R, D extends CrawlerUrlDTO>
     try {
         long seconds = Long.parseLong(retryAfter);
         return Optional.of(seconds * 1000);
-    } catch (NumberFormatException e) {
+    } catch (NumberFormatException _) {
         return Optional.empty();
     }
 }
