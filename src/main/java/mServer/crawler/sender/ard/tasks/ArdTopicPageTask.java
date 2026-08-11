@@ -48,6 +48,11 @@ public class ArdTopicPageTask extends ArdTaskBase<ArdFilmInfoDto, CrawlerUrlDTO>
     TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL25kci5kZS8xNDk1");
     // SWR Eisenbahn-Romantik
     TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL3N3ci5kZS8yMjUwOTg2");
+    // Tierärzte mit Herz
+    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL25kci5kZS80NTYz");
+    // Babylon berlin
+    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL2Rhc2Vyc3RlLmRlL2JhYnlsb24tYmVybGlu");
+    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL2Rhc2Vyc3RlLmRlL2JhYnlsb24tYmVybGluL2JhYmlsb24tYmVybGxpbi1zZXJpZW4tY2FzdC1mcm9lLTIwMTktc2VyaWVucy1jYXN0LWZyb2U");
     // example: TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL2Rhc2Vyc3RlLmRlL3Nwb3J0c2NoYXU");
   }
 
