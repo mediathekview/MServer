@@ -29,7 +29,7 @@ import de.mediathekview.mserver.crawler.basic.IgnoreFilmFilter;
 import de.mediathekview.mserver.crawler.basic.TimeoutTask;
 import de.mediathekview.mserver.crawler.dreisat.DreiSatCrawler;
 import de.mediathekview.mserver.crawler.dw.DwCrawler;
-import de.mediathekview.mserver.crawler.kika.KikaApiCrawler;
+import de.mediathekview.mserver.crawler.kika.KikaCrawler;
 import de.mediathekview.mserver.crawler.orfon.OrfOnCrawler;
 import de.mediathekview.mserver.crawler.phoenix.PhoenixCrawler;
 import de.mediathekview.mserver.crawler.sr.SrCrawler;
@@ -535,7 +535,7 @@ public class CrawlerManager extends AbstractManager {
         new DreiSatCrawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
     crawlerMap.put(
         Sender.KIKA,
-        new KikaApiCrawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
+        new KikaCrawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
     crawlerMap.put(
         Sender.DW, new DwCrawler(forkJoinPool, messageListeners, progressListeners, rootConfig));
     crawlerMap.put(

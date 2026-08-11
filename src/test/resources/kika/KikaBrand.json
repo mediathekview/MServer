@@ -1,0 +1,463 @@
+{
+  "docType": "broadcastSeries",
+  "id": "abgetaucht-meine-falschen-ferien-100",
+  "uuid": "5d71dd74-5502-4c35-b4f2-5253e6845de4",
+  "externalId": "content-70906",
+  "urlPath": "/abgetaucht-meine-falschen-ferien",
+  "validTo": null,
+  "structure": {
+    "site": "kika",
+    "uuid": "f0ca37cc-ef4f-4ced-bbad-f2712837df81",
+    "structureNodePath": "/sendungen/sendereihen/a/abgetaucht-meine-falschen-ferien",
+    "alias": "abgetaucht-meine-falschen-ferien"
+  },
+  "navigation": {
+    "mainNavigation": {
+      "id": "structurenodedocument24480",
+      "url": "https://www.kika.de/ackley/v1/navigations/structurenodedocument24480/main"
+    },
+    "burgerNavigation": {
+      "id": "structurenodedocument24480",
+      "url": "https://www.kika.de/ackley/v1/navigations/structurenodedocument24480/burger"
+    },
+    "footerNavigation": {
+      "id": "structurenodedocument24480",
+      "url": "https://www.kika.de/ackley/v1/navigations/structurenodedocument24480/footer"
+    },
+    "subNavigation": {
+      "id": "structurenodedocument24480",
+      "url": "https://www.kika.de/ackley/v1/navigations/structurenodedocument24480/sub"
+    }
+  },
+  "settings": {
+    "header": {
+      "id": "structurenodedocument24480",
+      "url": "https://www.kika.de/ackley/v1/settings/structurenodedocument24480/header"
+    },
+    "help": null,
+    "staticMetaJson": {
+      "id": "kika-meta100",
+      "url": "https://www.kika.de/ackley/v1/jsons/kika-meta100"
+    },
+    "dynamicMetaDataJson": {
+      "id": "abgetaucht-meine-falschen-ferien-100",
+      "url": "https://www.kika.de/ackley/v1/metadatas/abgetaucht-meine-falschen-ferien-100"
+    },
+    "primaryJsonLd": {
+      "id": "generic-jsonld102",
+      "url": "https://www.kika.de/ackley/v1/jsons/generic-jsonld102"
+    },
+    "secondaryJsonLd": {
+      "id": "abgetaucht-meine-falschen-ferien-100",
+      "url": "https://www.kika.de/ackley/v1/secondaryjsonld/abgetaucht-meine-falschen-ferien-100"
+    },
+    "chatbot": null,
+    "piano": {
+      "id": null,
+      "url": "/resources/js/tracking-piano-prod-latest.js"
+    },
+    "clickOns": {
+      "id": "structurenodedocument24480",
+      "url": "https://www.kika.de/ackley/v1/settings/structurenodedocument24480/clickon"
+    },
+    "banner": {
+      "id": "qr102",
+      "url": "https://www.kika.de/ackley/v1/parentalHints/qr102",
+      "appIds": {
+        "amazon": "B092D9S8B6",
+        "android": "de.kika.kikaplayer",
+        "ios": "1421189758"
+      },
+      "type": "kikaapp",
+      "deeplink": "https://app.kika.de/applink/kikaapp",
+      "deeplinkId": null,
+      "deeplinkDocument": null,
+      "piano": {
+        "at_medium": "kika-web",
+        "at_campaign": null,
+        "at_title": null,
+        "at_location": null,
+        "at_channel": null,
+        "at_campaign_name": null,
+        "at_owner": null
+      }
+    }
+  },
+  "title": "Abgetaucht! - Meine falschen Ferien",
+  "teaserText": "Seit Wochen prahlt Aaron mit seinem Tauchurlaub. Als dieser platzt, beschließt Aaron, den Urlaub mit Hilfe seiner Freundin Nina über seinen Kanal zu faken.",
+  "date": "2024-03-19T14:47:32.093+01:00",
+  "endDate": null,
+  "modificationDate": "2026-06-23T14:35:11.001+02:00",
+  "metaKeywords": [
+    "Tauchen",
+    "Tauchschein",
+    "Freunde",
+    "Ferien",
+    "Aron",
+    "Urlaub",
+    "Social Media",
+    "Tauchurlaub",
+    "Nina",
+    "real",
+    "KiKA"
+  ],
+  "categories": {
+    "finiteSeriesReal": "Realserie",
+    "finiteSeries": "Serie"
+  },
+  "teaserImage": {
+    "id": "abgetaucht-meine-falschen-ferien-102",
+    "copyrights": "KiKA",
+    "headline": "Abgetaucht! Meine falschen Ferien",
+    "caption": null,
+    "title": "Abgetaucht! Meine falschen Ferien | Rechte: KiKA",
+    "alt": "Aaron mit Tauchermaske am Strand",
+    "urlScheme": "/abgetaucht-meine-falschen-ferien/bilder/abgetaucht-meine-falschen-ferien-102-resimage_v-**imageVariant**_w-**width**.jpg?version=6643",
+    "urlSchemeExtended": {
+      "scheme": "/abgetaucht-meine-falschen-ferien/bilder/abgetaucht-meine-falschen-ferien-102-resimage_v-**imageVariant**_w-**width**.**format**?version=6643",
+      "format": "jpg"
+    },
+    "imageBrightness": "dark",
+    "backgroundColor": null,
+    "variants": [
+      {
+        "imageType": "cropped",
+        "height": 725,
+        "width": 1799
+      },
+      {
+        "imageType": "headerLarge",
+        "height": 1080,
+        "width": 1920
+      },
+      {
+        "imageType": "headerSmall",
+        "height": 1080,
+        "width": 1920
+      },
+      {
+        "imageType": "headerWide329",
+        "height": 540,
+        "width": 1920
+      },
+      {
+        "imageType": "ident",
+        "height": 800,
+        "width": 800
+      },
+      {
+        "imageType": "landscape249",
+        "height": 720,
+        "width": 1920
+      },
+      {
+        "imageType": "miniKika",
+        "height": 1080,
+        "width": 1920
+      },
+      {
+        "imageType": "opener489",
+        "height": 360,
+        "width": 1920
+      },
+      {
+        "imageType": "original",
+        "height": 1080,
+        "width": 1920
+      },
+      {
+        "imageType": "searchImage",
+        "height": 800,
+        "width": 998
+      },
+      {
+        "imageType": "tlarge167",
+        "height": 840,
+        "width": 1920
+      },
+      {
+        "imageType": "tlarge169",
+        "height": 1080,
+        "width": 1920
+      },
+      {
+        "imageType": "tlargeWithLogo169",
+        "height": 1080,
+        "width": 1920
+      },
+      {
+        "imageType": "tportrait34",
+        "height": 1440,
+        "width": 1080
+      },
+      {
+        "imageType": "tportrait89",
+        "height": 1080,
+        "width": 960
+      },
+      {
+        "imageType": "tsmall169",
+        "height": 1080,
+        "width": 1917
+      },
+      {
+        "imageType": "tsquare11",
+        "height": 1080,
+        "width": 1080
+      },
+      {
+        "imageType": "twide329",
+        "height": 540,
+        "width": 1920
+      }
+    ],
+    "structure": {
+      "site": "kika",
+      "uuid": "e6541724-5023-4226-aae1-dbb9289bcc32",
+      "structureNodePath": "/sendungen/sendereihen/a/abgetaucht-meine-falschen-ferien/bilder",
+      "alias": ""
+    },
+    "online": true
+  },
+  "plusContent": [],
+  "videoSubchannel": {
+    "id": "alle-folgen-894",
+    "url": "https://www.kika.de/ackley/v1/videosubchannels/alle-folgen-894",
+    "videosPageUrl": "https://www.kika.de/ackley/v1/videosubchannels/alle-folgen-894/videos?page=0&videoType=mainContent&platform=kikade",
+    "videoType": "mainContent"
+  },
+  "seasons": null,
+  "brandInfo": {
+    "description": "Seit Wochen prahlt Aaron vor seinen Freunden mit seinem Tauchurlaub, in dem er endlich seinen Tauchschein machen wird. In seinem Freundeskreis wächst der Neid, weil die anderen ihre Ferien alle im staubigen, heißen Deutschland verbringen. Doch dann platzt Aarons Urlaub. Weil er damit seit Wochen in seinen Social Media Posts angegeben hat, beschließt er, seinen Tauchurlaub mit Hilfe seiner Internetfreundin Nina über seinen Kanal zu faken.",
+    "descriptionTitle": "Darum geht es...",
+    "linkLogo": null,
+    "linkDocument": null
+  },
+  "descriptionTitle": "Darum geht es...",
+  "description": "Seit Wochen prahlt Aaron vor seinen Freunden mit seinem Tauchurlaub, in dem er endlich seinen Tauchschein machen wird. In seinem Freundeskreis wächst der Neid, weil die anderen ihre Ferien alle im staubigen, heißen Deutschland verbringen. Doch dann platzt Aarons Urlaub. Weil er damit seit Wochen in seinen Social Media Posts angegeben hat, beschließt er, seinen Tauchurlaub mit Hilfe seiner Internetfreundin Nina über seinen Kanal zu faken.",
+  "rights": "KiKA",
+  "targetAudienceCategory": 9,
+  "showSeason": false,
+  "channelLogo": {
+    "id": "abgetaucht-logo-100",
+    "copyrights": "KiKA",
+    "headline": "Abgetaucht!",
+    "caption": null,
+    "title": "Abgetaucht! | Rechte: KiKA",
+    "alt": "Logo \"Abgetaucht! - Meine falschen Ferien\"",
+    "urlScheme": "/abgetaucht-meine-falschen-ferien/abgetaucht-logo-100-resimage_v-**imageVariant**_w-**width**.png?version=3456",
+    "urlSchemeExtended": {
+      "scheme": "/abgetaucht-meine-falschen-ferien/abgetaucht-logo-100-resimage_v-**imageVariant**_w-**width**.**format**?version=3456",
+      "format": "png"
+    },
+    "imageBrightness": "dark",
+    "backgroundColor": null,
+    "variants": [
+      {
+        "imageType": "cropped",
+        "height": 725,
+        "width": 1799
+      },
+      {
+        "imageType": "headerLarge",
+        "height": 1080,
+        "width": 1920
+      },
+      {
+        "imageType": "headerSmall",
+        "height": 1080,
+        "width": 1920
+      },
+      {
+        "imageType": "headerWide329",
+        "height": 540,
+        "width": 1920
+      },
+      {
+        "imageType": "ident",
+        "height": 1080,
+        "width": 1080
+      },
+      {
+        "imageType": "landscape249",
+        "height": 720,
+        "width": 1920
+      },
+      {
+        "imageType": "miniKika",
+        "height": 1080,
+        "width": 1920
+      },
+      {
+        "imageType": "opener489",
+        "height": 360,
+        "width": 1920
+      },
+      {
+        "imageType": "original",
+        "height": 1080,
+        "width": 1920
+      },
+      {
+        "imageType": "searchImage",
+        "height": 1080,
+        "width": 1347
+      },
+      {
+        "imageType": "tlarge167",
+        "height": 840,
+        "width": 1920
+      },
+      {
+        "imageType": "tlarge169",
+        "height": 1080,
+        "width": 1920
+      },
+      {
+        "imageType": "tsmall169",
+        "height": 1080,
+        "width": 1917
+      },
+      {
+        "imageType": "tsquare11",
+        "height": 1080,
+        "width": 1080
+      },
+      {
+        "imageType": "twide329",
+        "height": 540,
+        "width": 1920
+      }
+    ],
+    "structure": {
+      "site": "kika",
+      "uuid": "f0ca37cc-ef4f-4ced-bbad-f2712837df81",
+      "structureNodePath": "/sendungen/sendereihen/a/abgetaucht-meine-falschen-ferien",
+      "alias": "abgetaucht-meine-falschen-ferien"
+    },
+    "online": true
+  },
+  "platforms": [
+    "youtube",
+    "ardmediathek",
+    "kikaapp",
+    "kikade",
+    "zdfmediathek"
+  ],
+  "showVideosInBrand": true,
+  "isVisible": true,
+  "effectiveTransmissionType": "geo",
+  "participationActive": false,
+  "season": null,
+  "brandType": "series",
+  "genDate": "2026-06-27T14:56:10.245+02:00",
+  "structureBrand": {
+    "id": "abgetaucht-meine-falschen-ferien-100",
+    "urlPath": "/abgetaucht-meine-falschen-ferien"
+  },
+  "logo": {
+    "id": "abgetaucht-logo-100",
+    "copyrights": "KiKA",
+    "headline": "Abgetaucht!",
+    "caption": null,
+    "title": "Abgetaucht! | Rechte: KiKA",
+    "alt": "Logo \"Abgetaucht! - Meine falschen Ferien\"",
+    "urlScheme": "/abgetaucht-meine-falschen-ferien/abgetaucht-logo-100-resimage_v-**imageVariant**_w-**width**.png?version=3456",
+    "urlSchemeExtended": {
+      "scheme": "/abgetaucht-meine-falschen-ferien/abgetaucht-logo-100-resimage_v-**imageVariant**_w-**width**.**format**?version=3456",
+      "format": "png"
+    },
+    "imageBrightness": "dark",
+    "backgroundColor": null,
+    "variants": [
+      {
+        "imageType": "cropped",
+        "height": 725,
+        "width": 1799
+      },
+      {
+        "imageType": "headerLarge",
+        "height": 1080,
+        "width": 1920
+      },
+      {
+        "imageType": "headerSmall",
+        "height": 1080,
+        "width": 1920
+      },
+      {
+        "imageType": "headerWide329",
+        "height": 540,
+        "width": 1920
+      },
+      {
+        "imageType": "ident",
+        "height": 1080,
+        "width": 1080
+      },
+      {
+        "imageType": "landscape249",
+        "height": 720,
+        "width": 1920
+      },
+      {
+        "imageType": "miniKika",
+        "height": 1080,
+        "width": 1920
+      },
+      {
+        "imageType": "opener489",
+        "height": 360,
+        "width": 1920
+      },
+      {
+        "imageType": "original",
+        "height": 1080,
+        "width": 1920
+      },
+      {
+        "imageType": "searchImage",
+        "height": 1080,
+        "width": 1347
+      },
+      {
+        "imageType": "tlarge167",
+        "height": 840,
+        "width": 1920
+      },
+      {
+        "imageType": "tlarge169",
+        "height": 1080,
+        "width": 1920
+      },
+      {
+        "imageType": "tsmall169",
+        "height": 1080,
+        "width": 1917
+      },
+      {
+        "imageType": "tsquare11",
+        "height": 1080,
+        "width": 1080
+      },
+      {
+        "imageType": "twide329",
+        "height": 540,
+        "width": 1920
+      }
+    ],
+    "structure": {
+      "site": "kika",
+      "uuid": "f0ca37cc-ef4f-4ced-bbad-f2712837df81",
+      "structureNodePath": "/sendungen/sendereihen/a/abgetaucht-meine-falschen-ferien",
+      "alias": "abgetaucht-meine-falschen-ferien"
+    },
+    "online": true
+  },
+  "audio": null,
+  "audioVideoSubchannel": null,
+  "eventDates": {
+    "eventStartDate": null,
+    "eventEndDate": null
+  }
+}

@@ -3,7 +3,7 @@
 # Film DB
 databaseConfig:
   active: false
-  url: "jdbc:postgresql://localhost:55432/crawler"
+  url: "jdbc:postgresql://oscards:55432/crawler"
   username: "crawler"
   password: "secret"
   refreshIntervalInDays: 7
@@ -35,13 +35,13 @@ senderIncluded:
   #- ARTE_ES
   #- ARTE_EN
   #- DREISAT
-  #- KIKA
+  - KIKA
   #- DW
   #- ORF
   #- PHOENIX
   #- SRF
   #- SR
-  - TAGESSCHAU24
+  #- TAGESSCHAU24
   #- ZDF
   
 #SRF,SR,PHONIX,ORF,KIKA,DW,3SAT<
@@ -109,7 +109,7 @@ filmlistIdFilePath: target/filmlists/filmlist.id.xx
 
 # import additional filmlist sources
 importFilmlistConfigurations :
-    - active: true
+    - active: false
       path: "Filmliste-akt"
       format: OLD_JSON
       createDiff: false
@@ -192,8 +192,8 @@ senderConfigurations:
   ARTE_ES:
     maximumSubpages: 6
   KIKA:
-    maximumSubpages: 4
-    maximumRequestsPerSecond: 8.0
+    maximumSubpages: 10
+    maximumRequestsPerSecond: 20
   ZDF:
     maximumDaysForSendungVerpasstSection: 21
     maximumRequestsPerSecond: 20

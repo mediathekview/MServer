@@ -1,0 +1,2803 @@
+{
+  "content": [
+    {
+      "docType": "broadcastSeries",
+      "id": "the-garfield-show-100",
+      "uuid": "e723a5f3-5435-4c59-b561-6b223710664d",
+      "externalId": "content-765",
+      "urlPath": "/garfield",
+      "validTo": null,
+      "externalUrl": null,
+      "api": {
+        "id": "the-garfield-show-100",
+        "url": "https://www.kika.de/ackley/v1/brands/the-garfield-show-100"
+      },
+      "structure": {
+        "site": "kika",
+        "uuid": "944b5853-b0ac-4281-be72-5a3537a16aa0",
+        "structureNodePath": "/sendungen/sendereihen/g/garfield",
+        "alias": "garfield"
+      },
+      "date": "2023-08-14T17:08:39.987+02:00",
+      "endDate": null,
+      "modificationDate": "2026-04-16T15:07:03.103+02:00",
+      "contentCategory": null,
+      "contentCategoryTitle": "Serie",
+      "contentCategoryIcon": "serie",
+      "title": "Garfield",
+      "teaserText": "Garfield ist ein fetter, fauler Kater, der gerne frisst und schläft. Seine Hobbies: Fernsehen und seinen Besitzer Jon oder Hund Odie ärgern!",
+      "teaserImage": {
+        "id": "garfield-100",
+        "copyrights": "ARD/hr",
+        "headline": "Garfield",
+        "caption": null,
+        "title": "Garfield | Rechte: ARD/hr",
+        "alt": "Garfield | Rechte: ARD/hr",
+        "urlScheme": "/garfield/bilder/garfield-100-resimage_v-**imageVariant**_w-**width**.jpg?version=25615",
+        "urlSchemeExtended": {
+          "scheme": "/garfield/bilder/garfield-100-resimage_v-**imageVariant**_w-**width**.**format**?version=25615",
+          "format": "jpg"
+        },
+        "imageBrightness": "dark",
+        "backgroundColor": null,
+        "variants": [
+          {
+            "imageType": "cropped",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "headerLarge",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "headerSmall",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "headerWide329",
+            "height": 540,
+            "width": 1920
+          },
+          {
+            "imageType": "ident",
+            "height": 800,
+            "width": 800
+          },
+          {
+            "imageType": "landscape249",
+            "height": 720,
+            "width": 1920
+          },
+          {
+            "imageType": "miniKika",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "opener489",
+            "height": 360,
+            "width": 1920
+          },
+          {
+            "imageType": "original",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "searchImage",
+            "height": 800,
+            "width": 998
+          },
+          {
+            "imageType": "tlarge167",
+            "height": 840,
+            "width": 1920
+          },
+          {
+            "imageType": "tlarge169",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "tlargeWithLogo169",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "tportrait34",
+            "height": 1440,
+            "width": 1080
+          },
+          {
+            "imageType": "tportrait89",
+            "height": 1080,
+            "width": 960
+          },
+          {
+            "imageType": "tsmall169",
+            "height": 1080,
+            "width": 1917
+          },
+          {
+            "imageType": "tsquare11",
+            "height": 1080,
+            "width": 1080
+          },
+          {
+            "imageType": "twide329",
+            "height": 540,
+            "width": 1920
+          }
+        ],
+        "structure": {
+          "site": "kika",
+          "uuid": "a0a7247e-31ab-47eb-9b57-c21cd7bb0204",
+          "structureNodePath": "/sendungen/sendereihen/g/garfield/bilder",
+          "alias": ""
+        },
+        "online": true
+      },
+      "teaserLinkDescription": "Entdecke mehr",
+      "eyecatcher": null,
+      "broadcastSeriesTitle": null,
+      "broadcastSeriesId": null,
+      "isVisible": true,
+      "useTitleInsteadOfLogo": false,
+      "participationActive": false,
+      "genDate": "2026-06-27T16:04:57.063+02:00",
+      "logo": {
+        "id": "garfield-118",
+        "copyrights": "hr",
+        "headline": "Garfield",
+        "caption": null,
+        "title": "Garfield | Rechte: hr",
+        "alt": "Logo \"Garfield\"",
+        "urlScheme": "/garfield/bilder/garfield-118-resimage_v-**imageVariant**_w-**width**.png?version=39280",
+        "urlSchemeExtended": {
+          "scheme": "/garfield/bilder/garfield-118-resimage_v-**imageVariant**_w-**width**.**format**?version=39280",
+          "format": "png"
+        },
+        "imageBrightness": "dark",
+        "backgroundColor": null,
+        "variants": [
+          {
+            "imageType": "cropped",
+            "height": 863,
+            "width": 1158
+          },
+          {
+            "imageType": "headerLarge",
+            "height": 348,
+            "width": 1600
+          },
+          {
+            "imageType": "headerSmall",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "headerWide329",
+            "height": 540,
+            "width": 1920
+          },
+          {
+            "imageType": "ident",
+            "height": 1080,
+            "width": 1080
+          },
+          {
+            "imageType": "landscape249",
+            "height": 720,
+            "width": 1920
+          },
+          {
+            "imageType": "miniKika",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "opener489",
+            "height": 360,
+            "width": 1920
+          },
+          {
+            "imageType": "original",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "searchImage",
+            "height": 1080,
+            "width": 1347
+          },
+          {
+            "imageType": "tlarge167",
+            "height": 840,
+            "width": 1920
+          },
+          {
+            "imageType": "tlarge169",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "tlargeWithLogo169",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "tportrait89",
+            "height": 1080,
+            "width": 960
+          },
+          {
+            "imageType": "tsmall169",
+            "height": 1080,
+            "width": 1917
+          },
+          {
+            "imageType": "tsquare11",
+            "height": 1080,
+            "width": 1080
+          },
+          {
+            "imageType": "twide329",
+            "height": 540,
+            "width": 1920
+          }
+        ],
+        "structure": {
+          "site": "kika",
+          "uuid": "a0a7247e-31ab-47eb-9b57-c21cd7bb0204",
+          "structureNodePath": "/sendungen/sendereihen/g/garfield/bilder",
+          "alias": ""
+        },
+        "online": true
+      },
+      "brandDetails": {
+        "videoSubchannel": {
+          "id": "alle-folgen-756",
+          "url": "https://www.kika.de/ackley/v1/videosubchannels/alle-folgen-756"
+        },
+        "showVideosInBrand": true,
+        "channelLogo": {
+          "id": "garfield-118",
+          "copyrights": "hr",
+          "headline": "Garfield",
+          "caption": null,
+          "title": "Garfield | Rechte: hr",
+          "alt": "Logo \"Garfield\"",
+          "urlScheme": "/garfield/bilder/garfield-118-resimage_v-**imageVariant**_w-**width**.png?version=39280",
+          "urlSchemeExtended": {
+            "scheme": "/garfield/bilder/garfield-118-resimage_v-**imageVariant**_w-**width**.**format**?version=39280",
+            "format": "png"
+          },
+          "imageBrightness": "dark",
+          "backgroundColor": null,
+          "variants": [
+            {
+              "imageType": "cropped",
+              "height": 863,
+              "width": 1158
+            },
+            {
+              "imageType": "headerLarge",
+              "height": 348,
+              "width": 1600
+            },
+            {
+              "imageType": "headerSmall",
+              "height": 1080,
+              "width": 1920
+            },
+            {
+              "imageType": "headerWide329",
+              "height": 540,
+              "width": 1920
+            },
+            {
+              "imageType": "ident",
+              "height": 1080,
+              "width": 1080
+            },
+            {
+              "imageType": "landscape249",
+              "height": 720,
+              "width": 1920
+            },
+            {
+              "imageType": "miniKika",
+              "height": 1080,
+              "width": 1920
+            },
+            {
+              "imageType": "opener489",
+              "height": 360,
+              "width": 1920
+            },
+            {
+              "imageType": "original",
+              "height": 1080,
+              "width": 1920
+            },
+            {
+              "imageType": "searchImage",
+              "height": 1080,
+              "width": 1347
+            },
+            {
+              "imageType": "tlarge167",
+              "height": 840,
+              "width": 1920
+            },
+            {
+              "imageType": "tlarge169",
+              "height": 1080,
+              "width": 1920
+            },
+            {
+              "imageType": "tlargeWithLogo169",
+              "height": 1080,
+              "width": 1920
+            },
+            {
+              "imageType": "tportrait89",
+              "height": 1080,
+              "width": 960
+            },
+            {
+              "imageType": "tsmall169",
+              "height": 1080,
+              "width": 1917
+            },
+            {
+              "imageType": "tsquare11",
+              "height": 1080,
+              "width": 1080
+            },
+            {
+              "imageType": "twide329",
+              "height": 540,
+              "width": 1920
+            }
+          ],
+          "structure": {
+            "site": "kika",
+            "uuid": "a0a7247e-31ab-47eb-9b57-c21cd7bb0204",
+            "structureNodePath": "/sendungen/sendereihen/g/garfield/bilder",
+            "alias": ""
+          },
+          "online": true
+        },
+        "effectiveTransmissionType": "geo",
+        "videoType": "mainContent",
+        "season": "0",
+        "showSeason": false,
+        "brandType": "series"
+      },
+      "channelDetails": null,
+      "downloadDetails": null,
+      "votingDetails": null,
+      "linkDetails": null,
+      "livestreamDetails": null,
+      "relatedVideoDetails": null,
+      "videoDetails": null,
+      "videoSubchannelDetails": null,
+      "subchannelDetails": null,
+      "structureBrand": {
+        "id": "the-garfield-show-100",
+        "urlPath": "/garfield"
+      },
+      "infoTeaserDetails": null,
+      "imageDetails": null,
+      "soundSnippetDetails": null,
+      "eventDates": {
+        "eventStartDate": null,
+        "eventEndDate": null
+      },
+      "broadcastSeries": null
+    },
+    {
+      "docType": "broadcastSeries",
+      "id": "geronimo-stilton-100",
+      "uuid": "f5e9644c-752f-4637-94d5-f3c18a213eff",
+      "externalId": "content-989",
+      "urlPath": "/geronimo-stilton",
+      "validTo": null,
+      "externalUrl": null,
+      "api": {
+        "id": "geronimo-stilton-100",
+        "url": "https://www.kika.de/ackley/v1/brands/geronimo-stilton-100"
+      },
+      "structure": {
+        "site": "kika",
+        "uuid": "d50dc833-81f3-4818-9273-57fcdad0570e",
+        "structureNodePath": "/sendungen/sendereihen/g/geronimo-stilton",
+        "alias": "geronimo-stilton"
+      },
+      "date": "2024-01-29T09:00:23.699+01:00",
+      "endDate": null,
+      "modificationDate": "2026-05-18T17:32:11.201+02:00",
+      "contentCategory": null,
+      "contentCategoryTitle": "Serie",
+      "contentCategoryIcon": "serie",
+      "title": "Geronimo Stilton",
+      "teaserText": "Die berühmte Maus Geronimo erlebt als Medienmogul der Stadt Mausilia ein aufregendes Abenteuer nach dem anderen.",
+      "teaserImage": {
+        "id": "geronimo-stilton-104",
+        "copyrights": "ARD/hr",
+        "headline": "Geronimo Stilton",
+        "caption": null,
+        "title": "Geronimo Stilton | Rechte: ARD/hr",
+        "alt": "Geronimo Stilton | Rechte: ARD/hr",
+        "urlScheme": "/geronimo-stilton/bilder/geronimo-stilton-104-resimage_v-**imageVariant**_w-**width**.jpg?version=21464",
+        "urlSchemeExtended": {
+          "scheme": "/geronimo-stilton/bilder/geronimo-stilton-104-resimage_v-**imageVariant**_w-**width**.**format**?version=21464",
+          "format": "jpg"
+        },
+        "imageBrightness": "dark",
+        "backgroundColor": null,
+        "variants": [
+          {
+            "imageType": "cropped",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "headerLarge",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "headerSmall",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "headerWide329",
+            "height": 540,
+            "width": 1920
+          },
+          {
+            "imageType": "ident",
+            "height": 800,
+            "width": 800
+          },
+          {
+            "imageType": "landscape249",
+            "height": 720,
+            "width": 1920
+          },
+          {
+            "imageType": "miniKika",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "opener489",
+            "height": 360,
+            "width": 1920
+          },
+          {
+            "imageType": "original",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "searchImage",
+            "height": 800,
+            "width": 998
+          },
+          {
+            "imageType": "tlarge167",
+            "height": 840,
+            "width": 1920
+          },
+          {
+            "imageType": "tlarge169",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "tlargeWithLogo169",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "tportrait34",
+            "height": 1440,
+            "width": 1080
+          },
+          {
+            "imageType": "tportrait89",
+            "height": 1080,
+            "width": 960
+          },
+          {
+            "imageType": "tsmall169",
+            "height": 1080,
+            "width": 1917
+          },
+          {
+            "imageType": "tsquare11",
+            "height": 1080,
+            "width": 1080
+          },
+          {
+            "imageType": "twide329",
+            "height": 540,
+            "width": 1920
+          }
+        ],
+        "structure": {
+          "site": "kika",
+          "uuid": "5902e4e7-3a02-4c66-ab2c-171e2ff85ccd",
+          "structureNodePath": "/sendungen/sendereihen/g/geronimo-stilton/bilder",
+          "alias": ""
+        },
+        "online": true
+      },
+      "teaserLinkDescription": "Entdecke mehr",
+      "eyecatcher": null,
+      "broadcastSeriesTitle": null,
+      "broadcastSeriesId": null,
+      "isVisible": true,
+      "useTitleInsteadOfLogo": false,
+      "participationActive": false,
+      "genDate": "2026-06-27T16:07:32.264+02:00",
+      "logo": {
+        "id": "geronimo-stilton-logo-100",
+        "copyrights": "hr",
+        "headline": "Geronimo Stilton",
+        "caption": null,
+        "title": "Geronimo Stilton | Rechte: hr",
+        "alt": "Logo \"Geronimo Stilton\"",
+        "urlScheme": "/geronimo-stilton/sendungen/bilder/geronimo-stilton-logo-100-resimage_v-**imageVariant**_w-**width**.png?version=0139",
+        "urlSchemeExtended": {
+          "scheme": "/geronimo-stilton/sendungen/bilder/geronimo-stilton-logo-100-resimage_v-**imageVariant**_w-**width**.**format**?version=0139",
+          "format": "png"
+        },
+        "imageBrightness": "dark",
+        "backgroundColor": null,
+        "variants": [
+          {
+            "imageType": "cropped",
+            "height": 688,
+            "width": 1046
+          },
+          {
+            "imageType": "headerLarge",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "headerSmall",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "headerWide329",
+            "height": 540,
+            "width": 1920
+          },
+          {
+            "imageType": "ident",
+            "height": 1080,
+            "width": 1080
+          },
+          {
+            "imageType": "landscape249",
+            "height": 720,
+            "width": 1920
+          },
+          {
+            "imageType": "miniKika",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "opener489",
+            "height": 360,
+            "width": 1920
+          },
+          {
+            "imageType": "original",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "searchImage",
+            "height": 1080,
+            "width": 1347
+          },
+          {
+            "imageType": "tlarge167",
+            "height": 840,
+            "width": 1920
+          },
+          {
+            "imageType": "tlarge169",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "tsmall169",
+            "height": 1080,
+            "width": 1917
+          },
+          {
+            "imageType": "tsquare11",
+            "height": 1080,
+            "width": 1080
+          },
+          {
+            "imageType": "twide329",
+            "height": 540,
+            "width": 1920
+          }
+        ],
+        "structure": {
+          "site": "kika",
+          "uuid": "35fd46a7-8ff5-4adf-97db-1f1b14712d25",
+          "structureNodePath": "/sendungen/sendereihen/g/geronimo-stilton/sendungen/bilder",
+          "alias": ""
+        },
+        "online": true
+      },
+      "brandDetails": {
+        "videoSubchannel": {
+          "id": "alle-folgen-752",
+          "url": "https://www.kika.de/ackley/v1/videosubchannels/alle-folgen-752"
+        },
+        "showVideosInBrand": true,
+        "channelLogo": {
+          "id": "geronimo-stilton-logo-100",
+          "copyrights": "hr",
+          "headline": "Geronimo Stilton",
+          "caption": null,
+          "title": "Geronimo Stilton | Rechte: hr",
+          "alt": "Logo \"Geronimo Stilton\"",
+          "urlScheme": "/geronimo-stilton/sendungen/bilder/geronimo-stilton-logo-100-resimage_v-**imageVariant**_w-**width**.png?version=0139",
+          "urlSchemeExtended": {
+            "scheme": "/geronimo-stilton/sendungen/bilder/geronimo-stilton-logo-100-resimage_v-**imageVariant**_w-**width**.**format**?version=0139",
+            "format": "png"
+          },
+          "imageBrightness": "dark",
+          "backgroundColor": null,
+          "variants": [
+            {
+              "imageType": "cropped",
+              "height": 688,
+              "width": 1046
+            },
+            {
+              "imageType": "headerLarge",
+              "height": 1080,
+              "width": 1920
+            },
+            {
+              "imageType": "headerSmall",
+              "height": 1080,
+              "width": 1920
+            },
+            {
+              "imageType": "headerWide329",
+              "height": 540,
+              "width": 1920
+            },
+            {
+              "imageType": "ident",
+              "height": 1080,
+              "width": 1080
+            },
+            {
+              "imageType": "landscape249",
+              "height": 720,
+              "width": 1920
+            },
+            {
+              "imageType": "miniKika",
+              "height": 1080,
+              "width": 1920
+            },
+            {
+              "imageType": "opener489",
+              "height": 360,
+              "width": 1920
+            },
+            {
+              "imageType": "original",
+              "height": 1080,
+              "width": 1920
+            },
+            {
+              "imageType": "searchImage",
+              "height": 1080,
+              "width": 1347
+            },
+            {
+              "imageType": "tlarge167",
+              "height": 840,
+              "width": 1920
+            },
+            {
+              "imageType": "tlarge169",
+              "height": 1080,
+              "width": 1920
+            },
+            {
+              "imageType": "tsmall169",
+              "height": 1080,
+              "width": 1917
+            },
+            {
+              "imageType": "tsquare11",
+              "height": 1080,
+              "width": 1080
+            },
+            {
+              "imageType": "twide329",
+              "height": 540,
+              "width": 1920
+            }
+          ],
+          "structure": {
+            "site": "kika",
+            "uuid": "35fd46a7-8ff5-4adf-97db-1f1b14712d25",
+            "structureNodePath": "/sendungen/sendereihen/g/geronimo-stilton/sendungen/bilder",
+            "alias": ""
+          },
+          "online": true
+        },
+        "effectiveTransmissionType": "geo",
+        "videoType": "mainContent",
+        "season": "0",
+        "showSeason": false,
+        "brandType": "series"
+      },
+      "channelDetails": null,
+      "downloadDetails": null,
+      "votingDetails": null,
+      "linkDetails": null,
+      "livestreamDetails": null,
+      "relatedVideoDetails": null,
+      "videoDetails": null,
+      "videoSubchannelDetails": null,
+      "subchannelDetails": null,
+      "structureBrand": {
+        "id": "geronimo-stilton-100",
+        "urlPath": "/geronimo-stilton"
+      },
+      "infoTeaserDetails": null,
+      "imageDetails": null,
+      "soundSnippetDetails": null,
+      "eventDates": {
+        "eventStartDate": null,
+        "eventEndDate": null
+      },
+      "broadcastSeries": null
+    },
+    {
+      "docType": "broadcastSeries",
+      "id": "geschichten-von-ueberall-100",
+      "uuid": "f0442cf4-8a82-4950-bae4-e1d16dee036f",
+      "externalId": "content-45",
+      "urlPath": "/geschichten-von-ueberall",
+      "validTo": null,
+      "externalUrl": null,
+      "api": {
+        "id": "geschichten-von-ueberall-100",
+        "url": "https://www.kika.de/ackley/v1/brands/geschichten-von-ueberall-100"
+      },
+      "structure": {
+        "site": "kika",
+        "uuid": "fdbf4c5c-eced-4f0c-add7-1cf3805dda6c",
+        "structureNodePath": "/sendungen/sendereihen/g/geschichten-von-ueberall",
+        "alias": "geschichten-von-ueberall"
+      },
+      "date": "2024-02-27T14:52:48.547+01:00",
+      "endDate": null,
+      "modificationDate": "2026-05-04T21:03:12.255+02:00",
+      "contentCategory": null,
+      "contentCategoryTitle": "Serie",
+      "contentCategoryIcon": "serie",
+      "title": "Geschichten von überall",
+      "teaserText": "Die \"Geschichten von überall\" erzählen kleine Abenteuer aus dem Alltag von Kindern aus der ganzen Welt.",
+      "teaserImage": {
+        "id": "geschichten-von-ueberall-102",
+        "copyrights": "ARD/SR",
+        "headline": "Geschichten von überall",
+        "caption": null,
+        "title": "Geschichten von überall | Rechte: ARD/SR",
+        "alt": "Geschichten von überall | Rechte: ARD/SR",
+        "urlScheme": "/geschichten-von-ueberall/bilder/geschichten-von-ueberall-102-resimage_v-**imageVariant**_w-**width**.jpg?version=9979",
+        "urlSchemeExtended": {
+          "scheme": "/geschichten-von-ueberall/bilder/geschichten-von-ueberall-102-resimage_v-**imageVariant**_w-**width**.**format**?version=9979",
+          "format": "jpg"
+        },
+        "imageBrightness": "dark",
+        "backgroundColor": null,
+        "variants": [
+          {
+            "imageType": "cropped",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "headerLarge",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "headerSmall",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "headerWide329",
+            "height": 540,
+            "width": 1920
+          },
+          {
+            "imageType": "ident",
+            "height": 800,
+            "width": 800
+          },
+          {
+            "imageType": "landscape249",
+            "height": 720,
+            "width": 1920
+          },
+          {
+            "imageType": "miniKika",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "opener489",
+            "height": 360,
+            "width": 1920
+          },
+          {
+            "imageType": "original",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "searchImage",
+            "height": 800,
+            "width": 998
+          },
+          {
+            "imageType": "tlarge167",
+            "height": 840,
+            "width": 1920
+          },
+          {
+            "imageType": "tlarge169",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "tlargeWithLogo169",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "tportrait34",
+            "height": 1440,
+            "width": 1080
+          },
+          {
+            "imageType": "tportrait89",
+            "height": 1080,
+            "width": 960
+          },
+          {
+            "imageType": "tsmall169",
+            "height": 1080,
+            "width": 1917
+          },
+          {
+            "imageType": "tsquare11",
+            "height": 1080,
+            "width": 1080
+          },
+          {
+            "imageType": "twide329",
+            "height": 540,
+            "width": 1920
+          }
+        ],
+        "structure": {
+          "site": "kika",
+          "uuid": "9e62a458-4709-4387-a8e0-6505fa23c5ef",
+          "structureNodePath": "/sendungen/sendereihen/g/geschichten-von-ueberall/bilder",
+          "alias": ""
+        },
+        "online": true
+      },
+      "teaserLinkDescription": "Entdecke mehr",
+      "eyecatcher": null,
+      "broadcastSeriesTitle": null,
+      "broadcastSeriesId": null,
+      "isVisible": true,
+      "useTitleInsteadOfLogo": false,
+      "participationActive": false,
+      "genDate": "2026-06-27T16:07:32.310+02:00",
+      "logo": {
+        "id": "geschichten-von-ueberall-112",
+        "copyrights": "SR",
+        "headline": "Geschichten von überall",
+        "caption": null,
+        "title": "Geschichten von überall | Rechte: SR",
+        "alt": "Logo \"Geschichten von ueberall\"",
+        "urlScheme": "/geschichten-von-ueberall/bilder/geschichten-von-ueberall-112-resimage_v-**imageVariant**_w-**width**.png?version=4850",
+        "urlSchemeExtended": {
+          "scheme": "/geschichten-von-ueberall/bilder/geschichten-von-ueberall-112-resimage_v-**imageVariant**_w-**width**.**format**?version=4850",
+          "format": "png"
+        },
+        "imageBrightness": "dark",
+        "backgroundColor": null,
+        "variants": [
+          {
+            "imageType": "cropped",
+            "height": 561,
+            "width": 1759
+          },
+          {
+            "imageType": "headerLarge",
+            "height": 348,
+            "width": 1600
+          },
+          {
+            "imageType": "headerSmall",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "headerWide329",
+            "height": 540,
+            "width": 1920
+          },
+          {
+            "imageType": "ident",
+            "height": 1080,
+            "width": 1080
+          },
+          {
+            "imageType": "landscape249",
+            "height": 720,
+            "width": 1920
+          },
+          {
+            "imageType": "miniKika",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "opener489",
+            "height": 360,
+            "width": 1920
+          },
+          {
+            "imageType": "original",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "searchImage",
+            "height": 1080,
+            "width": 1347
+          },
+          {
+            "imageType": "tlarge167",
+            "height": 840,
+            "width": 1920
+          },
+          {
+            "imageType": "tlarge169",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "tlargeWithLogo169",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "tportrait89",
+            "height": 1080,
+            "width": 960
+          },
+          {
+            "imageType": "tsmall169",
+            "height": 1080,
+            "width": 1917
+          },
+          {
+            "imageType": "tsquare11",
+            "height": 1080,
+            "width": 1080
+          },
+          {
+            "imageType": "twide329",
+            "height": 540,
+            "width": 1920
+          }
+        ],
+        "structure": {
+          "site": "kika",
+          "uuid": "9e62a458-4709-4387-a8e0-6505fa23c5ef",
+          "structureNodePath": "/sendungen/sendereihen/g/geschichten-von-ueberall/bilder",
+          "alias": ""
+        },
+        "online": true
+      },
+      "brandDetails": {
+        "videoSubchannel": {
+          "id": "alle-folgen-226",
+          "url": "https://www.kika.de/ackley/v1/videosubchannels/alle-folgen-226"
+        },
+        "showVideosInBrand": true,
+        "channelLogo": {
+          "id": "geschichten-von-ueberall-112",
+          "copyrights": "SR",
+          "headline": "Geschichten von überall",
+          "caption": null,
+          "title": "Geschichten von überall | Rechte: SR",
+          "alt": "Logo \"Geschichten von ueberall\"",
+          "urlScheme": "/geschichten-von-ueberall/bilder/geschichten-von-ueberall-112-resimage_v-**imageVariant**_w-**width**.png?version=4850",
+          "urlSchemeExtended": {
+            "scheme": "/geschichten-von-ueberall/bilder/geschichten-von-ueberall-112-resimage_v-**imageVariant**_w-**width**.**format**?version=4850",
+            "format": "png"
+          },
+          "imageBrightness": "dark",
+          "backgroundColor": null,
+          "variants": [
+            {
+              "imageType": "cropped",
+              "height": 561,
+              "width": 1759
+            },
+            {
+              "imageType": "headerLarge",
+              "height": 348,
+              "width": 1600
+            },
+            {
+              "imageType": "headerSmall",
+              "height": 1080,
+              "width": 1920
+            },
+            {
+              "imageType": "headerWide329",
+              "height": 540,
+              "width": 1920
+            },
+            {
+              "imageType": "ident",
+              "height": 1080,
+              "width": 1080
+            },
+            {
+              "imageType": "landscape249",
+              "height": 720,
+              "width": 1920
+            },
+            {
+              "imageType": "miniKika",
+              "height": 1080,
+              "width": 1920
+            },
+            {
+              "imageType": "opener489",
+              "height": 360,
+              "width": 1920
+            },
+            {
+              "imageType": "original",
+              "height": 1080,
+              "width": 1920
+            },
+            {
+              "imageType": "searchImage",
+              "height": 1080,
+              "width": 1347
+            },
+            {
+              "imageType": "tlarge167",
+              "height": 840,
+              "width": 1920
+            },
+            {
+              "imageType": "tlarge169",
+              "height": 1080,
+              "width": 1920
+            },
+            {
+              "imageType": "tlargeWithLogo169",
+              "height": 1080,
+              "width": 1920
+            },
+            {
+              "imageType": "tportrait89",
+              "height": 1080,
+              "width": 960
+            },
+            {
+              "imageType": "tsmall169",
+              "height": 1080,
+              "width": 1917
+            },
+            {
+              "imageType": "tsquare11",
+              "height": 1080,
+              "width": 1080
+            },
+            {
+              "imageType": "twide329",
+              "height": 540,
+              "width": 1920
+            }
+          ],
+          "structure": {
+            "site": "kika",
+            "uuid": "9e62a458-4709-4387-a8e0-6505fa23c5ef",
+            "structureNodePath": "/sendungen/sendereihen/g/geschichten-von-ueberall/bilder",
+            "alias": ""
+          },
+          "online": true
+        },
+        "effectiveTransmissionType": "geo",
+        "videoType": "mainContent",
+        "season": "0",
+        "showSeason": false,
+        "brandType": "set"
+      },
+      "channelDetails": null,
+      "downloadDetails": null,
+      "votingDetails": null,
+      "linkDetails": null,
+      "livestreamDetails": null,
+      "relatedVideoDetails": null,
+      "videoDetails": null,
+      "videoSubchannelDetails": null,
+      "subchannelDetails": null,
+      "structureBrand": {
+        "id": "geschichten-von-ueberall-100",
+        "urlPath": "/geschichten-von-ueberall"
+      },
+      "infoTeaserDetails": null,
+      "imageDetails": null,
+      "soundSnippetDetails": null,
+      "eventDates": {
+        "eventStartDate": null,
+        "eventEndDate": null
+      },
+      "broadcastSeries": null
+    },
+    {
+      "docType": "broadcastSeries",
+      "id": "gluecksbaerchis-willkommen-im-wolkenland-100",
+      "uuid": "386d2d8a-caeb-41c9-8b45-b391c21443bc",
+      "externalId": "content-48318",
+      "urlPath": "/gluecksbaerchis-willkommen-im-wolkenland",
+      "validTo": null,
+      "externalUrl": null,
+      "api": {
+        "id": "gluecksbaerchis-willkommen-im-wolkenland-100",
+        "url": "https://www.kika.de/ackley/v1/brands/gluecksbaerchis-willkommen-im-wolkenland-100"
+      },
+      "structure": {
+        "site": "kika",
+        "uuid": "a4bd55e4-5a88-4559-bc52-fa0a34000001",
+        "structureNodePath": "/sendungen/sendereihen/g/gluecksbaerchis-willkommen-im-wolkenland",
+        "alias": "gluecksbaerchis-willkommen-im-wolkenland"
+      },
+      "date": "2026-04-13T08:45:04.988+02:00",
+      "endDate": null,
+      "modificationDate": "2026-05-04T20:48:23.988+02:00",
+      "contentCategory": null,
+      "contentCategoryTitle": "Serie",
+      "contentCategoryIcon": "serie",
+      "title": "Glücksbärchis - Willkommen im Wolkenland",
+      "teaserText": "Im regenbogenbunten Wolkenland könnte alles so schön sein, wenn da nicht Beastli wäre. Doch die Glücksbärchis finden immer einen Weg, das Böse zu besiegen.",
+      "teaserImage": {
+        "id": "gluecksbaerchis-willkommen-im-wolkenland-102",
+        "copyrights": "KiKA",
+        "headline": "Glücksbärchis - Willkommen im Wolkenland",
+        "caption": null,
+        "title": "Glücksbärchis - Willkommen im Wolkenland | Rechte: KiKA",
+        "alt": "Glücksbärchis - Willkommen im Wolkenland | Rechte: KiKA",
+        "urlScheme": "/gluecksbaerchis-willkommen-im-wolkenland/bilder/gluecksbaerchis-willkommen-im-wolkenland-102-resimage_v-**imageVariant**_w-**width**.jpg?version=31622",
+        "urlSchemeExtended": {
+          "scheme": "/gluecksbaerchis-willkommen-im-wolkenland/bilder/gluecksbaerchis-willkommen-im-wolkenland-102-resimage_v-**imageVariant**_w-**width**.**format**?version=31622",
+          "format": "jpg"
+        },
+        "imageBrightness": "dark",
+        "backgroundColor": null,
+        "variants": [
+          {
+            "imageType": "cropped",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "headerLarge",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "headerSmall",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "headerWide329",
+            "height": 540,
+            "width": 1920
+          },
+          {
+            "imageType": "ident",
+            "height": 800,
+            "width": 800
+          },
+          {
+            "imageType": "landscape249",
+            "height": 720,
+            "width": 1920
+          },
+          {
+            "imageType": "miniKika",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "opener489",
+            "height": 360,
+            "width": 1920
+          },
+          {
+            "imageType": "original",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "searchImage",
+            "height": 800,
+            "width": 998
+          },
+          {
+            "imageType": "tlarge167",
+            "height": 840,
+            "width": 1920
+          },
+          {
+            "imageType": "tlarge169",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "tlargeWithLogo169",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "tportrait34",
+            "height": 1440,
+            "width": 1080
+          },
+          {
+            "imageType": "tportrait89",
+            "height": 1080,
+            "width": 960
+          },
+          {
+            "imageType": "tsmall169",
+            "height": 1080,
+            "width": 1917
+          },
+          {
+            "imageType": "tsquare11",
+            "height": 1080,
+            "width": 1080
+          },
+          {
+            "imageType": "twide329",
+            "height": 540,
+            "width": 1920
+          }
+        ],
+        "structure": {
+          "site": "kika",
+          "uuid": "d036d4ce-53a4-466d-98f1-c5cd0b0a9d5e",
+          "structureNodePath": "/sendungen/sendereihen/g/gluecksbaerchis-willkommen-im-wolkenland/bilder",
+          "alias": ""
+        },
+        "online": true
+      },
+      "teaserLinkDescription": "Entdecke mehr",
+      "eyecatcher": null,
+      "broadcastSeriesTitle": null,
+      "broadcastSeriesId": null,
+      "isVisible": true,
+      "useTitleInsteadOfLogo": false,
+      "participationActive": false,
+      "genDate": "2026-06-27T16:06:44.606+02:00",
+      "logo": {
+        "id": "gluecksbaerchis-willkommen-im-wolkenland-110",
+        "copyrights": "KiKA",
+        "headline": "Glücksbärchis - Willkommen im Wolkenland",
+        "caption": null,
+        "title": "Glücksbärchis - Willkommen im Wolkenland | Rechte: KiKA",
+        "alt": "Glücksbärchis - Willkommen im Wolkenland | Rechte: KiKA",
+        "urlScheme": "/gluecksbaerchis-willkommen-im-wolkenland/bilder/gluecksbaerchis-willkommen-im-wolkenland-110-resimage_v-**imageVariant**_w-**width**.png?version=675",
+        "urlSchemeExtended": {
+          "scheme": "/gluecksbaerchis-willkommen-im-wolkenland/bilder/gluecksbaerchis-willkommen-im-wolkenland-110-resimage_v-**imageVariant**_w-**width**.**format**?version=675",
+          "format": "png"
+        },
+        "imageBrightness": "bright",
+        "backgroundColor": null,
+        "variants": [
+          {
+            "imageType": "cropped",
+            "height": 753,
+            "width": 1441
+          },
+          {
+            "imageType": "headerLarge",
+            "height": 348,
+            "width": 1600
+          },
+          {
+            "imageType": "headerSmall",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "headerWide329",
+            "height": 540,
+            "width": 1920
+          },
+          {
+            "imageType": "ident",
+            "height": 1080,
+            "width": 1080
+          },
+          {
+            "imageType": "landscape249",
+            "height": 720,
+            "width": 1920
+          },
+          {
+            "imageType": "miniKika",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "opener489",
+            "height": 360,
+            "width": 1920
+          },
+          {
+            "imageType": "original",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "searchImage",
+            "height": 1080,
+            "width": 1347
+          },
+          {
+            "imageType": "tlarge167",
+            "height": 840,
+            "width": 1920
+          },
+          {
+            "imageType": "tlarge169",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "tlargeWithLogo169",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "tportrait89",
+            "height": 1080,
+            "width": 960
+          },
+          {
+            "imageType": "tsmall169",
+            "height": 1080,
+            "width": 1917
+          },
+          {
+            "imageType": "tsquare11",
+            "height": 1080,
+            "width": 1080
+          },
+          {
+            "imageType": "twide329",
+            "height": 540,
+            "width": 1920
+          }
+        ],
+        "structure": {
+          "site": "kika",
+          "uuid": "d036d4ce-53a4-466d-98f1-c5cd0b0a9d5e",
+          "structureNodePath": "/sendungen/sendereihen/g/gluecksbaerchis-willkommen-im-wolkenland/bilder",
+          "alias": ""
+        },
+        "online": true
+      },
+      "brandDetails": {
+        "videoSubchannel": {
+          "id": "alle-folgen-728",
+          "url": "https://www.kika.de/ackley/v1/videosubchannels/alle-folgen-728"
+        },
+        "showVideosInBrand": true,
+        "channelLogo": {
+          "id": "gluecksbaerchis-willkommen-im-wolkenland-110",
+          "copyrights": "KiKA",
+          "headline": "Glücksbärchis - Willkommen im Wolkenland",
+          "caption": null,
+          "title": "Glücksbärchis - Willkommen im Wolkenland | Rechte: KiKA",
+          "alt": "Glücksbärchis - Willkommen im Wolkenland | Rechte: KiKA",
+          "urlScheme": "/gluecksbaerchis-willkommen-im-wolkenland/bilder/gluecksbaerchis-willkommen-im-wolkenland-110-resimage_v-**imageVariant**_w-**width**.png?version=675",
+          "urlSchemeExtended": {
+            "scheme": "/gluecksbaerchis-willkommen-im-wolkenland/bilder/gluecksbaerchis-willkommen-im-wolkenland-110-resimage_v-**imageVariant**_w-**width**.**format**?version=675",
+            "format": "png"
+          },
+          "imageBrightness": "bright",
+          "backgroundColor": null,
+          "variants": [
+            {
+              "imageType": "cropped",
+              "height": 753,
+              "width": 1441
+            },
+            {
+              "imageType": "headerLarge",
+              "height": 348,
+              "width": 1600
+            },
+            {
+              "imageType": "headerSmall",
+              "height": 1080,
+              "width": 1920
+            },
+            {
+              "imageType": "headerWide329",
+              "height": 540,
+              "width": 1920
+            },
+            {
+              "imageType": "ident",
+              "height": 1080,
+              "width": 1080
+            },
+            {
+              "imageType": "landscape249",
+              "height": 720,
+              "width": 1920
+            },
+            {
+              "imageType": "miniKika",
+              "height": 1080,
+              "width": 1920
+            },
+            {
+              "imageType": "opener489",
+              "height": 360,
+              "width": 1920
+            },
+            {
+              "imageType": "original",
+              "height": 1080,
+              "width": 1920
+            },
+            {
+              "imageType": "searchImage",
+              "height": 1080,
+              "width": 1347
+            },
+            {
+              "imageType": "tlarge167",
+              "height": 840,
+              "width": 1920
+            },
+            {
+              "imageType": "tlarge169",
+              "height": 1080,
+              "width": 1920
+            },
+            {
+              "imageType": "tlargeWithLogo169",
+              "height": 1080,
+              "width": 1920
+            },
+            {
+              "imageType": "tportrait89",
+              "height": 1080,
+              "width": 960
+            },
+            {
+              "imageType": "tsmall169",
+              "height": 1080,
+              "width": 1917
+            },
+            {
+              "imageType": "tsquare11",
+              "height": 1080,
+              "width": 1080
+            },
+            {
+              "imageType": "twide329",
+              "height": 540,
+              "width": 1920
+            }
+          ],
+          "structure": {
+            "site": "kika",
+            "uuid": "d036d4ce-53a4-466d-98f1-c5cd0b0a9d5e",
+            "structureNodePath": "/sendungen/sendereihen/g/gluecksbaerchis-willkommen-im-wolkenland/bilder",
+            "alias": ""
+          },
+          "online": true
+        },
+        "effectiveTransmissionType": "geo",
+        "videoType": "mainContent",
+        "season": "0",
+        "showSeason": false,
+        "brandType": "series"
+      },
+      "channelDetails": null,
+      "downloadDetails": null,
+      "votingDetails": null,
+      "linkDetails": null,
+      "livestreamDetails": null,
+      "relatedVideoDetails": null,
+      "videoDetails": null,
+      "videoSubchannelDetails": null,
+      "subchannelDetails": null,
+      "structureBrand": {
+        "id": "gluecksbaerchis-willkommen-im-wolkenland-100",
+        "urlPath": "/gluecksbaerchis-willkommen-im-wolkenland"
+      },
+      "infoTeaserDetails": null,
+      "imageDetails": null,
+      "soundSnippetDetails": null,
+      "eventDates": {
+        "eventStartDate": null,
+        "eventEndDate": null
+      },
+      "broadcastSeries": null
+    },
+    {
+      "docType": "broadcastSeries",
+      "id": "goat-girl-100",
+      "uuid": "59a321ca-378b-4477-a843-253507b11fc5",
+      "externalId": "content-87003",
+      "urlPath": "/goat-girl",
+      "validTo": null,
+      "externalUrl": null,
+      "api": {
+        "id": "goat-girl-100",
+        "url": "https://www.kika.de/ackley/v1/brands/goat-girl-100"
+      },
+      "structure": {
+        "site": "kika",
+        "uuid": "48ac7668-011e-4ff7-865c-733167b364d7",
+        "structureNodePath": "/sendungen/sendereihen/g/goat-girl",
+        "alias": "goat-girl"
+      },
+      "date": "2026-06-11T12:18:38.894+02:00",
+      "endDate": null,
+      "modificationDate": "2026-06-11T12:18:38.917+02:00",
+      "contentCategory": null,
+      "contentCategoryTitle": "Serie",
+      "contentCategoryIcon": "serie",
+      "title": "Goat Girl",
+      "teaserText": "Gigi wurde von Ziegen großgezogen und geht nun auf die Highschool. Selbstbewusst sorgt sie dort für neue Perspektiven, Spaß und Chaos im Teenageralltag.",
+      "teaserImage": {
+        "id": "goat-girl-116",
+        "copyrights": "KiKA/2024 Daily Madness Limited/Miam! Animation/Thuristar/VRT-Ketnet",
+        "headline": "Goat Girl",
+        "caption": "Gigi wurde von Ziegen großgezogen. Doch nun steht ein Umzug in die Welt der Menschen bevor.",
+        "title": "Goat Girl | Rechte: KiKA/2024 Daily Madness Limited/Miam! Animation/Thuristar/VRT-Ketnet",
+        "alt": "Gigi und eine Ziege lächeln sich an. Im Hintergrund ist eine Berglandschaft.",
+        "urlScheme": "/goat-girl/bilder/goat-girl-116-resimage_v-**imageVariant**_w-**width**.jpg?version=32456",
+        "urlSchemeExtended": {
+          "scheme": "/goat-girl/bilder/goat-girl-116-resimage_v-**imageVariant**_w-**width**.**format**?version=32456",
+          "format": "jpg"
+        },
+        "imageBrightness": "dark",
+        "backgroundColor": null,
+        "variants": [
+          {
+            "imageType": "cropped",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "headerLarge",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "headerSmall",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "headerWide329",
+            "height": 540,
+            "width": 1920
+          },
+          {
+            "imageType": "ident",
+            "height": 800,
+            "width": 800
+          },
+          {
+            "imageType": "landscape249",
+            "height": 720,
+            "width": 1920
+          },
+          {
+            "imageType": "miniKika",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "opener489",
+            "height": 360,
+            "width": 1920
+          },
+          {
+            "imageType": "original",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "searchImage",
+            "height": 800,
+            "width": 998
+          },
+          {
+            "imageType": "tlarge167",
+            "height": 840,
+            "width": 1920
+          },
+          {
+            "imageType": "tlarge169",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "tlargeWithLogo169",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "tportrait34",
+            "height": 1440,
+            "width": 1080
+          },
+          {
+            "imageType": "tportrait89",
+            "height": 1080,
+            "width": 960
+          },
+          {
+            "imageType": "tsmall169",
+            "height": 1080,
+            "width": 1917
+          },
+          {
+            "imageType": "tsquare11",
+            "height": 1080,
+            "width": 1080
+          },
+          {
+            "imageType": "twide329",
+            "height": 540,
+            "width": 1920
+          }
+        ],
+        "structure": {
+          "site": "kika",
+          "uuid": "02db4790-5d8b-42cb-99e9-660c76f7ab36",
+          "structureNodePath": "/sendungen/sendereihen/g/goat-girl/bilder",
+          "alias": ""
+        },
+        "online": true
+      },
+      "teaserLinkDescription": "Entdecke mehr",
+      "eyecatcher": null,
+      "broadcastSeriesTitle": null,
+      "broadcastSeriesId": null,
+      "isVisible": true,
+      "useTitleInsteadOfLogo": false,
+      "participationActive": false,
+      "genDate": "2026-06-27T16:07:32.356+02:00",
+      "logo": {
+        "id": "goat-girl-112",
+        "copyrights": "KiKA",
+        "headline": "Goat girl",
+        "caption": null,
+        "title": "Goat girl | Rechte: KiKA",
+        "alt": "Goat girl | Rechte: KiKA",
+        "urlScheme": "/goat-girl/bilder/goat-girl-112-resimage_v-**imageVariant**_w-**width**.png?version=35866",
+        "urlSchemeExtended": {
+          "scheme": "/goat-girl/bilder/goat-girl-112-resimage_v-**imageVariant**_w-**width**.**format**?version=35866",
+          "format": "png"
+        },
+        "imageBrightness": "dark",
+        "backgroundColor": null,
+        "variants": [
+          {
+            "imageType": "cropped",
+            "height": 709,
+            "width": 1804
+          },
+          {
+            "imageType": "headerLarge",
+            "height": 348,
+            "width": 1600
+          },
+          {
+            "imageType": "headerSmall",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "headerWide329",
+            "height": 540,
+            "width": 1920
+          },
+          {
+            "imageType": "ident",
+            "height": 1080,
+            "width": 1080
+          },
+          {
+            "imageType": "landscape249",
+            "height": 720,
+            "width": 1920
+          },
+          {
+            "imageType": "miniKika",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "opener489",
+            "height": 360,
+            "width": 1920
+          },
+          {
+            "imageType": "original",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "searchImage",
+            "height": 1080,
+            "width": 1347
+          },
+          {
+            "imageType": "tlarge167",
+            "height": 840,
+            "width": 1920
+          },
+          {
+            "imageType": "tlarge169",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "tlargeWithLogo169",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "tportrait89",
+            "height": 1080,
+            "width": 960
+          },
+          {
+            "imageType": "tsmall169",
+            "height": 1080,
+            "width": 1917
+          },
+          {
+            "imageType": "tsquare11",
+            "height": 1080,
+            "width": 1080
+          },
+          {
+            "imageType": "twide329",
+            "height": 540,
+            "width": 1920
+          }
+        ],
+        "structure": {
+          "site": "kika",
+          "uuid": "02db4790-5d8b-42cb-99e9-660c76f7ab36",
+          "structureNodePath": "/sendungen/sendereihen/g/goat-girl/bilder",
+          "alias": ""
+        },
+        "online": true
+      },
+      "brandDetails": {
+        "videoSubchannel": {
+          "id": "alle-folgen-1328",
+          "url": "https://www.kika.de/ackley/v1/videosubchannels/alle-folgen-1328"
+        },
+        "showVideosInBrand": false,
+        "channelLogo": {
+          "id": "goat-girl-112",
+          "copyrights": "KiKA",
+          "headline": "Goat girl",
+          "caption": null,
+          "title": "Goat girl | Rechte: KiKA",
+          "alt": "Goat girl | Rechte: KiKA",
+          "urlScheme": "/goat-girl/bilder/goat-girl-112-resimage_v-**imageVariant**_w-**width**.png?version=35866",
+          "urlSchemeExtended": {
+            "scheme": "/goat-girl/bilder/goat-girl-112-resimage_v-**imageVariant**_w-**width**.**format**?version=35866",
+            "format": "png"
+          },
+          "imageBrightness": "dark",
+          "backgroundColor": null,
+          "variants": [
+            {
+              "imageType": "cropped",
+              "height": 709,
+              "width": 1804
+            },
+            {
+              "imageType": "headerLarge",
+              "height": 348,
+              "width": 1600
+            },
+            {
+              "imageType": "headerSmall",
+              "height": 1080,
+              "width": 1920
+            },
+            {
+              "imageType": "headerWide329",
+              "height": 540,
+              "width": 1920
+            },
+            {
+              "imageType": "ident",
+              "height": 1080,
+              "width": 1080
+            },
+            {
+              "imageType": "landscape249",
+              "height": 720,
+              "width": 1920
+            },
+            {
+              "imageType": "miniKika",
+              "height": 1080,
+              "width": 1920
+            },
+            {
+              "imageType": "opener489",
+              "height": 360,
+              "width": 1920
+            },
+            {
+              "imageType": "original",
+              "height": 1080,
+              "width": 1920
+            },
+            {
+              "imageType": "searchImage",
+              "height": 1080,
+              "width": 1347
+            },
+            {
+              "imageType": "tlarge167",
+              "height": 840,
+              "width": 1920
+            },
+            {
+              "imageType": "tlarge169",
+              "height": 1080,
+              "width": 1920
+            },
+            {
+              "imageType": "tlargeWithLogo169",
+              "height": 1080,
+              "width": 1920
+            },
+            {
+              "imageType": "tportrait89",
+              "height": 1080,
+              "width": 960
+            },
+            {
+              "imageType": "tsmall169",
+              "height": 1080,
+              "width": 1917
+            },
+            {
+              "imageType": "tsquare11",
+              "height": 1080,
+              "width": 1080
+            },
+            {
+              "imageType": "twide329",
+              "height": 540,
+              "width": 1920
+            }
+          ],
+          "structure": {
+            "site": "kika",
+            "uuid": "02db4790-5d8b-42cb-99e9-660c76f7ab36",
+            "structureNodePath": "/sendungen/sendereihen/g/goat-girl/bilder",
+            "alias": ""
+          },
+          "online": true
+        },
+        "effectiveTransmissionType": "geo",
+        "videoType": "mainContent",
+        "season": "0",
+        "showSeason": false,
+        "brandType": "series"
+      },
+      "channelDetails": null,
+      "downloadDetails": null,
+      "votingDetails": null,
+      "linkDetails": null,
+      "livestreamDetails": null,
+      "relatedVideoDetails": null,
+      "videoDetails": null,
+      "videoSubchannelDetails": null,
+      "subchannelDetails": null,
+      "structureBrand": {
+        "id": "goat-girl-100",
+        "urlPath": "/goat-girl"
+      },
+      "infoTeaserDetails": null,
+      "imageDetails": null,
+      "soundSnippetDetails": null,
+      "eventDates": {
+        "eventStartDate": null,
+        "eventEndDate": null
+      },
+      "broadcastSeries": null
+    },
+    {
+      "docType": "broadcastSeries",
+      "id": "gong-mein-spektrakulaeres-leben-100",
+      "uuid": "c9587bcb-f6e9-4f1a-b4ca-ef4dfa8ede97",
+      "externalId": "content-76493",
+      "urlPath": "/gong-mein-spektrakulaeres-leben",
+      "validTo": null,
+      "externalUrl": null,
+      "api": {
+        "id": "gong-mein-spektrakulaeres-leben-100",
+        "url": "https://www.kika.de/ackley/v1/brands/gong-mein-spektrakulaeres-leben-100"
+      },
+      "structure": {
+        "site": "kika",
+        "uuid": "e043809b-a7cf-400c-9840-544f705d7201",
+        "structureNodePath": "/sendungen/sendereihen/g/gong-mein-spektrakulaeres-leben",
+        "alias": "gong-mein-spektrakulaeres-leben"
+      },
+      "date": "2024-01-15T08:33:48.535+01:00",
+      "endDate": null,
+      "modificationDate": "2026-04-20T12:42:28.204+02:00",
+      "contentCategory": null,
+      "contentCategoryTitle": "Serie",
+      "contentCategoryIcon": "serie",
+      "title": "Gong! Mein spektRakuläres Leben",
+      "teaserText": "Eileen soll auf Klassenfahrt - für sie als Autistin eine Horrorvorstellung. Wie kommt sie aus der Nummer raus?",
+      "teaserImage": {
+        "id": "gong-100",
+        "copyrights": "KiKA",
+        "headline": "Gong! Mein spektRakuläres Leben",
+        "caption": "Eileen ist Autistin und hat Angst vor der anstehenden Klassenfahrt.",
+        "title": "Gong! Mein spektRakuläres Leben | Rechte: KiKA",
+        "alt": "Eileen trägt Kopfhörer, ihren Ranzen und ein T-shirt mit Regenbogenmotiv",
+        "urlScheme": "/gong-mein-spektrakulaeres-leben/bilder/gong-100-resimage_v-**imageVariant**_w-**width**.jpg?version=13793",
+        "urlSchemeExtended": {
+          "scheme": "/gong-mein-spektrakulaeres-leben/bilder/gong-100-resimage_v-**imageVariant**_w-**width**.**format**?version=13793",
+          "format": "jpg"
+        },
+        "imageBrightness": "dark",
+        "backgroundColor": null,
+        "variants": [
+          {
+            "imageType": "cropped",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "headerLarge",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "headerSmall",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "headerWide329",
+            "height": 540,
+            "width": 1920
+          },
+          {
+            "imageType": "ident",
+            "height": 800,
+            "width": 800
+          },
+          {
+            "imageType": "landscape249",
+            "height": 720,
+            "width": 1920
+          },
+          {
+            "imageType": "miniKika",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "opener489",
+            "height": 360,
+            "width": 1920
+          },
+          {
+            "imageType": "original",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "searchImage",
+            "height": 800,
+            "width": 998
+          },
+          {
+            "imageType": "tlarge167",
+            "height": 840,
+            "width": 1920
+          },
+          {
+            "imageType": "tlarge169",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "tlargeWithLogo169",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "tportrait34",
+            "height": 1440,
+            "width": 1080
+          },
+          {
+            "imageType": "tportrait89",
+            "height": 1080,
+            "width": 960
+          },
+          {
+            "imageType": "tsmall169",
+            "height": 1080,
+            "width": 1917
+          },
+          {
+            "imageType": "tsquare11",
+            "height": 1080,
+            "width": 1080
+          },
+          {
+            "imageType": "twide329",
+            "height": 540,
+            "width": 1920
+          }
+        ],
+        "structure": {
+          "site": "kika",
+          "uuid": "1bf2ae8d-968d-4769-8d47-386af3d9e904",
+          "structureNodePath": "/sendungen/sendereihen/g/gong-mein-spektrakulaeres-leben/bilder",
+          "alias": ""
+        },
+        "online": true
+      },
+      "teaserLinkDescription": "Entdecke mehr",
+      "eyecatcher": null,
+      "broadcastSeriesTitle": null,
+      "broadcastSeriesId": null,
+      "isVisible": true,
+      "useTitleInsteadOfLogo": false,
+      "participationActive": false,
+      "genDate": "2026-06-27T16:07:32.448+02:00",
+      "logo": {
+        "id": "gong-102",
+        "copyrights": "KiKA",
+        "headline": "Gong! Mein spektRakuläres Leben",
+        "caption": null,
+        "title": "Gong! Mein spektRakuläres Leben | Rechte: KiKA",
+        "alt": "Gong! Mein spektRakuläres Leben | Rechte: KiKA",
+        "urlScheme": "/gong-mein-spektrakulaeres-leben/bilder/gong-102-resimage_v-**imageVariant**_w-**width**.png?version=38999",
+        "urlSchemeExtended": {
+          "scheme": "/gong-mein-spektrakulaeres-leben/bilder/gong-102-resimage_v-**imageVariant**_w-**width**.**format**?version=38999",
+          "format": "png"
+        },
+        "imageBrightness": "dark",
+        "backgroundColor": null,
+        "variants": [
+          {
+            "imageType": "cropped",
+            "height": 463,
+            "width": 1786
+          },
+          {
+            "imageType": "headerLarge",
+            "height": 348,
+            "width": 1600
+          },
+          {
+            "imageType": "headerSmall",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "headerWide329",
+            "height": 540,
+            "width": 1920
+          },
+          {
+            "imageType": "ident",
+            "height": 1080,
+            "width": 1080
+          },
+          {
+            "imageType": "landscape249",
+            "height": 720,
+            "width": 1920
+          },
+          {
+            "imageType": "miniKika",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "opener489",
+            "height": 360,
+            "width": 1920
+          },
+          {
+            "imageType": "original",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "searchImage",
+            "height": 1080,
+            "width": 1347
+          },
+          {
+            "imageType": "tlarge167",
+            "height": 840,
+            "width": 1920
+          },
+          {
+            "imageType": "tlarge169",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "tlargeWithLogo169",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "tportrait89",
+            "height": 1080,
+            "width": 960
+          },
+          {
+            "imageType": "tsmall169",
+            "height": 1080,
+            "width": 1917
+          },
+          {
+            "imageType": "tsquare11",
+            "height": 1080,
+            "width": 1080
+          },
+          {
+            "imageType": "twide329",
+            "height": 540,
+            "width": 1920
+          }
+        ],
+        "structure": {
+          "site": "kika",
+          "uuid": "1bf2ae8d-968d-4769-8d47-386af3d9e904",
+          "structureNodePath": "/sendungen/sendereihen/g/gong-mein-spektrakulaeres-leben/bilder",
+          "alias": ""
+        },
+        "online": true
+      },
+      "brandDetails": {
+        "videoSubchannel": {
+          "id": "alle-folgen-1022",
+          "url": "https://www.kika.de/ackley/v1/videosubchannels/alle-folgen-1022"
+        },
+        "showVideosInBrand": true,
+        "channelLogo": {
+          "id": "gong-102",
+          "copyrights": "KiKA",
+          "headline": "Gong! Mein spektRakuläres Leben",
+          "caption": null,
+          "title": "Gong! Mein spektRakuläres Leben | Rechte: KiKA",
+          "alt": "Gong! Mein spektRakuläres Leben | Rechte: KiKA",
+          "urlScheme": "/gong-mein-spektrakulaeres-leben/bilder/gong-102-resimage_v-**imageVariant**_w-**width**.png?version=38999",
+          "urlSchemeExtended": {
+            "scheme": "/gong-mein-spektrakulaeres-leben/bilder/gong-102-resimage_v-**imageVariant**_w-**width**.**format**?version=38999",
+            "format": "png"
+          },
+          "imageBrightness": "dark",
+          "backgroundColor": null,
+          "variants": [
+            {
+              "imageType": "cropped",
+              "height": 463,
+              "width": 1786
+            },
+            {
+              "imageType": "headerLarge",
+              "height": 348,
+              "width": 1600
+            },
+            {
+              "imageType": "headerSmall",
+              "height": 1080,
+              "width": 1920
+            },
+            {
+              "imageType": "headerWide329",
+              "height": 540,
+              "width": 1920
+            },
+            {
+              "imageType": "ident",
+              "height": 1080,
+              "width": 1080
+            },
+            {
+              "imageType": "landscape249",
+              "height": 720,
+              "width": 1920
+            },
+            {
+              "imageType": "miniKika",
+              "height": 1080,
+              "width": 1920
+            },
+            {
+              "imageType": "opener489",
+              "height": 360,
+              "width": 1920
+            },
+            {
+              "imageType": "original",
+              "height": 1080,
+              "width": 1920
+            },
+            {
+              "imageType": "searchImage",
+              "height": 1080,
+              "width": 1347
+            },
+            {
+              "imageType": "tlarge167",
+              "height": 840,
+              "width": 1920
+            },
+            {
+              "imageType": "tlarge169",
+              "height": 1080,
+              "width": 1920
+            },
+            {
+              "imageType": "tlargeWithLogo169",
+              "height": 1080,
+              "width": 1920
+            },
+            {
+              "imageType": "tportrait89",
+              "height": 1080,
+              "width": 960
+            },
+            {
+              "imageType": "tsmall169",
+              "height": 1080,
+              "width": 1917
+            },
+            {
+              "imageType": "tsquare11",
+              "height": 1080,
+              "width": 1080
+            },
+            {
+              "imageType": "twide329",
+              "height": 540,
+              "width": 1920
+            }
+          ],
+          "structure": {
+            "site": "kika",
+            "uuid": "1bf2ae8d-968d-4769-8d47-386af3d9e904",
+            "structureNodePath": "/sendungen/sendereihen/g/gong-mein-spektrakulaeres-leben/bilder",
+            "alias": ""
+          },
+          "online": true
+        },
+        "effectiveTransmissionType": "geo",
+        "videoType": "mainContent",
+        "season": "0",
+        "showSeason": false,
+        "brandType": "series"
+      },
+      "channelDetails": null,
+      "downloadDetails": null,
+      "votingDetails": null,
+      "linkDetails": null,
+      "livestreamDetails": null,
+      "relatedVideoDetails": null,
+      "videoDetails": null,
+      "videoSubchannelDetails": null,
+      "subchannelDetails": null,
+      "structureBrand": {
+        "id": "gong-mein-spektrakulaeres-leben-100",
+        "urlPath": "/gong-mein-spektrakulaeres-leben"
+      },
+      "infoTeaserDetails": null,
+      "imageDetails": null,
+      "soundSnippetDetails": null,
+      "eventDates": {
+        "eventStartDate": null,
+        "eventEndDate": null
+      },
+      "broadcastSeries": null
+    },
+    {
+      "docType": "broadcastSeries",
+      "id": "grisu-der-kleine-drache-100",
+      "uuid": "186fde0d-de23-4454-9e97-7d889cd0b739",
+      "externalId": "content-77580",
+      "urlPath": "/grisu",
+      "validTo": null,
+      "externalUrl": null,
+      "api": {
+        "id": "grisu-der-kleine-drache-100",
+        "url": "https://www.kika.de/ackley/v1/brands/grisu-der-kleine-drache-100"
+      },
+      "structure": {
+        "site": "kika",
+        "uuid": "5f229fec-837e-49d2-ab7e-16ab211a6156",
+        "structureNodePath": "/sendungen/sendereihen/g/grisu",
+        "alias": "grisu"
+      },
+      "date": "2024-03-14T15:12:38.727+01:00",
+      "endDate": null,
+      "modificationDate": "2026-04-14T11:18:49.995+02:00",
+      "contentCategory": null,
+      "contentCategoryTitle": "Serie",
+      "contentCategoryIcon": "serie",
+      "title": "Grisu - Der kleine Drache",
+      "teaserText": "Triff Grisu, den ersten Feuerlöschdrachen. Er ist immer bereit für seine Einsätze auf der ganzen Welt!",
+      "teaserImage": {
+        "id": "grisu-108",
+        "copyrights": "ZDF/2023 MONDO TV Group/Pagot/Calidra/T2T/ZDFS",
+        "headline": "Grisu - Der kleine Drache",
+        "caption": "Grisu, der Feuerlöschdrachen",
+        "title": "Grisu - Der kleine Drache | Rechte: ZDF/2023 MONDO TV Group/Pagot/Calidra/T2T/ZDFS",
+        "alt": "Grisu, ein kleiner grüner Drache mit Feuerwehrhelm hält einen Schlauch und winkt",
+        "urlScheme": "/grisu/bilder/grisu-108-resimage_v-**imageVariant**_w-**width**.jpg?version=17916",
+        "urlSchemeExtended": {
+          "scheme": "/grisu/bilder/grisu-108-resimage_v-**imageVariant**_w-**width**.**format**?version=17916",
+          "format": "jpg"
+        },
+        "imageBrightness": "dark",
+        "backgroundColor": null,
+        "variants": [
+          {
+            "imageType": "cropped",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "headerLarge",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "headerSmall",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "headerWide329",
+            "height": 540,
+            "width": 1920
+          },
+          {
+            "imageType": "ident",
+            "height": 800,
+            "width": 800
+          },
+          {
+            "imageType": "landscape249",
+            "height": 720,
+            "width": 1920
+          },
+          {
+            "imageType": "miniKika",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "opener489",
+            "height": 360,
+            "width": 1920
+          },
+          {
+            "imageType": "original",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "searchImage",
+            "height": 800,
+            "width": 998
+          },
+          {
+            "imageType": "tlarge167",
+            "height": 840,
+            "width": 1920
+          },
+          {
+            "imageType": "tlarge169",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "tlargeWithLogo169",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "tportrait34",
+            "height": 1440,
+            "width": 1080
+          },
+          {
+            "imageType": "tportrait89",
+            "height": 1080,
+            "width": 960
+          },
+          {
+            "imageType": "tsmall169",
+            "height": 1080,
+            "width": 1917
+          },
+          {
+            "imageType": "tsquare11",
+            "height": 1080,
+            "width": 1080
+          },
+          {
+            "imageType": "twide329",
+            "height": 540,
+            "width": 1920
+          }
+        ],
+        "structure": {
+          "site": "kika",
+          "uuid": "eb45d4e6-a980-492f-9083-065c64e0c33f",
+          "structureNodePath": "/sendungen/sendereihen/g/grisu/bilder",
+          "alias": ""
+        },
+        "online": true
+      },
+      "teaserLinkDescription": "Entdecke mehr",
+      "eyecatcher": null,
+      "broadcastSeriesTitle": null,
+      "broadcastSeriesId": null,
+      "isVisible": true,
+      "useTitleInsteadOfLogo": false,
+      "participationActive": false,
+      "genDate": "2026-06-27T16:07:32.488+02:00",
+      "logo": {
+        "id": "grisu-110",
+        "copyrights": "ZDF",
+        "headline": "Grisu - Der kleine Drache",
+        "caption": null,
+        "title": "Grisu - Der kleine Drache | Rechte: ZDF",
+        "alt": "Grisu - Der kleine Drache | Rechte: ZDF",
+        "urlScheme": "/grisu/bilder/grisu-110-resimage_v-**imageVariant**_w-**width**.png?version=4721",
+        "urlSchemeExtended": {
+          "scheme": "/grisu/bilder/grisu-110-resimage_v-**imageVariant**_w-**width**.**format**?version=4721",
+          "format": "png"
+        },
+        "imageBrightness": "dark",
+        "backgroundColor": null,
+        "variants": [
+          {
+            "imageType": "cropped",
+            "height": 870,
+            "width": 1246
+          },
+          {
+            "imageType": "headerLarge",
+            "height": 348,
+            "width": 1600
+          },
+          {
+            "imageType": "headerSmall",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "headerWide329",
+            "height": 540,
+            "width": 1920
+          },
+          {
+            "imageType": "ident",
+            "height": 1080,
+            "width": 1080
+          },
+          {
+            "imageType": "landscape249",
+            "height": 720,
+            "width": 1920
+          },
+          {
+            "imageType": "miniKika",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "opener489",
+            "height": 360,
+            "width": 1920
+          },
+          {
+            "imageType": "original",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "searchImage",
+            "height": 1080,
+            "width": 1347
+          },
+          {
+            "imageType": "tlarge167",
+            "height": 840,
+            "width": 1920
+          },
+          {
+            "imageType": "tlarge169",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "tlargeWithLogo169",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "tportrait89",
+            "height": 1080,
+            "width": 960
+          },
+          {
+            "imageType": "tsmall169",
+            "height": 1080,
+            "width": 1917
+          },
+          {
+            "imageType": "tsquare11",
+            "height": 1080,
+            "width": 1080
+          },
+          {
+            "imageType": "twide329",
+            "height": 540,
+            "width": 1920
+          }
+        ],
+        "structure": {
+          "site": "kika",
+          "uuid": "eb45d4e6-a980-492f-9083-065c64e0c33f",
+          "structureNodePath": "/sendungen/sendereihen/g/grisu/bilder",
+          "alias": ""
+        },
+        "online": true
+      },
+      "brandDetails": {
+        "videoSubchannel": {
+          "id": "alle-folgen-1080",
+          "url": "https://www.kika.de/ackley/v1/videosubchannels/alle-folgen-1080"
+        },
+        "showVideosInBrand": true,
+        "channelLogo": {
+          "id": "grisu-110",
+          "copyrights": "ZDF",
+          "headline": "Grisu - Der kleine Drache",
+          "caption": null,
+          "title": "Grisu - Der kleine Drache | Rechte: ZDF",
+          "alt": "Grisu - Der kleine Drache | Rechte: ZDF",
+          "urlScheme": "/grisu/bilder/grisu-110-resimage_v-**imageVariant**_w-**width**.png?version=4721",
+          "urlSchemeExtended": {
+            "scheme": "/grisu/bilder/grisu-110-resimage_v-**imageVariant**_w-**width**.**format**?version=4721",
+            "format": "png"
+          },
+          "imageBrightness": "dark",
+          "backgroundColor": null,
+          "variants": [
+            {
+              "imageType": "cropped",
+              "height": 870,
+              "width": 1246
+            },
+            {
+              "imageType": "headerLarge",
+              "height": 348,
+              "width": 1600
+            },
+            {
+              "imageType": "headerSmall",
+              "height": 1080,
+              "width": 1920
+            },
+            {
+              "imageType": "headerWide329",
+              "height": 540,
+              "width": 1920
+            },
+            {
+              "imageType": "ident",
+              "height": 1080,
+              "width": 1080
+            },
+            {
+              "imageType": "landscape249",
+              "height": 720,
+              "width": 1920
+            },
+            {
+              "imageType": "miniKika",
+              "height": 1080,
+              "width": 1920
+            },
+            {
+              "imageType": "opener489",
+              "height": 360,
+              "width": 1920
+            },
+            {
+              "imageType": "original",
+              "height": 1080,
+              "width": 1920
+            },
+            {
+              "imageType": "searchImage",
+              "height": 1080,
+              "width": 1347
+            },
+            {
+              "imageType": "tlarge167",
+              "height": 840,
+              "width": 1920
+            },
+            {
+              "imageType": "tlarge169",
+              "height": 1080,
+              "width": 1920
+            },
+            {
+              "imageType": "tlargeWithLogo169",
+              "height": 1080,
+              "width": 1920
+            },
+            {
+              "imageType": "tportrait89",
+              "height": 1080,
+              "width": 960
+            },
+            {
+              "imageType": "tsmall169",
+              "height": 1080,
+              "width": 1917
+            },
+            {
+              "imageType": "tsquare11",
+              "height": 1080,
+              "width": 1080
+            },
+            {
+              "imageType": "twide329",
+              "height": 540,
+              "width": 1920
+            }
+          ],
+          "structure": {
+            "site": "kika",
+            "uuid": "eb45d4e6-a980-492f-9083-065c64e0c33f",
+            "structureNodePath": "/sendungen/sendereihen/g/grisu/bilder",
+            "alias": ""
+          },
+          "online": true
+        },
+        "effectiveTransmissionType": "geo",
+        "videoType": "mainContent",
+        "season": "0",
+        "showSeason": false,
+        "brandType": "series"
+      },
+      "channelDetails": null,
+      "downloadDetails": null,
+      "votingDetails": null,
+      "linkDetails": null,
+      "livestreamDetails": null,
+      "relatedVideoDetails": null,
+      "videoDetails": null,
+      "videoSubchannelDetails": null,
+      "subchannelDetails": null,
+      "structureBrand": {
+        "id": "grisu-der-kleine-drache-100",
+        "urlPath": "/grisu"
+      },
+      "infoTeaserDetails": null,
+      "imageDetails": null,
+      "soundSnippetDetails": null,
+      "eventDates": {
+        "eventStartDate": null,
+        "eventEndDate": null
+      },
+      "broadcastSeries": null
+    }
+  ],
+  "meta": {
+    "page": 0,
+    "pageSize": 200,
+    "offset": 0,
+    "totalPages": 1,
+    "totalElements": 7,
+    "size": 7,
+    "first": true,
+    "last": true,
+    "empty": false,
+    "duration": 3,
+    "search_type": "A-Z"
+  },
+  "links": {
+    "first": "https://www.kika.de/ackley/v1/search/broadcast-search102?q=G&page=0&platform=kikade",
+    "previous": null,
+    "next": null,
+    "last": "https://www.kika.de/ackley/v1/search/broadcast-search102?q=G&page=0&platform=kikade"
+  }
+}

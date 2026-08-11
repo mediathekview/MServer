@@ -1,0 +1,3611 @@
+{
+  "content": [
+    {
+      "docType": "externalVideo",
+      "id": "boese-jungs-100",
+      "uuid": "b3bf4c64-fc21-4b22-b580-34071005bc33",
+      "externalId": "ard-Y3JpZDovL2Rhc2Vyc3RlLm5kci5kZS80NzUzXzIwMjMtMDItMjctMTEtMDA",
+      "urlPath": "/die-pfefferkoerner/videos",
+      "validTo": null,
+      "externalUrl": null,
+      "api": {
+        "id": "boese-jungs-100",
+        "url": "https://www.kika.de/ackley/v1/videos/boese-jungs-100"
+      },
+      "structure": {
+        "site": "kika",
+        "uuid": "47533681-ea5d-46df-95f2-d949080194c1",
+        "structureNodePath": "/sendungen/sendereihen/die/die-pfefferkoerner/videos",
+        "alias": ""
+      },
+      "date": "2011-01-14T00:56:52.000+01:00",
+      "endDate": "2028-02-27T11:00:00.000+01:00",
+      "modificationDate": "2026-03-24T16:36:11.978+01:00",
+      "contentCategory": null,
+      "contentCategoryTitle": "Video",
+      "contentCategoryIcon": "video",
+      "title": "97. Böse Jungs",
+      "teaserText": "Themba werden in der Schule 200 Euro gestohlen, die er von seinen Eltern für das Durchlichtmikroskop bekommen hat. Die Pfefferkörner ermittteln!",
+      "teaserImage": {
+        "id": "boese-jungs-s-e-104",
+        "copyrights": "NDR/Letterbox, Romano Ruhnau",
+        "headline": "Micha will Lina und Themba aus dem Verkehr ziehen.",
+        "caption": null,
+        "title": "Micha will Lina und Themba aus dem Verkehr ziehen. | Rechte: NDR/Letterbox, Romano Ruhnau",
+        "alt": "Micha hält Lina (Lale H. Mann) und Themba (Coco Nima) im Schwitzkasten",
+        "urlScheme": "/die-pfefferkoerner/videos/boese-jungs-s-e-104-resimage_v-**imageVariant**_w-**width**.jpg?version=13344",
+        "urlSchemeExtended": {
+          "scheme": "/die-pfefferkoerner/videos/boese-jungs-s-e-104-resimage_v-**imageVariant**_w-**width**.**format**?version=13344",
+          "format": "jpg"
+        },
+        "imageBrightness": "dark",
+        "backgroundColor": null,
+        "variants": [
+          {
+            "imageType": "cropped",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "headerLarge",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "headerSmall",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "headerWide329",
+            "height": 540,
+            "width": 1920
+          },
+          {
+            "imageType": "ident",
+            "height": 1080,
+            "width": 1080
+          },
+          {
+            "imageType": "landscape249",
+            "height": 720,
+            "width": 1920
+          },
+          {
+            "imageType": "miniKika",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "opener489",
+            "height": 360,
+            "width": 1920
+          },
+          {
+            "imageType": "original",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "searchImage",
+            "height": 1080,
+            "width": 1347
+          },
+          {
+            "imageType": "tlarge167",
+            "height": 840,
+            "width": 1920
+          },
+          {
+            "imageType": "tlarge169",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "tlargeWithLogo169",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "tportrait89",
+            "height": 1080,
+            "width": 960
+          },
+          {
+            "imageType": "tsmall169",
+            "height": 1080,
+            "width": 1917
+          },
+          {
+            "imageType": "tsquare11",
+            "height": 1080,
+            "width": 1080
+          },
+          {
+            "imageType": "twide329",
+            "height": 540,
+            "width": 1920
+          }
+        ],
+        "structure": {
+          "site": "kika",
+          "uuid": "47533681-ea5d-46df-95f2-d949080194c1",
+          "structureNodePath": "/sendungen/sendereihen/die/die-pfefferkoerner/videos",
+          "alias": ""
+        },
+        "online": true
+      },
+      "teaserLinkDescription": "Jetzt anschauen",
+      "eyecatcher": null,
+      "broadcastSeriesTitle": "Die Pfefferkörner",
+      "broadcastSeriesId": "die-pfefferkoerner-100",
+      "isVisible": true,
+      "useTitleInsteadOfLogo": false,
+      "participationActive": false,
+      "genDate": "2026-06-27T18:29:47.502+02:00",
+      "logo": {
+        "id": "die-pfefferkoerner-112",
+        "copyrights": "NDR",
+        "headline": "Die Pfefferkörner",
+        "caption": null,
+        "title": "Die Pfefferkörner | Rechte: NDR",
+        "alt": "Logo \"Die Pfefferkörner\" ",
+        "urlScheme": "/die-pfefferkoerner/bilder/die-pfefferkoerner-112-resimage_v-**imageVariant**_w-**width**.png?version=2130",
+        "urlSchemeExtended": {
+          "scheme": "/die-pfefferkoerner/bilder/die-pfefferkoerner-112-resimage_v-**imageVariant**_w-**width**.**format**?version=2130",
+          "format": "png"
+        },
+        "imageBrightness": "dark",
+        "backgroundColor": null,
+        "variants": [
+          {
+            "imageType": "cropped",
+            "height": 350,
+            "width": 1769
+          },
+          {
+            "imageType": "headerLarge",
+            "height": 348,
+            "width": 1600
+          },
+          {
+            "imageType": "headerSmall",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "headerWide329",
+            "height": 540,
+            "width": 1920
+          },
+          {
+            "imageType": "ident",
+            "height": 1080,
+            "width": 1080
+          },
+          {
+            "imageType": "landscape249",
+            "height": 720,
+            "width": 1920
+          },
+          {
+            "imageType": "miniKika",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "opener489",
+            "height": 360,
+            "width": 1920
+          },
+          {
+            "imageType": "original",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "searchImage",
+            "height": 1080,
+            "width": 1347
+          },
+          {
+            "imageType": "tlarge167",
+            "height": 840,
+            "width": 1920
+          },
+          {
+            "imageType": "tlarge169",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "tlargeWithLogo169",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "tportrait89",
+            "height": 1080,
+            "width": 960
+          },
+          {
+            "imageType": "tsmall169",
+            "height": 1080,
+            "width": 1917
+          },
+          {
+            "imageType": "tsquare11",
+            "height": 1080,
+            "width": 1080
+          },
+          {
+            "imageType": "twide329",
+            "height": 540,
+            "width": 1920
+          }
+        ],
+        "structure": {
+          "site": "kika",
+          "uuid": "b720794c-977e-4eeb-a103-e490042dccfb",
+          "structureNodePath": "/sendungen/sendereihen/die/die-pfefferkoerner/bilder",
+          "alias": ""
+        },
+        "online": true
+      },
+      "brandDetails": null,
+      "channelDetails": null,
+      "downloadDetails": null,
+      "votingDetails": null,
+      "linkDetails": null,
+      "livestreamDetails": null,
+      "relatedVideoDetails": null,
+      "videoDetails": {
+        "description": "Themba ist begeistert. Er hat die Chance, ein gebrauchtes trinokulares Durchlichtmikroskop zu kaufen. Auf das Profigerät ist er schon lange scharf. 300 Euro soll es kosten. 100 Euro hat er selbst gespart, 200 Euro legen seine Eltern dazu, obwohl sie selbst knapp bei Kasse sind. Umso schlimmer, als ihm in der Schule 200 Euro gestohlen werden. Die Pfefferkörner nehmen die Ermittlungen auf.",
+        "episodeNumber": "97",
+        "fsk": null,
+        "ageRating": null,
+        "ageRatingDescriptors": null,
+        "duration": "00:28:33",
+        "durationInSeconds": 1713,
+        "hasAssets": true,
+        "hasSubtitle": true,
+        "hasOriginalVideo": true,
+        "hasDgsVideo": false,
+        "hasAdVideo": false,
+        "thresholdDaysUntilOffline": 6,
+        "videoType": "mainContent",
+        "isFeaturedVideo": false,
+        "transmissionType": "online",
+        "season": "8",
+        "seasonTitle": "Staffel 8",
+        "additionalContent": null
+      },
+      "videoSubchannelDetails": null,
+      "subchannelDetails": null,
+      "structureBrand": {
+        "id": "die-pfefferkoerner-100",
+        "urlPath": "/die-pfefferkoerner"
+      },
+      "infoTeaserDetails": null,
+      "imageDetails": null,
+      "soundSnippetDetails": null,
+      "eventDates": {
+        "eventStartDate": null,
+        "eventEndDate": null
+      },
+      "broadcastSeries": {
+        "id": "die-pfefferkoerner-100",
+        "title": "Die Pfefferkörner",
+        "urlPath": "/die-pfefferkoerner"
+      }
+    },
+    {
+      "docType": "externalVideo",
+      "id": "wuehltisch-welpen-100",
+      "uuid": "293490ae-49bf-4580-8fc4-a5400ac331ea",
+      "externalId": "ard-Y3JpZDovL2Rhc2Vyc3RlLm5kci5kZS80NzUzXzIwMjMtMDItMjctMTItMDA",
+      "urlPath": "/die-pfefferkoerner/videos",
+      "validTo": null,
+      "externalUrl": null,
+      "api": {
+        "id": "wuehltisch-welpen-100",
+        "url": "https://www.kika.de/ackley/v1/videos/wuehltisch-welpen-100"
+      },
+      "structure": {
+        "site": "kika",
+        "uuid": "47533681-ea5d-46df-95f2-d949080194c1",
+        "structureNodePath": "/sendungen/sendereihen/die/die-pfefferkoerner/videos",
+        "alias": ""
+      },
+      "date": "2011-01-14T01:09:50.000+01:00",
+      "endDate": "2028-02-27T12:00:00.000+01:00",
+      "modificationDate": "2026-03-24T16:36:20.510+01:00",
+      "contentCategory": null,
+      "contentCategoryTitle": "Video",
+      "contentCategoryIcon": "video",
+      "title": "98. Wühltisch-Welpen",
+      "teaserText": "Die Pfefferkörner kommen auf die Spur skrupelloser Hundehändler. Sie können die Verbrecher in die Falle locken, doch Emme gerät in Gefahr.",
+      "teaserImage": {
+        "id": "wuehltisch-welpen-s-e-104",
+        "copyrights": "NDR/Letterbox, Romano Ruhnau",
+        "headline": "Sophie, Emma und die Tierärztin Frau Abraham fragen sich, wer die süßen Welpen ertränken wollte.",
+        "caption": null,
+        "title": "Sophie, Emma und die Tierärztin Frau Abraham fragen sich, wer die süßen Welpen ertränken wollte. | Rechte: NDR/Letterbox, Romano Ruhnau",
+        "alt": "Sophie (Katherina Unger), Emma (Aurelia Stern) und die Tierärztin Frau Abraham mit einem Welpen.",
+        "urlScheme": "/die-pfefferkoerner/videos/wuehltisch-welpen-s-e-104-resimage_v-**imageVariant**_w-**width**.jpg?version=17760",
+        "urlSchemeExtended": {
+          "scheme": "/die-pfefferkoerner/videos/wuehltisch-welpen-s-e-104-resimage_v-**imageVariant**_w-**width**.**format**?version=17760",
+          "format": "jpg"
+        },
+        "imageBrightness": "dark",
+        "backgroundColor": null,
+        "variants": [
+          {
+            "imageType": "cropped",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "headerLarge",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "headerSmall",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "headerWide329",
+            "height": 540,
+            "width": 1920
+          },
+          {
+            "imageType": "ident",
+            "height": 1080,
+            "width": 1080
+          },
+          {
+            "imageType": "landscape249",
+            "height": 720,
+            "width": 1920
+          },
+          {
+            "imageType": "miniKika",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "opener489",
+            "height": 360,
+            "width": 1920
+          },
+          {
+            "imageType": "original",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "searchImage",
+            "height": 1080,
+            "width": 1347
+          },
+          {
+            "imageType": "tlarge167",
+            "height": 840,
+            "width": 1920
+          },
+          {
+            "imageType": "tlarge169",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "tlargeWithLogo169",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "tportrait89",
+            "height": 1080,
+            "width": 960
+          },
+          {
+            "imageType": "tsmall169",
+            "height": 1080,
+            "width": 1917
+          },
+          {
+            "imageType": "tsquare11",
+            "height": 1080,
+            "width": 1080
+          },
+          {
+            "imageType": "twide329",
+            "height": 540,
+            "width": 1920
+          }
+        ],
+        "structure": {
+          "site": "kika",
+          "uuid": "47533681-ea5d-46df-95f2-d949080194c1",
+          "structureNodePath": "/sendungen/sendereihen/die/die-pfefferkoerner/videos",
+          "alias": ""
+        },
+        "online": true
+      },
+      "teaserLinkDescription": "Jetzt anschauen",
+      "eyecatcher": null,
+      "broadcastSeriesTitle": "Die Pfefferkörner",
+      "broadcastSeriesId": "die-pfefferkoerner-100",
+      "isVisible": true,
+      "useTitleInsteadOfLogo": false,
+      "participationActive": false,
+      "genDate": "2026-06-27T18:29:47.537+02:00",
+      "logo": {
+        "id": "die-pfefferkoerner-112",
+        "copyrights": "NDR",
+        "headline": "Die Pfefferkörner",
+        "caption": null,
+        "title": "Die Pfefferkörner | Rechte: NDR",
+        "alt": "Logo \"Die Pfefferkörner\" ",
+        "urlScheme": "/die-pfefferkoerner/bilder/die-pfefferkoerner-112-resimage_v-**imageVariant**_w-**width**.png?version=2130",
+        "urlSchemeExtended": {
+          "scheme": "/die-pfefferkoerner/bilder/die-pfefferkoerner-112-resimage_v-**imageVariant**_w-**width**.**format**?version=2130",
+          "format": "png"
+        },
+        "imageBrightness": "dark",
+        "backgroundColor": null,
+        "variants": [
+          {
+            "imageType": "cropped",
+            "height": 350,
+            "width": 1769
+          },
+          {
+            "imageType": "headerLarge",
+            "height": 348,
+            "width": 1600
+          },
+          {
+            "imageType": "headerSmall",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "headerWide329",
+            "height": 540,
+            "width": 1920
+          },
+          {
+            "imageType": "ident",
+            "height": 1080,
+            "width": 1080
+          },
+          {
+            "imageType": "landscape249",
+            "height": 720,
+            "width": 1920
+          },
+          {
+            "imageType": "miniKika",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "opener489",
+            "height": 360,
+            "width": 1920
+          },
+          {
+            "imageType": "original",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "searchImage",
+            "height": 1080,
+            "width": 1347
+          },
+          {
+            "imageType": "tlarge167",
+            "height": 840,
+            "width": 1920
+          },
+          {
+            "imageType": "tlarge169",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "tlargeWithLogo169",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "tportrait89",
+            "height": 1080,
+            "width": 960
+          },
+          {
+            "imageType": "tsmall169",
+            "height": 1080,
+            "width": 1917
+          },
+          {
+            "imageType": "tsquare11",
+            "height": 1080,
+            "width": 1080
+          },
+          {
+            "imageType": "twide329",
+            "height": 540,
+            "width": 1920
+          }
+        ],
+        "structure": {
+          "site": "kika",
+          "uuid": "b720794c-977e-4eeb-a103-e490042dccfb",
+          "structureNodePath": "/sendungen/sendereihen/die/die-pfefferkoerner/bilder",
+          "alias": ""
+        },
+        "online": true
+      },
+      "brandDetails": null,
+      "channelDetails": null,
+      "downloadDetails": null,
+      "votingDetails": null,
+      "linkDetails": null,
+      "livestreamDetails": null,
+      "relatedVideoDetails": null,
+      "videoDetails": {
+        "description": "Zwei kranke Hundewelpen im Pappkarton bringen die Pfefferkörner auf die Spur skrupelloser Hundehändler, die einen Internethandel mit Rassehunden aus osteuropäischen Zuchtfabriken betreiben. Den Kindern gelingt es, die Verbrecher in eine Falle zu locken, aber es kommt zu einer folgenschweren Panne. Emma gerät in die Fänge der Verbrecher. Nur durch schlaues Teamwork gelingt es, Emma und das Leben vieler kleiner Hunde zu retten.",
+        "episodeNumber": "98",
+        "fsk": null,
+        "ageRating": null,
+        "ageRatingDescriptors": null,
+        "duration": "00:28:30",
+        "durationInSeconds": 1710,
+        "hasAssets": true,
+        "hasSubtitle": true,
+        "hasOriginalVideo": true,
+        "hasDgsVideo": false,
+        "hasAdVideo": false,
+        "thresholdDaysUntilOffline": 6,
+        "videoType": "mainContent",
+        "isFeaturedVideo": false,
+        "transmissionType": "online",
+        "season": "8",
+        "seasonTitle": "Staffel 8",
+        "additionalContent": null
+      },
+      "videoSubchannelDetails": null,
+      "subchannelDetails": null,
+      "structureBrand": {
+        "id": "die-pfefferkoerner-100",
+        "urlPath": "/die-pfefferkoerner"
+      },
+      "infoTeaserDetails": null,
+      "imageDetails": null,
+      "soundSnippetDetails": null,
+      "eventDates": {
+        "eventStartDate": null,
+        "eventEndDate": null
+      },
+      "broadcastSeries": {
+        "id": "die-pfefferkoerner-100",
+        "title": "Die Pfefferkörner",
+        "urlPath": "/die-pfefferkoerner"
+      }
+    },
+    {
+      "docType": "externalVideo",
+      "id": "eigentor-104",
+      "uuid": "f769c03d-21fd-4e16-9eee-cda54e23a1e9",
+      "externalId": "ard-Y3JpZDovL2Rhc2Vyc3RlLm5kci5kZS80NzUzXzIwMjMtMDItMjctMTMtMDA",
+      "urlPath": "/die-pfefferkoerner/videos",
+      "validTo": null,
+      "externalUrl": null,
+      "api": {
+        "id": "eigentor-104",
+        "url": "https://www.kika.de/ackley/v1/videos/eigentor-104"
+      },
+      "structure": {
+        "site": "kika",
+        "uuid": "47533681-ea5d-46df-95f2-d949080194c1",
+        "structureNodePath": "/sendungen/sendereihen/die/die-pfefferkoerner/videos",
+        "alias": ""
+      },
+      "date": "2011-01-14T01:26:49.000+01:00",
+      "endDate": "2028-02-27T13:00:00.000+01:00",
+      "modificationDate": "2026-03-24T16:36:20.786+01:00",
+      "contentCategory": null,
+      "contentCategoryTitle": "Video",
+      "contentCategoryIcon": "video",
+      "title": "99. Eigentor",
+      "teaserText": "Bei ihrem Fußballspiel pfeift der Schiri absichtlich falsch. Als Themba den Schiri zur Rede stellt, versucht man ihn einzuschüchtern.",
+      "teaserImage": {
+        "id": "eigentor-s-e-104",
+        "copyrights": "NDR/Letterbox, Romano Ruhnau",
+        "headline": "Themba hat Streit mit dem Schiedsrichter.",
+        "caption": null,
+        "title": "Themba hat Streit mit dem Schiedsrichter. | Rechte: NDR/Letterbox, Romano Ruhnau",
+        "alt": "Ein junger Mann in Schiedrichter-Trikot packt Themba (Coco Nima) an der Schulter",
+        "urlScheme": "/die-pfefferkoerner/videos/eigentor-s-e-104-resimage_v-**imageVariant**_w-**width**.jpg?version=12434",
+        "urlSchemeExtended": {
+          "scheme": "/die-pfefferkoerner/videos/eigentor-s-e-104-resimage_v-**imageVariant**_w-**width**.**format**?version=12434",
+          "format": "jpg"
+        },
+        "imageBrightness": "dark",
+        "backgroundColor": null,
+        "variants": [
+          {
+            "imageType": "cropped",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "headerLarge",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "headerSmall",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "headerWide329",
+            "height": 540,
+            "width": 1920
+          },
+          {
+            "imageType": "ident",
+            "height": 1080,
+            "width": 1080
+          },
+          {
+            "imageType": "landscape249",
+            "height": 720,
+            "width": 1920
+          },
+          {
+            "imageType": "miniKika",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "opener489",
+            "height": 360,
+            "width": 1920
+          },
+          {
+            "imageType": "original",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "searchImage",
+            "height": 1080,
+            "width": 1347
+          },
+          {
+            "imageType": "tlarge167",
+            "height": 840,
+            "width": 1920
+          },
+          {
+            "imageType": "tlarge169",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "tlargeWithLogo169",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "tportrait89",
+            "height": 1080,
+            "width": 960
+          },
+          {
+            "imageType": "tsmall169",
+            "height": 1080,
+            "width": 1917
+          },
+          {
+            "imageType": "tsquare11",
+            "height": 1080,
+            "width": 1080
+          },
+          {
+            "imageType": "twide329",
+            "height": 540,
+            "width": 1920
+          }
+        ],
+        "structure": {
+          "site": "kika",
+          "uuid": "47533681-ea5d-46df-95f2-d949080194c1",
+          "structureNodePath": "/sendungen/sendereihen/die/die-pfefferkoerner/videos",
+          "alias": ""
+        },
+        "online": true
+      },
+      "teaserLinkDescription": "Jetzt anschauen",
+      "eyecatcher": null,
+      "broadcastSeriesTitle": "Die Pfefferkörner",
+      "broadcastSeriesId": "die-pfefferkoerner-100",
+      "isVisible": true,
+      "useTitleInsteadOfLogo": false,
+      "participationActive": false,
+      "genDate": "2026-06-27T18:29:47.577+02:00",
+      "logo": {
+        "id": "die-pfefferkoerner-112",
+        "copyrights": "NDR",
+        "headline": "Die Pfefferkörner",
+        "caption": null,
+        "title": "Die Pfefferkörner | Rechte: NDR",
+        "alt": "Logo \"Die Pfefferkörner\" ",
+        "urlScheme": "/die-pfefferkoerner/bilder/die-pfefferkoerner-112-resimage_v-**imageVariant**_w-**width**.png?version=2130",
+        "urlSchemeExtended": {
+          "scheme": "/die-pfefferkoerner/bilder/die-pfefferkoerner-112-resimage_v-**imageVariant**_w-**width**.**format**?version=2130",
+          "format": "png"
+        },
+        "imageBrightness": "dark",
+        "backgroundColor": null,
+        "variants": [
+          {
+            "imageType": "cropped",
+            "height": 350,
+            "width": 1769
+          },
+          {
+            "imageType": "headerLarge",
+            "height": 348,
+            "width": 1600
+          },
+          {
+            "imageType": "headerSmall",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "headerWide329",
+            "height": 540,
+            "width": 1920
+          },
+          {
+            "imageType": "ident",
+            "height": 1080,
+            "width": 1080
+          },
+          {
+            "imageType": "landscape249",
+            "height": 720,
+            "width": 1920
+          },
+          {
+            "imageType": "miniKika",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "opener489",
+            "height": 360,
+            "width": 1920
+          },
+          {
+            "imageType": "original",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "searchImage",
+            "height": 1080,
+            "width": 1347
+          },
+          {
+            "imageType": "tlarge167",
+            "height": 840,
+            "width": 1920
+          },
+          {
+            "imageType": "tlarge169",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "tlargeWithLogo169",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "tportrait89",
+            "height": 1080,
+            "width": 960
+          },
+          {
+            "imageType": "tsmall169",
+            "height": 1080,
+            "width": 1917
+          },
+          {
+            "imageType": "tsquare11",
+            "height": 1080,
+            "width": 1080
+          },
+          {
+            "imageType": "twide329",
+            "height": 540,
+            "width": 1920
+          }
+        ],
+        "structure": {
+          "site": "kika",
+          "uuid": "b720794c-977e-4eeb-a103-e490042dccfb",
+          "structureNodePath": "/sendungen/sendereihen/die/die-pfefferkoerner/bilder",
+          "alias": ""
+        },
+        "online": true
+      },
+      "brandDetails": null,
+      "channelDetails": null,
+      "downloadDetails": null,
+      "votingDetails": null,
+      "linkDetails": null,
+      "livestreamDetails": null,
+      "relatedVideoDetails": null,
+      "videoDetails": {
+        "description": "Erstmals steht Thembas und Rasmus' Schulmannschaft im Finale des Großen Hanse-Cups Hamburger Schulen. Als Themba während des Hinspiels einen Foul-Elfmeter bekommt, scheint der begehrte Pokal schon zum Greifen nah. Doch Themba schießt absichtlich vorbei und Rasmus ist stinksauer. Er habe den Elfer nicht verdient, erklärt Themba ungerührt. Der Schiri habe absichtlich falsch gepfiffen, es war Schiebung. Rasmus glaubt, dass Themba spinnt.",
+        "episodeNumber": "99",
+        "fsk": null,
+        "ageRating": null,
+        "ageRatingDescriptors": null,
+        "duration": "00:28:34",
+        "durationInSeconds": 1714,
+        "hasAssets": true,
+        "hasSubtitle": true,
+        "hasOriginalVideo": true,
+        "hasDgsVideo": false,
+        "hasAdVideo": false,
+        "thresholdDaysUntilOffline": 6,
+        "videoType": "mainContent",
+        "isFeaturedVideo": false,
+        "transmissionType": "online",
+        "season": "8",
+        "seasonTitle": "Staffel 8",
+        "additionalContent": null
+      },
+      "videoSubchannelDetails": null,
+      "subchannelDetails": null,
+      "structureBrand": {
+        "id": "die-pfefferkoerner-100",
+        "urlPath": "/die-pfefferkoerner"
+      },
+      "infoTeaserDetails": null,
+      "imageDetails": null,
+      "soundSnippetDetails": null,
+      "eventDates": {
+        "eventStartDate": null,
+        "eventEndDate": null
+      },
+      "broadcastSeries": {
+        "id": "die-pfefferkoerner-100",
+        "title": "Die Pfefferkörner",
+        "urlPath": "/die-pfefferkoerner"
+      }
+    },
+    {
+      "docType": "externalVideo",
+      "id": "stoertebekers-kopf-102",
+      "uuid": "35ff3bfa-d2c3-4b20-a878-722a7ded1b11",
+      "externalId": "ard-Y3JpZDovL2Rhc2Vyc3RlLm5kci5kZS80NzUzXzIwMjMtMDItMjctMTQtMDA",
+      "urlPath": "/die-pfefferkoerner/videos",
+      "validTo": null,
+      "externalUrl": null,
+      "api": {
+        "id": "stoertebekers-kopf-102",
+        "url": "https://www.kika.de/ackley/v1/videos/stoertebekers-kopf-102"
+      },
+      "structure": {
+        "site": "kika",
+        "uuid": "47533681-ea5d-46df-95f2-d949080194c1",
+        "structureNodePath": "/sendungen/sendereihen/die/die-pfefferkoerner/videos",
+        "alias": ""
+      },
+      "date": "2011-01-18T00:21:52.000+01:00",
+      "endDate": "2028-02-27T14:00:00.000+01:00",
+      "modificationDate": "2026-03-24T16:36:21.092+01:00",
+      "contentCategory": null,
+      "contentCategoryTitle": "Video",
+      "contentCategoryIcon": "video",
+      "title": "100. Störtebekers Kopf",
+      "teaserText": "Der 100. Pfefferkörner-Fall! Gerade wurde der Störtebeker-Schädel aus dem Museum geklaut. Doch anstatt zu ermitteln, streiten sich die Freunde.",
+      "teaserImage": {
+        "id": "stoertebekers-kopf-s-e-104",
+        "copyrights": "NDR/Letterbox, Romano Ruhnau",
+        "headline": "Sophie macht Lukas schöne Augen, um Themba eifersüchtig zu machen.",
+        "caption": null,
+        "title": "Sophie macht Lukas schöne Augen, um Themba eifersüchtig zu machen. | Rechte: NDR/Letterbox, Romano Ruhnau",
+        "alt": "Sophie (Katherina Unger) schaut Lukas an",
+        "urlScheme": "/die-pfefferkoerner/videos/stoertebekers-kopf-s-e-104-resimage_v-**imageVariant**_w-**width**.jpg?version=7395",
+        "urlSchemeExtended": {
+          "scheme": "/die-pfefferkoerner/videos/stoertebekers-kopf-s-e-104-resimage_v-**imageVariant**_w-**width**.**format**?version=7395",
+          "format": "jpg"
+        },
+        "imageBrightness": "dark",
+        "backgroundColor": null,
+        "variants": [
+          {
+            "imageType": "cropped",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "headerLarge",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "headerSmall",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "headerWide329",
+            "height": 540,
+            "width": 1920
+          },
+          {
+            "imageType": "ident",
+            "height": 1080,
+            "width": 1080
+          },
+          {
+            "imageType": "landscape249",
+            "height": 720,
+            "width": 1920
+          },
+          {
+            "imageType": "miniKika",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "opener489",
+            "height": 360,
+            "width": 1920
+          },
+          {
+            "imageType": "original",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "searchImage",
+            "height": 1080,
+            "width": 1347
+          },
+          {
+            "imageType": "tlarge167",
+            "height": 840,
+            "width": 1920
+          },
+          {
+            "imageType": "tlarge169",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "tlargeWithLogo169",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "tportrait89",
+            "height": 1080,
+            "width": 960
+          },
+          {
+            "imageType": "tsmall169",
+            "height": 1080,
+            "width": 1917
+          },
+          {
+            "imageType": "tsquare11",
+            "height": 1080,
+            "width": 1080
+          },
+          {
+            "imageType": "twide329",
+            "height": 540,
+            "width": 1920
+          }
+        ],
+        "structure": {
+          "site": "kika",
+          "uuid": "47533681-ea5d-46df-95f2-d949080194c1",
+          "structureNodePath": "/sendungen/sendereihen/die/die-pfefferkoerner/videos",
+          "alias": ""
+        },
+        "online": true
+      },
+      "teaserLinkDescription": "Jetzt anschauen",
+      "eyecatcher": null,
+      "broadcastSeriesTitle": "Die Pfefferkörner",
+      "broadcastSeriesId": "die-pfefferkoerner-100",
+      "isVisible": true,
+      "useTitleInsteadOfLogo": false,
+      "participationActive": false,
+      "genDate": "2026-06-27T18:29:47.611+02:00",
+      "logo": {
+        "id": "die-pfefferkoerner-112",
+        "copyrights": "NDR",
+        "headline": "Die Pfefferkörner",
+        "caption": null,
+        "title": "Die Pfefferkörner | Rechte: NDR",
+        "alt": "Logo \"Die Pfefferkörner\" ",
+        "urlScheme": "/die-pfefferkoerner/bilder/die-pfefferkoerner-112-resimage_v-**imageVariant**_w-**width**.png?version=2130",
+        "urlSchemeExtended": {
+          "scheme": "/die-pfefferkoerner/bilder/die-pfefferkoerner-112-resimage_v-**imageVariant**_w-**width**.**format**?version=2130",
+          "format": "png"
+        },
+        "imageBrightness": "dark",
+        "backgroundColor": null,
+        "variants": [
+          {
+            "imageType": "cropped",
+            "height": 350,
+            "width": 1769
+          },
+          {
+            "imageType": "headerLarge",
+            "height": 348,
+            "width": 1600
+          },
+          {
+            "imageType": "headerSmall",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "headerWide329",
+            "height": 540,
+            "width": 1920
+          },
+          {
+            "imageType": "ident",
+            "height": 1080,
+            "width": 1080
+          },
+          {
+            "imageType": "landscape249",
+            "height": 720,
+            "width": 1920
+          },
+          {
+            "imageType": "miniKika",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "opener489",
+            "height": 360,
+            "width": 1920
+          },
+          {
+            "imageType": "original",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "searchImage",
+            "height": 1080,
+            "width": 1347
+          },
+          {
+            "imageType": "tlarge167",
+            "height": 840,
+            "width": 1920
+          },
+          {
+            "imageType": "tlarge169",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "tlargeWithLogo169",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "tportrait89",
+            "height": 1080,
+            "width": 960
+          },
+          {
+            "imageType": "tsmall169",
+            "height": 1080,
+            "width": 1917
+          },
+          {
+            "imageType": "tsquare11",
+            "height": 1080,
+            "width": 1080
+          },
+          {
+            "imageType": "twide329",
+            "height": 540,
+            "width": 1920
+          }
+        ],
+        "structure": {
+          "site": "kika",
+          "uuid": "b720794c-977e-4eeb-a103-e490042dccfb",
+          "structureNodePath": "/sendungen/sendereihen/die/die-pfefferkoerner/bilder",
+          "alias": ""
+        },
+        "online": true
+      },
+      "brandDetails": null,
+      "channelDetails": null,
+      "downloadDetails": null,
+      "votingDetails": null,
+      "linkDetails": null,
+      "livestreamDetails": null,
+      "relatedVideoDetails": null,
+      "videoDetails": {
+        "description": "Der Störtebeker-Schädel wurde aus dem Museum für Hamburgische Geschichte gestohlen. Auf der Flucht vor der Polizei stürmt der Dieb mitten in die Eröffnungsfeier des neuen Kontorcafés von Sophies und Emmas Eltern. Als die Polizei erscheint, ist der Dieb wie vom Erdboden verschwunden. Statt im 100. Pfefferkörner-Fall zu ermitteln, streiten sich die Pfefferkörner, weil Sophie Themba nicht zur Eröffnung eingeladen hat.",
+        "episodeNumber": "100",
+        "fsk": null,
+        "ageRating": null,
+        "ageRatingDescriptors": null,
+        "duration": "00:28:34",
+        "durationInSeconds": 1714,
+        "hasAssets": true,
+        "hasSubtitle": true,
+        "hasOriginalVideo": true,
+        "hasDgsVideo": false,
+        "hasAdVideo": false,
+        "thresholdDaysUntilOffline": 6,
+        "videoType": "mainContent",
+        "isFeaturedVideo": false,
+        "transmissionType": "online",
+        "season": "8",
+        "seasonTitle": "Staffel 8",
+        "additionalContent": null
+      },
+      "videoSubchannelDetails": null,
+      "subchannelDetails": null,
+      "structureBrand": {
+        "id": "die-pfefferkoerner-100",
+        "urlPath": "/die-pfefferkoerner"
+      },
+      "infoTeaserDetails": null,
+      "imageDetails": null,
+      "soundSnippetDetails": null,
+      "eventDates": {
+        "eventStartDate": null,
+        "eventEndDate": null
+      },
+      "broadcastSeries": {
+        "id": "die-pfefferkoerner-100",
+        "title": "Die Pfefferkörner",
+        "urlPath": "/die-pfefferkoerner"
+      }
+    },
+    {
+      "docType": "externalVideo",
+      "id": "liebeswahn-100",
+      "uuid": "7b1089aa-08f2-4360-84f7-816e19f04347",
+      "externalId": "ard-Y3JpZDovL2Rhc2Vyc3RlLm5kci5kZS80NzUzXzIwMjMtMDItMjctMTUtMDA",
+      "urlPath": "/die-pfefferkoerner/videos",
+      "validTo": null,
+      "externalUrl": null,
+      "api": {
+        "id": "liebeswahn-100",
+        "url": "https://www.kika.de/ackley/v1/videos/liebeswahn-100"
+      },
+      "structure": {
+        "site": "kika",
+        "uuid": "47533681-ea5d-46df-95f2-d949080194c1",
+        "structureNodePath": "/sendungen/sendereihen/die/die-pfefferkoerner/videos",
+        "alias": ""
+      },
+      "date": "2011-01-18T00:51:32.000+01:00",
+      "endDate": "2028-02-27T15:00:00.000+01:00",
+      "modificationDate": "2026-03-24T16:36:20.956+01:00",
+      "contentCategory": null,
+      "contentCategoryTitle": "Video",
+      "contentCategoryIcon": "video",
+      "title": "101. Liebeswahn",
+      "teaserText": "Die Kleider für den Modewettbewerb wurden zerstört und Sophie wird beschuldigt. Doch die Pfefferkörner halten ihre Freundin von Beginn an für unschulig.",
+      "teaserImage": {
+        "id": "liebeswahn-s-ezehn-104",
+        "copyrights": "NDR/Letterbox, Romano Ruhnau",
+        "headline": "Lina macht bei einer schrägen Modenschau mit.",
+        "caption": null,
+        "title": "Lina macht bei einer schrägen Modenschau mit. | Rechte: NDR/Letterbox, Romano Ruhnau",
+        "alt": "Lina (Lale H. Mann) mit Hut und Fächer vor Scheinwerfern",
+        "urlScheme": "/die-pfefferkoerner/videos/liebeswahn-s-ezehn-104-resimage_v-**imageVariant**_w-**width**.jpg?version=7645",
+        "urlSchemeExtended": {
+          "scheme": "/die-pfefferkoerner/videos/liebeswahn-s-ezehn-104-resimage_v-**imageVariant**_w-**width**.**format**?version=7645",
+          "format": "jpg"
+        },
+        "imageBrightness": "dark",
+        "backgroundColor": null,
+        "variants": [
+          {
+            "imageType": "cropped",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "headerLarge",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "headerSmall",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "headerWide329",
+            "height": 540,
+            "width": 1920
+          },
+          {
+            "imageType": "ident",
+            "height": 1080,
+            "width": 1080
+          },
+          {
+            "imageType": "landscape249",
+            "height": 720,
+            "width": 1920
+          },
+          {
+            "imageType": "miniKika",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "opener489",
+            "height": 360,
+            "width": 1920
+          },
+          {
+            "imageType": "original",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "searchImage",
+            "height": 1080,
+            "width": 1347
+          },
+          {
+            "imageType": "tlarge167",
+            "height": 840,
+            "width": 1920
+          },
+          {
+            "imageType": "tlarge169",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "tlargeWithLogo169",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "tportrait89",
+            "height": 1080,
+            "width": 960
+          },
+          {
+            "imageType": "tsmall169",
+            "height": 1080,
+            "width": 1917
+          },
+          {
+            "imageType": "tsquare11",
+            "height": 1080,
+            "width": 1080
+          },
+          {
+            "imageType": "twide329",
+            "height": 540,
+            "width": 1920
+          }
+        ],
+        "structure": {
+          "site": "kika",
+          "uuid": "47533681-ea5d-46df-95f2-d949080194c1",
+          "structureNodePath": "/sendungen/sendereihen/die/die-pfefferkoerner/videos",
+          "alias": ""
+        },
+        "online": true
+      },
+      "teaserLinkDescription": "Jetzt anschauen",
+      "eyecatcher": null,
+      "broadcastSeriesTitle": "Die Pfefferkörner",
+      "broadcastSeriesId": "die-pfefferkoerner-100",
+      "isVisible": true,
+      "useTitleInsteadOfLogo": false,
+      "participationActive": false,
+      "genDate": "2026-06-27T18:29:47.648+02:00",
+      "logo": {
+        "id": "die-pfefferkoerner-112",
+        "copyrights": "NDR",
+        "headline": "Die Pfefferkörner",
+        "caption": null,
+        "title": "Die Pfefferkörner | Rechte: NDR",
+        "alt": "Logo \"Die Pfefferkörner\" ",
+        "urlScheme": "/die-pfefferkoerner/bilder/die-pfefferkoerner-112-resimage_v-**imageVariant**_w-**width**.png?version=2130",
+        "urlSchemeExtended": {
+          "scheme": "/die-pfefferkoerner/bilder/die-pfefferkoerner-112-resimage_v-**imageVariant**_w-**width**.**format**?version=2130",
+          "format": "png"
+        },
+        "imageBrightness": "dark",
+        "backgroundColor": null,
+        "variants": [
+          {
+            "imageType": "cropped",
+            "height": 350,
+            "width": 1769
+          },
+          {
+            "imageType": "headerLarge",
+            "height": 348,
+            "width": 1600
+          },
+          {
+            "imageType": "headerSmall",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "headerWide329",
+            "height": 540,
+            "width": 1920
+          },
+          {
+            "imageType": "ident",
+            "height": 1080,
+            "width": 1080
+          },
+          {
+            "imageType": "landscape249",
+            "height": 720,
+            "width": 1920
+          },
+          {
+            "imageType": "miniKika",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "opener489",
+            "height": 360,
+            "width": 1920
+          },
+          {
+            "imageType": "original",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "searchImage",
+            "height": 1080,
+            "width": 1347
+          },
+          {
+            "imageType": "tlarge167",
+            "height": 840,
+            "width": 1920
+          },
+          {
+            "imageType": "tlarge169",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "tlargeWithLogo169",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "tportrait89",
+            "height": 1080,
+            "width": 960
+          },
+          {
+            "imageType": "tsmall169",
+            "height": 1080,
+            "width": 1917
+          },
+          {
+            "imageType": "tsquare11",
+            "height": 1080,
+            "width": 1080
+          },
+          {
+            "imageType": "twide329",
+            "height": 540,
+            "width": 1920
+          }
+        ],
+        "structure": {
+          "site": "kika",
+          "uuid": "b720794c-977e-4eeb-a103-e490042dccfb",
+          "structureNodePath": "/sendungen/sendereihen/die/die-pfefferkoerner/bilder",
+          "alias": ""
+        },
+        "online": true
+      },
+      "brandDetails": null,
+      "channelDetails": null,
+      "downloadDetails": null,
+      "votingDetails": null,
+      "linkDetails": null,
+      "livestreamDetails": null,
+      "relatedVideoDetails": null,
+      "videoDetails": {
+        "description": "In der Klasse 7A ist der Teufel los. Die Kleider für den anstehenden Modewettbewerb wurden zerstört. Die Schüler sind sich einig: Sophie ist die Schuldige. Schließlich ist ihr Kleid als einziges heil. Das sonst so selbstbewusste Mädchen hält die Hetze ihrer Mitschüler nicht aus und flüchtet. Die Pfefferkörner halten ihre Freundin von Beginn an für unschuldig und ermitteln. Wer ist Sophies größte Konkurrentin?",
+        "episodeNumber": "101",
+        "fsk": null,
+        "ageRating": null,
+        "ageRatingDescriptors": null,
+        "duration": "00:28:33",
+        "durationInSeconds": 1713,
+        "hasAssets": true,
+        "hasSubtitle": true,
+        "hasOriginalVideo": true,
+        "hasDgsVideo": false,
+        "hasAdVideo": false,
+        "thresholdDaysUntilOffline": 6,
+        "videoType": "mainContent",
+        "isFeaturedVideo": false,
+        "transmissionType": "online",
+        "season": "8",
+        "seasonTitle": "Staffel 8",
+        "additionalContent": null
+      },
+      "videoSubchannelDetails": null,
+      "subchannelDetails": null,
+      "structureBrand": {
+        "id": "die-pfefferkoerner-100",
+        "urlPath": "/die-pfefferkoerner"
+      },
+      "infoTeaserDetails": null,
+      "imageDetails": null,
+      "soundSnippetDetails": null,
+      "eventDates": {
+        "eventStartDate": null,
+        "eventEndDate": null
+      },
+      "broadcastSeries": {
+        "id": "die-pfefferkoerner-100",
+        "title": "Die Pfefferkörner",
+        "urlPath": "/die-pfefferkoerner"
+      }
+    },
+    {
+      "docType": "externalVideo",
+      "id": "autobrandstifter-100",
+      "uuid": "d0d4c023-e8f0-40f4-8384-fba2847ec77d",
+      "externalId": "ard-Y3JpZDovL2Rhc2Vyc3RlLm5kci5kZS80NzUzXzIwMjMtMDItMjctMTYtMDA",
+      "urlPath": "/die-pfefferkoerner/videos",
+      "validTo": null,
+      "externalUrl": null,
+      "api": {
+        "id": "autobrandstifter-100",
+        "url": "https://www.kika.de/ackley/v1/videos/autobrandstifter-100"
+      },
+      "structure": {
+        "site": "kika",
+        "uuid": "47533681-ea5d-46df-95f2-d949080194c1",
+        "structureNodePath": "/sendungen/sendereihen/die/die-pfefferkoerner/videos",
+        "alias": ""
+      },
+      "date": "2011-01-18T00:55:53.000+01:00",
+      "endDate": "2028-02-27T16:00:00.000+01:00",
+      "modificationDate": "2026-03-24T16:36:23.297+01:00",
+      "contentCategory": null,
+      "contentCategoryTitle": "Video",
+      "contentCategoryIcon": "video",
+      "title": "102. Autobrandstifter",
+      "teaserText": "Das neue Taxi von Thembas Vater wurde in Brand gesteckt. Die Pfefferkörner kommen einer Clique von jugendlichen Autobrandstiftern auf die Schliche.",
+      "teaserImage": {
+        "id": "autobrandstifter-s-eelf-104",
+        "copyrights": "NDR/Letterbox, Romano Ruhnau",
+        "headline": "Lina und Emma haben etwas entdeckt.",
+        "caption": null,
+        "title": "Lina und Emma haben etwas entdeckt. | Rechte: NDR/Letterbox, Romano Ruhnau",
+        "alt": "Lina (Lale H. Mann) steht neben Emma (Aurelia Stern), die mit dem Finger auf etwas zeigt.",
+        "urlScheme": "/die-pfefferkoerner/videos/autobrandstifter-s-eelf-104-resimage_v-**imageVariant**_w-**width**.jpg?version=2407",
+        "urlSchemeExtended": {
+          "scheme": "/die-pfefferkoerner/videos/autobrandstifter-s-eelf-104-resimage_v-**imageVariant**_w-**width**.**format**?version=2407",
+          "format": "jpg"
+        },
+        "imageBrightness": "dark",
+        "backgroundColor": null,
+        "variants": [
+          {
+            "imageType": "cropped",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "headerLarge",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "headerSmall",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "headerWide329",
+            "height": 540,
+            "width": 1920
+          },
+          {
+            "imageType": "ident",
+            "height": 1080,
+            "width": 1080
+          },
+          {
+            "imageType": "landscape249",
+            "height": 720,
+            "width": 1920
+          },
+          {
+            "imageType": "miniKika",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "opener489",
+            "height": 360,
+            "width": 1920
+          },
+          {
+            "imageType": "original",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "searchImage",
+            "height": 1080,
+            "width": 1347
+          },
+          {
+            "imageType": "tlarge167",
+            "height": 840,
+            "width": 1920
+          },
+          {
+            "imageType": "tlarge169",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "tlargeWithLogo169",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "tportrait89",
+            "height": 1080,
+            "width": 960
+          },
+          {
+            "imageType": "tsmall169",
+            "height": 1080,
+            "width": 1917
+          },
+          {
+            "imageType": "tsquare11",
+            "height": 1080,
+            "width": 1080
+          },
+          {
+            "imageType": "twide329",
+            "height": 540,
+            "width": 1920
+          }
+        ],
+        "structure": {
+          "site": "kika",
+          "uuid": "47533681-ea5d-46df-95f2-d949080194c1",
+          "structureNodePath": "/sendungen/sendereihen/die/die-pfefferkoerner/videos",
+          "alias": ""
+        },
+        "online": true
+      },
+      "teaserLinkDescription": "Jetzt anschauen",
+      "eyecatcher": null,
+      "broadcastSeriesTitle": "Die Pfefferkörner",
+      "broadcastSeriesId": "die-pfefferkoerner-100",
+      "isVisible": true,
+      "useTitleInsteadOfLogo": false,
+      "participationActive": false,
+      "genDate": "2026-06-27T18:29:47.687+02:00",
+      "logo": {
+        "id": "die-pfefferkoerner-112",
+        "copyrights": "NDR",
+        "headline": "Die Pfefferkörner",
+        "caption": null,
+        "title": "Die Pfefferkörner | Rechte: NDR",
+        "alt": "Logo \"Die Pfefferkörner\" ",
+        "urlScheme": "/die-pfefferkoerner/bilder/die-pfefferkoerner-112-resimage_v-**imageVariant**_w-**width**.png?version=2130",
+        "urlSchemeExtended": {
+          "scheme": "/die-pfefferkoerner/bilder/die-pfefferkoerner-112-resimage_v-**imageVariant**_w-**width**.**format**?version=2130",
+          "format": "png"
+        },
+        "imageBrightness": "dark",
+        "backgroundColor": null,
+        "variants": [
+          {
+            "imageType": "cropped",
+            "height": 350,
+            "width": 1769
+          },
+          {
+            "imageType": "headerLarge",
+            "height": 348,
+            "width": 1600
+          },
+          {
+            "imageType": "headerSmall",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "headerWide329",
+            "height": 540,
+            "width": 1920
+          },
+          {
+            "imageType": "ident",
+            "height": 1080,
+            "width": 1080
+          },
+          {
+            "imageType": "landscape249",
+            "height": 720,
+            "width": 1920
+          },
+          {
+            "imageType": "miniKika",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "opener489",
+            "height": 360,
+            "width": 1920
+          },
+          {
+            "imageType": "original",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "searchImage",
+            "height": 1080,
+            "width": 1347
+          },
+          {
+            "imageType": "tlarge167",
+            "height": 840,
+            "width": 1920
+          },
+          {
+            "imageType": "tlarge169",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "tlargeWithLogo169",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "tportrait89",
+            "height": 1080,
+            "width": 960
+          },
+          {
+            "imageType": "tsmall169",
+            "height": 1080,
+            "width": 1917
+          },
+          {
+            "imageType": "tsquare11",
+            "height": 1080,
+            "width": 1080
+          },
+          {
+            "imageType": "twide329",
+            "height": 540,
+            "width": 1920
+          }
+        ],
+        "structure": {
+          "site": "kika",
+          "uuid": "b720794c-977e-4eeb-a103-e490042dccfb",
+          "structureNodePath": "/sendungen/sendereihen/die/die-pfefferkoerner/bilder",
+          "alias": ""
+        },
+        "online": true
+      },
+      "brandDetails": null,
+      "channelDetails": null,
+      "downloadDetails": null,
+      "votingDetails": null,
+      "linkDetails": null,
+      "livestreamDetails": null,
+      "relatedVideoDetails": null,
+      "videoDetails": {
+        "description": "Als Thembas Vater Dalu seiner Familie stolz sein neu erworbenes Taxi zeigen will, steht er vor einem ausgebrannten Wrack. In Hamburg waren wieder einmal nächtliche Autobrandstifter am Werk! Themba brodelt vor Wut und macht sich gemeinsam mit seinen Freunden auf die Suche nach den Tätern. Nach und nach kommen sie einer Clique von jugendlichen Autobrandstiftern auf die Schliche und wollen ihnen endgültig das Handwerk legen.",
+        "episodeNumber": "102",
+        "fsk": null,
+        "ageRating": null,
+        "ageRatingDescriptors": null,
+        "duration": "00:28:23",
+        "durationInSeconds": 1703,
+        "hasAssets": true,
+        "hasSubtitle": true,
+        "hasOriginalVideo": true,
+        "hasDgsVideo": false,
+        "hasAdVideo": false,
+        "thresholdDaysUntilOffline": 6,
+        "videoType": "mainContent",
+        "isFeaturedVideo": false,
+        "transmissionType": "online",
+        "season": "8",
+        "seasonTitle": "Staffel 8",
+        "additionalContent": null
+      },
+      "videoSubchannelDetails": null,
+      "subchannelDetails": null,
+      "structureBrand": {
+        "id": "die-pfefferkoerner-100",
+        "urlPath": "/die-pfefferkoerner"
+      },
+      "infoTeaserDetails": null,
+      "imageDetails": null,
+      "soundSnippetDetails": null,
+      "eventDates": {
+        "eventStartDate": null,
+        "eventEndDate": null
+      },
+      "broadcastSeries": {
+        "id": "die-pfefferkoerner-100",
+        "title": "Die Pfefferkörner",
+        "urlPath": "/die-pfefferkoerner"
+      }
+    },
+    {
+      "docType": "externalVideo",
+      "id": "geruechtekueche-112",
+      "uuid": "42e362f8-7169-4276-b9f4-38aaf0e3f5e3",
+      "externalId": "ard-Y3JpZDovL2Rhc2Vyc3RlLm5kci5kZS80NzUzXzIwMjMtMDItMjctMTctMDA",
+      "urlPath": "/die-pfefferkoerner/videos",
+      "validTo": null,
+      "externalUrl": null,
+      "api": {
+        "id": "geruechtekueche-112",
+        "url": "https://www.kika.de/ackley/v1/videos/geruechtekueche-112"
+      },
+      "structure": {
+        "site": "kika",
+        "uuid": "47533681-ea5d-46df-95f2-d949080194c1",
+        "structureNodePath": "/sendungen/sendereihen/die/die-pfefferkoerner/videos",
+        "alias": ""
+      },
+      "date": "2011-01-18T01:15:36.000+01:00",
+      "endDate": "2028-02-27T17:00:00.000+01:00",
+      "modificationDate": "2026-03-24T16:36:23.166+01:00",
+      "contentCategory": null,
+      "contentCategoryTitle": "Video",
+      "contentCategoryIcon": "video",
+      "title": "103. Gerüchteküche",
+      "teaserText": "Über die Mathe-Lehrerin Frau Wiegel werden üble Gerüchte im Internet verbreitet. Sophie gerät in den Verdacht, die Gerüchte angezettelt zu haben.",
+      "teaserImage": {
+        "id": "geruechtekueche-s-ezwoelf-104",
+        "copyrights": "NDR/Letterbox, Romano Ruhnau",
+        "headline": "Rasmus und Sophie mit einem Mitschüler.",
+        "caption": null,
+        "title": "Rasmus und Sophie mit einem Mitschüler. | Rechte: NDR/Letterbox, Romano Ruhnau",
+        "alt": "Rasmus ( Julian Winterbach) und Sophie (Katherina Unger) stehen mit einem Mitschüler vor der Schule",
+        "urlScheme": "/die-pfefferkoerner/videos/geruechtekueche-s-ezwoelf-104-resimage_v-**imageVariant**_w-**width**.jpg?version=2725",
+        "urlSchemeExtended": {
+          "scheme": "/die-pfefferkoerner/videos/geruechtekueche-s-ezwoelf-104-resimage_v-**imageVariant**_w-**width**.**format**?version=2725",
+          "format": "jpg"
+        },
+        "imageBrightness": "dark",
+        "backgroundColor": null,
+        "variants": [
+          {
+            "imageType": "cropped",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "headerLarge",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "headerSmall",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "headerWide329",
+            "height": 540,
+            "width": 1920
+          },
+          {
+            "imageType": "ident",
+            "height": 1080,
+            "width": 1080
+          },
+          {
+            "imageType": "landscape249",
+            "height": 720,
+            "width": 1920
+          },
+          {
+            "imageType": "miniKika",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "opener489",
+            "height": 360,
+            "width": 1920
+          },
+          {
+            "imageType": "original",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "searchImage",
+            "height": 1080,
+            "width": 1347
+          },
+          {
+            "imageType": "tlarge167",
+            "height": 840,
+            "width": 1920
+          },
+          {
+            "imageType": "tlarge169",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "tlargeWithLogo169",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "tportrait89",
+            "height": 1080,
+            "width": 960
+          },
+          {
+            "imageType": "tsmall169",
+            "height": 1080,
+            "width": 1917
+          },
+          {
+            "imageType": "tsquare11",
+            "height": 1080,
+            "width": 1080
+          },
+          {
+            "imageType": "twide329",
+            "height": 540,
+            "width": 1920
+          }
+        ],
+        "structure": {
+          "site": "kika",
+          "uuid": "47533681-ea5d-46df-95f2-d949080194c1",
+          "structureNodePath": "/sendungen/sendereihen/die/die-pfefferkoerner/videos",
+          "alias": ""
+        },
+        "online": true
+      },
+      "teaserLinkDescription": "Jetzt anschauen",
+      "eyecatcher": null,
+      "broadcastSeriesTitle": "Die Pfefferkörner",
+      "broadcastSeriesId": "die-pfefferkoerner-100",
+      "isVisible": true,
+      "useTitleInsteadOfLogo": false,
+      "participationActive": false,
+      "genDate": "2026-06-27T18:29:47.723+02:00",
+      "logo": {
+        "id": "die-pfefferkoerner-112",
+        "copyrights": "NDR",
+        "headline": "Die Pfefferkörner",
+        "caption": null,
+        "title": "Die Pfefferkörner | Rechte: NDR",
+        "alt": "Logo \"Die Pfefferkörner\" ",
+        "urlScheme": "/die-pfefferkoerner/bilder/die-pfefferkoerner-112-resimage_v-**imageVariant**_w-**width**.png?version=2130",
+        "urlSchemeExtended": {
+          "scheme": "/die-pfefferkoerner/bilder/die-pfefferkoerner-112-resimage_v-**imageVariant**_w-**width**.**format**?version=2130",
+          "format": "png"
+        },
+        "imageBrightness": "dark",
+        "backgroundColor": null,
+        "variants": [
+          {
+            "imageType": "cropped",
+            "height": 350,
+            "width": 1769
+          },
+          {
+            "imageType": "headerLarge",
+            "height": 348,
+            "width": 1600
+          },
+          {
+            "imageType": "headerSmall",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "headerWide329",
+            "height": 540,
+            "width": 1920
+          },
+          {
+            "imageType": "ident",
+            "height": 1080,
+            "width": 1080
+          },
+          {
+            "imageType": "landscape249",
+            "height": 720,
+            "width": 1920
+          },
+          {
+            "imageType": "miniKika",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "opener489",
+            "height": 360,
+            "width": 1920
+          },
+          {
+            "imageType": "original",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "searchImage",
+            "height": 1080,
+            "width": 1347
+          },
+          {
+            "imageType": "tlarge167",
+            "height": 840,
+            "width": 1920
+          },
+          {
+            "imageType": "tlarge169",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "tlargeWithLogo169",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "tportrait89",
+            "height": 1080,
+            "width": 960
+          },
+          {
+            "imageType": "tsmall169",
+            "height": 1080,
+            "width": 1917
+          },
+          {
+            "imageType": "tsquare11",
+            "height": 1080,
+            "width": 1080
+          },
+          {
+            "imageType": "twide329",
+            "height": 540,
+            "width": 1920
+          }
+        ],
+        "structure": {
+          "site": "kika",
+          "uuid": "b720794c-977e-4eeb-a103-e490042dccfb",
+          "structureNodePath": "/sendungen/sendereihen/die/die-pfefferkoerner/bilder",
+          "alias": ""
+        },
+        "online": true
+      },
+      "brandDetails": null,
+      "channelDetails": null,
+      "downloadDetails": null,
+      "votingDetails": null,
+      "linkDetails": null,
+      "livestreamDetails": null,
+      "relatedVideoDetails": null,
+      "videoDetails": {
+        "description": "Lina versucht im Internet für ihren Vater eine Frau zu finden. Zur gleichen Zeit werden in der Schule über die Mathe-Lehrerin Frau Wiegel üble Gerüchte verbreitet. Im Internet  landet ein gefälschtes Video von ihr bei einem Ladendiebstahl. Sophie gerät unter Verdacht, die Gerüchte angezettelt zu haben, weil ihre Versetzung gefährdet ist. Bei den Ermittlungen merkt Themba, wie wichtig ihm Sophies Freundschaft ist.",
+        "episodeNumber": "103",
+        "fsk": null,
+        "ageRating": null,
+        "ageRatingDescriptors": null,
+        "duration": "00:28:19",
+        "durationInSeconds": 1699,
+        "hasAssets": true,
+        "hasSubtitle": true,
+        "hasOriginalVideo": true,
+        "hasDgsVideo": false,
+        "hasAdVideo": false,
+        "thresholdDaysUntilOffline": 6,
+        "videoType": "mainContent",
+        "isFeaturedVideo": false,
+        "transmissionType": "online",
+        "season": "8",
+        "seasonTitle": "Staffel 8",
+        "additionalContent": null
+      },
+      "videoSubchannelDetails": null,
+      "subchannelDetails": null,
+      "structureBrand": {
+        "id": "die-pfefferkoerner-100",
+        "urlPath": "/die-pfefferkoerner"
+      },
+      "infoTeaserDetails": null,
+      "imageDetails": null,
+      "soundSnippetDetails": null,
+      "eventDates": {
+        "eventStartDate": null,
+        "eventEndDate": null
+      },
+      "broadcastSeries": {
+        "id": "die-pfefferkoerner-100",
+        "title": "Die Pfefferkörner",
+        "urlPath": "/die-pfefferkoerner"
+      }
+    },
+    {
+      "docType": "externalVideo",
+      "id": "hochzeit-in-gefahr-100",
+      "uuid": "1ce29a4d-7166-48d8-b42f-a963a41dc499",
+      "externalId": "ard-Y3JpZDovL2Rhc2Vyc3RlLm5kci5kZS80NzUzXzIwMjMtMDItMjctMTgtMDA",
+      "urlPath": "/die-pfefferkoerner/videos",
+      "validTo": null,
+      "externalUrl": null,
+      "api": {
+        "id": "hochzeit-in-gefahr-100",
+        "url": "https://www.kika.de/ackley/v1/videos/hochzeit-in-gefahr-100"
+      },
+      "structure": {
+        "site": "kika",
+        "uuid": "47533681-ea5d-46df-95f2-d949080194c1",
+        "structureNodePath": "/sendungen/sendereihen/die/die-pfefferkoerner/videos",
+        "alias": ""
+      },
+      "date": "2011-01-18T01:48:55.000+01:00",
+      "endDate": "2028-02-27T18:00:00.000+01:00",
+      "modificationDate": "2026-03-24T16:36:23.479+01:00",
+      "contentCategory": null,
+      "contentCategoryTitle": "Video",
+      "contentCategoryIcon": "video",
+      "title": "104. Hochzeit in Gefahr",
+      "teaserText": "Themba und Rasums beobachten, wie zwei Typen Stahl klauen und es anschließend vertickt wird. Und dann werden sie auch noch von den Dieben erwischt.",
+      "teaserImage": {
+        "id": "hochzeit-in-gefahr-s-edreizehn-104",
+        "copyrights": "NDR/Letterbox, Romano Ruhnau",
+        "headline": "Rasmus führt seine Mutter Lene zum Altar.",
+        "caption": null,
+        "title": "Rasmus führt seine Mutter Lene zum Altar. | Rechte: NDR/Letterbox, Romano Ruhnau",
+        "alt": "Rasmus ( Julian Winterbach) und seine Mutter Lene",
+        "urlScheme": "/die-pfefferkoerner/videos/hochzeit-in-gefahr-s-edreizehn-104-resimage_v-**imageVariant**_w-**width**.jpg?version=57439",
+        "urlSchemeExtended": {
+          "scheme": "/die-pfefferkoerner/videos/hochzeit-in-gefahr-s-edreizehn-104-resimage_v-**imageVariant**_w-**width**.**format**?version=57439",
+          "format": "jpg"
+        },
+        "imageBrightness": "dark",
+        "backgroundColor": null,
+        "variants": [
+          {
+            "imageType": "cropped",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "headerLarge",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "headerSmall",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "headerWide329",
+            "height": 540,
+            "width": 1920
+          },
+          {
+            "imageType": "ident",
+            "height": 1080,
+            "width": 1080
+          },
+          {
+            "imageType": "landscape249",
+            "height": 720,
+            "width": 1920
+          },
+          {
+            "imageType": "miniKika",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "opener489",
+            "height": 360,
+            "width": 1920
+          },
+          {
+            "imageType": "original",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "searchImage",
+            "height": 1080,
+            "width": 1347
+          },
+          {
+            "imageType": "tlarge167",
+            "height": 840,
+            "width": 1920
+          },
+          {
+            "imageType": "tlarge169",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "tlargeWithLogo169",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "tportrait89",
+            "height": 1080,
+            "width": 960
+          },
+          {
+            "imageType": "tsmall169",
+            "height": 1080,
+            "width": 1917
+          },
+          {
+            "imageType": "tsquare11",
+            "height": 1080,
+            "width": 1080
+          },
+          {
+            "imageType": "twide329",
+            "height": 540,
+            "width": 1920
+          }
+        ],
+        "structure": {
+          "site": "kika",
+          "uuid": "47533681-ea5d-46df-95f2-d949080194c1",
+          "structureNodePath": "/sendungen/sendereihen/die/die-pfefferkoerner/videos",
+          "alias": ""
+        },
+        "online": true
+      },
+      "teaserLinkDescription": "Jetzt anschauen",
+      "eyecatcher": null,
+      "broadcastSeriesTitle": "Die Pfefferkörner",
+      "broadcastSeriesId": "die-pfefferkoerner-100",
+      "isVisible": true,
+      "useTitleInsteadOfLogo": false,
+      "participationActive": false,
+      "genDate": "2026-06-27T18:29:47.759+02:00",
+      "logo": {
+        "id": "die-pfefferkoerner-112",
+        "copyrights": "NDR",
+        "headline": "Die Pfefferkörner",
+        "caption": null,
+        "title": "Die Pfefferkörner | Rechte: NDR",
+        "alt": "Logo \"Die Pfefferkörner\" ",
+        "urlScheme": "/die-pfefferkoerner/bilder/die-pfefferkoerner-112-resimage_v-**imageVariant**_w-**width**.png?version=2130",
+        "urlSchemeExtended": {
+          "scheme": "/die-pfefferkoerner/bilder/die-pfefferkoerner-112-resimage_v-**imageVariant**_w-**width**.**format**?version=2130",
+          "format": "png"
+        },
+        "imageBrightness": "dark",
+        "backgroundColor": null,
+        "variants": [
+          {
+            "imageType": "cropped",
+            "height": 350,
+            "width": 1769
+          },
+          {
+            "imageType": "headerLarge",
+            "height": 348,
+            "width": 1600
+          },
+          {
+            "imageType": "headerSmall",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "headerWide329",
+            "height": 540,
+            "width": 1920
+          },
+          {
+            "imageType": "ident",
+            "height": 1080,
+            "width": 1080
+          },
+          {
+            "imageType": "landscape249",
+            "height": 720,
+            "width": 1920
+          },
+          {
+            "imageType": "miniKika",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "opener489",
+            "height": 360,
+            "width": 1920
+          },
+          {
+            "imageType": "original",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "searchImage",
+            "height": 1080,
+            "width": 1347
+          },
+          {
+            "imageType": "tlarge167",
+            "height": 840,
+            "width": 1920
+          },
+          {
+            "imageType": "tlarge169",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "tlargeWithLogo169",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "tportrait89",
+            "height": 1080,
+            "width": 960
+          },
+          {
+            "imageType": "tsmall169",
+            "height": 1080,
+            "width": 1917
+          },
+          {
+            "imageType": "tsquare11",
+            "height": 1080,
+            "width": 1080
+          },
+          {
+            "imageType": "twide329",
+            "height": 540,
+            "width": 1920
+          }
+        ],
+        "structure": {
+          "site": "kika",
+          "uuid": "b720794c-977e-4eeb-a103-e490042dccfb",
+          "structureNodePath": "/sendungen/sendereihen/die/die-pfefferkoerner/bilder",
+          "alias": ""
+        },
+        "online": true
+      },
+      "brandDetails": null,
+      "channelDetails": null,
+      "downloadDetails": null,
+      "votingDetails": null,
+      "linkDetails": null,
+      "livestreamDetails": null,
+      "relatedVideoDetails": null,
+      "videoDetails": {
+        "description": "Themba und Rasmus treffen sich auf dem Gerüst einer Großbaustelle, um ihre Probleme von Mann zu Mann zu besprechen. Da beobachten sie, wie zwei Typen Stahl klauen und wie der Polier das Zeug mit einem Stahlhändler vertickt. Noch bevor sie zur Polizei gehen können, werden die beiden von den Dieben erwischt. Die Verbrecher sperren die Jungs in einen alten Keller. Doch das Abbruchgebäude soll am nächsten Tag gesprengt werden.",
+        "episodeNumber": "104",
+        "fsk": null,
+        "ageRating": null,
+        "ageRatingDescriptors": null,
+        "duration": "00:28:27",
+        "durationInSeconds": 1707,
+        "hasAssets": true,
+        "hasSubtitle": true,
+        "hasOriginalVideo": true,
+        "hasDgsVideo": false,
+        "hasAdVideo": false,
+        "thresholdDaysUntilOffline": 6,
+        "videoType": "mainContent",
+        "isFeaturedVideo": false,
+        "transmissionType": "online",
+        "season": "8",
+        "seasonTitle": "Staffel 8",
+        "additionalContent": null
+      },
+      "videoSubchannelDetails": null,
+      "subchannelDetails": null,
+      "structureBrand": {
+        "id": "die-pfefferkoerner-100",
+        "urlPath": "/die-pfefferkoerner"
+      },
+      "infoTeaserDetails": null,
+      "imageDetails": null,
+      "soundSnippetDetails": null,
+      "eventDates": {
+        "eventStartDate": null,
+        "eventEndDate": null
+      },
+      "broadcastSeries": {
+        "id": "die-pfefferkoerner-100",
+        "title": "Die Pfefferkörner",
+        "urlPath": "/die-pfefferkoerner"
+      }
+    },
+    {
+      "docType": "externalVideo",
+      "id": "aller-anfang-ist-schwer-104",
+      "uuid": "95744bf1-0989-4fdd-9b26-1477e70cbdb5",
+      "externalId": "ard-Y3JpZDovL2Rhc2Vyc3RlLm5kci5kZS80NzUzXzIwMjMtMDItMjYtMDYtMDA",
+      "urlPath": "/die-pfefferkoerner/videos",
+      "validTo": null,
+      "externalUrl": null,
+      "api": {
+        "id": "aller-anfang-ist-schwer-104",
+        "url": "https://www.kika.de/ackley/v1/videos/aller-anfang-ist-schwer-104"
+      },
+      "structure": {
+        "site": "kika",
+        "uuid": "47533681-ea5d-46df-95f2-d949080194c1",
+        "structureNodePath": "/sendungen/sendereihen/die/die-pfefferkoerner/videos",
+        "alias": ""
+      },
+      "date": "2012-09-24T14:02:49.000+02:00",
+      "endDate": "2028-02-26T06:00:00.000+01:00",
+      "modificationDate": "2026-03-24T16:36:11.680+01:00",
+      "contentCategory": null,
+      "contentCategoryTitle": "Video",
+      "contentCategoryIcon": "video",
+      "title": "105. Aller Anfang ist schwer",
+      "teaserText": "Sophie, Rasmus, Themba und Lina gehen für ein Jahr auf Weltreise, Emma bleibt zurück. Neue Pfefferkörner sind erstmal nicht in Sicht. Oder vielleicht doch?",
+      "teaserImage": {
+        "id": "aller-anfang-ist-schwer-106",
+        "copyrights": "NDR/Letterbox",
+        "headline": "Emma und Henri glauben fest an Ninas Unschuld.",
+        "caption": null,
+        "title": "Emma und Henri glauben fest an Ninas Unschuld. | Rechte: NDR/Letterbox",
+        "alt": "Nina (Carolin Garnier), Emma (Aurelia Stern) und Henri (Sammy O’Leary) auf der Treppe",
+        "urlScheme": "/die-pfefferkoerner/videos/aller-anfang-ist-schwer-106-resimage_v-**imageVariant**_w-**width**.jpg?version=18375",
+        "urlSchemeExtended": {
+          "scheme": "/die-pfefferkoerner/videos/aller-anfang-ist-schwer-106-resimage_v-**imageVariant**_w-**width**.**format**?version=18375",
+          "format": "jpg"
+        },
+        "imageBrightness": "dark",
+        "backgroundColor": null,
+        "variants": [
+          {
+            "imageType": "cropped",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "headerLarge",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "headerSmall",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "headerWide329",
+            "height": 540,
+            "width": 1920
+          },
+          {
+            "imageType": "ident",
+            "height": 1080,
+            "width": 1080
+          },
+          {
+            "imageType": "landscape249",
+            "height": 720,
+            "width": 1920
+          },
+          {
+            "imageType": "miniKika",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "opener489",
+            "height": 360,
+            "width": 1920
+          },
+          {
+            "imageType": "original",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "searchImage",
+            "height": 1080,
+            "width": 1347
+          },
+          {
+            "imageType": "tlarge167",
+            "height": 840,
+            "width": 1920
+          },
+          {
+            "imageType": "tlarge169",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "tlargeWithLogo169",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "tportrait89",
+            "height": 1080,
+            "width": 960
+          },
+          {
+            "imageType": "tsmall169",
+            "height": 1080,
+            "width": 1917
+          },
+          {
+            "imageType": "tsquare11",
+            "height": 1080,
+            "width": 1080
+          },
+          {
+            "imageType": "twide329",
+            "height": 540,
+            "width": 1920
+          }
+        ],
+        "structure": {
+          "site": "kika",
+          "uuid": "47533681-ea5d-46df-95f2-d949080194c1",
+          "structureNodePath": "/sendungen/sendereihen/die/die-pfefferkoerner/videos",
+          "alias": ""
+        },
+        "online": true
+      },
+      "teaserLinkDescription": "Jetzt anschauen",
+      "eyecatcher": null,
+      "broadcastSeriesTitle": "Die Pfefferkörner",
+      "broadcastSeriesId": "die-pfefferkoerner-100",
+      "isVisible": true,
+      "useTitleInsteadOfLogo": false,
+      "participationActive": false,
+      "genDate": "2026-06-27T18:29:47.795+02:00",
+      "logo": {
+        "id": "die-pfefferkoerner-112",
+        "copyrights": "NDR",
+        "headline": "Die Pfefferkörner",
+        "caption": null,
+        "title": "Die Pfefferkörner | Rechte: NDR",
+        "alt": "Logo \"Die Pfefferkörner\" ",
+        "urlScheme": "/die-pfefferkoerner/bilder/die-pfefferkoerner-112-resimage_v-**imageVariant**_w-**width**.png?version=2130",
+        "urlSchemeExtended": {
+          "scheme": "/die-pfefferkoerner/bilder/die-pfefferkoerner-112-resimage_v-**imageVariant**_w-**width**.**format**?version=2130",
+          "format": "png"
+        },
+        "imageBrightness": "dark",
+        "backgroundColor": null,
+        "variants": [
+          {
+            "imageType": "cropped",
+            "height": 350,
+            "width": 1769
+          },
+          {
+            "imageType": "headerLarge",
+            "height": 348,
+            "width": 1600
+          },
+          {
+            "imageType": "headerSmall",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "headerWide329",
+            "height": 540,
+            "width": 1920
+          },
+          {
+            "imageType": "ident",
+            "height": 1080,
+            "width": 1080
+          },
+          {
+            "imageType": "landscape249",
+            "height": 720,
+            "width": 1920
+          },
+          {
+            "imageType": "miniKika",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "opener489",
+            "height": 360,
+            "width": 1920
+          },
+          {
+            "imageType": "original",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "searchImage",
+            "height": 1080,
+            "width": 1347
+          },
+          {
+            "imageType": "tlarge167",
+            "height": 840,
+            "width": 1920
+          },
+          {
+            "imageType": "tlarge169",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "tlargeWithLogo169",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "tportrait89",
+            "height": 1080,
+            "width": 960
+          },
+          {
+            "imageType": "tsmall169",
+            "height": 1080,
+            "width": 1917
+          },
+          {
+            "imageType": "tsquare11",
+            "height": 1080,
+            "width": 1080
+          },
+          {
+            "imageType": "twide329",
+            "height": 540,
+            "width": 1920
+          }
+        ],
+        "structure": {
+          "site": "kika",
+          "uuid": "b720794c-977e-4eeb-a103-e490042dccfb",
+          "structureNodePath": "/sendungen/sendereihen/die/die-pfefferkoerner/bilder",
+          "alias": ""
+        },
+        "online": true
+      },
+      "brandDetails": null,
+      "channelDetails": null,
+      "downloadDetails": null,
+      "votingDetails": null,
+      "linkDetails": null,
+      "livestreamDetails": null,
+      "relatedVideoDetails": null,
+      "videoDetails": {
+        "description": "Sophie, Rasmus, Themba und Lina gehen für ein Schuljahr auf Weltreise. Emma bleibt alleine zurück und neue Pfefferkörner sind erstmal nicht in Sicht. Die schüchterne Nina ist neu in der Klasse. Sie wird ohne Beweise beschuldigt, eine Geldbörse gestohlen zu haben. Ausgerechnet Max, der größte Angeber der Klasse, glaubt an Ninas Unschuld. Gemeinsam mit Emma begibt er sich auf Spurensuche.",
+        "episodeNumber": "105",
+        "fsk": null,
+        "ageRating": null,
+        "ageRatingDescriptors": null,
+        "duration": "00:28:11",
+        "durationInSeconds": 1691,
+        "hasAssets": true,
+        "hasSubtitle": true,
+        "hasOriginalVideo": true,
+        "hasDgsVideo": false,
+        "hasAdVideo": false,
+        "thresholdDaysUntilOffline": 6,
+        "videoType": "mainContent",
+        "isFeaturedVideo": false,
+        "transmissionType": "online",
+        "season": "9",
+        "seasonTitle": "Staffel 9",
+        "additionalContent": null
+      },
+      "videoSubchannelDetails": null,
+      "subchannelDetails": null,
+      "structureBrand": {
+        "id": "die-pfefferkoerner-100",
+        "urlPath": "/die-pfefferkoerner"
+      },
+      "infoTeaserDetails": null,
+      "imageDetails": null,
+      "soundSnippetDetails": null,
+      "eventDates": {
+        "eventStartDate": null,
+        "eventEndDate": null
+      },
+      "broadcastSeries": {
+        "id": "die-pfefferkoerner-100",
+        "title": "Die Pfefferkörner",
+        "urlPath": "/die-pfefferkoerner"
+      }
+    },
+    {
+      "docType": "externalVideo",
+      "id": "das-spinnennetz-104",
+      "uuid": "f1731ee2-42d0-44da-9af5-82fe2581e2fe",
+      "externalId": "ard-Y3JpZDovL2Rhc2Vyc3RlLm5kci5kZS80NzUzXzIwMjMtMDItMjYtMDctMDA",
+      "urlPath": "/die-pfefferkoerner/videos",
+      "validTo": null,
+      "externalUrl": null,
+      "api": {
+        "id": "das-spinnennetz-104",
+        "url": "https://www.kika.de/ackley/v1/videos/das-spinnennetz-104"
+      },
+      "structure": {
+        "site": "kika",
+        "uuid": "47533681-ea5d-46df-95f2-d949080194c1",
+        "structureNodePath": "/sendungen/sendereihen/die/die-pfefferkoerner/videos",
+        "alias": ""
+      },
+      "date": "2012-09-24T14:31:13.000+02:00",
+      "endDate": "2028-02-26T07:00:00.000+01:00",
+      "modificationDate": "2026-03-24T16:36:23.943+01:00",
+      "contentCategory": null,
+      "contentCategoryTitle": "Video",
+      "contentCategoryIcon": "video",
+      "title": "106. Das Spinnennetz",
+      "teaserText": "Max wird von Drogendealer Dragan erpresst, besondere Pillen an der Schule zu verkaufen. Doch Emma erwischt ihn beim Verkauf und er weiht sie ein.",
+      "teaserImage": {
+        "id": "das-spinnennetz-s-e-104",
+        "copyrights": "NDR/Letterbox, Romano Ruhnau",
+        "headline": "Max (Bruno Alexander) und Oma Leni (Doris Kunstmann) halten zusammen.",
+        "caption": null,
+        "title": "Max (Bruno Alexander) und Oma Leni (Doris Kunstmann) halten zusammen. | Rechte: NDR/Letterbox, Romano Ruhnau",
+        "alt": "Max und Oma Leni",
+        "urlScheme": "/die-pfefferkoerner/videos/das-spinnennetz-s-e-104-resimage_v-**imageVariant**_w-**width**.jpg?version=37394",
+        "urlSchemeExtended": {
+          "scheme": "/die-pfefferkoerner/videos/das-spinnennetz-s-e-104-resimage_v-**imageVariant**_w-**width**.**format**?version=37394",
+          "format": "jpg"
+        },
+        "imageBrightness": "dark",
+        "backgroundColor": null,
+        "variants": [
+          {
+            "imageType": "cropped",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "headerLarge",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "headerSmall",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "headerWide329",
+            "height": 540,
+            "width": 1920
+          },
+          {
+            "imageType": "ident",
+            "height": 1080,
+            "width": 1080
+          },
+          {
+            "imageType": "landscape249",
+            "height": 720,
+            "width": 1920
+          },
+          {
+            "imageType": "miniKika",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "opener489",
+            "height": 360,
+            "width": 1920
+          },
+          {
+            "imageType": "original",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "searchImage",
+            "height": 1080,
+            "width": 1347
+          },
+          {
+            "imageType": "tlarge167",
+            "height": 840,
+            "width": 1920
+          },
+          {
+            "imageType": "tlarge169",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "tlargeWithLogo169",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "tportrait89",
+            "height": 1080,
+            "width": 960
+          },
+          {
+            "imageType": "tsmall169",
+            "height": 1080,
+            "width": 1917
+          },
+          {
+            "imageType": "tsquare11",
+            "height": 1080,
+            "width": 1080
+          },
+          {
+            "imageType": "twide329",
+            "height": 540,
+            "width": 1920
+          }
+        ],
+        "structure": {
+          "site": "kika",
+          "uuid": "47533681-ea5d-46df-95f2-d949080194c1",
+          "structureNodePath": "/sendungen/sendereihen/die/die-pfefferkoerner/videos",
+          "alias": ""
+        },
+        "online": true
+      },
+      "teaserLinkDescription": "Jetzt anschauen",
+      "eyecatcher": null,
+      "broadcastSeriesTitle": "Die Pfefferkörner",
+      "broadcastSeriesId": "die-pfefferkoerner-100",
+      "isVisible": true,
+      "useTitleInsteadOfLogo": false,
+      "participationActive": false,
+      "genDate": "2026-06-27T18:29:47.834+02:00",
+      "logo": {
+        "id": "die-pfefferkoerner-112",
+        "copyrights": "NDR",
+        "headline": "Die Pfefferkörner",
+        "caption": null,
+        "title": "Die Pfefferkörner | Rechte: NDR",
+        "alt": "Logo \"Die Pfefferkörner\" ",
+        "urlScheme": "/die-pfefferkoerner/bilder/die-pfefferkoerner-112-resimage_v-**imageVariant**_w-**width**.png?version=2130",
+        "urlSchemeExtended": {
+          "scheme": "/die-pfefferkoerner/bilder/die-pfefferkoerner-112-resimage_v-**imageVariant**_w-**width**.**format**?version=2130",
+          "format": "png"
+        },
+        "imageBrightness": "dark",
+        "backgroundColor": null,
+        "variants": [
+          {
+            "imageType": "cropped",
+            "height": 350,
+            "width": 1769
+          },
+          {
+            "imageType": "headerLarge",
+            "height": 348,
+            "width": 1600
+          },
+          {
+            "imageType": "headerSmall",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "headerWide329",
+            "height": 540,
+            "width": 1920
+          },
+          {
+            "imageType": "ident",
+            "height": 1080,
+            "width": 1080
+          },
+          {
+            "imageType": "landscape249",
+            "height": 720,
+            "width": 1920
+          },
+          {
+            "imageType": "miniKika",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "opener489",
+            "height": 360,
+            "width": 1920
+          },
+          {
+            "imageType": "original",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "searchImage",
+            "height": 1080,
+            "width": 1347
+          },
+          {
+            "imageType": "tlarge167",
+            "height": 840,
+            "width": 1920
+          },
+          {
+            "imageType": "tlarge169",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "tlargeWithLogo169",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "tportrait89",
+            "height": 1080,
+            "width": 960
+          },
+          {
+            "imageType": "tsmall169",
+            "height": 1080,
+            "width": 1917
+          },
+          {
+            "imageType": "tsquare11",
+            "height": 1080,
+            "width": 1080
+          },
+          {
+            "imageType": "twide329",
+            "height": 540,
+            "width": 1920
+          }
+        ],
+        "structure": {
+          "site": "kika",
+          "uuid": "b720794c-977e-4eeb-a103-e490042dccfb",
+          "structureNodePath": "/sendungen/sendereihen/die/die-pfefferkoerner/bilder",
+          "alias": ""
+        },
+        "online": true
+      },
+      "brandDetails": null,
+      "channelDetails": null,
+      "downloadDetails": null,
+      "votingDetails": null,
+      "linkDetails": null,
+      "livestreamDetails": null,
+      "relatedVideoDetails": null,
+      "videoDetails": {
+        "description": "Max wird von Drogendealer Dragan erpresst, \"Happy Pills\" an der Schule zu verkaufen. 50 Euro soll er jede Woche abliefern. Andernfalls droht Dragan, den Imbiss seiner Oma Leni abzufackeln. Beim ersten Versuch die Pillen auf dem Schulhof zu verticken, wird er von Emma erwischt. Sie will ihn der Schulleitung melden. Max bleibt nichts anderes übrig, als Emma in alles einzuweihen. Henri wittert im Hauptquartier schon den nächsten Fall.",
+        "episodeNumber": "106",
+        "fsk": null,
+        "ageRating": null,
+        "ageRatingDescriptors": null,
+        "duration": "00:28:09",
+        "durationInSeconds": 1689,
+        "hasAssets": true,
+        "hasSubtitle": true,
+        "hasOriginalVideo": true,
+        "hasDgsVideo": false,
+        "hasAdVideo": false,
+        "thresholdDaysUntilOffline": 6,
+        "videoType": "mainContent",
+        "isFeaturedVideo": false,
+        "transmissionType": "online",
+        "season": "9",
+        "seasonTitle": "Staffel 9",
+        "additionalContent": null
+      },
+      "videoSubchannelDetails": null,
+      "subchannelDetails": null,
+      "structureBrand": {
+        "id": "die-pfefferkoerner-100",
+        "urlPath": "/die-pfefferkoerner"
+      },
+      "infoTeaserDetails": null,
+      "imageDetails": null,
+      "soundSnippetDetails": null,
+      "eventDates": {
+        "eventStartDate": null,
+        "eventEndDate": null
+      },
+      "broadcastSeries": {
+        "id": "die-pfefferkoerner-100",
+        "title": "Die Pfefferkörner",
+        "urlPath": "/die-pfefferkoerner"
+      }
+    },
+    {
+      "docType": "externalVideo",
+      "id": "ninas-geheimnis-102",
+      "uuid": "e2eee59c-8193-4cba-920c-1b5aeb74c05e",
+      "externalId": "ard-Y3JpZDovL2Rhc2Vyc3RlLm5kci5kZS80NzUzXzIwMjMtMDItMjYtMDgtMDA",
+      "urlPath": "/die-pfefferkoerner/videos",
+      "validTo": null,
+      "externalUrl": null,
+      "api": {
+        "id": "ninas-geheimnis-102",
+        "url": "https://www.kika.de/ackley/v1/videos/ninas-geheimnis-102"
+      },
+      "structure": {
+        "site": "kika",
+        "uuid": "47533681-ea5d-46df-95f2-d949080194c1",
+        "structureNodePath": "/sendungen/sendereihen/die/die-pfefferkoerner/videos",
+        "alias": ""
+      },
+      "date": "2012-09-24T15:04:41.000+02:00",
+      "endDate": "2028-02-26T08:00:00.000+01:00",
+      "modificationDate": "2026-03-24T16:35:28.032+01:00",
+      "contentCategory": null,
+      "contentCategoryTitle": "Video",
+      "contentCategoryIcon": "video",
+      "title": "107. Ninas Geheimnis",
+      "teaserText": "Emma will die verschlossene Nina als Pfefferkorn gewinnen. Als sie für die Schule gemeinsam Fotos in der Stadt machen, wird ihnen die Kamera entrissen.",
+      "teaserImage": {
+        "id": "ninas-geheimnis-s-e-104",
+        "copyrights": "NDR/Letterbox, Romano Ruhnau",
+        "headline": "Ein Super-Team beim Tischkickern: Max (Bruno Alexander) und Matteo (Robin Huth).",
+        "caption": null,
+        "title": "Ein Super-Team beim Tischkickern: Max (Bruno Alexander) und Matteo (Robin Huth). | Rechte: NDR/Letterbox, Romano Ruhnau",
+        "alt": "Max und Matteo",
+        "urlScheme": "/die-pfefferkoerner/videos/ninas-geheimnis-s-e-104-resimage_v-**imageVariant**_w-**width**.jpg?version=5145",
+        "urlSchemeExtended": {
+          "scheme": "/die-pfefferkoerner/videos/ninas-geheimnis-s-e-104-resimage_v-**imageVariant**_w-**width**.**format**?version=5145",
+          "format": "jpg"
+        },
+        "imageBrightness": "dark",
+        "backgroundColor": null,
+        "variants": [
+          {
+            "imageType": "cropped",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "headerLarge",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "headerSmall",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "headerWide329",
+            "height": 540,
+            "width": 1920
+          },
+          {
+            "imageType": "ident",
+            "height": 1080,
+            "width": 1080
+          },
+          {
+            "imageType": "landscape249",
+            "height": 720,
+            "width": 1920
+          },
+          {
+            "imageType": "miniKika",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "opener489",
+            "height": 360,
+            "width": 1920
+          },
+          {
+            "imageType": "original",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "searchImage",
+            "height": 1080,
+            "width": 1347
+          },
+          {
+            "imageType": "tlarge167",
+            "height": 840,
+            "width": 1920
+          },
+          {
+            "imageType": "tlarge169",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "tlargeWithLogo169",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "tportrait89",
+            "height": 1080,
+            "width": 960
+          },
+          {
+            "imageType": "tsmall169",
+            "height": 1080,
+            "width": 1917
+          },
+          {
+            "imageType": "tsquare11",
+            "height": 1080,
+            "width": 1080
+          },
+          {
+            "imageType": "twide329",
+            "height": 540,
+            "width": 1920
+          }
+        ],
+        "structure": {
+          "site": "kika",
+          "uuid": "47533681-ea5d-46df-95f2-d949080194c1",
+          "structureNodePath": "/sendungen/sendereihen/die/die-pfefferkoerner/videos",
+          "alias": ""
+        },
+        "online": true
+      },
+      "teaserLinkDescription": "Jetzt anschauen",
+      "eyecatcher": null,
+      "broadcastSeriesTitle": "Die Pfefferkörner",
+      "broadcastSeriesId": "die-pfefferkoerner-100",
+      "isVisible": true,
+      "useTitleInsteadOfLogo": false,
+      "participationActive": false,
+      "genDate": "2026-06-27T18:29:47.876+02:00",
+      "logo": {
+        "id": "die-pfefferkoerner-112",
+        "copyrights": "NDR",
+        "headline": "Die Pfefferkörner",
+        "caption": null,
+        "title": "Die Pfefferkörner | Rechte: NDR",
+        "alt": "Logo \"Die Pfefferkörner\" ",
+        "urlScheme": "/die-pfefferkoerner/bilder/die-pfefferkoerner-112-resimage_v-**imageVariant**_w-**width**.png?version=2130",
+        "urlSchemeExtended": {
+          "scheme": "/die-pfefferkoerner/bilder/die-pfefferkoerner-112-resimage_v-**imageVariant**_w-**width**.**format**?version=2130",
+          "format": "png"
+        },
+        "imageBrightness": "dark",
+        "backgroundColor": null,
+        "variants": [
+          {
+            "imageType": "cropped",
+            "height": 350,
+            "width": 1769
+          },
+          {
+            "imageType": "headerLarge",
+            "height": 348,
+            "width": 1600
+          },
+          {
+            "imageType": "headerSmall",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "headerWide329",
+            "height": 540,
+            "width": 1920
+          },
+          {
+            "imageType": "ident",
+            "height": 1080,
+            "width": 1080
+          },
+          {
+            "imageType": "landscape249",
+            "height": 720,
+            "width": 1920
+          },
+          {
+            "imageType": "miniKika",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "opener489",
+            "height": 360,
+            "width": 1920
+          },
+          {
+            "imageType": "original",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "searchImage",
+            "height": 1080,
+            "width": 1347
+          },
+          {
+            "imageType": "tlarge167",
+            "height": 840,
+            "width": 1920
+          },
+          {
+            "imageType": "tlarge169",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "tlargeWithLogo169",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "tportrait89",
+            "height": 1080,
+            "width": 960
+          },
+          {
+            "imageType": "tsmall169",
+            "height": 1080,
+            "width": 1917
+          },
+          {
+            "imageType": "tsquare11",
+            "height": 1080,
+            "width": 1080
+          },
+          {
+            "imageType": "twide329",
+            "height": 540,
+            "width": 1920
+          }
+        ],
+        "structure": {
+          "site": "kika",
+          "uuid": "b720794c-977e-4eeb-a103-e490042dccfb",
+          "structureNodePath": "/sendungen/sendereihen/die/die-pfefferkoerner/bilder",
+          "alias": ""
+        },
+        "online": true
+      },
+      "brandDetails": null,
+      "channelDetails": null,
+      "downloadDetails": null,
+      "votingDetails": null,
+      "linkDetails": null,
+      "livestreamDetails": null,
+      "relatedVideoDetails": null,
+      "videoDetails": {
+        "description": "Emma will die verschlossene Nina als Pfefferkorn gewinnen und wählt sie in ihre Fotogruppe. Sie fotografieren zu zweit in der Stadt. Plötzlich reißt ihnen ein scheinbar blindes Bettelkind die Kamera aus der Hand. Emma und Nina verfolgen die Diebin. Sie bekommen ihre Kamera zurück, doch der Anblick der stinkenden Wohnung schockiert sie. Emma stellt später fest, dass der Fotochip fehlt und fährt noch einmal zurück.",
+        "episodeNumber": "107",
+        "fsk": null,
+        "ageRating": null,
+        "ageRatingDescriptors": null,
+        "duration": "00:28:30",
+        "durationInSeconds": 1710,
+        "hasAssets": true,
+        "hasSubtitle": true,
+        "hasOriginalVideo": true,
+        "hasDgsVideo": false,
+        "hasAdVideo": false,
+        "thresholdDaysUntilOffline": 6,
+        "videoType": "mainContent",
+        "isFeaturedVideo": false,
+        "transmissionType": "online",
+        "season": "9",
+        "seasonTitle": "Staffel 9",
+        "additionalContent": null
+      },
+      "videoSubchannelDetails": null,
+      "subchannelDetails": null,
+      "structureBrand": {
+        "id": "die-pfefferkoerner-100",
+        "urlPath": "/die-pfefferkoerner"
+      },
+      "infoTeaserDetails": null,
+      "imageDetails": null,
+      "soundSnippetDetails": null,
+      "eventDates": {
+        "eventStartDate": null,
+        "eventEndDate": null
+      },
+      "broadcastSeries": {
+        "id": "die-pfefferkoerner-100",
+        "title": "Die Pfefferkörner",
+        "urlPath": "/die-pfefferkoerner"
+      }
+    },
+    {
+      "docType": "externalVideo",
+      "id": "sneakerfieber-100",
+      "uuid": "cb2c8d1e-56ad-4de0-ae0c-600330748746",
+      "externalId": "ard-Y3JpZDovL2Rhc2Vyc3RlLm5kci5kZS80NzUzXzIwMjMtMDItMjYtMDktMDA",
+      "urlPath": "/die-pfefferkoerner/videos",
+      "validTo": null,
+      "externalUrl": null,
+      "api": {
+        "id": "sneakerfieber-100",
+        "url": "https://www.kika.de/ackley/v1/videos/sneakerfieber-100"
+      },
+      "structure": {
+        "site": "kika",
+        "uuid": "47533681-ea5d-46df-95f2-d949080194c1",
+        "structureNodePath": "/sendungen/sendereihen/die/die-pfefferkoerner/videos",
+        "alias": ""
+      },
+      "date": "2012-09-24T15:31:06.000+02:00",
+      "endDate": "2028-02-26T09:00:00.000+01:00",
+      "modificationDate": "2026-03-24T16:35:28.377+01:00",
+      "contentCategory": null,
+      "contentCategoryTitle": "Video",
+      "contentCategoryIcon": "video",
+      "title": "108. Sneakerfieber",
+      "teaserText": "Die Pfefferkörner Emma und Max finden auf dem Sperrmüll einen alten Koffer mit Sneakern und einem Feuerwehranzug. Doch es handelt sich um Diebesgut!",
+      "teaserImage": {
+        "id": "sneakerfieber-102",
+        "copyrights": "NDR/Letterbox, Romano Ruhnau",
+        "headline": "Der kaltherzige Entführer (Patrick Heyn) zeigt Henri (Sammy O‘Leary) ein Foto von der verschleppten Feline.",
+        "caption": null,
+        "title": "Der kaltherzige Entführer (Patrick Heyn) zeigt Henri (Sammy O‘Leary) ein Foto von der verschleppten Feline. | Rechte: NDR/Letterbox, Romano Ruhnau",
+        "alt": "Ein Mann mit Hut zeigt Henri etwas auf dem Handy",
+        "urlScheme": "/die-pfefferkoerner/videos/sneakerfieber-102-resimage_v-**imageVariant**_w-**width**.jpg?version=0232",
+        "urlSchemeExtended": {
+          "scheme": "/die-pfefferkoerner/videos/sneakerfieber-102-resimage_v-**imageVariant**_w-**width**.**format**?version=0232",
+          "format": "jpg"
+        },
+        "imageBrightness": "dark",
+        "backgroundColor": null,
+        "variants": [
+          {
+            "imageType": "cropped",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "headerLarge",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "headerSmall",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "headerWide329",
+            "height": 540,
+            "width": 1920
+          },
+          {
+            "imageType": "ident",
+            "height": 1080,
+            "width": 1080
+          },
+          {
+            "imageType": "landscape249",
+            "height": 720,
+            "width": 1920
+          },
+          {
+            "imageType": "miniKika",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "opener489",
+            "height": 360,
+            "width": 1920
+          },
+          {
+            "imageType": "original",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "searchImage",
+            "height": 1080,
+            "width": 1347
+          },
+          {
+            "imageType": "tlarge167",
+            "height": 840,
+            "width": 1920
+          },
+          {
+            "imageType": "tlarge169",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "tlargeWithLogo169",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "tportrait89",
+            "height": 1080,
+            "width": 960
+          },
+          {
+            "imageType": "tsmall169",
+            "height": 1080,
+            "width": 1917
+          },
+          {
+            "imageType": "tsquare11",
+            "height": 1080,
+            "width": 1080
+          },
+          {
+            "imageType": "twide329",
+            "height": 540,
+            "width": 1920
+          }
+        ],
+        "structure": {
+          "site": "kika",
+          "uuid": "47533681-ea5d-46df-95f2-d949080194c1",
+          "structureNodePath": "/sendungen/sendereihen/die/die-pfefferkoerner/videos",
+          "alias": ""
+        },
+        "online": true
+      },
+      "teaserLinkDescription": "Jetzt anschauen",
+      "eyecatcher": null,
+      "broadcastSeriesTitle": "Die Pfefferkörner",
+      "broadcastSeriesId": "die-pfefferkoerner-100",
+      "isVisible": true,
+      "useTitleInsteadOfLogo": false,
+      "participationActive": false,
+      "genDate": "2026-06-27T18:29:47.912+02:00",
+      "logo": {
+        "id": "die-pfefferkoerner-112",
+        "copyrights": "NDR",
+        "headline": "Die Pfefferkörner",
+        "caption": null,
+        "title": "Die Pfefferkörner | Rechte: NDR",
+        "alt": "Logo \"Die Pfefferkörner\" ",
+        "urlScheme": "/die-pfefferkoerner/bilder/die-pfefferkoerner-112-resimage_v-**imageVariant**_w-**width**.png?version=2130",
+        "urlSchemeExtended": {
+          "scheme": "/die-pfefferkoerner/bilder/die-pfefferkoerner-112-resimage_v-**imageVariant**_w-**width**.**format**?version=2130",
+          "format": "png"
+        },
+        "imageBrightness": "dark",
+        "backgroundColor": null,
+        "variants": [
+          {
+            "imageType": "cropped",
+            "height": 350,
+            "width": 1769
+          },
+          {
+            "imageType": "headerLarge",
+            "height": 348,
+            "width": 1600
+          },
+          {
+            "imageType": "headerSmall",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "headerWide329",
+            "height": 540,
+            "width": 1920
+          },
+          {
+            "imageType": "ident",
+            "height": 1080,
+            "width": 1080
+          },
+          {
+            "imageType": "landscape249",
+            "height": 720,
+            "width": 1920
+          },
+          {
+            "imageType": "miniKika",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "opener489",
+            "height": 360,
+            "width": 1920
+          },
+          {
+            "imageType": "original",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "searchImage",
+            "height": 1080,
+            "width": 1347
+          },
+          {
+            "imageType": "tlarge167",
+            "height": 840,
+            "width": 1920
+          },
+          {
+            "imageType": "tlarge169",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "tlargeWithLogo169",
+            "height": 1080,
+            "width": 1920
+          },
+          {
+            "imageType": "tportrait89",
+            "height": 1080,
+            "width": 960
+          },
+          {
+            "imageType": "tsmall169",
+            "height": 1080,
+            "width": 1917
+          },
+          {
+            "imageType": "tsquare11",
+            "height": 1080,
+            "width": 1080
+          },
+          {
+            "imageType": "twide329",
+            "height": 540,
+            "width": 1920
+          }
+        ],
+        "structure": {
+          "site": "kika",
+          "uuid": "b720794c-977e-4eeb-a103-e490042dccfb",
+          "structureNodePath": "/sendungen/sendereihen/die/die-pfefferkoerner/bilder",
+          "alias": ""
+        },
+        "online": true
+      },
+      "brandDetails": null,
+      "channelDetails": null,
+      "downloadDetails": null,
+      "votingDetails": null,
+      "linkDetails": null,
+      "livestreamDetails": null,
+      "relatedVideoDetails": null,
+      "videoDetails": {
+        "description": "Emma und Max finden auf dem Sperrmüll einen alten Koffer mit ein paar Sneakern und einem Feuerwehranzug. Emma ist begeistert von ihrer neuen Errungenschaft und zieht die Schuhe gleich an. Was die Pfefferkörner jedoch nicht ahnen. Es handelt sich um wertvolles Diebesgut. Der Dieb hatte den Koffer nur kurz auf dem Sperrmüll abgestellt, als er von Emma und Max überrascht wurde. Heimlich verfolgt er die beiden und schmiedet einen Plan.",
+        "episodeNumber": "108",
+        "fsk": null,
+        "ageRating": null,
+        "ageRatingDescriptors": null,
+        "duration": "00:28:36",
+        "durationInSeconds": 1716,
+        "hasAssets": true,
+        "hasSubtitle": true,
+        "hasOriginalVideo": true,
+        "hasDgsVideo": false,
+        "hasAdVideo": false,
+        "thresholdDaysUntilOffline": 6,
+        "videoType": "mainContent",
+        "isFeaturedVideo": false,
+        "transmissionType": "online",
+        "season": "9",
+        "seasonTitle": "Staffel 9",
+        "additionalContent": null
+      },
+      "videoSubchannelDetails": null,
+      "subchannelDetails": null,
+      "structureBrand": {
+        "id": "die-pfefferkoerner-100",
+        "urlPath": "/die-pfefferkoerner"
+      },
+      "infoTeaserDetails": null,
+      "imageDetails": null,
+      "soundSnippetDetails": null,
+      "eventDates": {
+        "eventStartDate": null,
+        "eventEndDate": null
+      },
+      "broadcastSeries": {
+        "id": "die-pfefferkoerner-100",
+        "title": "Die Pfefferkörner",
+        "urlPath": "/die-pfefferkoerner"
+      }
+    }
+  ],
+  "meta": {
+    "page": 8,
+    "pageSize": 12,
+    "offset": 96,
+    "totalPages": null,
+    "totalElements": null,
+    "size": 12,
+    "first": false,
+    "last": false,
+    "empty": false,
+    "duration": null,
+    "search_type": null
+  },
+  "links": {
+    "first": "https://www.kika.de/ackley/v1/videosubchannels/alle-folgen-776/videos?page=0&platform=kikade",
+    "previous": "https://www.kika.de/ackley/v1/videosubchannels/alle-folgen-776/videos?page=7&platform=kikade",
+    "next": "https://www.kika.de/ackley/v1/videosubchannels/alle-folgen-776/videos?page=9&platform=kikade",
+    "last": null
+  }
+}
