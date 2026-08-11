@@ -83,7 +83,9 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
   private static final String MARKER_VIDEO_DGS = "sign-language";
   private static final String MARKER_VIDEO_OV = "OV";
   private static final String MARKER_VIDEO_DE = "deu";
-  
+  private static final String MARKER_VIDEO_ENG = "eng";
+  private static final String MARKER_VIDEO_FRA = "fra";
+
   private static final DateTimeFormatter DATE_FORMAT
       = DateTimeFormatter.ofPattern("dd.MM.yyyy");
   private static final DateTimeFormatter TIME_FORMAT
@@ -247,6 +249,8 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
     Optional<Map<Qualities, String>> videoInfoDGSAdaptive = parseVideoUrls(itemObject, MARKER_VIDEO_DGS, MARKER_VIDEO_STANDARD, MARKER_VIDEO_CATEGORY_MPEG, MARKER_VIDEO_DE);
     Optional<Map<Qualities, String>> videoInfoOV = parseVideoUrls(itemObject, MARKER_VIDEO_CATEGORY_MAIN, MARKER_VIDEO_STANDARD, MARKER_VIDEO_MP4, MARKER_VIDEO_OV);
     Optional<Map<Qualities, String>> videoInfoOVAdaptive = parseVideoUrls(itemObject, MARKER_VIDEO_CATEGORY_MAIN, MARKER_VIDEO_STANDARD, MARKER_VIDEO_CATEGORY_MPEG, MARKER_VIDEO_OV);
+    Optional<Map<Qualities, String>> videoInfoEng = parseVideoUrls(itemObject, MARKER_VIDEO_CATEGORY_MAIN, MARKER_VIDEO_STANDARD, MARKER_VIDEO_MP4, MARKER_VIDEO_ENG);
+    Optional<Map<Qualities, String>> videoInfoFra = parseVideoUrls(itemObject, MARKER_VIDEO_CATEGORY_MAIN, MARKER_VIDEO_STANDARD, MARKER_VIDEO_MP4, MARKER_VIDEO_FRA);
     Optional<String> subtitles = prepareSubtitleUrl(itemObject);
     
     if (topic.isEmpty() || title.isEmpty() || partner.isEmpty() || ADDITIONAL_SENDER.get(partner.get()) == null) {
@@ -274,6 +278,12 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
     // incorrect langueage code for OV
     if ((titleoriginal.get().contains(" - (Originalversion)") || titleoriginal.get().contains(" (OV)")) && videoInfoOV.isEmpty()) {
       videoInfoOV = parseVideoUrls(itemObject, MARKER_VIDEO_CATEGORY_MAIN, MARKER_VIDEO_STANDARD, MARKER_VIDEO_MP4, "*");
+    }
+    if (videoInfoOV.isEmpty() && videoInfoEng.isPresent()) {
+      videoInfoOV = videoInfoEng;
+    }
+    if (videoInfoOV.isEmpty() && videoInfoFra.isPresent()) {
+      videoInfoOV = videoInfoFra;
     }
     // mainly tagesschau
     if ((titleoriginal.get().contains(" (mit Gebärdensprache)") || titleoriginal.get().contains(" mit Gebärdensprache")) && videoInfoStandard.isPresent() && videoInfoDGS.isEmpty()) {
