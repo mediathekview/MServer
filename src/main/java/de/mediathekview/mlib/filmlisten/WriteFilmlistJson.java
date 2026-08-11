@@ -37,7 +37,6 @@ import java.nio.channels.ReadableByteChannel;
 import java.nio.channels.WritableByteChannel;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
 public class WriteFilmlistJson {
@@ -83,14 +82,14 @@ public class WriteFilmlistJson {
                     Process p = new ProcessBuilder(xz.toString(), "-9", tempFile).start();
                     final int exitCode = p.waitFor();
                     if (exitCode == 0) {
-                        Files.move(Paths.get(tempFile + ".xz"), Paths.get(datei), StandardCopyOption.REPLACE_EXISTING);
+                        Files.move(Path.of(tempFile + ".xz"), Path.of(datei), StandardCopyOption.REPLACE_EXISTING);
                     }
                 } else
                     compressFile(tempFile, datei);
             }
 
-            Files.deleteIfExists(Paths.get(tempFile));
-        } catch (IOException | InterruptedException ex) {
+            Files.deleteIfExists(Path.of(tempFile));
+        } catch (IOException | InterruptedException _) {
             Log.sysLog("Komprimieren fehlgeschlagen");
         }
     }
@@ -104,7 +103,7 @@ public class WriteFilmlistJson {
 
             if (SystemInfo.isMacOSX()) {
                 //Hotfix for OSX 10.12.4 update
-                final Path f = Paths.get(datei);
+                final Path f = Path.of(datei);
                 final Path parentDirectory = f.getParent();
                 if (!Files.exists(parentDirectory))
                     Files.createDirectory(parentDirectory);
@@ -167,7 +166,7 @@ public class WriteFilmlistJson {
         Path xz = null;
 
         for (String path : paths) {
-            xz = Paths.get(path);
+            xz = Path.of(path);
             if (Files.isExecutable(xz)) {
                 break;
             }
@@ -184,7 +183,7 @@ public class WriteFilmlistJson {
              final WritableByteChannel outputChannel = Channels.newChannel(output)) {
 
             fastChannelCopy(inputChannel, outputChannel);
-        } catch (IOException ignored) {
+        } catch (IOException _) {
         }
     }
 }

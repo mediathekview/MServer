@@ -53,17 +53,17 @@ public class DbgMsg {
                     kl = kl.substring(kl.indexOf(".") + 1);
                 }
             }
-        } catch (Exception ignored) {
+        } catch (Exception _) {
             kl = klasse;
         }
 
         if (Config.debug) {
             final String z = "||";
-            System.out.println(z + " " + kl);
+          IO.println(z + " " + kl);
             for (String text : texte) {
-                System.out.println(z + "      " + text);
+              IO.println(z + "      " + text);
             }
-            System.out.println("");
+          IO.println("");
         }
     }
 
@@ -71,7 +71,7 @@ public class DbgMsg {
         if (Config.debug) {
             final String z = "||";
             for (String text : texte) {
-                System.out.println(z + "  " + text);
+              IO.println(z + "  " + text);
             }
         }
     }

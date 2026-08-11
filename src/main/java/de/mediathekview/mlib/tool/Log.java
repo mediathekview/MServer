@@ -32,8 +32,8 @@ import java.util.LinkedList;
 
 public class Log {
 
-    private final static String FEHLER = "Fehler(" + Const.PROGRAMMNAME + "): ";
-    public final static String LILNE = "################################################################################";
+    private static final String FEHLER = "Fehler(" + Const.PROGRAMMNAME + "): ";
+    public static final String LILNE = "################################################################################";
 
     // private
     private static class Error {
@@ -68,7 +68,7 @@ public class Log {
 
     }
 
-    private static final SimpleDateFormat dateFormatter = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
+    private static final SimpleDateFormat DATE_FORMATTER = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
 
     private static final long TO_MEGABYTE = 1000L * 1000L;
 
@@ -89,7 +89,7 @@ public class Log {
             sysLog("");
         }
         sysLog(LILNE);
-        sysLog("Programmstart: " + dateFormatter.format(Log.startZeit));
+        sysLog("Programmstart: " + DATE_FORMATTER.format(Log.startZeit));
         sysLog(LILNE);
         sysLog("");
         final long totalMem = Runtime.getRuntime().totalMemory();
@@ -131,14 +131,14 @@ public class Log {
         int minuten;
         try {
             minuten = Math.round((stopZeit.getTime() - Log.startZeit.getTime()) / (1000 * 60));
-        } catch (Exception ex) {
+        } catch (Exception _) {
             minuten = -1;
         }
         sysLog("");
         sysLog("");
         sysLog(LILNE);
-        sysLog("   --> Beginn: " + dateFormatter.format(Log.startZeit));
-        sysLog("   --> Fertig: " + dateFormatter.format(stopZeit));
+        sysLog("   --> Beginn: " + DATE_FORMATTER.format(Log.startZeit));
+        sysLog("   --> Fertig: " + DATE_FORMATTER.format(stopZeit));
         sysLog("   --> Dauer[Min]: " + (minuten == 0 ? "<1" : minuten));
         sysLog(LILNE);
         sysLog("");
@@ -174,7 +174,6 @@ public class Log {
                 for (int k = i; k > 0; --k) {
                     i_1 = fehlerListe.get(k - 1).nr;
                     i_2 = fehlerListe.get(k).nr;
-                    // if (str1.compareToIgnoreCase(str2) > 0) {
                     if (i_1 < i_2) {
                         fehlerListe.add(k - 1, fehlerListe.remove(k));
                     } else {
@@ -198,34 +197,31 @@ public class Log {
 
     // Fehlermeldung mit Exceptions
     public static synchronized void errorLog(int fehlerNummer, Exception ex) {
-        fehlermeldung_(fehlerNummer, ex, new String[]{});
+        fehlermeldung(fehlerNummer, ex, new String[]{});
     }
 
     public static synchronized void errorLog(int fehlerNummer, Exception ex, String text) {
-        fehlermeldung_(fehlerNummer, ex, new String[]{text});
+        fehlermeldung(fehlerNummer, ex, new String[]{text});
     }
 
-    public static synchronized void errorLog(int fehlerNummer, Exception ex, String text[]) {
-        fehlermeldung_(fehlerNummer, ex, text);
+    public static synchronized void errorLog(int fehlerNummer, Exception ex, String[] text) {
+        fehlermeldung(fehlerNummer, ex, text);
     }
 
     // Fehlermeldungen
     public static synchronized void errorLog(int fehlerNummer, String text) {
-        fehlermeldung_(fehlerNummer, null, new String[]{text});
+        fehlermeldung(fehlerNummer, null, new String[]{text});
     }
 
     public static synchronized void errorLog(int fehlerNummer, String[] text) {
-        fehlermeldung_(fehlerNummer, null, text);
+        fehlermeldung(fehlerNummer, null, text);
     }
 
     public static synchronized void logHttpError(String url, int statusCode) {
         Exception e = new RuntimeException(String.valueOf(statusCode));
-        fehlermeldung_(110000000 + statusCode, e, new String[]{ String.format("error %d for URL: %s", statusCode, url)});
+        fehlermeldung(110000000 + statusCode, e, new String[]{ String.format("error %d for URL: %s", statusCode, url)});
     }
 
-    //    public static synchronized void systemMeldung(String[] text) {
-//        systemmeldung_(text);
-//    }
     public static synchronized void sysLog(String text) {
         systemmeldung_(new String[]{text});
     }
@@ -233,14 +229,14 @@ public class Log {
     public static synchronized void progress(String texte) {
         progress = true;
         if (!texte.isEmpty()) {
-            System.out.print(texte + '\r');
+          IO.print(texte + '\r');
         }
     }
 
     private static void resetProgress() {
         // Leerzeile um die Progresszeile zu löschen
         if (progress) {
-            System.out.print("                                                                                                             \r");
+          IO.print("                                                                                                             \r");
             progress = false;
         }
     }
@@ -256,7 +252,7 @@ public class Log {
         fehlerListe.add(new Error(nr, classs, exception));
     }
 
-    private static void fehlermeldung_(int fehlerNummer, Exception ex, String[] texte) {
+    private static void fehlermeldung(int fehlerNummer, Exception ex, String[] texte) {
         final Throwable t = new Throwable();
         final StackTraceElement methodCaller = t.getStackTrace()[2];
         final String klasse = methodCaller.getClassName() + '.' + methodCaller.getMethodName();
@@ -270,7 +266,7 @@ public class Log {
                     kl = kl.substring(kl.indexOf('.') + 1);
                 }
             }
-        } catch (Exception ignored) {
+        } catch (Exception _) {
             kl = klasse;
         }
         addFehlerNummer(fehlerNummer, kl, ex != null);
@@ -297,7 +293,7 @@ public class Log {
                     sw.flush();
                     logList.add(sw.toString());
                 }
-            } catch (Exception ignored) {
+            } catch (Exception _) {
             }
 
             logList.add(z + " Fehlernr: " + fehlerNummer);
@@ -341,7 +337,7 @@ public class Log {
                     out.write("\n");
                 }
             } catch (Exception ex) {
-                System.out.println(ex.getMessage());
+              IO.println(ex.getMessage());
             }
         }
         logList.clear();

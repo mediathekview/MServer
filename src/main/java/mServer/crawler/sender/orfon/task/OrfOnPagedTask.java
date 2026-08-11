@@ -11,6 +11,7 @@ import mServer.crawler.sender.orfon.OrfOnConstants;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.io.Serial;
 import java.net.URI;
 import java.util.Optional;
 import java.util.Set;
@@ -19,7 +20,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 // <T, R, D extends CrawlerUrlDTO> extends AbstractRestTask<T, D>
 // return T Class from this task, desirialisation of class R , D , Reasearch in this url
 public abstract class OrfOnPagedTask extends AbstractJsonRestTask<OrfOnBreadCrumsUrlDTO, PagedElementListDTO<OrfOnBreadCrumsUrlDTO>, OrfOnBreadCrumsUrlDTO> {
-  private static final long serialVersionUID = 1L;
+  @Serial private static final long serialVersionUID = 1L;
   protected final transient Logger log = LogManager.getLogger(this.getClass());
   protected transient Optional<AbstractRecursivConverterTask<OrfOnBreadCrumsUrlDTO, OrfOnBreadCrumsUrlDTO>> nextPageTask = Optional.empty();
 

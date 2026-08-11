@@ -9,7 +9,6 @@ import org.junit.jupiter.api.Test;
 
 import java.net.URISyntaxException;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 
 /**
  * A test to test the performance of the crawler.
@@ -27,7 +26,7 @@ public class PerformanceTest
         performanceMonitor = EtmManager.getEtmMonitor();
         performanceMonitor.start();
 
-        testConfigPath = Paths.get(getClass().getResource(TEST_REOSURCES_FOLDERPATH).toURI());
+        testConfigPath = Path.of(getClass().getResource(TEST_REOSURCES_FOLDERPATH).toURI());
     }
 
     @AfterEach

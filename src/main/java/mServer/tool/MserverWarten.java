@@ -28,17 +28,17 @@ import java.util.concurrent.TimeUnit;
 public class MserverWarten {
 
     public synchronized void sekundenWarten(int sekunden) {
-        MserverLog.systemMeldung("Warten: " + String.valueOf(sekunden) + " Sekunden");
+        MserverLog.systemMeldung("Warten: " + sekunden + " Sekunden");
         try {
             while (sekunden > 0) {
                 TimeUnit.SECONDS.sleep(1);
                 sekunden--;
-                System.out.print("\r");
-                System.out.print(String.valueOf(sekunden));
+              IO.print("\r");
+              IO.print(String.valueOf(sekunden));
             }
         } catch (Exception ex) {
             MserverLog.fehlerMeldung(347895642, MserverWarten.class.getName(), "Warten nach dem Suchen", ex);
         }
-        System.out.println("");
+      IO.println("");
     }
 }

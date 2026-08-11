@@ -74,7 +74,7 @@ public class Duration {
                     kl = kl.substring(kl.indexOf(".") + 1);
                 }
             }
-        } catch (Exception ignored) {
+        } catch (Exception _) {
             kl = klasse;
         }
 
@@ -92,7 +92,7 @@ public class Duration {
                 final long time = Math.round(new Date().getTime() - cc.start.getTime());
                 cc.time += time;
                 extra = cc.text + " Anzahl: " + cc.count + "   Dauer: " + roundDuration(time);
-            } catch (Exception ex) {
+            } catch (Exception _) {
             }
         }
 
@@ -113,17 +113,17 @@ public class Duration {
             }
         }
 
-        System.out.println("");
-        System.out.println("");
-        System.out.println("#################################################################");
+      IO.println("");
+      IO.println("");
+      IO.println("#################################################################");
         for (Counter c : COUNTER_LIST) {
-            System.out.println(c.text + " Anzahl: " + c.count + "   Gesamtdauer: " + roundDuration(c.time));
+          IO.println(c.text + " Anzahl: " + c.count + "   Gesamtdauer: " + roundDuration(c.time));
         }
-        System.out.println("#################################################################");
-        System.out.println("");
+      IO.println("#################################################################");
+      IO.println("");
     }
 
-    public synchronized static void staticPing(String text) {
+    public static synchronized void staticPing(String text) {
         final Throwable t = new Throwable();
         final StackTraceElement methodCaller = t.getStackTrace()[2];
         final String klasse = methodCaller.getClassName() + "." + methodCaller.getMethodName();
@@ -137,7 +137,7 @@ public class Duration {
                     kl = kl.substring(kl.indexOf(".") + 1);
                 }
             }
-        } catch (Exception ignored) {
+        } catch (Exception _) {
             kl = klasse;
         }
         staticPing(kl, text, "");
@@ -148,18 +148,18 @@ public class Duration {
         long sekunden;
         try {
             sekunden = Math.round(now.getTime() - stopZeitStatic.getTime());
-        } catch (Exception ex) {
+        } catch (Exception _) {
             sekunden = -1;
         }
-        System.out.println("");
-        System.out.println("========== ========== ========== ========== ==========");
-        System.out.println("DURATION " + sum++ + ":  " + text + "  [" + roundDuration(sekunden) + "]");
-        System.out.println("   Klasse:  " + klasse);
+      IO.println("");
+      IO.println("========== ========== ========== ========== ==========");
+      IO.println("DURATION " + sum++ + ":  " + text + "  [" + roundDuration(sekunden) + "]");
+      IO.println("   Klasse:  " + klasse);
         if (!extra.isEmpty()) {
-            System.out.println("   " + extra);
+          IO.println("   " + extra);
         }
-        System.out.println("========== ========== ========== ========== ==========");
-        System.out.println("");
+      IO.println("========== ========== ========== ========== ==========");
+      IO.println("");
 
         stopZeitStatic = now;
     }

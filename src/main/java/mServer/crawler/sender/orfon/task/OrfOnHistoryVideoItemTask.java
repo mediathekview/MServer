@@ -8,13 +8,14 @@ import mServer.crawler.sender.base.PagedElementListDTO;
 import mServer.crawler.sender.orfon.OrfOnBreadCrumsUrlDTO;
 import mServer.crawler.sender.orfon.json.OrfOnHistoryVideoItemDeserializer;
 
+import java.io.Serial;
 import java.lang.reflect.Type;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 // <T, R, D extends CrawlerUrlDTO> extends AbstractRestTask<T, D>
 // return T Class from this task, desirialisation of class R , D , Reasearch in this url
 public class OrfOnHistoryVideoItemTask extends OrfOnPagedTask {
-  private static final long serialVersionUID = 1L;
+  @Serial private static final long serialVersionUID = 1L;
 
   public OrfOnHistoryVideoItemTask(MediathekReader crawler, ConcurrentLinkedQueue<OrfOnBreadCrumsUrlDTO> urlToCrawlDTOs) {
     super(crawler, urlToCrawlDTOs);

@@ -32,7 +32,7 @@ public abstract class ArdTaskBase<T, D extends CrawlerUrlDTO> extends AbstractRe
 
   private final GsonBuilder gsonBuilder;
 
-  public ArdTaskBase(
+  protected ArdTaskBase(
           final MediathekReader aCrawler, final ConcurrentLinkedQueue<D> aUrlToCrawlDtos) {
     super(aCrawler, aUrlToCrawlDtos, Optional.empty());
     gsonBuilder = new GsonBuilder();
@@ -95,7 +95,7 @@ public abstract class ArdTaskBase<T, D extends CrawlerUrlDTO> extends AbstractRe
       LOG.error(logText);
     });
 
-    return !error.isPresent();
+    return error.isEmpty();
   }
 
   private Response executeRequest(final WebTarget aTarget) {

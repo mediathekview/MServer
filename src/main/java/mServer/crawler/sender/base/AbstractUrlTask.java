@@ -1,5 +1,6 @@
 package mServer.crawler.sender.base;
 
+import java.io.Serial;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.RecursiveTask;
 import mServer.crawler.FilmeSuchen;
@@ -24,7 +25,7 @@ import mServer.crawler.sender.MediathekReader;
 public abstract class AbstractUrlTask<T, D extends CrawlerUrlDTO>
         extends AbstractRecursivConverterTask<T, D> {
 
-  private static final long serialVersionUID = -4077156510484515410L;
+  @Serial private static final long serialVersionUID = -4077156510484515410L;
 
   protected AbstractUrlTask(final MediathekReader aCrawler,
           final ConcurrentLinkedQueue<D> aUrlToCrawlDTOs) {

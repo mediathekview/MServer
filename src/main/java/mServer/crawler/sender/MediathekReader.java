@@ -48,7 +48,7 @@ public abstract class MediathekReader extends Thread {
   private int progress; // Prograss eben
   private final BannedFilmFilter bannedFilmFilter;
 
-  public MediathekReader(FilmeSuchen aMSearchFilmeSuchen, String aSendername, int aSenderMaxThread, int aSenderWartenSeiteLaden, int aStartPrio) {
+  protected MediathekReader(FilmeSuchen aMSearchFilmeSuchen, String aSendername, int aSenderMaxThread, int aSenderWartenSeiteLaden, int aStartPrio) {
     mlibFilmeSuchen = aMSearchFilmeSuchen;
 
     maxThreadLaufen = aSenderMaxThread;
@@ -85,7 +85,6 @@ public abstract class MediathekReader extends Thread {
         for (int k = i; k > 0; --k) {
           str1 = liste.get(k - 1)[stelle];
           str2 = liste.get(k)[stelle];
-          // if (str1.compareToIgnoreCase(str2) > 0) {
           if (sorter.compare(str1, str2) > 0) {
             liste.add(k - 1, liste.remove(k));
           } else {
@@ -113,7 +112,7 @@ public abstract class MediathekReader extends Thread {
           power *= 60;
         }
       }
-    } catch (Exception ex) {
+    } catch (Exception _) {
       return 0;
     }
     return dauerInSeconds;
@@ -126,7 +125,7 @@ public abstract class MediathekReader extends Thread {
     }
     try {
       dauerInSeconds = Long.parseLong(dauer);
-    } catch (Exception ex) {
+    } catch (Exception _) {
       return 0;
     }
     return dauerInSeconds;
@@ -156,10 +155,6 @@ public abstract class MediathekReader extends Thread {
     return max;
   }
 
-//    public long getWaitTime()
-//    {
-//        return getWartenSeiteLaden();
-//    }
   public int getProgress() {
     return progress;
   }
@@ -177,12 +172,6 @@ public abstract class MediathekReader extends Thread {
     return getSendername().equalsIgnoreCase(name);
   }
 
-//    public String getNameSender() {
-//        return getSendername();
-//    }
-//    public void delSenderInAlterListe(String sender) {
-//        mlibFilmeSuchen.listeFilmeAlt.deleteAllFilms(sender);
-//    }
   public void clear() {
     //aufräumen
   }
@@ -236,7 +225,7 @@ public abstract class MediathekReader extends Thread {
   private void setFileSize(DatenFilm film) {
     // optimization for ORF and some others: don't try to determine filesize of m3u8-files
     Optional<String> fileType = UrlUtils.getFileType(film.arr[DatenFilm.FILM_URL]);
-    if (!fileType.isPresent() || !fileType.get().equalsIgnoreCase("m3u8")) {
+    if (fileType.isEmpty() || !fileType.get().equalsIgnoreCase("m3u8")) {
       film.setFileSize();
     }
   }

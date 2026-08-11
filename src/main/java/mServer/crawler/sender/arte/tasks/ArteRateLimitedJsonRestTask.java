@@ -14,12 +14,13 @@ import mServer.crawler.sender.base.AbstractJsonRestTask;
 import mServer.crawler.sender.base.CrawlerUrlDTO;
 import mServer.tool.MserverDaten;
 
+import java.io.Serial;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.TimeUnit;
 
 public abstract class ArteRateLimitedJsonRestTask<T, R, D extends CrawlerUrlDTO> extends AbstractJsonRestTask<T, R, D> {
-  private static final long serialVersionUID = 1L;
+  @Serial private static final long serialVersionUID = 1L;
   private static final RateLimiter rateLimiter = RateLimiter.create(MserverDaten.getArteRateLimit());
   private static final RateLimiter opaApirateLimiter = RateLimiter.create(0.2);
 
@@ -64,7 +65,7 @@ public abstract class ArteRateLimitedJsonRestTask<T, R, D extends CrawlerUrlDTO>
           retryCount++;
           try {
             TimeUnit.MILLISECONDS.sleep(60000);
-          } catch (InterruptedException ignored) {
+          } catch (InterruptedException _) {
           }
         } else {
           FilmeSuchen.listeSenderLaufen.inc(crawler.getRunIdentifier(), RunSender.Count.FEHLER);

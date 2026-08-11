@@ -11,7 +11,6 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 
 /**
  * Reads a json file
@@ -23,7 +22,7 @@ public class JsonFileReader {
     public static JsonObject readJson(String filePath) {
         try {
             URI u = JsonFileReader.class.getResource(filePath).toURI();
-            Path path = Paths.get(u);
+            Path path = Path.of(u);
             String jsonOutput = new String(Files.readAllBytes(path));
             return new Gson().fromJson(jsonOutput, JsonObject.class);        
         } catch(JsonSyntaxException | IOException | URISyntaxException ex) {
@@ -35,7 +34,7 @@ public class JsonFileReader {
     public static JsonArray readJsonArray(String filePath) {
         try {
             URI u = JsonFileReader.class.getResource(filePath).toURI();
-            Path path = Paths.get(u);
+            Path path = Path.of(u);
             String jsonOutput = new String(Files.readAllBytes(path));
             return new Gson().fromJson(jsonOutput, JsonArray.class);        
         } catch(JsonSyntaxException | IOException | URISyntaxException ex) {

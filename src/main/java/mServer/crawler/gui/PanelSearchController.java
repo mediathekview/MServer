@@ -81,14 +81,13 @@ public class PanelSearchController implements Initializable {
     @FXML
     private CheckBox cbUpdate;
 
-    private int i = 0;
     private Button[] buttonSender;
     private String[] senderArray;
     private MSearchGuiLoad mlibGuiLoad;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        btnStop.setOnAction(e -> System.out.println("Test"));
+        btnStop.setOnAction(e -> IO.println("Test"));
 
         initPanelSearch();
 
@@ -183,7 +182,7 @@ public class PanelSearchController implements Initializable {
 
     private void writeLog() {
         final SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
-        String datei = "/tmp/testfile"; //////////////
+        String datei = "/tmp/testfile";
         Date aktTime = new Date(System.currentTimeMillis());
         String aktTimeStr = sdf.format(aktTime);
         Log.sysLog("");

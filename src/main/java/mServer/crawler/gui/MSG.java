@@ -41,8 +41,8 @@ public class MSG extends Application {
     @Override
     public void init() {
         List<String> lp = getParameters().getRaw();
-        if (!lp.isEmpty() && !lp.get(0).startsWith("-")) {
-            Data.pathFilmlist = lp.get(0);
+        if (!lp.isEmpty() && !lp.getFirst().startsWith("-")) {
+            Data.pathFilmlist = lp.getFirst();
         }
     }
 

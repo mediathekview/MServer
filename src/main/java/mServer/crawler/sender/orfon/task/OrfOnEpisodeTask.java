@@ -18,6 +18,7 @@ import mServer.crawler.sender.orfon.json.OrfOnEpisodeDeserializer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.io.Serial;
 import java.lang.reflect.Type;
 import java.net.URI;
 import java.time.Duration;
@@ -30,7 +31,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 // <T, R, D extends CrawlerUrlDTO> extends AbstractRestTask<T, D>
 // return T Class from this task, desirialisation of class R , D , Reasearch in this url
 public class OrfOnEpisodeTask extends AbstractJsonRestTask<DatenFilm, OrfOnVideoInfoDTO, OrfOnBreadCrumsUrlDTO> {
-  private static final long serialVersionUID = 3272445100769901305L;
+  @Serial private static final long serialVersionUID = 3272445100769901305L;
   private static final Logger LOG = LogManager.getLogger(OrfOnEpisodeTask.class);
   private static final String ORF_AUDIODESCRIPTION_PREFIX = "AD | ";
 
