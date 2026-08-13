@@ -1,0 +1,74 @@
+{
+  "videoSubtitle": "https://www.kika.de/ackley/v1/videos/giftige-absichten-104/subtitle",
+  "webvttUrl": "https://www.kika.de/ackley/v1/videos/giftige-absichten-104/webvtt",
+  "assets": [
+    {
+      "profileName": "640x360",
+      "fileName": "TV-20161208-1444-1900.ln.mp4",
+      "fileSize": 0,
+      "mediaType": null,
+      "frameWidth": 640,
+      "frameHeight": 360,
+      "bitrateVideo": -1,
+      "bitrateAudio": -1,
+      "type": "progressive",
+      "url": "https://ndr-progressive.ard-mcdn.de/progressive/2016/1208/TV-20161208-1444-1900.ln.mp4"
+    },
+    {
+      "profileName": "960x540",
+      "fileName": "TV-20161208-1444-1900.hq.mp4",
+      "fileSize": 0,
+      "mediaType": null,
+      "frameWidth": 960,
+      "frameHeight": 540,
+      "bitrateVideo": -1,
+      "bitrateAudio": -1,
+      "type": "progressive",
+      "url": "https://ndr-progressive.ard-mcdn.de/progressive/2016/1208/TV-20161208-1444-1900.hq.mp4"
+    },
+    {
+      "profileName": "Video 2018 | MP4 720p25 | Web XL| 16:9 | 1280x720",
+      "fileName": "TV-20161208-1444-1900.hd.mp4",
+      "fileSize": 0,
+      "mediaType": null,
+      "frameWidth": 1280,
+      "frameHeight": 720,
+      "bitrateVideo": -1,
+      "bitrateAudio": -1,
+      "type": "progressive",
+      "url": "https://ndr-progressive.ard-mcdn.de/progressive/2016/1208/TV-20161208-1444-1900.hd.mp4"
+    },
+    {
+      "profileName": null,
+      "fileName": null,
+      "fileSize": null,
+      "mediaType": null,
+      "frameWidth": null,
+      "frameHeight": null,
+      "bitrateVideo": null,
+      "bitrateAudio": null,
+      "type": "auto",
+      "url": "https://adaptive.ndr.de/i/ndr/2016/1208/TV-20161208-1444-1900.,ln,hd,hq,mn,.mp4.csmil/master.m3u8"
+    }
+  ],
+  "agfTracking": {
+    "assetid": "Y3JpZDovL2Rhc2Vyc3RlLm5kci5kZS80NzUzXzIwMjMtMDItMjItMTgtMDA",
+    "length": "1707",
+    "c0": "0",
+    "c10": "Das Erste",
+    "c12": "Content",
+    "c18": "N",
+    "c19": "Das Erste",
+    "c2": "N",
+    "c5": "ARD Mediathek",
+    "c7": "Y3JpZDovL2Rhc2Vyc3RlLm5kci5kZS80NzUzXzIwMjMtMDItMjItMTgtMDA",
+    "c8": "1707",
+    "c9": "Die Pfefferkörner_Giftige Absichten_22.02.2023 17:00",
+    "program": "Die Pfefferkörner",
+    "title": "Das Erste_Die Pfefferkörner_Giftige Absichten_22.02.2023 17:00",
+    "type": "content",
+    "clientId": "{ardClientId}",
+    "vcId": "{ardVcId}",
+    "appId": "P945EA7D9-6619-4B5A-A454-33069A153141"
+  }
+}

@@ -1,0 +1,3197 @@
+{
+    "docType": "subchannel",
+    "id": "lieder-126",
+    "uuid": "fd669ce5-5ad7-442a-80fc-adcdc15d77ea",
+    "externalId": "fd669ce5-5ad7-442a-80fc-adcdc15d77ea",
+    "urlPath": "/rudi/musik",
+    "validTo": null,
+    "title": "Alle Lieder von \"Rudi\"",
+    "teaserText": "Entdeckt Musik und Lieder der Kinderhelden Rudi und Siebenstein! Jetzt Musik und Songs für Kinder anhören, mittanzen und laut mitsingen!",
+    "date": "2025-12-03T13:51:17.454+01:00",
+    "endDate": null,
+    "modificationDate": "2025-12-03T13:51:17.457+01:00",
+    "metaKeywords": [
+        "Lieder",
+        "Song",
+        "Kinderlieder",
+        "Musik für Kinder",
+        "Musikstück",
+        "Instrumente",
+        "Singen lernen",
+        "mitsingen",
+        "Tanzen",
+        "bewegen",
+        "Takt",
+        "Melodie",
+        "Gesang",
+        "hören",
+        "Soundtrack",
+        "Rudi",
+        "Koffer",
+        "Siebenstein",
+        "Dosenfon",
+        "Dosentelefon",
+        "Weihnachtsreise",
+        "Weihnachtslieder",
+        "Superhelden",
+        "Zahnputzpolizei",
+        "Zahnputzlied",
+        "Zähne putzen",
+        ""
+    ],
+    "categories": {},
+    "structure": {
+        "site": "kika",
+        "uuid": "c41eab46-48a6-4a23-b199-2a87e13b6e8b",
+        "structureNodePath": "/sendungen/sendereihen/r/rudi/musik",
+        "alias": ""
+    },
+    "navigation": {
+        "mainNavigation": {
+            "id": "structurenodedocument32786",
+            "url": "https://www.kika.de/ackley/v1/navigations/structurenodedocument32786/main"
+        },
+        "burgerNavigation": {
+            "id": "structurenodedocument32786",
+            "url": "https://www.kika.de/ackley/v1/navigations/structurenodedocument32786/burger"
+        },
+        "footerNavigation": {
+            "id": "structurenodedocument32786",
+            "url": "https://www.kika.de/ackley/v1/navigations/structurenodedocument32786/footer"
+        },
+        "subNavigation": {
+            "id": "structurenodedocument32786",
+            "url": "https://www.kika.de/ackley/v1/navigations/structurenodedocument32786/sub"
+        }
+    },
+    "settings": {
+        "header": {
+            "id": "structurenodedocument32786",
+            "url": "https://www.kika.de/ackley/v1/settings/structurenodedocument32786/header"
+        },
+        "help": null,
+        "staticMetaJson": {
+            "id": "kika-meta100",
+            "url": "https://www.kika.de/ackley/v1/jsons/kika-meta100"
+        },
+        "dynamicMetaDataJson": {
+            "id": "lieder-126",
+            "url": "https://www.kika.de/ackley/v1/metadatas/lieder-126"
+        },
+        "primaryJsonLd": {
+            "id": "generic-jsonld102",
+            "url": "https://www.kika.de/ackley/v1/jsons/generic-jsonld102"
+        },
+        "secondaryJsonLd": {
+            "id": "lieder-126",
+            "url": "https://www.kika.de/ackley/v1/secondaryjsonld/lieder-126"
+        },
+        "chatbot": null,
+        "piano": {
+            "id": null,
+            "url": "/resources/js/tracking-piano-prod-latest.js"
+        },
+        "clickOns": {
+            "id": "structurenodedocument32786",
+            "url": "https://www.kika.de/ackley/v1/settings/structurenodedocument32786/clickon"
+        },
+        "banner": {
+            "id": "qr102",
+            "url": "https://www.kika.de/ackley/v1/parentalHints/qr102",
+            "appIds": {
+                "amazon": "B092D9S8B6",
+                "android": "de.kika.kikaplayer",
+                "ios": "1421189758"
+            },
+            "type": "kikaapp",
+            "deeplink": "https://app.kika.de/applink/kikaapp",
+            "deeplinkId": null,
+            "deeplinkDocument": null,
+            "piano": {
+                "at_medium": "kika-web",
+                "at_campaign": null,
+                "at_title": null,
+                "at_location": null,
+                "at_channel": null,
+                "at_campaign_name": null,
+                "at_owner": null
+            }
+        }
+    },
+    "teaserImage": {
+        "id": "alle-lieder-102",
+        "copyrights": "ZDF",
+        "headline": "Alle Lieder von \"Rudi\"",
+        "caption": "Höre dir alle Lieder von Rabe Rudi aus \"Siebenstein\" an.",
+        "title": "Alle Lieder von \"Rudi\" | Rechte: ZDF",
+        "alt": "Rabe Rudi schaut in zwei Konservendosen.",
+        "urlScheme": "/rudi/musik/alle-lieder-102-resimage_v-**imageVariant**_w-**width**.jpg?version=358",
+        "urlSchemeExtended": {
+            "scheme": "/rudi/musik/alle-lieder-102-resimage_v-**imageVariant**_w-**width**.**format**?version=358",
+            "format": "jpg"
+        },
+        "imageBrightness": "dark",
+        "backgroundColor": null,
+        "variants": [
+            {
+                "imageType": "cropped",
+                "height": 1080,
+                "width": 1920
+            },
+            {
+                "imageType": "headerLarge",
+                "height": 1080,
+                "width": 1920
+            },
+            {
+                "imageType": "headerSmall",
+                "height": 1080,
+                "width": 1920
+            },
+            {
+                "imageType": "headerWide329",
+                "height": 540,
+                "width": 1920
+            },
+            {
+                "imageType": "ident",
+                "height": 1080,
+                "width": 1080
+            },
+            {
+                "imageType": "landscape249",
+                "height": 720,
+                "width": 1920
+            },
+            {
+                "imageType": "miniKika",
+                "height": 1080,
+                "width": 1920
+            },
+            {
+                "imageType": "opener489",
+                "height": 360,
+                "width": 1920
+            },
+            {
+                "imageType": "original",
+                "height": 1080,
+                "width": 1920
+            },
+            {
+                "imageType": "searchImage",
+                "height": 1080,
+                "width": 1347
+            },
+            {
+                "imageType": "tlarge167",
+                "height": 840,
+                "width": 1920
+            },
+            {
+                "imageType": "tlarge169",
+                "height": 1080,
+                "width": 1920
+            },
+            {
+                "imageType": "tlargeWithLogo169",
+                "height": 1080,
+                "width": 1920
+            },
+            {
+                "imageType": "tportrait34",
+                "height": 1440,
+                "width": 1080
+            },
+            {
+                "imageType": "tportrait89",
+                "height": 1080,
+                "width": 960
+            },
+            {
+                "imageType": "tsmall169",
+                "height": 1080,
+                "width": 1917
+            },
+            {
+                "imageType": "tsquare11",
+                "height": 1080,
+                "width": 1080
+            },
+            {
+                "imageType": "twide329",
+                "height": 540,
+                "width": 1920
+            }
+        ],
+        "structure": {
+            "site": "kika",
+            "uuid": "c41eab46-48a6-4a23-b199-2a87e13b6e8b",
+            "structureNodePath": "/sendungen/sendereihen/r/rudi/musik",
+            "alias": ""
+        },
+        "online": true
+    },
+    "featuredContent": null,
+    "plusContent": [
+        {
+            "boxType": "RelatedVideo",
+            "videoType": null,
+            "title": "",
+            "channelLink": null,
+            "channelLinkTitle": null,
+            "teaserPageUrl": null,
+            "teasers": [
+                {
+                    "docType": "relatedVideo",
+                    "id": "dosentelefon-hallo-102",
+                    "uuid": "ec6fae8c-77ae-4eef-850b-a0d7a67c59f8",
+                    "externalId": "VOID77126179-f76a-43b4-9ccf-edf1f2fee582",
+                    "urlPath": "/rudi/musik",
+                    "validTo": null,
+                    "externalUrl": null,
+                    "api": {
+                        "id": "dosentelefon-hallo-102",
+                        "url": "https://www.kika.de/ackley/v1/relatedvideos/dosentelefon-hallo-102"
+                    },
+                    "structure": {
+                        "site": "kika",
+                        "uuid": "c41eab46-48a6-4a23-b199-2a87e13b6e8b",
+                        "structureNodePath": "/sendungen/sendereihen/r/rudi/musik",
+                        "alias": ""
+                    },
+                    "date": "2023-04-03T13:42:03.544+02:00",
+                    "endDate": "2028-08-09T10:40:00.000+02:00",
+                    "modificationDate": "2025-11-01T14:40:11.694+01:00",
+                    "contentCategory": "song",
+                    "contentCategoryTitle": "Musik",
+                    "contentCategoryIcon": "musik",
+                    "title": "Hallo, hörst du mich",
+                    "teaserText": "Der Song handelt von einem Dosentelefon für Siebensteins Laden. \"Hallo, hörst du mich\" ist ein Lied für Kinder von Rudi zum Singen und Tanzen! ",
+                    "teaserImage": {
+                        "id": "dosentelefon-hallo-104",
+                        "copyrights": "ZDF",
+                        "headline": "Hallo, hörst du mich? - kostenloses Lied für Kinder von Rudi",
+                        "caption": "Hör dir das Lied \"Hallo, hörst du mich?\" aus der Sendung \"Rudi\" an und sing mit! Koffer, Rudi und Siebenstein probieren  mit einem Dosentelefon in Siebensteins Laden zu telefonieren. Doch wer funkt denn hier dazwischen?  Du kannst zum Lied musizieren, tanzen oder das Lied als Karaoke-Version singen! Den Liedtext gibt es als kostenlose Vorlage zum Herunterladen. ",
+                        "title": "Hallo, hörst du mich? - kostenloses Lied für Kinder von Rudi | Rechte: ZDF",
+                        "alt": "Rudi spricht in eine Dose seines Dosentelefons, um mit Siebenstein und Koffer zu telefonieren. ",
+                        "urlScheme": "/rudi/musik/dosentelefon-hallo-104-resimage_v-**imageVariant**_w-**width**.jpg?version=4830",
+                        "urlSchemeExtended": {
+                            "scheme": "/rudi/musik/dosentelefon-hallo-104-resimage_v-**imageVariant**_w-**width**.**format**?version=4830",
+                            "format": "jpg"
+                        },
+                        "imageBrightness": "dark",
+                        "backgroundColor": null,
+                        "variants": [
+                            {
+                                "imageType": "cropped",
+                                "height": 1080,
+                                "width": 1920
+                            },
+                            {
+                                "imageType": "headerLarge",
+                                "height": 1080,
+                                "width": 1920
+                            },
+                            {
+                                "imageType": "headerSmall",
+                                "height": 1080,
+                                "width": 1920
+                            },
+                            {
+                                "imageType": "headerWide329",
+                                "height": 540,
+                                "width": 1920
+                            },
+                            {
+                                "imageType": "ident",
+                                "height": 800,
+                                "width": 800
+                            },
+                            {
+                                "imageType": "landscape249",
+                                "height": 720,
+                                "width": 1920
+                            },
+                            {
+                                "imageType": "miniKika",
+                                "height": 1080,
+                                "width": 1920
+                            },
+                            {
+                                "imageType": "opener489",
+                                "height": 360,
+                                "width": 1920
+                            },
+                            {
+                                "imageType": "original",
+                                "height": 1080,
+                                "width": 1920
+                            },
+                            {
+                                "imageType": "searchImage",
+                                "height": 1080,
+                                "width": 1347
+                            },
+                            {
+                                "imageType": "tlarge167",
+                                "height": 840,
+                                "width": 1920
+                            },
+                            {
+                                "imageType": "tlarge169",
+                                "height": 1080,
+                                "width": 1920
+                            },
+                            {
+                                "imageType": "tlargeWithLogo169",
+                                "height": 1080,
+                                "width": 1920
+                            },
+                            {
+                                "imageType": "tportrait89",
+                                "height": 1080,
+                                "width": 960
+                            },
+                            {
+                                "imageType": "tsmall169",
+                                "height": 1080,
+                                "width": 1917
+                            },
+                            {
+                                "imageType": "tsquare11",
+                                "height": 1080,
+                                "width": 1080
+                            },
+                            {
+                                "imageType": "twide329",
+                                "height": 540,
+                                "width": 1920
+                            }
+                        ],
+                        "structure": {
+                            "site": "kika",
+                            "uuid": "c41eab46-48a6-4a23-b199-2a87e13b6e8b",
+                            "structureNodePath": "/sendungen/sendereihen/r/rudi/musik",
+                            "alias": ""
+                        },
+                        "online": true
+                    },
+                    "teaserLinkDescription": "Jetzt anschauen",
+                    "eyecatcher": null,
+                    "broadcastSeriesTitle": "Rudis Siebenstein",
+                    "broadcastSeriesId": "rudis-siebenstein-100",
+                    "isVisible": true,
+                    "useTitleInsteadOfLogo": false,
+                    "participationActive": false,
+                    "genDate": "2026-08-11T10:37:42.387+02:00",
+                    "ageRating": null,
+                    "ageRatingDescriptors": null,
+                    "logo": {
+                        "id": "rudi-114",
+                        "copyrights": "ZDF",
+                        "headline": "Rudi",
+                        "caption": null,
+                        "title": "Rudi | Rechte: ZDF",
+                        "alt": "Rudi | Rechte: ZDF",
+                        "urlScheme": "/rudi/bilder/rudi-114-resimage_v-**imageVariant**_w-**width**.png?version=53909",
+                        "urlSchemeExtended": {
+                            "scheme": "/rudi/bilder/rudi-114-resimage_v-**imageVariant**_w-**width**.**format**?version=53909",
+                            "format": "png"
+                        },
+                        "imageBrightness": "dark",
+                        "backgroundColor": null,
+                        "variants": [
+                            {
+                                "imageType": "cropped",
+                                "height": 647,
+                                "width": 1729
+                            },
+                            {
+                                "imageType": "headerLarge",
+                                "height": 348,
+                                "width": 1600
+                            },
+                            {
+                                "imageType": "headerSmall",
+                                "height": 352,
+                                "width": 768
+                            },
+                            {
+                                "imageType": "headerWide329",
+                                "height": 540,
+                                "width": 1920
+                            },
+                            {
+                                "imageType": "ident",
+                                "height": 1080,
+                                "width": 1080
+                            },
+                            {
+                                "imageType": "landscape249",
+                                "height": 720,
+                                "width": 1920
+                            },
+                            {
+                                "imageType": "miniKika",
+                                "height": 1080,
+                                "width": 1920
+                            },
+                            {
+                                "imageType": "opener489",
+                                "height": 360,
+                                "width": 1920
+                            },
+                            {
+                                "imageType": "original",
+                                "height": 1080,
+                                "width": 1920
+                            },
+                            {
+                                "imageType": "searchImage",
+                                "height": 1080,
+                                "width": 1347
+                            },
+                            {
+                                "imageType": "tlarge167",
+                                "height": 840,
+                                "width": 1920
+                            },
+                            {
+                                "imageType": "tlarge169",
+                                "height": 1080,
+                                "width": 1920
+                            },
+                            {
+                                "imageType": "tsmall169",
+                                "height": 1080,
+                                "width": 1917
+                            },
+                            {
+                                "imageType": "tsquare11",
+                                "height": 1080,
+                                "width": 1080
+                            },
+                            {
+                                "imageType": "twide329",
+                                "height": 540,
+                                "width": 1920
+                            }
+                        ],
+                        "structure": {
+                            "site": "kika",
+                            "uuid": "3a2edfc5-02fe-4858-b7ae-11d007995cb8",
+                            "structureNodePath": "/sendungen/sendereihen/r/rudi/bilder",
+                            "alias": ""
+                        },
+                        "online": true
+                    },
+                    "brandDetails": null,
+                    "channelDetails": null,
+                    "downloadDetails": null,
+                    "votingDetails": null,
+                    "linkDetails": null,
+                    "livestreamDetails": null,
+                    "relatedVideoDetails": {
+                        "duration": "00:01:19",
+                        "durationInSeconds": 79,
+                        "hasAssets": true,
+                        "hasSubtitle": false,
+                        "availableForDownload": false,
+                        "thresholdDaysUntilOffline": 6,
+                        "transmissionType": "online",
+                        "additionalContent": [
+                            {
+                                "boxType": "AdditionalContent",
+                                "title": "",
+                                "teasers": [
+                                    {
+                                        "docType": "download",
+                                        "id": "dosentelefon-hallo-lyrics-102",
+                                        "uuid": "4fc4b4aa-dc41-4bef-be5c-055820be8ffd",
+                                        "externalId": "4fc4b4aa-dc41-4bef-be5c-055820be8ffd",
+                                        "urlPath": "/rudi/musik",
+                                        "validTo": null,
+                                        "externalUrl": null,
+                                        "api": {
+                                            "id": "dosentelefon-hallo-lyrics-102",
+                                            "url": "https://www.kika.de/ackley/v1/downloads/dosentelefon-hallo-lyrics-102"
+                                        },
+                                        "structure": {
+                                            "site": "kika",
+                                            "uuid": "c41eab46-48a6-4a23-b199-2a87e13b6e8b",
+                                            "structureNodePath": "/sendungen/sendereihen/r/rudi/musik",
+                                            "alias": ""
+                                        },
+                                        "date": "2023-04-11T11:22:49.641+02:00",
+                                        "endDate": null,
+                                        "modificationDate": "2025-10-27T16:07:44.364+01:00",
+                                        "contentCategory": "song",
+                                        "contentCategoryTitle": "Musik",
+                                        "contentCategoryIcon": "musik",
+                                        "title": "Liedtext: Hallo, hörst du mich",
+                                        "teaserText": "Lad dir den Liedtext des Liedes \"Hallo, hörst du mich\" von Siebensteins Rabe Rudi herunter. Zum Mitsingen kannst du den Text ausdrucken.",
+                                        "teaserImage": {
+                                            "id": "dosentelefon-hallo-lyrics-100",
+                                            "copyrights": "KiKA/ZDF",
+                                            "headline": "Liedtext: Hallo, hörst du mich ",
+                                            "caption": "Lad dir den Liedtext des Liedes \"Hallo, hörst du mich\" von Siebensteins Rabe Rudi herunter. Zum Mitsingen kannst du den Text ausdrucken.",
+                                            "title": "Liedtext: Hallo, hörst du mich  | Rechte: KiKA/ZDF",
+                                            "alt": "Liedtext für den Song \"Hallo, hörst du mich\" mit Rudi, Koffer und Frau Siebenstein sowie einem Ausmalbild. ",
+                                            "urlScheme": "/rudi/musik/dosentelefon-hallo-lyrics-100-resimage_v-**imageVariant**_w-**width**.jpg?version=28807",
+                                            "urlSchemeExtended": {
+                                                "scheme": "/rudi/musik/dosentelefon-hallo-lyrics-100-resimage_v-**imageVariant**_w-**width**.**format**?version=28807",
+                                                "format": "jpg"
+                                            },
+                                            "imageBrightness": "dark",
+                                            "backgroundColor": null,
+                                            "variants": [
+                                                {
+                                                    "imageType": "cropped",
+                                                    "height": 2716,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "headerLarge",
+                                                    "height": 2716,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "headerSmall",
+                                                    "height": 2716,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "headerWide329",
+                                                    "height": 540,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "ident",
+                                                    "height": 1920,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "landscape249",
+                                                    "height": 720,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "miniKika",
+                                                    "height": 2716,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "opener489",
+                                                    "height": 360,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "original",
+                                                    "height": 2716,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "searchImage",
+                                                    "height": 1539,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "tlarge167",
+                                                    "height": 840,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "tlarge169",
+                                                    "height": 1080,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "tlargeWithLogo169",
+                                                    "height": 1080,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "tportrait34",
+                                                    "height": 2560,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "tportrait89",
+                                                    "height": 2160,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "tsmall169",
+                                                    "height": 1082,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "tsquare11",
+                                                    "height": 1920,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "twide329",
+                                                    "height": 540,
+                                                    "width": 1920
+                                                }
+                                            ],
+                                            "structure": {
+                                                "site": "kika",
+                                                "uuid": "c41eab46-48a6-4a23-b199-2a87e13b6e8b",
+                                                "structureNodePath": "/sendungen/sendereihen/r/rudi/musik",
+                                                "alias": ""
+                                            },
+                                            "online": true
+                                        },
+                                        "teaserLinkDescription": "Herunterladen",
+                                        "eyecatcher": null,
+                                        "broadcastSeriesTitle": "Rudis Siebenstein",
+                                        "broadcastSeriesId": "rudis-siebenstein-100",
+                                        "isVisible": true,
+                                        "useTitleInsteadOfLogo": false,
+                                        "participationActive": false,
+                                        "genDate": null,
+                                        "ageRating": null,
+                                        "ageRatingDescriptors": null,
+                                        "logo": {
+                                            "id": "rudi-114",
+                                            "copyrights": "ZDF",
+                                            "headline": "Rudi",
+                                            "caption": null,
+                                            "title": "Rudi | Rechte: ZDF",
+                                            "alt": "Rudi | Rechte: ZDF",
+                                            "urlScheme": "/rudi/bilder/rudi-114-resimage_v-**imageVariant**_w-**width**.png?version=53909",
+                                            "urlSchemeExtended": {
+                                                "scheme": "/rudi/bilder/rudi-114-resimage_v-**imageVariant**_w-**width**.**format**?version=53909",
+                                                "format": "png"
+                                            },
+                                            "imageBrightness": "dark",
+                                            "backgroundColor": null,
+                                            "variants": [
+                                                {
+                                                    "imageType": "cropped",
+                                                    "height": 647,
+                                                    "width": 1729
+                                                },
+                                                {
+                                                    "imageType": "headerLarge",
+                                                    "height": 348,
+                                                    "width": 1600
+                                                },
+                                                {
+                                                    "imageType": "headerSmall",
+                                                    "height": 352,
+                                                    "width": 768
+                                                },
+                                                {
+                                                    "imageType": "headerWide329",
+                                                    "height": 540,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "ident",
+                                                    "height": 1080,
+                                                    "width": 1080
+                                                },
+                                                {
+                                                    "imageType": "landscape249",
+                                                    "height": 720,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "miniKika",
+                                                    "height": 1080,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "opener489",
+                                                    "height": 360,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "original",
+                                                    "height": 1080,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "searchImage",
+                                                    "height": 1080,
+                                                    "width": 1347
+                                                },
+                                                {
+                                                    "imageType": "tlarge167",
+                                                    "height": 840,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "tlarge169",
+                                                    "height": 1080,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "tsmall169",
+                                                    "height": 1080,
+                                                    "width": 1917
+                                                },
+                                                {
+                                                    "imageType": "tsquare11",
+                                                    "height": 1080,
+                                                    "width": 1080
+                                                },
+                                                {
+                                                    "imageType": "twide329",
+                                                    "height": 540,
+                                                    "width": 1920
+                                                }
+                                            ],
+                                            "structure": {
+                                                "site": "kika",
+                                                "uuid": "3a2edfc5-02fe-4858-b7ae-11d007995cb8",
+                                                "structureNodePath": "/sendungen/sendereihen/r/rudi/bilder",
+                                                "alias": ""
+                                            },
+                                            "online": true
+                                        },
+                                        "brandDetails": null,
+                                        "channelDetails": null,
+                                        "downloadDetails": {
+                                            "downloadHint": "Download-Hinweis",
+                                            "downloadIcon": "download",
+                                            "mimeType": "application/pdf",
+                                            "size": "1.1 MB",
+                                            "suffix": "pdf",
+                                            "file": null,
+                                            "downloadHintDocument": {
+                                                "id": "download-hilfe-100",
+                                                "url": "https://www.kika.de/ackley/v1/stories/download-hilfe-100"
+                                            }
+                                        },
+                                        "votingDetails": null,
+                                        "linkDetails": null,
+                                        "livestreamDetails": null,
+                                        "relatedVideoDetails": null,
+                                        "videoDetails": null,
+                                        "videoSubchannelDetails": null,
+                                        "subchannelDetails": null,
+                                        "structureBrand": null,
+                                        "infoTeaserDetails": null,
+                                        "imageDetails": null,
+                                        "soundSnippetDetails": null,
+                                        "eventDates": {
+                                            "eventStartDate": null,
+                                            "eventEndDate": null
+                                        },
+                                        "broadcastSeries": null
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    "videoDetails": null,
+                    "videoSubchannelDetails": null,
+                    "subchannelDetails": null,
+                    "structureBrand": null,
+                    "infoTeaserDetails": null,
+                    "imageDetails": null,
+                    "soundSnippetDetails": null,
+                    "eventDates": {
+                        "eventStartDate": null,
+                        "eventEndDate": null
+                    },
+                    "broadcastSeries": {
+                        "id": "rudis-siebenstein-100",
+                        "title": "Rudis Siebenstein",
+                        "urlPath": "/rudi/rudis-siebenstein"
+                    }
+                }
+            ],
+            "viewVariant": null
+        },
+        {
+            "boxType": "RelatedVideo",
+            "videoType": null,
+            "title": "",
+            "channelLink": null,
+            "channelLinkTitle": null,
+            "teaserPageUrl": null,
+            "teasers": [
+                {
+                    "docType": "relatedVideo",
+                    "id": "superhelden-superkraefte-100",
+                    "uuid": "93436dd9-5dcb-4c9e-a78f-836e5c864c7d",
+                    "externalId": "VOID699182d9-40c9-475c-95ca-2acd6f559358",
+                    "urlPath": "/rudi/musik",
+                    "validTo": null,
+                    "externalUrl": null,
+                    "api": {
+                        "id": "superhelden-superkraefte-100",
+                        "url": "https://www.kika.de/ackley/v1/relatedvideos/superhelden-superkraefte-100"
+                    },
+                    "structure": {
+                        "site": "kika",
+                        "uuid": "c41eab46-48a6-4a23-b199-2a87e13b6e8b",
+                        "structureNodePath": "/sendungen/sendereihen/r/rudi/musik",
+                        "alias": ""
+                    },
+                    "date": "2023-04-03T13:42:34.674+02:00",
+                    "endDate": "2028-08-09T10:40:00.000+02:00",
+                    "modificationDate": "2026-02-10T11:18:10.512+01:00",
+                    "contentCategory": "song",
+                    "contentCategoryTitle": "Musik",
+                    "contentCategoryIcon": "musik",
+                    "title": "Superhelden",
+                    "teaserText": "Sing mit Rudi, Koffer und  Siebenstein den Song über Superhelden. Lerne Super-Bombastico, Fli-Fla-Flexika und Koffer Genialo und ihr Superkräfte kennen. ",
+                    "teaserImage": {
+                        "id": "superhelden-superkraefte-104",
+                        "copyrights": "ZDF",
+                        "headline": "Superhelden - kostenloses Lied für Kinder von \"Rudi, Koffer und Siebenstein\"",
+                        "caption": "Hör dir das Lied \"Superhelden\" aus der Sendung \"Rudi\" an und sing mit! Lerne Super-Bombastico, Fli-Fla-Flexika und Koffer Genialo und ihr Superkräfte kennen. Du kannst zum Lied musizieren, tanzen oder das Lied als Karaoke-Version singen! Den Liedtext gibt es als kostenlose Vorlage zum Herunterladen. ",
+                        "title": "Superhelden - kostenloses Lied für Kinder von \"Rudi, Koffer und Siebenstein\" | Rechte: ZDF",
+                        "alt": "Die Superhelden Koffer aka Koffer-Genialo, Siebenstein aka Fli-Fla-Flexika und Rudi aka Super-Bombastico sitzen in ihrem Superhelden-Mobil und sind auf dem Weg in ein Abenteuer. Einer für alle, alle für einen! ",
+                        "urlScheme": "/rudi/musik/superhelden-superkraefte-104-resimage_v-**imageVariant**_w-**width**.jpg?version=51581",
+                        "urlSchemeExtended": {
+                            "scheme": "/rudi/musik/superhelden-superkraefte-104-resimage_v-**imageVariant**_w-**width**.**format**?version=51581",
+                            "format": "jpg"
+                        },
+                        "imageBrightness": "dark",
+                        "backgroundColor": null,
+                        "variants": [
+                            {
+                                "imageType": "cropped",
+                                "height": 1080,
+                                "width": 1920
+                            },
+                            {
+                                "imageType": "headerLarge",
+                                "height": 1080,
+                                "width": 1920
+                            },
+                            {
+                                "imageType": "headerSmall",
+                                "height": 1080,
+                                "width": 1920
+                            },
+                            {
+                                "imageType": "headerWide329",
+                                "height": 540,
+                                "width": 1920
+                            },
+                            {
+                                "imageType": "ident",
+                                "height": 1080,
+                                "width": 1080
+                            },
+                            {
+                                "imageType": "landscape249",
+                                "height": 720,
+                                "width": 1920
+                            },
+                            {
+                                "imageType": "miniKika",
+                                "height": 1080,
+                                "width": 1920
+                            },
+                            {
+                                "imageType": "opener489",
+                                "height": 360,
+                                "width": 1920
+                            },
+                            {
+                                "imageType": "original",
+                                "height": 1080,
+                                "width": 1920
+                            },
+                            {
+                                "imageType": "searchImage",
+                                "height": 1080,
+                                "width": 1347
+                            },
+                            {
+                                "imageType": "tlarge167",
+                                "height": 840,
+                                "width": 1920
+                            },
+                            {
+                                "imageType": "tlarge169",
+                                "height": 1080,
+                                "width": 1920
+                            },
+                            {
+                                "imageType": "tlargeWithLogo169",
+                                "height": 1080,
+                                "width": 1920
+                            },
+                            {
+                                "imageType": "tportrait89",
+                                "height": 1080,
+                                "width": 960
+                            },
+                            {
+                                "imageType": "tsmall169",
+                                "height": 1080,
+                                "width": 1917
+                            },
+                            {
+                                "imageType": "tsquare11",
+                                "height": 1080,
+                                "width": 1080
+                            },
+                            {
+                                "imageType": "twide329",
+                                "height": 540,
+                                "width": 1920
+                            }
+                        ],
+                        "structure": {
+                            "site": "kika",
+                            "uuid": "c41eab46-48a6-4a23-b199-2a87e13b6e8b",
+                            "structureNodePath": "/sendungen/sendereihen/r/rudi/musik",
+                            "alias": ""
+                        },
+                        "online": true
+                    },
+                    "teaserLinkDescription": "Jetzt anschauen",
+                    "eyecatcher": null,
+                    "broadcastSeriesTitle": "Rudis Siebenstein",
+                    "broadcastSeriesId": "rudis-siebenstein-100",
+                    "isVisible": true,
+                    "useTitleInsteadOfLogo": false,
+                    "participationActive": false,
+                    "genDate": "2026-08-11T10:37:42.583+02:00",
+                    "ageRating": null,
+                    "ageRatingDescriptors": null,
+                    "logo": {
+                        "id": "rudi-114",
+                        "copyrights": "ZDF",
+                        "headline": "Rudi",
+                        "caption": null,
+                        "title": "Rudi | Rechte: ZDF",
+                        "alt": "Rudi | Rechte: ZDF",
+                        "urlScheme": "/rudi/bilder/rudi-114-resimage_v-**imageVariant**_w-**width**.png?version=53909",
+                        "urlSchemeExtended": {
+                            "scheme": "/rudi/bilder/rudi-114-resimage_v-**imageVariant**_w-**width**.**format**?version=53909",
+                            "format": "png"
+                        },
+                        "imageBrightness": "dark",
+                        "backgroundColor": null,
+                        "variants": [
+                            {
+                                "imageType": "cropped",
+                                "height": 647,
+                                "width": 1729
+                            },
+                            {
+                                "imageType": "headerLarge",
+                                "height": 348,
+                                "width": 1600
+                            },
+                            {
+                                "imageType": "headerSmall",
+                                "height": 352,
+                                "width": 768
+                            },
+                            {
+                                "imageType": "headerWide329",
+                                "height": 540,
+                                "width": 1920
+                            },
+                            {
+                                "imageType": "ident",
+                                "height": 1080,
+                                "width": 1080
+                            },
+                            {
+                                "imageType": "landscape249",
+                                "height": 720,
+                                "width": 1920
+                            },
+                            {
+                                "imageType": "miniKika",
+                                "height": 1080,
+                                "width": 1920
+                            },
+                            {
+                                "imageType": "opener489",
+                                "height": 360,
+                                "width": 1920
+                            },
+                            {
+                                "imageType": "original",
+                                "height": 1080,
+                                "width": 1920
+                            },
+                            {
+                                "imageType": "searchImage",
+                                "height": 1080,
+                                "width": 1347
+                            },
+                            {
+                                "imageType": "tlarge167",
+                                "height": 840,
+                                "width": 1920
+                            },
+                            {
+                                "imageType": "tlarge169",
+                                "height": 1080,
+                                "width": 1920
+                            },
+                            {
+                                "imageType": "tsmall169",
+                                "height": 1080,
+                                "width": 1917
+                            },
+                            {
+                                "imageType": "tsquare11",
+                                "height": 1080,
+                                "width": 1080
+                            },
+                            {
+                                "imageType": "twide329",
+                                "height": 540,
+                                "width": 1920
+                            }
+                        ],
+                        "structure": {
+                            "site": "kika",
+                            "uuid": "3a2edfc5-02fe-4858-b7ae-11d007995cb8",
+                            "structureNodePath": "/sendungen/sendereihen/r/rudi/bilder",
+                            "alias": ""
+                        },
+                        "online": true
+                    },
+                    "brandDetails": null,
+                    "channelDetails": null,
+                    "downloadDetails": null,
+                    "votingDetails": null,
+                    "linkDetails": null,
+                    "livestreamDetails": null,
+                    "relatedVideoDetails": {
+                        "duration": "00:01:56",
+                        "durationInSeconds": 116,
+                        "hasAssets": true,
+                        "hasSubtitle": false,
+                        "availableForDownload": false,
+                        "thresholdDaysUntilOffline": 6,
+                        "transmissionType": "online",
+                        "additionalContent": [
+                            {
+                                "boxType": "AdditionalContent",
+                                "title": "",
+                                "teasers": [
+                                    {
+                                        "docType": "download",
+                                        "id": "superhelden-superkraefte-lyrics-100",
+                                        "uuid": "24d39880-7cf3-4f8a-b886-9d426801ec27",
+                                        "externalId": "24d39880-7cf3-4f8a-b886-9d426801ec27",
+                                        "urlPath": "/rudi/musik",
+                                        "validTo": null,
+                                        "externalUrl": null,
+                                        "api": {
+                                            "id": "superhelden-superkraefte-lyrics-100",
+                                            "url": "https://www.kika.de/ackley/v1/downloads/superhelden-superkraefte-lyrics-100"
+                                        },
+                                        "structure": {
+                                            "site": "kika",
+                                            "uuid": "c41eab46-48a6-4a23-b199-2a87e13b6e8b",
+                                            "structureNodePath": "/sendungen/sendereihen/r/rudi/musik",
+                                            "alias": ""
+                                        },
+                                        "date": "2023-04-11T11:30:31.403+02:00",
+                                        "endDate": null,
+                                        "modificationDate": "2025-10-27T16:07:44.902+01:00",
+                                        "contentCategory": "song",
+                                        "contentCategoryTitle": "Musik",
+                                        "contentCategoryIcon": "musik",
+                                        "title": "Liedtext: Superhelden",
+                                        "teaserText": "Lad dir den Liedtext des Liedes \"Superhelden\" von Siebensteins Rabe Rudi herunter. Zum Mitsingen kannst du den Text ausdrucken.",
+                                        "teaserImage": {
+                                            "id": "superhelden-superkraefte-lyrics-102",
+                                            "copyrights": "KiKA/ZDF",
+                                            "headline": "Liedtext: Superhelden",
+                                            "caption": "Lad dir den Liedtext des Liedes \"Superhelden\" von Siebensteins Rabe Rudi herunter. Zum Mitsingen kannst du den Text ausdrucken.",
+                                            "title": "Liedtext: Superhelden | Rechte: KiKA/ZDF",
+                                            "alt": "Liedtext für den Song Superhelden mit Rudi, Koffer und Frau Siebenstein sowie einem Ausmalbild. ",
+                                            "urlScheme": "/rudi/musik/superhelden-superkraefte-lyrics-102-resimage_v-**imageVariant**_w-**width**.jpg?version=28241",
+                                            "urlSchemeExtended": {
+                                                "scheme": "/rudi/musik/superhelden-superkraefte-lyrics-102-resimage_v-**imageVariant**_w-**width**.**format**?version=28241",
+                                                "format": "jpg"
+                                            },
+                                            "imageBrightness": "dark",
+                                            "backgroundColor": null,
+                                            "variants": [
+                                                {
+                                                    "imageType": "cropped",
+                                                    "height": 2716,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "headerLarge",
+                                                    "height": 2716,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "headerSmall",
+                                                    "height": 2716,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "headerWide329",
+                                                    "height": 540,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "ident",
+                                                    "height": 1920,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "landscape249",
+                                                    "height": 720,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "miniKika",
+                                                    "height": 2716,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "opener489",
+                                                    "height": 360,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "original",
+                                                    "height": 2716,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "searchImage",
+                                                    "height": 1539,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "tlarge167",
+                                                    "height": 840,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "tlarge169",
+                                                    "height": 1080,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "tlargeWithLogo169",
+                                                    "height": 1080,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "tportrait34",
+                                                    "height": 2560,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "tportrait89",
+                                                    "height": 2160,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "tsmall169",
+                                                    "height": 1082,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "tsquare11",
+                                                    "height": 1920,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "twide329",
+                                                    "height": 540,
+                                                    "width": 1920
+                                                }
+                                            ],
+                                            "structure": {
+                                                "site": "kika",
+                                                "uuid": "c41eab46-48a6-4a23-b199-2a87e13b6e8b",
+                                                "structureNodePath": "/sendungen/sendereihen/r/rudi/musik",
+                                                "alias": ""
+                                            },
+                                            "online": true
+                                        },
+                                        "teaserLinkDescription": "Herunterladen",
+                                        "eyecatcher": null,
+                                        "broadcastSeriesTitle": "Rudis Siebenstein",
+                                        "broadcastSeriesId": "rudis-siebenstein-100",
+                                        "isVisible": true,
+                                        "useTitleInsteadOfLogo": false,
+                                        "participationActive": false,
+                                        "genDate": null,
+                                        "ageRating": null,
+                                        "ageRatingDescriptors": null,
+                                        "logo": {
+                                            "id": "rudi-114",
+                                            "copyrights": "ZDF",
+                                            "headline": "Rudi",
+                                            "caption": null,
+                                            "title": "Rudi | Rechte: ZDF",
+                                            "alt": "Rudi | Rechte: ZDF",
+                                            "urlScheme": "/rudi/bilder/rudi-114-resimage_v-**imageVariant**_w-**width**.png?version=53909",
+                                            "urlSchemeExtended": {
+                                                "scheme": "/rudi/bilder/rudi-114-resimage_v-**imageVariant**_w-**width**.**format**?version=53909",
+                                                "format": "png"
+                                            },
+                                            "imageBrightness": "dark",
+                                            "backgroundColor": null,
+                                            "variants": [
+                                                {
+                                                    "imageType": "cropped",
+                                                    "height": 647,
+                                                    "width": 1729
+                                                },
+                                                {
+                                                    "imageType": "headerLarge",
+                                                    "height": 348,
+                                                    "width": 1600
+                                                },
+                                                {
+                                                    "imageType": "headerSmall",
+                                                    "height": 352,
+                                                    "width": 768
+                                                },
+                                                {
+                                                    "imageType": "headerWide329",
+                                                    "height": 540,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "ident",
+                                                    "height": 1080,
+                                                    "width": 1080
+                                                },
+                                                {
+                                                    "imageType": "landscape249",
+                                                    "height": 720,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "miniKika",
+                                                    "height": 1080,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "opener489",
+                                                    "height": 360,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "original",
+                                                    "height": 1080,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "searchImage",
+                                                    "height": 1080,
+                                                    "width": 1347
+                                                },
+                                                {
+                                                    "imageType": "tlarge167",
+                                                    "height": 840,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "tlarge169",
+                                                    "height": 1080,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "tsmall169",
+                                                    "height": 1080,
+                                                    "width": 1917
+                                                },
+                                                {
+                                                    "imageType": "tsquare11",
+                                                    "height": 1080,
+                                                    "width": 1080
+                                                },
+                                                {
+                                                    "imageType": "twide329",
+                                                    "height": 540,
+                                                    "width": 1920
+                                                }
+                                            ],
+                                            "structure": {
+                                                "site": "kika",
+                                                "uuid": "3a2edfc5-02fe-4858-b7ae-11d007995cb8",
+                                                "structureNodePath": "/sendungen/sendereihen/r/rudi/bilder",
+                                                "alias": ""
+                                            },
+                                            "online": true
+                                        },
+                                        "brandDetails": null,
+                                        "channelDetails": null,
+                                        "downloadDetails": {
+                                            "downloadHint": "Download-Hinweis",
+                                            "downloadIcon": "download",
+                                            "mimeType": "application/pdf",
+                                            "size": "1007 KB",
+                                            "suffix": "pdf",
+                                            "file": null,
+                                            "downloadHintDocument": {
+                                                "id": "download-hilfe-100",
+                                                "url": "https://www.kika.de/ackley/v1/stories/download-hilfe-100"
+                                            }
+                                        },
+                                        "votingDetails": null,
+                                        "linkDetails": null,
+                                        "livestreamDetails": null,
+                                        "relatedVideoDetails": null,
+                                        "videoDetails": null,
+                                        "videoSubchannelDetails": null,
+                                        "subchannelDetails": null,
+                                        "structureBrand": null,
+                                        "infoTeaserDetails": null,
+                                        "imageDetails": null,
+                                        "soundSnippetDetails": null,
+                                        "eventDates": {
+                                            "eventStartDate": null,
+                                            "eventEndDate": null
+                                        },
+                                        "broadcastSeries": null
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    "videoDetails": null,
+                    "videoSubchannelDetails": null,
+                    "subchannelDetails": null,
+                    "structureBrand": null,
+                    "infoTeaserDetails": null,
+                    "imageDetails": null,
+                    "soundSnippetDetails": null,
+                    "eventDates": {
+                        "eventStartDate": null,
+                        "eventEndDate": null
+                    },
+                    "broadcastSeries": {
+                        "id": "rudis-siebenstein-100",
+                        "title": "Rudis Siebenstein",
+                        "urlPath": "/rudi/rudis-siebenstein"
+                    }
+                },
+                {
+                    "docType": "relatedVideo",
+                    "id": "zahnputzpolizei-zaehneputzen-lied-100",
+                    "uuid": "184470b3-a29a-405c-a5f4-46c82e7effcf",
+                    "externalId": "VOID1212355b-3572-4a4e-b519-ea96f05e96d3",
+                    "urlPath": "/rudi/musik",
+                    "validTo": null,
+                    "externalUrl": null,
+                    "api": {
+                        "id": "zahnputzpolizei-zaehneputzen-lied-100",
+                        "url": "https://www.kika.de/ackley/v1/relatedvideos/zahnputzpolizei-zaehneputzen-lied-100"
+                    },
+                    "structure": {
+                        "site": "kika",
+                        "uuid": "c41eab46-48a6-4a23-b199-2a87e13b6e8b",
+                        "structureNodePath": "/sendungen/sendereihen/r/rudi/musik",
+                        "alias": ""
+                    },
+                    "date": "2023-04-03T13:43:10.818+02:00",
+                    "endDate": "2028-08-09T10:40:00.000+02:00",
+                    "modificationDate": "2025-11-01T14:42:42.181+01:00",
+                    "contentCategory": "song",
+                    "contentCategoryTitle": "Musik",
+                    "contentCategoryIcon": "musik",
+                    "title": "Zahnputzpolizei",
+                    "teaserText": "Sing mit Rudi, Koffer und Siebenstein den Song der Zahnputzpolizei - ein Zähneputzen Kinderlied zum Singen, Tanzen und mit Tipps zum richtigen Zähneputzen.",
+                    "teaserImage": {
+                        "id": "zahnputzpolizei-zaehneputzen-lied-102",
+                        "copyrights": "ZDF",
+                        "headline": "Zahnputzpolizei - lustiges Zähneputzen Kinderlied von \"Rudi, Koffer und Siebenstein\"",
+                        "caption": "Hör dir das Lied \"Zahnputzpolizei\" aus der Sendung \"Rudi\" an und sing mit! Die zahnlose Zahnputzpolizei, bestehnd aus Rudi und Koffer, klären Siebenstein auf, wie sie richtig Zähneputzen sollte, damit sie keine Zahnschmerzen bekommt. Du kannst zum Lied musizieren, tanzen oder das Lied als Karaoke-Version singen! Den Liedtext gibt es als kostenlose  Vorlage zum Herunterladen. ",
+                        "title": "Zahnputzpolizei - lustiges Zähneputzen Kinderlied von \"Rudi, Koffer und Siebenstein\" | Rechte: ZDF",
+                        "alt": "Rudi und Koffer überlegen, was zu tun ist. Siebenstein hat Zahnschmerzen und kühlt die Wange mit einem Kühlakku.  ",
+                        "urlScheme": "/rudi/musik/zahnputzpolizei-zaehneputzen-lied-102-resimage_v-**imageVariant**_w-**width**.jpg?version=47903",
+                        "urlSchemeExtended": {
+                            "scheme": "/rudi/musik/zahnputzpolizei-zaehneputzen-lied-102-resimage_v-**imageVariant**_w-**width**.**format**?version=47903",
+                            "format": "jpg"
+                        },
+                        "imageBrightness": "dark",
+                        "backgroundColor": null,
+                        "variants": [
+                            {
+                                "imageType": "cropped",
+                                "height": 1080,
+                                "width": 1920
+                            },
+                            {
+                                "imageType": "headerLarge",
+                                "height": 1080,
+                                "width": 1920
+                            },
+                            {
+                                "imageType": "headerSmall",
+                                "height": 1080,
+                                "width": 1920
+                            },
+                            {
+                                "imageType": "headerWide329",
+                                "height": 540,
+                                "width": 1920
+                            },
+                            {
+                                "imageType": "ident",
+                                "height": 1080,
+                                "width": 1080
+                            },
+                            {
+                                "imageType": "landscape249",
+                                "height": 720,
+                                "width": 1920
+                            },
+                            {
+                                "imageType": "miniKika",
+                                "height": 1080,
+                                "width": 1920
+                            },
+                            {
+                                "imageType": "opener489",
+                                "height": 360,
+                                "width": 1920
+                            },
+                            {
+                                "imageType": "original",
+                                "height": 1080,
+                                "width": 1920
+                            },
+                            {
+                                "imageType": "searchImage",
+                                "height": 1080,
+                                "width": 1347
+                            },
+                            {
+                                "imageType": "tlarge167",
+                                "height": 840,
+                                "width": 1920
+                            },
+                            {
+                                "imageType": "tlarge169",
+                                "height": 1080,
+                                "width": 1920
+                            },
+                            {
+                                "imageType": "tlargeWithLogo169",
+                                "height": 1080,
+                                "width": 1920
+                            },
+                            {
+                                "imageType": "tportrait89",
+                                "height": 1080,
+                                "width": 960
+                            },
+                            {
+                                "imageType": "tsmall169",
+                                "height": 1080,
+                                "width": 1917
+                            },
+                            {
+                                "imageType": "tsquare11",
+                                "height": 1080,
+                                "width": 1080
+                            },
+                            {
+                                "imageType": "twide329",
+                                "height": 540,
+                                "width": 1920
+                            }
+                        ],
+                        "structure": {
+                            "site": "kika",
+                            "uuid": "c41eab46-48a6-4a23-b199-2a87e13b6e8b",
+                            "structureNodePath": "/sendungen/sendereihen/r/rudi/musik",
+                            "alias": ""
+                        },
+                        "online": true
+                    },
+                    "teaserLinkDescription": "Jetzt anschauen",
+                    "eyecatcher": null,
+                    "broadcastSeriesTitle": "Rudis Siebenstein",
+                    "broadcastSeriesId": "rudis-siebenstein-100",
+                    "isVisible": true,
+                    "useTitleInsteadOfLogo": false,
+                    "participationActive": false,
+                    "genDate": "2026-08-11T10:37:42.767+02:00",
+                    "ageRating": null,
+                    "ageRatingDescriptors": null,
+                    "logo": {
+                        "id": "rudi-114",
+                        "copyrights": "ZDF",
+                        "headline": "Rudi",
+                        "caption": null,
+                        "title": "Rudi | Rechte: ZDF",
+                        "alt": "Rudi | Rechte: ZDF",
+                        "urlScheme": "/rudi/bilder/rudi-114-resimage_v-**imageVariant**_w-**width**.png?version=53909",
+                        "urlSchemeExtended": {
+                            "scheme": "/rudi/bilder/rudi-114-resimage_v-**imageVariant**_w-**width**.**format**?version=53909",
+                            "format": "png"
+                        },
+                        "imageBrightness": "dark",
+                        "backgroundColor": null,
+                        "variants": [
+                            {
+                                "imageType": "cropped",
+                                "height": 647,
+                                "width": 1729
+                            },
+                            {
+                                "imageType": "headerLarge",
+                                "height": 348,
+                                "width": 1600
+                            },
+                            {
+                                "imageType": "headerSmall",
+                                "height": 352,
+                                "width": 768
+                            },
+                            {
+                                "imageType": "headerWide329",
+                                "height": 540,
+                                "width": 1920
+                            },
+                            {
+                                "imageType": "ident",
+                                "height": 1080,
+                                "width": 1080
+                            },
+                            {
+                                "imageType": "landscape249",
+                                "height": 720,
+                                "width": 1920
+                            },
+                            {
+                                "imageType": "miniKika",
+                                "height": 1080,
+                                "width": 1920
+                            },
+                            {
+                                "imageType": "opener489",
+                                "height": 360,
+                                "width": 1920
+                            },
+                            {
+                                "imageType": "original",
+                                "height": 1080,
+                                "width": 1920
+                            },
+                            {
+                                "imageType": "searchImage",
+                                "height": 1080,
+                                "width": 1347
+                            },
+                            {
+                                "imageType": "tlarge167",
+                                "height": 840,
+                                "width": 1920
+                            },
+                            {
+                                "imageType": "tlarge169",
+                                "height": 1080,
+                                "width": 1920
+                            },
+                            {
+                                "imageType": "tsmall169",
+                                "height": 1080,
+                                "width": 1917
+                            },
+                            {
+                                "imageType": "tsquare11",
+                                "height": 1080,
+                                "width": 1080
+                            },
+                            {
+                                "imageType": "twide329",
+                                "height": 540,
+                                "width": 1920
+                            }
+                        ],
+                        "structure": {
+                            "site": "kika",
+                            "uuid": "3a2edfc5-02fe-4858-b7ae-11d007995cb8",
+                            "structureNodePath": "/sendungen/sendereihen/r/rudi/bilder",
+                            "alias": ""
+                        },
+                        "online": true
+                    },
+                    "brandDetails": null,
+                    "channelDetails": null,
+                    "downloadDetails": null,
+                    "votingDetails": null,
+                    "linkDetails": null,
+                    "livestreamDetails": null,
+                    "relatedVideoDetails": {
+                        "duration": "00:01:13",
+                        "durationInSeconds": 73,
+                        "hasAssets": true,
+                        "hasSubtitle": false,
+                        "availableForDownload": false,
+                        "thresholdDaysUntilOffline": 6,
+                        "transmissionType": "online",
+                        "additionalContent": [
+                            {
+                                "boxType": "AdditionalContent",
+                                "title": "",
+                                "teasers": [
+                                    {
+                                        "docType": "download",
+                                        "id": "zahnputzpolizei-zaehneputzen-lied-lyrics-100",
+                                        "uuid": "03331814-ca85-43f3-8087-40686ffc3d2c",
+                                        "externalId": "03331814-ca85-43f3-8087-40686ffc3d2c",
+                                        "urlPath": "/rudi/musik",
+                                        "validTo": null,
+                                        "externalUrl": null,
+                                        "api": {
+                                            "id": "zahnputzpolizei-zaehneputzen-lied-lyrics-100",
+                                            "url": "https://www.kika.de/ackley/v1/downloads/zahnputzpolizei-zaehneputzen-lied-lyrics-100"
+                                        },
+                                        "structure": {
+                                            "site": "kika",
+                                            "uuid": "c41eab46-48a6-4a23-b199-2a87e13b6e8b",
+                                            "structureNodePath": "/sendungen/sendereihen/r/rudi/musik",
+                                            "alias": ""
+                                        },
+                                        "date": "2023-04-11T11:39:43.528+02:00",
+                                        "endDate": null,
+                                        "modificationDate": "2025-10-27T16:07:47.521+01:00",
+                                        "contentCategory": "song",
+                                        "contentCategoryTitle": "Musik",
+                                        "contentCategoryIcon": "musik",
+                                        "title": "Liedtext: Zahnputzpolizei",
+                                        "teaserText": "Lad dir den Liedtext zum lustigen Zähneputzen-Kinderlied von Siebensteins Rabe Rudi herunter. Zum Mitsingen kannst du den Text ausdrucken.",
+                                        "teaserImage": {
+                                            "id": "zahnputzpolizei-zaehneputzen-lied-lyrics-102",
+                                            "copyrights": "KiKA/ZDF",
+                                            "headline": "Liedtext: Zahnputzpolizei",
+                                            "caption": "Lad dir den Liedtext des Liedes \"Zahnputzpolizei\" von Siebensteins Rabe Rudi herunter. Zum Mitsingen kannst du den Text ausdrucken.",
+                                            "title": "Liedtext: Zahnputzpolizei | Rechte: KiKA/ZDF",
+                                            "alt": "Liedtext für das Kinderlied \"Zahnputzpolizei\" mit Rudi, Koffer und Frau Siebenstein sowie einem Ausmalbild. Ein Lied über richtiges Zähneputzen. ",
+                                            "urlScheme": "/rudi/musik/zahnputzpolizei-zaehneputzen-lied-lyrics-102-resimage_v-**imageVariant**_w-**width**.jpg?version=46602",
+                                            "urlSchemeExtended": {
+                                                "scheme": "/rudi/musik/zahnputzpolizei-zaehneputzen-lied-lyrics-102-resimage_v-**imageVariant**_w-**width**.**format**?version=46602",
+                                                "format": "jpg"
+                                            },
+                                            "imageBrightness": "dark",
+                                            "backgroundColor": null,
+                                            "variants": [
+                                                {
+                                                    "imageType": "cropped",
+                                                    "height": 2716,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "headerLarge",
+                                                    "height": 2716,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "headerSmall",
+                                                    "height": 2716,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "headerWide329",
+                                                    "height": 540,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "ident",
+                                                    "height": 1920,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "landscape249",
+                                                    "height": 720,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "miniKika",
+                                                    "height": 2716,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "opener489",
+                                                    "height": 360,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "original",
+                                                    "height": 2716,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "searchImage",
+                                                    "height": 1539,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "tlarge167",
+                                                    "height": 840,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "tlarge169",
+                                                    "height": 1080,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "tlargeWithLogo169",
+                                                    "height": 1080,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "tportrait34",
+                                                    "height": 2560,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "tportrait89",
+                                                    "height": 2160,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "tsmall169",
+                                                    "height": 1082,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "tsquare11",
+                                                    "height": 1920,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "twide329",
+                                                    "height": 540,
+                                                    "width": 1920
+                                                }
+                                            ],
+                                            "structure": {
+                                                "site": "kika",
+                                                "uuid": "c41eab46-48a6-4a23-b199-2a87e13b6e8b",
+                                                "structureNodePath": "/sendungen/sendereihen/r/rudi/musik",
+                                                "alias": ""
+                                            },
+                                            "online": true
+                                        },
+                                        "teaserLinkDescription": "Herunterladen",
+                                        "eyecatcher": null,
+                                        "broadcastSeriesTitle": "Rudis Siebenstein",
+                                        "broadcastSeriesId": "rudis-siebenstein-100",
+                                        "isVisible": true,
+                                        "useTitleInsteadOfLogo": false,
+                                        "participationActive": false,
+                                        "genDate": null,
+                                        "ageRating": null,
+                                        "ageRatingDescriptors": null,
+                                        "logo": {
+                                            "id": "rudi-114",
+                                            "copyrights": "ZDF",
+                                            "headline": "Rudi",
+                                            "caption": null,
+                                            "title": "Rudi | Rechte: ZDF",
+                                            "alt": "Rudi | Rechte: ZDF",
+                                            "urlScheme": "/rudi/bilder/rudi-114-resimage_v-**imageVariant**_w-**width**.png?version=53909",
+                                            "urlSchemeExtended": {
+                                                "scheme": "/rudi/bilder/rudi-114-resimage_v-**imageVariant**_w-**width**.**format**?version=53909",
+                                                "format": "png"
+                                            },
+                                            "imageBrightness": "dark",
+                                            "backgroundColor": null,
+                                            "variants": [
+                                                {
+                                                    "imageType": "cropped",
+                                                    "height": 647,
+                                                    "width": 1729
+                                                },
+                                                {
+                                                    "imageType": "headerLarge",
+                                                    "height": 348,
+                                                    "width": 1600
+                                                },
+                                                {
+                                                    "imageType": "headerSmall",
+                                                    "height": 352,
+                                                    "width": 768
+                                                },
+                                                {
+                                                    "imageType": "headerWide329",
+                                                    "height": 540,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "ident",
+                                                    "height": 1080,
+                                                    "width": 1080
+                                                },
+                                                {
+                                                    "imageType": "landscape249",
+                                                    "height": 720,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "miniKika",
+                                                    "height": 1080,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "opener489",
+                                                    "height": 360,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "original",
+                                                    "height": 1080,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "searchImage",
+                                                    "height": 1080,
+                                                    "width": 1347
+                                                },
+                                                {
+                                                    "imageType": "tlarge167",
+                                                    "height": 840,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "tlarge169",
+                                                    "height": 1080,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "tsmall169",
+                                                    "height": 1080,
+                                                    "width": 1917
+                                                },
+                                                {
+                                                    "imageType": "tsquare11",
+                                                    "height": 1080,
+                                                    "width": 1080
+                                                },
+                                                {
+                                                    "imageType": "twide329",
+                                                    "height": 540,
+                                                    "width": 1920
+                                                }
+                                            ],
+                                            "structure": {
+                                                "site": "kika",
+                                                "uuid": "3a2edfc5-02fe-4858-b7ae-11d007995cb8",
+                                                "structureNodePath": "/sendungen/sendereihen/r/rudi/bilder",
+                                                "alias": ""
+                                            },
+                                            "online": true
+                                        },
+                                        "brandDetails": null,
+                                        "channelDetails": null,
+                                        "downloadDetails": {
+                                            "downloadHint": "Download-Hinweis",
+                                            "downloadIcon": "download",
+                                            "mimeType": "application/pdf",
+                                            "size": "1.1 MB",
+                                            "suffix": "pdf",
+                                            "file": null,
+                                            "downloadHintDocument": {
+                                                "id": "download-hilfe-100",
+                                                "url": "https://www.kika.de/ackley/v1/stories/download-hilfe-100"
+                                            }
+                                        },
+                                        "votingDetails": null,
+                                        "linkDetails": null,
+                                        "livestreamDetails": null,
+                                        "relatedVideoDetails": null,
+                                        "videoDetails": null,
+                                        "videoSubchannelDetails": null,
+                                        "subchannelDetails": null,
+                                        "structureBrand": null,
+                                        "infoTeaserDetails": null,
+                                        "imageDetails": null,
+                                        "soundSnippetDetails": null,
+                                        "eventDates": {
+                                            "eventStartDate": null,
+                                            "eventEndDate": null
+                                        },
+                                        "broadcastSeries": null
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    "videoDetails": null,
+                    "videoSubchannelDetails": null,
+                    "subchannelDetails": null,
+                    "structureBrand": null,
+                    "infoTeaserDetails": null,
+                    "imageDetails": null,
+                    "soundSnippetDetails": null,
+                    "eventDates": {
+                        "eventStartDate": null,
+                        "eventEndDate": null
+                    },
+                    "broadcastSeries": {
+                        "id": "rudis-siebenstein-100",
+                        "title": "Rudis Siebenstein",
+                        "urlPath": "/rudi/rudis-siebenstein"
+                    }
+                },
+                {
+                    "docType": "relatedVideo",
+                    "id": "weihnachtslied-alles-gruen-alles-tann-106",
+                    "uuid": "e877ba38-a938-435a-8b9b-20505d3254e3",
+                    "externalId": "Related-VOID0bd26429-3480-440a-8fda-6d5d815a2c24",
+                    "urlPath": "/rudi/musik",
+                    "validTo": null,
+                    "externalUrl": null,
+                    "api": {
+                        "id": "weihnachtslied-alles-gruen-alles-tann-106",
+                        "url": "https://www.kika.de/ackley/v1/relatedvideos/weihnachtslied-alles-gruen-alles-tann-106"
+                    },
+                    "structure": {
+                        "site": "kika",
+                        "uuid": "c41eab46-48a6-4a23-b199-2a87e13b6e8b",
+                        "structureNodePath": "/sendungen/sendereihen/r/rudi/musik",
+                        "alias": ""
+                    },
+                    "date": "2023-04-11T12:01:46.255+02:00",
+                    "endDate": "2028-08-09T10:40:00.000+02:00",
+                    "modificationDate": "2025-11-01T14:41:19.952+01:00",
+                    "contentCategory": "song",
+                    "contentCategoryTitle": "Musik",
+                    "contentCategoryIcon": "musik",
+                    "title": "Alles grün, alles tann",
+                    "teaserText": "Mach Musik und sing mit Rudi, Koffer und Siebenstein ein Weihnachtslied. Die Freunde möchten gerne  Weihnachtsmann sein und den Weihnachtszauber genießen!",
+                    "teaserImage": {
+                        "id": "weihnachtslied-alles-gruen-alles-tann-104",
+                        "copyrights": "ZDF",
+                        "headline": "Alles grün, alles tann - kostenloses Kinderlied zu Weihnachten von \"Rudi\"",
+                        "caption": "Hör dir das Weihnachtslied \"Alles grün, alles tann\" aus der Sendung \"Rudi\" an und sing mit! Dabei geht es darum, dass Rudi und seine Freunde auch der Weihnachtsmann seien und den Weihnachtszauber genießen wollen. Du kannst zum Lied musizieren, tanzen oder das Lied als Karaoke-Version singen! Den Liedtext gibt es als Vorlage zum Herunterladen. ",
+                        "title": "Alles grün, alles tann - kostenloses Kinderlied zu Weihnachten von \"Rudi\" | Rechte: ZDF",
+                        "alt": "Rudi sitzt auf der Schulter des Weihnachtsmanns. ",
+                        "urlScheme": "/rudi/musik/weihnachtslied-alles-gruen-alles-tann-104-resimage_v-**imageVariant**_w-**width**.jpg?version=39463",
+                        "urlSchemeExtended": {
+                            "scheme": "/rudi/musik/weihnachtslied-alles-gruen-alles-tann-104-resimage_v-**imageVariant**_w-**width**.**format**?version=39463",
+                            "format": "jpg"
+                        },
+                        "imageBrightness": "dark",
+                        "backgroundColor": null,
+                        "variants": [
+                            {
+                                "imageType": "cropped",
+                                "height": 1080,
+                                "width": 1920
+                            },
+                            {
+                                "imageType": "headerLarge",
+                                "height": 1080,
+                                "width": 1920
+                            },
+                            {
+                                "imageType": "headerSmall",
+                                "height": 1080,
+                                "width": 1920
+                            },
+                            {
+                                "imageType": "headerWide329",
+                                "height": 540,
+                                "width": 1920
+                            },
+                            {
+                                "imageType": "ident",
+                                "height": 1080,
+                                "width": 1080
+                            },
+                            {
+                                "imageType": "landscape249",
+                                "height": 720,
+                                "width": 1920
+                            },
+                            {
+                                "imageType": "miniKika",
+                                "height": 1080,
+                                "width": 1920
+                            },
+                            {
+                                "imageType": "opener489",
+                                "height": 360,
+                                "width": 1920
+                            },
+                            {
+                                "imageType": "original",
+                                "height": 1080,
+                                "width": 1920
+                            },
+                            {
+                                "imageType": "searchImage",
+                                "height": 1080,
+                                "width": 1347
+                            },
+                            {
+                                "imageType": "tlarge167",
+                                "height": 840,
+                                "width": 1920
+                            },
+                            {
+                                "imageType": "tlarge169",
+                                "height": 1080,
+                                "width": 1920
+                            },
+                            {
+                                "imageType": "tlargeWithLogo169",
+                                "height": 1080,
+                                "width": 1920
+                            },
+                            {
+                                "imageType": "tportrait89",
+                                "height": 1080,
+                                "width": 960
+                            },
+                            {
+                                "imageType": "tsmall169",
+                                "height": 1080,
+                                "width": 1917
+                            },
+                            {
+                                "imageType": "tsquare11",
+                                "height": 1080,
+                                "width": 1080
+                            },
+                            {
+                                "imageType": "twide329",
+                                "height": 540,
+                                "width": 1920
+                            }
+                        ],
+                        "structure": {
+                            "site": "kika",
+                            "uuid": "c41eab46-48a6-4a23-b199-2a87e13b6e8b",
+                            "structureNodePath": "/sendungen/sendereihen/r/rudi/musik",
+                            "alias": ""
+                        },
+                        "online": true
+                    },
+                    "teaserLinkDescription": "Jetzt anschauen",
+                    "eyecatcher": null,
+                    "broadcastSeriesTitle": "Rudis Siebenstein",
+                    "broadcastSeriesId": "rudis-siebenstein-100",
+                    "isVisible": true,
+                    "useTitleInsteadOfLogo": false,
+                    "participationActive": false,
+                    "genDate": "2026-08-11T10:37:43.043+02:00",
+                    "ageRating": null,
+                    "ageRatingDescriptors": null,
+                    "logo": {
+                        "id": "rudi-114",
+                        "copyrights": "ZDF",
+                        "headline": "Rudi",
+                        "caption": null,
+                        "title": "Rudi | Rechte: ZDF",
+                        "alt": "Rudi | Rechte: ZDF",
+                        "urlScheme": "/rudi/bilder/rudi-114-resimage_v-**imageVariant**_w-**width**.png?version=53909",
+                        "urlSchemeExtended": {
+                            "scheme": "/rudi/bilder/rudi-114-resimage_v-**imageVariant**_w-**width**.**format**?version=53909",
+                            "format": "png"
+                        },
+                        "imageBrightness": "dark",
+                        "backgroundColor": null,
+                        "variants": [
+                            {
+                                "imageType": "cropped",
+                                "height": 647,
+                                "width": 1729
+                            },
+                            {
+                                "imageType": "headerLarge",
+                                "height": 348,
+                                "width": 1600
+                            },
+                            {
+                                "imageType": "headerSmall",
+                                "height": 352,
+                                "width": 768
+                            },
+                            {
+                                "imageType": "headerWide329",
+                                "height": 540,
+                                "width": 1920
+                            },
+                            {
+                                "imageType": "ident",
+                                "height": 1080,
+                                "width": 1080
+                            },
+                            {
+                                "imageType": "landscape249",
+                                "height": 720,
+                                "width": 1920
+                            },
+                            {
+                                "imageType": "miniKika",
+                                "height": 1080,
+                                "width": 1920
+                            },
+                            {
+                                "imageType": "opener489",
+                                "height": 360,
+                                "width": 1920
+                            },
+                            {
+                                "imageType": "original",
+                                "height": 1080,
+                                "width": 1920
+                            },
+                            {
+                                "imageType": "searchImage",
+                                "height": 1080,
+                                "width": 1347
+                            },
+                            {
+                                "imageType": "tlarge167",
+                                "height": 840,
+                                "width": 1920
+                            },
+                            {
+                                "imageType": "tlarge169",
+                                "height": 1080,
+                                "width": 1920
+                            },
+                            {
+                                "imageType": "tsmall169",
+                                "height": 1080,
+                                "width": 1917
+                            },
+                            {
+                                "imageType": "tsquare11",
+                                "height": 1080,
+                                "width": 1080
+                            },
+                            {
+                                "imageType": "twide329",
+                                "height": 540,
+                                "width": 1920
+                            }
+                        ],
+                        "structure": {
+                            "site": "kika",
+                            "uuid": "3a2edfc5-02fe-4858-b7ae-11d007995cb8",
+                            "structureNodePath": "/sendungen/sendereihen/r/rudi/bilder",
+                            "alias": ""
+                        },
+                        "online": true
+                    },
+                    "brandDetails": null,
+                    "channelDetails": null,
+                    "downloadDetails": null,
+                    "votingDetails": null,
+                    "linkDetails": null,
+                    "livestreamDetails": null,
+                    "relatedVideoDetails": {
+                        "duration": "00:01:59",
+                        "durationInSeconds": 119,
+                        "hasAssets": true,
+                        "hasSubtitle": false,
+                        "availableForDownload": false,
+                        "thresholdDaysUntilOffline": 6,
+                        "transmissionType": "online",
+                        "additionalContent": [
+                            {
+                                "boxType": "AdditionalContent",
+                                "title": "",
+                                "teasers": [
+                                    {
+                                        "docType": "download",
+                                        "id": "weihnachtslied-alles-gruen-lyrics-100",
+                                        "uuid": "c2dc2e4f-67c1-4264-87d8-64e35aa5a2ab",
+                                        "externalId": "c2dc2e4f-67c1-4264-87d8-64e35aa5a2ab",
+                                        "urlPath": "/rudi/musik",
+                                        "validTo": null,
+                                        "externalUrl": null,
+                                        "api": {
+                                            "id": "weihnachtslied-alles-gruen-lyrics-100",
+                                            "url": "https://www.kika.de/ackley/v1/downloads/weihnachtslied-alles-gruen-lyrics-100"
+                                        },
+                                        "structure": {
+                                            "site": "kika",
+                                            "uuid": "c41eab46-48a6-4a23-b199-2a87e13b6e8b",
+                                            "structureNodePath": "/sendungen/sendereihen/r/rudi/musik",
+                                            "alias": ""
+                                        },
+                                        "date": "2023-04-11T12:00:19.316+02:00",
+                                        "endDate": null,
+                                        "modificationDate": "2025-10-27T16:07:43.667+01:00",
+                                        "contentCategory": "song",
+                                        "contentCategoryTitle": "Musik",
+                                        "contentCategoryIcon": "musik",
+                                        "title": "Liedtext: Alles grün, alles tann",
+                                        "teaserText": "Lad dir den Liedtext des Liedes \"Alles grün, alles tann\" von Siebensteins Rabe Rudi herunter. Zum Mitsingen kannst du den Text ausdrucken.",
+                                        "teaserImage": {
+                                            "id": "weihnachtslied-alles-gruen-lyrics-102",
+                                            "copyrights": "KiKA/ZDF",
+                                            "headline": "Liedtext: Alles grün, alles tann",
+                                            "caption": "Lad dir den Liedtext des Liedes \"Alles grün, alles tann\" von Siebensteins Rabe Rudi herunter. Zum Mitsingen kannst du den Text ausdrucken.",
+                                            "title": "Liedtext: Alles grün, alles tann | Rechte: KiKA/ZDF",
+                                            "alt": "Liedtext für den Song \"Alles grün, alles tann\" mit Rudi, Koffer und Frau Siebenstein sowie einem Ausmalbild. ",
+                                            "urlScheme": "/rudi/musik/weihnachtslied-alles-gruen-lyrics-102-resimage_v-**imageVariant**_w-**width**.jpg?version=43500",
+                                            "urlSchemeExtended": {
+                                                "scheme": "/rudi/musik/weihnachtslied-alles-gruen-lyrics-102-resimage_v-**imageVariant**_w-**width**.**format**?version=43500",
+                                                "format": "jpg"
+                                            },
+                                            "imageBrightness": "dark",
+                                            "backgroundColor": null,
+                                            "variants": [
+                                                {
+                                                    "imageType": "cropped",
+                                                    "height": 2716,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "headerLarge",
+                                                    "height": 2716,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "headerSmall",
+                                                    "height": 2716,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "headerWide329",
+                                                    "height": 540,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "ident",
+                                                    "height": 1920,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "landscape249",
+                                                    "height": 720,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "miniKika",
+                                                    "height": 2716,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "opener489",
+                                                    "height": 360,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "original",
+                                                    "height": 2716,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "searchImage",
+                                                    "height": 1539,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "tlarge167",
+                                                    "height": 840,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "tlarge169",
+                                                    "height": 1080,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "tlargeWithLogo169",
+                                                    "height": 1080,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "tportrait34",
+                                                    "height": 2560,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "tportrait89",
+                                                    "height": 2160,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "tsmall169",
+                                                    "height": 1082,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "tsquare11",
+                                                    "height": 1920,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "twide329",
+                                                    "height": 540,
+                                                    "width": 1920
+                                                }
+                                            ],
+                                            "structure": {
+                                                "site": "kika",
+                                                "uuid": "c41eab46-48a6-4a23-b199-2a87e13b6e8b",
+                                                "structureNodePath": "/sendungen/sendereihen/r/rudi/musik",
+                                                "alias": ""
+                                            },
+                                            "online": true
+                                        },
+                                        "teaserLinkDescription": "Herunterladen",
+                                        "eyecatcher": null,
+                                        "broadcastSeriesTitle": "Rudis Siebenstein",
+                                        "broadcastSeriesId": "rudis-siebenstein-100",
+                                        "isVisible": true,
+                                        "useTitleInsteadOfLogo": false,
+                                        "participationActive": false,
+                                        "genDate": null,
+                                        "ageRating": null,
+                                        "ageRatingDescriptors": null,
+                                        "logo": {
+                                            "id": "rudi-114",
+                                            "copyrights": "ZDF",
+                                            "headline": "Rudi",
+                                            "caption": null,
+                                            "title": "Rudi | Rechte: ZDF",
+                                            "alt": "Rudi | Rechte: ZDF",
+                                            "urlScheme": "/rudi/bilder/rudi-114-resimage_v-**imageVariant**_w-**width**.png?version=53909",
+                                            "urlSchemeExtended": {
+                                                "scheme": "/rudi/bilder/rudi-114-resimage_v-**imageVariant**_w-**width**.**format**?version=53909",
+                                                "format": "png"
+                                            },
+                                            "imageBrightness": "dark",
+                                            "backgroundColor": null,
+                                            "variants": [
+                                                {
+                                                    "imageType": "cropped",
+                                                    "height": 647,
+                                                    "width": 1729
+                                                },
+                                                {
+                                                    "imageType": "headerLarge",
+                                                    "height": 348,
+                                                    "width": 1600
+                                                },
+                                                {
+                                                    "imageType": "headerSmall",
+                                                    "height": 352,
+                                                    "width": 768
+                                                },
+                                                {
+                                                    "imageType": "headerWide329",
+                                                    "height": 540,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "ident",
+                                                    "height": 1080,
+                                                    "width": 1080
+                                                },
+                                                {
+                                                    "imageType": "landscape249",
+                                                    "height": 720,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "miniKika",
+                                                    "height": 1080,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "opener489",
+                                                    "height": 360,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "original",
+                                                    "height": 1080,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "searchImage",
+                                                    "height": 1080,
+                                                    "width": 1347
+                                                },
+                                                {
+                                                    "imageType": "tlarge167",
+                                                    "height": 840,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "tlarge169",
+                                                    "height": 1080,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "tsmall169",
+                                                    "height": 1080,
+                                                    "width": 1917
+                                                },
+                                                {
+                                                    "imageType": "tsquare11",
+                                                    "height": 1080,
+                                                    "width": 1080
+                                                },
+                                                {
+                                                    "imageType": "twide329",
+                                                    "height": 540,
+                                                    "width": 1920
+                                                }
+                                            ],
+                                            "structure": {
+                                                "site": "kika",
+                                                "uuid": "3a2edfc5-02fe-4858-b7ae-11d007995cb8",
+                                                "structureNodePath": "/sendungen/sendereihen/r/rudi/bilder",
+                                                "alias": ""
+                                            },
+                                            "online": true
+                                        },
+                                        "brandDetails": null,
+                                        "channelDetails": null,
+                                        "downloadDetails": {
+                                            "downloadHint": "Download-Hinweis",
+                                            "downloadIcon": "download",
+                                            "mimeType": "application/pdf",
+                                            "size": "1.1 MB",
+                                            "suffix": "pdf",
+                                            "file": null,
+                                            "downloadHintDocument": {
+                                                "id": "download-hilfe-100",
+                                                "url": "https://www.kika.de/ackley/v1/stories/download-hilfe-100"
+                                            }
+                                        },
+                                        "votingDetails": null,
+                                        "linkDetails": null,
+                                        "livestreamDetails": null,
+                                        "relatedVideoDetails": null,
+                                        "videoDetails": null,
+                                        "videoSubchannelDetails": null,
+                                        "subchannelDetails": null,
+                                        "structureBrand": null,
+                                        "infoTeaserDetails": null,
+                                        "imageDetails": null,
+                                        "soundSnippetDetails": null,
+                                        "eventDates": {
+                                            "eventStartDate": null,
+                                            "eventEndDate": null
+                                        },
+                                        "broadcastSeries": null
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    "videoDetails": null,
+                    "videoSubchannelDetails": null,
+                    "subchannelDetails": null,
+                    "structureBrand": null,
+                    "infoTeaserDetails": null,
+                    "imageDetails": null,
+                    "soundSnippetDetails": null,
+                    "eventDates": {
+                        "eventStartDate": null,
+                        "eventEndDate": null
+                    },
+                    "broadcastSeries": {
+                        "id": "rudis-siebenstein-100",
+                        "title": "Rudis Siebenstein",
+                        "urlPath": "/rudi/rudis-siebenstein"
+                    }
+                },
+                {
+                    "docType": "relatedVideo",
+                    "id": "weihnachtslied-weihnachtsreise-100",
+                    "uuid": "9a50f7cd-262c-4cf1-8f07-601928ee5cf8",
+                    "externalId": "Related-VOID691db6d9-b23b-4b7e-b076-6b1e55f42618",
+                    "urlPath": "/rudi/musik",
+                    "validTo": null,
+                    "externalUrl": null,
+                    "api": {
+                        "id": "weihnachtslied-weihnachtsreise-100",
+                        "url": "https://www.kika.de/ackley/v1/relatedvideos/weihnachtslied-weihnachtsreise-100"
+                    },
+                    "structure": {
+                        "site": "kika",
+                        "uuid": "c41eab46-48a6-4a23-b199-2a87e13b6e8b",
+                        "structureNodePath": "/sendungen/sendereihen/r/rudi/musik",
+                        "alias": ""
+                    },
+                    "date": "2023-04-11T12:03:53.414+02:00",
+                    "endDate": "2028-08-09T10:40:00.000+02:00",
+                    "modificationDate": "2025-11-01T14:40:55.309+01:00",
+                    "contentCategory": "song",
+                    "contentCategoryTitle": "Musik",
+                    "contentCategoryIcon": "musik",
+                    "title": "Weihnachtsreise",
+                    "teaserText": "Begib dich mit dem Pferdeschlitten auf eine Weihnachtsreise zum Christkind. Mach Musik und sing mit Rudi, Koffer und Siebenstein ein  Weihnachtslied! ",
+                    "teaserImage": {
+                        "id": "rudi-weihnachtslied-weihnachtsreise-102",
+                        "copyrights": "ZDF",
+                        "headline": "Weihnachtsreise - kostenloses Kinderlied zu Weihnachten von \"Rudi\"",
+                        "caption": "Hör dir das Weihnachtslied \"Weihnachtsreise\" aus der Sendung \"Rudi\" an und sing mit! Dabei geht es um die winterliche Weihnachtsreise von Rudi und seinen Freunden, die mit einem Pferdeschlitten auf dem Weg zum Christkind sind. Du kannst zum Lied musizieren, tanzen oder das Lied als Karaoke-Version singen! Den Liedtext gibt es als Vorlage zum Herunterladen. ",
+                        "title": "Weihnachtsreise - kostenloses Kinderlied zu Weihnachten von \"Rudi\" | Rechte: ZDF",
+                        "alt": "Siebenstein, Rudi und Koffer reisen auf einem Schlitten mit Pferd durch eine verschneite Winterlandschaft.",
+                        "urlScheme": "/rudi/musik/rudi-weihnachtslied-weihnachtsreise-102-resimage_v-**imageVariant**_w-**width**.jpg?version=39575",
+                        "urlSchemeExtended": {
+                            "scheme": "/rudi/musik/rudi-weihnachtslied-weihnachtsreise-102-resimage_v-**imageVariant**_w-**width**.**format**?version=39575",
+                            "format": "jpg"
+                        },
+                        "imageBrightness": "dark",
+                        "backgroundColor": null,
+                        "variants": [
+                            {
+                                "imageType": "cropped",
+                                "height": 1080,
+                                "width": 1920
+                            },
+                            {
+                                "imageType": "headerLarge",
+                                "height": 1080,
+                                "width": 1920
+                            },
+                            {
+                                "imageType": "headerSmall",
+                                "height": 1080,
+                                "width": 1920
+                            },
+                            {
+                                "imageType": "headerWide329",
+                                "height": 540,
+                                "width": 1920
+                            },
+                            {
+                                "imageType": "ident",
+                                "height": 1080,
+                                "width": 1080
+                            },
+                            {
+                                "imageType": "landscape249",
+                                "height": 720,
+                                "width": 1920
+                            },
+                            {
+                                "imageType": "miniKika",
+                                "height": 1080,
+                                "width": 1920
+                            },
+                            {
+                                "imageType": "opener489",
+                                "height": 360,
+                                "width": 1920
+                            },
+                            {
+                                "imageType": "original",
+                                "height": 1080,
+                                "width": 1920
+                            },
+                            {
+                                "imageType": "searchImage",
+                                "height": 1080,
+                                "width": 1347
+                            },
+                            {
+                                "imageType": "tlarge167",
+                                "height": 840,
+                                "width": 1920
+                            },
+                            {
+                                "imageType": "tlarge169",
+                                "height": 1080,
+                                "width": 1920
+                            },
+                            {
+                                "imageType": "tlargeWithLogo169",
+                                "height": 1080,
+                                "width": 1920
+                            },
+                            {
+                                "imageType": "tportrait89",
+                                "height": 1080,
+                                "width": 960
+                            },
+                            {
+                                "imageType": "tsmall169",
+                                "height": 1080,
+                                "width": 1917
+                            },
+                            {
+                                "imageType": "tsquare11",
+                                "height": 1080,
+                                "width": 1080
+                            },
+                            {
+                                "imageType": "twide329",
+                                "height": 540,
+                                "width": 1920
+                            }
+                        ],
+                        "structure": {
+                            "site": "kika",
+                            "uuid": "c41eab46-48a6-4a23-b199-2a87e13b6e8b",
+                            "structureNodePath": "/sendungen/sendereihen/r/rudi/musik",
+                            "alias": ""
+                        },
+                        "online": true
+                    },
+                    "teaserLinkDescription": "Jetzt anschauen",
+                    "eyecatcher": null,
+                    "broadcastSeriesTitle": "Rudis Siebenstein",
+                    "broadcastSeriesId": "rudis-siebenstein-100",
+                    "isVisible": true,
+                    "useTitleInsteadOfLogo": false,
+                    "participationActive": false,
+                    "genDate": "2026-08-11T10:37:43.227+02:00",
+                    "ageRating": null,
+                    "ageRatingDescriptors": null,
+                    "logo": {
+                        "id": "rudi-114",
+                        "copyrights": "ZDF",
+                        "headline": "Rudi",
+                        "caption": null,
+                        "title": "Rudi | Rechte: ZDF",
+                        "alt": "Rudi | Rechte: ZDF",
+                        "urlScheme": "/rudi/bilder/rudi-114-resimage_v-**imageVariant**_w-**width**.png?version=53909",
+                        "urlSchemeExtended": {
+                            "scheme": "/rudi/bilder/rudi-114-resimage_v-**imageVariant**_w-**width**.**format**?version=53909",
+                            "format": "png"
+                        },
+                        "imageBrightness": "dark",
+                        "backgroundColor": null,
+                        "variants": [
+                            {
+                                "imageType": "cropped",
+                                "height": 647,
+                                "width": 1729
+                            },
+                            {
+                                "imageType": "headerLarge",
+                                "height": 348,
+                                "width": 1600
+                            },
+                            {
+                                "imageType": "headerSmall",
+                                "height": 352,
+                                "width": 768
+                            },
+                            {
+                                "imageType": "headerWide329",
+                                "height": 540,
+                                "width": 1920
+                            },
+                            {
+                                "imageType": "ident",
+                                "height": 1080,
+                                "width": 1080
+                            },
+                            {
+                                "imageType": "landscape249",
+                                "height": 720,
+                                "width": 1920
+                            },
+                            {
+                                "imageType": "miniKika",
+                                "height": 1080,
+                                "width": 1920
+                            },
+                            {
+                                "imageType": "opener489",
+                                "height": 360,
+                                "width": 1920
+                            },
+                            {
+                                "imageType": "original",
+                                "height": 1080,
+                                "width": 1920
+                            },
+                            {
+                                "imageType": "searchImage",
+                                "height": 1080,
+                                "width": 1347
+                            },
+                            {
+                                "imageType": "tlarge167",
+                                "height": 840,
+                                "width": 1920
+                            },
+                            {
+                                "imageType": "tlarge169",
+                                "height": 1080,
+                                "width": 1920
+                            },
+                            {
+                                "imageType": "tsmall169",
+                                "height": 1080,
+                                "width": 1917
+                            },
+                            {
+                                "imageType": "tsquare11",
+                                "height": 1080,
+                                "width": 1080
+                            },
+                            {
+                                "imageType": "twide329",
+                                "height": 540,
+                                "width": 1920
+                            }
+                        ],
+                        "structure": {
+                            "site": "kika",
+                            "uuid": "3a2edfc5-02fe-4858-b7ae-11d007995cb8",
+                            "structureNodePath": "/sendungen/sendereihen/r/rudi/bilder",
+                            "alias": ""
+                        },
+                        "online": true
+                    },
+                    "brandDetails": null,
+                    "channelDetails": null,
+                    "downloadDetails": null,
+                    "votingDetails": null,
+                    "linkDetails": null,
+                    "livestreamDetails": null,
+                    "relatedVideoDetails": {
+                        "duration": "00:01:37",
+                        "durationInSeconds": 97,
+                        "hasAssets": true,
+                        "hasSubtitle": false,
+                        "availableForDownload": false,
+                        "thresholdDaysUntilOffline": 6,
+                        "transmissionType": "online",
+                        "additionalContent": [
+                            {
+                                "boxType": "AdditionalContent",
+                                "title": "",
+                                "teasers": [
+                                    {
+                                        "docType": "download",
+                                        "id": "weihnachtslied-weihnachtsreise-lyrics-100",
+                                        "uuid": "0894fa7b-6cd6-4652-a02a-5f7011b049f8",
+                                        "externalId": "0894fa7b-6cd6-4652-a02a-5f7011b049f8",
+                                        "urlPath": "/rudi/musik",
+                                        "validTo": null,
+                                        "externalUrl": null,
+                                        "api": {
+                                            "id": "weihnachtslied-weihnachtsreise-lyrics-100",
+                                            "url": "https://www.kika.de/ackley/v1/downloads/weihnachtslied-weihnachtsreise-lyrics-100"
+                                        },
+                                        "structure": {
+                                            "site": "kika",
+                                            "uuid": "c41eab46-48a6-4a23-b199-2a87e13b6e8b",
+                                            "structureNodePath": "/sendungen/sendereihen/r/rudi/musik",
+                                            "alias": ""
+                                        },
+                                        "date": "2023-04-11T12:05:38.776+02:00",
+                                        "endDate": null,
+                                        "modificationDate": "2025-10-27T16:07:45.920+01:00",
+                                        "contentCategory": "song",
+                                        "contentCategoryTitle": "Musik",
+                                        "contentCategoryIcon": "musik",
+                                        "title": "Liedtext: Weihnachtsreise ",
+                                        "teaserText": "Lad dir den Liedtext des Liedes \"Weihnachtsreise\" von Siebensteins Rabe Rudi herunter. Zum Mitsingen kannst du den Text ausdrucken.",
+                                        "teaserImage": {
+                                            "id": "weihnachtslied-weihnachtsreise-lyrics-102",
+                                            "copyrights": "KiKA/ZDF",
+                                            "headline": "Liedtext: Weihnachtsreise",
+                                            "caption": "Lad dir den Liedtext des Liedes \"Weihnachtsreise\" von Siebensteins Rabe Rudi herunter. Zum Mitsingen kannst du den Text ausdrucken.",
+                                            "title": "Liedtext: Weihnachtsreise | Rechte: KiKA/ZDF",
+                                            "alt": "Liedtext für den Song \"Weihnachtsreise\" mit Rudi, Koffer und Frau Siebenstein sowie einem Ausmalbild. ",
+                                            "urlScheme": "/rudi/musik/weihnachtslied-weihnachtsreise-lyrics-102-resimage_v-**imageVariant**_w-**width**.jpg?version=4555",
+                                            "urlSchemeExtended": {
+                                                "scheme": "/rudi/musik/weihnachtslied-weihnachtsreise-lyrics-102-resimage_v-**imageVariant**_w-**width**.**format**?version=4555",
+                                                "format": "jpg"
+                                            },
+                                            "imageBrightness": "dark",
+                                            "backgroundColor": null,
+                                            "variants": [
+                                                {
+                                                    "imageType": "cropped",
+                                                    "height": 2716,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "headerLarge",
+                                                    "height": 2716,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "headerSmall",
+                                                    "height": 2716,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "headerWide329",
+                                                    "height": 540,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "ident",
+                                                    "height": 1920,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "landscape249",
+                                                    "height": 720,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "miniKika",
+                                                    "height": 2716,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "opener489",
+                                                    "height": 360,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "original",
+                                                    "height": 2716,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "searchImage",
+                                                    "height": 1539,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "tlarge167",
+                                                    "height": 840,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "tlarge169",
+                                                    "height": 1080,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "tlargeWithLogo169",
+                                                    "height": 1080,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "tportrait34",
+                                                    "height": 2560,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "tportrait89",
+                                                    "height": 2160,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "tsmall169",
+                                                    "height": 1082,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "tsquare11",
+                                                    "height": 1920,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "twide329",
+                                                    "height": 540,
+                                                    "width": 1920
+                                                }
+                                            ],
+                                            "structure": {
+                                                "site": "kika",
+                                                "uuid": "c41eab46-48a6-4a23-b199-2a87e13b6e8b",
+                                                "structureNodePath": "/sendungen/sendereihen/r/rudi/musik",
+                                                "alias": ""
+                                            },
+                                            "online": true
+                                        },
+                                        "teaserLinkDescription": "Herunterladen",
+                                        "eyecatcher": null,
+                                        "broadcastSeriesTitle": "Rudis Siebenstein",
+                                        "broadcastSeriesId": "rudis-siebenstein-100",
+                                        "isVisible": true,
+                                        "useTitleInsteadOfLogo": false,
+                                        "participationActive": false,
+                                        "genDate": null,
+                                        "ageRating": null,
+                                        "ageRatingDescriptors": null,
+                                        "logo": {
+                                            "id": "rudi-114",
+                                            "copyrights": "ZDF",
+                                            "headline": "Rudi",
+                                            "caption": null,
+                                            "title": "Rudi | Rechte: ZDF",
+                                            "alt": "Rudi | Rechte: ZDF",
+                                            "urlScheme": "/rudi/bilder/rudi-114-resimage_v-**imageVariant**_w-**width**.png?version=53909",
+                                            "urlSchemeExtended": {
+                                                "scheme": "/rudi/bilder/rudi-114-resimage_v-**imageVariant**_w-**width**.**format**?version=53909",
+                                                "format": "png"
+                                            },
+                                            "imageBrightness": "dark",
+                                            "backgroundColor": null,
+                                            "variants": [
+                                                {
+                                                    "imageType": "cropped",
+                                                    "height": 647,
+                                                    "width": 1729
+                                                },
+                                                {
+                                                    "imageType": "headerLarge",
+                                                    "height": 348,
+                                                    "width": 1600
+                                                },
+                                                {
+                                                    "imageType": "headerSmall",
+                                                    "height": 352,
+                                                    "width": 768
+                                                },
+                                                {
+                                                    "imageType": "headerWide329",
+                                                    "height": 540,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "ident",
+                                                    "height": 1080,
+                                                    "width": 1080
+                                                },
+                                                {
+                                                    "imageType": "landscape249",
+                                                    "height": 720,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "miniKika",
+                                                    "height": 1080,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "opener489",
+                                                    "height": 360,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "original",
+                                                    "height": 1080,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "searchImage",
+                                                    "height": 1080,
+                                                    "width": 1347
+                                                },
+                                                {
+                                                    "imageType": "tlarge167",
+                                                    "height": 840,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "tlarge169",
+                                                    "height": 1080,
+                                                    "width": 1920
+                                                },
+                                                {
+                                                    "imageType": "tsmall169",
+                                                    "height": 1080,
+                                                    "width": 1917
+                                                },
+                                                {
+                                                    "imageType": "tsquare11",
+                                                    "height": 1080,
+                                                    "width": 1080
+                                                },
+                                                {
+                                                    "imageType": "twide329",
+                                                    "height": 540,
+                                                    "width": 1920
+                                                }
+                                            ],
+                                            "structure": {
+                                                "site": "kika",
+                                                "uuid": "3a2edfc5-02fe-4858-b7ae-11d007995cb8",
+                                                "structureNodePath": "/sendungen/sendereihen/r/rudi/bilder",
+                                                "alias": ""
+                                            },
+                                            "online": true
+                                        },
+                                        "brandDetails": null,
+                                        "channelDetails": null,
+                                        "downloadDetails": {
+                                            "downloadHint": "Download-Hinweis",
+                                            "downloadIcon": "download",
+                                            "mimeType": "application/pdf",
+                                            "size": "1 MB",
+                                            "suffix": "pdf",
+                                            "file": null,
+                                            "downloadHintDocument": {
+                                                "id": "download-hilfe-100",
+                                                "url": "https://www.kika.de/ackley/v1/stories/download-hilfe-100"
+                                            }
+                                        },
+                                        "votingDetails": null,
+                                        "linkDetails": null,
+                                        "livestreamDetails": null,
+                                        "relatedVideoDetails": null,
+                                        "videoDetails": null,
+                                        "videoSubchannelDetails": null,
+                                        "subchannelDetails": null,
+                                        "structureBrand": null,
+                                        "infoTeaserDetails": null,
+                                        "imageDetails": null,
+                                        "soundSnippetDetails": null,
+                                        "eventDates": {
+                                            "eventStartDate": null,
+                                            "eventEndDate": null
+                                        },
+                                        "broadcastSeries": null
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    "videoDetails": null,
+                    "videoSubchannelDetails": null,
+                    "subchannelDetails": null,
+                    "structureBrand": null,
+                    "infoTeaserDetails": null,
+                    "imageDetails": null,
+                    "soundSnippetDetails": null,
+                    "eventDates": {
+                        "eventStartDate": null,
+                        "eventEndDate": null
+                    },
+                    "broadcastSeries": {
+                        "id": "rudis-siebenstein-100",
+                        "title": "Rudis Siebenstein",
+                        "urlPath": "/rudi/rudis-siebenstein"
+                    }
+                }
+            ],
+            "viewVariant": null
+        }
+    ],
+    "structureBrand": null,
+    "brandInfo": {
+        "description": "Der kleine Rabe Rudi ist immer für einen Spaß zu haben. Gemeinsam mit Koffer und Frau Siebenstein erlebt er viele kleine und große Abenteuer. Zu dritt meistern sie ihr einzigartiges Zusammenleben. So haben sie stets Platz für magische Momente in ihrem Alltag. Der Besuch von fantastischen Gästen ist also nicht ungewöhnlich. Die Treffen im Hof vor Siebensteins Laden bereiten Rudi und seinen Freunden ebenfalls magische Momente und viel Freude. Die kleine Bande hat eine Menge Spaß und hält stets zusammen.",
+        "descriptionTitle": "Darum geht es...",
+        "linkLogo": null,
+        "linkDocument": null
+    },
+    "logo": {
+        "id": "rudi-114",
+        "copyrights": "ZDF",
+        "headline": "Rudi",
+        "caption": null,
+        "title": "Rudi | Rechte: ZDF",
+        "alt": "Rudi | Rechte: ZDF",
+        "urlScheme": "/rudi/bilder/rudi-114-resimage_v-**imageVariant**_w-**width**.png?version=53909",
+        "urlSchemeExtended": {
+            "scheme": "/rudi/bilder/rudi-114-resimage_v-**imageVariant**_w-**width**.**format**?version=53909",
+            "format": "png"
+        },
+        "imageBrightness": "dark",
+        "backgroundColor": null,
+        "variants": [
+            {
+                "imageType": "cropped",
+                "height": 647,
+                "width": 1729
+            },
+            {
+                "imageType": "headerLarge",
+                "height": 348,
+                "width": 1600
+            },
+            {
+                "imageType": "headerSmall",
+                "height": 352,
+                "width": 768
+            },
+            {
+                "imageType": "headerWide329",
+                "height": 540,
+                "width": 1920
+            },
+            {
+                "imageType": "ident",
+                "height": 1080,
+                "width": 1080
+            },
+            {
+                "imageType": "landscape249",
+                "height": 720,
+                "width": 1920
+            },
+            {
+                "imageType": "miniKika",
+                "height": 1080,
+                "width": 1920
+            },
+            {
+                "imageType": "opener489",
+                "height": 360,
+                "width": 1920
+            },
+            {
+                "imageType": "original",
+                "height": 1080,
+                "width": 1920
+            },
+            {
+                "imageType": "searchImage",
+                "height": 1080,
+                "width": 1347
+            },
+            {
+                "imageType": "tlarge167",
+                "height": 840,
+                "width": 1920
+            },
+            {
+                "imageType": "tlarge169",
+                "height": 1080,
+                "width": 1920
+            },
+            {
+                "imageType": "tsmall169",
+                "height": 1080,
+                "width": 1917
+            },
+            {
+                "imageType": "tsquare11",
+                "height": 1080,
+                "width": 1080
+            },
+            {
+                "imageType": "twide329",
+                "height": 540,
+                "width": 1920
+            }
+        ],
+        "structure": {
+            "site": "kika",
+            "uuid": "3a2edfc5-02fe-4858-b7ae-11d007995cb8",
+            "structureNodePath": "/sendungen/sendereihen/r/rudi/bilder",
+            "alias": ""
+        },
+        "online": true
+    },
+    "platforms": [
+        "kikaninchen",
+        "kikade"
+    ],
+    "participationActive": false,
+    "genDate": "2026-08-11T10:37:43.478+02:00",
+    "audio": null,
+    "eventDates": {
+        "eventStartDate": null,
+        "eventEndDate": null
+    }
+}

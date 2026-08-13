@@ -1,0 +1,3635 @@
+{
+    "content": [
+        {
+            "docType": "video",
+            "id": "einhundertsiebenundsiebzig-der-ausgefuchste-fuchs-100",
+            "uuid": "483a0837-7ede-4e54-932e-534c609a7a0d",
+            "externalId": "VOIDd5a2be39-8911-47f0-bdb2-4ac958be4c8d",
+            "urlPath": "/feuerwehrmann-sam/videos",
+            "validTo": null,
+            "externalUrl": null,
+            "api": {
+                "id": "einhundertsiebenundsiebzig-der-ausgefuchste-fuchs-100",
+                "url": "https://www.kika.de/ackley/v1/videos/einhundertsiebenundsiebzig-der-ausgefuchste-fuchs-100"
+            },
+            "structure": {
+                "site": "kika",
+                "uuid": "0ca36197-3dca-4bc4-a8a0-1eeda6549566",
+                "structureNodePath": "/sendungen/sendereihen/f/feuerwehrmann-sam/videos",
+                "alias": ""
+            },
+            "date": "2026-08-09T18:15:04.144+02:00",
+            "endDate": "2026-09-08T18:15:00.000+02:00",
+            "modificationDate": "2026-08-09T18:20:12.726+02:00",
+            "contentCategory": null,
+            "contentCategoryTitle": "Video",
+            "contentCategoryIcon": "video",
+            "title": "Der ausgefuchste Fuchs",
+            "teaserText": "Die Jungen Retter sollen bei einem Dreibeinlauf Teamwork lernen. Das ist auch schon bald gegfragt, denn im Wald bricht ein Feuer aus!",
+            "teaserImage": {
+                "id": "bild253096",
+                "copyrights": "KiKA/Prism Art & Design Limited",
+                "headline": null,
+                "caption": "\"Die Wilden Männer von Pontypandy\" (Tom, Malcolm und Moose) wollen im Wald ein Lagerfeuer machem.",
+                "title": "Rechte: KiKA/Prism Art & Design Limited",
+                "alt": "\"Die Wilden Männer von Pontypandy\" (Tom, Malcolm und Moose) wollen im Wald ein Lagerfeuer machem.",
+                "urlScheme": "/feuerwehrmann-sam/sendungen/bilder/bild253096-resimage_v-**imageVariant**_w-**width**.jpg?version=4539",
+                "urlSchemeExtended": {
+                    "scheme": "/feuerwehrmann-sam/sendungen/bilder/bild253096-resimage_v-**imageVariant**_w-**width**.**format**?version=4539",
+                    "format": "jpg"
+                },
+                "imageBrightness": "dark",
+                "backgroundColor": null,
+                "variants": [
+                    {
+                        "imageType": "cropped",
+                        "height": 1062,
+                        "width": 1874
+                    },
+                    {
+                        "imageType": "headerLarge",
+                        "height": 1062,
+                        "width": 1874
+                    },
+                    {
+                        "imageType": "headerSmall",
+                        "height": 1062,
+                        "width": 1874
+                    },
+                    {
+                        "imageType": "headerWide329",
+                        "height": 540,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "ident",
+                        "height": 1080,
+                        "width": 1080
+                    },
+                    {
+                        "imageType": "landscape249",
+                        "height": 720,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "miniKika",
+                        "height": 1062,
+                        "width": 1874
+                    },
+                    {
+                        "imageType": "opener489",
+                        "height": 351,
+                        "width": 1874
+                    },
+                    {
+                        "imageType": "original",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "searchImage",
+                        "height": 1062,
+                        "width": 1325
+                    },
+                    {
+                        "imageType": "tlarge167",
+                        "height": 840,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "tlarge169",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "tlargeWithLogo169",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "tportrait89",
+                        "height": 1080,
+                        "width": 960
+                    },
+                    {
+                        "imageType": "tsmall169",
+                        "height": 1056,
+                        "width": 1875
+                    },
+                    {
+                        "imageType": "tsquare11",
+                        "height": 1080,
+                        "width": 1080
+                    },
+                    {
+                        "imageType": "twide329",
+                        "height": 527,
+                        "width": 1873
+                    }
+                ],
+                "structure": {
+                    "site": "kika",
+                    "uuid": "9ab497dd-0bf6-4c96-8d00-a7eb830d9949",
+                    "structureNodePath": "/sendungen/sendereihen/f/feuerwehrmann-sam/sendungen/bilder",
+                    "alias": ""
+                },
+                "online": true
+            },
+            "teaserLinkDescription": "Jetzt anschauen",
+            "eyecatcher": null,
+            "broadcastSeriesTitle": "Feuerwehrmann Sam",
+            "broadcastSeriesId": "feuerwehrmann-sam-122",
+            "isVisible": true,
+            "useTitleInsteadOfLogo": false,
+            "participationActive": false,
+            "genDate": "2026-08-09T19:30:51.352+02:00",
+            "ageRating": 0,
+            "ageRatingDescriptors": null,
+            "logo": {
+                "id": "feuerwehrmann-sam-164",
+                "copyrights": "KiKA",
+                "headline": "Feuerwehrmann Sam",
+                "caption": null,
+                "title": "Feuerwehrmann Sam | Rechte: KiKA",
+                "alt": "Logo \"Feuerwehrmann Sam\"",
+                "urlScheme": "/feuerwehrmann-sam/bilder/feuerwehrmann-sam-164-resimage_v-**imageVariant**_w-**width**.png?version=9330",
+                "urlSchemeExtended": {
+                    "scheme": "/feuerwehrmann-sam/bilder/feuerwehrmann-sam-164-resimage_v-**imageVariant**_w-**width**.**format**?version=9330",
+                    "format": "png"
+                },
+                "imageBrightness": "dark",
+                "backgroundColor": null,
+                "variants": [
+                    {
+                        "imageType": "cropped",
+                        "height": 864,
+                        "width": 864
+                    },
+                    {
+                        "imageType": "headerLarge",
+                        "height": 348,
+                        "width": 1600
+                    },
+                    {
+                        "imageType": "headerSmall",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "headerWide329",
+                        "height": 540,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "ident",
+                        "height": 1080,
+                        "width": 1080
+                    },
+                    {
+                        "imageType": "landscape249",
+                        "height": 720,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "miniKika",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "opener489",
+                        "height": 360,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "original",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "searchImage",
+                        "height": 1080,
+                        "width": 1347
+                    },
+                    {
+                        "imageType": "tlarge167",
+                        "height": 840,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "tlarge169",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "tlargeWithLogo169",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "tportrait89",
+                        "height": 1080,
+                        "width": 960
+                    },
+                    {
+                        "imageType": "tsmall169",
+                        "height": 1080,
+                        "width": 1917
+                    },
+                    {
+                        "imageType": "tsquare11",
+                        "height": 1080,
+                        "width": 1080
+                    },
+                    {
+                        "imageType": "twide329",
+                        "height": 540,
+                        "width": 1920
+                    }
+                ],
+                "structure": {
+                    "site": "kika",
+                    "uuid": "2c56297b-8948-4a02-8f42-16629fb6d3cd",
+                    "structureNodePath": "/sendungen/sendereihen/f/feuerwehrmann-sam/bilder",
+                    "alias": ""
+                },
+                "online": true
+            },
+            "brandDetails": null,
+            "channelDetails": null,
+            "downloadDetails": null,
+            "votingDetails": null,
+            "linkDetails": null,
+            "livestreamDetails": null,
+            "relatedVideoDetails": null,
+            "videoDetails": {
+                "description": "Die Jungen Retter sollen bei einem Dreibeinlauf lernen, wie man durch Teamwork ein Rennen gewinnt. Währenddessen sind Malcolm, Moose und Tom im Wald als \"die Wilden Männer von Pontypandy\" unterweg. Dort wollen sie ein richtiges Festmahl am Lagerfeuer zelebrieren. Aber ein überaus schlauer Fuchs jagt ihnen alle Vorräte ab. In der Aufregung wird aus der kleinen Feuerstelle plötzlich ein riesiger Waldbrand. Jetzt ist Teamwork gefragt.",
+                "episodeNumber": "177",
+                "fsk": 0,
+                "ageRating": 0,
+                "ageRatingDescriptors": null,
+                "duration": "00:09:30",
+                "durationInSeconds": 570,
+                "hasAssets": true,
+                "hasSubtitle": true,
+                "hasOriginalVideo": true,
+                "hasDgsVideo": false,
+                "hasAdVideo": false,
+                "thresholdDaysUntilOffline": 6,
+                "videoType": "mainContent",
+                "isFeaturedVideo": false,
+                "transmissionType": "geo",
+                "season": "13",
+                "seasonTitle": "Staffel 13",
+                "additionalContent": null
+            },
+            "videoSubchannelDetails": null,
+            "subchannelDetails": null,
+            "structureBrand": {
+                "id": "feuerwehrmann-sam-122",
+                "urlPath": "/feuerwehrmann-sam"
+            },
+            "infoTeaserDetails": null,
+            "imageDetails": null,
+            "soundSnippetDetails": null,
+            "eventDates": {
+                "eventStartDate": null,
+                "eventEndDate": null
+            },
+            "broadcastSeries": {
+                "id": "feuerwehrmann-sam-122",
+                "title": "Feuerwehrmann Sam",
+                "urlPath": "/feuerwehrmann-sam"
+            }
+        },
+        {
+            "docType": "video",
+            "id": "zweihundertzweiunddreissig-normans-witzige-welt-der-erwachsenen-102",
+            "uuid": "3bc65ac6-315d-4ef5-9e28-b2535ae6ac3a",
+            "externalId": "VOID695eec05-4213-416a-82fb-d0dd2ff9e4e6",
+            "urlPath": "/feuerwehrmann-sam/videos",
+            "validTo": null,
+            "externalUrl": null,
+            "api": {
+                "id": "zweihundertzweiunddreissig-normans-witzige-welt-der-erwachsenen-102",
+                "url": "https://www.kika.de/ackley/v1/videos/zweihundertzweiunddreissig-normans-witzige-welt-der-erwachsenen-102"
+            },
+            "structure": {
+                "site": "kika",
+                "uuid": "0ca36197-3dca-4bc4-a8a0-1eeda6549566",
+                "structureNodePath": "/sendungen/sendereihen/f/feuerwehrmann-sam/videos",
+                "alias": ""
+            },
+            "date": "2026-08-09T18:15:03.778+02:00",
+            "endDate": "2026-09-08T18:15:00.000+02:00",
+            "modificationDate": "2026-08-09T18:20:09.696+02:00",
+            "contentCategory": null,
+            "contentCategoryTitle": "Video",
+            "contentCategoryIcon": "video",
+            "title": "Normans witzige Welt der Erwachsenen",
+            "teaserText": "Für Normans neuen Livestream versuchen Hannah und Norman, dass Joe witzige Sachen vor der Kamera macht, aber das geht mächtig schief.",
+            "teaserImage": {
+                "id": "bild278454",
+                "copyrights": "2023 Prism Art & Design Limited",
+                "headline": null,
+                "caption": "Ob die Erfindungen von Hannahs Vater cool genug sind für einen Livestream?!",
+                "title": "Rechte: 2023 Prism Art & Design Limited",
+                "alt": "Ein Mann mit braunen Haaren und Brille hat seine linke Hand auf ein blau-rotes Fahrzeug mit Propeller am Heck gelegt.",
+                "urlScheme": "/feuerwehrmann-sam/sendungen/bilder/bild278454-resimage_v-**imageVariant**_w-**width**.jpg?version=23677",
+                "urlSchemeExtended": {
+                    "scheme": "/feuerwehrmann-sam/sendungen/bilder/bild278454-resimage_v-**imageVariant**_w-**width**.**format**?version=23677",
+                    "format": "jpg"
+                },
+                "imageBrightness": "dark",
+                "backgroundColor": null,
+                "variants": [
+                    {
+                        "imageType": "cropped",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "headerLarge",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "headerSmall",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "headerWide329",
+                        "height": 540,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "ident",
+                        "height": 1080,
+                        "width": 1080
+                    },
+                    {
+                        "imageType": "landscape249",
+                        "height": 720,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "miniKika",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "opener489",
+                        "height": 360,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "original",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "searchImage",
+                        "height": 1080,
+                        "width": 1347
+                    },
+                    {
+                        "imageType": "tlarge167",
+                        "height": 840,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "tlarge169",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "tlargeWithLogo169",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "tportrait89",
+                        "height": 1080,
+                        "width": 960
+                    },
+                    {
+                        "imageType": "tsmall169",
+                        "height": 1080,
+                        "width": 1917
+                    },
+                    {
+                        "imageType": "tsquare11",
+                        "height": 1080,
+                        "width": 1080
+                    },
+                    {
+                        "imageType": "twide329",
+                        "height": 540,
+                        "width": 1920
+                    }
+                ],
+                "structure": {
+                    "site": "kika",
+                    "uuid": "9ab497dd-0bf6-4c96-8d00-a7eb830d9949",
+                    "structureNodePath": "/sendungen/sendereihen/f/feuerwehrmann-sam/sendungen/bilder",
+                    "alias": ""
+                },
+                "online": true
+            },
+            "teaserLinkDescription": "Jetzt anschauen",
+            "eyecatcher": null,
+            "broadcastSeriesTitle": "Feuerwehrmann Sam",
+            "broadcastSeriesId": "feuerwehrmann-sam-122",
+            "isVisible": true,
+            "useTitleInsteadOfLogo": false,
+            "participationActive": false,
+            "genDate": "2026-08-09T19:30:51.383+02:00",
+            "ageRating": 0,
+            "ageRatingDescriptors": null,
+            "logo": {
+                "id": "feuerwehrmann-sam-164",
+                "copyrights": "KiKA",
+                "headline": "Feuerwehrmann Sam",
+                "caption": null,
+                "title": "Feuerwehrmann Sam | Rechte: KiKA",
+                "alt": "Logo \"Feuerwehrmann Sam\"",
+                "urlScheme": "/feuerwehrmann-sam/bilder/feuerwehrmann-sam-164-resimage_v-**imageVariant**_w-**width**.png?version=9330",
+                "urlSchemeExtended": {
+                    "scheme": "/feuerwehrmann-sam/bilder/feuerwehrmann-sam-164-resimage_v-**imageVariant**_w-**width**.**format**?version=9330",
+                    "format": "png"
+                },
+                "imageBrightness": "dark",
+                "backgroundColor": null,
+                "variants": [
+                    {
+                        "imageType": "cropped",
+                        "height": 864,
+                        "width": 864
+                    },
+                    {
+                        "imageType": "headerLarge",
+                        "height": 348,
+                        "width": 1600
+                    },
+                    {
+                        "imageType": "headerSmall",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "headerWide329",
+                        "height": 540,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "ident",
+                        "height": 1080,
+                        "width": 1080
+                    },
+                    {
+                        "imageType": "landscape249",
+                        "height": 720,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "miniKika",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "opener489",
+                        "height": 360,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "original",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "searchImage",
+                        "height": 1080,
+                        "width": 1347
+                    },
+                    {
+                        "imageType": "tlarge167",
+                        "height": 840,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "tlarge169",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "tlargeWithLogo169",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "tportrait89",
+                        "height": 1080,
+                        "width": 960
+                    },
+                    {
+                        "imageType": "tsmall169",
+                        "height": 1080,
+                        "width": 1917
+                    },
+                    {
+                        "imageType": "tsquare11",
+                        "height": 1080,
+                        "width": 1080
+                    },
+                    {
+                        "imageType": "twide329",
+                        "height": 540,
+                        "width": 1920
+                    }
+                ],
+                "structure": {
+                    "site": "kika",
+                    "uuid": "2c56297b-8948-4a02-8f42-16629fb6d3cd",
+                    "structureNodePath": "/sendungen/sendereihen/f/feuerwehrmann-sam/bilder",
+                    "alias": ""
+                },
+                "online": true
+            },
+            "brandDetails": null,
+            "channelDetails": null,
+            "downloadDetails": null,
+            "votingDetails": null,
+            "linkDetails": null,
+            "livestreamDetails": null,
+            "relatedVideoDetails": null,
+            "videoDetails": {
+                "description": "Dereks Livestream über die witzige Welt der Hunde ist ein voller Erfolg. Das wurmt Norman, denn sein Livestream über die Geschichte der Gewürzgurke hat kaum Likes. Hannah schlägt ihm vor, ihren Vater bei seinen Experimenten zu filmen. Bei denen geht immer etwas schief und sowas kommt im Netz immer gut an. Aber als Joes raketengetriebenes Hovercraft außer Kontrolle gerät, wird aus Spaß plötzlich Ernst.",
+                "episodeNumber": "232",
+                "fsk": 0,
+                "ageRating": 0,
+                "ageRatingDescriptors": null,
+                "duration": "00:09:28",
+                "durationInSeconds": 568,
+                "hasAssets": true,
+                "hasSubtitle": true,
+                "hasOriginalVideo": true,
+                "hasDgsVideo": false,
+                "hasAdVideo": false,
+                "thresholdDaysUntilOffline": 6,
+                "videoType": "mainContent",
+                "isFeaturedVideo": false,
+                "transmissionType": "geo",
+                "season": "15",
+                "seasonTitle": "Staffel 15",
+                "additionalContent": null
+            },
+            "videoSubchannelDetails": null,
+            "subchannelDetails": null,
+            "structureBrand": {
+                "id": "feuerwehrmann-sam-122",
+                "urlPath": "/feuerwehrmann-sam"
+            },
+            "infoTeaserDetails": null,
+            "imageDetails": null,
+            "soundSnippetDetails": null,
+            "eventDates": {
+                "eventStartDate": null,
+                "eventEndDate": null
+            },
+            "broadcastSeries": {
+                "id": "feuerwehrmann-sam-122",
+                "title": "Feuerwehrmann Sam",
+                "urlPath": "/feuerwehrmann-sam"
+            }
+        },
+        {
+            "docType": "video",
+            "id": "zweihunderteinunddreissig-annies-tier-parade-102",
+            "uuid": "b0f285e1-e4d7-43ac-be67-d03f4efbcd4a",
+            "externalId": "VOID938d0161-914f-4208-aabf-aa7da6a1f731",
+            "urlPath": "/feuerwehrmann-sam/videos",
+            "validTo": null,
+            "externalUrl": null,
+            "api": {
+                "id": "zweihunderteinunddreissig-annies-tier-parade-102",
+                "url": "https://www.kika.de/ackley/v1/videos/zweihunderteinunddreissig-annies-tier-parade-102"
+            },
+            "structure": {
+                "site": "kika",
+                "uuid": "0ca36197-3dca-4bc4-a8a0-1eeda6549566",
+                "structureNodePath": "/sendungen/sendereihen/f/feuerwehrmann-sam/videos",
+                "alias": ""
+            },
+            "date": "2026-08-08T18:15:04.786+02:00",
+            "endDate": "2026-09-07T18:15:00.000+02:00",
+            "modificationDate": "2026-08-08T18:20:09.734+02:00",
+            "contentCategory": null,
+            "contentCategoryTitle": "Video",
+            "contentCategoryIcon": "video",
+            "title": "Annies Tier-Parade",
+            "teaserText": "Auf Annies Farm findet die große Tierparade statt bei. Peter und Norman habe zwar keine eigenen Tiere, wollen aber mit Wollie und Lämmchen antreten.",
+            "teaserImage": {
+                "id": "bild278452",
+                "copyrights": "2023 Prism Art & Design Limited",
+                "headline": null,
+                "caption": "Der Versuch Lämmchen zur Parade zu bringen, bringt Peter an den Rand der Möglichkeiten.",
+                "title": "Rechte: 2023 Prism Art & Design Limited",
+                "alt": "Peter steht an einer Klippe, auf der auch ein Lamm steht und droht hinunter zu fallen.",
+                "urlScheme": "/feuerwehrmann-sam/sendungen/bilder/bild278452-resimage_v-**imageVariant**_w-**width**.jpg?version=9290",
+                "urlSchemeExtended": {
+                    "scheme": "/feuerwehrmann-sam/sendungen/bilder/bild278452-resimage_v-**imageVariant**_w-**width**.**format**?version=9290",
+                    "format": "jpg"
+                },
+                "imageBrightness": "dark",
+                "backgroundColor": null,
+                "variants": [
+                    {
+                        "imageType": "cropped",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "headerLarge",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "headerSmall",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "headerWide329",
+                        "height": 540,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "ident",
+                        "height": 1080,
+                        "width": 1080
+                    },
+                    {
+                        "imageType": "landscape249",
+                        "height": 720,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "miniKika",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "opener489",
+                        "height": 360,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "original",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "searchImage",
+                        "height": 1080,
+                        "width": 1347
+                    },
+                    {
+                        "imageType": "tlarge167",
+                        "height": 840,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "tlarge169",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "tlargeWithLogo169",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "tportrait89",
+                        "height": 1080,
+                        "width": 960
+                    },
+                    {
+                        "imageType": "tsmall169",
+                        "height": 1080,
+                        "width": 1917
+                    },
+                    {
+                        "imageType": "tsquare11",
+                        "height": 1080,
+                        "width": 1080
+                    },
+                    {
+                        "imageType": "twide329",
+                        "height": 540,
+                        "width": 1920
+                    }
+                ],
+                "structure": {
+                    "site": "kika",
+                    "uuid": "9ab497dd-0bf6-4c96-8d00-a7eb830d9949",
+                    "structureNodePath": "/sendungen/sendereihen/f/feuerwehrmann-sam/sendungen/bilder",
+                    "alias": ""
+                },
+                "online": true
+            },
+            "teaserLinkDescription": "Jetzt anschauen",
+            "eyecatcher": null,
+            "broadcastSeriesTitle": "Feuerwehrmann Sam",
+            "broadcastSeriesId": "feuerwehrmann-sam-122",
+            "isVisible": true,
+            "useTitleInsteadOfLogo": false,
+            "participationActive": false,
+            "genDate": "2026-08-09T19:30:51.435+02:00",
+            "ageRating": 0,
+            "ageRatingDescriptors": null,
+            "logo": {
+                "id": "feuerwehrmann-sam-164",
+                "copyrights": "KiKA",
+                "headline": "Feuerwehrmann Sam",
+                "caption": null,
+                "title": "Feuerwehrmann Sam | Rechte: KiKA",
+                "alt": "Logo \"Feuerwehrmann Sam\"",
+                "urlScheme": "/feuerwehrmann-sam/bilder/feuerwehrmann-sam-164-resimage_v-**imageVariant**_w-**width**.png?version=9330",
+                "urlSchemeExtended": {
+                    "scheme": "/feuerwehrmann-sam/bilder/feuerwehrmann-sam-164-resimage_v-**imageVariant**_w-**width**.**format**?version=9330",
+                    "format": "png"
+                },
+                "imageBrightness": "dark",
+                "backgroundColor": null,
+                "variants": [
+                    {
+                        "imageType": "cropped",
+                        "height": 864,
+                        "width": 864
+                    },
+                    {
+                        "imageType": "headerLarge",
+                        "height": 348,
+                        "width": 1600
+                    },
+                    {
+                        "imageType": "headerSmall",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "headerWide329",
+                        "height": 540,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "ident",
+                        "height": 1080,
+                        "width": 1080
+                    },
+                    {
+                        "imageType": "landscape249",
+                        "height": 720,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "miniKika",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "opener489",
+                        "height": 360,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "original",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "searchImage",
+                        "height": 1080,
+                        "width": 1347
+                    },
+                    {
+                        "imageType": "tlarge167",
+                        "height": 840,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "tlarge169",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "tlargeWithLogo169",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "tportrait89",
+                        "height": 1080,
+                        "width": 960
+                    },
+                    {
+                        "imageType": "tsmall169",
+                        "height": 1080,
+                        "width": 1917
+                    },
+                    {
+                        "imageType": "tsquare11",
+                        "height": 1080,
+                        "width": 1080
+                    },
+                    {
+                        "imageType": "twide329",
+                        "height": 540,
+                        "width": 1920
+                    }
+                ],
+                "structure": {
+                    "site": "kika",
+                    "uuid": "2c56297b-8948-4a02-8f42-16629fb6d3cd",
+                    "structureNodePath": "/sendungen/sendereihen/f/feuerwehrmann-sam/bilder",
+                    "alias": ""
+                },
+                "online": true
+            },
+            "brandDetails": null,
+            "channelDetails": null,
+            "downloadDetails": null,
+            "votingDetails": null,
+            "linkDetails": null,
+            "livestreamDetails": null,
+            "relatedVideoDetails": null,
+            "videoDetails": {
+                "description": "Auf Annies Bauernhof findet eine große Tierparade statt. Alle sind mit ihren Lieblingen da: Elvis mit Schnuffi, James mit Tiger, Gareth mit Buddler, Feuerwehrhauptmann Steele mit Meerschweinchen Norris und Polizeihauptmeisterin Ravani mit Kilo. Peter, Norman und Hannah würden auch gern mitmachen, nur leider haben sie kein Tier. Da kommt Peter auf die unvernünftige Idee, Wollie und Lämmchen von der Wiese zu holen.",
+                "episodeNumber": "231",
+                "fsk": 0,
+                "ageRating": 0,
+                "ageRatingDescriptors": null,
+                "duration": "00:09:28",
+                "durationInSeconds": 568,
+                "hasAssets": true,
+                "hasSubtitle": true,
+                "hasOriginalVideo": true,
+                "hasDgsVideo": false,
+                "hasAdVideo": false,
+                "thresholdDaysUntilOffline": 6,
+                "videoType": "mainContent",
+                "isFeaturedVideo": false,
+                "transmissionType": "geo",
+                "season": "15",
+                "seasonTitle": "Staffel 15",
+                "additionalContent": null
+            },
+            "videoSubchannelDetails": null,
+            "subchannelDetails": null,
+            "structureBrand": {
+                "id": "feuerwehrmann-sam-122",
+                "urlPath": "/feuerwehrmann-sam"
+            },
+            "infoTeaserDetails": null,
+            "imageDetails": null,
+            "soundSnippetDetails": null,
+            "eventDates": {
+                "eventStartDate": null,
+                "eventEndDate": null
+            },
+            "broadcastSeries": {
+                "id": "feuerwehrmann-sam-122",
+                "title": "Feuerwehrmann Sam",
+                "urlPath": "/feuerwehrmann-sam"
+            }
+        },
+        {
+            "docType": "video",
+            "id": "einhundertsechsundsiebzig-das-grosse-reifenrollen-100",
+            "uuid": "f208631a-931c-4800-8197-f3962ae6c88e",
+            "externalId": "VOIDad295e26-49b6-4729-9631-56995bbd92a0",
+            "urlPath": "/feuerwehrmann-sam/videos",
+            "validTo": null,
+            "externalUrl": null,
+            "api": {
+                "id": "einhundertsechsundsiebzig-das-grosse-reifenrollen-100",
+                "url": "https://www.kika.de/ackley/v1/videos/einhundertsechsundsiebzig-das-grosse-reifenrollen-100"
+            },
+            "structure": {
+                "site": "kika",
+                "uuid": "0ca36197-3dca-4bc4-a8a0-1eeda6549566",
+                "structureNodePath": "/sendungen/sendereihen/f/feuerwehrmann-sam/videos",
+                "alias": ""
+            },
+            "date": "2026-08-08T18:15:04.347+02:00",
+            "endDate": "2026-09-07T18:15:00.000+02:00",
+            "modificationDate": "2026-08-08T18:20:09.804+02:00",
+            "contentCategory": null,
+            "contentCategoryTitle": "Video",
+            "contentCategoryIcon": "video",
+            "title": "Das große Reifenrollen",
+            "teaserText": "Trevor veranstaltet einen Reifenrollen-Wettkampf. Als er sieht, wie gut Hannah ist, will er mitmachen. Er wird unvorsichtig und fällt in den Fluss.",
+            "teaserImage": {
+                "id": "bild253098",
+                "copyrights": "KiKA/Prism Art & Design Limited",
+                "headline": null,
+                "caption": "Hannah kann tolle Tricks mit dem Reifen. James ist begeistert.",
+                "title": "Rechte: KiKA/Prism Art & Design Limited",
+                "alt": "Hannah kann tolle Tricks mit dem Reifen. James ist begeistert.",
+                "urlScheme": "/feuerwehrmann-sam/sendungen/bilder/bild253098-resimage_v-**imageVariant**_w-**width**.jpg?version=6525",
+                "urlSchemeExtended": {
+                    "scheme": "/feuerwehrmann-sam/sendungen/bilder/bild253098-resimage_v-**imageVariant**_w-**width**.**format**?version=6525",
+                    "format": "jpg"
+                },
+                "imageBrightness": "dark",
+                "backgroundColor": null,
+                "variants": [
+                    {
+                        "imageType": "cropped",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "headerLarge",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "headerSmall",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "headerWide329",
+                        "height": 540,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "ident",
+                        "height": 1080,
+                        "width": 1080
+                    },
+                    {
+                        "imageType": "landscape249",
+                        "height": 720,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "miniKika",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "opener489",
+                        "height": 360,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "original",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "searchImage",
+                        "height": 1080,
+                        "width": 1347
+                    },
+                    {
+                        "imageType": "tlarge167",
+                        "height": 840,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "tlarge169",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "tlargeWithLogo169",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "tportrait89",
+                        "height": 1080,
+                        "width": 960
+                    },
+                    {
+                        "imageType": "tsmall169",
+                        "height": 1080,
+                        "width": 1917
+                    },
+                    {
+                        "imageType": "tsquare11",
+                        "height": 1080,
+                        "width": 1080
+                    },
+                    {
+                        "imageType": "twide329",
+                        "height": 540,
+                        "width": 1920
+                    }
+                ],
+                "structure": {
+                    "site": "kika",
+                    "uuid": "9ab497dd-0bf6-4c96-8d00-a7eb830d9949",
+                    "structureNodePath": "/sendungen/sendereihen/f/feuerwehrmann-sam/sendungen/bilder",
+                    "alias": ""
+                },
+                "online": true
+            },
+            "teaserLinkDescription": "Jetzt anschauen",
+            "eyecatcher": null,
+            "broadcastSeriesTitle": "Feuerwehrmann Sam",
+            "broadcastSeriesId": "feuerwehrmann-sam-122",
+            "isVisible": true,
+            "useTitleInsteadOfLogo": false,
+            "participationActive": false,
+            "genDate": "2026-08-09T19:30:51.504+02:00",
+            "ageRating": 0,
+            "ageRatingDescriptors": null,
+            "logo": {
+                "id": "feuerwehrmann-sam-164",
+                "copyrights": "KiKA",
+                "headline": "Feuerwehrmann Sam",
+                "caption": null,
+                "title": "Feuerwehrmann Sam | Rechte: KiKA",
+                "alt": "Logo \"Feuerwehrmann Sam\"",
+                "urlScheme": "/feuerwehrmann-sam/bilder/feuerwehrmann-sam-164-resimage_v-**imageVariant**_w-**width**.png?version=9330",
+                "urlSchemeExtended": {
+                    "scheme": "/feuerwehrmann-sam/bilder/feuerwehrmann-sam-164-resimage_v-**imageVariant**_w-**width**.**format**?version=9330",
+                    "format": "png"
+                },
+                "imageBrightness": "dark",
+                "backgroundColor": null,
+                "variants": [
+                    {
+                        "imageType": "cropped",
+                        "height": 864,
+                        "width": 864
+                    },
+                    {
+                        "imageType": "headerLarge",
+                        "height": 348,
+                        "width": 1600
+                    },
+                    {
+                        "imageType": "headerSmall",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "headerWide329",
+                        "height": 540,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "ident",
+                        "height": 1080,
+                        "width": 1080
+                    },
+                    {
+                        "imageType": "landscape249",
+                        "height": 720,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "miniKika",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "opener489",
+                        "height": 360,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "original",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "searchImage",
+                        "height": 1080,
+                        "width": 1347
+                    },
+                    {
+                        "imageType": "tlarge167",
+                        "height": 840,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "tlarge169",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "tlargeWithLogo169",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "tportrait89",
+                        "height": 1080,
+                        "width": 960
+                    },
+                    {
+                        "imageType": "tsmall169",
+                        "height": 1080,
+                        "width": 1917
+                    },
+                    {
+                        "imageType": "tsquare11",
+                        "height": 1080,
+                        "width": 1080
+                    },
+                    {
+                        "imageType": "twide329",
+                        "height": 540,
+                        "width": 1920
+                    }
+                ],
+                "structure": {
+                    "site": "kika",
+                    "uuid": "2c56297b-8948-4a02-8f42-16629fb6d3cd",
+                    "structureNodePath": "/sendungen/sendereihen/f/feuerwehrmann-sam/bilder",
+                    "alias": ""
+                },
+                "online": true
+            },
+            "brandDetails": null,
+            "channelDetails": null,
+            "downloadDetails": null,
+            "votingDetails": null,
+            "linkDetails": null,
+            "livestreamDetails": null,
+            "relatedVideoDetails": null,
+            "videoDetails": {
+                "description": "Trevor veranstaltet mit James, Mandy, Norman und Sarah einen Wettkampf, wie es ihn zu alten Zeiten gab: das Reifenrollen. Als Trevor sieht, wie gut Hannah das kann, ist sein Ehrgeiz geweckt. Aber so versessen auf den Sieg wird er leichtsinnig und stürzt schließlich in den Fluss. Die starke Strömung reißt Trevor mit sich. Er rast unaufhaltsam auf den Wasserfall zu! Da kann nur noch ein blitzschneller Einsatz mit dem Jetski Juno helfen.",
+                "episodeNumber": "176",
+                "fsk": 0,
+                "ageRating": 0,
+                "ageRatingDescriptors": null,
+                "duration": "00:09:30",
+                "durationInSeconds": 570,
+                "hasAssets": true,
+                "hasSubtitle": true,
+                "hasOriginalVideo": true,
+                "hasDgsVideo": false,
+                "hasAdVideo": false,
+                "thresholdDaysUntilOffline": 6,
+                "videoType": "mainContent",
+                "isFeaturedVideo": false,
+                "transmissionType": "geo",
+                "season": "13",
+                "seasonTitle": "Staffel 13",
+                "additionalContent": null
+            },
+            "videoSubchannelDetails": null,
+            "subchannelDetails": null,
+            "structureBrand": {
+                "id": "feuerwehrmann-sam-122",
+                "urlPath": "/feuerwehrmann-sam"
+            },
+            "infoTeaserDetails": null,
+            "imageDetails": null,
+            "soundSnippetDetails": null,
+            "eventDates": {
+                "eventStartDate": null,
+                "eventEndDate": null
+            },
+            "broadcastSeries": {
+                "id": "feuerwehrmann-sam-122",
+                "title": "Feuerwehrmann Sam",
+                "urlPath": "/feuerwehrmann-sam"
+            }
+        },
+        {
+            "docType": "video",
+            "id": "zweihundertdreissig-der-fisch-dieb-100",
+            "uuid": "605f6972-48f1-4498-b4c2-cd74d6137bad",
+            "externalId": "VOID2aaddb4d-9b4e-4a9b-a089-4da0f4d3dc44",
+            "urlPath": "/feuerwehrmann-sam/videos",
+            "validTo": null,
+            "externalUrl": null,
+            "api": {
+                "id": "zweihundertdreissig-der-fisch-dieb-100",
+                "url": "https://www.kika.de/ackley/v1/videos/zweihundertdreissig-der-fisch-dieb-100"
+            },
+            "structure": {
+                "site": "kika",
+                "uuid": "0ca36197-3dca-4bc4-a8a0-1eeda6549566",
+                "structureNodePath": "/sendungen/sendereihen/f/feuerwehrmann-sam/videos",
+                "alias": ""
+            },
+            "date": "2026-08-07T18:15:04.216+02:00",
+            "endDate": "2026-09-06T18:15:00.000+02:00",
+            "modificationDate": "2026-08-07T18:20:12.777+02:00",
+            "contentCategory": null,
+            "contentCategoryTitle": "Video",
+            "contentCategoryIcon": "video",
+            "title": "Der Fisch-Dieb",
+            "teaserText": "Im Kabeljau Café verschwinden Brassen aus der Küche und Detektiv James ist fest entschlossen, den Fall des verschollenden Fisches zu lösen.",
+            "teaserImage": {
+                "id": "bild278448",
+                "copyrights": "2023 Prism Art & Design Limited",
+                "headline": null,
+                "caption": "Detektiv James ist dem Fischdieb auf der Spur.",
+                "title": "Rechte: 2023 Prism Art & Design Limited",
+                "alt": "James trägt eine karrierter Kappe hat eine Lupe in der Hand.",
+                "urlScheme": "/feuerwehrmann-sam/sendungen/bilder/bild278448-resimage_v-**imageVariant**_w-**width**.jpg?version=56497",
+                "urlSchemeExtended": {
+                    "scheme": "/feuerwehrmann-sam/sendungen/bilder/bild278448-resimage_v-**imageVariant**_w-**width**.**format**?version=56497",
+                    "format": "jpg"
+                },
+                "imageBrightness": "dark",
+                "backgroundColor": null,
+                "variants": [
+                    {
+                        "imageType": "cropped",
+                        "height": 888,
+                        "width": 1490
+                    },
+                    {
+                        "imageType": "headerLarge",
+                        "height": 888,
+                        "width": 1600
+                    },
+                    {
+                        "imageType": "headerSmall",
+                        "height": 888,
+                        "width": 1490
+                    },
+                    {
+                        "imageType": "headerWide329",
+                        "height": 540,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "ident",
+                        "height": 1080,
+                        "width": 1080
+                    },
+                    {
+                        "imageType": "landscape249",
+                        "height": 720,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "miniKika",
+                        "height": 888,
+                        "width": 1490
+                    },
+                    {
+                        "imageType": "opener489",
+                        "height": 281,
+                        "width": 1500
+                    },
+                    {
+                        "imageType": "original",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "searchImage",
+                        "height": 888,
+                        "width": 1108
+                    },
+                    {
+                        "imageType": "tlarge167",
+                        "height": 840,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "tlarge169",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "tlargeWithLogo169",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "tportrait89",
+                        "height": 1080,
+                        "width": 960
+                    },
+                    {
+                        "imageType": "tsmall169",
+                        "height": 839,
+                        "width": 1489
+                    },
+                    {
+                        "imageType": "tsquare11",
+                        "height": 1080,
+                        "width": 1080
+                    },
+                    {
+                        "imageType": "twide329",
+                        "height": 422,
+                        "width": 1500
+                    }
+                ],
+                "structure": {
+                    "site": "kika",
+                    "uuid": "9ab497dd-0bf6-4c96-8d00-a7eb830d9949",
+                    "structureNodePath": "/sendungen/sendereihen/f/feuerwehrmann-sam/sendungen/bilder",
+                    "alias": ""
+                },
+                "online": true
+            },
+            "teaserLinkDescription": "Jetzt anschauen",
+            "eyecatcher": null,
+            "broadcastSeriesTitle": "Feuerwehrmann Sam",
+            "broadcastSeriesId": "feuerwehrmann-sam-122",
+            "isVisible": true,
+            "useTitleInsteadOfLogo": false,
+            "participationActive": false,
+            "genDate": "2026-08-09T19:30:51.553+02:00",
+            "ageRating": 0,
+            "ageRatingDescriptors": null,
+            "logo": {
+                "id": "feuerwehrmann-sam-164",
+                "copyrights": "KiKA",
+                "headline": "Feuerwehrmann Sam",
+                "caption": null,
+                "title": "Feuerwehrmann Sam | Rechte: KiKA",
+                "alt": "Logo \"Feuerwehrmann Sam\"",
+                "urlScheme": "/feuerwehrmann-sam/bilder/feuerwehrmann-sam-164-resimage_v-**imageVariant**_w-**width**.png?version=9330",
+                "urlSchemeExtended": {
+                    "scheme": "/feuerwehrmann-sam/bilder/feuerwehrmann-sam-164-resimage_v-**imageVariant**_w-**width**.**format**?version=9330",
+                    "format": "png"
+                },
+                "imageBrightness": "dark",
+                "backgroundColor": null,
+                "variants": [
+                    {
+                        "imageType": "cropped",
+                        "height": 864,
+                        "width": 864
+                    },
+                    {
+                        "imageType": "headerLarge",
+                        "height": 348,
+                        "width": 1600
+                    },
+                    {
+                        "imageType": "headerSmall",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "headerWide329",
+                        "height": 540,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "ident",
+                        "height": 1080,
+                        "width": 1080
+                    },
+                    {
+                        "imageType": "landscape249",
+                        "height": 720,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "miniKika",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "opener489",
+                        "height": 360,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "original",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "searchImage",
+                        "height": 1080,
+                        "width": 1347
+                    },
+                    {
+                        "imageType": "tlarge167",
+                        "height": 840,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "tlarge169",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "tlargeWithLogo169",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "tportrait89",
+                        "height": 1080,
+                        "width": 960
+                    },
+                    {
+                        "imageType": "tsmall169",
+                        "height": 1080,
+                        "width": 1917
+                    },
+                    {
+                        "imageType": "tsquare11",
+                        "height": 1080,
+                        "width": 1080
+                    },
+                    {
+                        "imageType": "twide329",
+                        "height": 540,
+                        "width": 1920
+                    }
+                ],
+                "structure": {
+                    "site": "kika",
+                    "uuid": "2c56297b-8948-4a02-8f42-16629fb6d3cd",
+                    "structureNodePath": "/sendungen/sendereihen/f/feuerwehrmann-sam/bilder",
+                    "alias": ""
+                },
+                "online": true
+            },
+            "brandDetails": null,
+            "channelDetails": null,
+            "downloadDetails": null,
+            "votingDetails": null,
+            "linkDetails": null,
+            "livestreamDetails": null,
+            "relatedVideoDetails": null,
+            "videoDetails": {
+                "description": "Im Kabeljau Café steht als Mittagstisch \"Brasse à la Gwendolyn\" auf der Karte, aber irgendwer klaut ständig die Brassen! Gwendolyn ist ratlos, doch zum Glück gibt es Detektiv James. Der nimmt sofort die Ermittlungen auf. Die Spuren am Tatort sind ziemlich eindeutig - der Täter hält sich viel im Wasser auf. James ist so sehr damit beschäftigt, sich als große Spürnase aufzuführen, dass er mit seinem Getue eine gefährliche Kettenreaktion auslöst.",
+                "episodeNumber": "230",
+                "fsk": 0,
+                "ageRating": 0,
+                "ageRatingDescriptors": null,
+                "duration": "00:09:28",
+                "durationInSeconds": 568,
+                "hasAssets": true,
+                "hasSubtitle": true,
+                "hasOriginalVideo": true,
+                "hasDgsVideo": false,
+                "hasAdVideo": false,
+                "thresholdDaysUntilOffline": 6,
+                "videoType": "mainContent",
+                "isFeaturedVideo": false,
+                "transmissionType": "geo",
+                "season": "15",
+                "seasonTitle": "Staffel 15",
+                "additionalContent": null
+            },
+            "videoSubchannelDetails": null,
+            "subchannelDetails": null,
+            "structureBrand": {
+                "id": "feuerwehrmann-sam-122",
+                "urlPath": "/feuerwehrmann-sam"
+            },
+            "infoTeaserDetails": null,
+            "imageDetails": null,
+            "soundSnippetDetails": null,
+            "eventDates": {
+                "eventStartDate": null,
+                "eventEndDate": null
+            },
+            "broadcastSeries": {
+                "id": "feuerwehrmann-sam-122",
+                "title": "Feuerwehrmann Sam",
+                "urlPath": "/feuerwehrmann-sam"
+            }
+        },
+        {
+            "docType": "video",
+            "id": "einhundertfuenfundsiebzig-feuer-im-veterinaer-zentrum-100",
+            "uuid": "28b94e57-3c4e-4593-9ed4-52335f8476d9",
+            "externalId": "VOID46e7f9e7-fe43-4001-85a3-d9c46b303668",
+            "urlPath": "/feuerwehrmann-sam/videos",
+            "validTo": null,
+            "externalUrl": null,
+            "api": {
+                "id": "einhundertfuenfundsiebzig-feuer-im-veterinaer-zentrum-100",
+                "url": "https://www.kika.de/ackley/v1/videos/einhundertfuenfundsiebzig-feuer-im-veterinaer-zentrum-100"
+            },
+            "structure": {
+                "site": "kika",
+                "uuid": "0ca36197-3dca-4bc4-a8a0-1eeda6549566",
+                "structureNodePath": "/sendungen/sendereihen/f/feuerwehrmann-sam/videos",
+                "alias": ""
+            },
+            "date": "2026-08-07T18:15:03.845+02:00",
+            "endDate": "2026-09-06T18:15:00.000+02:00",
+            "modificationDate": "2026-08-07T18:20:12.721+02:00",
+            "contentCategory": null,
+            "contentCategoryTitle": "Video",
+            "contentCategoryIcon": "video",
+            "title": "Feuer im Veterinär-Zentrum",
+            "teaserText": "Sarah und die anderen helfen im Veterinär-Zentrum. Beim Zusammenharken des Heus nimmt Sarah einen Laubbläser zu Hilfe. Dabei verursacht sie ein Feuer!",
+            "teaserImage": {
+                "id": "bild253100",
+                "copyrights": "KiKA/Prism Art & Design Limited",
+                "headline": null,
+                "caption": "Statt das Heu zusammenzuharken, benutzt Sarah einen Laubbläser.",
+                "title": "Rechte: KiKA/Prism Art & Design Limited",
+                "alt": "Statt das Heu zusammenzuharken, benutzt Sarah einen Laubbläser.",
+                "urlScheme": "/feuerwehrmann-sam/sendungen/bilder/bild253100-resimage_v-**imageVariant**_w-**width**.jpg?version=3130",
+                "urlSchemeExtended": {
+                    "scheme": "/feuerwehrmann-sam/sendungen/bilder/bild253100-resimage_v-**imageVariant**_w-**width**.**format**?version=3130",
+                    "format": "jpg"
+                },
+                "imageBrightness": "dark",
+                "backgroundColor": null,
+                "variants": [
+                    {
+                        "imageType": "cropped",
+                        "height": 1036,
+                        "width": 1432
+                    },
+                    {
+                        "imageType": "headerLarge",
+                        "height": 1036,
+                        "width": 1600
+                    },
+                    {
+                        "imageType": "headerSmall",
+                        "height": 1036,
+                        "width": 1432
+                    },
+                    {
+                        "imageType": "headerWide329",
+                        "height": 540,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "ident",
+                        "height": 1080,
+                        "width": 1080
+                    },
+                    {
+                        "imageType": "landscape249",
+                        "height": 720,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "miniKika",
+                        "height": 1036,
+                        "width": 1432
+                    },
+                    {
+                        "imageType": "opener489",
+                        "height": 281,
+                        "width": 1500
+                    },
+                    {
+                        "imageType": "original",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "searchImage",
+                        "height": 1036,
+                        "width": 1292
+                    },
+                    {
+                        "imageType": "tlarge167",
+                        "height": 840,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "tlarge169",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "tlargeWithLogo169",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "tportrait89",
+                        "height": 1080,
+                        "width": 960
+                    },
+                    {
+                        "imageType": "tsmall169",
+                        "height": 807,
+                        "width": 1433
+                    },
+                    {
+                        "imageType": "tsquare11",
+                        "height": 1080,
+                        "width": 1080
+                    },
+                    {
+                        "imageType": "twide329",
+                        "height": 422,
+                        "width": 1500
+                    }
+                ],
+                "structure": {
+                    "site": "kika",
+                    "uuid": "9ab497dd-0bf6-4c96-8d00-a7eb830d9949",
+                    "structureNodePath": "/sendungen/sendereihen/f/feuerwehrmann-sam/sendungen/bilder",
+                    "alias": ""
+                },
+                "online": true
+            },
+            "teaserLinkDescription": "Jetzt anschauen",
+            "eyecatcher": null,
+            "broadcastSeriesTitle": "Feuerwehrmann Sam",
+            "broadcastSeriesId": "feuerwehrmann-sam-122",
+            "isVisible": true,
+            "useTitleInsteadOfLogo": false,
+            "participationActive": false,
+            "genDate": "2026-08-09T19:30:51.595+02:00",
+            "ageRating": 0,
+            "ageRatingDescriptors": null,
+            "logo": {
+                "id": "feuerwehrmann-sam-164",
+                "copyrights": "KiKA",
+                "headline": "Feuerwehrmann Sam",
+                "caption": null,
+                "title": "Feuerwehrmann Sam | Rechte: KiKA",
+                "alt": "Logo \"Feuerwehrmann Sam\"",
+                "urlScheme": "/feuerwehrmann-sam/bilder/feuerwehrmann-sam-164-resimage_v-**imageVariant**_w-**width**.png?version=9330",
+                "urlSchemeExtended": {
+                    "scheme": "/feuerwehrmann-sam/bilder/feuerwehrmann-sam-164-resimage_v-**imageVariant**_w-**width**.**format**?version=9330",
+                    "format": "png"
+                },
+                "imageBrightness": "dark",
+                "backgroundColor": null,
+                "variants": [
+                    {
+                        "imageType": "cropped",
+                        "height": 864,
+                        "width": 864
+                    },
+                    {
+                        "imageType": "headerLarge",
+                        "height": 348,
+                        "width": 1600
+                    },
+                    {
+                        "imageType": "headerSmall",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "headerWide329",
+                        "height": 540,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "ident",
+                        "height": 1080,
+                        "width": 1080
+                    },
+                    {
+                        "imageType": "landscape249",
+                        "height": 720,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "miniKika",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "opener489",
+                        "height": 360,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "original",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "searchImage",
+                        "height": 1080,
+                        "width": 1347
+                    },
+                    {
+                        "imageType": "tlarge167",
+                        "height": 840,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "tlarge169",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "tlargeWithLogo169",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "tportrait89",
+                        "height": 1080,
+                        "width": 960
+                    },
+                    {
+                        "imageType": "tsmall169",
+                        "height": 1080,
+                        "width": 1917
+                    },
+                    {
+                        "imageType": "tsquare11",
+                        "height": 1080,
+                        "width": 1080
+                    },
+                    {
+                        "imageType": "twide329",
+                        "height": 540,
+                        "width": 1920
+                    }
+                ],
+                "structure": {
+                    "site": "kika",
+                    "uuid": "2c56297b-8948-4a02-8f42-16629fb6d3cd",
+                    "structureNodePath": "/sendungen/sendereihen/f/feuerwehrmann-sam/bilder",
+                    "alias": ""
+                },
+                "online": true
+            },
+            "brandDetails": null,
+            "channelDetails": null,
+            "downloadDetails": null,
+            "votingDetails": null,
+            "linkDetails": null,
+            "livestreamDetails": null,
+            "relatedVideoDetails": null,
+            "videoDetails": {
+                "description": "Hannah, James, Mandy, Norman und Sarah helfen im Veterinär-Zentrum. Dort macht Lizzie den jährlichen Check-up mit Kilo und Shadow. Sie überträgt Sarah die Leitung des Hilfsteams. Alle übernehmen eine Aufgabe. Nur das Zusammenharken des Heus dauert viel länger, als Sarah sich das gedacht hatte. Weil sie endlich mit den Tieren spielen will, schnappt sie sich heimlich einen Laubbläser. Aber dann setzt das heiß gelaufene Gerät die Ställe in Brand.",
+                "episodeNumber": "175",
+                "fsk": 0,
+                "ageRating": 0,
+                "ageRatingDescriptors": null,
+                "duration": "00:09:30",
+                "durationInSeconds": 570,
+                "hasAssets": true,
+                "hasSubtitle": true,
+                "hasOriginalVideo": true,
+                "hasDgsVideo": false,
+                "hasAdVideo": false,
+                "thresholdDaysUntilOffline": 6,
+                "videoType": "mainContent",
+                "isFeaturedVideo": false,
+                "transmissionType": "geo",
+                "season": "13",
+                "seasonTitle": "Staffel 13",
+                "additionalContent": null
+            },
+            "videoSubchannelDetails": null,
+            "subchannelDetails": null,
+            "structureBrand": {
+                "id": "feuerwehrmann-sam-122",
+                "urlPath": "/feuerwehrmann-sam"
+            },
+            "infoTeaserDetails": null,
+            "imageDetails": null,
+            "soundSnippetDetails": null,
+            "eventDates": {
+                "eventStartDate": null,
+                "eventEndDate": null
+            },
+            "broadcastSeries": {
+                "id": "feuerwehrmann-sam-122",
+                "title": "Feuerwehrmann Sam",
+                "urlPath": "/feuerwehrmann-sam"
+            }
+        },
+        {
+            "docType": "video",
+            "id": "zweihundert-prinz-in-gefahr-100",
+            "uuid": "8db52b6d-b7a9-43bf-b5a2-8f5476ce389d",
+            "externalId": "VOIDd91170e3-c2b8-4d0c-b91a-7ed39eaf38f7",
+            "urlPath": "/feuerwehrmann-sam/videos",
+            "validTo": null,
+            "externalUrl": null,
+            "api": {
+                "id": "zweihundert-prinz-in-gefahr-100",
+                "url": "https://www.kika.de/ackley/v1/videos/zweihundert-prinz-in-gefahr-100"
+            },
+            "structure": {
+                "site": "kika",
+                "uuid": "0ca36197-3dca-4bc4-a8a0-1eeda6549566",
+                "structureNodePath": "/sendungen/sendereihen/f/feuerwehrmann-sam/videos",
+                "alias": ""
+            },
+            "date": "2026-08-07T07:37:33.445+02:00",
+            "endDate": "2026-09-06T06:35:00.000+02:00",
+            "modificationDate": "2026-08-07T07:37:36.652+02:00",
+            "contentCategory": null,
+            "contentCategoryTitle": "Video",
+            "contentCategoryIcon": "video",
+            "title": "Prinz in Gefahr",
+            "teaserText": "Norman und Hannah dürfen auf Lizzies Hof die Tiere versorgen. Doch Prinz geht durch und bleibt am Strand im Watt stecken, während die Flut einsetzt.",
+            "teaserImage": {
+                "id": "bild264378",
+                "copyrights": "KiKA/Prism Art & Design Limited",
+                "headline": null,
+                "caption": "Für einen Moment waren Norman und Hannah unaufmerksam und schon ist Prinz ausgebüxt.",
+                "title": "Rechte: KiKA/Prism Art & Design Limited",
+                "alt": "Vorne das geöffnete Tor einer Pferdekoppel, durch das ein Pferd auf die Straße galoppiert. Dahinter rennt Norman mit dem Zügel in der Hand. Neben ihm Hannah im Rollstuhl. Im Hintergrund Stallungen, eine Wiese und bewaldete Berge.",
+                "urlScheme": "/feuerwehrmann-sam/sendungen/bilder/bild264378-resimage_v-**imageVariant**_w-**width**.jpg?version=27421",
+                "urlSchemeExtended": {
+                    "scheme": "/feuerwehrmann-sam/sendungen/bilder/bild264378-resimage_v-**imageVariant**_w-**width**.**format**?version=27421",
+                    "format": "jpg"
+                },
+                "imageBrightness": "dark",
+                "backgroundColor": null,
+                "variants": [
+                    {
+                        "imageType": "cropped",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "headerLarge",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "headerSmall",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "headerWide329",
+                        "height": 540,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "ident",
+                        "height": 1080,
+                        "width": 1080
+                    },
+                    {
+                        "imageType": "landscape249",
+                        "height": 720,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "miniKika",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "opener489",
+                        "height": 360,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "original",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "searchImage",
+                        "height": 1080,
+                        "width": 1347
+                    },
+                    {
+                        "imageType": "tlarge167",
+                        "height": 840,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "tlarge169",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "tlargeWithLogo169",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "tportrait89",
+                        "height": 1080,
+                        "width": 960
+                    },
+                    {
+                        "imageType": "tsmall169",
+                        "height": 1080,
+                        "width": 1917
+                    },
+                    {
+                        "imageType": "tsquare11",
+                        "height": 1080,
+                        "width": 1080
+                    },
+                    {
+                        "imageType": "twide329",
+                        "height": 540,
+                        "width": 1920
+                    }
+                ],
+                "structure": {
+                    "site": "kika",
+                    "uuid": "9ab497dd-0bf6-4c96-8d00-a7eb830d9949",
+                    "structureNodePath": "/sendungen/sendereihen/f/feuerwehrmann-sam/sendungen/bilder",
+                    "alias": ""
+                },
+                "online": true
+            },
+            "teaserLinkDescription": "Jetzt anschauen",
+            "eyecatcher": null,
+            "broadcastSeriesTitle": "Feuerwehrmann Sam",
+            "broadcastSeriesId": "feuerwehrmann-sam-122",
+            "isVisible": true,
+            "useTitleInsteadOfLogo": false,
+            "participationActive": false,
+            "genDate": "2026-08-09T19:30:51.649+02:00",
+            "ageRating": 0,
+            "ageRatingDescriptors": null,
+            "logo": {
+                "id": "feuerwehrmann-sam-164",
+                "copyrights": "KiKA",
+                "headline": "Feuerwehrmann Sam",
+                "caption": null,
+                "title": "Feuerwehrmann Sam | Rechte: KiKA",
+                "alt": "Logo \"Feuerwehrmann Sam\"",
+                "urlScheme": "/feuerwehrmann-sam/bilder/feuerwehrmann-sam-164-resimage_v-**imageVariant**_w-**width**.png?version=9330",
+                "urlSchemeExtended": {
+                    "scheme": "/feuerwehrmann-sam/bilder/feuerwehrmann-sam-164-resimage_v-**imageVariant**_w-**width**.**format**?version=9330",
+                    "format": "png"
+                },
+                "imageBrightness": "dark",
+                "backgroundColor": null,
+                "variants": [
+                    {
+                        "imageType": "cropped",
+                        "height": 864,
+                        "width": 864
+                    },
+                    {
+                        "imageType": "headerLarge",
+                        "height": 348,
+                        "width": 1600
+                    },
+                    {
+                        "imageType": "headerSmall",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "headerWide329",
+                        "height": 540,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "ident",
+                        "height": 1080,
+                        "width": 1080
+                    },
+                    {
+                        "imageType": "landscape249",
+                        "height": 720,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "miniKika",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "opener489",
+                        "height": 360,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "original",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "searchImage",
+                        "height": 1080,
+                        "width": 1347
+                    },
+                    {
+                        "imageType": "tlarge167",
+                        "height": 840,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "tlarge169",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "tlargeWithLogo169",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "tportrait89",
+                        "height": 1080,
+                        "width": 960
+                    },
+                    {
+                        "imageType": "tsmall169",
+                        "height": 1080,
+                        "width": 1917
+                    },
+                    {
+                        "imageType": "tsquare11",
+                        "height": 1080,
+                        "width": 1080
+                    },
+                    {
+                        "imageType": "twide329",
+                        "height": 540,
+                        "width": 1920
+                    }
+                ],
+                "structure": {
+                    "site": "kika",
+                    "uuid": "2c56297b-8948-4a02-8f42-16629fb6d3cd",
+                    "structureNodePath": "/sendungen/sendereihen/f/feuerwehrmann-sam/bilder",
+                    "alias": ""
+                },
+                "online": true
+            },
+            "brandDetails": null,
+            "channelDetails": null,
+            "downloadDetails": null,
+            "votingDetails": null,
+            "linkDetails": null,
+            "livestreamDetails": null,
+            "relatedVideoDetails": null,
+            "videoDetails": {
+                "description": "Als Tierärztin soll Lizzie den Feuerwehrleuten zeigen, wie man bei Rettungsaktionen richtig mit Tieren umgeht. Währenddessen dürfen Norman und Hannah auf dem Hof die Tiere versorgen. Norman will unbedingt mit den Schafen Gassi gehen. Wollie und Lämmchen sind davon aber gar nicht begeistert und büxen aus. Auch Prinz geht durch und bleibt am Strand im Watt stecken. Die Flut setzt ein, doch er schafft es nicht aus eigener Kraft zurück an Land.",
+                "episodeNumber": "200",
+                "fsk": 0,
+                "ageRating": 0,
+                "ageRatingDescriptors": null,
+                "duration": "00:09:28",
+                "durationInSeconds": 568,
+                "hasAssets": true,
+                "hasSubtitle": true,
+                "hasOriginalVideo": true,
+                "hasDgsVideo": false,
+                "hasAdVideo": false,
+                "thresholdDaysUntilOffline": 6,
+                "videoType": "mainContent",
+                "isFeaturedVideo": false,
+                "transmissionType": "geo",
+                "season": "14",
+                "seasonTitle": "Staffel 14",
+                "additionalContent": null
+            },
+            "videoSubchannelDetails": null,
+            "subchannelDetails": null,
+            "structureBrand": {
+                "id": "feuerwehrmann-sam-122",
+                "urlPath": "/feuerwehrmann-sam"
+            },
+            "infoTeaserDetails": null,
+            "imageDetails": null,
+            "soundSnippetDetails": null,
+            "eventDates": {
+                "eventStartDate": null,
+                "eventEndDate": null
+            },
+            "broadcastSeries": {
+                "id": "feuerwehrmann-sam-122",
+                "title": "Feuerwehrmann Sam",
+                "urlPath": "/feuerwehrmann-sam"
+            }
+        },
+        {
+            "docType": "video",
+            "id": "einhundertvierundsechzig-die-wand-der-champions-102",
+            "uuid": "e8002993-15f2-4ca9-8140-f5caa8205eeb",
+            "externalId": "VOID6d3be80f-a0a8-4a67-94fe-6bec5f6f2058",
+            "urlPath": "/feuerwehrmann-sam/videos",
+            "validTo": null,
+            "externalUrl": null,
+            "api": {
+                "id": "einhundertvierundsechzig-die-wand-der-champions-102",
+                "url": "https://www.kika.de/ackley/v1/videos/einhundertvierundsechzig-die-wand-der-champions-102"
+            },
+            "structure": {
+                "site": "kika",
+                "uuid": "0ca36197-3dca-4bc4-a8a0-1eeda6549566",
+                "structureNodePath": "/sendungen/sendereihen/f/feuerwehrmann-sam/videos",
+                "alias": ""
+            },
+            "date": "2026-08-07T06:35:03.183+02:00",
+            "endDate": "2026-09-06T06:35:00.000+02:00",
+            "modificationDate": "2026-08-07T06:40:09.754+02:00",
+            "contentCategory": null,
+            "contentCategoryTitle": "Video",
+            "contentCategoryIcon": "video",
+            "title": "Die Wand der Champions",
+            "teaserText": "James, Mandy, Norman und Sarah gehen auf Foto-Schnitzeljagd. Mandy will eine Pontypandy-Petunie an einer Felswand fotografieren und gerät dabei in Gefahr.",
+            "teaserImage": {
+                "id": "bild252464",
+                "copyrights": "KiKA/Prism Art & Design Limited",
+                "headline": null,
+                "caption": "Polizeihauptmeisterin Ravanis Polizeipferd Kilo kommt zum Einsatz.",
+                "title": "Rechte: KiKA/Prism Art & Design Limited",
+                "alt": "In der Mitte einer Wiese steht das Polizeipferd Kilo. Links hinter ihm steht ein Feuerwehrmann, dessen Kopf von Kilo verdeckt wird. Rechts neben Kilo steht Polizeimeisterin Ravani. Vor dem Pferd steht Mandy. Im Hintergrund Berge.",
+                "urlScheme": "/feuerwehrmann-sam/sendungen/bilder/bild252464-resimage_v-**imageVariant**_w-**width**.jpg?version=19536",
+                "urlSchemeExtended": {
+                    "scheme": "/feuerwehrmann-sam/sendungen/bilder/bild252464-resimage_v-**imageVariant**_w-**width**.**format**?version=19536",
+                    "format": "jpg"
+                },
+                "imageBrightness": "dark",
+                "backgroundColor": null,
+                "variants": [
+                    {
+                        "imageType": "cropped",
+                        "height": 1024,
+                        "width": 1900
+                    },
+                    {
+                        "imageType": "headerLarge",
+                        "height": 1024,
+                        "width": 1900
+                    },
+                    {
+                        "imageType": "headerSmall",
+                        "height": 1024,
+                        "width": 1900
+                    },
+                    {
+                        "imageType": "headerWide329",
+                        "height": 540,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "ident",
+                        "height": 1080,
+                        "width": 1080
+                    },
+                    {
+                        "imageType": "landscape249",
+                        "height": 720,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "miniKika",
+                        "height": 1024,
+                        "width": 1900
+                    },
+                    {
+                        "imageType": "opener489",
+                        "height": 356,
+                        "width": 1900
+                    },
+                    {
+                        "imageType": "original",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "searchImage",
+                        "height": 1024,
+                        "width": 1277
+                    },
+                    {
+                        "imageType": "tlarge167",
+                        "height": 840,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "tlarge169",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "tlargeWithLogo169",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "tportrait89",
+                        "height": 1080,
+                        "width": 960
+                    },
+                    {
+                        "imageType": "tsmall169",
+                        "height": 1024,
+                        "width": 1818
+                    },
+                    {
+                        "imageType": "tsquare11",
+                        "height": 1080,
+                        "width": 1080
+                    },
+                    {
+                        "imageType": "twide329",
+                        "height": 535,
+                        "width": 1902
+                    }
+                ],
+                "structure": {
+                    "site": "kika",
+                    "uuid": "9ab497dd-0bf6-4c96-8d00-a7eb830d9949",
+                    "structureNodePath": "/sendungen/sendereihen/f/feuerwehrmann-sam/sendungen/bilder",
+                    "alias": ""
+                },
+                "online": true
+            },
+            "teaserLinkDescription": "Jetzt anschauen",
+            "eyecatcher": null,
+            "broadcastSeriesTitle": "Feuerwehrmann Sam",
+            "broadcastSeriesId": "feuerwehrmann-sam-122",
+            "isVisible": true,
+            "useTitleInsteadOfLogo": false,
+            "participationActive": false,
+            "genDate": "2026-08-09T19:30:51.704+02:00",
+            "ageRating": 0,
+            "ageRatingDescriptors": null,
+            "logo": {
+                "id": "feuerwehrmann-sam-164",
+                "copyrights": "KiKA",
+                "headline": "Feuerwehrmann Sam",
+                "caption": null,
+                "title": "Feuerwehrmann Sam | Rechte: KiKA",
+                "alt": "Logo \"Feuerwehrmann Sam\"",
+                "urlScheme": "/feuerwehrmann-sam/bilder/feuerwehrmann-sam-164-resimage_v-**imageVariant**_w-**width**.png?version=9330",
+                "urlSchemeExtended": {
+                    "scheme": "/feuerwehrmann-sam/bilder/feuerwehrmann-sam-164-resimage_v-**imageVariant**_w-**width**.**format**?version=9330",
+                    "format": "png"
+                },
+                "imageBrightness": "dark",
+                "backgroundColor": null,
+                "variants": [
+                    {
+                        "imageType": "cropped",
+                        "height": 864,
+                        "width": 864
+                    },
+                    {
+                        "imageType": "headerLarge",
+                        "height": 348,
+                        "width": 1600
+                    },
+                    {
+                        "imageType": "headerSmall",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "headerWide329",
+                        "height": 540,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "ident",
+                        "height": 1080,
+                        "width": 1080
+                    },
+                    {
+                        "imageType": "landscape249",
+                        "height": 720,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "miniKika",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "opener489",
+                        "height": 360,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "original",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "searchImage",
+                        "height": 1080,
+                        "width": 1347
+                    },
+                    {
+                        "imageType": "tlarge167",
+                        "height": 840,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "tlarge169",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "tlargeWithLogo169",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "tportrait89",
+                        "height": 1080,
+                        "width": 960
+                    },
+                    {
+                        "imageType": "tsmall169",
+                        "height": 1080,
+                        "width": 1917
+                    },
+                    {
+                        "imageType": "tsquare11",
+                        "height": 1080,
+                        "width": 1080
+                    },
+                    {
+                        "imageType": "twide329",
+                        "height": 540,
+                        "width": 1920
+                    }
+                ],
+                "structure": {
+                    "site": "kika",
+                    "uuid": "2c56297b-8948-4a02-8f42-16629fb6d3cd",
+                    "structureNodePath": "/sendungen/sendereihen/f/feuerwehrmann-sam/bilder",
+                    "alias": ""
+                },
+                "online": true
+            },
+            "brandDetails": null,
+            "channelDetails": null,
+            "downloadDetails": null,
+            "votingDetails": null,
+            "linkDetails": null,
+            "livestreamDetails": null,
+            "relatedVideoDetails": null,
+            "videoDetails": {
+                "description": "Sam und Elvis lernen das Polizeipferd Kilo kennen. Polizeichefin Rose Ravani bringt ihnen bei, wie man in Notsituationen mit einem Pferd umgeht. Währenddessen werden James, Mandy, Norman und Sarah von Moose auf eine Schnitzeljagd geschickt. Sie sollen Fotos in der Natur machen und dabei die seltene Pontypandy-Petunie finden. Diese Pflanze wächst nur an Felswänden. Mandys Ehrgeiz ist so groß, dass sie alle Gefahren außer Acht lässt.",
+                "episodeNumber": "164",
+                "fsk": 0,
+                "ageRating": 0,
+                "ageRatingDescriptors": null,
+                "duration": "00:09:30",
+                "durationInSeconds": 570,
+                "hasAssets": true,
+                "hasSubtitle": true,
+                "hasOriginalVideo": true,
+                "hasDgsVideo": false,
+                "hasAdVideo": false,
+                "thresholdDaysUntilOffline": 6,
+                "videoType": "mainContent",
+                "isFeaturedVideo": false,
+                "transmissionType": "geo",
+                "season": "13",
+                "seasonTitle": "Staffel 13",
+                "additionalContent": null
+            },
+            "videoSubchannelDetails": null,
+            "subchannelDetails": null,
+            "structureBrand": {
+                "id": "feuerwehrmann-sam-122",
+                "urlPath": "/feuerwehrmann-sam"
+            },
+            "infoTeaserDetails": null,
+            "imageDetails": null,
+            "soundSnippetDetails": null,
+            "eventDates": {
+                "eventStartDate": null,
+                "eventEndDate": null
+            },
+            "broadcastSeries": {
+                "id": "feuerwehrmann-sam-122",
+                "title": "Feuerwehrmann Sam",
+                "urlPath": "/feuerwehrmann-sam"
+            }
+        },
+        {
+            "docType": "video",
+            "id": "zweihundertneunundzwanzig-eine-party-fuer-peter-100",
+            "uuid": "dd8fe1c7-37c8-4c1a-a57c-47e6dce3351d",
+            "externalId": "VOID90d20224-e714-465d-9f01-5c7571271e7f",
+            "urlPath": "/feuerwehrmann-sam/videos",
+            "validTo": null,
+            "externalUrl": null,
+            "api": {
+                "id": "zweihundertneunundzwanzig-eine-party-fuer-peter-100",
+                "url": "https://www.kika.de/ackley/v1/videos/zweihundertneunundzwanzig-eine-party-fuer-peter-100"
+            },
+            "structure": {
+                "site": "kika",
+                "uuid": "0ca36197-3dca-4bc4-a8a0-1eeda6549566",
+                "structureNodePath": "/sendungen/sendereihen/f/feuerwehrmann-sam/videos",
+                "alias": ""
+            },
+            "date": "2026-08-06T18:15:05.560+02:00",
+            "endDate": "2026-09-05T18:15:00.000+02:00",
+            "modificationDate": "2026-08-06T18:20:09.910+02:00",
+            "contentCategory": null,
+            "contentCategoryTitle": "Video",
+            "contentCategoryIcon": "video",
+            "title": "Eine Party für Peter",
+            "teaserText": "Norman und Hannah organisieren für Peter eine Pool-Party, doch Mike lässt die Dekoration auf brennende Schwimmkerzen fallen und ein Feuer breitet sich aus.",
+            "teaserImage": {
+                "id": "bild278446",
+                "copyrights": "2023 Prism Art & Design Limited",
+                "headline": null,
+                "caption": "Hannah und Norman planen die weltbeste Geburtstagsparty.",
+                "title": "Rechte: 2023 Prism Art & Design Limited",
+                "alt": "Hannah zeigt mit einem Stab auf ein Flipchart, auf dem der Plan für eine Geburtstagsparty gezeichent ist. Neben der Tafel steht Norman.",
+                "urlScheme": "/feuerwehrmann-sam/sendungen/bilder/bild278446-resimage_v-**imageVariant**_w-**width**.jpg?version=22158",
+                "urlSchemeExtended": {
+                    "scheme": "/feuerwehrmann-sam/sendungen/bilder/bild278446-resimage_v-**imageVariant**_w-**width**.**format**?version=22158",
+                    "format": "jpg"
+                },
+                "imageBrightness": "dark",
+                "backgroundColor": null,
+                "variants": [
+                    {
+                        "imageType": "cropped",
+                        "height": 672,
+                        "width": 1522
+                    },
+                    {
+                        "imageType": "headerLarge",
+                        "height": 672,
+                        "width": 1600
+                    },
+                    {
+                        "imageType": "headerSmall",
+                        "height": 672,
+                        "width": 1522
+                    },
+                    {
+                        "imageType": "headerWide329",
+                        "height": 540,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "ident",
+                        "height": 1080,
+                        "width": 1080
+                    },
+                    {
+                        "imageType": "landscape249",
+                        "height": 720,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "miniKika",
+                        "height": 672,
+                        "width": 1522
+                    },
+                    {
+                        "imageType": "opener489",
+                        "height": 285,
+                        "width": 1521
+                    },
+                    {
+                        "imageType": "original",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "searchImage",
+                        "height": 800,
+                        "width": 998
+                    },
+                    {
+                        "imageType": "tlarge167",
+                        "height": 840,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "tlarge169",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "tlargeWithLogo169",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "tportrait89",
+                        "height": 1080,
+                        "width": 960
+                    },
+                    {
+                        "imageType": "tsmall169",
+                        "height": 672,
+                        "width": 1193
+                    },
+                    {
+                        "imageType": "tsquare11",
+                        "height": 1080,
+                        "width": 1080
+                    },
+                    {
+                        "imageType": "twide329",
+                        "height": 428,
+                        "width": 1521
+                    }
+                ],
+                "structure": {
+                    "site": "kika",
+                    "uuid": "9ab497dd-0bf6-4c96-8d00-a7eb830d9949",
+                    "structureNodePath": "/sendungen/sendereihen/f/feuerwehrmann-sam/sendungen/bilder",
+                    "alias": ""
+                },
+                "online": true
+            },
+            "teaserLinkDescription": "Jetzt anschauen",
+            "eyecatcher": null,
+            "broadcastSeriesTitle": "Feuerwehrmann Sam",
+            "broadcastSeriesId": "feuerwehrmann-sam-122",
+            "isVisible": true,
+            "useTitleInsteadOfLogo": false,
+            "participationActive": false,
+            "genDate": "2026-08-09T19:30:51.754+02:00",
+            "ageRating": 0,
+            "ageRatingDescriptors": null,
+            "logo": {
+                "id": "feuerwehrmann-sam-164",
+                "copyrights": "KiKA",
+                "headline": "Feuerwehrmann Sam",
+                "caption": null,
+                "title": "Feuerwehrmann Sam | Rechte: KiKA",
+                "alt": "Logo \"Feuerwehrmann Sam\"",
+                "urlScheme": "/feuerwehrmann-sam/bilder/feuerwehrmann-sam-164-resimage_v-**imageVariant**_w-**width**.png?version=9330",
+                "urlSchemeExtended": {
+                    "scheme": "/feuerwehrmann-sam/bilder/feuerwehrmann-sam-164-resimage_v-**imageVariant**_w-**width**.**format**?version=9330",
+                    "format": "png"
+                },
+                "imageBrightness": "dark",
+                "backgroundColor": null,
+                "variants": [
+                    {
+                        "imageType": "cropped",
+                        "height": 864,
+                        "width": 864
+                    },
+                    {
+                        "imageType": "headerLarge",
+                        "height": 348,
+                        "width": 1600
+                    },
+                    {
+                        "imageType": "headerSmall",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "headerWide329",
+                        "height": 540,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "ident",
+                        "height": 1080,
+                        "width": 1080
+                    },
+                    {
+                        "imageType": "landscape249",
+                        "height": 720,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "miniKika",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "opener489",
+                        "height": 360,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "original",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "searchImage",
+                        "height": 1080,
+                        "width": 1347
+                    },
+                    {
+                        "imageType": "tlarge167",
+                        "height": 840,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "tlarge169",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "tlargeWithLogo169",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "tportrait89",
+                        "height": 1080,
+                        "width": 960
+                    },
+                    {
+                        "imageType": "tsmall169",
+                        "height": 1080,
+                        "width": 1917
+                    },
+                    {
+                        "imageType": "tsquare11",
+                        "height": 1080,
+                        "width": 1080
+                    },
+                    {
+                        "imageType": "twide329",
+                        "height": 540,
+                        "width": 1920
+                    }
+                ],
+                "structure": {
+                    "site": "kika",
+                    "uuid": "2c56297b-8948-4a02-8f42-16629fb6d3cd",
+                    "structureNodePath": "/sendungen/sendereihen/f/feuerwehrmann-sam/bilder",
+                    "alias": ""
+                },
+                "online": true
+            },
+            "brandDetails": null,
+            "channelDetails": null,
+            "downloadDetails": null,
+            "votingDetails": null,
+            "linkDetails": null,
+            "livestreamDetails": null,
+            "relatedVideoDetails": null,
+            "videoDetails": {
+                "description": "Zu Peters Geburtstag organisieren Hannah und Norman eine Pool-Party und es soll die beste aller Zeiten werden. Aber mit ihrer Hektik bringt Hannah alle durcheinander. Als sie Mike mit einer Megaphon-Durchsage erschreckt, lässt der die Wimpel-Girlande los. Die fällt auf die schwimmenden Lichterkerzen im Pool und im Nu stehen die Wimpel in Flammen. Über das Band der Girlande breitet sich rasend schnell ein Feuer aus.",
+                "episodeNumber": "229",
+                "fsk": 0,
+                "ageRating": 0,
+                "ageRatingDescriptors": null,
+                "duration": "00:09:28",
+                "durationInSeconds": 568,
+                "hasAssets": true,
+                "hasSubtitle": true,
+                "hasOriginalVideo": true,
+                "hasDgsVideo": false,
+                "hasAdVideo": false,
+                "thresholdDaysUntilOffline": 6,
+                "videoType": "mainContent",
+                "isFeaturedVideo": false,
+                "transmissionType": "geo",
+                "season": "15",
+                "seasonTitle": "Staffel 15",
+                "additionalContent": null
+            },
+            "videoSubchannelDetails": null,
+            "subchannelDetails": null,
+            "structureBrand": {
+                "id": "feuerwehrmann-sam-122",
+                "urlPath": "/feuerwehrmann-sam"
+            },
+            "infoTeaserDetails": null,
+            "imageDetails": null,
+            "soundSnippetDetails": null,
+            "eventDates": {
+                "eventStartDate": null,
+                "eventEndDate": null
+            },
+            "broadcastSeries": {
+                "id": "feuerwehrmann-sam-122",
+                "title": "Feuerwehrmann Sam",
+                "urlPath": "/feuerwehrmann-sam"
+            }
+        },
+        {
+            "docType": "video",
+            "id": "einhundertvierundsiebzig-paddel-probleme-100",
+            "uuid": "bceb0c40-f450-4d14-be10-18fb99cd089c",
+            "externalId": "VOIDc4e927c0-afc7-4fec-96c0-3333d5470998",
+            "urlPath": "/feuerwehrmann-sam/videos",
+            "validTo": null,
+            "externalUrl": null,
+            "api": {
+                "id": "einhundertvierundsiebzig-paddel-probleme-100",
+                "url": "https://www.kika.de/ackley/v1/videos/einhundertvierundsiebzig-paddel-probleme-100"
+            },
+            "structure": {
+                "site": "kika",
+                "uuid": "0ca36197-3dca-4bc4-a8a0-1eeda6549566",
+                "structureNodePath": "/sendungen/sendereihen/f/feuerwehrmann-sam/videos",
+                "alias": ""
+            },
+            "date": "2026-08-06T18:15:05.187+02:00",
+            "endDate": "2026-09-05T18:15:00.000+02:00",
+            "modificationDate": "2026-08-06T18:20:09.787+02:00",
+            "contentCategory": null,
+            "contentCategoryTitle": "Video",
+            "contentCategoryIcon": "video",
+            "title": "Paddel-Probleme",
+            "teaserText": "Professor Pickles will mit den Pfadfindern in winzigen Booten wie die ersten Siedler Pontypandy-Eiland erreichen. Dabei gerät er in eine missliche Lage.",
+            "teaserImage": {
+                "id": "bild253102",
+                "copyrights": "KiKA/Prism Art & Design Limited",
+                "headline": null,
+                "caption": "Ben und Sam befreien Professor Pickles aus einer misslichen Lage an der Felswand.",
+                "title": "Rechte: KiKA/Prism Art & Design Limited",
+                "alt": "An einer Felswand steht in der Mitte Professor Pickles, der sich festhält. Links neben ihm seilt sich Ben zu ihm ab. Rechts steht Sam, ebenfalls gesichert an einem Seil, auf einem kleinen Felsvorsprung.",
+                "urlScheme": "/feuerwehrmann-sam/sendungen/bilder/bild253102-resimage_v-**imageVariant**_w-**width**.jpg?version=59202",
+                "urlSchemeExtended": {
+                    "scheme": "/feuerwehrmann-sam/sendungen/bilder/bild253102-resimage_v-**imageVariant**_w-**width**.**format**?version=59202",
+                    "format": "jpg"
+                },
+                "imageBrightness": "dark",
+                "backgroundColor": null,
+                "variants": [
+                    {
+                        "imageType": "cropped",
+                        "height": 582,
+                        "width": 1754
+                    },
+                    {
+                        "imageType": "headerLarge",
+                        "height": 582,
+                        "width": 1754
+                    },
+                    {
+                        "imageType": "headerSmall",
+                        "height": 582,
+                        "width": 1754
+                    },
+                    {
+                        "imageType": "headerWide329",
+                        "height": 540,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "ident",
+                        "height": 1080,
+                        "width": 1080
+                    },
+                    {
+                        "imageType": "landscape249",
+                        "height": 720,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "miniKika",
+                        "height": 582,
+                        "width": 1754
+                    },
+                    {
+                        "imageType": "opener489",
+                        "height": 329,
+                        "width": 1756
+                    },
+                    {
+                        "imageType": "original",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "searchImage",
+                        "height": 800,
+                        "width": 998
+                    },
+                    {
+                        "imageType": "tlarge167",
+                        "height": 840,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "tlarge169",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "tlargeWithLogo169",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "tportrait89",
+                        "height": 1080,
+                        "width": 960
+                    },
+                    {
+                        "imageType": "tsmall169",
+                        "height": 582,
+                        "width": 1033
+                    },
+                    {
+                        "imageType": "tsquare11",
+                        "height": 1080,
+                        "width": 1080
+                    },
+                    {
+                        "imageType": "twide329",
+                        "height": 493,
+                        "width": 1752
+                    }
+                ],
+                "structure": {
+                    "site": "kika",
+                    "uuid": "9ab497dd-0bf6-4c96-8d00-a7eb830d9949",
+                    "structureNodePath": "/sendungen/sendereihen/f/feuerwehrmann-sam/sendungen/bilder",
+                    "alias": ""
+                },
+                "online": true
+            },
+            "teaserLinkDescription": "Jetzt anschauen",
+            "eyecatcher": null,
+            "broadcastSeriesTitle": "Feuerwehrmann Sam",
+            "broadcastSeriesId": "feuerwehrmann-sam-122",
+            "isVisible": true,
+            "useTitleInsteadOfLogo": false,
+            "participationActive": false,
+            "genDate": "2026-08-09T19:30:51.808+02:00",
+            "ageRating": 0,
+            "ageRatingDescriptors": null,
+            "logo": {
+                "id": "feuerwehrmann-sam-164",
+                "copyrights": "KiKA",
+                "headline": "Feuerwehrmann Sam",
+                "caption": null,
+                "title": "Feuerwehrmann Sam | Rechte: KiKA",
+                "alt": "Logo \"Feuerwehrmann Sam\"",
+                "urlScheme": "/feuerwehrmann-sam/bilder/feuerwehrmann-sam-164-resimage_v-**imageVariant**_w-**width**.png?version=9330",
+                "urlSchemeExtended": {
+                    "scheme": "/feuerwehrmann-sam/bilder/feuerwehrmann-sam-164-resimage_v-**imageVariant**_w-**width**.**format**?version=9330",
+                    "format": "png"
+                },
+                "imageBrightness": "dark",
+                "backgroundColor": null,
+                "variants": [
+                    {
+                        "imageType": "cropped",
+                        "height": 864,
+                        "width": 864
+                    },
+                    {
+                        "imageType": "headerLarge",
+                        "height": 348,
+                        "width": 1600
+                    },
+                    {
+                        "imageType": "headerSmall",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "headerWide329",
+                        "height": 540,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "ident",
+                        "height": 1080,
+                        "width": 1080
+                    },
+                    {
+                        "imageType": "landscape249",
+                        "height": 720,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "miniKika",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "opener489",
+                        "height": 360,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "original",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "searchImage",
+                        "height": 1080,
+                        "width": 1347
+                    },
+                    {
+                        "imageType": "tlarge167",
+                        "height": 840,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "tlarge169",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "tlargeWithLogo169",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "tportrait89",
+                        "height": 1080,
+                        "width": 960
+                    },
+                    {
+                        "imageType": "tsmall169",
+                        "height": 1080,
+                        "width": 1917
+                    },
+                    {
+                        "imageType": "tsquare11",
+                        "height": 1080,
+                        "width": 1080
+                    },
+                    {
+                        "imageType": "twide329",
+                        "height": 540,
+                        "width": 1920
+                    }
+                ],
+                "structure": {
+                    "site": "kika",
+                    "uuid": "2c56297b-8948-4a02-8f42-16629fb6d3cd",
+                    "structureNodePath": "/sendungen/sendereihen/f/feuerwehrmann-sam/bilder",
+                    "alias": ""
+                },
+                "online": true
+            },
+            "brandDetails": null,
+            "channelDetails": null,
+            "downloadDetails": null,
+            "votingDetails": null,
+            "linkDetails": null,
+            "livestreamDetails": null,
+            "relatedVideoDetails": null,
+            "videoDetails": {
+                "description": "Professor Pickles macht mit den Pontypandy-Pfadfindern ein Experiment. In winzigen Booten, sogenannten Korakeln, sollen sie wie einst die ersten Siedler nach Pontypandy-Eiland fahren. Währenddessen führt Penny, die gerade ihr Examen als Sicherheits-Inspektorin bestanden hat, die jährliche Prüfung bei Titan durch. Ein Glück, dass an dem Rettungsboot alles in Ordnung ist, denn Professor Pickles gerät in eine missliche Lage.",
+                "episodeNumber": "174",
+                "fsk": 0,
+                "ageRating": 0,
+                "ageRatingDescriptors": null,
+                "duration": "00:09:30",
+                "durationInSeconds": 570,
+                "hasAssets": true,
+                "hasSubtitle": true,
+                "hasOriginalVideo": true,
+                "hasDgsVideo": false,
+                "hasAdVideo": false,
+                "thresholdDaysUntilOffline": 6,
+                "videoType": "mainContent",
+                "isFeaturedVideo": false,
+                "transmissionType": "geo",
+                "season": "13",
+                "seasonTitle": "Staffel 13",
+                "additionalContent": null
+            },
+            "videoSubchannelDetails": null,
+            "subchannelDetails": null,
+            "structureBrand": {
+                "id": "feuerwehrmann-sam-122",
+                "urlPath": "/feuerwehrmann-sam"
+            },
+            "infoTeaserDetails": null,
+            "imageDetails": null,
+            "soundSnippetDetails": null,
+            "eventDates": {
+                "eventStartDate": null,
+                "eventEndDate": null
+            },
+            "broadcastSeries": {
+                "id": "feuerwehrmann-sam-122",
+                "title": "Feuerwehrmann Sam",
+                "urlPath": "/feuerwehrmann-sam"
+            }
+        },
+        {
+            "docType": "video",
+            "id": "einhundertdreiundsechzig-der-neue-polizeihubschrauber-102",
+            "uuid": "2d4981c4-4d41-4481-ab9b-077f4fe9ccc9",
+            "externalId": "VOID1e444d26-99dd-4725-a36c-777e81eae0cf",
+            "urlPath": "/feuerwehrmann-sam/videos",
+            "validTo": null,
+            "externalUrl": null,
+            "api": {
+                "id": "einhundertdreiundsechzig-der-neue-polizeihubschrauber-102",
+                "url": "https://www.kika.de/ackley/v1/videos/einhundertdreiundsechzig-der-neue-polizeihubschrauber-102"
+            },
+            "structure": {
+                "site": "kika",
+                "uuid": "0ca36197-3dca-4bc4-a8a0-1eeda6549566",
+                "structureNodePath": "/sendungen/sendereihen/f/feuerwehrmann-sam/videos",
+                "alias": ""
+            },
+            "date": "2026-08-06T06:35:04.284+02:00",
+            "endDate": "2026-09-05T06:35:00.000+02:00",
+            "modificationDate": "2026-08-06T06:40:09.776+02:00",
+            "contentCategory": null,
+            "contentCategoryTitle": "Video",
+            "contentCategoryIcon": "video",
+            "title": "Der neue Polizeihubschrauber",
+            "teaserText": "Hannah will mit ihrem Vater eine Ballonfahrt machen. Um schneller zu werden, stellt sie den Düsenantrieb an. Sofort saust der Ballon unkontrolliert los.",
+            "teaserImage": {
+                "id": "bild252462",
+                "copyrights": "KiKA/Prism Art & Design Limited",
+                "headline": null,
+                "caption": "Hannah und ihr Vater machen eine Ballonfahrt. Dabei werfen sie das Joe-Jet-2000-Düsentriebwerk an.",
+                "title": "Rechte: KiKA/Prism Art & Design Limited",
+                "alt": "In einem Ballon-Korb stehen Hannah und ihr Vater. Hannah schaut skeptisch. Ihr Vater hat das Joe-Jet-2000-Düsentriebwerk in der Hand.",
+                "urlScheme": "/feuerwehrmann-sam/sendungen/bilder/bild252462-resimage_v-**imageVariant**_w-**width**.jpg?version=18309",
+                "urlSchemeExtended": {
+                    "scheme": "/feuerwehrmann-sam/sendungen/bilder/bild252462-resimage_v-**imageVariant**_w-**width**.**format**?version=18309",
+                    "format": "jpg"
+                },
+                "imageBrightness": "dark",
+                "backgroundColor": null,
+                "variants": [
+                    {
+                        "imageType": "cropped",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "headerLarge",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "headerSmall",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "headerWide329",
+                        "height": 540,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "ident",
+                        "height": 1080,
+                        "width": 1080
+                    },
+                    {
+                        "imageType": "landscape249",
+                        "height": 720,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "miniKika",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "opener489",
+                        "height": 360,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "original",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "searchImage",
+                        "height": 1080,
+                        "width": 1347
+                    },
+                    {
+                        "imageType": "tlarge167",
+                        "height": 840,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "tlarge169",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "tlargeWithLogo169",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "tportrait89",
+                        "height": 1080,
+                        "width": 960
+                    },
+                    {
+                        "imageType": "tsmall169",
+                        "height": 1080,
+                        "width": 1917
+                    },
+                    {
+                        "imageType": "tsquare11",
+                        "height": 1080,
+                        "width": 1080
+                    },
+                    {
+                        "imageType": "twide329",
+                        "height": 540,
+                        "width": 1920
+                    }
+                ],
+                "structure": {
+                    "site": "kika",
+                    "uuid": "9ab497dd-0bf6-4c96-8d00-a7eb830d9949",
+                    "structureNodePath": "/sendungen/sendereihen/f/feuerwehrmann-sam/sendungen/bilder",
+                    "alias": ""
+                },
+                "online": true
+            },
+            "teaserLinkDescription": "Jetzt anschauen",
+            "eyecatcher": null,
+            "broadcastSeriesTitle": "Feuerwehrmann Sam",
+            "broadcastSeriesId": "feuerwehrmann-sam-122",
+            "isVisible": true,
+            "useTitleInsteadOfLogo": false,
+            "participationActive": false,
+            "genDate": "2026-08-09T19:30:51.868+02:00",
+            "ageRating": 0,
+            "ageRatingDescriptors": null,
+            "logo": {
+                "id": "feuerwehrmann-sam-164",
+                "copyrights": "KiKA",
+                "headline": "Feuerwehrmann Sam",
+                "caption": null,
+                "title": "Feuerwehrmann Sam | Rechte: KiKA",
+                "alt": "Logo \"Feuerwehrmann Sam\"",
+                "urlScheme": "/feuerwehrmann-sam/bilder/feuerwehrmann-sam-164-resimage_v-**imageVariant**_w-**width**.png?version=9330",
+                "urlSchemeExtended": {
+                    "scheme": "/feuerwehrmann-sam/bilder/feuerwehrmann-sam-164-resimage_v-**imageVariant**_w-**width**.**format**?version=9330",
+                    "format": "png"
+                },
+                "imageBrightness": "dark",
+                "backgroundColor": null,
+                "variants": [
+                    {
+                        "imageType": "cropped",
+                        "height": 864,
+                        "width": 864
+                    },
+                    {
+                        "imageType": "headerLarge",
+                        "height": 348,
+                        "width": 1600
+                    },
+                    {
+                        "imageType": "headerSmall",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "headerWide329",
+                        "height": 540,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "ident",
+                        "height": 1080,
+                        "width": 1080
+                    },
+                    {
+                        "imageType": "landscape249",
+                        "height": 720,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "miniKika",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "opener489",
+                        "height": 360,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "original",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "searchImage",
+                        "height": 1080,
+                        "width": 1347
+                    },
+                    {
+                        "imageType": "tlarge167",
+                        "height": 840,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "tlarge169",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "tlargeWithLogo169",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "tportrait89",
+                        "height": 1080,
+                        "width": 960
+                    },
+                    {
+                        "imageType": "tsmall169",
+                        "height": 1080,
+                        "width": 1917
+                    },
+                    {
+                        "imageType": "tsquare11",
+                        "height": 1080,
+                        "width": 1080
+                    },
+                    {
+                        "imageType": "twide329",
+                        "height": 540,
+                        "width": 1920
+                    }
+                ],
+                "structure": {
+                    "site": "kika",
+                    "uuid": "2c56297b-8948-4a02-8f42-16629fb6d3cd",
+                    "structureNodePath": "/sendungen/sendereihen/f/feuerwehrmann-sam/bilder",
+                    "alias": ""
+                },
+                "online": true
+            },
+            "brandDetails": null,
+            "channelDetails": null,
+            "downloadDetails": null,
+            "votingDetails": null,
+            "linkDetails": null,
+            "livestreamDetails": null,
+            "relatedVideoDetails": null,
+            "videoDetails": {
+                "description": "Hannah will mit ihrem Vater eine Ballonfahrt machen, aber leider herrscht Windstille. Praktischerweise hat Joe seine neue Erfindung dabei: Einen Düsenantrieb, der es in sich hat. Als Norman sich darüber lustig macht, wie lahm die ganze Aktion aussieht, stellt Hannah den Antrieb auf volle Leistung. Sofort saust der Ballon völlig unkontrolliert mit den beiden aufs offene Meer hinaus. Ein großer Rettungseinsatz wird notwendig!",
+                "episodeNumber": "163",
+                "fsk": 0,
+                "ageRating": 0,
+                "ageRatingDescriptors": null,
+                "duration": "00:09:30",
+                "durationInSeconds": 570,
+                "hasAssets": true,
+                "hasSubtitle": true,
+                "hasOriginalVideo": true,
+                "hasDgsVideo": false,
+                "hasAdVideo": false,
+                "thresholdDaysUntilOffline": 6,
+                "videoType": "mainContent",
+                "isFeaturedVideo": false,
+                "transmissionType": "geo",
+                "season": "13",
+                "seasonTitle": "Staffel 13",
+                "additionalContent": null
+            },
+            "videoSubchannelDetails": null,
+            "subchannelDetails": null,
+            "structureBrand": {
+                "id": "feuerwehrmann-sam-122",
+                "urlPath": "/feuerwehrmann-sam"
+            },
+            "infoTeaserDetails": null,
+            "imageDetails": null,
+            "soundSnippetDetails": null,
+            "eventDates": {
+                "eventStartDate": null,
+                "eventEndDate": null
+            },
+            "broadcastSeries": {
+                "id": "feuerwehrmann-sam-122",
+                "title": "Feuerwehrmann Sam",
+                "urlPath": "/feuerwehrmann-sam"
+            }
+        },
+        {
+            "docType": "video",
+            "id": "einhundertsechsundfuenfzig-erste-hilfe-in-den-bergen-102",
+            "uuid": "07f3a8b2-d583-4235-a1ab-eb0e737809b1",
+            "externalId": "VOID41a7b86f-aa03-4bc1-b672-e04c02435058",
+            "urlPath": "/feuerwehrmann-sam/videos",
+            "validTo": null,
+            "externalUrl": null,
+            "api": {
+                "id": "einhundertsechsundfuenfzig-erste-hilfe-in-den-bergen-102",
+                "url": "https://www.kika.de/ackley/v1/videos/einhundertsechsundfuenfzig-erste-hilfe-in-den-bergen-102"
+            },
+            "structure": {
+                "site": "kika",
+                "uuid": "0ca36197-3dca-4bc4-a8a0-1eeda6549566",
+                "structureNodePath": "/sendungen/sendereihen/f/feuerwehrmann-sam/videos",
+                "alias": ""
+            },
+            "date": "2026-08-06T06:35:03.405+02:00",
+            "endDate": "2026-09-05T06:35:00.000+02:00",
+            "modificationDate": "2026-08-06T06:40:09.840+02:00",
+            "contentCategory": null,
+            "contentCategoryTitle": "Video",
+            "contentCategoryIcon": "video",
+            "title": "Erste Hilfe in den Bergen",
+            "teaserText": "Die Pfadfinder sind in den Bergen. Sie wollen Erste-Hilfe-Übungen durchführen. Aus der Übung wird Ernst, denn Trevor und James müssen gerettet werden.",
+            "teaserImage": {
+                "id": "bild251164",
+                "copyrights": "KiKA/Prism Art & Design Limited",
+                "headline": null,
+                "caption": "Helen zeigt, wie Verletzte am besten transportiert werden. Sam spielt den Patienten.",
+                "title": "Rechte: KiKA/Prism Art & Design Limited",
+                "alt": "Auf einer Straße, in der Mitte liegt Sam auf einer Trage. Helen kniet dahinter und hält seinen verbundenen Arm. Elvis steht links, Penny rechts daneben. Im Hintergrund ein Rettungsfahrzeug.",
+                "urlScheme": "/feuerwehrmann-sam/sendungen/bilder/bild251164-resimage_v-**imageVariant**_w-**width**.jpg?version=3795",
+                "urlSchemeExtended": {
+                    "scheme": "/feuerwehrmann-sam/sendungen/bilder/bild251164-resimage_v-**imageVariant**_w-**width**.**format**?version=3795",
+                    "format": "jpg"
+                },
+                "imageBrightness": "dark",
+                "backgroundColor": null,
+                "variants": [
+                    {
+                        "imageType": "cropped",
+                        "height": 568,
+                        "width": 1848
+                    },
+                    {
+                        "imageType": "headerLarge",
+                        "height": 568,
+                        "width": 1848
+                    },
+                    {
+                        "imageType": "headerSmall",
+                        "height": 568,
+                        "width": 1848
+                    },
+                    {
+                        "imageType": "headerWide329",
+                        "height": 540,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "ident",
+                        "height": 1080,
+                        "width": 1080
+                    },
+                    {
+                        "imageType": "landscape249",
+                        "height": 720,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "miniKika",
+                        "height": 568,
+                        "width": 1848
+                    },
+                    {
+                        "imageType": "opener489",
+                        "height": 346,
+                        "width": 1847
+                    },
+                    {
+                        "imageType": "original",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "searchImage",
+                        "height": 800,
+                        "width": 998
+                    },
+                    {
+                        "imageType": "tlarge167",
+                        "height": 840,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "tlarge169",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "tlargeWithLogo169",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "tportrait89",
+                        "height": 1080,
+                        "width": 960
+                    },
+                    {
+                        "imageType": "tsmall169",
+                        "height": 568,
+                        "width": 1008
+                    },
+                    {
+                        "imageType": "tsquare11",
+                        "height": 1080,
+                        "width": 1080
+                    },
+                    {
+                        "imageType": "twide329",
+                        "height": 520,
+                        "width": 1848
+                    }
+                ],
+                "structure": {
+                    "site": "kika",
+                    "uuid": "9ab497dd-0bf6-4c96-8d00-a7eb830d9949",
+                    "structureNodePath": "/sendungen/sendereihen/f/feuerwehrmann-sam/sendungen/bilder",
+                    "alias": ""
+                },
+                "online": true
+            },
+            "teaserLinkDescription": "Jetzt anschauen",
+            "eyecatcher": null,
+            "broadcastSeriesTitle": "Feuerwehrmann Sam",
+            "broadcastSeriesId": "feuerwehrmann-sam-122",
+            "isVisible": true,
+            "useTitleInsteadOfLogo": false,
+            "participationActive": false,
+            "genDate": "2026-08-09T19:30:51.932+02:00",
+            "ageRating": 0,
+            "ageRatingDescriptors": null,
+            "logo": {
+                "id": "feuerwehrmann-sam-164",
+                "copyrights": "KiKA",
+                "headline": "Feuerwehrmann Sam",
+                "caption": null,
+                "title": "Feuerwehrmann Sam | Rechte: KiKA",
+                "alt": "Logo \"Feuerwehrmann Sam\"",
+                "urlScheme": "/feuerwehrmann-sam/bilder/feuerwehrmann-sam-164-resimage_v-**imageVariant**_w-**width**.png?version=9330",
+                "urlSchemeExtended": {
+                    "scheme": "/feuerwehrmann-sam/bilder/feuerwehrmann-sam-164-resimage_v-**imageVariant**_w-**width**.**format**?version=9330",
+                    "format": "png"
+                },
+                "imageBrightness": "dark",
+                "backgroundColor": null,
+                "variants": [
+                    {
+                        "imageType": "cropped",
+                        "height": 864,
+                        "width": 864
+                    },
+                    {
+                        "imageType": "headerLarge",
+                        "height": 348,
+                        "width": 1600
+                    },
+                    {
+                        "imageType": "headerSmall",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "headerWide329",
+                        "height": 540,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "ident",
+                        "height": 1080,
+                        "width": 1080
+                    },
+                    {
+                        "imageType": "landscape249",
+                        "height": 720,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "miniKika",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "opener489",
+                        "height": 360,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "original",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "searchImage",
+                        "height": 1080,
+                        "width": 1347
+                    },
+                    {
+                        "imageType": "tlarge167",
+                        "height": 840,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "tlarge169",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "tlargeWithLogo169",
+                        "height": 1080,
+                        "width": 1920
+                    },
+                    {
+                        "imageType": "tportrait89",
+                        "height": 1080,
+                        "width": 960
+                    },
+                    {
+                        "imageType": "tsmall169",
+                        "height": 1080,
+                        "width": 1917
+                    },
+                    {
+                        "imageType": "tsquare11",
+                        "height": 1080,
+                        "width": 1080
+                    },
+                    {
+                        "imageType": "twide329",
+                        "height": 540,
+                        "width": 1920
+                    }
+                ],
+                "structure": {
+                    "site": "kika",
+                    "uuid": "2c56297b-8948-4a02-8f42-16629fb6d3cd",
+                    "structureNodePath": "/sendungen/sendereihen/f/feuerwehrmann-sam/bilder",
+                    "alias": ""
+                },
+                "online": true
+            },
+            "brandDetails": null,
+            "channelDetails": null,
+            "downloadDetails": null,
+            "votingDetails": null,
+            "linkDetails": null,
+            "livestreamDetails": null,
+            "relatedVideoDetails": null,
+            "videoDetails": {
+                "description": "Sam und die anderen Feuerwehrleute trainieren unter der Leitung von Helen den Transport von Verletzten im Rettungswagen. Währenddessen machen sich Trevor und die Pfadfinder auf in die Berge, um dort Erste-Hilfe-Maßnahmen zu üben. Aber aus der Übung wird Ernst, als Trevor sich den Knöchel verstaucht und James auf der Suche nach einer Stelle mit Handy-Empfang in eine Felsschlucht stürzt.",
+                "episodeNumber": "156",
+                "fsk": 0,
+                "ageRating": 0,
+                "ageRatingDescriptors": null,
+                "duration": "00:09:30",
+                "durationInSeconds": 570,
+                "hasAssets": true,
+                "hasSubtitle": true,
+                "hasOriginalVideo": true,
+                "hasDgsVideo": false,
+                "hasAdVideo": false,
+                "thresholdDaysUntilOffline": 6,
+                "videoType": "mainContent",
+                "isFeaturedVideo": false,
+                "transmissionType": "geo",
+                "season": "13",
+                "seasonTitle": "Staffel 13",
+                "additionalContent": null
+            },
+            "videoSubchannelDetails": null,
+            "subchannelDetails": null,
+            "structureBrand": {
+                "id": "feuerwehrmann-sam-122",
+                "urlPath": "/feuerwehrmann-sam"
+            },
+            "infoTeaserDetails": null,
+            "imageDetails": null,
+            "soundSnippetDetails": null,
+            "eventDates": {
+                "eventStartDate": null,
+                "eventEndDate": "2025-11-03T09:00:00.000+01:00"
+            },
+            "broadcastSeries": {
+                "id": "feuerwehrmann-sam-122",
+                "title": "Feuerwehrmann Sam",
+                "urlPath": "/feuerwehrmann-sam"
+            }
+        }
+    ],
+    "meta": {
+        "page": 0,
+        "pageSize": 12,
+        "offset": 0,
+        "totalPages": null,
+        "totalElements": null,
+        "size": 12,
+        "first": true,
+        "last": false,
+        "empty": false,
+        "duration": null,
+        "search_type": null
+    },
+    "links": {
+        "first": "https://www.kika.de/ackley/v1/videosubchannels/alle-folgen-938/videos?page=0&platform=kikade",
+        "previous": null,
+        "next": "http://localhost:0000/ackley/v1/videosubchannels/alle-folgen-938/videos?page=1&videoType=mainContent&platform=kikade",
+        "last": null
+    }
+}
