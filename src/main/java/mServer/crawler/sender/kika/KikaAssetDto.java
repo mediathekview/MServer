@@ -38,9 +38,20 @@ public class KikaAssetDto {
     this.webvttUrl = webvttUrl;
     this.url = url;
     if (frameWidth.isPresent()) {
-      this.resolution = Optional.of(Qualities.getResolutionFromWidth(frameWidth.get()));
+      this.resolution = Optional.of(getResolutionFromWidth(frameWidth.get()));
     }
   }
+  // ALTE Logik...es gibt kein FULL HD in der Quelle
+  private static Qualities getResolutionFromWidth(final int width) {
+    if (width >= 1280) {
+      return Qualities.HD;
+    } else if (width > 640) {
+      return Qualities.NORMAL;
+    } else {
+      return Qualities.SMALL;  
+    }
+  }
+  
   public Optional<String> getProfileName() {
     return profileName;
   }
