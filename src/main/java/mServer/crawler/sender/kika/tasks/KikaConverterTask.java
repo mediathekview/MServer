@@ -24,6 +24,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.stream.Stream;
 
 public class KikaConverterTask extends AbstractRecursivConverterTask<DatenFilm, KikaFilmDto> {
   private static final long serialVersionUID = 2437071037753218820L;
@@ -73,12 +74,19 @@ public class KikaConverterTask extends AbstractRecursivConverterTask<DatenFilm, 
     }
 
     final Map<Qualities, String> videoUrls = getVideoUrls(aElement);
+        
+    String defaultUrl = Stream.of(Qualities.NORMAL, Qualities.HD, Qualities.SMALL)
+        .map(videoUrls::get)
+        .filter(Objects::nonNull)
+        .findFirst()
+        .orElse(null);
+    
     DatenFilm aFilm = new DatenFilm(
             Const.KIKA,
             aElement.getBroadcastSeriesTitle().get(),
             getWebsite(aElement).orElse(""),
             aElement.getTitle().get().replace("DGS", "Gebärdensprache"),
-            videoUrls.get(Qualities.NORMAL),
+            defaultUrl,
             "",
             airedDate.get().format(DateTimeFormatter.ofPattern("dd.MM.yyyy")),
             airedDate.get().format(DateTimeFormatter.ofPattern("HH:mm:ss")),
