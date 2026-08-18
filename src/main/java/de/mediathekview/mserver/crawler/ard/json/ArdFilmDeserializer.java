@@ -547,7 +547,7 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
               Optional<String> languageCode = JsonUtils.getElementValueAsString(audios.get().getAsJsonArray().get(0), ATTRIBUTE_ADUIO_LANG);
               if (url.isPresent() && resh.isPresent() && kind.isPresent() && kind.get().equalsIgnoreCase(aduioType) && 
                   (languageCode.orElse("").equalsIgnoreCase(language) || (language.equalsIgnoreCase("*") && !languageCode.orElse("").equalsIgnoreCase("deu") && !languageCode.orElse("").equalsIgnoreCase("ov")))) {
-                videoInfo.put(Integer.parseInt(resh.get()), UrlUtils.removeParameters(url.get()));
+                videoInfo.put(Integer.parseInt(resh.get()), UrlUtils.addProtocolIfMissing(UrlUtils.removeParameters(url.get()), UrlUtils.PROTOCOL_HTTPS));
               }
             }
           }
