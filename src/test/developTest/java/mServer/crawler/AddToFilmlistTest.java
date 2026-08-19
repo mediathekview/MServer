@@ -496,6 +496,18 @@ public class AddToFilmlistTest {
     assertEquals(DatenFilm.GEO_AT, ndrFilm.arr[DatenFilm.FILM_GEO]);
   }
 
+  @Test
+  public void testFilmWithMissingProtocolNotAdded() {
+    final DatenFilm film = createTestFilm(Const.MDR, "NDR Topic", "NDR Title", FILM_NAME_ONLINE);
+    film.arr[DatenFilm.FILM_URL] = film.arr[DatenFilm.FILM_URL].replace("http://", "");
+    listToAdd.add(film);
+
+    AddToFilmlist target = new AddToFilmlist(list, listToAdd);
+    target.addOldList();
+
+    assertEquals(2, list.size());
+  }
+
   private static DatenFilm createTestFilm(String sender, String topic, String title,
       String filmUrl) {
     DatenFilm film = new DatenFilm(sender, topic, "url", title, baseUrl + filmUrl, "", "", "", 12,

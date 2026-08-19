@@ -30,7 +30,7 @@ import mServer.crawler.sender.ard.ArdCrawler;
 import mServer.crawler.sender.arte.*;
 import mServer.crawler.sender.dreisat.DreiSatCrawler;
 import mServer.crawler.sender.dw.DwCrawler;
-import mServer.crawler.sender.kika.KikaApiCrawler;
+import mServer.crawler.sender.kika.KikaCrawler;
 import mServer.crawler.sender.orfon.OrfOnCrawler;
 import mServer.crawler.sender.phoenix.PhoenixCrawler;
 import mServer.crawler.sender.sr.SrCrawler;
@@ -100,7 +100,7 @@ public class FilmeSuchen {
       mediathekListe.add(new DwCrawler(this, 0));
     }
     if (crawlerList.contains("KIKA")) {
-      mediathekListe.add(new KikaApiCrawler(this, 0));
+      mediathekListe.add(new KikaCrawler(this, 0));
     }
     if (crawlerList.contains("3SAT")) {
       mediathekListe.add(new DreiSatCrawler(this, 0));
