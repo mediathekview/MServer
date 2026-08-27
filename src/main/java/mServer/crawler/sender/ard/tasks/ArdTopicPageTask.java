@@ -53,6 +53,8 @@ public class ArdTopicPageTask extends ArdTaskBase<ArdFilmInfoDto, CrawlerUrlDTO>
     // Babylon berlin
     TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL2Rhc2Vyc3RlLmRlL2JhYnlsb24tYmVybGlu");
     TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL2Rhc2Vyc3RlLmRlL2JhYnlsb24tYmVybGluL2JhYmlsb24tYmVybGxpbi1zZXJpZW4tY2FzdC1mcm9lLTIwMTktc2VyaWVucy1jYXN0LWZyb2U");
+    // Tarort
+    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL2Rhc2Vyc3RlLmRlL3RhdG9ydA");
     // example: TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL2Rhc2Vyc3RlLmRlL3Nwb3J0c2NoYXU");
   }
 
