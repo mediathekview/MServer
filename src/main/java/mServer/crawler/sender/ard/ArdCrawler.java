@@ -28,6 +28,7 @@ public class ArdCrawler extends MediathekCrawler {
           = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
   public static final String[] MISSING_TOPIC_IDS = new String[]{
+          "Y3JpZDovL2Rhc2Vyc3RlLmRlL3N0ZWlyZXJrcmltaXM" // Steirerkrimis
 //          "Y3JpZDovL2JyLmRlL2Jyb2FkY2FzdFNlcmllcy9icm9hZGNhc3RTZXJpZXM6L2JyZGUvZmVybnNlaGVuL2JheWVyaXNjaGVzLWZlcm5zZWhlbi9zZW5kdW5nZW4vZGFob2FtLWlzLWRhaG9hbQ"
   };
 
