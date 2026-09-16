@@ -35,7 +35,6 @@ import de.mediathekview.mlib.tool.ProgressMonitorInputStream;
 import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
-import org.apache.commons.lang3.time.FastDateFormat;
 import org.tukaani.xz.XZInputStream;
 
 import javax.swing.event.EventListenerList;
@@ -45,12 +44,16 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.concurrent.TimeUnit;
 import java.util.zip.ZipInputStream;
 
 public class FilmlisteLesen {
     private static final int PROGRESS_MAX = 100;
+    private static final ZoneId ZONE = ZoneId.of(ZoneId.SHORT_IDS.get("ECT"));
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd.MM.yyyy, HH:mm");
     private static WorkMode workMode = WorkMode.NORMAL; // die Klasse wird an verschiedenen Stellen benutzt, klappt sonst nicht immer, zB. FilmListe zu alt und neu laden
     private final EventListenerList listeners = new EventListenerList();
     private int max = 0;
@@ -71,7 +74,7 @@ public class FilmlisteLesen {
         listeners.add(ListenerFilmeLaden.class, listener);
     }
 
-    private InputStream selectDecompressor(String source, InputStream in) throws Exception {
+    private InputStream selectDecompressor(String source, InputStream in) throws IOException {
         if (source.endsWith(Const.FORMAT_XZ)) {
             in = new XZInputStream(in);
         } else if (source.endsWith(Const.FORMAT_ZIP)) {
@@ -84,7 +87,8 @@ public class FilmlisteLesen {
 
     private void readData(JsonParser jp, ListeFilme listeFilme) throws IOException {
         JsonToken jsonToken;
-        String sender = "", thema = "";
+        String sender = "";
+        String thema = "";
 
         if (jp.nextToken() != JsonToken.START_OBJECT) {
             throw new IllegalStateException("Expected data to start with an Object");
@@ -130,8 +134,6 @@ public class FilmlisteLesen {
                     }
                     if (DatenFilm.JSON_NAMES[i] == DatenFilm.FILM_NEU) {
                         final String value = jp.nextTextValue();
-                        //This value is unused...
-                        //datenFilm.arr[DatenFilm.FILM_NEU_NR] = value;
                         datenFilm.setNew(Boolean.parseBoolean(value));
                     } else {
                         datenFilm.arr[DatenFilm.JSON_NAMES[i]] = jp.nextTextValue();
@@ -174,9 +176,10 @@ public class FilmlisteLesen {
     private void processFromFile(String source, ListeFilme listeFilme) {
         notifyProgress(source, PROGRESS_MAX);
         try (InputStream in = selectDecompressor(source, new FileInputStream(source));
-             JsonParser jp = new JsonFactory().createParser(in)) {
+             JsonParser jp = new JsonFactory().createParser(in)
+                     .configure(JsonParser.Feature.INCLUDE_SOURCE_IN_LOCATION, true)) {
             readData(jp, listeFilme);
-        } catch (FileNotFoundException ex) {
+        } catch (FileNotFoundException _) {
             Log.errorLog(894512369, "FilmListe existiert nicht: " + source);
             listeFilme.clear();
         } catch (Exception ex) {
@@ -212,7 +215,7 @@ public class FilmlisteLesen {
                 listeFilme.clear();
             }
         } catch (MalformedURLException ex) {
-            ex.printStackTrace();
+            Log.errorLog(945123642, ex, "FilmListe: " + source);
         }
 
         notifyFertig(source, listeFilme);
@@ -291,7 +294,7 @@ public class FilmlisteLesen {
     }
 
     private void notifyFertig(String url, ListeFilme liste) {
-        Log.sysLog("Liste Filme gelesen am: " + FastDateFormat.getInstance("dd.MM.yyyy, HH:mm").format(new Date()));
+        Log.sysLog("Liste Filme gelesen am: " + LocalDateTime.now(ZONE).format(FORMATTER));
         Log.sysLog("  erstellt am: " + liste.genDate());
         Log.sysLog("  Anzahl Filme: " + liste.size());
         for (ListenerFilmeLaden l : listeners.getListeners(ListenerFilmeLaden.class)) {
