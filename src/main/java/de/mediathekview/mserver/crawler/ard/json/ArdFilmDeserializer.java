@@ -9,6 +9,7 @@ import de.mediathekview.mserver.daten.Resolution;
 import de.mediathekview.mserver.daten.Sender;
 import de.mediathekview.mserver.base.utils.GeoLocationGuesser;
 import de.mediathekview.mserver.base.utils.JsonUtils;
+import de.mediathekview.mserver.base.utils.LanguageCodeUtils;
 import de.mediathekview.mserver.base.utils.UrlUtils;
 import de.mediathekview.mserver.crawler.ard.ArdConstants;
 import de.mediathekview.mserver.crawler.ard.ArdFilmDto;
@@ -624,7 +625,7 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
         final boolean matches = code.equalsIgnoreCase(language)
             || (language.equalsIgnoreCase("*") && !code.equalsIgnoreCase(MARKER_VIDEO_DE) && !code.equalsIgnoreCase("ov"));
         if (matches) {
-          final Optional<String> normalized = normalizeLanguageCode(code);
+          final Optional<String> normalized = LanguageCodeUtils.normalize(code);
           if (normalized.isPresent()) {
             return normalized;
           }
@@ -632,25 +633,5 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
       }
     }
     return Optional.empty();
-  }
-
-  /**
-   * Bringt einen Sprachcode aus den Senderdaten in die Form, die das Feld zusichert: dreistelliger
-   * ISO-639-2/T-Code in Kleinschreibung.
-   *
-   * <p>Eine etwaige Regionsangabe wird abgeschnitten ("spa-ES" wird zu "spa"). Alles, was danach
-   * kein dreistelliger Buchstabencode ist - ARDs Platzhalter "ov", ein leerer Wert, ein
-   * zweistelliger Code, den MServer mangels Tabelle nicht zuordnen koennte - ergibt nichts. Lieber
-   * kein Wert als einer, auf den sich Clients nicht verlassen koennen.
-   */
-  private static Optional<String> normalizeLanguageCode(final String rawCode) {
-    if (rawCode == null || rawCode.isBlank()) {
-      return Optional.empty();
-    }
-    final String primary = rawCode.trim().split("-")[0].toLowerCase(Locale.ROOT);
-    if (primary.length() != 3 || !primary.chars().allMatch(Character::isLetter)) {
-      return Optional.empty();
-    }
-    return "ov".equals(primary) ? Optional.empty() : Optional.of(primary);
   }
 }
