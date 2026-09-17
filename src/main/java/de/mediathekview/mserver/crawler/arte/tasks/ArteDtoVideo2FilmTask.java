@@ -16,6 +16,8 @@ import org.apache.logging.log4j.Logger;
 
 import de.mediathekview.mserver.crawler.arte.ArteVideoType;
 import de.mediathekview.mserver.crawler.arte.ArteRestVideoTypeMapper;
+import de.mediathekview.mserver.crawler.arte.json.ArteVideoLinkDto;
+import de.mediathekview.mserver.base.utils.LanguageCodeUtils;
 import de.mediathekview.mserver.crawler.arte.json.ArteVideoInfoDto;
 import de.mediathekview.mserver.crawler.basic.AbstractCrawler;
 import de.mediathekview.mserver.crawler.basic.AbstractRecursiveConverterTask;
@@ -64,10 +66,16 @@ public class ArteDtoVideo2FilmTask extends AbstractRecursiveConverterTask<Film, 
     Map<Resolution, FilmUrl> originalVersionSubs = buildVideoUrls(aElement, ArteVideoType.ORIGINAL_WITH_SUBTITLE);
     if (originalVersion.size() > 0) {
       Film film = buildFilmBody(aElement);
-      addFilm(buildFilmBody(aElement), film.getTitel()+ " (Originalversion)", originalVersion, originalVersionSubs);
+      Film originalVersionFilm = buildFilmBody(aElement);
+      originalVersionFilm.setAudioLanguage(
+          resolveAudioLanguage(aElement, ArteVideoType.ORIGINAL).orElse(null));
+      addFilm(originalVersionFilm, film.getTitel()+ " (Originalversion)", originalVersion, originalVersionSubs);
     } else if (originalVersionSubs.size() > 0) { // es gibt nur FR und FR mit UT dann nehmen wir FR mit UT
       Film film = buildFilmBody(aElement);
-      addFilm(buildFilmBody(aElement), film.getTitel()+ " (Originalversion mit Untertitel)", originalVersionSubs, null);
+      Film originalVersionFilm = buildFilmBody(aElement);
+      originalVersionFilm.setAudioLanguage(
+          resolveAudioLanguage(aElement, ArteVideoType.ORIGINAL_WITH_SUBTITLE).orElse(null));
+      addFilm(originalVersionFilm, film.getTitel()+ " (Originalversion mit Untertitel)", originalVersionSubs, null);
     }
     // ARTE provides subs as a new video
     Map<Resolution, FilmUrl> videoSub = buildVideoUrls(aElement, ArteVideoType.SUBTITLE_INCLUDED);
@@ -191,6 +199,49 @@ public class ArteDtoVideo2FilmTask extends AbstractRecursiveConverterTask<Film, 
     return urls;
   }
   
+
+  /**
+   * Liest die Sprache der Tonspur fuer den ersten Videolink, der zum uebergebenen Typ gehoert.
+   *
+   * <p>arte liefert sie im Listing unter {@code videos[].versions[].audioLanguage}, je
+   * Versionscode. Ausgewertet wurde bisher nur der Versionscode selbst, um den Videotyp zu
+   * bestimmen; die Sprache blieb ungenutzt und war im Filmliste-Eintrag nur noch als Titelzusatz
+   * "(Originalversion)" sichtbar, der sie nicht benennt.
+   *
+   * <p>Bei einer reinen Originalfassung (Code "VO") hilft dieser Block allein nicht weiter: arte
+   * zeichnet sie dort mit {@code und} aus, eine mehrsprachige Fassung ("VOEU") mit {@code mul}.
+   * Fuer diesen Fall wird auf {@code videos[].originalLanguage} zurueckgegriffen - die Sprache des
+   * Originals ist bei einer Originalfassung genau die der Tonspur. Fuer die synchronisierte Fassung
+   * waere derselbe Wert falsch, weshalb diese Methode nur fuer die Originalversionen aufgerufen
+   * wird.
+   *
+   * <p>Bleibt auch das ohne Ergebnis, bleibt das Feld leer. Zu raten waere schlechter, als nichts
+   * zu sagen.
+   *
+   * @param aElement die Videoinformationen des Beitrags.
+   * @param type der gesuchte Videotyp.
+   * @return die Sprache als ISO-639-2/T-Code, oder leer.
+   */
+  protected Optional<String> resolveAudioLanguage(ArteVideoInfoDto aElement, ArteVideoType type) {
+    for (ArteVideoLinkDto entry : aElement.getVideoLinks()) {
+      if (entry.getAudioCode().isEmpty()) {
+        continue;
+      }
+      final String audioCode = entry.getAudioCode().get();
+      final Optional<ArteVideoType> audioTypeCode =
+          ArteRestVideoTypeMapper.map(crawler.getSender(), audioCode);
+      if (audioTypeCode.isEmpty() || !audioTypeCode.get().equals(type)) {
+        continue;
+      }
+      final Optional<String> language =
+          LanguageCodeUtils.normalize(aElement.getAudioLanguagesByCode().get(audioCode));
+      if (language.isPresent()) {
+        return language;
+      }
+    }
+    return LanguageCodeUtils.normalize(aElement.getOriginalLanguage().orElse(null));
+  }
+
   protected Map<Resolution, String> builRawVideoUrls(ArteVideoInfoDto aElement, ArteVideoType type) {
     final Map<Resolution, String> urls = new EnumMap<>(Resolution.class);
     aElement.getVideoLinks().forEach( entry -> {
