@@ -13,9 +13,68 @@ import java.util.*;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 class ZdfFilmDetailTaskMultipleLanguagesTest extends ZdfTaskTestBase {
+
+  @Test
+  void audioLanguageIsOnlySetForAThreeLetterCode() throws Exception {
+    // Das Feld sichert den dreistelligen ISO-639-2/T-Code zu. Die Tracks des ZDF sind bisher
+    // ausnahmslos so ausgezeichnet - kaeme doch einmal ein zweistelliger Code, darf er nicht
+    // ungeprueft in der Filmliste landen.
+    final java.lang.reflect.Method setAudioLanguage =
+        ZdfFilmDetailTask.class.getDeclaredMethod("setAudioLanguage", String.class, Film.class);
+    setAudioLanguage.setAccessible(true);
+
+    assertThat(audioLanguageFor(setAudioLanguage, "eng"), equalTo("eng"));
+    assertThat(audioLanguageFor(setAudioLanguage, "fra"), equalTo("fra"));
+    // Deutsch ist die uebliche Fassung und bleibt leer.
+    assertThat(audioLanguageFor(setAudioLanguage, "deu"), nullValue());
+    // Die Art der Tonspur ist keine Sprache - Suffix wird abgeschnitten.
+    assertThat(audioLanguageFor(setAudioLanguage, "deu-ad"), nullValue());
+    assertThat(audioLanguageFor(setAudioLanguage, "eng-ad"), equalTo("eng"));
+    // Alles, was kein dreistelliger Buchstabencode ist, ergibt nichts.
+    assertThat(audioLanguageFor(setAudioLanguage, "de"), nullValue());
+    assertThat(audioLanguageFor(setAudioLanguage, "en"), nullValue());
+    assertThat(audioLanguageFor(setAudioLanguage, "123"), nullValue());
+  }
+
+  private static String audioLanguageFor(
+      final java.lang.reflect.Method setAudioLanguage, final String language) throws Exception {
+    final Film film =
+        new Film(
+            UUID.randomUUID(),
+            Sender.ZDF,
+            "Titel",
+            "Thema",
+            LocalDateTime.of(2026, 1, 1, 20, 15),
+            Duration.ofMinutes(90));
+    setAudioLanguage.invoke(null, language, film);
+    return film.getAudioLanguage();
+  }
+
+  @Test
+  void audioLanguageIsKeptForTheNonGermanVersion() {
+    // Das ZDF fuehrt die Downloads je Sprache und kennt den Code bereits als "eng". Bisher wurde
+    // daraus nur der Titelzusatz "(Englisch)"; der Code selbst war danach nicht mehr vorhanden.
+    final String filmUrl = "/content/documents/zdf/serien/hardsun/hard-sun-1-100.json";
+    final String videoUrl = "/tmd/2/android_native_5/vod/ptmd/mediathek/180416_2215_sendung_hsn";
+    setupSuccessfulJsonResponse(filmUrl, "/zdf/zdf_film_details_english.json");
+    setupSuccessfulJsonResponse(videoUrl, "/zdf/zdf_video_details_english.json");
+    setupHeadResponse(404);
+
+    final Set<Film> actual = executeTask(filmUrl);
+
+    final Film german =
+        actual.stream().filter(f -> !f.getTitel().contains("(Englisch)")).findFirst().orElseThrow();
+    final Film english =
+        actual.stream().filter(f -> f.getTitel().contains("(Englisch)")).findFirst().orElseThrow();
+
+    assertThat(english.getAudioLanguage(), equalTo("eng"));
+    // Die deutsche Fassung bleibt leer - wie ihr Titel, der ebenfalls keinen Zusatz bekommt.
+    assertThat(german.getAudioLanguage(), nullValue());
+  }
 
   @Test
   void testGermanAndEnglish() {

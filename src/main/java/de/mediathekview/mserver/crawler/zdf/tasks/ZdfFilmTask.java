@@ -83,8 +83,39 @@ public class ZdfFilmTask extends ZdfTaskBase<Film, ZdfFilmDto> {
     film.setWebsite(aFilm.getWebsite().orElse(null));
 
     updateTitle(aLanguage, film);
+    setAudioLanguage(aLanguage, film);
 
     return film;
+  }
+
+  /**
+   * Haelt die Sprache der Tonspur als Feld fest, dort wo sie bisher nur in den Titel geschrieben
+   * wurde.
+   *
+   * <p>Das ZDF fuehrt die Downloads ohnehin je Sprache und kennt den Code bereits in der Form, die
+   * das Feld zusichert ("deu", "eng", "fra"). Aus dem Code wurde bisher nur ein deutscher
+   * Titelzusatz; danach war er nicht mehr vorhanden.
+   *
+   * <p>Die deutsche Fassung bleibt leer - sie ist die uebliche Fassung des Senders, und ein Wert
+   * auf jedem Datensatz wuerde die Filmliste unnoetig aufblaehen. Das entspricht dem Titel, der
+   * fuer sie ebenfalls unveraendert bleibt.
+   *
+   * <p>Die Suffixe fuer Audiodeskription und Gebaerdensprache werden abgeschnitten: sie benennen
+   * die Art der Tonspur, nicht ihre Sprache.
+   */
+  private static void setAudioLanguage(final String aLanguage, final Film aFilm) {
+    final String languageCode = aLanguage.split("-")[0];
+    if (ZdfConstants.LANGUAGE_GERMAN.equals(languageCode)) {
+      return;
+    }
+    // Das Feld sichert den dreistelligen ISO-639-2/T-Code zu. Die Tracks des ZDF sind bisher
+    // ausnahmslos so ausgezeichnet ("deu", "eng"); sollte doch einmal etwas anderes kommen, bleibt
+    // das Feld lieber leer, als einen Wert zu fuehren, auf den sich Clients nicht verlassen
+    // koennen.
+    if (languageCode.length() != 3 || !languageCode.chars().allMatch(Character::isLetter)) {
+      return;
+    }
+    aFilm.setAudioLanguage(languageCode);
   }
 
   private static void updateTitle(final String aLanguage, final Film aFilm) {
