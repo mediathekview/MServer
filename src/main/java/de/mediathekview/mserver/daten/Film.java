@@ -14,6 +14,17 @@ public class Film extends Podcast {
   private Map<Resolution, FilmUrl> audioDescriptions;
   private Map<Resolution, FilmUrl> signLanguages;
 
+  /**
+   * Sprache der Tonspur dieses Films als ISO-639-2/T-Code ({@code "deu"}, {@code "eng"},
+   * {@code "fra"}), oder {@code null}, wenn der Sender sie nicht benennt.
+   *
+   * <p>Relevant vor allem fuer Originalversionen: die werden bisher nur ueber den Titelzusatz
+   * "(Originalversion)" kenntlich gemacht, der die Sprache nicht nennt. Sie geht damit verloren,
+   * obwohl sie beim Crawlen teilweise vorliegt - der ARD-Crawler liest die Streams bereits getrennt
+   * nach "eng" und "fra" ein.
+   */
+  private String audioLanguage;
+
   public Film(
       final UUID aUuid,
       final Sender aSender,
@@ -32,6 +43,7 @@ public class Film extends Podcast {
     audioDescriptions = copyObj.audioDescriptions;
     signLanguages = copyObj.signLanguages;
     subtitles = copyObj.subtitles;
+    audioLanguage = copyObj.audioLanguage;
   }
 
   /** DON'T USE! - ONLY FOR GSON! */
@@ -53,7 +65,23 @@ public class Film extends Podcast {
                         || urlEntry.getValue().getFileSize()
                             > getUrls().get(urlEntry.getKey()).getFileSize())
             .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue)));
+    // Beim Zusammenfuehren zweier Staende - etwa einer importierten aelteren Filmliste ohne das
+    // Feld und einem frischen Crawl - darf die einmal bekannte Sprache nicht verloren gehen.
+    if (audioLanguage == null && objToMergeWith instanceof Film filmToMergeWith) {
+      audioLanguage = filmToMergeWith.getAudioLanguage();
+    }
     return this;
+  }
+
+  /**
+   * @return Sprache der Tonspur als ISO-639-2/T-Code, oder {@code null} wenn unbekannt.
+   */
+  public String getAudioLanguage() {
+    return audioLanguage;
+  }
+
+  public void setAudioLanguage(final String aAudioLanguage) {
+    audioLanguage = aAudioLanguage;
   }
 
   public void addAllSubtitleUrls(final Set<URL> urlsToAdd) {
