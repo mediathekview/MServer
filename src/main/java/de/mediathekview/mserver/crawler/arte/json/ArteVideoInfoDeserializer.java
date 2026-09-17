@@ -2,6 +2,8 @@ package de.mediathekview.mserver.crawler.arte.json;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -41,6 +43,12 @@ public class ArteVideoInfoDeserializer implements JsonDeserializer<PagedElementL
   private static final String TAG_SUBTITLES_FILENAME = "filename";
 
   private static final String TAG_VIDEO_INFO = "videos";
+
+  private static final String[] TAG_ORIGINAL_LANGUAGE = {"originalLanguage", "iso6391Code"};
+
+  private static final String TAG_VERSIONS = "versions";
+  private static final String TAG_VERSIONS_AUDIO_CODE = "audioCode";
+  private static final String TAG_VERSIONS_AUDIO_LANGUAGE = "audioLanguage";
   
   private static final String TAG_FIRST_BROADCAST_DATE = "firstBroadcastDate";
   private static final String TAG_ID = "id";
@@ -147,8 +155,40 @@ public class ArteVideoInfoDeserializer implements JsonDeserializer<PagedElementL
     );
     
     arteRestVideoInfoDto.setSubtitleLinks(arteRestSubtitleLinkDto);
+    arteRestVideoInfoDto.setAudioLanguagesByCode(parseAudioLanguages(arrayElement));
+    arteRestVideoInfoDto.setOriginalLanguage(
+        JsonUtils.getElementValueAsString(arrayElement, TAG_ORIGINAL_LANGUAGE).orElse(null));
     
     return Optional.of(arteRestVideoInfoDto);
+  }
+
+  /**
+   * Liest die Sprache der Tonspur je Versionscode aus {@code versions[]}.
+   *
+   * <p>Bisher wurde dieser Block nicht ausgewertet. Der Versionscode allein ("VOF", "VOA", "VO")
+   * landet spaeter nur als Titelzusatz "(Originalversion)" in der Filmliste, der die Sprache nicht
+   * benennt - obwohl arte sie hier daneben mitliefert.
+   *
+   * @param arrayElement der Eintrag aus {@code videos[]}.
+   * @return Zuordnung Versionscode auf Sprachcode; leer, wenn der Block fehlt.
+   */
+  private Map<String, String> parseAudioLanguages(final JsonElement arrayElement) {
+    if (!arrayElement.getAsJsonObject().has(TAG_VERSIONS)
+        || !arrayElement.getAsJsonObject().get(TAG_VERSIONS).isJsonArray()) {
+      return Map.of();
+    }
+
+    final Map<String, String> audioLanguages = new HashMap<>();
+    for (JsonElement version : arrayElement.getAsJsonObject().get(TAG_VERSIONS).getAsJsonArray()) {
+      final Optional<String> audioCode =
+          JsonUtils.getElementValueAsString(version, TAG_VERSIONS_AUDIO_CODE);
+      final Optional<String> audioLanguage =
+          JsonUtils.getElementValueAsString(version, TAG_VERSIONS_AUDIO_LANGUAGE);
+      if (audioCode.isPresent() && audioLanguage.isPresent()) {
+        audioLanguages.putIfAbsent(audioCode.get(), audioLanguage.get());
+      }
+    }
+    return audioLanguages;
   }
 
 }

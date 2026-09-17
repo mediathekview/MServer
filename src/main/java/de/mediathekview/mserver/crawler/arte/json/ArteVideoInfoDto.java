@@ -1,6 +1,7 @@
 package de.mediathekview.mserver.crawler.arte.json;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -39,6 +40,19 @@ public class ArteVideoInfoDto extends CrawlerUrlDTO {
   private Optional<String> pageIndex;
   private List<ArteVideoLinkDto> videoLinks;
   private List<ArteSubtitleLinkDto> subtitleLinks;
+  /**
+   * Sprache der Tonspur je arte-Versionscode, so wie arte sie im Listing unter
+   * {@code videos[].versions[]} liefert (z.B. "VOF" auf "fr"). Die Werte sind unveraendert
+   * uebernommen und enthalten daher auch arte-eigene Platzhalter wie "und" und "mul".
+   */
+  private Map<String, String> audioLanguagesByCode = Map.of();
+  /**
+   * Sprache des Originals, so wie arte sie im Listing unter {@code videos[].originalLanguage}
+   * fuehrt (dort als zweistelliger Code in {@code iso6391Code}). Unveraendert uebernommen, also
+   * ggf. leer oder ein Platzhalter wie "mul". Gilt fuer das Werk, nicht fuer die einzelne
+   * Tonspur - eine deutsch synchronisierte Fassung eines franzoesischen Films fuehrt hier "fr".
+   */
+  private String originalLanguage;
   
   // ONLY for unit tests
   public ArteVideoInfoDto(Optional<String> id, Optional<String> programId,Optional<String> kind, Optional<String> language) {
@@ -174,6 +188,20 @@ public class ArteVideoInfoDto extends CrawlerUrlDTO {
     videoLinks = input;
   }
   
+  public Map<String, String> getAudioLanguagesByCode() {
+    return audioLanguagesByCode;
+  }
+  public void setAudioLanguagesByCode(Map<String, String> input) {
+    audioLanguagesByCode = input == null ? Map.of() : input;
+  }
+
+  public Optional<String> getOriginalLanguage() {
+    return Optional.ofNullable(originalLanguage);
+  }
+  public void setOriginalLanguage(String input) {
+    originalLanguage = input;
+  }
+
   public List<ArteSubtitleLinkDto> getSubtitleLinks() {
     return subtitleLinks;
   }
