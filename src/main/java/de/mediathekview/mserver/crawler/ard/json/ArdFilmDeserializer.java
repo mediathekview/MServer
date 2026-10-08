@@ -223,19 +223,23 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
       ArdVideoInfoDto allVideoUrlsOV = new ArdVideoInfoDto();
       allVideoUrlsOV.putAll(videoInfo.get().getVideoUrlsOV());
       allVideoUrlsOV.setSubtitleUrl(videoInfo.get().getSubtitleUrl());
-      final ArdFilmDto filmDtoOV =
-          new ArdFilmDto(
-              createFilm(
-                  id.get(),
-                  sender,
-                  topic.get(),
-                  title.get() + " (Originalversion)",
-                  description.orElse(null),
-                  date.orElse(null),
-                  duration.orElse(null),
-                  allVideoUrlsOV,
-                  geoBlocked));
-      films.add(filmDtoOV);
+      allVideoUrlsOV.setOvLanguage(videoInfo.get().getOvLanguage());
+      final Film filmOV =
+          createFilm(
+              id.get(),
+              sender,
+              topic.get(),
+              title.get() + " (Originalversion)",
+              description.orElse(null),
+              date.orElse(null),
+              duration.orElse(null),
+              allVideoUrlsOV,
+              geoBlocked);
+      // Nur die Originalfassung traegt die Sprache. Die Hauptfassung bleibt leer: sie ist die
+      // uebliche Fassung des Senders, und ein Wert auf jedem Datensatz wuerde die Filmliste
+      // unnoetig aufblaehen.
+      filmOV.setAudioLanguage(videoInfo.get().getOvLanguage());
+      films.add(new ArdFilmDto(filmOV));
     }
     
     return films;
@@ -430,15 +434,26 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
     if (videoInfoOV.isEmpty() && videoInfoOVAdaptive.isPresent()) {
       videoInfoOV = getResolutionsFromAdaptiveUrl(videoInfoOVAdaptive);
     }
+    // Die Sprache ist hier bekannt - die Streams wurden oben getrennt nach "eng" und "fra"
+    // eingelesen. Bisher ging sie beim Zusammenfassen zur Originalversion verloren, sodass im
+    // Ergebnis nur noch der Titelzusatz "(Originalversion)" ohne Sprachangabe stand.
+    String ovLanguage = null;
     if (videoInfoOV.isEmpty() && videoInfoEng.isPresent()) {
       videoInfoOV = videoInfoEng;
+      ovLanguage = MARKER_VIDEO_ENG;
     }
     if (videoInfoOV.isEmpty() && videoInfoFra.isPresent()) {
       videoInfoOV = videoInfoFra;
+      ovLanguage = MARKER_VIDEO_FRA;
     }
     // flaws - missing proper video marker - mainly tagesschau
     if ((title.contains(" - (Originalversion)") || title.contains(" (OV)")) && videoInfoOV.isEmpty()) {
       videoInfoOV = parseVideoUrls(playerPageObject, MARKER_VIDEO_CATEGORY_MAIN, MARKER_VIDEO_STANDARD, MARKER_VIDEO_MP4, "*");
+      // Dieser Zweig faengt jede Sprache ab, nicht nur die oben durchprobierten "eng" und "fra".
+      // Der Code wird deshalb aus den Daten gelesen statt aus dem zutreffenden Filter abgeleitet.
+      if (videoInfoOV.isPresent()) {
+        ovLanguage = parseAudioLanguageCode(playerPageObject, MARKER_VIDEO_CATEGORY_MAIN, MARKER_VIDEO_STANDARD, MARKER_VIDEO_MP4, "*").orElse(null);
+      }
     }
     if ((title.contains(" (mit Gebärdensprache)") || title.contains(" mit Gebärdensprache")) && videoInfoStandard.isPresent() && videoInfoDGS.isEmpty()) {
       videoInfoDGS = videoInfoStandard;
@@ -454,6 +469,7 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
     videoInfoDGS.ifPresent(allVideoUrls::putAllDGS);
     videoInfoOVAdaptive.ifPresent(x -> allVideoUrls.setAdaptivUrl(x.entrySet().stream().findFirst().get().getValue()));
     videoInfoOV.ifPresent(allVideoUrls::putAllOV);
+    allVideoUrls.setOvLanguage(ovLanguage);
     subtitles.ifPresent(allVideoUrls::setSubtitleUrl);
     
     if (allVideoUrls.getVideoUrls().isEmpty() && allVideoUrls.getVideoUrlsAD().isEmpty() && allVideoUrls.getVideoUrlsDGS().isEmpty() && allVideoUrls.getVideoUrlsOV().isEmpty() ) {
@@ -558,5 +574,83 @@ public class ArdFilmDeserializer implements JsonDeserializer<List<ArdFilmDto>> {
       return Optional.empty();
     }
     return Optional.of(videoInfo);
+  }
+
+  /**
+   * Liefert den tatsaechlichen Sprachcode ({@code audio[0].languageCode}) des ersten Streams, der
+   * zum uebergebenen Filter passt.
+   *
+   * <p>Die Auswahl der Streams oben probiert nur die fest verdrahteten Codes "deu", "eng" und "fra"
+   * durch. Eine Originalversion in einer anderen Sprache - spanisch, polnisch, tuerkisch - landet
+   * ueber den Platzhalter "*" trotzdem korrekt als Originalversion, ihre Sprache waere aber nicht
+   * bekannt. Statt sie aus dem zutreffenden Filter zu erraten, wird sie hier aus den Daten gelesen.
+   *
+   * <p>Die Platzhalter "OV" und "*" selbst benennen keine Sprache; ARDs eigener Platzhalter "ov"
+   * im Feld wird deshalb verworfen.
+   */
+  private Optional<String> parseAudioLanguageCode(final JsonObject playerPageObject, String streamType, String aduioType, String mimeType, String language) {
+    final Optional<JsonObject> mediaCollectionObject = getMediaCollectionObject(playerPageObject);
+    if (mediaCollectionObject.isEmpty()) {
+      return Optional.empty();
+    }
+    final Optional<JsonElement> streams = JsonUtils.getElement(mediaCollectionObject.get(), ELEMENT_STREAMS);
+    if (streams.isEmpty() || !streams.get().isJsonArray() || streams.get().getAsJsonArray().isEmpty()) {
+      return Optional.empty();
+    }
+    for (JsonElement streamsCategory : streams.get().getAsJsonArray()) {
+      final Optional<String> streamKind = JsonUtils.getElementValueAsString(streamsCategory, ATTRIBUTE_KIND);
+      final Optional<JsonElement> media = JsonUtils.getElement(streamsCategory, ELEMENT_MEDIA);
+      if (media.isEmpty() || !media.get().isJsonArray() || media.get().getAsJsonArray().isEmpty()) {
+        continue;
+      }
+      if (!streamKind.orElse("").equalsIgnoreCase(streamType)) {
+        continue;
+      }
+      for (JsonElement video : media.get().getAsJsonArray()) {
+        final Optional<String> mime = JsonUtils.getElementValueAsString(video, ATTRIBUTE_MIME);
+        if (mime.isEmpty() || !mime.get().equalsIgnoreCase(mimeType)) {
+          continue;
+        }
+        final Optional<JsonElement> audios = JsonUtils.getElement(video, ELEMENT_AUDIO);
+        if (audios.isEmpty() || !audios.get().isJsonArray() || audios.get().getAsJsonArray().isEmpty()) {
+          continue;
+        }
+        final Optional<String> kind = JsonUtils.getElementValueAsString(audios.get().getAsJsonArray().get(0), ATTRIBUTE_KIND);
+        final Optional<String> languageCode = JsonUtils.getElementValueAsString(audios.get().getAsJsonArray().get(0), ATTRIBUTE_ADUIO_LANG);
+        if (kind.isEmpty() || !kind.get().equalsIgnoreCase(aduioType)) {
+          continue;
+        }
+        final String code = languageCode.orElse("");
+        final boolean matches = code.equalsIgnoreCase(language)
+            || (language.equalsIgnoreCase("*") && !code.equalsIgnoreCase(MARKER_VIDEO_DE) && !code.equalsIgnoreCase("ov"));
+        if (matches) {
+          final Optional<String> normalized = normalizeLanguageCode(code);
+          if (normalized.isPresent()) {
+            return normalized;
+          }
+        }
+      }
+    }
+    return Optional.empty();
+  }
+
+  /**
+   * Bringt einen Sprachcode aus den Senderdaten in die Form, die das Feld zusichert: dreistelliger
+   * ISO-639-2/T-Code in Kleinschreibung.
+   *
+   * <p>Eine etwaige Regionsangabe wird abgeschnitten ("spa-ES" wird zu "spa"). Alles, was danach
+   * kein dreistelliger Buchstabencode ist - ARDs Platzhalter "ov", ein leerer Wert, ein
+   * zweistelliger Code, den MServer mangels Tabelle nicht zuordnen koennte - ergibt nichts. Lieber
+   * kein Wert als einer, auf den sich Clients nicht verlassen koennen.
+   */
+  private static Optional<String> normalizeLanguageCode(final String rawCode) {
+    if (rawCode == null || rawCode.isBlank()) {
+      return Optional.empty();
+    }
+    final String primary = rawCode.trim().split("-")[0].toLowerCase(Locale.ROOT);
+    if (primary.length() != 3 || !primary.chars().allMatch(Character::isLetter)) {
+      return Optional.empty();
+    }
+    return "ov".equals(primary) ? Optional.empty() : Optional.of(primary);
   }
 }
