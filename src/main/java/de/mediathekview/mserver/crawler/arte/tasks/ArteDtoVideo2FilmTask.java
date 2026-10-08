@@ -194,9 +194,10 @@ public class ArteDtoVideo2FilmTask extends AbstractRecursiveConverterTask<Film, 
   protected Map<Resolution, String> builRawVideoUrls(ArteVideoInfoDto aElement, ArteVideoType type) {
     final Map<Resolution, String> urls = new EnumMap<>(Resolution.class);
     aElement.getVideoLinks().forEach( entry -> {
-      Optional<ArteVideoType> audioTypeCode = ArteRestVideoTypeMapper.map(crawler.getSender(), entry.getAudioCode().get());
+      Optional<ArteVideoType> audioTypeCode = ArteRestVideoTypeMapper.map(crawler.getSender(), entry.getAudioCode().orElse(""));
       if (audioTypeCode.isPresent() && audioTypeCode.get().equals(type)) {
-        urls.put(ArteRestVideoTypeMapper.mapQuality(entry.getQuality().get()).get(), entry.getUrl().get());
+        Optional<Resolution> resulution = ArteRestVideoTypeMapper.mapQuality(entry.getQuality().get());
+        resulution.ifPresent(qualities -> urls.put(qualities, entry.getUrl().get()));
       }
     });
     return urls;
