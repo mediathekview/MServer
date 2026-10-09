@@ -21,6 +21,13 @@ public class ArdVideoInfoDto {
   private final Map<Resolution, String> videoUrlsDGS;
   private final Map<Resolution, String> videoUrlsOV;
   private String adaptivUrl = null;
+
+  /**
+   * Sprache der Originalversion als ISO-639-2/T-Code, sofern bekannt. Die ARD liefert die Streams
+   * je Sprache getrennt aus ("eng", "fra"); bisher wurde diese Zuordnung beim Zusammenfassen zur
+   * Originalversion verworfen.
+   */
+  private String ovLanguage = null;
   
   private Set<String> subtitleUrl;
 
@@ -132,6 +139,14 @@ public class ArdVideoInfoDto {
 
   public String getAdaptivUrl() {
     return adaptivUrl;
+  }
+
+  public String getOvLanguage() {
+    return ovLanguage;
+  }
+
+  public void setOvLanguage(String ovLanguage) {
+    this.ovLanguage = ovLanguage;
   }
 
   public void setAdaptivUrl(String adaptivUrl) {
