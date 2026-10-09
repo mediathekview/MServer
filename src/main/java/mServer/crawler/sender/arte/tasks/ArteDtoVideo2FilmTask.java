@@ -190,9 +190,10 @@ public class ArteDtoVideo2FilmTask extends AbstractRecursivConverterTask<DatenFi
   protected Map<Qualities, String> buildVideoUrls(ArteVideoInfoDto aElement, ArteVideoType type) {
     final Map<Qualities, String> urls = new EnumMap<>(Qualities.class);
     aElement.getVideoLinks().forEach(entry -> {
-      Optional<ArteVideoType> audioTypeCode = ArteRestVideoTypeMapper.map(sender, entry.getAudioCode().get());
+      Optional<ArteVideoType> audioTypeCode = ArteRestVideoTypeMapper.map(sender, entry.getAudioCode().orElse(""));
       if (audioTypeCode.isPresent() && audioTypeCode.get().equals(type)) {
-        urls.put(ArteRestVideoTypeMapper.mapQuality(entry.getQuality().get()).get(), entry.getUrl().get());
+        Optional<Qualities> quality = ArteRestVideoTypeMapper.mapQuality(entry.getQuality().get());
+        quality.ifPresent(qualities -> urls.put(qualities, entry.getUrl().get()));
       }
     });
     return urls;
