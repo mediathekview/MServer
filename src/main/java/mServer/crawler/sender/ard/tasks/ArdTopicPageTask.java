@@ -55,6 +55,10 @@ public class ArdTopicPageTask extends ArdTaskBase<ArdFilmInfoDto, CrawlerUrlDTO>
     TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL2Rhc2Vyc3RlLmRlL2JhYnlsb24tYmVybGluL2JhYmlsb24tYmVybGxpbi1zZXJpZW4tY2FzdC1mcm9lLTIwMTktc2VyaWVucy1jYXN0LWZyb2U");
     // Tarort
     TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL2Rhc2Vyc3RlLmRlL3RhdG9ydA");
+    // Polizeiruf
+    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL2Rhc2Vyc3RlLmRlL3BvbGl6ZWlydWYgMTEw");
+    // alpha doku
+    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL2JyLmRlL2Jyb2FkY2FzdFNlcmllcy9mYWFlYzY1NS01YzMyLTRjMzktYmNiMS00NGNiNDc2NDVkNzQ");
     // example: TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL2Rhc2Vyc3RlLmRlL3Nwb3J0c2NoYXU");
   }
 
