@@ -61,6 +61,8 @@ public class ArdTopicPageTask extends ArdTaskBase<ArdFilmInfoDto, CrawlerUrlDTO>
     TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL2JyLmRlL2Jyb2FkY2FzdFNlcmllcy9mYWFlYzY1NS01YzMyLTRjMzktYmNiMS00NGNiNDc2NDVkNzQ");
     // in aller Freundschaft
     TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL21kci5kZS9zZW5kZXJlaWhlbi9zdGFmZmVsc2VyaWUtaW4tYWxsZXItZnJldW5kc2NoYWZ0");
+    // Usedom-Krimi
+    TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL2Rhc2Vyc3RlLmRlL2Rlci11c2Vkb20ta3JpbWk");
     // example: TOPICS_LOAD_ALL_PAGES.add("Y3JpZDovL2Rhc2Vyc3RlLmRlL3Nwb3J0c2NoYXU");
   }
 
