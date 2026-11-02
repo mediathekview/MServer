@@ -3,6 +3,17 @@
     {
       "programId": "118963-000-A",
       "url": "http:\/\/arteptweb-a.akamaihd.net\/am\/ptweb\/118000\/118900\/118963-000-A_SQ_0_VO-STE%5BPOL%5D_09352190_MP4-2200_AMM-PTWEB-101164514603132_2Qk0w17ZyeQ.mp4",
+      "quality": "DA",
+      "audioSlot": 8,
+      "audioCode": "VA-STMA",
+      "audioLabel": "Originalfassung - UT Polnisch",
+      "audioShortLabel": "OmU-POL",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "programId": "118963-000-A",
+      "url": "http:\/\/arteptweb-a.akamaihd.net\/am\/ptweb\/118000\/118900\/118963-000-A_SQ_0_VO-STE%5BPOL%5D_09352190_MP4-2200_AMM-PTWEB-101164514603132_2Qk0w17ZyeQ.mp4",
       "quality": "SQ",
       "audioSlot": 8,
       "audioCode": "VO-STE[POL]",
