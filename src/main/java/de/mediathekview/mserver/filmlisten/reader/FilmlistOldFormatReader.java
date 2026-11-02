@@ -155,7 +155,18 @@ public class FilmlistOldFormatReader extends AbstractFilmlistReader {
     jsonReader.nextString(); // Url History
     jsonReader.nextString(); // Geo
     jsonReader.nextString(); // neu
+    readOptionalHeaderColumn(jsonReader); // Sprache
     jsonReader.endArray();
+  }
+
+  /**
+   * Liest eine optionale, hinten angehaengte Spalte. Aeltere Filmlisten fuehren sie nicht, deshalb
+   * wird nur gelesen, wenn ueberhaupt noch ein Wert vor dem Array-Ende steht.
+   */
+  private void readOptionalHeaderColumn(JsonReader jsonReader) throws IOException {
+    if (jsonReader.peek() == JsonToken.STRING) {
+      jsonReader.nextString();
+    }
   }
   
   private Optional<Film> readRecord(JsonReader jsonReader) throws IOException {
@@ -212,6 +223,13 @@ public class FilmlistOldFormatReader extends AbstractFilmlistReader {
     f.setGeoLocations(readRecord19Geo(jsonReader.nextString()));
     //
     f.setNeu(readRecord20Neu(jsonReader.nextString()));
+    // Hinten angehaengt und optional: Filmlisten aelterer MServer-Staende haben das Feld nicht.
+    if (jsonReader.peek() == JsonToken.STRING) {
+      final String sprache = jsonReader.nextString();
+      if (!sprache.isEmpty()) {
+        f.setAudioLanguage(sprache);
+      }
+    }
     //
     jsonReader.endArray();
     //

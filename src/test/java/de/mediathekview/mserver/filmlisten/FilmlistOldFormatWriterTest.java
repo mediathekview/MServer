@@ -1,6 +1,7 @@
 package de.mediathekview.mserver.filmlisten;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import de.mediathekview.mserver.daten.Film;
@@ -31,6 +32,84 @@ class FilmlistOldFormatWriterTest {
   Path tempDir;
   
   @Test
+  void audioLanguageSurvivesWriteAndRead() throws IOException {
+    // Kern des Ganzen: die Sprache muss den Weg durch das alte Format ueberstehen. Ohne das Feld
+    // bleibt von einer englischen Originalfassung nur der Titelzusatz "(Originalversion)" uebrig,
+    // der die Sprache nicht nennt.
+    final Filmlist input = new Filmlist();
+    final Film withLanguage = buildMinimalFilm("Mit Sprache (Originalversion)");
+    withLanguage.setAudioLanguage("eng");
+    final Film withoutLanguage = buildMinimalFilm("Ohne Sprache");
+    input.add(withLanguage);
+    input.add(withoutLanguage);
+
+    final Filmlist afterRoundTrip = writeAndRead(input);
+
+    assertEquals(2, afterRoundTrip.getFilms().size());
+    final Film readWithLanguage = findByTitle(afterRoundTrip, "Mit Sprache (Originalversion)");
+    final Film readWithoutLanguage = findByTitle(afterRoundTrip, "Ohne Sprache");
+    assertEquals("eng", readWithLanguage.getAudioLanguage());
+    // Kein Sender-Wert darf nicht als leerer String zurueckkommen, sondern gar nicht gesetzt sein.
+    assertNull(readWithoutLanguage.getAudioLanguage());
+  }
+
+  @Test
+  void filmlistWithoutLanguageColumnStillReads() throws IOException {
+    // Rueckwaertskompatibilitaet in die andere Richtung: eine Filmliste eines aelteren
+    // MServer-Standes fuehrt die Spalte nicht. Der Reader muss sie weiterhin lesen koennen.
+    final Path testFilePath =
+        new File(
+                Thread.currentThread()
+                    .getContextClassLoader()
+                    .getResource("mlib/TestFilmlistOldFormatWriter.json")
+                    .getFile())
+            .toPath();
+    final String withColumn = Files.readString(testFilePath, StandardCharsets.UTF_8);
+    final String withoutColumn = withColumn.replace(",\"Sprache\"]", "]").replace(",\"\"]", "]");
+
+    final Path legacyFile = Files.createTempFile(tempDir, "LegacyFilmlist", ".json");
+    Files.writeString(legacyFile, withoutColumn, StandardCharsets.UTF_8);
+
+    final Optional<Filmlist> read =
+        new FilmlistOldFormatReader().read(new FileInputStream(legacyFile.toString()));
+
+    assertTrue(read.isPresent());
+    assertTrue(read.get().getFilms().size() > 0);
+    read.get().getFilms().values().forEach(film -> assertNull(film.getAudioLanguage()));
+  }
+
+  private Film buildMinimalFilm(final String titel) throws java.net.MalformedURLException {
+    final Film film =
+        new Film(
+            UUID.randomUUID(),
+            Sender.ARD,
+            titel,
+            "Testthema",
+            LocalDateTime.of(2026, 1, 1, 20, 15),
+            Duration.ofMinutes(90));
+    film.addUrl(Resolution.NORMAL, new FilmUrl("https://example.org/v.mp4", 1L));
+    film.addGeolocation(GeoLocations.GEO_NONE);
+    return film;
+  }
+
+  private Filmlist writeAndRead(final Filmlist input) throws IOException {
+    final Path tempFile = Files.createTempFile(tempDir, "AudioLanguageRoundTrip", ".json");
+    new FilmlistOldFormatWriter().write(input, tempFile);
+    final Optional<Filmlist> read =
+        new FilmlistOldFormatReader().read(new FileInputStream(tempFile.toString()));
+    Files.deleteIfExists(tempFile);
+    assertTrue(read.isPresent());
+    return read.get();
+  }
+
+  private Film findByTitle(final Filmlist list, final String titel) {
+    return list.getFilms().values().stream()
+        .filter(film -> titel.equals(film.getTitel()))
+        .findFirst()
+        .orElseThrow();
+  }
+
+  @Test
   void readFilmlistOldFormatIncludingBrokenRecords()
       throws IOException {
     ClassLoader classLoader = getClass().getClassLoader();
@@ -43,8 +122,11 @@ class FilmlistOldFormatWriterTest {
     
     assertTrue( Files.exists(tempFile));
     //
-    String actualData = Files.readString(tempFile, StandardCharsets.UTF_16).substring(100);
-    String expectedData = Files.readString(testFilePath, StandardCharsets.UTF_16).substring(100);
+    // FilmlistOldFormatWriter schreibt UTF-8 (OutputStreamWriter mit StandardCharsets.UTF_8).
+    // Das Einlesen als UTF-16 lief bisher nur deshalb durch, weil die Dateilaenge zufaellig
+    // gerade war; bei ungerader Byteanzahl wirft readString eine MalformedInputException.
+    String actualData = Files.readString(tempFile, StandardCharsets.UTF_8).substring(100);
+    String expectedData = Files.readString(testFilePath, StandardCharsets.UTF_8).substring(100);
     assertEquals(expectedData, actualData, "Filmlisten stimmen überein.");
     //
     Files.deleteIfExists(tempFile);

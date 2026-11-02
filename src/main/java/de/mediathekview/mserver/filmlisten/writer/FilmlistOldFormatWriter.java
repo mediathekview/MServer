@@ -147,6 +147,10 @@ public class FilmlistOldFormatWriter extends AbstractFilmlistWriter {
     jsonWriter.value("Url History");
     jsonWriter.value("Geo");
     jsonWriter.value("neu");
+    // Neue Felder werden HINTEN angefuegt: der Desktop-Client liest den Datensatz
+    // positionsbasiert und ueberspringt die Spaltenkopfzeile vollstaendig
+    // (FilmListReader.skipFieldDescriptions), ein angehaengtes Feld wird dort daher ignoriert.
+    jsonWriter.value("Sprache");
     jsonWriter.endArray();
   }
 
@@ -172,7 +176,22 @@ public class FilmlistOldFormatWriter extends AbstractFilmlistWriter {
     jsonWriter.value(""); // Url History
     jsonWriter.value(writeRecord19Geo(film));
     jsonWriter.value(writeRecord20Neu(film));
+    jsonWriter.value(writeRecord21Sprache(film));
     jsonWriter.endArray();
+  }
+
+  /**
+   * Sprache der Tonspur als ISO-639-2/T-Code, leer wenn der Sender sie nicht benennt.
+   *
+   * <p>Bewusst ein einfacher String und kein Array: der Desktop-Client prueft beim Weiterlesen mit
+   * {@code isExpectedStartArrayToken()}, ob der naechste Token ein Datensatz ist. Ein angehaengtes
+   * Array wuerde dort als Filmdatensatz interpretiert.
+   */
+  private String writeRecord21Sprache(AbstractMediaResource<?> in) {
+    if (in instanceof Film film && film.getAudioLanguage() != null) {
+      return film.getAudioLanguage();
+    }
+    return "";
   }
 
   private String writeRecord01Sender(AbstractMediaResource<?> in, String aSender) {
