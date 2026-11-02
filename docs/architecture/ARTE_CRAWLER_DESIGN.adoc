@@ -1,0 +1,505 @@
+= ARTE Crawler Design
+:toc:
+:sectnums:
+
+This document describes the implemented ARTE crawler for engineers maintaining MServer.
+The production sources and executable tests listed at the end define the behavior described here.
+Statements about behavior describe the implementation; external API shapes and URL conventions are dependencies to revalidate when ARTE changes its service.
+
+== Purpose and scope
+
+The crawler discovers available programmes through ARTE's EMAC catalogue, resolves playback information through player v2, and returns MServer `Film` objects.
+The active path does not use the retired OPA catalogue or MP4-stream endpoints.
+
+The implementation uses Java 25 and existing MServer dependencies: Gson for JSON, OkHttp for HTTP, Guava for rate limiting, and Log4j for logging.
+It preserves MServer's existing crawler lifecycle, history filtering, progress reporting, sender identities, and output model.
+
+A crawl runs in two phases:
+
+. Discover and deduplicate programme references without requesting player details.
+. Filter those references through the existing history service and resolve the remaining programmes with bounded concurrency.
+
+This separation reduces redundant player requests and bounds the number of concurrent metadata and playlist operations.
+It does not imply exhaustive discovery of every programme on ARTE: coverage depends on the feeds ARTE exposes, collection discovery, configured pagination limits, availability, and request failures.
+
+== Components and integration
+
+All four classes below are in `de.mediathekview.mserver.crawler.arte`.
+
+[cols="1,3",options="header"]
+|===
+|Component |Responsibility
+|`ArteCrawler` and its locale subclasses
+|Select the catalogue language and MServer sender; create an `ArteCrawlTask` for the framework to invoke.
+|`ArteCrawlTask`
+|Own the crawl lifecycle, HTTP transport, history-filter boundary, worker executor, result set, progress updates, and cancellation bridge.
+|`ArteCatalogue`
+|Discover programme references, interpret player responses, select audio versions, and construct films. Its injected `Http` function and error callback separate API behavior from scheduling and transport.
+|`ArteHttpClient`
+|Own a shared OkHttp client for one crawl; apply request timeouts, the sender's rate limiter, HTTP status handling, and bounded rate-limit retries.
+|===
+
+`AbstractCrawler.call()` starts the framework timeout, creates the task, invokes it on the crawler's Fork/Join pool, collects its returned films, and applies the existing invalid-entry filter.
+Creating the ARTE task itself performs no catalogue requests.
+The task remains a `RecursiveTask<Set<Film>>` to fit that boundary, but does not recursively split individual ARTE requests into Fork/Join tasks.
+
+The retired OPA task, DTO, deserializer, and version-mapper classes have been removed together with their obsolete tests and fixtures.
+The active tests exercise the current catalogue, transport, and crawl scheduler directly.
+
+[source,text]
+----
+AbstractCrawler.call()
+  |
+  +-- ArteCrawler.createCrawlerTask()
+  |     selects one catalogue language and Sender
+  |
+  +-- ForkJoinPool.invoke(ArteCrawlTask)
+        |
+        +-- shared ArteHttpClient
+        |
+        +-- ArteCatalogue.discover()             [one coordinator]
+        |     ALL_VIDEOS -> zones -> pages
+        |                    -> collections -> episode pages
+        |     deduplicate by programme ID
+        |
+        +-- AbstractCrawler.filterExistingFilms()
+        |     Programme.id() -> FilmDBService
+        |
+        +-- ConcurrentLinkedQueue<Programme>
+        |     up to four virtual-thread workers
+        |       -> ArteCatalogue.films(programme)
+        |       -> player JSON / optional HLS and subtitle requests
+        |       -> ConcurrentHashMap-backed Set<Film>
+        |
+        +-- close workers and transport; return films
+  |
+  +-- framework invalid-entry filtering and subsequent processing
+----
+
+== Catalogue, sender, and audio language
+
+These are separate concepts.
+A configured ARTE crawler reads one catalogue; it does not aggregate all language catalogues into one task.
+The existing subclasses supply the following pairs:
+
+[cols="1,1,1,1",options="header"]
+|===
+|Crawler |Catalogue |Sender enum |Sender name
+|`ArteCrawler` |`de` |`ARTE_DE` |`ARTE.DE`
+|`ArteCrawler_FR` |`fr` |`ARTE_FR` |`ARTE.FR`
+|`ArteCrawler_EN` |`en` |`ARTE_EN` |`ARTE.EN`
+|`ArteCrawler_ES` |`es` |`ARTE_ES` |`ARTE.ES`
+|`ArteCrawler_IT` |`it` |`ARTE_IT` |`ARTE.IT`
+|`ArteCrawler_PL` |`pl` |`ARTE_PL` |`ARTE.PL`
+|===
+
+`Film.sender` comes from the crawler, not from an audio track's language.
+For example, a French original discovered through the German catalogue remains `ARTE.DE`, with `Film.audioLanguage = "fra"` when that language is known.
+A Polish-catalogue programme may have original audio in another language and Polish subtitles; catalogue membership does not establish Polish audio.
+
+The existing sender model has no Romanian ARTE sender in this implementation.
+Adding a catalogue requires coordinating the language enum, sender enum, crawler registration/configuration, identity namespace, and tests; changing a URL alone is insufficient.
+
+== Discovery
+
+=== Entry points and data shapes
+
+The initial request is:
+
+[source,text]
+----
+https://api.arte.tv/api/emac/v4/{language}/web/pages/ALL_VIDEOS
+----
+
+The response contains `zones[]`; each zone's `content` can contain `data[]` and pagination.
+Subsequent feed responses expose `data[]` directly.
+`readPage()` handles both shapes by recursively visiting zone content before processing the current object's items and pagination.
+
+The crawler uses a browse feed, rather than inventing search terms or treating an empty keyword search as a catalogue listing.
+Zone IDs for the main listings are obtained through their returned pagination URLs rather than hardcoded individually.
+
+=== Traversal and page limits
+
+Discovery uses a FIFO URL queue and three coordinator-owned collections:
+
+* A set of visited page URLs prevents repeated requests for the exact same URL.
+* A set of collection IDs prevents repeated expansion of the same collection.
+* A `LinkedHashMap` keyed by programme ID retains one `Programme` reference per programme.
+
+For pagination, the crawler reads `pagination.page`, `pagination.pages`, and `pagination.links.next`.
+It enqueues the next URL only when the current page is below both the reported page count and `maximumPages`.
+Relative next-page references are resolved against the current URL.
+
+`maximumPages` is `max(1, maximumSubpages)`.
+The limit applies to each listing's pagination chain, including collection listings; it is not a global request budget.
+The initial `ALL_VIDEOS` response already contains the first page of its zones.
+Collections may add more independent listing chains, so a value of one can still produce several HTTP requests.
+There is no additional crawler-side absolute page cap, and URL-cycle prevention compares URL strings rather than normalized semantic page identities.
+
+=== Programme references
+
+Items explicitly marked `availability.hasVideoStreams = false` are skipped.
+A programme ID is taken from `programId`, or from `id` with its underscore suffix removed when `programId` is absent.
+Non-collection programme IDs must match:
+
+[source,text]
+----
+[0-9]{6}-[0-9A-Z]{3}-[A-Z]
+----
+
+The immutable `Programme` record stores:
+
+* Programme ID and catalogue language.
+* Kind code, defaulting to `SHOW` when absent.
+* Topic from `genre.label`.
+* Website URL.
+* Player configuration URL.
+
+The player URL is taken from `player.config` when supplied, otherwise constructed as:
+
+[source,text]
+----
+https://api.arte.tv/api/player/v2/config/{language}/{programmeId}
+----
+
+First discovery wins when multiple feeds contain the same programme ID.
+Consequently, the first reference also determines fallback topic, website, kind, and player URL.
+Deduplication is per catalogue crawl; matching programmes in other sender crawls are intentionally independent.
+
+=== Collection expansion
+
+An item is treated as a collection when its ID starts with `RC-` or `kind.isCollection` is true.
+The crawler fetches the item's website and extracts `subCollectionId` values, accepting both literal `=` and escaped `\u003d` separators.
+It excludes a subcollection ID equal to the parent collection ID, then enqueues URLs of this form:
+
+[source,text]
+----
+https://api-cdn.arte.tv/api/emac/v4/{language}/web/zones/8fbf35e4-324d-4d3e-a194-28f7d288789b/content
+  ?collectionId={collectionId}&subCollectionId={subCollectionId}
+  &page=1&pageId=collection&type=collection
+----
+
+These responses re-enter the same item and pagination traversal.
+The zone ID and HTML marker are external dependencies, not universal ARTE API guarantees.
+A collection without a website, without a matching marker, or without independently discoverable episode listings contributes no episodes through this expansion path.
+
+== Identity and history filtering
+
+Discovery deduplication and persistent history filtering use different keys.
+Discovery uses only the programme ID within a single catalogue.
+`Programme.id()` constructs the persistent identity as:
+
+[source,text]
+----
+{programmeId}_{kind}_ARTE_NEXT_{UPPERCASE catalogue language}_{catalogue language}
+
+118267-006-A_SHOW_ARTE_NEXT_DE_de
+----
+
+This preserves the existing catalogue/kind identity namespace rather than replacing it with a bare programme ID or a playback URL.
+Every film variant produced from a programme receives the same persistent programme identity.
+The title suffix distinguishing an audio variant is not part of this identity.
+
+`ArteCrawlTask` calls `AbstractCrawler.filterExistingFilms()` once after discovery and before any player requests.
+That method delegates to `FilmDBService` with `Programme::id`.
+The ARTE implementation does not replace the database service's refresh rules.
+When PostgreSQL filtering is disabled, that service returns all references; when enabled, its existing database logic decides which records need resolution and updates history as appropriate.
+
+History filtering therefore avoids player and associated playlist work for filtered programmes.
+It cannot avoid the preceding feed or collection requests needed to discover new references.
+
+The final result set has a third deduplication mechanism: existing `Film` equality/hash semantics.
+Those semantics inherit sender, topic, title, duration, and new-state comparisons; they do not establish equality from `Film.id` or playback URLs.
+Engineers changing titles or equality must consider both variant preservation and accidental collapse of distinct programmes with identical metadata.
+
+== Player resolution and film construction
+
+=== Response interpretation
+
+For each remaining programme, `films()` loads its player configuration and reads `data.attributes`.
+A missing or blank `metadata.title` produces no films.
+The display title combines `metadata.title` and a nonblank `metadata.subtitle` with ` - `.
+The method may produce zero, one, or several films.
+
+Each stream supplies a URL and optional `versions[]` metadata.
+The implementation maintains separate insertion-ordered maps for regular audio and audio descriptions, keyed by normalized audio language when possible, otherwise the raw language value.
+The first version for a key wins.
+An audio description does not displace a regular version of the same language.
+
+=== Selecting catalogue-appropriate versions
+
+A version qualifies when either:
+
+* Its audio language matches the catalogue language; or
+* Its subtitle language matches the catalogue language.
+
+Language comparisons use `LanguageCodeUtils.normalize()`.
+This admits a catalogue's dub and an original version with subtitles in the catalogue language, without treating every language offered in the player as a separate sender entry.
+
+Fallbacks keep otherwise usable content discoverable:
+
+. Remember the first non-description audio candidate.
+. A stream without version metadata can contribute an unlabelled candidate.
+. If no regular catalogue-matching variant was collected, use the remembered non-description candidate.
+. If regular variants are still absent, use the collected audio-description variants.
+
+Fallback selection happens before synthesized-URL validation.
+A later validation failure skips that candidate; it does not trigger a second selection pass.
+For non-generator URLs, the implementation treats the stream as already version-specific and stops after its first qualifying version.
+
+=== Published and synthesized HLS URLs
+
+The recognized generator URL shape is:
+
+[source,text]
+----
+https://manifest-arte.akamaized.net/api/manifest/v1/Generate/{asset}/{selector}/{quality-path-and-file}
+----
+
+The URL published by ARTE is retained for the first version in a stream's `versions[]` array.
+It expresses the catalogue's default playback choice and may still expose multiple audio renditions.
+The crawler does not rewrite that master playlist into a locally hosted single-track playlist or attach an ffmpeg audio-map instruction.
+Consumers remain responsible for interpreting HLS track/default semantics.
+
+For an additional version on a recognized generator URL, the crawler replaces the selector segment with the URL-encoded version code.
+The remaining asset and quality/file path are preserved.
+Additional versions without a usable code cannot be selected this way and are skipped.
+
+A valid version code in metadata does not guarantee that the corresponding synthesized URL exists.
+For that reason:
+
+* Published stream URLs are accepted without a separate validation request.
+* Synthesized URLs are fetched before publication and must begin with `#EXTM3U` after leading whitespace is removed.
+* An empty, unavailable, or non-HLS synthesized response is skipped.
+* Playlist text is cached within one programme resolution and reused by subsequent checks or subtitle lookup.
+
+This asymmetry avoids an unconditional extra probe for the primary film while preventing known-invalid additional version URLs from entering the output.
+It validates playlist presence, not all media segments, DRM compatibility, or complete downstream playback.
+
+=== Output mapping
+
+[cols="1,3",options="header"]
+|===
+|Film field |Source and behavior
+|Sender
+|The configured crawler's sender; never inferred from audio language.
+|ID
+|`Programme.id()` for every variant of that programme.
+|Title
+|Combined player title/subtitle. A nonblank audio language differing from the catalogue adds its German display-language label when normalization succeeds; otherwise the suffix is `Originalversion`. Blank audio metadata adds no suffix.
+|Topic
+|Discovery-time `genre.label`, or `ARTE` when blank.
+|Description
+|Player `metadata.description`, passed through the existing `Film.setBeschreibung()` behavior.
+|Website
+|Player `metadata.link.url`, falling back to the discovered website.
+|Time
+|Player `rights.begin`, converted to `Europe/Berlin`. Missing or unparseable values yield `null`. This is an availability-rights timestamp, not a separately established broadcast timestamp.
+|Duration
+|`metadata.duration.seconds`, defaulting to zero seconds.
+|Audio language
+|`LanguageCodeUtils.normalize()` output, normally an ISO-639-2/T code such as `deu` or `fra`. Unknown and placeholder values such as `und` or `mul` remain `null`; the crawler does not infer a concrete language from catalogue membership.
+|Video URL
+|Regular HLS URL under `Resolution.NORMAL`, with file size `-1` to represent an unknown size.
+|Audio description
+|A usable description of the same normalized audio-language key under `Resolution.NORMAL`. A description-only film can have no regular video URL.
+|Geolocation
+|`restriction.geoblocking.code`: `DE_FR` maps to `GEO_DE_FR`, `EUR_DE_FR` to `GEO_DE_AT_CH_FR`, and `SAT` to `GEO_DE_AT_CH_EU`. Other values map to `GEO_NONE`; new restriction codes require explicit review.
+|===
+
+The master playlist remains responsible for video rendition choices.
+The crawler does not manufacture separate fixed-resolution URLs or perform HLS Content-Length probes.
+
+=== Subtitles
+
+Subtitle selection follows the catalogue language, which may differ from the film's audio language.
+The crawler first checks whether any player version advertises that subtitle language.
+If so, it reads the selected audio candidate's original master playlist and selects the first matching `#EXT-X-MEDIA` entry with `TYPE=SUBTITLES` and the catalogue's language.
+
+Relative URIs are resolved against their containing playlist.
+A non-`.m3u8` subtitle URI is returned directly.
+For a `.m3u8` subtitle playlist, the crawler accepts exactly one nonblank, non-comment file reference and resolves that URI; multi-segment subtitle playlists are not assembled.
+The check concerns the URI shape and playlist structure, not a validation of subtitle file contents.
+
+A resolved subtitle is attached to the relevant film variants from that master.
+Per-programme caches avoid repeated requests for the same master or subtitle playlist.
+A recoverable subtitle lookup failure is reported but normally leaves the film available without a subtitle.
+
+== Concurrency, ownership, and lifecycle
+
+Discovery runs on the task's coordinator thread and performs requests sequentially.
+The discovery queues/maps are confined to that phase.
+After filtering, the coordinator copies the remaining programmes into a `ConcurrentLinkedQueue`.
+
+Resolution submits worker loops to a Java virtual-thread-per-task executor.
+The number of submitted loops is:
+
+[source,text]
+----
+min(4, max(1, maximumCpuThreads))
+----
+
+Each worker polls the shared queue and resolves a programme synchronously, including its optional playlist/subtitle work, before polling again.
+There is no task submission per programme and no unbounded set of concurrent player requests.
+The configured Fork/Join pool still owns the outer crawler task, not the individual blocking HTTP operations.
+
+Workers share the thread-safe HTTP client, the sender's Guava rate limiter, and a concurrent film set.
+Player JSON, audio maps, and playlist caches are local to a `films()` invocation.
+The error callback uses the crawler's existing counters and logger.
+
+The concurrency cap and rate limiter are per crawler/sender instance.
+They do not impose a global four-request cap across all configured ARTE language senders.
+
+The coordinator waits for worker futures, shuts down workers in a `finally` block, and closes the HTTP transport through try-with-resources.
+Transport close marks it closed, cancels calls, shuts down its dispatcher executor, and evicts pooled connections.
+The transport belongs to this crawl and is not an application-wide shared client.
+
+=== Cancellation and timeout integration
+
+`ArteCrawlTask.cancel(boolean)` delegates task-state cancellation and also shuts down workers and closes the transport.
+The request adapter refuses new API calls when the task is cancelled.
+Worker loops check cancellation and interruption before polling another programme.
+Discovery checks interruption between queued pages.
+
+Rate-limit acquisition polls for a permit with a 100 ms timeout and checks closure/interruption between attempts.
+An interrupted retry sleep restores the interrupt flag and throws `CancellationException`.
+An interrupted coordinator waiting on futures restores its own interrupt flag and unwinds resource scopes.
+Cancellation is cooperative; the code does not promise instantaneous termination of every underlying network or wait operation.
+
+The framework's maximum crawl duration still applies through `AbstractCrawler` and its Fork/Join-pool timeout handling.
+The new worker executor is owned separately, so preserving shutdown and interruption propagation is essential when changing scheduling.
+
+== HTTP and failure semantics
+
+The transport configures connect, read, and whole-call timeouts from `socketTimeoutInSeconds`.
+It sends a browser-style User-Agent and an Accept header covering JSON, HLS, and HTML.
+It does not send the retired OPA authorization token.
+Each HTTP attempt must acquire a sender rate-limit permit.
+
+[cols="1,3",options="header"]
+|===
+|Condition |Behavior
+|Successful response with a body
+|Return body text.
+|HTTP 404 or 410
+|Return an empty body. An expired player normally produces no films; an empty discovery response fails the catalogue-shape check and is reported.
+|HTTP 429
+|At most three total attempts. Before retrying, close the response and sleep for a bounded delay, then acquire another permit.
+|Other unsuccessful status, or success without a body
+|Throw `IOException`; the crawler's explicit retry loop does not retry that status.
+|Numeric `Retry-After`
+|Interpret seconds, clamp to 0–10 seconds, then clamp the sleep to 250–10,000 ms. A missing header is treated as zero, so its retry delay is 250 ms.
+|Non-numeric `Retry-After`
+|Double the current delay, starting from 250 ms, capped at 10 seconds. HTTP-date values follow this fallback; they are not parsed as dates.
+|Transport closure or observed interruption
+|Abort with `CancellationException`.
+|===
+
+Retry delay is request-local.
+The implementation does not persist a learned delay between requests or change the configured rate limiter after a 429.
+
+Failure isolation has several boundaries:
+
+* A failed discovery page reports an error and leaves already collected programmes and other queued pages available.
+* A malformed item or zone reports an error without preventing later items or sibling zones from being processed.
+* A failed collection website request reports an error and skips that expansion.
+* Actual closure, cancellation, and observed thread interruption propagate as `CancellationException`. This signal is never absorbed by the recoverable page or optional-resource handlers.
+* Socket/call timeouts remain ordinary I/O failures: they preserve previously discovered programmes and do not turn optional playlist/subtitle lookup failures into cancellation.
+* A programme-resolution exception is caught by its worker, reported unless cancellation/interruption is active, and does not stop unrelated programmes.
+* A failed additional synthesized playlist is skipped; optional subtitle failures normally preserve the film.
+* Unusable or expired player responses can yield no films without being counted as programme-resolution errors.
+
+These are partial-result semantics, not transactional all-or-nothing crawling.
+A failure late in one `films()` call can still discard that call's not-yet-returned film list; previously completed programmes remain in the shared result set.
+
+=== Progress and observability
+
+After filtering, `maxCount` is set to the number of programmes queued for resolution.
+Each worker increments `actualCount` in a `finally` block for every attempted programme and updates progress, even if that programme produces no films or fails.
+Thus `actualCount` measures attempted programme resolutions, not emitted film count.
+There are no per-programme progress increments during discovery.
+
+Reported request/conversion failures increment the crawler error counter and log a warning containing the catalogue language and exception.
+Optional failures can increment that counter even when a film is retained.
+Engineers investigating an empty result should inspect discovery errors and player availability before assuming there were no catalogue matches.
+
+== Performance characteristics and tradeoffs
+
+Let `P` be the number of unique discovered programmes, `N` the number remaining after history filtering, and `F` the emitted films.
+
+* Listing overlap increases discovery input but does not increase player calls beyond one per retained programme reference.
+* Resolution performs approximately `N` player requests, plus optional synthesized-manifest and subtitle requests and any retries.
+* Discovery and identity state scale with discovered programmes, collections, and visited/queued URLs; result storage scales with `F`.
+* At most four programme-resolution contexts are active per sender. Each context parses complete JSON responses and retains its own small playlist caches; this is not a streaming JSON implementation.
+* Discovery completes before resolution starts. This maximizes early deduplication/history filtering, at the cost of time to first emitted film and no overlap between discovery and resolution.
+* HLS size is left unknown, avoiding uninformative per-film size requests.
+* Additional synthesized versions incur validation requests because metadata alone does not establish that their URLs work.
+
+These are structural request and concurrency properties.
+The implementation does not establish a universal elapsed-time speedup, exhaustive catalogue coverage, or a global ARTE traffic budget.
+
+== Tests and verification
+
+[cols="1,3",options="header"]
+|===
+|Test |Contract exercised
+|`ArteCatalogueTest`
+|Paginated zones and collection expansion; deduplication and page bounds; stable IDs; player metadata and Berlin time conversion; locale-specific audio, descriptions and subtitles; placeholder-language handling; original-audio fallback; unavailable players and synthesized versions; partial discovery results after failed or timed-out pages; malformed-item isolation; optional subtitle timeouts; explicit cancellation propagation.
+|`ArteCrawlTaskTest`
+|Duplicate references are merged before history filtering; known programmes do not reach the player; at most four resolutions run concurrently; progress and transport close occur; no file-size lookup is used; cancellation interrupts an active resolution without reporting a request error. History filtering itself is mocked, not exercised against PostgreSQL.
+|`ArteHttpClientTest`
+|429 retry behavior without OPA authorization, expired-response handling, no explicit retry for forbidden responses, recovery after a call timeout, and rejection of requests after transport close, using WireMock.
+|`ArteLiveTest`
+|Opt-in checks for all six existing language senders. It discovers with one page per feed, resolves the first three discovered programmes, requires at least one resulting film per sender, and fetches every emitted regular HLS URL in that sample to check the playlist marker.
+|===
+
+Run commands from the MServer repository root with a Java 25 SDK selected:
+
+[source,shell]
+----
+./mvnw -q -DskipTests compile
+./mvnw -q -Dtest='*Arte*Test' test
+./mvnw -q test
+./mvnw -q -Dtest=ArteLiveTest -Darte.live=true test
+----
+
+The live test is disabled by default and depends on changing third-party content and network availability.
+It does not run the database-backed crawler lifecycle, crawl every page, download full media files, or prove downstream decoder behavior.
+The offline tests cover cancellation during active resolution, but do not exhaust every cancellation timing, network failure, or retry/header permutation.
+Treat those as validation limits when changing lifecycle or transport logic.
+
+== Maintenance guidance
+
+When catalogue discovery stops producing entries, first distinguish an empty valid `data[]` response from a missing/changed root shape or failed requests.
+Inspect `ALL_VIDEOS`, zone content, pagination keys, item IDs, and collection HTML markers independently.
+Do not substitute a keyword search loop for catalogue enumeration without an explicit coverage argument.
+
+When a programme resolves but its download fails, compare the published stream URL with any synthesized URL.
+Preserve the published default URL and keep synthesized-URL validation unless a replacement has equivalent evidence.
+Check that version-code encoding, asset IDs, and catalogue/audio/subtitle languages remain distinct.
+
+Changes to identity or language selection need tests for duplicate listings, cross-catalogue sender separation, originals with catalogue-language subtitles, and unknown/multilingual audio.
+Changing `Programme.id()` affects history lookup; changing film titles or equality affects the final set independently.
+
+New geoblocking codes, multi-segment subtitles, additional sender languages, and guaranteed single-track downloads require explicit implementation work.
+They are not implicitly supported by the existing URL and metadata handling.
+
+== Source map
+
+The following implementation and test files are the authoritative references for this document:
+
+* link:../../src/main/java/de/mediathekview/mserver/crawler/arte/ArteCrawler.java[ArteCrawler.java]
+* link:../../src/main/java/de/mediathekview/mserver/crawler/arte/ArteCrawlTask.java[ArteCrawlTask.java]
+* link:../../src/main/java/de/mediathekview/mserver/crawler/arte/ArteCatalogue.java[ArteCatalogue.java]
+* link:../../src/main/java/de/mediathekview/mserver/crawler/arte/ArteHttpClient.java[ArteHttpClient.java]
+* link:../../src/main/java/de/mediathekview/mserver/crawler/basic/AbstractCrawler.java[AbstractCrawler.java]
+* link:../../src/main/java/de/mediathekview/mserver/base/utils/FilmDBService.java[FilmDBService.java]
+* link:../../src/main/java/de/mediathekview/mserver/base/utils/LanguageCodeUtils.java[LanguageCodeUtils.java]
+* link:../../src/main/java/de/mediathekview/mserver/daten/Film.java[Film.java]
+* link:../../src/main/java/de/mediathekview/mserver/daten/Podcast.java[Podcast.java]
+* link:../../src/main/java/de/mediathekview/mserver/daten/AbstractMediaResource.java[AbstractMediaResource.java]
+* link:../../src/main/java/de/mediathekview/mserver/daten/Sender.java[Sender.java]
+* link:../../src/test/java/de/mediathekview/mserver/crawler/arte/ArteCatalogueTest.java[ArteCatalogueTest.java]
+* link:../../src/test/java/de/mediathekview/mserver/crawler/arte/ArteCrawlTaskTest.java[ArteCrawlTaskTest.java]
+* link:../../src/test/java/de/mediathekview/mserver/crawler/arte/ArteHttpClientTest.java[ArteHttpClientTest.java]
+* link:../../src/test/java/de/mediathekview/mserver/crawler/arte/ArteLiveTest.java[ArteLiveTest.java]
