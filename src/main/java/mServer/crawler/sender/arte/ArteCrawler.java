@@ -44,17 +44,19 @@ public class ArteCrawler extends MediathekCrawler {
   protected RecursiveTask<Set<DatenFilm>> createCrawlerTask() {
 
     try {
-      final ConcurrentLinkedQueue<TopicUrlDTO> videoUrls = new ConcurrentLinkedQueue<>();
-      videoUrls.addAll(createVideosQueue(getLanguage().toString().toLowerCase()));
-
-      final ArteVideoInfoTask aArteRestVideoInfoTask;
-      // DO NOT overload - maximumUrlsPerTask used to reduce threads to 4
-      aArteRestVideoInfoTask = new ArteVideoInfoTask(this, videoUrls, getMaxPagesForOverview(getLanguage().toString().toLowerCase()));
       final ConcurrentLinkedQueue<ArteVideoInfoDto> videos = new ConcurrentLinkedQueue<>();
-      videos.addAll(aArteRestVideoInfoTask.fork().join());
-      //
-      Log.sysLog(getSendername() + " Anzahl video info: " + videos.size());
-      //
+      if (getLanguage() == ArteLanguage.DE) {
+        final ConcurrentLinkedQueue<TopicUrlDTO> videoUrls = new ConcurrentLinkedQueue<>();
+        videoUrls.addAll(createVideosQueue(getLanguage().toString().toLowerCase()));
+
+        final ArteVideoInfoTask aArteRestVideoInfoTask;
+        // DO NOT overload - maximumUrlsPerTask used to reduce threads to 4
+        aArteRestVideoInfoTask = new ArteVideoInfoTask(this, videoUrls, getMaxPagesForOverview(getLanguage().toString().toLowerCase()));
+        videos.addAll(aArteRestVideoInfoTask.fork().join());
+        //
+        Log.sysLog(getSendername() + " Anzahl video info: " + videos.size());
+        //
+      }
       return new ArteDtoVideo2FilmTask(this, new ConcurrentLinkedQueue<>(videos), getSendername());
 
     } catch (final Exception ex) {
