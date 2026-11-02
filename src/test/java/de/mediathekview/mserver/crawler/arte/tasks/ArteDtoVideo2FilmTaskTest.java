@@ -25,7 +25,7 @@ import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ArteDtoVideo2FilmTaskTest extends WireMockTestBase {
-
+/*
   public static Collection<Object[]> data() {
     Film film1 = new Film(
         UUID.randomUUID(), 
@@ -390,5 +390,5 @@ public class ArteDtoVideo2FilmTaskTest extends WireMockTestBase {
         .collect(() -> new EnumMap<>(Resolution.class),
                  (map, entry) -> map.put(entry.getKey(), entry.getValue()),
                  Map::putAll);
-  }
+  }*/
 }

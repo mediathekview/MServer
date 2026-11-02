@@ -56,7 +56,7 @@ public class ArteVideoInfoDto extends CrawlerUrlDTO {
   
   // ONLY for unit tests
   public ArteVideoInfoDto(Optional<String> id, Optional<String> programId,Optional<String> kind, Optional<String> language) {
-    super(String.format(ArteConstants.VIDEO_URL, programId.get(), kind.get(), language.get()));
+    super(String.format(ArteConstants.VIDEO_URL_PLAYER, language.get(), programId.get()));
     this.id = id;
   }
   
@@ -65,7 +65,7 @@ public class ArteVideoInfoDto extends CrawlerUrlDTO {
       Optional<String> subtitle, Optional<String> originalTitle, Optional<String> durationSeconds, Optional<String> shortDescription, Optional<String> fullDescription,
       Optional<String> headerText, Optional<String> geoblockingZone, Optional<String> url, Optional<String> season, Optional<String> episode, Optional<String> broadcastBegin,
       Optional<String> broadcastBeginRounded,Optional<String> category, Optional<String> categoryName, Optional<String> subcategoryName, Optional<String> creationDate, Optional<String> pageIndex) {
-    super(String.format(ArteConstants.VIDEO_URL, programId.orElseThrow(), kind.orElseThrow(), language.orElseThrow()));
+    super(String.format(ArteConstants.VIDEO_URL_PLAYER, language.orElseThrow(), programId.orElseThrow()));
     this.firstBroadcastDate = firstBroadcastDate;
     this.id = id;
     this.programId = programId;

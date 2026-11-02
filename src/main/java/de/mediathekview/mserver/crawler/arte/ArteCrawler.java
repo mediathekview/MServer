@@ -72,16 +72,7 @@ public class ArteCrawler extends AbstractCrawler {
       getAndSetMaxCount(videosFiltered.size());
       updateProgress();
       //
-      final Queue<ArteVideoInfoDto> videosWithLink = new ConcurrentLinkedQueue<>();
-      final ArteVideoLinkTask aArteRestVideosTask = new ArteVideoLinkTask(this, videosFiltered);
-      videosWithLink.addAll(aArteRestVideosTask.fork().join());
-      //
-      printMessage(
-          ServerMessages.DEBUG_ALL_SENDUNG_FOLGEN_COUNT, getSender().getName(), videosWithLink.size());
-      getAndSetMaxCount(videosWithLink.size());
-      updateProgress();
-      //
-      return new ArteDtoVideo2FilmTask(this, new ConcurrentLinkedQueue<>(videosWithLink));
+      return new ArteDtoVideo2FilmTask(this, new ConcurrentLinkedQueue<>(videosFiltered));
       
     } catch (final Exception ex) {
       LOG.fatal("Exception in {} crawler.", getSender(), ex);

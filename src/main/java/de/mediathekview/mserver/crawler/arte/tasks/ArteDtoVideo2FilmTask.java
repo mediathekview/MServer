@@ -1,5 +1,6 @@
 package de.mediathekview.mserver.crawler.arte.tasks;
 import java.io.Serial;
+import java.lang.reflect.Type;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
@@ -10,6 +11,12 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
+import com.google.gson.JsonDeserializer;
+import com.google.gson.reflect.TypeToken;
+import de.mediathekview.mserver.crawler.arte.json.ArteVideoPlayerDeserializer;
+import de.mediathekview.mserver.crawler.basic.AbstractJsonRestTask;
+import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
+import jakarta.ws.rs.core.Response;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -27,7 +34,7 @@ import de.mediathekview.mserver.daten.GeoLocations;
 import de.mediathekview.mserver.daten.Resolution;
 
 
-public class ArteDtoVideo2FilmTask extends AbstractRecursiveConverterTask<Film, ArteVideoInfoDto> {
+public class ArteDtoVideo2FilmTask extends AbstractJsonRestTask<Film, Optional<CrawlerUrlDTO>, ArteVideoInfoDto> {
   @Serial private static final long serialVersionUID = 1L;
   protected final transient Logger log = LogManager.getLogger(this.getClass());
   
@@ -35,7 +42,7 @@ public class ArteDtoVideo2FilmTask extends AbstractRecursiveConverterTask<Film, 
   private static final ZoneId ZONE_ID = ZoneId.of("Europe/Berlin");
   
   public ArteDtoVideo2FilmTask(AbstractCrawler aCrawler, Queue<ArteVideoInfoDto> aUrlToCrawlDTOs) {
-    super(aCrawler, aUrlToCrawlDTOs);
+    super(aCrawler, aUrlToCrawlDTOs, null);
   }
 
   @Override
@@ -49,20 +56,24 @@ public class ArteDtoVideo2FilmTask extends AbstractRecursiveConverterTask<Film, 
     return config.getMaximumUrlsPerTask();
   }
 
-  @Override
-  protected void processElement(ArteVideoInfoDto aElement) {
-    parse(aElement);
-  }
-  
   protected void parse(ArteVideoInfoDto aElement) {
-    Map<Resolution, FilmUrl> videoUrls = buildVideoUrls(aElement, ArteVideoType.DEFAULT);
-    Map<Resolution, FilmUrl> videoAD = buildVideoUrls(aElement, ArteVideoType.AUDIO_DESCRIPTION);
+    if (aElement.getUrl().isEmpty()) {
+      log.warn("No video url found for: {}", aElement);
+      return;
+    }
+    Map<Resolution, FilmUrl> videoUrls = null;
+    try {
+      videoUrls = Map.of(Resolution.NORMAL, new FilmUrl(aElement.getUrl(), crawler.determineFileSizeInKB(aElement.getUrl())));
+    } catch (MalformedURLException e) {
+      throw new RuntimeException(e);
+    }
+//    Map<Resolution, FilmUrl> videoAD = buildVideoUrls(aElement, ArteVideoType.AUDIO_DESCRIPTION);
     if (videoUrls.size() > 0) {
       Film film = buildFilmBody(aElement);
-      addFilm(buildFilmBody(aElement), film.getTitel(), videoUrls, videoAD);
+      addFilm(buildFilmBody(aElement), film.getTitel(), videoUrls, Map.of());
     }
     //
-    Map<Resolution, FilmUrl> originalVersion = buildVideoUrls(aElement, ArteVideoType.ORIGINAL);
+/*    Map<Resolution, FilmUrl> originalVersion = buildVideoUrls(aElement, ArteVideoType.ORIGINAL);
     Map<Resolution, FilmUrl> originalVersionSubs = buildVideoUrls(aElement, ArteVideoType.ORIGINAL_WITH_SUBTITLE);
     if (originalVersion.size() > 0) {
       Film film = buildFilmBody(aElement);
@@ -82,7 +93,7 @@ public class ArteDtoVideo2FilmTask extends AbstractRecursiveConverterTask<Film, 
     if (videoSub.size() > 0) {
       Film film = buildFilmBody(aElement);
       addFilm(buildFilmBody(aElement), film.getTitel()+ " (mit Untertitel)", videoSub, null);
-    }
+    }*/
   }
   
   protected void addFilm(Film film, String title, Map<Resolution, FilmUrl> video, Map<Resolution, FilmUrl> audioDesc) {
@@ -198,7 +209,7 @@ public class ArteDtoVideo2FilmTask extends AbstractRecursiveConverterTask<Film, 
     });
     return urls;
   }
-  
+
 
   /**
    * Liest die Sprache der Tonspur fuer den ersten Videolink, der zum uebergebenen Typ gehoert.
@@ -254,4 +265,26 @@ public class ArteDtoVideo2FilmTask extends AbstractRecursiveConverterTask<Film, 
     return urls;
   }
 
+  @Override
+  protected JsonDeserializer<Optional<CrawlerUrlDTO>> getParser(ArteVideoInfoDto aDTO) {
+    return new ArteVideoPlayerDeserializer();
+  }
+
+  @Override
+  protected Type getType() {
+    return new TypeToken<Optional<CrawlerUrlDTO>>() {}.getType();
+  }
+
+  @Override
+  protected void handleHttpError(ArteVideoInfoDto dto, URI url, Response response) {
+    log.fatal("A HTTP error {} occurred when getting REST Video information from: \"{}\".", response.getStatus(), url);
+    crawler.incrementAndGetErrorCount();
+  }
+
+  @Override
+  protected void postProcessing(Optional<CrawlerUrlDTO> aResponseObj, ArteVideoInfoDto aDTO) {
+    aResponseObj.map(CrawlerUrlDTO::getUrl).ifPresent(aDTO::setUrl);
+
+    parse(aDTO);
+  }
 }
