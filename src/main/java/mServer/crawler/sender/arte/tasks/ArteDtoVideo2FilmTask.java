@@ -1,8 +1,11 @@
 package mServer.crawler.sender.arte.tasks;
 
+import com.google.gson.JsonDeserializer;
+import com.google.gson.reflect.TypeToken;
 import de.mediathekview.mlib.Config;
 import de.mediathekview.mlib.daten.DatenFilm;
 import de.mediathekview.mlib.tool.Log;
+import jakarta.ws.rs.core.Response;
 import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
 import mServer.crawler.RunSender;
@@ -10,13 +13,14 @@ import mServer.crawler.sender.MediathekReader;
 import mServer.crawler.sender.arte.ArteRestVideoTypeMapper;
 import mServer.crawler.sender.arte.ArteVideoType;
 import mServer.crawler.sender.arte.json.ArteVideoInfoDto;
-import mServer.crawler.sender.base.AbstractRecursivConverterTask;
-import mServer.crawler.sender.base.GeoLocations;
-import mServer.crawler.sender.base.Qualities;
+import mServer.crawler.sender.arte.json.ArteVideoPlayerDeserializer;
+import mServer.crawler.sender.base.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.Serial;
+import java.lang.reflect.Type;
+import java.net.URI;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -27,7 +31,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-public class ArteDtoVideo2FilmTask extends AbstractRecursivConverterTask<DatenFilm, ArteVideoInfoDto> {
+public class ArteDtoVideo2FilmTask extends AbstractJsonRestTask<DatenFilm, Optional<CrawlerUrlDTO>, ArteVideoInfoDto> {
   @Serial private static final long serialVersionUID = 1L;
   private static final DateTimeFormatter DATE_FORMAT
           = DateTimeFormatter.ofPattern("dd.MM.yyyy");
@@ -39,7 +43,7 @@ public class ArteDtoVideo2FilmTask extends AbstractRecursivConverterTask<DatenFi
   private final String sender;
 
   public ArteDtoVideo2FilmTask(MediathekReader aCrawler, ConcurrentLinkedQueue<ArteVideoInfoDto> aUrlToCrawlDTOs, String sender) {
-    super(aCrawler, aUrlToCrawlDTOs);
+    super(aCrawler, aUrlToCrawlDTOs, Optional.empty());
     this.sender = sender;
   }
 
@@ -54,22 +58,27 @@ public class ArteDtoVideo2FilmTask extends AbstractRecursivConverterTask<DatenFi
     return 50;
   }
 
-  @Override
+/*  @Override
   protected void processElement(ArteVideoInfoDto aElement) {
     if (Config.getStop()) {
       return;
     }
 
     parse(aElement);
-  }
+  }*/
 
   protected void parse(ArteVideoInfoDto aElement) {
-    Map<Qualities, String> videoUrls = buildVideoUrls(aElement, ArteVideoType.DEFAULT);
-    Map<Qualities, String> videoAD = buildVideoUrls(aElement, ArteVideoType.AUDIO_DESCRIPTION);
+    if (aElement.getUrl().isEmpty()) {
+      log.warn("No video url found for: {}", aElement);
+      return;
+    }
+    Map<Qualities, String> videoUrls = Map.of(Qualities.NORMAL, aElement.getUrl());
+            //buildVideoUrls(aElement, ArteVideoType.DEFAULT);
+//    Map<Qualities, String> videoAD = buildVideoUrls(aElement, ArteVideoType.AUDIO_DESCRIPTION);
     if (!videoUrls.isEmpty()) {
       addFilm(aElement, "", videoUrls);
     }
-    if (!videoAD.isEmpty()) {
+/*    if (!videoAD.isEmpty()) {
       addFilm(aElement, " (Audiodeskription)", videoAD);
     }
     //
@@ -86,7 +95,7 @@ public class ArteDtoVideo2FilmTask extends AbstractRecursivConverterTask<DatenFi
     Map<Qualities, String> videoSub = buildVideoUrls(aElement, ArteVideoType.SUBTITLE_INCLUDED);
     if (!videoSub.isEmpty()) {
       addFilm(aElement, " (mit Untertitel)", videoSub);
-    }
+    }*/
   }
 
   protected void addFilm(ArteVideoInfoDto videoInfo, String titleSuffix, Map<Qualities, String> video) {
@@ -198,5 +207,26 @@ public class ArteDtoVideo2FilmTask extends AbstractRecursivConverterTask<DatenFi
     });
     return urls;
   }
+  @Override
+  protected JsonDeserializer<Optional<CrawlerUrlDTO>> getParser(ArteVideoInfoDto aDTO) {
+    return new ArteVideoPlayerDeserializer();
+  }
 
+  @Override
+  protected Type getType() {
+    return new TypeToken<Optional<CrawlerUrlDTO>>() {}.getType();
+  }
+
+  @Override
+  protected void handleHttpError(ArteVideoInfoDto dto, URI url, Response response) {
+    Log.errorLog(637846873, "A HTTP error " + response.getStatus() + " occurred when getting REST Video information from: \"" + url +"\".");
+    log.fatal("A HTTP error {} occurred when getting REST Video information from: \"{}\".", response.getStatus(), url);
+  }
+
+  @Override
+  protected void postProcessing(Optional<CrawlerUrlDTO> aResponseObj, ArteVideoInfoDto aDTO) {
+    aResponseObj.map(CrawlerUrlDTO::getUrl).ifPresent(aDTO::setUrl);
+
+    parse(aDTO);
+  }
 }

@@ -10,7 +10,6 @@ import mServer.crawler.sender.MediathekCrawler;
 import mServer.crawler.sender.arte.json.ArteVideoInfoDto;
 import mServer.crawler.sender.arte.tasks.ArteDtoVideo2FilmTask;
 import mServer.crawler.sender.arte.tasks.ArteVideoInfoTask;
-import mServer.crawler.sender.arte.tasks.ArteVideoLinkTask;
 import mServer.crawler.sender.base.JsonUtils;
 import mServer.crawler.sender.base.JsoupConnection;
 import mServer.crawler.sender.base.TopicUrlDTO;
@@ -45,24 +44,20 @@ public class ArteCrawler extends MediathekCrawler {
   protected RecursiveTask<Set<DatenFilm>> createCrawlerTask() {
 
     try {
-      final ConcurrentLinkedQueue<TopicUrlDTO> videoUrls = new ConcurrentLinkedQueue<>();
-      videoUrls.addAll(createVideosQueue(getLanguage().toString().toLowerCase()));
-
-      final ArteVideoInfoTask aArteRestVideoInfoTask;
-      // DO NOT overload - maximumUrlsPerTask used to reduce threads to 4
-      aArteRestVideoInfoTask = new ArteVideoInfoTask(this, videoUrls, getMaxPagesForOverview(getLanguage().toString().toLowerCase()));
       final ConcurrentLinkedQueue<ArteVideoInfoDto> videos = new ConcurrentLinkedQueue<>();
-      videos.addAll(aArteRestVideoInfoTask.fork().join());
-      //
-      Log.sysLog(getSendername() + " Anzahl video info: " + videos.size());
-      //
-      final ConcurrentLinkedQueue<ArteVideoInfoDto> videosWithLink = new ConcurrentLinkedQueue<>();
-      final ArteVideoLinkTask aArteRestVideosTask = new ArteVideoLinkTask(this, videos);
-      videosWithLink.addAll(aArteRestVideosTask.fork().join());
-      //
-      Log.sysLog(getSendername() + " Anzahl video links: " + videosWithLink.size());
-      //
-      return new ArteDtoVideo2FilmTask(this, new ConcurrentLinkedQueue<>(videosWithLink), getSendername());
+      if (getLanguage() == ArteLanguage.DE) {
+        final ConcurrentLinkedQueue<TopicUrlDTO> videoUrls = new ConcurrentLinkedQueue<>();
+        videoUrls.addAll(createVideosQueue(getLanguage().toString().toLowerCase()));
+
+        final ArteVideoInfoTask aArteRestVideoInfoTask;
+        // DO NOT overload - maximumUrlsPerTask used to reduce threads to 4
+        aArteRestVideoInfoTask = new ArteVideoInfoTask(this, videoUrls, getMaxPagesForOverview(getLanguage().toString().toLowerCase()));
+        videos.addAll(aArteRestVideoInfoTask.fork().join());
+        //
+        Log.sysLog(getSendername() + " Anzahl video info: " + videos.size());
+        //
+      }
+      return new ArteDtoVideo2FilmTask(this, new ConcurrentLinkedQueue<>(videos), getSendername());
 
     } catch (final Exception ex) {
       LOG.fatal("Exception in {} crawler.", getSendername(), ex);
