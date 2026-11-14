@@ -15,7 +15,6 @@ import com.google.gson.JsonDeserializer;
 import com.google.gson.reflect.TypeToken;
 import de.mediathekview.mserver.crawler.arte.json.ArteVideoPlayerDeserializer;
 import de.mediathekview.mserver.crawler.basic.AbstractJsonRestTask;
-import de.mediathekview.mserver.crawler.basic.CrawlerUrlDTO;
 import jakarta.ws.rs.core.Response;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -34,7 +33,7 @@ import de.mediathekview.mserver.daten.GeoLocations;
 import de.mediathekview.mserver.daten.Resolution;
 
 
-public class ArteDtoVideo2FilmTask extends AbstractJsonRestTask<Film, Optional<CrawlerUrlDTO>, ArteVideoInfoDto> {
+public class ArteDtoVideo2FilmTask extends AbstractJsonRestTask<Film, List<ArteVideoLinkDto>, ArteVideoInfoDto> {
   @Serial private static final long serialVersionUID = 1L;
   protected final transient Logger log = LogManager.getLogger(this.getClass());
   
@@ -51,37 +50,23 @@ public class ArteDtoVideo2FilmTask extends AbstractJsonRestTask<Film, Optional<C
     return new ArteDtoVideo2FilmTask(crawler, aElementsToProcess);
   }
 
-  @Override
-  protected Integer getMaxElementsToProcess() {
-    return config.getMaximumUrlsPerTask();
-  }
-
   protected void parse(ArteVideoInfoDto aElement) {
-    if (aElement.getUrl().isEmpty()) {
-      log.warn("No video url found for: {}", aElement);
-      return;
-    }
-    Map<Resolution, FilmUrl> videoUrls = null;
-    try {
-      videoUrls = Map.of(Resolution.NORMAL, new FilmUrl(aElement.getUrl(), crawler.determineFileSizeInKB(aElement.getUrl())));
-    } catch (MalformedURLException e) {
-      throw new RuntimeException(e);
-    }
-//    Map<Resolution, FilmUrl> videoAD = buildVideoUrls(aElement, ArteVideoType.AUDIO_DESCRIPTION);
-    if (videoUrls.size() > 0) {
+    Map<Resolution, FilmUrl> videoUrls = buildVideoUrls(aElement, ArteVideoType.DEFAULT);
+    Map<Resolution, FilmUrl> videoAD = buildVideoUrls(aElement, ArteVideoType.AUDIO_DESCRIPTION);
+    if (!videoUrls.isEmpty()) {
       Film film = buildFilmBody(aElement);
-      addFilm(buildFilmBody(aElement), film.getTitel(), videoUrls, Map.of());
+      addFilm(buildFilmBody(aElement), film.getTitel(), videoUrls, videoAD);
     }
     //
-/*    Map<Resolution, FilmUrl> originalVersion = buildVideoUrls(aElement, ArteVideoType.ORIGINAL);
+    Map<Resolution, FilmUrl> originalVersion = buildVideoUrls(aElement, ArteVideoType.ORIGINAL);
     Map<Resolution, FilmUrl> originalVersionSubs = buildVideoUrls(aElement, ArteVideoType.ORIGINAL_WITH_SUBTITLE);
-    if (originalVersion.size() > 0) {
+    if (!originalVersion.isEmpty()) {
       Film film = buildFilmBody(aElement);
       Film originalVersionFilm = buildFilmBody(aElement);
       originalVersionFilm.setAudioLanguage(
           resolveAudioLanguage(aElement, ArteVideoType.ORIGINAL).orElse(null));
       addFilm(originalVersionFilm, film.getTitel()+ " (Originalversion)", originalVersion, originalVersionSubs);
-    } else if (originalVersionSubs.size() > 0) { // es gibt nur FR und FR mit UT dann nehmen wir FR mit UT
+    } else if (!originalVersionSubs.isEmpty()) { // es gibt nur FR und FR mit UT dann nehmen wir FR mit UT
       Film film = buildFilmBody(aElement);
       Film originalVersionFilm = buildFilmBody(aElement);
       originalVersionFilm.setAudioLanguage(
@@ -90,10 +75,10 @@ public class ArteDtoVideo2FilmTask extends AbstractJsonRestTask<Film, Optional<C
     }
     // ARTE provides subs as a new video
     Map<Resolution, FilmUrl> videoSub = buildVideoUrls(aElement, ArteVideoType.SUBTITLE_INCLUDED);
-    if (videoSub.size() > 0) {
+    if (!videoSub.isEmpty()) {
       Film film = buildFilmBody(aElement);
       addFilm(buildFilmBody(aElement), film.getTitel()+ " (mit Untertitel)", videoSub, null);
-    }*/
+    }
   }
   
   protected void addFilm(Film film, String title, Map<Resolution, FilmUrl> video, Map<Resolution, FilmUrl> audioDesc) {
@@ -126,7 +111,7 @@ public class ArteDtoVideo2FilmTask extends AbstractJsonRestTask<Film, Optional<C
   }
   
   protected String buildTitle(ArteVideoInfoDto aElement) {
-    String title = aElement.getTitle().get();
+    String title = aElement.getTitle().orElse("");
     if (aElement.getSubtitle().isPresent()) {
       title += " - " + aElement.getSubtitle().get();
     }
@@ -134,7 +119,7 @@ public class ArteDtoVideo2FilmTask extends AbstractJsonRestTask<Film, Optional<C
   }
   
   protected String buildTopic(ArteVideoInfoDto aElement) {
-    String topic = aElement.getCategoryName().get();
+    String topic = aElement.getCategoryName().orElse("");
     if (aElement.getSubcategoryName().isPresent()) {
       topic += " - " + aElement.getSubcategoryName().get();
     }
@@ -154,7 +139,7 @@ public class ArteDtoVideo2FilmTask extends AbstractJsonRestTask<Film, Optional<C
   }
   
   protected Duration buildDuration(ArteVideoInfoDto aElement) {
-    return Duration.ofSeconds(Integer.parseInt(aElement.getDurationSeconds().get()));
+    return Duration.ofSeconds(Integer.parseInt(aElement.getDurationSeconds().orElse("0")));
   }
   
   protected GeoLocations buildGeoLocation(ArteVideoInfoDto aElement) {
@@ -172,7 +157,6 @@ public class ArteDtoVideo2FilmTask extends AbstractJsonRestTask<Film, Optional<C
           geo = GeoLocations.GEO_DE_AT_CH_EU;
           break;
         case "ALL":
-          geo = GeoLocations.GEO_NONE;
           break;
         default:
           log.debug("New ARTE GeoLocation: {}", code);
@@ -235,19 +219,18 @@ public class ArteDtoVideo2FilmTask extends AbstractJsonRestTask<Film, Optional<C
    */
   protected Optional<String> resolveAudioLanguage(ArteVideoInfoDto aElement, ArteVideoType type) {
     for (ArteVideoLinkDto entry : aElement.getVideoLinks()) {
-      if (entry.getAudioCode().isEmpty()) {
-        continue;
-      }
-      final String audioCode = entry.getAudioCode().get();
-      final Optional<ArteVideoType> audioTypeCode =
-          ArteRestVideoTypeMapper.map(crawler.getSender(), audioCode);
-      if (audioTypeCode.isEmpty() || !audioTypeCode.get().equals(type)) {
-        continue;
-      }
-      final Optional<String> language =
-          LanguageCodeUtils.normalize(aElement.getAudioLanguagesByCode().get(audioCode));
-      if (language.isPresent()) {
-        return language;
+      if (entry.getAudioCode().isPresent()) {
+        final String audioCode = entry.getAudioCode().get();
+        final Optional<ArteVideoType> audioTypeCode =
+            ArteRestVideoTypeMapper.map(crawler.getSender(), audioCode);
+        if (audioTypeCode.isEmpty() || !audioTypeCode.get().equals(type)) {
+          continue;
+        }
+        final Optional<String> language =
+            LanguageCodeUtils.normalize(aElement.getAudioLanguagesByCode().get(audioCode));
+        if (language.isPresent()) {
+          return language;
+        }
       }
     }
     return LanguageCodeUtils.normalize(aElement.getOriginalLanguage().orElse(null));
@@ -266,13 +249,13 @@ public class ArteDtoVideo2FilmTask extends AbstractJsonRestTask<Film, Optional<C
   }
 
   @Override
-  protected JsonDeserializer<Optional<CrawlerUrlDTO>> getParser(ArteVideoInfoDto aDTO) {
+  protected JsonDeserializer<List<ArteVideoLinkDto>> getParser(ArteVideoInfoDto aDTO) {
     return new ArteVideoPlayerDeserializer();
   }
 
   @Override
   protected Type getType() {
-    return new TypeToken<Optional<CrawlerUrlDTO>>() {}.getType();
+    return new TypeToken<List<ArteVideoLinkDto>>() {}.getType();
   }
 
   @Override
@@ -282,9 +265,8 @@ public class ArteDtoVideo2FilmTask extends AbstractJsonRestTask<Film, Optional<C
   }
 
   @Override
-  protected void postProcessing(Optional<CrawlerUrlDTO> aResponseObj, ArteVideoInfoDto aDTO) {
-    aResponseObj.map(CrawlerUrlDTO::getUrl).ifPresent(aDTO::setUrl);
-
+  protected void postProcessing(List<ArteVideoLinkDto> aResponseObj, ArteVideoInfoDto aDTO) {
+    aDTO.setVideoLinks(aResponseObj.stream().filter(code -> ArteRestVideoTypeMapper.map(aDTO.getSender(), code.getAudioCode().orElse("")).isPresent()).toList());
     parse(aDTO);
   }
 }
