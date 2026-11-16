@@ -1,8 +1,7 @@
 package mServer.crawler.sender.base;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
+
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -10,26 +9,7 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class M3U8Parser {
 
-  public List<M3U8Dto> parse(String aM3U8Data) {
-    List<M3U8Dto> result = new ArrayList<>();
-
-    List<String[]> pairs = getLinePairs(aM3U8Data);
-    for (String[] pair : pairs) {
-      M3U8Dto dto = new M3U8Dto(prepareUrl(pair[1]));
-      parseMeta(pair[0], dto);
-
-      result.add(dto);
-    }
-
-    pairs.clear();
-    result.sort(
-            Comparator.comparing(
-                    (M3U8Dto dto) -> dto.getNormalizedMeta(M3U8Constants.M3U8_RESOLUTION).orElse("")));
-
-    return result;
-  }
-
-  private static void parseMeta(String aLine, M3U8Dto aDto) {
+  private static void parseMeta(String aLine, Map<String, String> meta) {
     int index = aLine.indexOf(':');
     if (index > 0) {
       String line = aLine.substring(index + 1);
@@ -44,7 +24,7 @@ public class M3U8Parser {
 
         if (index > 0) {
 
-          parseMetaParameter(line.substring(0, index), aDto);
+          parseMetaParameter(line.substring(0, index), meta);
 
           line = line.substring(index + 1);
         } else {
@@ -53,13 +33,22 @@ public class M3U8Parser {
         }
       }
 
-      parseMetaParameter(line, aDto);
+      parseMetaParameter(line, meta);
     }
   }
 
-  private static void parseMetaParameter(String aParameter, M3U8Dto aDto) {
-    String[] parameterParts = aParameter.split("=");
-    aDto.addMeta(parameterParts[0], parameterParts[1]);
+  private static void parseMetaParameter(String aParameter, Map<String, String> meta) {
+    String[] parameterParts = aParameter.split("=", 2);
+    if (parameterParts.length == 2) {
+      meta.put(parameterParts[0], parameterParts[1]);
+    }
+  }
+
+  private static String unquote(String value) {
+    if (value != null && value.length() >= 2 && value.startsWith("\"") && value.endsWith("\"")) {
+      return value.substring(1, value.length() - 1);
+    }
+    return value;
   }
 
   /**
@@ -83,8 +72,7 @@ public class M3U8Parser {
    * Ermittelt die Paare aus den zusammengehörenden Meta- und URL-Zeilen
    *
    * @param aM3U8Data M3U8-Inhalt
-   * @return liste der Zeilenpaare. Im Array ist Index 0 die Metazeile, Index 1
-   * die URL-Zeile
+   * @return liste der Zeilenpaare. Im Array ist Index 0 die Metazeile, Index 1 die URL-Zeile
    */
   private static List<String[]> getLinePairs(String aM3U8Data) {
     List<String[]> pairs = new ArrayList<>();
@@ -105,12 +93,63 @@ public class M3U8Parser {
       }
 
       if (currentMeta != null && currentUrl != null) {
-        pairs.add(new String[]{currentMeta, currentUrl});
+        pairs.add(new String[] {currentMeta, currentUrl});
         currentMeta = null;
         currentUrl = null;
       }
     }
 
     return pairs;
+  }
+
+  public List<M3U8Dto> parse(String aM3U8Data) {
+    List<M3U8Dto> result = new ArrayList<>();
+
+    List<String[]> pairs = getLinePairs(aM3U8Data);
+    for (String[] pair : pairs) {
+      M3U8Dto dto = new M3U8Dto(prepareUrl(pair[1]));
+      parseMeta(pair[0], dto.getMeta());
+
+      result.add(dto);
+    }
+
+    pairs.clear();
+    result.sort(
+            Comparator.comparing(
+                    (M3U8Dto dto) -> dto.getNormalizedMeta(M3U8Constants.M3U8_RESOLUTION).orElse("")));
+
+    parseSingleLines(aM3U8Data, result);
+
+    return result;
+  }
+
+  private void parseSingleLines(String aM3U8Data, List<M3U8Dto> result) {
+    String[] lines = StringUtils.split(aM3U8Data, '\n');
+
+    for (String line : lines) {
+      if (line.startsWith("#EXT-X-MEDIA")) {
+        Map<String, String> meta = new HashMap<>();
+        parseMeta(line, meta);
+
+        String type = meta.get(M3U8Constants.M3U8_TYPE);
+        if (type == null) {
+          continue;
+        }
+        switch(type) {
+          case M3U8Constants.M3U8_TYPE_AUDIO:
+            M3U8Dto audioDto = new M3U8Dto(unquote(meta.get(M3U8Constants.M3U8_URI)), M3U8Dto.M3U8Type.MEDIA_AUDIO);
+            audioDto.getMeta().putAll(meta);
+            result.add(audioDto);
+            break;
+          case M3U8Constants.M3U8_TYPE_SUBTITLES:
+            M3U8Dto subtitleDto = new M3U8Dto(unquote(meta.get(M3U8Constants.M3U8_URI)), M3U8Dto.M3U8Type.MEDIA_SUBTITLE);
+            subtitleDto.getMeta().putAll(meta);
+            result.add(subtitleDto);
+            break;
+          default:
+            break;
+        }
+      }
+    }
   }
 }

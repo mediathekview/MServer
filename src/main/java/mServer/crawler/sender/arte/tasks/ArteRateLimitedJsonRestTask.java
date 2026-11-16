@@ -23,6 +23,7 @@ public abstract class ArteRateLimitedJsonRestTask<T, R, D extends CrawlerUrlDTO>
   @Serial private static final long serialVersionUID = 1L;
   private static final RateLimiter rateLimiter = RateLimiter.create(MserverDaten.getArteRateLimit());
   private static final RateLimiter opaApirateLimiter = RateLimiter.create(0.2);
+  private static final RateLimiter playerApirateLimiter = RateLimiter.create(2);
 
   protected ArteRateLimitedJsonRestTask(MediathekReader aCrawler, ConcurrentLinkedQueue<D> urlToCrawlDTOs, Optional<String> authKey) {
     super(aCrawler, urlToCrawlDTOs, authKey);
@@ -38,6 +39,8 @@ public abstract class ArteRateLimitedJsonRestTask<T, R, D extends CrawlerUrlDTO>
       // Apply rate limiting before each request (including retries)
       if (aTarget.getUri().toString().contains("api.arte.tv/api/opa/")) {
         opaApirateLimiter.acquire();
+      } else if (aTarget.getUri().toString().contains("api.arte.tv/api/player/")) {
+        playerApirateLimiter.acquire();
       } else {
         rateLimiter.acquire();
       }
