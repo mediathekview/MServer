@@ -14,12 +14,33 @@ import java.util.Optional;
 public class M3U8Dto {
 
   private static final Logger LOG = LogManager.getLogger(M3U8Dto.class);
+  private final M3U8Type type;
+
+  public enum M3U8Type {
+    STREAM,
+    FRAME_STREAM,
+    MEDIA_AUDIO,
+    MEDIA_SUBTITLE
+  }
 
   private final String url;
   private final Map<String, String> meta = new HashMap<>();
 
   public M3U8Dto(String aUrl) {
+    this(aUrl, M3U8Type.STREAM);
+  }
+
+  public M3U8Dto(String aUrl, M3U8Type aType) {
     url = aUrl;
+    type = aType;
+  }
+
+  public M3U8Type getType() {
+    return type;
+  }
+
+  public Map<String, String> getMeta() {
+    return meta;
   }
 
   public String getUrl() {
@@ -94,7 +115,7 @@ public class M3U8Dto {
           return Optional.of(Resolution.NORMAL);
         case "1920x1080":
         case "1080x1920":
-          // todo this resolution is qhd
+        // todo this resolution is qhd
         case "2560x1440":
           return Optional.of(Resolution.HD);
         case "3840x2160":
@@ -127,6 +148,10 @@ public class M3U8Dto {
       return false;
     }
 
+    if (type != other.type) {
+      return false;
+    }
+
     if (meta.size() != other.meta.size()) {
       return false;
     }
@@ -149,6 +174,7 @@ public class M3U8Dto {
   public int hashCode() {
     int hash = 7;
     hash = 23 * hash + Objects.hashCode(this.url);
+    hash = 23 * hash + Objects.hashCode(this.type);
 
     for (Map.Entry<String, String> entry : meta.entrySet()) {
       String key = entry.getKey();

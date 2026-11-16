@@ -96,6 +96,19 @@ class M3U8DtoTest {
 
     assertThat(actual, equalTo(true));
   }
+  @Test
+  void equalTestAudio() {
+    final M3U8Dto target = new M3U8Dto("test", M3U8Dto.M3U8Type.MEDIA_AUDIO);
+    target.addMeta("x", "test");
+    target.addMeta("y", "5");
+    final M3U8Dto other = new M3U8Dto("test", M3U8Dto.M3U8Type.MEDIA_AUDIO);
+    other.addMeta("x", "test");
+    other.addMeta("y", "5");
+
+    final boolean actual = target.equals(other);
+
+    assertThat(actual, equalTo(true));
+  }
 
   @Test
   void getNormalizedMetaWithoutModification() {
