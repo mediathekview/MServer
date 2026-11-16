@@ -8,18 +8,37 @@ import java.util.Optional;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-/**
- * Datenstruktur für M3U8-Datei
- */
+/** Datenstruktur für M3U8-Datei */
 public class M3U8Dto {
 
   private static final Logger LOG = LogManager.getLogger(M3U8Dto.class);
+  private final M3U8Type type;
+
+  public enum M3U8Type {
+    STREAM,
+    FRAME_STREAM,
+    MEDIA_AUDIO,
+    MEDIA_SUBTITLE
+  }
 
   private final String url;
   private final Map<String, String> meta = new HashMap<>();
 
   public M3U8Dto(String aUrl) {
+    this(aUrl, M3U8Type.STREAM);
+  }
+
+  public M3U8Dto(String aUrl, M3U8Type aType) {
     url = aUrl;
+    type = aType;
+  }
+
+  public M3U8Type getType() {
+    return type;
+  }
+
+  public Map<String, String> getMeta() {
+    return meta;
   }
 
   public String getUrl() {
@@ -55,6 +74,8 @@ public class M3U8Dto {
         case "256x144":
         case "288x216":
         case "320x180":
+        case "180x320":
+        case "320x176":
         case "320x240":
         case "360x270":
         case "384x288":
@@ -63,6 +84,7 @@ public class M3U8Dto {
         case "442x240":
         case "480x240":
         case "480x270":
+        case "270x480":
         case "480x272":
         case "480x320":
         case "480x360":
@@ -71,6 +93,7 @@ public class M3U8Dto {
         case "640x360":
         case "640x480":
         case "664x360":
+        case "360x640":
         case "720x360":
         case "720x540":
         case "720x544":
@@ -78,15 +101,19 @@ public class M3U8Dto {
         case "852x480":
           return Optional.of(Qualities.SMALL);
         case "960x540":
+        case "540x960":
         case "960x544":
         case "1024x576":
         case "1064x576":
         case "1152x576":
         case "1280x720":
+        case "720x1280":
         case "1330x720":
         case "1440x720":
           return Optional.of(Qualities.NORMAL);
         case "1920x1080":
+        case "1080x1920":
+          // todo this resolution is qhd
         case "2560x1440":
         case "3840x2160":
           return Optional.of(Qualities.HD);
@@ -118,6 +145,10 @@ public class M3U8Dto {
       return false;
     }
 
+    if (type != other.type) {
+      return false;
+    }
+
     if (meta.size() != other.meta.size()) {
       return false;
     }
@@ -140,6 +171,7 @@ public class M3U8Dto {
   public int hashCode() {
     int hash = 7;
     hash = 23 * hash + Objects.hashCode(this.url);
+    hash = 23 * hash + Objects.hashCode(this.type);
 
     for (Map.Entry<String, String> entry : meta.entrySet()) {
       String key = entry.getKey();

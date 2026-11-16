@@ -15,15 +15,13 @@ public class ArteRestVideoTypeMapper {
   
   public static Optional<Qualities> mapQuality(String quality) {
     switch (quality) {
-      case "EQ":
+      case "EQ", "XQ":
         return Optional.of(Qualities.NORMAL);
       case "HQ":
         return Optional.of(Qualities.SMALL);
       case "SQ":
         return Optional.of(Qualities.HD);
       case "MQ":
-        return Optional.empty();
-      case "XQ":
         return Optional.empty();
       default:
         LOG.debug("unknown quality: {}", quality);
