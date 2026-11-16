@@ -5,6 +5,7 @@ import com.google.gson.reflect.TypeToken;
 import de.mediathekview.mlib.Config;
 import de.mediathekview.mlib.daten.DatenFilm;
 import de.mediathekview.mlib.tool.Log;
+import de.mediathekview.mlib.tool.MVHttpClient;
 import jakarta.ws.rs.core.Response;
 import mServer.crawler.CrawlerTool;
 import mServer.crawler.FilmeSuchen;
@@ -13,32 +14,39 @@ import mServer.crawler.sender.MediathekReader;
 import mServer.crawler.sender.arte.ArteRestVideoTypeMapper;
 import mServer.crawler.sender.arte.ArteVideoType;
 import mServer.crawler.sender.arte.json.ArteVideoInfoDto;
+import mServer.crawler.sender.arte.json.ArteVideoLinkDto;
 import mServer.crawler.sender.arte.json.ArteVideoPlayerDeserializer;
 import mServer.crawler.sender.base.*;
+import okhttp3.Request;
+import okhttp3.ResponseBody;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.io.IOException;
 import java.io.Serial;
 import java.lang.reflect.Type;
 import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.EnumMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-public class ArteDtoVideo2FilmTask extends AbstractJsonRestTask<DatenFilm, Optional<CrawlerUrlDTO>, ArteVideoInfoDto> {
+public class ArteDtoVideo2FilmTask extends ArteRateLimitedJsonRestTask<DatenFilm, List<ArteVideoLinkDto>, ArteVideoInfoDto> {
   @Serial private static final long serialVersionUID = 1L;
   private static final DateTimeFormatter DATE_FORMAT
           = DateTimeFormatter.ofPattern("dd.MM.yyyy");
   private static final DateTimeFormatter TIME_FORMAT
           = DateTimeFormatter.ofPattern("HH:mm:ss");
+  private static final String EXTENSION_M3U8 = ".m3u8";
   private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ssX");
   private static final ZoneId ZONE_ID = ZoneId.of("Europe/Berlin");
+  private static final Request.Builder REQUEST_BUILDER = new Request.Builder();
+
   protected final transient Logger log = LogManager.getLogger(this.getClass());
   private final String sender;
 
@@ -58,27 +66,17 @@ public class ArteDtoVideo2FilmTask extends AbstractJsonRestTask<DatenFilm, Optio
     return 50;
   }
 
-/*  @Override
-  protected void processElement(ArteVideoInfoDto aElement) {
-    if (Config.getStop()) {
-      return;
-    }
-
-    parse(aElement);
-  }*/
-
   protected void parse(ArteVideoInfoDto aElement) {
     if (aElement.getUrl().isEmpty()) {
       log.warn("No video url found for: {}", aElement);
       return;
     }
-    Map<Qualities, String> videoUrls = Map.of(Qualities.NORMAL, aElement.getUrl());
-            //buildVideoUrls(aElement, ArteVideoType.DEFAULT);
-//    Map<Qualities, String> videoAD = buildVideoUrls(aElement, ArteVideoType.AUDIO_DESCRIPTION);
+    Map<Qualities, String> videoUrls = buildVideoUrls(aElement, ArteVideoType.DEFAULT);
+    Map<Qualities, String> videoAD = buildVideoUrls(aElement, ArteVideoType.AUDIO_DESCRIPTION);
     if (!videoUrls.isEmpty()) {
       addFilm(aElement, "", videoUrls);
     }
-/*    if (!videoAD.isEmpty()) {
+    if (!videoAD.isEmpty()) {
       addFilm(aElement, " (Audiodeskription)", videoAD);
     }
     //
@@ -95,7 +93,7 @@ public class ArteDtoVideo2FilmTask extends AbstractJsonRestTask<DatenFilm, Optio
     Map<Qualities, String> videoSub = buildVideoUrls(aElement, ArteVideoType.SUBTITLE_INCLUDED);
     if (!videoSub.isEmpty()) {
       addFilm(aElement, " (mit Untertitel)", videoSub);
-    }*/
+    }
   }
 
   protected void addFilm(ArteVideoInfoDto videoInfo, String titleSuffix, Map<Qualities, String> video) {
@@ -108,6 +106,7 @@ public class ArteDtoVideo2FilmTask extends AbstractJsonRestTask<DatenFilm, Optio
       DatenFilm film = new DatenFilm(sender, buildTopic(videoInfo), buildWebsite(videoInfo), buildTitle(videoInfo) + titleSuffix,
               url, "" /*urlRtmp*/,
               date, time, buildDuration(videoInfo).getSeconds(), buildDescription(videoInfo));
+      addSubtitles(film, video);
       if (video.containsKey(Qualities.HD)) {
         CrawlerTool.addUrlHd(film, video.get(Qualities.HD));
       }
@@ -129,8 +128,46 @@ public class ArteDtoVideo2FilmTask extends AbstractJsonRestTask<DatenFilm, Optio
     }
   }
 
+  private void addSubtitles(DatenFilm film, Map<Qualities, String> videoUrls) {
+    Set<String> loadedPlaylists = new HashSet<>();
+    M3U8Parser parser = new M3U8Parser();
+    for (String videoUrl : videoUrls.values()) {
+      try {
+        URI playlistUri = URI.create(videoUrl);
+        if (playlistUri.getPath() == null
+                || !playlistUri.getPath().endsWith(EXTENSION_M3U8)
+                || !loadedPlaylists.add(playlistUri.toString())) {
+          continue;
+        }
+
+        String content = readContent(playlistUri.toURL()).orElse("");
+        for (M3U8Dto entry :
+                parser.parse(content).stream()
+                        .filter(dto -> dto.getType() == M3U8Dto.M3U8Type.MEDIA_SUBTITLE)
+                        .toList()) {
+          URI subtitleUri = playlistUri.resolve(entry.getUrl());
+          String subtitlePath = subtitleUri.getPath();
+          if (subtitlePath != null && subtitlePath.endsWith(EXTENSION_M3U8)) {
+            URI vttUri =
+                    new URI(
+                            subtitleUri.getScheme(),
+                            subtitleUri.getUserInfo(),
+                            subtitleUri.getHost(),
+                            subtitleUri.getPort(),
+                            subtitlePath.substring(0, subtitlePath.length() - EXTENSION_M3U8.length()) + ".vtt",
+                            subtitleUri.getQuery(),
+                            subtitleUri.getFragment());
+            film.arr[DatenFilm.FILM_URL_SUBTITLE] = vttUri.toString();
+          }
+        }
+      } catch (IOException | URISyntaxException | IllegalArgumentException e) {
+        log.error("Error determining subtitles from M3U8 {}", videoUrl, e);
+      }
+    }
+  }
+
   protected String buildTitle(ArteVideoInfoDto aElement) {
-    String title = aElement.getTitle().get();
+    String title = aElement.getTitle().orElse("");
     if (aElement.getSubtitle().isPresent()) {
       title += " - " + aElement.getSubtitle().get();
     }
@@ -138,7 +175,7 @@ public class ArteDtoVideo2FilmTask extends AbstractJsonRestTask<DatenFilm, Optio
   }
 
   protected String buildTopic(ArteVideoInfoDto aElement) {
-    String topic = aElement.getCategoryName().get();
+    String topic = aElement.getCategoryName().orElse("");
     if (aElement.getSubcategoryName().isPresent()) {
       topic += " - " + aElement.getSubcategoryName().get();
     }
@@ -158,7 +195,7 @@ public class ArteDtoVideo2FilmTask extends AbstractJsonRestTask<DatenFilm, Optio
   }
 
   protected Duration buildDuration(ArteVideoInfoDto aElement) {
-    return Duration.ofSeconds(Integer.parseInt(aElement.getDurationSeconds().get()));
+    return Duration.ofSeconds(Integer.parseInt(aElement.getDurationSeconds().orElse("0")));
   }
 
   protected GeoLocations buildGeoLocation(ArteVideoInfoDto aElement) {
@@ -208,13 +245,13 @@ public class ArteDtoVideo2FilmTask extends AbstractJsonRestTask<DatenFilm, Optio
     return urls;
   }
   @Override
-  protected JsonDeserializer<Optional<CrawlerUrlDTO>> getParser(ArteVideoInfoDto aDTO) {
+  protected JsonDeserializer<List<ArteVideoLinkDto>> getParser(ArteVideoInfoDto aDTO) {
     return new ArteVideoPlayerDeserializer();
   }
 
   @Override
   protected Type getType() {
-    return new TypeToken<Optional<CrawlerUrlDTO>>() {}.getType();
+    return new TypeToken<List<ArteVideoLinkDto>>() {}.getType();
   }
 
   @Override
@@ -224,9 +261,33 @@ public class ArteDtoVideo2FilmTask extends AbstractJsonRestTask<DatenFilm, Optio
   }
 
   @Override
-  protected void postProcessing(Optional<CrawlerUrlDTO> aResponseObj, ArteVideoInfoDto aDTO) {
-    aResponseObj.map(CrawlerUrlDTO::getUrl).ifPresent(aDTO::setUrl);
+  protected void postProcessing(List<ArteVideoLinkDto> aResponseObj, ArteVideoInfoDto aDTO) {
+    if (Config.getStop()) {
+      return;
+    }
+
+    aDTO.setVideoLinks(
+            aResponseObj.stream()
+                    .filter(code ->
+                            ArteRestVideoTypeMapper.map(aDTO.getSender(), code.getAudioCode().orElse(""))
+                                    .isPresent())
+                    .toList());
 
     parse(aDTO);
+  }
+
+  private Optional<String> readContent(final URL aUrl) {
+    Request request = REQUEST_BUILDER.url(aUrl).build();
+    try (okhttp3.Response response = MVHttpClient.getInstance().getHttpClient().newCall(request).execute(); ResponseBody body = response.body()) {
+      if (response.isSuccessful() && body != null) {
+        return Optional.of(body.string());
+      } else {
+        log.error("ArdVideoInfoJsonDeserializer: Request {} failed: {}", aUrl, response.code());
+      }
+    } catch (IOException ex) {
+      log.error("ArdVideoInfoJsonDeserializer: ", ex);
+    }
+
+    return Optional.empty();
   }
 }
